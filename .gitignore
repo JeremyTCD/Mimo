@@ -1,0 +1,7 @@
+###############
+#    folder   #
+###############
+/**/node_modules/
+/**/bin/
+/**/.sass-cache
+.vscode

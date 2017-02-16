@@ -1,0 +1,7 @@
+<div class="meta">
+    <span class="date">{{jr.date}}</span> • 
+    <span class="author-text">{{jr.authorName}}</span>
+    <a href="{{jr.authorLink}}" title="{{jr.authorName}}">
+        <img src="{{jr.authorLink}}.png?size=16" alt="{{jr.authorName}}">
+    </a>
+</div>

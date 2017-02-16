@@ -1,0 +1,115 @@
+header {
+    background-color: #222;
+    border-color: #080808;
+    .container {
+        display: flex;
+        flex-direction: column;
+        @media (min-width: 768px) {
+            flex-direction: row;
+        }
+        #header-logo-and-button {
+            display: flex;
+            #header-logo {
+                height: 50px;
+                color: #9d9d9d;
+                margin-right: auto;
+                svg:hover path {
+                    fill: #ffffff;
+                }
+            }
+            #header-button {
+                padding: 9px 10px;
+                margin-top: 8px;
+                margin-bottom: 8px;
+                background-color: transparent;
+                border: 1px solid #333;
+                border-radius: 4px;
+                text-decoration: none;
+                display: flex;
+                flex-direction: column;
+                @media (min-width: 768px) {
+                    display: none
+                }
+                &:focus,
+                &:hover {
+                    outline: 0;
+                    background-color: #333;
+                }
+                .icon-bar {
+                    background-color: #fff;
+                    width: 22px;
+                    height: 2px;
+                    border-radius: 1px;
+                    +.icon-bar {
+                        margin-top: 4px
+                    }
+                }
+                .sr-only {
+                    // what is this for?
+                    position: absolute;
+                    width: 1px;
+                    height: 1px;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    border: 0;
+                }
+            }
+        } 
+        #header-navbar-and-search {
+            display: none;
+            // is this necessary?
+            align-items: center;
+            @media (min-width: 768px) {
+                display: flex;
+                flex-grow: 1;
+            }
+            &.in {
+                display: flex;
+                flex-flow: column-reverse;
+            }
+            #header-navbar {
+                ul {
+                    display: flex;
+                    flex-flow: column;
+                    align-items: center;
+                    list-style: none;
+                    a {
+                        padding-right: 15px;
+                        padding-left: 15px;
+                        line-height: 20px;
+                        color: #9d9d9d;
+                        &:hover,
+                        &:focus {
+                            color: #fff;
+                            background-color: transparent;
+                        }
+                        @media (min-width: 768px) {
+                            padding-top: 15px;
+                            padding-bottom: 15px;
+                        }
+                    }
+                    @media (min-width:768px) {
+                        flex-flow: row;
+                    }
+                }
+            }
+            #header-search {
+                border-color: #101010;
+                input {
+                    height: 34px;
+                    padding: 6px 12px;
+                    background-color: #fff;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+                    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+                }
+                @media (min-width:768px) {
+                    margin-left: auto;
+                }
+            }
+        }
+    }
+}

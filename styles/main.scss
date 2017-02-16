@@ -1,0 +1,30 @@
+@import 'reset';
+@import 'header';
+
+@media (min-width:992px){.container{width:970px}}
+@media (min-width:1200px){.container{width:1190px}} 
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.flex {
+    display: flex;
+}
+
+html, body {
+    font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+}
+
+button, a {
+    cursor: pointer;
+}
+
+a{
+    text-decoration: none;
+}
