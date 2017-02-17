@@ -1,7 +1,7 @@
 import 'lunr';
 
 (function() {
-// importScripts necessary?
+// importScripts necessary??
 
   var lunrIndex = lunr(function() {
       this.pipeline.remove(lunr.stopWordFilter);
