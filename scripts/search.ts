@@ -1,4 +1,5 @@
 import 'mark.js';
+import 'js-url';
 
 // Support full-text-search
 (function () {
@@ -18,7 +19,7 @@ import 'mark.js';
   function searchFactory() {
     if (Worker) {
       var worker = new Worker('/styles/searchWorker.js');
-      if (!worker) return localSearch;
+      return worker ? webWorkerSearch : localSearch;
     } else {
       return localSearch;
     }
