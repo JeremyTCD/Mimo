@@ -1,7 +1,6 @@
 // Copyright (c) JeremyTCD. All rights reserved. Licensed under the MIT license. See LICENSE file in the project root for full license information.
 import * as $ from 'jquery';
 import 'twbs-pagination';
-import anchors = require('anchor-js');
 
 $(function () {
   // Prepare pagination for article list
@@ -23,9 +22,4 @@ $(function () {
         }
     })
   })();
-
-  // Disable anchors for article list snippets
-  (function () {
-    anchors.remove('.al-item .no-anchor');
-  })();  
 })
