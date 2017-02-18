@@ -16,8 +16,10 @@ import '../node_modules/mark.js/dist/jquery.mark'; // Use relative path since ma
 
   // Search factory
   function searchFactory() {
+    let SearchWorker = require("./workers/search.worker");
+    let worker = new SearchWorker();
+      
     if (Worker) {
-      var worker = new Worker('/styles/searchWorker.js');
       return worker ? webWorkerSearch : localSearch;
     } else {
       return localSearch;
