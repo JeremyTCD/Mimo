@@ -16,14 +16,15 @@
     "@types/jquery": "^2.0.40",
     "@types/js-url": "^1.8.28",
     "@types/lunr": "^0.5.28",
+    "@types/node": "^7.0.5",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
-    "node-sass": "^4.5.0",
     "sass-loader": "^6.0.0",
     "ts-loader": "^2.0.0",
     "typescript": "^2.1.6",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "worker-loader": "^0.7.1"
   },
   "dependencies": {
     "anchor-js": "^3.2.2",
