@@ -12,7 +12,6 @@
         "typings.d.ts"
     ],
     "exclude": [
-        "node_modules",
-        "./scripts/workers/*.ts"
+        "node_modules"
     ]
 }
