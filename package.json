@@ -13,6 +13,7 @@
   "author": "JeremyTCD",
   "license": "MIT",
   "devDependencies": {
+    "@types/bootstrap": "^3.3.32",
     "@types/jquery": "^2.0.40",
     "@types/js-url": "^1.8.28",
     "@types/lunr": "^0.5.28",
@@ -28,6 +29,7 @@
   },
   "dependencies": {
     "anchor-js": "^3.2.2",
+    "bootstrap": "^3.3.7",
     "highlightjs": "^9.8.0",
     "jquery": "^2.1.4",
     "js-url": "^2.3.0",
