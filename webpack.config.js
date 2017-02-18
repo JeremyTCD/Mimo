@@ -4,22 +4,29 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-    entry: {bundle: path.join(__dirname, '/scripts/index.ts'),
-        searchWorker: path.join(__dirname, '/scripts/workers/search.worker.ts')},
+    entry: {
+        bundle: path.join(__dirname, '/scripts/index.ts')//,
+        //searchWorker: path.join(__dirname, '/scripts/workers/search.worker.ts')
+    },
     output: {
         filename: '[name].js',
-        path: path.join(__dirname, '/bin/styles')
+        path: path.join(__dirname, '/bin/styles'),
+        publicPath: '/styles/'
     },
     resolve: {
         extensions: ['.ts', '.js'],
         modules: [path.join(__dirname, '/node_modules')]
     },
-    resolveLoader:{
+    resolveLoader: {
         modules: [path.join(__dirname, '/node_modules')]
     },
     module: {
         rules: [
-            { test: /\.ts$/, use: 'ts-loader' },
+            {
+                test: /\.ts$/,
+                use: 'ts-loader',
+                exclude: ['node_modules']
+            },
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
@@ -35,13 +42,13 @@ module.exports = {
         }),
         new CopyWebpackPlugin([
             { from: path.join(__dirname, '/fonts'), to: '../fonts' },
-            { from: path.join(__dirname, '/misc'), to: '../'},
-            { from: path.join(__dirname, '/templates'), to: '../'},
-            { from: path.join(__dirname, '/docfx.js'), to: '../common.js'},
-            { from: path.join(__dirname, '/plugins'), to: '../plugins'}
+            { from: path.join(__dirname, '/misc'), to: '../' },
+            { from: path.join(__dirname, '/templates'), to: '../' },
+            { from: path.join(__dirname, '/docfx.js'), to: '../common.js' },
+            { from: path.join(__dirname, '/plugins'), to: '../plugins' }
         ]),
         new webpack.ProvidePlugin({
-            $:'jquery',
+            $: 'jquery',
             'window.jQuery': 'jquery',
             jQuery: 'jquery'
         })
