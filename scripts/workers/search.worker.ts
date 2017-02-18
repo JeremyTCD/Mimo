@@ -3,7 +3,7 @@
   var lunrIndex = lunr(function() {
       this.pipeline.remove(lunr.stopWordFilter);
       this.ref('href');
-      this.field('text');
+      this.field('text'); 
   });
   lunr.tokenizer.seperator = /[\s\-\.]+/;
 
@@ -15,7 +15,7 @@
     }
     var stopWords = JSON.parse(stopWordsRequest.responseText);
     var docfxStopWordFilter = lunr.generateStopWordFilter(stopWords);
-    lunrIndex.pipeline.registerFunction(docfxStopWordFilter, 'docfxStopWordFilter');
+    lunr.Pipeline.registerFunction(docfxStopWordFilter, 'docfxStopWordFilter');
     lunrIndex.pipeline.add(docfxStopWordFilter);
   }
   stopWordsRequest.send();
