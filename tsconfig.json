@@ -5,7 +5,11 @@
         "noImplicitAny": false,
         "sourceMap": false,
         "allowJs": true,
-        "noEmitOnError": false
+        "noEmitOnError": false,
+        "typeRoots": [
+            "./node_modules/@types"
+        ],
+        "types": ["node"]
     },
     "include": [
         "./scripts/*.ts",
