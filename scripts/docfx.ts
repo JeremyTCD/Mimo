@@ -92,7 +92,6 @@ $(function () {
     $(window).on('resize', autoCollapse);
     $(document).on('click', '.navbar-collapse.in', function (e) {
       if ($(e.target).is('a')) {
-        // cant find source for this function
         $(this).collapse('hide');
       }
     });
