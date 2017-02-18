@@ -1,8 +1,5 @@
-import 'lunr';
-
 (function() {
-// importScripts necessary??
-
+  let lunr = require('lunr');
   var lunrIndex = lunr(function() {
       this.pipeline.remove(lunr.stopWordFilter);
       this.ref('href');
