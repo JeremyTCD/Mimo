@@ -1,11 +1,10 @@
-import 'mark.js';
 import 'js-url';
+import '../node_modules/mark.js/dist/jquery.mark'; // Use relative path since mark.js has multiple dist files
 
 // Support full-text-search
 (function () {
   var query;
   var relHref = $("meta[property='docfx\\:rel']").attr("content");
-
   var searchResult = $("#search-results");
 
   if (typeof searchResult != 'undefined') {
