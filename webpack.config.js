@@ -5,8 +5,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        bundle: path.join(__dirname, '/scripts/index.ts')//,
-        //searchWorker: path.join(__dirname, '/scripts/workers/search.worker.ts')
+        bundle: path.join(__dirname, '/scripts/index.ts')
     },
     output: {
         filename: '[name].js',
