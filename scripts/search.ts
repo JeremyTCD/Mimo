@@ -87,7 +87,7 @@ import '../node_modules/mark.js/dist/jquery.mark'; // Use relative path since ma
   // Highlight the searching keywords
   function highlightKeywords() {
     var q = url('?q');
-    if (q !== null) {
+    if (q != null) {
       var keywords = q.split("%20");
       keywords.forEach(function (keyword) {
         if (keyword !== "") {
