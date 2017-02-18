@@ -25,6 +25,7 @@ import '../node_modules/mark.js/dist/jquery.mark'; // Use relative path since ma
 
     function localSearch() {
       console.log("using local search");
+      let lunr = require('lunr');
       var lunrIndex = lunr(function () {
         this.ref('href');
         this.field('text');
