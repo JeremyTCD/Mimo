@@ -1,20 +1,13 @@
 {
+    "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es5",
-        "noImplicitAny": false,
-        "sourceMap": false,
-        "allowJs": true,
         "lib": [
-            "es5", "webworker"
-        ],
-        "noEmitOnError": true
+            "es5",
+            "webworker"
+        ]
     },
     "include": [
         "./*.ts",
         "../../typings.d.ts"
-    ],
-    "exclude": [
-        "node_modules"
     ]
 }
