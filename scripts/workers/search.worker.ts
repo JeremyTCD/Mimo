@@ -2,7 +2,7 @@
   let lunr = require('lunr');
   var lunrIndex = lunr(function() {
       this.pipeline.remove(lunr.stopWordFilter);
-      this.ref('href');
+      this.ref('relPath');
       this.field('text'); 
   });
   lunr.tokenizer.seperator = /[\s\-\.]+/;

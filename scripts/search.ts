@@ -29,7 +29,7 @@ import '../node_modules/mark.js/dist/jquery.mark'; // Use relative path since ma
       console.log("using local search");
       let lunr = require('lunr');
       var lunrIndex = lunr(function () {
-        this.ref('href');
+        this.ref('relPath');
         this.field('text');
       });
       lunr.tokenizer.seperator = /[\s\-\.]+/;
