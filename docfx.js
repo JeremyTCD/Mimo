@@ -95,11 +95,11 @@ var gitUrlPatternItems = {
             return '';
         }
     }
-}
+};
 
 function normalizeGitUrlToHttps(repo) {
     var pos = repo.indexOf('@');
-    if (pos == -1) return repo;
+    if (pos === -1) return repo;
     return 'https://' + repo.substr(pos + 1).replace(/:/g, '/');
 }
 
@@ -147,7 +147,7 @@ function getGitInfo(gitContribute, gitRemote) {
     if (!gitContribute && !gitRemote) {
         return {
             apiSpecFolder: defaultApiSpecFolder
-        }
+        };
     }
 
     if (!gitContribute) {
@@ -157,7 +157,7 @@ function getGitInfo(gitContribute, gitRemote) {
             branch: gitRemote.branch,
             // path defines the relative path from current git repo.
             path: gitRemote.path
-        }
+        };
     }
 
     return {
@@ -165,7 +165,7 @@ function getGitInfo(gitContribute, gitRemote) {
         repo: gitContribute.repo || gitRemote.repo,
         branch: gitContribute.branch || gitRemote.branch,
         path: gitRemote.path
-    }
+    };
 }
 
 function getPatternName(repo, gitUrlPattern) {
@@ -184,7 +184,7 @@ function getPatternName(repo, gitUrlPattern) {
 function getOverrideFolder(path) {
     if (!path) return "";
     path = path.replace('\\', '/');
-    if (path.charAt(path.length - 1) == '/') path = path.substring(0, path.length - 1);
+    if (path.charAt(path.length - 1) === '/') path = path.substring(0, path.length - 1);
     return path;
 }
 
@@ -202,7 +202,7 @@ function getOverrideTemplate(uid) {
 }
 
 function addIsCref(seealso) {
-    if (!seealso.linkType || seealso.linkType.toLowerCase() == "cref") {
+    if (!seealso.linkType || seealso.linkType.toLowerCase() === "cref") {
         seealso.isCref = true;
     }
 }
