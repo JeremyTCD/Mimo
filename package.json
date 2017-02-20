@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "anchor-js": "^3.2.2",
-    "bootstrap": "^3.3.7",
     "highlightjs": "^9.8.0",
     "jquery": "^2.1.4",
     "js-url": "^2.3.0",
