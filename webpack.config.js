@@ -5,12 +5,11 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        bundle: path.join(__dirname, '/scripts/index.ts')
+        'styles/bundle': [path.join(__dirname, '/scripts/index.ts')]
     },
     output: {
         filename: '[name].js',
-        path: path.join(__dirname, '/bin/styles'),
-        publicPath: '/styles/'
+        path: path.join(__dirname, 'bin')
     },
     resolve: {
         extensions: ['.ts', '.js'],
@@ -41,20 +40,27 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin({
-            filename: 'bundle.css'
-        }),
+        new ExtractTextPlugin('styles/bundle.css'),
         new CopyWebpackPlugin([
-            { from: path.join(__dirname, '/fonts'), to: '../fonts' },
-            { from: path.join(__dirname, '/misc'), to: '../' },
-            { from: path.join(__dirname, '/templates'), to: '../' },
-            { from: path.join(__dirname, '/docfx.js'), to: '../common.js' },
-            { from: path.join(__dirname, '/plugins'), to: '../plugins' }
+            { from: path.join(__dirname, '/fonts'), to: 'fonts/' },
+            { from: path.join(__dirname, '/misc'), to: ''},
+            { from: path.join(__dirname, '/templates'), to: '' },
+            { from: path.join(__dirname, '/docfx.js'), to: 'common.js' },
+            { from: path.join(__dirname, '/plugins'), to: 'plugins/' }
         ]),
         new webpack.ProvidePlugin({
             $: 'jquery',
             'window.jQuery': 'jquery',
             jQuery: 'jquery'
+        }),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                worker: {
+                    output: {
+                        filename: "styles/[hash].worker.js"
+                    }
+                }
+            }
         })
     ]
 };
