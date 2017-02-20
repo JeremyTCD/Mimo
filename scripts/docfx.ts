@@ -1,6 +1,7 @@
 import AnchorJs = require('anchor-js');
 import hljs = require('highlightjs');
 import * as $ from 'jquery';
+import { SetupHeaderAnimationWrapper } from './header';
 
 $(function () {
   var active = 'active';
@@ -86,28 +87,6 @@ $(function () {
     });
   })();
 
-  //Adjust the position of search box in navbar
-  (function () {
-    autoCollapse();
-    $(window).on('resize', autoCollapse);
-    $(document).on('click', '.navbar-collapse.in', function (e) {
-      if ($(e.target).is('a')) {
-        $(this).collapse('hide');
-      }
-    });
-
-    function autoCollapse() {
-      var navbar = $('#autocollapse');
-      if (navbar.height() === null) {
-        setTimeout(autoCollapse, 300);
-      }
-      navbar.removeClass(collapsed);
-      if (navbar.height() > 60) {
-        navbar.addClass(collapsed);
-      }
-    }
-  })();
-
   // Update href in navbar
   (function () {
     var toc = $('#sidetoc');
@@ -166,6 +145,8 @@ $(function () {
             }
           }
         });
+
+        SetupHeaderAnimationWrapper();
       });
     }
 

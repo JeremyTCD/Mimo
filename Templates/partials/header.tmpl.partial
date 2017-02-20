@@ -1,22 +1,24 @@
 <header role="navigation">
-    <div class="container">
-      <div id="header-logo-and-button">
-          <a id="header-logo" href="/index.html">
-              <img class="svg" src="{{_rel}}{{{_appLogoPath}}}{{^_appLogoPath}}logo.svg{{/_appLogoPath}}" alt="{{_appName}}" >
-          </a>
-          <button id="header-button" type="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-      </div>
-      <div id="header-navbar-and-search">
-          <div id="header-navbar">
-          </div>
-          <form id="header-search" class="flex" role="search">
-              <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
-          </form>
+  <div class="container">
+    <div id="header-logo-and-button">
+      <a id="header-logo" href="/index.html">
+        <img class="svg" src="{{_rel}}{{{_appLogoPath}}}{{^_appLogoPath}}logo.svg{{/_appLogoPath}}" alt="{{_appName}}" />
+      </a>
+      <button id="header-button" type="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div id="header-navbar-and-search">
+      <div class="animation-wrapper">
+        <div id="header-navbar">
+        </div>
+        <form id="header-search" class="flex" role="search">
+          <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off" />
+        </form>
       </div>
     </div>
+  </div>
 </header>
