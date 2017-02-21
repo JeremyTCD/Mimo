@@ -4,11 +4,12 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        'styles/bundle': [path.join(__dirname, '/scripts/index.ts')]
+        bundle: path.join(__dirname, '/scripts/index.ts')
     },
     output: {
         filename: '[name].js',
-        path: path.join(__dirname, 'bin')
+        path: path.join(__dirname, '/bin/styles'),
+        publicPath: '/styles/'
     },
     resolve: {
         extensions: ['.ts', '.js'],
@@ -44,15 +45,6 @@ module.exports = {
             $: 'jquery',
             'window.jQuery': 'jquery',
             jQuery: 'jquery'
-        }),
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                worker: {
-                    output: {
-                        filename: "styles/[hash].worker.js"
-                    }
-                }
-            }
         })
     ]
 };
