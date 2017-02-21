@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A DocFx template for blogs",
   "scripts": {
-    "build": "webpack"
+    "build": "node build.js"
   },
   "keywords": [
     "docfx",
@@ -18,9 +18,12 @@
     "@types/js-url": "^1.8.28",
     "@types/lunr": "^0.5.28",
     "@types/node": "^7.0.5",
-    "copy-webpack-plugin": "2.1.6",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "fs-extra": "^2.0.0",
+    "grunt": "^1.0.1",
+    "node-sass": "^4.5.0",
+    "rimraf": "^2.6.0",
     "sass-loader": "^6.0.0",
     "ts-loader": "^2.0.0",
     "typescript": "^2.1.6",

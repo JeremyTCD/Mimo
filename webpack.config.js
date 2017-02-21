@@ -1,5 +1,4 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 
@@ -41,13 +40,6 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin('styles/bundle.css'),
-        new CopyWebpackPlugin([
-            { from: path.join(__dirname, '/fonts'), to: 'fonts/' },
-            { from: path.join(__dirname, '/misc'), to: ''},
-            { from: path.join(__dirname, '/templates'), to: '' },
-            { from: path.join(__dirname, '/docfx.js'), to: 'common.js' },
-            { from: path.join(__dirname, '/plugins'), to: 'plugins/' }
-        ]),
         new webpack.ProvidePlugin({
             $: 'jquery',
             'window.jQuery': 'jquery',
