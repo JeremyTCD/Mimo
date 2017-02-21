@@ -3,21 +3,13 @@ export function SetupHeaderAnimationWrapper(): void {
     let animationWrapper = $('#header-navbar-and-search > .animation-wrapper');
 
     function updateAnimationWrapperHeight(): void {
-        let navbarIn: boolean = animationWrapper.hasClass('in');
-
-        if (!navbarIn) {
-            animationWrapper.addClass('in');
-        }
+        animationWrapper.addClass('in');
         animationWrapper.css('height', 'auto');
 
         animationWrapperHeight = animationWrapper.outerHeight();
 
-        if (!navbarIn) {
-            animationWrapper.css('height', 0);
-            animationWrapper.removeClass('in');
-        } else {
-            animationWrapper.css('height', animationWrapperHeight);
-        }
+        animationWrapper.css('height', 0);
+        animationWrapper.removeClass('in');
     }
 
     $('#header-button').on('click', function () {
