@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        bundle: path.join(__dirname, '/scripts/index.ts')
+        bundle: [path.join(__dirname, '/scripts/index.ts')]
     },
     output: {
         filename: '[name].js',
@@ -40,7 +40,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('styles/bundle.css'),
+        new ExtractTextPlugin('bundle.css'),
         new webpack.ProvidePlugin({
             $: 'jquery',
             'window.jQuery': 'jquery',
