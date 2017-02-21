@@ -2,8 +2,18 @@
 @import 'header';
 @import 'articleList';
 
-@media (min-width:992px){.container{width:970px}}
-@media (min-width:1200px){.container{width:1190px}} 
+@media (min-width:992px) {
+    .container {
+        width: 970px
+    }
+}
+
+@media (min-width:1200px) {
+    .container {
+        width: 1190px
+    }
+}
+
 .container {
     margin-left: auto;
     margin-right: auto;
@@ -24,8 +34,10 @@ html, body {
 
 button, a {
     cursor: pointer;
+    text-decoration: none;
 }
 
-a{
-    text-decoration: none;
+* {
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
 }
