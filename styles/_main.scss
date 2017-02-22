@@ -1,4 +1,8 @@
-﻿#main {
+#main {
     flex-grow: 1;
-    display: flex;
+
+    .container {
+        display: flex;
+        padding-top: 70px;
+    }
 }
