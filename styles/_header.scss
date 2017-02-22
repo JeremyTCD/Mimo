@@ -1,3 +1,5 @@
+@import 'constants';
+
 header {
     background-color: #222;
     border-color: #080808;
@@ -28,7 +30,7 @@ header {
                 padding: 9px 10px;
                 background-color: transparent;
                 border: 1px solid #333;
-                border-radius: 4px;
+                border-radius: $border-radius-main;
                 text-decoration: none;
                 display: flex;
                 flex-direction: column;
@@ -155,7 +157,7 @@ header {
                         background-color: #fff;
                         border: 1px solid #ccc;
                         box-shadow: inset 1px 1px rgba(0, 0, 0, .075);
-                        border-radius: 4px;
+                        border-radius: $border-radius-main;
                     }
                 }
             }
