@@ -26,17 +26,6 @@
             h1 {
                 font-size: 32px;
                 margin-top: 0px;
-
-                a {
-                    transition: $transition-main;
-                    color: $link-color-main;
-                    text-decoration: none;
-
-                    &:hover,
-                    &:focus {
-                        color: $link-color-hover;
-                    }
-                }
             }
         }
     }

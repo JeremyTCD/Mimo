@@ -1,4 +1,5 @@
-﻿
+﻿@import 'constants';
+
 @media (min-width:992px) {
     .container {
         width: 970px
@@ -38,11 +39,16 @@ html, body {
 
 button, a {
     cursor: pointer;
-    text-decoration: none;
 }
 
-a:hover {
-    text-decoration: underline;
+a {
+    color: $link-color-main;
+    transition: $transition-main;
+    text-decoration: none;
+
+    &:hover {
+        color: $link-color-hover;
+    }
 }
 
 * {

@@ -115,7 +115,6 @@ header {
                         text-align: center;
                         padding: 8px 0px;
                         width: 100%;
-                        text-decoration: none;
                         transition: $transition-main;
 
                         @media (min-width:768px) {
@@ -124,8 +123,7 @@ header {
 
                         color: #9d9d9d;
 
-                        &:hover,
-                        &:focus {
+                        &:hover {
                             color: #fff;
                         }
 

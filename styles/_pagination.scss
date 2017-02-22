@@ -45,16 +45,12 @@
             padding: 6px 12px;
             margin-left: -1px;
             line-height: 1.42857143;
-            color: $link-color-main;
-            text-decoration: none;
             background-color: #fff;
             border: 1px solid #ddd;
-            transition: $transition-main;
 
             &:focus,
             &:hover {
                 z-index: 2;
-                color: $link-color-hover;
                 background-color: #eee;
                 border-color: #ddd
             }
