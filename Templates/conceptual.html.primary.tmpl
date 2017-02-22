@@ -9,26 +9,15 @@
 <html>
   {{>partials/head}}
   <body data-spy="scroll" data-target="#affix">
-    <div id="wrapper">
       {{>partials/header}}
 
       {{#jr.enableSearch}}
       {{>partials/searchResults}}
       {{/jr.enableSearch}}
-      <div role="main" class="container body-content hide-when-search">
-      {{^_disableToc}}
-        {{>partials/toc}}
-        <div class="article row grid-right">
-      {{/_disableToc}}
-      {{#_disableToc}}
-        <div class="article row grid">
-      {{/_disableToc}}
-          {{#_disableAffix}}
-          <div class="col-md-12">
-          {{/_disableAffix}}
-          {{^_disableAffix}}
-          <div class="col-md-10">
-          {{/_disableAffix}}
+      <div id="main" role="main" class="container">
+			{{^_disableToc}}
+			{{>partials/toc}}
+			{{/_disableToc}}
             <article class="content wrap" id="_content" data-uid="{{uid}}">
               {{{rawTitle}}}
               {{^jr.disableMetadata}}
@@ -41,16 +30,13 @@
               {{{conceptual}}}
               {{/jr.enableArticleList}}
             </article>
-          </div>
           {{^_disableAffix}}
           {{>partials/affix}}
           {{/_disableAffix}}
-        </div>
-      </div>
+	  </div>
       {{^_disableFooter}}
       {{>partials/footer}}
       {{/_disableFooter}}
-    </div>
     {{>partials/scripts}}
   </body>
 </html>
