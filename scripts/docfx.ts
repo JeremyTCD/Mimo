@@ -448,48 +448,6 @@ $(function () {
     }
   }
 
-  // Show footer
-  (function () {
-    initFooter();
-    $(window).on("scroll", showFooter);
-
-    function initFooter() {
-      if (needFooter()) {
-        shiftUpBottomCss();
-        $("footer").show();
-      } else {
-        resetBottomCss();
-        $("footer").hide();
-      }
-    }
-
-    function showFooter() {
-      if (needFooter()) {
-        shiftUpBottomCss();
-        $("footer").fadeIn();
-      } else {
-        resetBottomCss();
-        $("footer").fadeOut();
-      }
-    }
-
-    function needFooter() {
-      var scrollHeight = $(document).height();
-      var scrollPosition = $(window).height() + $(window).scrollTop();
-      return (scrollHeight - scrollPosition) < 1;
-    }
-
-    function resetBottomCss() {
-      $(".sidetoc").removeClass("shiftup");
-      $(".sideaffix").removeClass("shiftup");
-    }
-
-    function shiftUpBottomCss() {
-      $(".sidetoc").addClass("shiftup");
-      $(".sideaffix").addClass("shiftup");
-    }
-  })();
-
   // For LOGO SVG
   // Replace SVG with inline SVG
   // http://stackoverflow.com/questions/11978995/how-to-change-color-of-svg-image-using-css-jquery-svg-image-replacement
