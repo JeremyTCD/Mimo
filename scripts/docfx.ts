@@ -109,7 +109,6 @@ $(function () {
         if (index > -1) {
           navrel = navbarPath.substr(0, index + 1);
         }
-        $('#header-navbar>ul').addClass('navbar-nav');
         var currentAbsPath = getAbsolutePath(window.location.pathname);
         // set active item
         $('#header-navbar').find('a[href]').each(function (i, e:HTMLAnchorElement) {
@@ -132,7 +131,7 @@ $(function () {
               }
             }
             if (isActive) {
-              $(e).parent().addClass(active);
+              $(e).addClass(active);
               if (!breadcrumb.isNavPartLoaded) {
                 breadcrumb.insert({
                   href: e.href,
@@ -141,7 +140,7 @@ $(function () {
                 breadcrumb.isNavPartLoaded = true;
               }
             } else {
-              $(e).parent().removeClass(active)
+              $(e).removeClass(active)
             }
           }
         });

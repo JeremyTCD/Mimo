@@ -96,45 +96,51 @@ header {
                 }
 
                 #header-navbar {
-                    display: flex;
                     width: 40%;
-                    flex-flow: column;
-                    flex-shrink: 0;
-                    margin-top: 15px;
-                    margin-bottom: 8px;
 
                     @media (min-width:768px) {
                         width: auto;
-                        flex-flow: row;
-                        flex-shrink: initial;
-                        margin-top: 0px;
-                        margin-bottom: 0px;
                     }
 
-                    a {
-                        text-align: center;
-                        padding: 8px 0px;
-                        width: 100%;
-                        transition: $transition-main;
+                    ul {
+                        display: flex;
+                        flex-flow: column;
+                        margin-top: 15px;
+                        margin-bottom: 8px;
+                        flex-shrink: 0;
+                        list-style: none;
 
                         @media (min-width:768px) {
-                            padding: 15px 15px;
+                            flex-flow: row;
+                            flex-shrink: initial;
+                            margin-top: 0px;
+                            margin-bottom: 0px;
                         }
 
-                        color: #9d9d9d;
-
-                        &:hover {
-                            color: #fff;
-                        }
-
-                        &.active {
-                            background-color: #080808;
-                            color: #fff;
-                            border: 1px solid #131313;
-                            box-shadow: inset 1px 1px #0E0E0E;
+                        a {
+                            display: block;
+                            text-align: center;
+                            padding: 8px 0px;
 
                             @media (min-width:768px) {
-                                border: none;
+                                padding: 15px 15px;
+                            }
+
+                            color: #9d9d9d;
+
+                            &:hover {
+                                color: #fff;
+                            }
+
+                            &.active {
+                                background-color: #080808;
+                                color: #fff;
+                                border: 1px solid #131313;
+                                box-shadow: inset 1px 1px #0E0E0E;
+
+                                @media (min-width:768px) {
+                                    border: none;
+                                }
                             }
                         }
                     }
