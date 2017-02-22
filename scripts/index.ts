@@ -1,4 +1,4 @@
-import "../styles/main.scss";
+import "../styles/index.scss";
 
 import "./header";
 import "./articleList";
