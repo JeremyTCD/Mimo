@@ -1,0 +1,73 @@
+﻿
+@media (min-width:992px) {
+    .container {
+        width: 970px
+    }
+}
+
+@media (min-width:1200px) {
+    .container {
+        width: 1190px
+    }
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.flex {
+    display: flex;
+}
+
+html, body {
+    font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#main{
+    flex-grow: 1;
+}
+
+button, a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+* {
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 400;
+    line-height: 1.1;
+    color: inherit;
+    word-break: normal;
+    word-wrap: normal;
+}
+
+h1, h2, h3, h4 {
+    margin-top: 25px;
+}
+
+h1, h2, h3 {
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 36px
+}
+/**/
