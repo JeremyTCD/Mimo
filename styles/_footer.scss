@@ -1,6 +1,16 @@
-﻿footer {
-    border-top: 1px solid #e7e7e7;
+﻿@import 'constants'
+
+footer {
+    border-top: 1px solid $border-color-light;
     background-color: #f8f8f8;
     padding: 15px 0;
     margin-top: 70px;
+    
+    .container{
+        display: flex;
+
+        a{
+            margin-left: auto;
+        }
+    }
 }
