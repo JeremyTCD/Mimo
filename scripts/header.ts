@@ -1,4 +1,8 @@
-export function SetupHeaderAnimationWrapper(): void {
+import setupNavbar from './navbar';
+
+export default function setupHeader(): void {
+    setupNavbar();
+
     let animationWrapperHeight: number;
     let animationWrapper = $('#header-navbar-and-search > .animation-wrapper');
 
