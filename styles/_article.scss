@@ -1,0 +1,27 @@
+﻿article {
+    h1 {
+        margin-bottom: 4px;
+    }
+
+    .meta {
+        color: #999;
+        padding-bottom: 12px;
+        display: flex;
+
+        span {
+            padding-right: 5px;
+        }
+    }
+
+    h1, h2, h3, h4 {
+        margin-top: 25px;
+    }
+
+    h4 {
+        border-bottom: 1px solid #ccc;
+    }
+
+    section {
+        margin-left: 1em;
+    }
+}
