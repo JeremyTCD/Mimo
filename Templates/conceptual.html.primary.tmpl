@@ -16,25 +16,27 @@
       {{#jr.enableSearch}}
       {{>partials/searchResults}}
       {{/jr.enableSearch}}
-      <div id="main" role="main" class="container">
-			{{^_disableToc}}
-			{{>partials/toc}}
-			{{/_disableToc}}
-            <article class="content wrap" id="_content" data-uid="{{uid}}">
-              {{{rawTitle}}}
-              {{^jr.disableMetadata}}
-              {{>partials/metadata}}
-              {{/jr.disableMetadata}}
-              {{#jr.enableArticleList}}
-              {{>partials/articleList}}
-              {{/jr.enableArticleList}}
-              {{^jr.enableArticleList}}
-              {{{conceptual}}}
-              {{/jr.enableArticleList}}
-            </article>
-          {{^_disableAffix}}
-          {{>partials/affix}}
-          {{/_disableAffix}}
+	  <div id="main" role="main" >
+		  <div class="container">
+				{{^_disableToc}}
+				{{>partials/toc}}
+				{{/_disableToc}}
+				<article class="content wrap" id="_content" data-uid="{{uid}}">
+				  {{{rawTitle}}}
+				  {{^jr.disableMetadata}}
+				  {{>partials/metadata}}
+				  {{/jr.disableMetadata}}
+				  {{#jr.enableArticleList}}
+				  {{>partials/articleList}}
+				  {{/jr.enableArticleList}}
+				  {{^jr.enableArticleList}}
+				  {{{conceptual}}}
+				  {{/jr.enableArticleList}}
+				</article>
+			  {{^_disableAffix}}
+			  {{>partials/affix}}
+			  {{/_disableAffix}}
+		  </div>
 	  </div>
       {{^_disableFooter}}
       {{>partials/footer}}
