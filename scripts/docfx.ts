@@ -287,7 +287,7 @@ $(function () {
 
       function setupBreadCrumb(breadcrumb) {
         var html = formList(breadcrumb, 'breadcrumb');
-        $('#breadcrumb').html(html);
+        $('#breadcrumbs').html(html);
       }
     }
 

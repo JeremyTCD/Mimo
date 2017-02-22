@@ -10,7 +10,9 @@
   {{>partials/head}}
   <body data-spy="scroll" data-target="#affix">
       {{>partials/header}}
-
+	  {{^_disableBreadcrumb}}
+	  {{>partials/breadcrumbs}}
+	  {{/_disableBreadcrumb}}
       {{#jr.enableSearch}}
       {{>partials/searchResults}}
       {{/jr.enableSearch}}

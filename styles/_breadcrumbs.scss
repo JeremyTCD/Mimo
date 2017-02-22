@@ -1,0 +1,20 @@
+﻿@import 'constants';
+
+#breadcrumbs {
+    border-bottom: 1px solid $border-color-light;
+    background-color: #f8f8f8;
+
+    ul {
+        padding: 10px 0;
+        display: flex;
+        list-style: none;
+
+        li {
+            + li:before {
+                content: "\00a0/";
+                padding: 0 5px;
+                color: $font-color-importance-1;
+            }
+        }
+    }
+}
