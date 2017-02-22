@@ -1,3 +1,56 @@
-#article-list > .al-items-all {
-    display: none;
+@import 'constants';
+
+#article-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    #al-items-current {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 70px;
+
+        .al-item {
+            width: 90%;
+
+            @media (min-width: 768px) {
+                width: 61.8%;
+            }
+
+            + .al-item {
+                padding-top: 43px;
+            }
+
+
+            h1 {
+                font-size: 32px;
+                margin-top: 0px;
+
+                a {
+                    transition: $transition-main;
+                    color: $link-color-main;
+                    text-decoration: none;
+
+                    &:hover,
+                    &:focus {
+                        color: $link-color-hover;
+                    }
+                }
+            }
+        }
+    }
+
+    #al-pagination {
+        width: 90%;
+        padding-top: 70px;
+
+        @media (min-width: 768px) {
+            width: 61.8%;
+        }
+    }
+
+    .al-items-all {
+        display: none;
+    }
 }

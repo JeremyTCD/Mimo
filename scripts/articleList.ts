@@ -12,13 +12,13 @@ $(function () {
         return;
     }
 
-    $('#al-pagination').twbsPagination({
+    $('#al-pagination > ul').twbsPagination({
         totalPages: Math.ceil(allAlItems.length / numPerPage),
         visiblePages: 5,
         onPageClick: function (event, page) {
           var start = (page - 1) * numPerPage;
           var currentAlItems = allAlItems.slice(start, start + numPerPage);
-          $('.al-items-current').empty().append(currentAlItems);
+          $('#al-items-current').empty().append(currentAlItems);
         }
     })
   })();
