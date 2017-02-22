@@ -99,7 +99,7 @@ $(function () {
       if (tocPath) tocPath = tocPath.replace(/\\/g, '/');
       if (navbarPath) navbarPath = navbarPath.replace(/\\/g, '/');
       $.get(navbarPath, function (data) {
-          $(data).find("#toc>.nav").children().appendTo("#header-navbar");
+          $(data).find("#toc>ul").appendTo("#header-navbar");
         if ($('#search-results').length !== 0) {
           $('#search').show();
           $('body').trigger("searchEvent");
@@ -132,7 +132,7 @@ $(function () {
               }
             }
             if (isActive) {
-              $(e).addClass(active);
+              $(e).parent().addClass(active);
               if (!breadcrumb.isNavPartLoaded) {
                 breadcrumb.insert({
                   href: e.href,
@@ -141,7 +141,7 @@ $(function () {
                 breadcrumb.isNavPartLoaded = true;
               }
             } else {
-              $(e).removeClass(active)
+              $(e).parent().removeClass(active)
             }
           }
         });
