@@ -70,6 +70,17 @@ class TocBuilder {
     }
 
     registerTocEvents(): void {
+        $(window).scroll((event: JQueryEventObject) => {
+            let element = $('#toc .wrapper');
+            let top = element[0].parentElement.getBoundingClientRect().top;
+            if (top <= 0) {
+                element.addClass('fixed');
+            } else {
+                element.removeClass('fixed');
+            }
+        });
+
+
         $('.toc .nav > li > .expand-stub').click(function (e) {
             $(e.target).parent().toggleClass('expanded');
         });
