@@ -1,31 +1,39 @@
-import setupNavbar from './navbar';
+import navbarBuilder from './navbar';
 
-export default function setupHeader(): void {
-    setupNavbar();
+class HeaderBuilder {
 
-    let animationWrapperHeight: number;
-    let animationWrapper = $('#header-navbar-and-search > .animation-wrapper');
-
-    function updateAnimationWrapperHeight(): void {
-        animationWrapper.addClass('in');
-        animationWrapper.css('height', 'auto');
-
-        animationWrapperHeight = animationWrapper.outerHeight();
-
-        animationWrapper.css('height', 0);
-        animationWrapper.removeClass('in');
+    build() {
+        navbarBuilder.build(this.setupNavbarAndSearchAnimation);
     }
 
-    $('#header-button').on('click', function () {
-        if (animationWrapper.hasClass('in')) {
-            animationWrapper.removeClass('in');
-            animationWrapper.css('height', 0);
-        } else {
-            animationWrapper.addClass('in');
-            animationWrapper.css('height', animationWrapperHeight);
-        }
-    });
+    setupNavbarAndSearchAnimation(): void {
 
-    updateAnimationWrapperHeight();
-    $(window).on('resize', updateAnimationWrapperHeight);
+        let animationWrapperHeight: number;
+        let animationWrapper = $('#header-navbar-and-search > .animation-wrapper');
+
+        function updateAnimationWrapperHeight(): void {
+            animationWrapper.addClass('in');
+            animationWrapper.css('height', 'auto');
+
+            animationWrapperHeight = animationWrapper.outerHeight();
+
+            animationWrapper.css('height', 0);
+            animationWrapper.removeClass('in');
+        }
+
+        $('#header-button').on('click', function () {
+            if (animationWrapper.hasClass('in')) {
+                animationWrapper.removeClass('in');
+                animationWrapper.css('height', 0);
+            } else {
+                animationWrapper.addClass('in');
+                animationWrapper.css('height', animationWrapperHeight);
+            }
+        });
+
+        updateAnimationWrapperHeight();
+        $(window).on('resize', updateAnimationWrapperHeight);
+    }
 }
+
+export default new HeaderBuilder();

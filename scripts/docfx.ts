@@ -1,7 +1,7 @@
 import AnchorJs = require('anchor-js');
 import hljs = require('highlightjs');
 import * as $ from 'jquery';
-import setupHeader from './header';
+import headerBuilder from './header';
 import setupToc from './toc';
 import breadcrumbs from './breadcrumbs';
 
@@ -89,7 +89,7 @@ $(function () {
     });
   })();
 
-  setupHeader();
+  headerBuilder.build();
   setupToc();
 
   //Setup Affix
