@@ -1,4 +1,4 @@
-import { getAbsolutePath, isRelativePath, getDirectory } from './shared';
+import { getAbsolutePath, isRelativePath, getDirectory } from './utils';
 import breadcrumbsBuilder from './breadcrumbs';
 
 class NavbarBuilder{

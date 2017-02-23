@@ -1,4 +1,4 @@
-﻿import { generateMultiLevelList, ListItem } from './shared';
+﻿import { generateMultiLevelList, ListItem } from './utils';
 
 class BreadcrumbsBuilder {
     breadcrumbs: ListItem[] = [];

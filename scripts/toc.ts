@@ -1,4 +1,4 @@
-﻿import { getAbsolutePath, isRelativePath } from './shared';
+﻿import { getAbsolutePath, isRelativePath } from './utils';
 import breadcrumbsBuilder from './breadcrumbs';
 
 export default function setupToc() {
