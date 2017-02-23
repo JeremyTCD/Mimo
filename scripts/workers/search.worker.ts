@@ -36,8 +36,8 @@
   }
   searchDataRequest.send();
 
-  onmessage = function(oEvent) {
-    var q = oEvent.data.q;
+  onmessage = function (event: MessageEvent) {
+    var q = event.data.q;
     var hits = lunrIndex.search(q);
     var results = [];
     hits.forEach(function(hit) {
