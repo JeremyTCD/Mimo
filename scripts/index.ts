@@ -1,8 +1,7 @@
 import "../styles/index.scss";
 
 import AnchorJs = require('anchor-js');
-import hljs = require('highlightjs');
-import * as $ from 'jquery';
+import HighlightJs = require('highlightjs');
 
 import headerBuilder from './header';
 import articleListBuilder from './articleList';
@@ -53,7 +52,7 @@ $(function () {
     // Enable highlight.js
     (function () {
         $('pre code').each(function (i, block) {
-            hljs.highlightBlock(block);
+            HighlightJs.highlightBlock(block);
         });
     })();
 
