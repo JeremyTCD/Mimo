@@ -1,72 +1,75 @@
 ﻿import { getAbsolutePath, isRelativePath } from './utils';
 import breadcrumbsBuilder from './breadcrumbs';
 
-export default function setupToc() {
-    let tocPath = $("meta[property='docfx\\:tocrel']").attr("content");
-    if (tocPath) {
-        tocPath = tocPath.replace(/\\/g, '/');
-    }
+class TocBuilder {
+    build(): void {
+        let tocPath = $("meta[property='docfx\\:tocrel']").attr("content");
 
-    $.get(tocPath, function (data) {
-        $(data).
-            find('#sidetoggle > div').
-            appendTo('#sidetoc');
-
-        registerTocEvents();
-
-        let index = tocPath.lastIndexOf('/');
-        let tocrel = '';
-        if (index > -1) {
-            tocrel = tocPath.substr(0, index + 1);
+        if (tocPath) {
+            tocPath = tocPath.replace(/\\/g, '/');
         }
-        let currentHref = getAbsolutePath(window.location.pathname);
+        5
+        $.get(tocPath, (data) => {
+            $(data).
+                find('#sidetoggle > div').
+                appendTo('#sidetoc');
 
-        $('#sidetoc').
-            find('a[href]').
-            each(function (index: number, anchorElement: HTMLAnchorElement) {
-                let href = $(anchorElement).attr("href");
-                if (isRelativePath(href)) {
-                    href = tocrel + href;
-                    $(anchorElement).attr("href", href);
-                }
+            this.registerTocEvents();
 
-                if (getAbsolutePath(anchorElement.href) === currentHref) {
-                    $(anchorElement).parent().addClass('active');
-                    let parents = $(anchorElement).
-                        parent().
-                        parents('li').
-                        children('a');
-                    if (parents.length > 0) {
-                        parents.addClass('active');
+            let index = tocPath.lastIndexOf('/');
+            let tocrel = '';
+            if (index > -1) {
+                tocrel = tocPath.substr(0, index + 1);
+            }
+            let currentHref = getAbsolutePath(window.location.pathname);
+
+            $('#sidetoc').
+                find('a[href]').
+                each(function (index: number, anchorElement: HTMLAnchorElement) {
+                    let href = $(anchorElement).attr("href");
+                    if (isRelativePath(href)) {
+                        href = tocrel + href;
+                        $(anchorElement).attr("href", href);
                     }
 
-                    breadcrumbsBuilder.
-                        loadChildBreadcrumbs(parents.add(anchorElement).get() as HTMLAnchorElement[]);
+                    if (getAbsolutePath(anchorElement.href) === currentHref) {
+                        $(anchorElement).parent().addClass('active');
+                        let parents = $(anchorElement).
+                            parent().
+                            parents('li').
+                            children('a');
+                        if (parents.length > 0) {
+                            parents.addClass('active');
+                        }
 
-                    // for active li, expand it
-                    $(anchorElement).
-                        parents('ul.nav>li').
-                        addClass('expanded');
+                        breadcrumbsBuilder.
+                            loadChildBreadcrumbs(parents.add(anchorElement).get() as HTMLAnchorElement[]);
 
-                    // Scroll to active item
-                    //let top = 0;
-                    //$(anchorElement).parents('li').each(function (i, e) {
-                    //    top += $(e).position().top;
-                    //});
+                        // for active li, expand it
+                        $(anchorElement).
+                            parents('ul.nav>li').
+                            addClass('expanded');
 
-                    // 50 is the height of the filter box
-                    //$('.sidetoc').scrollTop(top - 50);
-                    //if ($('footer').is(':visible')) {
-                    //    $('.sidetoc').addClass('shiftup');
-                    //}
-                } else {
-                    $(anchorElement).parent().removeClass('active');
-                    $(anchorElement).parents('li').children('a').removeClass('active');
-                }
-            });
-    });
+                        // Scroll to active item
+                        //let top = 0;
+                        //$(anchorElement).parents('li').each(function (i, e) {
+                        //    top += $(e).position().top;
+                        //});
 
-    function registerTocEvents() {
+                        // 50 is the height of the filter box
+                        //$('.sidetoc').scrollTop(top - 50);
+                        //if ($('footer').is(':visible')) {
+                        //    $('.sidetoc').addClass('shiftup');
+                        //}
+                    } else {
+                        $(anchorElement).parent().removeClass('active');
+                        $(anchorElement).parents('li').children('a').removeClass('active');
+                    }
+                });
+        });
+    }
+
+    registerTocEvents(): void {
         $('.toc .nav > li > .expand-stub').click(function (e) {
             $(e.target).parent().toggleClass('expanded');
         });
@@ -123,3 +126,5 @@ export default function setupToc() {
         });
     }
 }
+
+export default new TocBuilder();

@@ -6,8 +6,7 @@ import HighlightJs = require('highlightjs');
 import headerBuilder from './header';
 import articleListBuilder from './articleList';
 import searchBuilder from './search';
-import setupToc from './toc';
-import breadcrumbs from './breadcrumbs';
+import tocBuilder from './toc';
 
 $(function () {
     var active = 'active';
@@ -96,7 +95,7 @@ $(function () {
     searchBuilder.build();
     articleListBuilder.build();
     headerBuilder.build();
-    setupToc();
+    tocBuilder.build();
 
     //Setup Affix
     (function () {
