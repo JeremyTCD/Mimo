@@ -2,6 +2,7 @@ import AnchorJs = require('anchor-js');
 import hljs = require('highlightjs');
 import * as $ from 'jquery';
 import headerBuilder from './header';
+import articleListBuilder from './articleList';
 import setupToc from './toc';
 import breadcrumbs from './breadcrumbs';
 
@@ -89,6 +90,7 @@ $(function () {
     });
   })();
 
+    articleListBuilder.build();
   headerBuilder.build();
   setupToc();
 
