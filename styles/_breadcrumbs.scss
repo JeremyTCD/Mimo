@@ -5,11 +5,14 @@
     background-color: #f8f8f8;
 
     ul {
-        padding: 10px 0;
         display: flex;
         list-style: none;
 
         li {
+            height: $gap-2;
+            display: flex;
+            align-items: center;
+
             + li:before {
                 content: "\00a0/";
                 padding: 0 5px;
