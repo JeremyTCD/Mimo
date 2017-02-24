@@ -1,10 +1,12 @@
 ﻿@import 'sideMenu';
+@import 'constants';
 
 #main {
     flex-grow: 1;
 
     .container {
         display: flex;
-        padding-top: 70px;
+        padding-top: $gap-1;
+        padding-bottom: $gap-1;
     }
 }

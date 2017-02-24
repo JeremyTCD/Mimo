@@ -1,7 +1,7 @@
 ﻿@import 'constants';
 
 #side-menu {
-    margin-right: $gap-small;
+    margin-right: $gap-3;
     width: 200px;
     // Default flex-shrink is 1. When toc contents become fixed, they are taken out of the document flow.
     // Toc's adjacent article element expands fully width-wise. Flexbox thinks main's contents are overflowing width-wise
@@ -25,7 +25,7 @@
         .sidefilter {
             padding-top: 6px;
             input {
-                height: $gap-medium;
+                height: $gap-2;
                 padding: 8px 12px;
                 width: 100%;
                 border: 1px solid #a9a9a9;

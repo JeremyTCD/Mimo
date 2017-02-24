@@ -10,7 +10,7 @@
 
         .al-item {
             + .al-item {
-                padding-top: 43px;
+                padding-top: $gap-2;
             }
 
 
@@ -23,7 +23,7 @@
 
     #al-pagination {
         width: 90%;
-        padding-top: 70px;
+        padding-top: $gap-1;
 
         @media (min-width: 768px) {
             width: 61.8%;
