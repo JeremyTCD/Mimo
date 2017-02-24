@@ -57,9 +57,9 @@ class SideMenuBuilder {
                         //});
 
                         // 50 is the height of the filter box
-                        //$('.sidetoc').scrollTop(top - 50);
+                        //$('#side-menu-toc').scrollTop(top - 50);
                         //if ($('footer').is(':visible')) {
-                        //    $('.sidetoc').addClass('shiftup');
+                        //    $('#side-menu-toc').addClass('shiftup');
                         //}
                     } else {
                         $(anchorElement).parent().removeClass('active');
@@ -91,12 +91,12 @@ class SideMenuBuilder {
             let val = this.value;
             if (val === '') {
                 // Clear 'filtered' class
-                $('#toc li').removeClass('filtered').removeClass('hide');
+                $('#side-menu-toc li').removeClass('filtered').removeClass('hide');
                 return;
             }
 
             // Get leaf nodes
-            $('#toc li>a').filter(function (i, e) {
+            $('#side-menu-toc li>a').filter(function (i, e) {
                 return $(e).siblings().length === 0
             }).each(function (i, anchor) {
                 let text = $(anchor).text();
@@ -114,7 +114,7 @@ class SideMenuBuilder {
                     parent.removeClass('show');
                 }
             });
-            $('#toc li>a').filter(function (i, e) {
+            $('#side-menu-toc li>a').filter(function (i, e) {
                 return $(e).siblings().length > 0
             }).each(function (i, anchor) {
                 let parent = $(anchor).parent();
