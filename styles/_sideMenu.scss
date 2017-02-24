@@ -1,7 +1,9 @@
 ﻿@import 'constants';
+@import '../node_modules/font-awesome/scss/_variables.scss';
 
 #side-menu {
-    margin-right: $gap-3;
+    padding-top: 6px;
+    margin-right: $gap-2;
     width: 200px;
     // Default flex-shrink is 1. When toc contents become fixed, they are taken out of the document flow.
     // Toc's adjacent article element expands fully width-wise. Flexbox thinks main's contents are overflowing width-wise
@@ -13,7 +15,7 @@
 
         &.fixed {
             position: fixed;
-            top: 0px;
+            top: $gap-3;
         }
 
         #side-menu-toggle {
@@ -22,7 +24,6 @@
             }
         }
 
-            padding-top: 6px;
         #side-menu-filter {
             input {
                 height: $gap-2;
@@ -32,6 +33,66 @@
                 border-radius: 0;
                 outline: none;
                 border-radius: $border-radius-main;
+            }
+        }
+
+        #side-menu-toc {
+            padding-top: $gap-4;
+
+            ul {
+                display: flex;
+                flex-direction: column;
+
+                li {
+                    padding-top: $gap-5;
+
+
+                    &.expandable {
+                        display: flex;
+                        flex-direction: column;
+
+                        &.expanded {
+                            > .topic {
+                                &:before {
+                                    transform: rotate(90deg);
+                                }
+                            }
+                        }
+
+                        > .topic {
+                            &:before {
+                                visibility: visible;
+                                transform: rotate(0);
+                            }
+
+                            visibility: visible;
+                        }
+
+                        ul {
+                            padding-left: $gap-3;
+                            height: 0;
+                            overflow: hidden;
+                            transition: height $transition-main;
+                        }
+                    }
+
+                    a {
+                        padding-left: $gap-5;
+                        //color: inherit;
+                    }
+
+                    .topic {
+                        @include font-awesome($fa-var-angle-right);
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+
+                        &:before {
+                            visibility: hidden;
+                            transition: transform $transition-main;
+                        }
+                    }
+                }
             }
         }
     }

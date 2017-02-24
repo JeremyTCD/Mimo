@@ -1,19 +1,23 @@
 {{!Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE file in the project root for full license information.}}
 
-<ul>
+<ul class="nav">
 {{#items}}
-  <li>
+	{{^leaf}}
+	<li class="expandable">
+	{{/leaf}}
+	{{#leaf}}
+	<li>
+	{{/leaf}}
+		<span class="topic">
+			{{#topicHref}}
+			<a href="{{topicHref}}" name="{{tocHref}}" title="{{name}}">{{name}}</a>
+			{{/topicHref}}
+			{{^topicHref}}
+				<a>{{{name}}}</a>
+			{{/topicHref}}
+		</span>
     {{^leaf}}
-    <span class="expand-stub"></span>
-    {{/leaf}}
-    {{#topicHref}}
-    <a href="{{topicHref}}" name="{{tocHref}}" title="{{name}}">{{name}}</a>
-    {{/topicHref}}
-    {{^topicHref}}
-    <a>{{{name}}}</a>
-    {{/topicHref}}
-    {{^leaf}}
-      {{>partials/li}}
+    {{>partials/li}}
     {{/leaf}}
   </li>
 {{/items}}

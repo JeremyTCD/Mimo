@@ -14,6 +14,7 @@ class SideMenuBuilder {
                 find('#sidetoggle > div').
                 appendTo('#side-menu-filter-and-toc');
 
+            this.setupSideMenuScroll();
             this.registerTocEvents();
 
             let index = tocPath.lastIndexOf('/');
@@ -69,25 +70,40 @@ class SideMenuBuilder {
         });
     }
 
-    registerTocEvents(): void {
+    setupSideMenuScroll(): void {
         $(window).scroll((event: JQueryEventObject) => {
             let element = $('#side-menu .wrapper');
             let top = element[0].parentElement.getBoundingClientRect().top;
-            if (top <= 0) {
+            if (top < 23) {
                 element.addClass('fixed');
             } else {
                 element.removeClass('fixed');
             }
         });
+    }
 
+    registerTocEvents(): void {
+        $('#side-menu-toc .nav > li').click(function (event: JQueryEventObject) {
+            let delegateTarget = $(event.delegateTarget);
+            let childUl = delegateTarget.children('ul');
 
-        $('.toc .nav > li > .expand-stub').click(function (e) {
-            $(e.target).parent().toggleClass('expanded');
+            if (delegateTarget.hasClass('expanded')) {
+                childUl.css('height', 0);
+            } else {
+                let initialHeight = childUl.height();
+                childUl.css('height', 'auto');
+                let expandedHeight = childUl.height();
+
+                childUl.css('height', initialHeight);
+                setTimeout(() => {
+                    childUl.css('height', expandedHeight);
+                });
+            }
+
+            $(event.delegateTarget).toggleClass('expanded');
         });
-        $('.toc .nav > li > .expand-stub + a:not([href])').click(function (e) {
-            $(e.target).parent().toggleClass('expanded');
-        });
-        $('#toc_filter_input').on('input', function (e) {
+
+        $('#toc_filter_input').on('input', function (event: JQueryEventObject) {
             let val = this.value;
             if (val === '') {
                 // Clear 'filtered' class
