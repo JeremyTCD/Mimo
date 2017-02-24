@@ -12,7 +12,7 @@ class SideMenuBuilder {
         $.get(tocPath, (data) => {
             $(data).
                 find('#sidetoggle > div').
-                appendTo('#side-menu-filter-and-items');
+                appendTo('#side-menu-filter-and-toc');
 
             this.registerTocEvents();
 
@@ -23,7 +23,7 @@ class SideMenuBuilder {
             }
             let currentHref = getAbsolutePath(window.location.pathname);
 
-            $('#side-menu-filter-and-items').
+            $('#side-menu-filter-and-toc').
                 find('a[href]').
                 each(function (index: number, anchorElement: HTMLAnchorElement) {
                     let href = $(anchorElement).attr("href");
