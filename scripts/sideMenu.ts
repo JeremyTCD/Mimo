@@ -1,7 +1,7 @@
 ﻿import { getAbsolutePath, isRelativePath } from './utils';
 import breadcrumbsBuilder from './breadcrumbs';
 
-class TocBuilder {
+class SideMenuBuilder {
     build(): void {
         let tocPath = $("meta[property='docfx\\:tocrel']").attr("content");
 
@@ -12,7 +12,7 @@ class TocBuilder {
         $.get(tocPath, (data) => {
             $(data).
                 find('#sidetoggle > div').
-                appendTo('#sidetoc');
+                appendTo('#side-menu-filter-and-items');
 
             this.registerTocEvents();
 
@@ -23,7 +23,7 @@ class TocBuilder {
             }
             let currentHref = getAbsolutePath(window.location.pathname);
 
-            $('#sidetoc').
+            $('#side-menu-filter-and-items').
                 find('a[href]').
                 each(function (index: number, anchorElement: HTMLAnchorElement) {
                     let href = $(anchorElement).attr("href");
@@ -71,7 +71,7 @@ class TocBuilder {
 
     registerTocEvents(): void {
         $(window).scroll((event: JQueryEventObject) => {
-            let element = $('#toc .wrapper');
+            let element = $('#side-menu .wrapper');
             let top = element[0].parentElement.getBoundingClientRect().top;
             if (top <= 0) {
                 element.addClass('fixed');
@@ -138,4 +138,4 @@ class TocBuilder {
     }
 }
 
-export default new TocBuilder();
+export default new SideMenuBuilder();

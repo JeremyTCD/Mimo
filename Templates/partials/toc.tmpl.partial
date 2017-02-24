@@ -1,8 +1,0 @@
-<div id="toc">
-	<div class="wrapper">
-		<a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
-		<div class="sidetoggle collapse" id="sidetoggle">
-			<div id="sidetoc"></div>
-		</div>
-	</div>
-</div>

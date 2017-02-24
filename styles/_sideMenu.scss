@@ -1,0 +1,38 @@
+﻿@import 'constants';
+
+#side-menu {
+    margin-right: $gap-small;
+    width: 200px;
+    // Default flex-shrink is 1. When toc contents become fixed, they are taken out of the document flow.
+    // Toc's adjacent article element expands fully width-wise. Flexbox thinks main's contents are overflowing width-wise
+    // and distributes negative space between toc and article 1:1. To avoid this, flex-shrink must be set to 0.
+    flex-shrink: 0;
+
+    .wrapper {
+        width: inherit;
+
+        &.fixed {
+            position: fixed;
+            top: 0px;
+        }
+
+        #side-menu-toggle {
+            @media (min-width: 768px) {
+                display: none;
+            }
+        }
+
+        .sidefilter {
+            padding-top: 6px;
+            input {
+                height: $gap-medium;
+                padding: 8px 12px;
+                width: 100%;
+                border: 1px solid #a9a9a9;
+                border-radius: 0;
+                outline: none;
+                border-radius: $border-radius-main;
+            }
+        }
+    }
+}
