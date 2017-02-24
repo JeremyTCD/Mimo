@@ -118,14 +118,15 @@ header {
                         }
 
                         li {
-                            display: block;
                             a {
-                                display: block;
-                                text-align: center;
-                                padding: 8px 0px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                height: $gap-2;
 
                                 @media (min-width:768px) {
-                                    padding: 15px 15px;
+                                    padding: 0 15px;
+                                    height: $gap-1;
                                 }
 
                                 color: #9d9d9d;
