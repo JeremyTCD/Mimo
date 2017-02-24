@@ -20,6 +20,7 @@
     "@types/node": "^7.0.5",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "file-loader": "^0.10.0",
     "fs-extra": "^2.0.0",
     "grunt": "^1.0.1",
     "node-sass": "^4.5.0",
@@ -27,11 +28,13 @@
     "sass-loader": "^6.0.0",
     "ts-loader": "^2.0.0",
     "typescript": "^2.1.6",
+    "url-loader": "^0.5.7",
     "webpack": "^2.2.1",
     "worker-loader": "^0.7.1"
   },
   "dependencies": {
     "anchor-js": "^3.2.2",
+    "font-awesome": "^4.7.0",
     "highlightjs": "^9.8.0",
     "jquery": "^2.1.4",
     "js-url": "^2.3.0",

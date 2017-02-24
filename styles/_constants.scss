@@ -9,3 +9,13 @@ $gap-4: 14px;
 $gap-3: 23px;
 $gap-2: 37px;
 $gap-1: 60px;
+
+@mixin font-awesome($code) {
+    &:before {
+        content: $code;
+        font: normal normal normal 14px/1 FontAwesome;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        font-size: inherit;
+    }
+}
