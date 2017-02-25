@@ -38,14 +38,13 @@
 
         #side-menu-toc {
             font-size: $font-size-1;
-            padding-top: $gap-4;
+            padding-top: $gap-3;
 
             ul {
                 display: flex;
                 flex-direction: column;
 
                 li {
-                    padding-top: $gap-5;
                     display: flex;
                     flex-direction: column;
                     flex-shrink: 0;
@@ -61,18 +60,9 @@
                         }
 
                         ul {
-                            padding-left: $gap-3;
                             height: 0;
                             overflow: hidden;
                             transition: height $transition-main;
-                        }
-                    }
-
-                    a {
-                        padding-left: $gap-5;
-
-                        &:not([href]) {
-                            color: #333;
                         }
                     }
 
@@ -86,6 +76,28 @@
                             font-size: $font-size-3;
                             visibility: hidden;
                             transition: transform $transition-main;
+                        }
+
+                        padding: $gap-6 $gap-5;
+                        transition: background-color $transition-main;
+                        background-color: #fff;
+
+                        &:hover {
+                            background-color: $link-color-main;
+                            color: #fff;
+
+                            a[href] {
+                                color: inherit;
+                            }
+                        }
+
+                        a {
+                            padding-left: $gap-5;
+                            color: inherit;
+
+                            &[href] {
+                                color: $link-color-main;
+                            }
                         }
                     }
                 }
