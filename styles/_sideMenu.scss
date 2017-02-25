@@ -2,7 +2,7 @@
 @import '../node_modules/font-awesome/scss/_variables.scss';
 
 #side-menu {
-    padding-top: 6px;
+    padding-top: 8px;
     margin-right: $gap-2;
     width: 200px;
     // Default flex-shrink is 1. When toc contents become fixed, they are taken out of the document flow.
