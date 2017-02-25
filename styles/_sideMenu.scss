@@ -46,27 +46,18 @@
 
                 li {
                     padding-top: $gap-5;
-
+                    display: flex;
+                    flex-direction: column;
+                    flex-shrink: 0;
 
                     &.expandable {
-                        display: flex;
-                        flex-direction: column;
-
-                        &.expanded {
-                            > .topic {
-                                &:before {
-                                    transform: rotate(90deg);
-                                }
-                            }
+                        > .topic:before {
+                            visibility: visible;
+                            transform: rotate(0);
                         }
 
-                        > .topic {
-                            &:before {
-                                visibility: visible;
-                                transform: rotate(0);
-                            }
-
-                            visibility: visible;
+                        &.expanded > .topic:before {
+                            transform: rotate(90deg);
                         }
 
                         ul {
@@ -79,7 +70,10 @@
 
                     a {
                         padding-left: $gap-5;
-                        //color: inherit;
+
+                        &:not([href]) {
+                            color: #333;
+                        }
                     }
 
                     .topic {
