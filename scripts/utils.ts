@@ -53,17 +53,17 @@ export function toggleHeightForTransition(toggleHeightElement: JQuery, toggleCla
 
     if (toggleClassElement.hasClass('expanded')) {
         toggleHeightElement.css('height', initialHeight);
-        setTimeout(() => {
-            toggleHeightElement.css('height', 0);
-        });
+        //trigger layout
+        toggleHeightElement[0].clientHeight;
+        toggleHeightElement.css('height', 0);
     } else {
         toggleHeightElement.css('height', 'auto');
         let expandedHeight = toggleHeightElement.height();
 
         toggleHeightElement.css('height', initialHeight);
-        setTimeout(() => {
-            toggleHeightElement.css('height', expandedHeight);
-        });
+        //trigger layout
+        toggleHeightElement[0].clientHeight;
+        toggleHeightElement.css('height', expandedHeight);
 
         toggleHeightElement.on('transitionend', () => {
             toggleHeightElement.css('height', 'auto');
