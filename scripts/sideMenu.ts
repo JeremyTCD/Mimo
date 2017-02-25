@@ -82,7 +82,7 @@ class SideMenuBuilder {
     }
 
     registerTocEvents(): void {
-        $('#side-menu-toc .nav > li').click(function (event: JQueryEventObject) {
+        $('#side-menu-toc ul > li').click(function (event: JQueryEventObject) {
             let delegateTarget = $(event.delegateTarget);
             let childUl = delegateTarget.children('ul');
 
