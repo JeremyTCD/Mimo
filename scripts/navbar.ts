@@ -15,9 +15,8 @@ class NavbarBuilder{
         }
 
         $.get(navbarPath, function (data) {
-            $(data).
-                find("#side-menu-toc>ul").
-                appendTo("#header-navbar");
+            let toc = $.parseHTML(data);
+            $("#header-navbar").append(toc);
 
             if ($('#search-results').length !== 0) {
                 $('#search').show();

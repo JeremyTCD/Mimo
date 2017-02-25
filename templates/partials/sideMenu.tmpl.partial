@@ -2,6 +2,11 @@
   <div class="wrapper">
     <a id="side-menu-toggle">Show / Hide Table of Contents</a>
     <div id="side-menu-filter-and-toc">
+      <form id="side-menu-filter">
+        <input type="text" id="toc_filter_input" placeholder="Filter" onkeypress="if(event.keyCode==13) {return false;}"/>
+      </form>
+      <div id="side-menu-toc">
+      </div>
     </div>
   </div>
 </div>
