@@ -19,6 +19,10 @@
                 padding: 0 5px;
                 color: $font-color-importance-1;
             }
+
+            a {
+                @include animated-underline($link-color-main, $link-color-main);
+            }
         }
     }
 }

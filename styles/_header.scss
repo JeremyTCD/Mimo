@@ -127,6 +127,7 @@ header {
                                 @media (min-width:768px) {
                                     padding: 0 15px;
                                     height: $gap-1;
+                                    @include animated-underline(#9d9d9d, #fff);
                                 }
 
                                 color: #9d9d9d;
