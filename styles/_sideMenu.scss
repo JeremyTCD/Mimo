@@ -37,6 +37,7 @@
         }
 
         #side-menu-toc {
+            font-size: $font-size-1;
             padding-top: $gap-4;
 
             ul {
@@ -88,6 +89,7 @@
                         align-items: center;
 
                         &:before {
+                            font-size: $font-size-3;
                             visibility: hidden;
                             transition: transform $transition-main;
                         }
