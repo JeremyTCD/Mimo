@@ -25,12 +25,14 @@ class SideMenuBuilder {
 
             $('#side-menu-toc').
                 find('a[href]').
-                each(function (index: number, anchorElement: HTMLAnchorElement) {
+                each((index: number, anchorElement: HTMLAnchorElement) => {
                     let href = $(anchorElement).attr("href");
                     if (isRelativePath(href)) {
                         href = tocrel + href;
                         $(anchorElement).attr("href", href);
                     }
+
+                    this.setupTopicPadding($(anchorElement).parent());
 
                     if (getAbsolutePath(anchorElement.href) === currentHref) {
                         $(anchorElement).parent().addClass('active');
@@ -67,6 +69,14 @@ class SideMenuBuilder {
                     }
                 });
         });
+    }
+
+    setupTopicPadding(topicElement: JQuery): void {
+        let level = topicElement.data('level');
+        if (level == 1) {
+            return
+        }
+        topicElement.css('padding-left', 9 + (level - 1) * 14 + 'px');
     }
 
     setupSideMenuScroll(): void {
