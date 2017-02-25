@@ -1,4 +1,4 @@
-﻿import { getAbsolutePath, isRelativePath } from './utils';
+﻿import { getAbsolutePath, isRelativePath, toggleHeightForTransition } from './utils';
 import breadcrumbsBuilder from './breadcrumbs';
 
 class SideMenuBuilder {
@@ -86,20 +86,8 @@ class SideMenuBuilder {
             let delegateTarget = $(event.delegateTarget);
             let childUl = delegateTarget.children('ul');
 
-            if (delegateTarget.hasClass('expanded')) {
-                childUl.css('height', 0);
-            } else {
-                let initialHeight = childUl.height();
-                childUl.css('height', 'auto');
-                let expandedHeight = childUl.height();
+            toggleHeightForTransition(childUl, delegateTarget);
 
-                childUl.css('height', initialHeight);
-                setTimeout(() => {
-                    childUl.css('height', expandedHeight);
-                });
-            }
-
-            $(event.delegateTarget).toggleClass('expanded');
         });
 
         $('#toc_filter_input').on('input', function (event: JQueryEventObject) {

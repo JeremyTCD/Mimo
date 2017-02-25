@@ -1,3 +1,4 @@
+import { toggleHeightForTransition } from './utils';
 import navbarBuilder from './navbar';
 
 class HeaderBuilder {
@@ -7,32 +8,19 @@ class HeaderBuilder {
     }
 
     setupNavbarAndSearchAnimation(): void {
-
-        let animationWrapperHeight: number;
         let animationWrapper = $('#header-navbar-and-search > .animation-wrapper');
 
-        function updateAnimationWrapperHeight(): void {
-            animationWrapper.addClass('in');
-            animationWrapper.css('height', 'auto');
-
-            animationWrapperHeight = animationWrapper.outerHeight();
-
-            animationWrapper.css('height', 0);
-            animationWrapper.removeClass('in');
-        }
-
         $('#header-button').on('click', function () {
-            if (animationWrapper.hasClass('in')) {
-                animationWrapper.removeClass('in');
-                animationWrapper.css('height', 0);
-            } else {
-                animationWrapper.addClass('in');
-                animationWrapper.css('height', animationWrapperHeight);
-            }
+            toggleHeightForTransition(animationWrapper, animationWrapper);
         });
 
-        updateAnimationWrapperHeight();
-        $(window).on('resize', updateAnimationWrapperHeight);
+        $(window).on('resize', () => {
+            if (animationWrapper.hasClass('expanded')){
+                animationWrapper.
+                    css('height', 0).
+                    removeClass('expanded');
+            }
+        });
     }
 }
 
