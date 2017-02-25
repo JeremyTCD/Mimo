@@ -14,7 +14,7 @@ class SideMenuBuilder {
             $('#side-menu-toc').append(toc);
 
             this.setupSideMenuScroll();
-            this.registerTocEvents();
+            this.setupToc();
 
             let index = tocPath.lastIndexOf('/');
             let tocrel = '';
@@ -81,13 +81,16 @@ class SideMenuBuilder {
         });
     }
 
-    registerTocEvents(): void {
-        $('#side-menu-toc ul > li').click(function (event: JQueryEventObject) {
-            let delegateTarget = $(event.delegateTarget);
-            let childUl = delegateTarget.children('ul');
+    setupToc(): void {
+        $('#side-menu-toc ul > li.expandable').click((event: JQueryEventObject) => {
+            let closestLi = $(event.target).closest('li');
+            let childUl = closestLi.children('ul');
 
-            toggleHeightForTransition(childUl, delegateTarget);
+            toggleHeightForTransition(childUl, closestLi);
 
+            // If event propogates, every parent li.expandable's click listener will
+            // be called
+            event.stopPropagation();
         });
 
         $('#toc_filter_input').on('input', function (event: JQueryEventObject) {
