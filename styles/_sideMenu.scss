@@ -93,21 +93,27 @@
                         background-color: #fff;
 
                         &:hover {
-                            background-color: $link-color-main;
-                            color: #fff;
+                            &.is-link {
+                                background-color: $link-color-main;
+                                color: #fff;
 
-                            a[href] {
-                                color: inherit;
+                                a[href] {
+                                    color: inherit;
+                                }
+                            }
+
+                            &:before {
+                                transform: translateX($gap-7);
                             }
                         }
+                    }
 
-                        a {
-                            padding-left: $gap-5;
-                            color: inherit;
+                    a {
+                        padding-left: $gap-5;
+                        color: inherit;
 
-                            &[href] {
-                                color: $link-color-main;
-                            }
+                        &[href] {
+                            color: $link-color-main;
                         }
                     }
                 }

@@ -8,12 +8,13 @@
 	{{#leaf}}
 	<li>
 	{{/leaf}}
-		<span class="topic" data-level="{{level}}">
 			{{#topicHref}}
+			<span class="topic is-link" data-level="{{level}}">
 			<a href="{{topicHref}}" name="{{tocHref}}" title="{{name}}">{{name}}</a>
 			{{/topicHref}}
 			{{^topicHref}}
-				<a>{{{name}}}</a>
+			<span class="topic" data-level="{{level}}">
+			<a>{{{name}}}</a>
 			{{/topicHref}}
 		</span>
     {{^leaf}}
