@@ -34,7 +34,7 @@ header {
                 text-decoration: none;
                 display: flex;
                 flex-direction: column;
-                transition: background-color $transition-main;
+                transition: background-color $transition-1;
 
                 @media (min-width: 768px) {
                     display: none

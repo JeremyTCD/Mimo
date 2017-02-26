@@ -2,7 +2,7 @@
 $link-color-hover: #23527c;
 $border-radius-main: 4px;
 $border-color-light: #e7e7e7;
-$transition-main: 0.15s ease-in-out;
+$transition-1: 0.15s ease-in-out;
 $font-color-importance-1: #ccc;
 $font-color-importance-2: #999;
 $font-color-importance-3: #333;
@@ -47,6 +47,6 @@ $font-size-4: 37px;
         background-color: $startColor;
         visibility: hidden;
         transform: scaleX(0);
-        transition: all $transition-main;
+        transition: all $transition-1;
     }
 }

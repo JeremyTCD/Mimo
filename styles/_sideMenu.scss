@@ -62,7 +62,7 @@
                         ul {
                             height: 0;
                             overflow: hidden;
-                            transition: height $transition-main;
+                            transition: height $transition-1;
                         }
                     }
 
@@ -75,11 +75,11 @@
                         &:before {
                             font-size: $font-size-3;
                             visibility: hidden;
-                            transition: transform $transition-main;
+                            transition: transform $transition-1;
                         }
 
                         padding: $gap-6 $gap-5;
-                        transition: background-color $transition-main;
+                        transition: background-color $transition-1;
                         background-color: #fff;
 
                         &:hover {
