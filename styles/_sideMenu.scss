@@ -68,6 +68,7 @@
 
                     .topic {
                         @include font-awesome($fa-var-angle-right);
+                        user-select: none;
                         cursor: pointer;
                         display: flex;
                         align-items: center;
