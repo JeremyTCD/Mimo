@@ -31,6 +31,7 @@ $font-size-4: 37px;
     display: flex;
     flex-direction: column;
     text-decoration: none;
+    line-height: 1;
 
     &:hover:after {
         visibility: visible;
