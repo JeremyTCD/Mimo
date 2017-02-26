@@ -8,6 +8,7 @@ import headerBuilder from './header';
 import articleListBuilder from './articleList';
 import searchBuilder from './search';
 import sideMenuBuilder from './sideMenu';
+import footerBuilder from './footer';
 
 $(function () {
     var active = 'active';
@@ -97,6 +98,7 @@ $(function () {
     articleListBuilder.build();
     headerBuilder.build();
     sideMenuBuilder.build();
+    footerBuilder.build();
 
     //Setup Affix
     (function () {
