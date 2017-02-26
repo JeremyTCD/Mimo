@@ -52,10 +52,10 @@ class NavbarBuilder{
                             }
                         }
                         if (isActive) {
-                            $(anchorElement).addClass('active');
+                            $(anchorElement).parent().addClass('active');
                             breadcrumbsBuilder.loadRootBreadCrumb(anchorElement);
                         } else {
-                            $(anchorElement).removeClass('active')
+                            $(anchorElement).parent().removeClass('active')
                         }
                     }
                 });

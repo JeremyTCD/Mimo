@@ -120,9 +120,26 @@ header {
                         li {
                             span {
                                 @include animated-underline(#9d9d9d, #fff);
+                                color: #9d9d9d;
+
+                                &.active {
+                                    background-color: #080808;
+                                    color: #fff;
+                                    border: 1px solid #131313;
+
+                                    @media (min-width:768px) {
+                                        border: none;
+                                    }
+
+                                    &:after {
+                                        visibility: visible;
+                                        transform: scaleX(1);
+                                        background-color: #fff;
+                                    }
+                                }
 
                                 &:after {
-                                    height: 3px;
+                                    height: $gap-6;
                                 }
 
                                 a {
@@ -130,26 +147,15 @@ header {
                                     align-items: center;
                                     justify-content: center;
                                     height: $gap-2;
+                                    color: inherit;
 
                                     @media (min-width:768px) {
                                         padding: 0 15px;
                                         height: $gap-1;
                                     }
 
-                                    color: #9d9d9d;
-
                                     &:hover {
                                         color: #fff;
-                                    }
-
-                                    &.active {
-                                        background-color: #080808;
-                                        color: #fff;
-                                        border: 1px solid #131313;
-
-                                        @media (min-width:768px) {
-                                            border: none;
-                                        }
                                     }
                                 }
                             }
