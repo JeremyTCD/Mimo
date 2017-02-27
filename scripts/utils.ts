@@ -65,7 +65,7 @@ export function toggleHeightForTransition(toggleHeightElement: JQuery, toggleCla
         toggleHeightElement[0].clientHeight;
         toggleHeightElement.css('height', expandedHeight);
 
-        toggleHeightElement.on('transitionend', () => {
+        toggleHeightElement.one('transitionend', () => {
             toggleHeightElement.css('height', 'auto');
         });
     }

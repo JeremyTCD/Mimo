@@ -15,7 +15,8 @@ class HeaderBuilder {
         });
 
         $(window).on('resize', () => {
-            if (animationWrapper.hasClass('expanded')){
+            if (animationWrapper.hasClass('expanded')) {
+                animationWrapper.off('transitionend');
                 animationWrapper.
                     css('height', 0).
                     removeClass('expanded');
