@@ -43,26 +43,15 @@ class SideMenuBuilder {
                                 toggleHeightForTransition($(listElement).children('ul'), $(listElement));
                             });
 
-                        //parentLis.addClass('expanded');
-                        //breadcrumbsBuilder.
-                        //    loadChildBreadcrumbs(parentLis.add(anchorElement).get() as HTMLAnchorElement[]);
-
-                        // for active li, expand it
-                        $(anchorElement).
-                            parents('ul.nav>li').
-                            addClass('expanded');
-
-                        // Scroll to active item
-                        //let top = 0;
-                        //$(anchorElement).parents('li').each(function (i, e) {
-                        //    top += $(e).position().top;
-                        //});
-
-                        // 50 is the height of the filter box
-                        //$('#side-menu-toc').scrollTop(top - 50);
-                        //if ($('footer').is(':visible')) {
-                        //    $('#side-menu-toc').addClass('shiftup');
-                        //}
+                        breadcrumbsBuilder.
+                            loadChildBreadcrumbs($(anchorElement).
+                                parentsUntil('#side-menu-toc').
+                                filter('li').
+                                children('span').
+                                children('a').                             
+                                add(anchorElement).
+                                get().
+                                reverse() as HTMLAnchorElement[]);
                     } else {
                         $(anchorElement).parent().removeClass('active');
                         $(anchorElement).parents('li').children('a').removeClass('active');
