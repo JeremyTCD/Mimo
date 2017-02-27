@@ -8,13 +8,14 @@ class SideMenuBuilder {
         if (tocPath) {
             tocPath = tocPath.replace(/\\/g, '/');
         }
-        5
+
         $.get(tocPath, (data) => {
             let toc = $.parseHTML(data);
             $('#side-menu-toc').append(toc);
 
-            this.setupSideMenuScroll();
-            this.setupToc();
+            this.setupSideMenuOnScroll();
+            this.setupTocTopics();
+            this.setupTocOnResize();
 
             let index = tocPath.lastIndexOf('/');
             let tocrel = '';
@@ -32,11 +33,12 @@ class SideMenuBuilder {
                         $(anchorElement).attr("href", href);
                     }
 
-                    this.setupTopicPadding($(anchorElement).parent());
+                    this.setupTopicPadding($(anchorElement));
 
                     if (getAbsolutePath(anchorElement.href) === currentHref) {
-                        $(anchorElement).parent().addClass('active');
+                        $(anchorElement).addClass('active');
                         $(anchorElement).
+                            parent().
                             parentsUntil('#side-menu-toc').
                             filter('li.expandable').
                             each((index: number, listElement: HTMLLIElement) => {
@@ -47,14 +49,12 @@ class SideMenuBuilder {
                             loadChildBreadcrumbs($(anchorElement).
                                 parentsUntil('#side-menu-toc').
                                 filter('li').
-                                children('span').
-                                children('a').                             
+                                children('a').
                                 add(anchorElement).
                                 get().
                                 reverse() as HTMLAnchorElement[]);
                     } else {
-                        $(anchorElement).parent().removeClass('active');
-                        $(anchorElement).parents('li').children('a').removeClass('active');
+                        $(anchorElement).removeClass('active');
                     }
                 });
         });
@@ -65,33 +65,58 @@ class SideMenuBuilder {
         if (level == 1) {
             return
         }
-        topicElement.css('padding-left', 9 + (level - 1) * 14 + 'px');
+        topicElement.css('padding-left', (level - 1) * 23 + 'px');
     }
 
-    setupSideMenuScroll(): void {
+    setupSideMenuOnScroll(): void {
         $(window).scroll((event: JQueryEventObject) => {
             let element = $('#side-menu .wrapper');
             let top = element[0].parentElement.getBoundingClientRect().top;
             if (top < 23) {
                 element.addClass('fixed');
+                this.setTocMaxHeight();
             } else {
                 element.removeClass('fixed');
+                $('#side-menu-toc').css('max-height', 'initial');
             }
         });
     }
 
-    setupToc(): void {
-        $('#side-menu-toc ul > li.expandable').click((event: JQueryEventObject) => {
-            let closestLi = $(event.target).closest('li');
-            let childUl = closestLi.children('ul');
-
-            toggleHeightForTransition(childUl, closestLi);
-
-            // If event propogates, every parent li.expandable's click listener will
-            // be called
-            event.stopPropagation();
+    setupTocOnResize(): void {
+        $(window).on('resize', () => {
+            if ($('#side-menu .wrapper').hasClass('fixed')) {
+                this.setTocMaxHeight();
+            }
         });
+    }
 
+    setTocMaxHeight(): void {
+        let tocMaxHeight = $(window).outerHeight()
+            - 23 * 2
+            - $('#side-menu-filter').outerHeight()
+            - $('footer').outerHeight();
+
+        $('#side-menu-toc').
+            css('max-height', tocMaxHeight);
+    }
+
+    setupTocTopics(): void {
+        $('#side-menu-toc ul > li.expandable > a').click((event: JQueryEventObject) => {
+            let href = $(event.delegateTarget).attr('href');
+
+            if ($(event.target).hasClass('icon') || !href) {
+                let closestLi = $(event.target).closest('li');
+                let childUl = closestLi.children('ul');
+                toggleHeightForTransition(childUl, closestLi);
+                event.preventDefault();
+                // If event propogates, every parent li.expandable's click listener will
+                // be called
+                event.stopPropagation();
+            }
+        });
+    }
+
+    setupFilter(): void {
         $('#toc_filter_input').on('input', function (event: JQueryEventObject) {
             let val = this.value;
             if (val === '') {

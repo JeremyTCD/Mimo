@@ -9,13 +9,14 @@
 	<li>
 	{{/leaf}}
 			{{#topicHref}}
-			<span class="topic is-link" data-level="{{level}}">
-			<a href="{{topicHref}}" name="{{tocHref}}" title="{{name}}">{{name}}</a>
+			<a class="topic is-link" data-level="{{level}}" href="{{topicHref}}" name="{{tocHref}}" title="{{name}}">
 			{{/topicHref}}
 			{{^topicHref}}
-			<span class="topic" data-level="{{level}}">
-			<a>{{{name}}}</a>
+			<a class="topic" data-level="{{level}}">
 			{{/topicHref}}
+			<span class="icon"></span>
+			<span>{{name}}</span>
+			</a>
 		</span>
     {{^leaf}}
     {{>partials/li}}
