@@ -36,16 +36,16 @@ class SideMenuBuilder {
 
                     if (getAbsolutePath(anchorElement.href) === currentHref) {
                         $(anchorElement).parent().addClass('active');
-                        let parents = $(anchorElement).
-                            parent().
-                            parents('li').
-                            children('a');
-                        if (parents.length > 0) {
-                            parents.addClass('active');
-                        }
+                        $(anchorElement).
+                            parentsUntil('#side-menu-toc').
+                            filter('li.expandable').
+                            each((index: number, listElement: HTMLLIElement) => {
+                                toggleHeightForTransition($(listElement).children('ul'), $(listElement));
+                            });
 
-                        breadcrumbsBuilder.
-                            loadChildBreadcrumbs(parents.add(anchorElement).get() as HTMLAnchorElement[]);
+                        //parentLis.addClass('expanded');
+                        //breadcrumbsBuilder.
+                        //    loadChildBreadcrumbs(parentLis.add(anchorElement).get() as HTMLAnchorElement[]);
 
                         // for active li, expand it
                         $(anchorElement).
