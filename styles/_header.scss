@@ -29,7 +29,7 @@ header {
             #header-button {
                 padding: 9px 10px;
                 background-color: transparent;
-                border: 1px solid #333;
+                border: 1px solid $font-color-importance-3;
                 border-radius: $border-radius-main;
                 text-decoration: none;
                 display: flex;
@@ -42,7 +42,7 @@ header {
 
                 &:hover {
                     outline: 0;
-                    background-color: #333;
+                    background-color: $font-color-importance-3;
                 }
 
                 &:focus {
@@ -86,7 +86,7 @@ header {
                 flex-flow: column-reverse;
                 height: 0px;
                 border-top: 1px solid #111;
-                box-shadow: inset 0px 1px #333;
+                box-shadow: inset 0px 1px $font-color-importance-3;
 
                 @media (min-width: 768px) {
                     flex-flow: row;
