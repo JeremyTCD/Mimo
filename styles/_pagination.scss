@@ -6,7 +6,7 @@
     flex-direction: row;
 
     li {
-        display: block;
+        display: flex;
         list-style: none;
 
         &:first-child > a {
@@ -36,7 +36,7 @@
             a,
             a:focus,
             a:hover {
-                color: #777;
+                color: $font-color-importance-2;
                 cursor: not-allowed;
                 background-color: #fff;
                 border-color: #ddd
@@ -44,18 +44,21 @@
         }
 
         a {
-            display: block;
-            padding: 6px 12px;
-            margin-left: -1px;
-            line-height: 1.42857143;
+            display: flex;
+            align-items: center;
+            padding: 0 $gap-4;
+            height: $gap-2;
+            margin-left: -$gap-9;
             background-color: #fff;
-            border: 1px solid $border-color-light;
+            border: $gap-9 solid $border-color-light;
+            z-index: 1;
+            transition: all $transition-2;
 
             &:focus,
             &:hover {
                 z-index: 2;
                 background-color: #eee;
-                border-color: #ddd
+                border-color: $border-color-2;
             }
         }
     }
