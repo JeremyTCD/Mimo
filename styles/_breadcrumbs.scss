@@ -8,20 +8,35 @@
     ul {
         display: flex;
         list-style: none;
+        flex-wrap: wrap;
 
         li {
             height: $gap-2;
             display: flex;
             align-items: center;
 
-            + li:before {
-                content: "\00a0/";
-                padding: 0 5px;
-                color: $font-color-importance-1;
+            + li {
+                span {
+                    &:first-child {
+                        &:before {
+                            content: "\00a0/";
+                            padding-left: $gap-6;
+                            padding-right: $gap-5;
+                            color: $font-color-importance-1;
+                        }
+                    }
+                }
             }
 
             a {
-                @include animated-underline($link-color-main, $link-color-main);
+                display: flex;
+                align-items: center;
+
+                span {
+                    &:last-child {
+                        @include animated-underline($link-color-main, $link-color-main);
+                    }
+                }
             }
         }
     }
