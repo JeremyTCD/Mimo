@@ -84,7 +84,7 @@ header {
                 display: flex;
                 transition: height 0.35s ease;
                 flex-flow: column-reverse;
-                height: 0px;
+                height: 0;
                 border-top: 1px solid #111;
                 box-shadow: inset 0px 1px $font-color-importance-3;
 
@@ -118,44 +118,65 @@ header {
                         }
 
                         li {
-                            span {
-                                @include animated-underline(#9d9d9d, #fff);
-                                color: #9d9d9d;
-
-                                &.active {
-                                    background-color: #080808;
-                                    color: #fff;
-                                    border: 1px solid #131313;
-
-                                    @media (min-width:768px) {
-                                        border: none;
-                                    }
-
-                                    &:after {
-                                        visibility: visible;
-                                        transform: scaleX(1);
-                                        background-color: #fff;
-                                    }
-                                }
-
-                                &:after {
-                                    height: $gap-6;
-                                }
-
+                            &.active, &:hover {
                                 a {
+                                    span {
+                                        &:last-child {
+                                            color: #fff;
+                                        }
+
+                                        @media (min-width:768px) {
+                                            &:first-child {
+                                                height: $gap-7;
+                                                background-color: #fff;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &.active {
+                                background-color: #080808;
+                            }
+
+                            &:hover {
+                                background-color: #121212;
+                            }
+
+                            a {
+                                display: flex;
+                                flex-direction: column-reverse;
+                                height: $gap-2;
+
+                                @media (min-width:768px) {
+                                    height: $gap-1;
+                                }
+
+                                span {
                                     display: flex;
                                     align-items: center;
-                                    justify-content: center;
-                                    height: $gap-2;
-                                    color: inherit;
 
                                     @media (min-width:768px) {
                                         padding: 0 15px;
-                                        height: $gap-1;
                                     }
 
-                                    &:hover {
-                                        color: #fff;
+                                    &:last-child {
+                                        color: $font-color-importance-2;
+                                        flex-direction: column;
+                                        justify-content: center;
+                                        flex-grow: 1;
+                                    }
+
+                                    &:first-child {
+                                        content: "";
+                                        background-color: $font-color-importance-2;
+                                        transition: all $transition-2;
+                                        height: 0;
+                                        visibility: collapse;
+
+                                        @media (min-width:768px) {
+                                            visibility: visible;
+                                        }
                                     }
                                 }
                             }
