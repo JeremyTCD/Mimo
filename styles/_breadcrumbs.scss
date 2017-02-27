@@ -34,7 +34,7 @@
 
                 span {
                     &:last-child {
-                        @include animated-underline($link-color-main, $link-color-main);
+                        @include animated-underline($link-color-main, $link-color-main, $gap-9);
                     }
                 }
             }

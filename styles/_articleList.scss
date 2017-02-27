@@ -22,11 +22,7 @@
                 align-items: flex-start;
 
                 a {
-                    @include animated-underline($link-color-main, $link-color-main);
-
-                    &:after{
-                        height: 2px;
-                    }
+                    @include animated-underline($link-color-main, $link-color-main, $gap-8);
                 }
             }
         }

@@ -11,7 +11,7 @@ footer {
         height: $gap-1;
 
         a {
-            @include animated-underline($link-color-main, $link-color-main);
+            @include animated-underline($link-color-main, $link-color-main, $gap-9);
             margin-left: auto;
         }
     }
