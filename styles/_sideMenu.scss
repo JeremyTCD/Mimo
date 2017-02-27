@@ -31,10 +31,15 @@
                 height: $gap-2;
                 padding: 8px 12px;
                 width: 100%;
-                border: 1px solid #a9a9a9;
+                border: 1px solid $border-color-2;
                 border-radius: 0;
                 outline: none;
                 border-radius: $border-radius-main;
+                transition: all $transition-1;
+
+                &:focus {
+                    border-color: $border-color-3;
+                }
             }
         }
 
