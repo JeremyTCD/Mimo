@@ -1,5 +1,4 @@
 <div id="side-menu">
-  <div class="wrapper">
     <a id="side-menu-toggle">Show / Hide Table of Contents</a>
     <div id="side-menu-filter-and-toc">
       <form id="side-menu-filter">
@@ -8,5 +7,4 @@
       <div id="side-menu-toc">
       </div>
     </div>
-  </div>
 </div>

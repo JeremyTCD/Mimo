@@ -71,7 +71,7 @@ class SideMenuBuilder {
 
     setupSideMenuOnScroll(): void {
         $(window).scroll((event: JQueryEventObject) => {
-            let element = $('#side-menu .wrapper');
+            let element = $('#side-menu-filter-and-toc');
             let top = element[0].parentElement.getBoundingClientRect().top;
             if (top < 23) {
                 element.addClass('fixed');
@@ -85,7 +85,7 @@ class SideMenuBuilder {
 
     setupTocOnResize(): void {
         $(window).on('resize', () => {
-            if ($('#side-menu .wrapper').hasClass('fixed')) {
+            if ($('#side-menu-filter-and-toc').hasClass('fixed')) {
                 this.setTocMaxHeight();
             }
         });
