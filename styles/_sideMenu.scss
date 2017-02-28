@@ -114,7 +114,7 @@
                         cursor: pointer;
                         display: flex;
                         align-items: center;
-                        transition: all $transition-2;
+                        transition: all $transition-delayed-2;
 
                         span {
                             padding-top: $gap-6;

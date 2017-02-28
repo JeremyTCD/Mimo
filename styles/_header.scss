@@ -34,7 +34,7 @@ header {
                 text-decoration: none;
                 display: flex;
                 flex-direction: column;
-                transition: background-color $transition-1;
+                transition: background-color $transition-delayed-2;
 
                 @media (min-width: 768px) {
                     display: none
@@ -118,6 +118,8 @@ header {
                         }
 
                         li {
+                            transition: background-color $transition-delayed-2;
+
                             &.active, &:hover {
                                 a {
                                     span {
@@ -155,6 +157,7 @@ header {
                                 span {
                                     display: flex;
                                     align-items: center;
+                                    transition: all $transition-delayed-2;
 
                                     @media (min-width:768px) {
                                         padding: 0 15px;
@@ -170,7 +173,6 @@ header {
                                     &:first-child {
                                         content: "";
                                         background-color: $font-color-importance-2;
-                                        transition: all $transition-2;
                                         height: 0;
                                         visibility: collapse;
 
