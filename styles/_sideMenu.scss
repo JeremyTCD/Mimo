@@ -2,6 +2,7 @@
 @import '../node_modules/font-awesome/scss/_variables.scss';
 
 #side-menu {
+    font-size: $font-size-1;
     padding-top: 8px;
     margin-right: $gap-2;
     width: 200px;
@@ -44,7 +45,6 @@
         }
 
         #side-menu-toc {
-            font-size: $font-size-1;
             overflow-y: auto;
 
             ul {
