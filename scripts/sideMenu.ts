@@ -17,6 +17,7 @@ class SideMenuBuilder {
             this.setupTocTopics();
             this.setupTocOnResize();
             this.setupFilter();
+            this.setupToggle();
 
             let index = tocPath.lastIndexOf('/');
             let tocrel = '';
@@ -59,6 +60,14 @@ class SideMenuBuilder {
                     }
                 });
         });
+    }
+
+    setupToggle(): void {
+        let fitlerAndToc = $('#side-menu-filter-and-toc');
+
+        $('#side-menu-toggle').on('click', function () {
+            toggleHeightForTransition(fitlerAndToc, fitlerAndToc);
+        }); 
     }
 
     setupTopicPadding(topicElement: JQuery): void {
