@@ -6,7 +6,7 @@ class FooterBuilder {
     }
 
     setupToggle(): void {
-        let fitlerAndToc = $('.wrapper');
+        let fitlerAndToc = $('#side-menu');
 
         $('#side-menu-toggle a').on('click', function () {
             toggleHeightForTransition(fitlerAndToc, fitlerAndToc);
