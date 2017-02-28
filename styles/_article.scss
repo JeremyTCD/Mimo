@@ -1,6 +1,13 @@
 ﻿@import 'constants';
 
 article {
+    padding-top: $gap-1;
+    margin-top: -10px;
+
+    @media(min-width: 768px) {
+        padding-top: 0;
+    }
+
     h1 {
         margin-bottom: 4px;
     }
@@ -16,7 +23,7 @@ article {
             padding-right: 5px;
         }
 
-        a{
+        a {
             display: flex;
             align-items: center;
         }

@@ -3,29 +3,42 @@
 
 #side-menu {
     font-size: $font-size-1;
-    padding-top: 8px;
-    margin-right: $gap-2;
     // Default flex-shrink is 1. When toc contents become fixed, they are taken out of the document flow.
     // Toc's adjacent article element expands fully width-wise. Flexbox thinks main's contents are overflowing width-wise
     // and distributes negative space between toc and article 1:1. To avoid this, flex-shrink must be set to 0.
     flex-shrink: 0;
+    margin-top: -1px;
     height: 0;
     transition: height $transition-1;
     overflow-y: hidden;
 
     @media (min-width: 768px) {
-        height: auto !important;
+        margin-top: 0;
         width: 200px;
+        margin-right: $gap-2;
+        height: auto !important;
     }
 
     .wrapper {
+        background-color: #f8f8f8;
+        border: 1px solid $border-color-1;
+        border-top: none;
         width: inherit;
         display: flex;
         flex-direction: column;
+        padding: $gap-3;
+        border-bottom-left-radius: $border-radius-main;
+        border-bottom-right-radius: $border-radius-main;
 
-        &.fixed {
-            position: fixed;
-            top: $gap-3;
+        @media (min-width: 768px) {
+            background-color: transparent;
+            padding: 0;
+            border: none;
+
+            &.fixed {
+                position: fixed;
+                top: $gap-3;
+            }
         }
 
         #side-menu-filter {
@@ -48,7 +61,9 @@
         }
 
         #side-menu-toc {
-            overflow-y: auto;
+            @media (min-width: 768px) {
+                overflow-y: auto;
+            }
 
             ul {
                 display: flex;
@@ -100,7 +115,6 @@
                         display: flex;
                         align-items: center;
                         transition: all $transition-2;
-                        background-color: #fff;
 
                         span {
                             padding-top: $gap-6;
@@ -116,7 +130,7 @@
                                 &:before {
                                     font-size: $font-size-3;
                                     visibility: hidden;
-                                    transition: transform $transition-1;
+                                    transition: transform $transition-2;
                                 }
                             }
                         }

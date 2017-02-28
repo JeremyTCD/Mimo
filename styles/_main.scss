@@ -7,10 +7,10 @@
     .container {
         display: flex;
         flex-direction: column;
-        padding-top: $gap-1;
         padding-bottom: $gap-1;
 
-        @media(min-width: 768px){
+        @media(min-width: 768px) {
+            padding-top: $gap-1;
             flex-direction: row;
         }
     }
