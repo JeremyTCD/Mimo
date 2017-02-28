@@ -21,18 +21,7 @@
 				{{^_disableToc}}
 				{{>partials/sideMenu}}
 				{{/_disableToc}}
-				<article class="content" id={{uid}}>
-				  {{{rawTitle}}}
-				  {{^jr.disableMetadata}}
-				  {{>partials/metadata}}
-				  {{/jr.disableMetadata}}
-				  {{#jr.enableArticleList}}
-				  {{>partials/articleList}}
-				  {{/jr.enableArticleList}}
-				  {{^jr.enableArticleList}}
-				  {{{conceptual}}}
-				  {{/jr.enableArticleList}}
-				</article>
+			{{>partials/article}}
 			  {{^_disableAffix}}
 			  {{>partials/affix}}
 			  {{/_disableAffix}}

@@ -1,0 +1,12 @@
+<article class="content" id={{uid}}>
+	{{{rawTitle}}}
+	{{^jr.disableMetadata}}
+	{{>partials/metadata}}
+	{{/jr.disableMetadata}}
+	{{#jr.enableArticleList}}
+	{{>partials/articleList}}
+	{{/jr.enableArticleList}}
+	{{^jr.enableArticleList}}
+	{{{conceptual}}}
+	{{/jr.enableArticleList}}
+</article>
