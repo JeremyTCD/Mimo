@@ -11,6 +11,7 @@
 
     .container {
         a {
+            user-select: none;
             color: $font-color-importance-3;
             display: flex;
             align-items: center;
