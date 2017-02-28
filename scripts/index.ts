@@ -7,6 +7,7 @@ import HighlightJs = require('highlightjs');
 import headerBuilder from './header';
 import articleListBuilder from './articleList';
 import searchBuilder from './search';
+import sideMenuToggleBuilder from './sideMenuToggle';
 import sideMenuBuilder from './sideMenu';
 import footerBuilder from './footer';
 
@@ -99,6 +100,7 @@ $(function () {
     headerBuilder.build();
     sideMenuBuilder.build();
     footerBuilder.build();
+    sideMenuToggleBuilder.build();
 
     //Setup Affix
     (function () {
