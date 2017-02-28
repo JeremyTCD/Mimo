@@ -119,20 +119,36 @@ class SideMenuBuilder {
 
     setupFilter(): void {
         $('#side-menu-filter-input').on('input', (event: JQueryInputEventObject) => {
-            let lis = $('#side-menu-toc li');
+            let sideMenuToc = $('#side-menu-toc');
+            let lis = sideMenuToc.find('li');
 
             let val = $(event.target).val();
             if (val === '') {
                 // Restore toc
                 lis.
                     removeClass('filter-hidden').
-                    filter('.filter-expanded').
+                    removeClass('filter-expanded').
                     each((index: number, liElement: HTMLLIElement) => {
-                        toggleHeightForTransition($(liElement).children('ul'), $(liElement));
-                    }).
-                    removeClass('filter-expanded');
+                        let preExpanded = $(liElement).hasClass('pre-expanded');
+                        let expanded = $(liElement).hasClass('expanded');
 
+                        if (preExpanded && !expanded || !preExpanded && expanded) {
+                            toggleHeightForTransition($(liElement).children('ul'), $(liElement));
+                        }
+
+                        $(liElement).removeClass('pre-expanded')
+                    });
+
+                sideMenuToc.removeClass('filtered');
                 return;
+            }
+
+            if (!sideMenuToc.hasClass('filtered')) {
+                lis.
+                    filter('.expanded').
+                    addClass('pre-expanded');
+
+                sideMenuToc.addClass('filtered');
             }
 
             lis.
@@ -155,10 +171,10 @@ class SideMenuBuilder {
                 }).
                 end().
                 each((index: number, liElement: HTMLLIElement) => {
-                    let showExpanded = $(liElement).hasClass('filter-expanded');
+                    let filterExpanded = $(liElement).hasClass('filter-expanded');
                     let expanded = $(liElement).hasClass('expanded');
 
-                    if (showExpanded && !expanded || !showExpanded && expanded) {
+                    if (filterExpanded && !expanded || !filterExpanded && expanded) {
                         toggleHeightForTransition($(liElement).children('ul'), $(liElement));
                     }
                 });
