@@ -56,6 +56,10 @@
                     flex-direction: column;
                     flex-shrink: 0;
 
+                    &.filter-hidden {
+                        display: none;
+                    }
+
                     &.expandable {
                         > a {
                             span {

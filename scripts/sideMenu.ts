@@ -16,6 +16,7 @@ class SideMenuBuilder {
             this.setupSideMenuOnScroll();
             this.setupTocTopics();
             this.setupTocOnResize();
+            this.setupFilter();
 
             let index = tocPath.lastIndexOf('/');
             let tocrel = '';
@@ -117,54 +118,63 @@ class SideMenuBuilder {
     }
 
     setupFilter(): void {
-        $('#toc_filter_input').on('input', function (event: JQueryEventObject) {
-            let val = this.value;
+        $('#side-menu-filter-input').on('input', (event: JQueryInputEventObject) => {
+            let lis = $('#side-menu-toc li');
+
+            let val = $(event.target).val();
             if (val === '') {
-                // Clear 'filtered' class
-                $('#side-menu-toc li').removeClass('filtered').removeClass('hide');
+                // Restore toc
+                lis.
+                    removeClass('filter-hidden').
+                    filter('.filter-expanded').
+                    each((index: number, liElement: HTMLLIElement) => {
+                        toggleHeightForTransition($(liElement).children('ul'), $(liElement));
+                    }).
+                    removeClass('filter-expanded');
+
                 return;
             }
 
-            // Get leaf nodes
-            $('#side-menu-toc li>a').filter(function (i, e) {
-                return $(e).siblings().length === 0
-            }).each(function (i, anchor) {
-                let text = $(anchor).text();
-                let parent = $(anchor).parent();
-                let parentNodes = parent.parents('ul>li');
-                for (let i = 0; i < parentNodes.length; i++) {
-                    let parentText = $(parentNodes[i]).children('a').text();
-                    if (parentText) text = parentText + '.' + text;
-                };
-                if (filterNavItem(text, val)) {
-                    parent.addClass('show');
-                    parent.removeClass('hide');
-                } else {
-                    parent.addClass('hide');
-                    parent.removeClass('show');
-                }
-            });
-            $('#side-menu-toc li>a').filter(function (i, e) {
-                return $(e).siblings().length > 0
-            }).each(function (i, anchor) {
-                let parent = $(anchor).parent();
-                if (parent.find('li.show').length > 0) {
-                    parent.addClass('show');
-                    parent.addClass('filtered');
-                    parent.removeClass('hide');
-                } else {
-                    parent.addClass('hide');
-                    parent.removeClass('show');
-                    parent.removeClass('filtered');
-                }
-            })
+            lis.
+                addClass('filter-hidden').
+                removeClass('filter-expanded').
+                find('span:not(.icon)').
+                each((index: number, spanElement: HTMLSpanElement) => {
+                    if (this.contains($(spanElement).text(), val)) {
+                        $(spanElement).
+                            parentsUntil('#side-menu-toc').
+                            filter('li').
+                            each((index: number, liElement: HTMLLIElement) => {
+                                $(liElement).removeClass('filter-hidden');
 
-            function filterNavItem(name, text) {
-                if (!text) return true;
-                if (name.toLowerCase().indexOf(text.toLowerCase()) > -1) return true;
-                return false;
-            }
+                                if (index !== 0) {
+                                    $(liElement).addClass('filter-expanded');
+                                }
+                            });
+                    }
+                }).
+                end().
+                each((index: number, liElement: HTMLLIElement) => {
+                    let showExpanded = $(liElement).hasClass('filter-expanded');
+                    let expanded = $(liElement).hasClass('expanded');
+
+                    if (showExpanded && !expanded || !showExpanded && expanded) {
+                        toggleHeightForTransition($(liElement).children('ul'), $(liElement));
+                    }
+                });
         });
+    }
+
+    contains(text, val): boolean {
+        if (!val) {
+            return true;
+        }
+        if (text.
+            toLowerCase().
+            indexOf(val.toLowerCase()) > -1) {
+            return true;
+        }
+        return false;
     }
 }
 
