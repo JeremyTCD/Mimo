@@ -1,9 +1,10 @@
 <div id="side-menu">
-    <div id="side-menu-filter-and-toc">
-      <form id="side-menu-filter">
-        <input type="text" id="side-menu-filter-input" placeholder="Filter" onkeypress="if(event.keyCode==13) {return false;}"/>
-      </form>
-      <div id="side-menu-toc">
-      </div>
+  <!-- Wrapper is required for adjacent article to maintain its width when filter and toc are fixed -->
+  <div class="wrapper">
+    <form id="side-menu-filter">
+      <input type="text" id="side-menu-filter-input" placeholder="Filter" onkeypress="if(event.keyCode==13) {return false;}"/>
+    </form>
+    <div id="side-menu-toc">
     </div>
+  </div>
 </div>

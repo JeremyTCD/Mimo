@@ -11,7 +11,7 @@
     // and distributes negative space between toc and article 1:1. To avoid this, flex-shrink must be set to 0.
     flex-shrink: 0;
 
-    #side-menu-filter-and-toc {
+    .wrapper {
         width: inherit;
 
         &.fixed {
