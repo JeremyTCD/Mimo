@@ -82,7 +82,7 @@ header {
                 overflow: hidden;
                 align-items: center;
                 display: flex;
-                transition: height 0.35s ease;
+                transition: height $transition-1;
                 flex-flow: column-reverse;
                 height: 0;
                 border-top: 1px solid #111;
