@@ -10,7 +10,7 @@ import searchBuilder from './search';
 import leftMenuToggleBuilder from './leftMenuToggle';
 import leftMenuBuilder from './leftMenu';
 import footerBuilder from './footer';
-import affixBuilder from './affix';
+import rightMenuBuilder from './rightMenu';
 
 $(function () {
     var active = 'active';
@@ -102,7 +102,7 @@ $(function () {
     leftMenuBuilder.build();
     footerBuilder.build();
     leftMenuToggleBuilder.build();
-    affixBuilder.build();
+    rightMenuBuilder.build();
 
     // For LOGO SVG
     // Replace SVG with inline SVG

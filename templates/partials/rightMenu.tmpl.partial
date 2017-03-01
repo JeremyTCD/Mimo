@@ -1,7 +1,8 @@
-<div role="complementary">
-  <div class="sideaffix">
+<div id="right-menu">
+  <!-- Wrapper is required for adjacent article to maintain its width when filter and toc are fixed -->
+  <div class="wrapper">
     {{^_disableContribution}}
-    <div class="contribution">
+    <div id="edit-article">
       <ul class="nav">
         {{#docurl}}
         <li>
@@ -16,7 +17,7 @@
       </ul>
     </div>
     {{/_disableContribution}}
-    <nav id="affix">
+    <nav id="outline">
     </nav>
   </div>
 </div>
