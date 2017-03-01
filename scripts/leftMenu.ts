@@ -71,7 +71,7 @@ class LeftMenuBuilder {
 
     setupSideMenuOnScroll(): void {
         $(window).scroll((event: JQueryEventObject) => {
-            let element = $('.wrapper');
+            let element = $('#left-menu > .wrapper');
             let top = element[0].parentElement.getBoundingClientRect().top;
             if (top < 23) {
                 element.addClass('fixed');
@@ -85,7 +85,7 @@ class LeftMenuBuilder {
 
     setupTocOnResize(): void {
         $(window).on('resize', () => {
-            if ($('.wrapper').hasClass('fixed')) {
+            if ($('#left-menu > .wrapper').hasClass('fixed')) {
                 this.setTocMaxHeight();
             }
         });
