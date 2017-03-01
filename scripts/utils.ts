@@ -43,7 +43,8 @@ export function generateMultiLevelList(items: ListItem[], classes: string, level
 
 export function generateListItemTree(elements: HTMLElement[], tags: string[], tagIndex: number): ListItem {
     let result: ListItem = {
-        name: elements[0].textContent,
+        innerHtml: `<span class="icon"></span>
+                    <span>${elements[0].textContent}</span>`,
         href: '#' + elements[0].id,
         items: []
     };
