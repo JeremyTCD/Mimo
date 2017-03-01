@@ -41,6 +41,31 @@ export function generateMultiLevelList(items: ListItem[], classes: string, level
     return html;
 }
 
+export function generateListItemTree(elements: HTMLElement[], tags: string[], tagIndex: number): ListItem {
+    let result: ListItem = {
+        name: elements[0].textContent,
+        href: '#' + elements[0].id,
+        items: []
+    };
+
+    let branch: HTMLElement[] = [];
+
+    for (let i = 1; i <= elements.length; i++) {
+        if (i === elements.length || elements[i].nodeName.toLowerCase() === tags[tagIndex]) {
+            if (branch.length > 0) {
+                result.
+                    items.
+                    push(generateListItemTree(branch, tags, tagIndex + 1));
+            }
+            branch = [];
+        }
+
+        branch.push(elements[i]);
+    }
+
+    return result;
+}
+
 export interface ListItem {
     href: string;
     name: string;
@@ -71,4 +96,22 @@ export function toggleHeightForTransition(toggleHeightElement: JQuery, toggleCla
     }
 
     $(toggleClassElement).toggleClass('expanded');
+}
+
+export function htmlEncode(value: string): string {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
+export function htmlDecode(value: string): string {
+    return String(value)
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&');
 }
