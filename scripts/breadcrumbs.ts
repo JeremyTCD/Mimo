@@ -16,7 +16,7 @@ class BreadcrumbsBuilder {
         if (!this.rootBreadcrumbLoaded) {
             this.breadcrumbs.unshift({
                 href: anchorElement.href,
-                name: anchorElement.innerHTML,
+                innerHtml: anchorElement.innerHTML,
                 items: null
             });
 
@@ -30,7 +30,7 @@ class BreadcrumbsBuilder {
             for (let i = anchorElements.length - 1; i >= 0; i--) {
                 this.breadcrumbs.push({
                     href: anchorElements[i].href,
-                    name: anchorElements[i].innerHTML,
+                    innerHtml: anchorElements[i].innerHTML,
                     items: null
                 });
             }

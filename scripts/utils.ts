@@ -31,9 +31,9 @@ export function generateMultiLevelList(items: ListItem[], classes: string, level
     for (let i = 0; i < numItems; i++) {
         let item = items[i];
         let href = item.href;
-        let name = item.name;
+        let innerHtml = item.innerHtml;
 
-        html += href ? '<li><a href="' + href + '">' + name + '</a>' : '<li>' + name;
+        html += href ? '<li><a href="' + href + '">' + innerHtml + '</a>' : '<li>' + innerHtml;
         html += item.items ? generateMultiLevelList(item.items, classes, ++level) : '';
         html += '</li>';
     }
@@ -68,7 +68,7 @@ export function generateListItemTree(elements: HTMLElement[], tags: string[], ta
 
 export interface ListItem {
     href: string;
-    name: string;
+    innerHtml: string;
     items: ListItem[];
 }
 
