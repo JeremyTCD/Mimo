@@ -12,7 +12,7 @@
       </button>
     </div>
     <div id="header-navbar-and-search">
-      <div class="animation-wrapper">
+      <div class="wrapper">
         <div id="header-navbar">
         </div>
         <form id="header-search" class="flex" role="search">

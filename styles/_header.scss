@@ -78,18 +78,19 @@ header {
                 flex-grow: 1;
             }
 
-            .animation-wrapper {
+            .wrapper {
                 overflow: hidden;
-                align-items: center;
                 display: flex;
+                align-items: stretch;
                 transition: height $transition-1;
-                flex-flow: column-reverse;
+                flex-direction: column-reverse;
                 height: 0;
                 border-top: 1px solid #111;
                 box-shadow: inset 0px 1px $font-color-importance-3;
 
                 @media (min-width: 768px) {
-                    flex-flow: row;
+                    align-items: center;
+                    flex-direction: row;
                     height: auto !important;
                     border: none;
                     box-shadow: none;
@@ -104,14 +105,14 @@ header {
 
                     ul {
                         display: flex;
-                        flex-flow: column;
+                        flex-direction: column;
                         margin-top: $gap-4;
                         margin-bottom: 8px;
                         flex-shrink: 0;
                         list-style: none;
 
                         @media (min-width:768px) {
-                            flex-flow: row;
+                            flex-direction: row;
                             flex-shrink: initial;
                             margin-top: 0px;
                             margin-bottom: 0px;
@@ -187,21 +188,21 @@ header {
                 }
 
                 #header-search {
-                    transition: none;
                     flex-shrink: 0;
-                    width: 100%;
                     margin-top: 10px;
 
                     @media (min-width:768px) {
-                        margin-left: auto;
-                        width: auto;
                         margin-top: 0px;
+                        margin-left: auto;
                     }
 
                     input {
-                        font-size: $font-size-1;
-                        transition: none;
+                        @media (min-width:768px) {
+                            width: 200px;
+                        }
+
                         width: 100%;
+                        font-size: $font-size-1;
                         height: $gap-2;
                         padding: 8px 12px;
                         background-color: #fff;

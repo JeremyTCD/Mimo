@@ -8,16 +8,16 @@ class HeaderBuilder {
     }
 
     setupNavbarAndSearchAnimation(): void {
-        let animationWrapper = $('#header-navbar-and-search > .animation-wrapper');
+        let wrapper = $('#header-navbar-and-search > .wrapper');
 
         $('#header-button').on('click', function () {
-            toggleHeightForTransition(animationWrapper, animationWrapper);
+            toggleHeightForTransition(wrapper, wrapper);
         });
 
         $(window).on('resize', () => {
-            if (animationWrapper.hasClass('expanded')) {
-                animationWrapper.off('transitionend');
-                animationWrapper.
+            if (wrapper.hasClass('expanded')) {
+                wrapper.off('transitionend');
+                wrapper.
                     css('height', 0).
                     removeClass('expanded');
             }
