@@ -1,17 +1,17 @@
 ﻿import { toggleHeightForTransition } from './utils';
 
-class FooterBuilder {
+class LeftMenuToggleBuilder {
     build() {
         this.setupToggle();
     }
 
     setupToggle(): void {
-        let fitlerAndToc = $('#side-menu');
+        let fitlerAndToc = $('#left-menu');
 
-        $('#side-menu-toggle a').on('click', function () {
+        $('#left-menu-toggle a').on('click', function () {
             toggleHeightForTransition(fitlerAndToc, fitlerAndToc);
         });
     }
 }
 
-export default new FooterBuilder();
+export default new LeftMenuToggleBuilder();

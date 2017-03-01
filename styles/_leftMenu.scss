@@ -1,7 +1,7 @@
 ﻿@import 'constants';
 @import '../node_modules/font-awesome/scss/_variables.scss';
 
-#side-menu {
+#left-menu {
     font-size: $font-size-1;
     // Default flex-shrink is 1. When toc contents become fixed, they are taken out of the document flow.
     // Toc's adjacent article element expands fully width-wise. Flexbox thinks main's contents are overflowing width-wise
@@ -41,7 +41,7 @@
             }
         }
 
-        #side-menu-filter {
+        #left-menu-filter {
             padding-bottom: $gap-3;
 
             input {
@@ -60,7 +60,7 @@
             }
         }
 
-        #side-menu-toc {
+        #left-menu-toc {
             @media (min-width: 768px) {
                 overflow-y: auto;
             }

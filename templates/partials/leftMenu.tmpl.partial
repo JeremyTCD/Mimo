@@ -1,0 +1,10 @@
+<div id="left-menu">
+  <!-- Wrapper is required for adjacent article to maintain its width when filter and toc are fixed -->
+  <div class="wrapper">
+    <form id="left-menu-filter">
+      <input type="text" id="left-menu-filter-input" placeholder="Filter" onkeypress="if(event.keyCode==13) {return false;}"/>
+    </form>
+    <div id="left-menu-toc">
+    </div>
+  </div>
+</div>

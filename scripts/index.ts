@@ -7,8 +7,8 @@ import HighlightJs = require('highlightjs');
 import headerBuilder from './header';
 import articleListBuilder from './articleList';
 import searchBuilder from './search';
-import sideMenuToggleBuilder from './sideMenuToggle';
-import sideMenuBuilder from './sideMenu';
+import leftMenuToggleBuilder from './leftMenuToggle';
+import leftMenuBuilder from './leftMenu';
 import footerBuilder from './footer';
 import affixBuilder from './affix';
 
@@ -99,9 +99,9 @@ $(function () {
     searchBuilder.build();
     articleListBuilder.build();
     headerBuilder.build();
-    sideMenuBuilder.build();
+    leftMenuBuilder.build();
     footerBuilder.build();
-    sideMenuToggleBuilder.build();
+    leftMenuToggleBuilder.build();
     affixBuilder.build();
 
     // For LOGO SVG

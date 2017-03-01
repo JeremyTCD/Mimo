@@ -1,7 +1,7 @@
 ﻿import { getAbsolutePath, isRelativePath, toggleHeightForTransition } from './utils';
 import breadcrumbsBuilder from './breadcrumbs';
 
-class SideMenuBuilder {
+class LeftMenuBuilder {
     build(): void {
         let tocPath = $("meta[property='docfx\\:tocrel']").attr("content");
 
@@ -11,7 +11,7 @@ class SideMenuBuilder {
 
         $.get(tocPath, (data) => {
             let toc = $.parseHTML(data);
-            $('#side-menu-toc').append(toc);
+            $('#left-menu-toc').append(toc);
 
             this.setupSideMenuOnScroll();
             this.setupTocTopics();
@@ -25,7 +25,7 @@ class SideMenuBuilder {
             }
             let currentHref = getAbsolutePath(window.location.pathname);
 
-            $('#side-menu-toc').
+            $('#left-menu-toc').
                 find('a[href]').
                 each((index: number, anchorElement: HTMLAnchorElement) => {
                     let href = $(anchorElement).attr("href");
@@ -40,7 +40,7 @@ class SideMenuBuilder {
                         $(anchorElement).addClass('active');
                         $(anchorElement).
                             parent().
-                            parentsUntil('#side-menu-toc').
+                            parentsUntil('#left-menu-toc').
                             filter('li.expandable').
                             each((index: number, listElement: HTMLLIElement) => {
                                 toggleHeightForTransition($(listElement).children('ul'), $(listElement));
@@ -48,7 +48,7 @@ class SideMenuBuilder {
 
                         breadcrumbsBuilder.
                             loadChildBreadcrumbs($(anchorElement).
-                                parentsUntil('#side-menu-toc').
+                                parentsUntil('#left-menu-toc').
                                 filter('li').
                                 children('a').
                                 add(anchorElement).
@@ -78,7 +78,7 @@ class SideMenuBuilder {
                 this.setTocMaxHeight();
             } else {
                 element.removeClass('fixed');
-                $('#side-menu-toc').css('max-height', 'initial');
+                $('#left-menu-toc').css('max-height', 'initial');
             }
         });
     }
@@ -94,15 +94,15 @@ class SideMenuBuilder {
     setTocMaxHeight(): void {
         let tocMaxHeight = $(window).outerHeight()
             - 23 * 2
-            - $('#side-menu-filter').outerHeight()
+            - $('#left-menu-filter').outerHeight()
             - $('footer').outerHeight();
 
-        $('#side-menu-toc').
+        $('#left-menu-toc').
             css('max-height', tocMaxHeight);
     }
 
     setupTocTopics(): void {
-        $('#side-menu-toc ul > li.expandable > a').click((event: JQueryEventObject) => {
+        $('#left-menu-toc ul > li.expandable > a').click((event: JQueryEventObject) => {
             let href = $(event.delegateTarget).attr('href');
 
             if ($(event.target).hasClass('icon') || !href) {
@@ -118,8 +118,8 @@ class SideMenuBuilder {
     }
 
     setupFilter(): void {
-        $('#side-menu-filter-input').on('input', (event: JQueryInputEventObject) => {
-            let sideMenuToc = $('#side-menu-toc');
+        $('#left-menu-filter-input').on('input', (event: JQueryInputEventObject) => {
+            let sideMenuToc = $('#left-menu-toc');
             let lis = sideMenuToc.find('li');
 
             let val = $(event.target).val();
@@ -158,7 +158,7 @@ class SideMenuBuilder {
                 each((index: number, spanElement: HTMLSpanElement) => {
                     if (this.contains($(spanElement).text(), val)) {
                         $(spanElement).
-                            parentsUntil('#side-menu-toc').
+                            parentsUntil('#left-menu-toc').
                             filter('li').
                             each((index: number, liElement: HTMLLIElement) => {
                                 $(liElement).removeClass('filter-hidden');
@@ -194,4 +194,4 @@ class SideMenuBuilder {
     }
 }
 
-export default new SideMenuBuilder();
+export default new LeftMenuBuilder();
