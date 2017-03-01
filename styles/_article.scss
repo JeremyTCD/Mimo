@@ -3,6 +3,7 @@
 article {
     padding-top: $gap-1;
     margin-top: -10px;
+    flex-grow: 1;
 
     @media(min-width: 768px) {
         padding-top: 0;
