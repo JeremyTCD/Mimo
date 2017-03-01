@@ -10,6 +10,7 @@ import searchBuilder from './search';
 import sideMenuToggleBuilder from './sideMenuToggle';
 import sideMenuBuilder from './sideMenu';
 import footerBuilder from './footer';
+import affixBuilder from './affix';
 
 $(function () {
     var active = 'active';
@@ -101,109 +102,7 @@ $(function () {
     sideMenuBuilder.build();
     footerBuilder.build();
     sideMenuToggleBuilder.build();
-
-    //Setup Affix
-    (function () {
-        //var hierarchy = getHierarchy();
-        //if (hierarchy.length > 0) {
-        //  var html = '<h5 class="title">In This Article</h5>'
-        //  html += formList(hierarchy, ['nav', 'bs-docs-sidenav']);
-        //  $("#affix").append(html);
-        //  if ($('footer').is(':visible')) {
-        //    $(".sideaffix").css("bottom", "70px");
-        //  }
-        //  $('#affix').on('activate.bs.scrollspy', function (e) {
-        //    if (e.target) {
-        //      if ($(e.target).find('li.active').length > 0) {
-        //        return;
-        //      }
-        //      var top = $(e.target).position().top;
-        //      $(e.target).parents('li').each(function (i, e) {
-        //        top += $(e).position().top;
-        //      });
-        //      var container = $('#affix > ul');
-        //      var height = container.height();
-        //      container.scrollTop(container.scrollTop() + top - height/2);
-        //    }
-        //  })
-        //}
-
-        function getHierarchy() {
-            // supported headers are h1, h2, h3, and h4
-            // The topest header is ignored
-            var selector = ".article article";
-            var affixSelector = "#affix";
-            var headers = ['h4', 'h3', 'h2', 'h1'];
-            var hierarchy = [];
-            var toppestIndex = -1;
-            var startIndex = -1;
-            // 1. get header hierarchy
-            for (var i = headers.length - 1; i >= 0; i--) {
-                var header = $(selector + " " + headers[i]);
-                var length = header.length;
-
-                // If contains no header in current selector, find the next one
-                if (length === 0) continue;
-
-                // If the toppest header contains only one item, e.g. title, ignore
-                if (length === 1 && hierarchy.length === 0 && toppestIndex < 0) {
-                    toppestIndex = i;
-                    continue;
-                }
-
-                // Get second level children
-                var nextLevelSelector = i > 0 ? headers[i - 1] : null;
-                var prevSelector;
-                for (var j = length - 1; j >= 0; j--) {
-                    var e = header[j];
-                    var id = e.id;
-                    if (!id) continue; // For affix, id is a must-have
-                    var item = {
-                        name: htmlEncode($(e).text()),
-                        href: "#" + id,
-                        items: []
-                    };
-                    if (nextLevelSelector) {
-                        var selector = '#' + id + "~" + nextLevelSelector;
-                        var currentSelector = selector;
-                        if (prevSelector) currentSelector += ":not(" + prevSelector + ")";
-                        $(header[j]).siblings(currentSelector).each(function (index, e) {
-                            if (e.id) {
-                                item.items.push({
-                                    name: htmlEncode($(e).text()), // innerText decodes text while innerHTML not
-                                    href: "#" + e.id
-
-                                })
-                            }
-                        })
-                        prevSelector = selector;
-                    }
-                    hierarchy.push(item);
-                }
-                break;
-            };
-            hierarchy.reverse();
-            return hierarchy;
-        }
-
-        function htmlEncode(str) {
-            return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
-        }
-
-        function htmlDecode(value) {
-            return String(value)
-                .replace(/&quot;/g, '"')
-                .replace(/&#39;/g, "'")
-                .replace(/&lt;/g, '<')
-                .replace(/&gt;/g, '>')
-                .replace(/&amp;/g, '&');
-        }
-    })();
+    affixBuilder.build();
 
     // For LOGO SVG
     // Replace SVG with inline SVG
