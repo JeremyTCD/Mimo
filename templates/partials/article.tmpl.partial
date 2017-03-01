@@ -1,4 +1,4 @@
-<article class="content" id={{uid}}>
+<article id={{uid}}>
 	{{{rawTitle}}}
 	{{^jr.disableMetadata}}
 	{{>partials/metadata}}
