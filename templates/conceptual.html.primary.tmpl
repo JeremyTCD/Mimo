@@ -13,21 +13,21 @@
 	  {{^_disableBreadcrumb}}
 	  {{>partials/breadcrumbs}}
 	  {{/_disableBreadcrumb}}
-	  {{^_disableToc}}
+	  {{^jr.disableLeftMenu}}
 	  {{>partials/leftMenuToggle}}
-	  {{/_disableToc}}
+	  {{/jr.disableLeftMenu}}
       {{#jr.enableSearch}}
       {{>partials/searchResults}}
       {{/jr.enableSearch}}
 	  <div id="main" role="main" >
 		  <div class="container">
-			{{^_disableToc}}
+			{{^jr.disableLeftMenu}}
 			{{>partials/leftMenu}}
-			{{/_disableToc}}
+			{{/jr.disableLeftMenu}}
 			{{>partials/article}}
-			{{^_disableAffix}}
+			{{^jr.disableRightMenu}}
 			{{>partials/rightMenu}}
-			{{/_disableAffix}}
+			{{/jr.disableRightMenu}}
 		  </div>
 	  </div>
       {{^_disableFooter}}
