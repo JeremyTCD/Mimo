@@ -1,18 +1,7 @@
 ﻿@import 'constants';
 
-@media (min-width:992px) {
-    .container {
-        width: 970px
-    }
-}
-
-@media (min-width:1200px) {
-    .container {
-        width: 1190px
-    }
-}
-
 .container {
+    max-width: 1400px;
     margin-left: auto;
     margin-right: auto;
     padding-left: $gap-3;
