@@ -1,28 +1,83 @@
 ﻿import { htmlEncode, htmlDecode, generateMultiLevelList, ListItem, generateListItemTree } from './utils';
 
 class RightMenuBuilder {
-    public build(): void {
-        let listItemTree: ListItem = generateListItemTree($('article > h1,h2,h3').get(), ['h2', 'h3'], 0);
-        let html = generateMultiLevelList(listItemTree.items, '', 0);
-
-        $("#outline").append('<h5 class="title">In This Article</h5>' + html);
+    public initialize(): void {
+        this.setup();
+        this.registerListeners();
     }
 
-    private setupScrolling(): void {
-        //$('#outline').on('activate.bs.scrollspy', function(e) {
-        //        if (e.target) {
-        //            if ($(e.target).find('li.active').length > 0) {
-        //                return;
-        //            }
-        //            let top = $(e.target).position().top;
-        //            $(e.target).parents('li').each(function (i, e) {
-        //                top += $(e).position().top;
-        //            });
-        //            let container = $('#outline > ul');
-        //            let height = container.height();
-        //            container.scrollTop(container.scrollTop() + top - height / 2);
-        //        }
-        //    })
+    private setup(): void {
+        this.setupOutline();
+    }
+
+    private registerListeners(): void {
+        $(window).scroll((event: JQueryEventObject) => {
+            let element = $('#right-menu > .wrapper');
+            let top = element[0].parentElement.getBoundingClientRect().top;
+            if (top < 23) {
+                element.addClass('fixed');
+                top = 23;
+            } else {
+                element.removeClass('fixed');
+            }
+
+            this.outlineScrollAndResizeListener();
+        });
+
+        $(window).resize((event: JQueryEventObject) => {
+            this.outlineScrollAndResizeListener();
+        });
+    }
+
+    private setupOutline() {
+        let listItemTree: ListItem = generateListItemTree($('article > h1,h2,h3').get(), ['h2', 'h3'], 0);
+        let html = generateMultiLevelList(listItemTree.items, '', 1);
+        $("#outline").append('<h5 class="title">In This Article</h5>' + html);
+        $('#outline a').first().addClass('active');
+    }
+
+    private outlineScrollAndResizeListener() {
+        let minDistance = undefined;
+        let activeAnchorIndex = undefined;
+        let top = $('#right-menu > .wrapper')[0].getBoundingClientRect().top;
+
+        // Binary search not preferable because sequence is typically short
+        $('article').
+            find('h2, h3').
+            each((index: number, element: HTMLElement) => {
+                let elementTop = element.getBoundingClientRect().top;
+                let distance = Math.abs(elementTop - top);
+
+                if (!minDistance || distance < minDistance) {
+                    minDistance = distance;
+                    activeAnchorIndex = index;
+                } else {
+                    return false;
+                }
+            });
+
+        $('#outline a').
+            removeClass('active').
+            eq(activeAnchorIndex).
+            addClass('active');
+
+        if ($('#right-menu > .wrapper').hasClass('fixed')) {
+            this.setOutlineMaxHeight();
+        } else {
+            $('#outline > ul').css('max-height', 'initial');
+        }
+    }
+
+    private setOutlineMaxHeight(): void {
+        let footerHeight = $(window).outerHeight() - $('footer')[0].getBoundingClientRect().top;
+        let maxHeight = $(window).outerHeight()
+            - 23 * 2
+            + 3
+            - $('#outline > h5').outerHeight()
+            - (footerHeight < 0 ? 0 : footerHeight);
+
+        $('#outline > ul').
+            css('max-height', maxHeight);
     }
 }
 

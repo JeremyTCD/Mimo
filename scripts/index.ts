@@ -102,7 +102,7 @@ $(function () {
     leftMenuBuilder.build();
     footerBuilder.build();
     leftMenuToggleBuilder.build();
-    rightMenuBuilder.build();
+    rightMenuBuilder.initialize();
 
     // For LOGO SVG
     // Replace SVG with inline SVG
