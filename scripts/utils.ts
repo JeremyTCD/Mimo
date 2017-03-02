@@ -34,7 +34,7 @@ export function generateMultiLevelList(items: ListItem[], classes: string, level
         let innerHtml = item.innerHtml;
 
         html += href ? '<li><a href="' + href + '">' + innerHtml + '</a>' : '<li>' + innerHtml;
-        html += item.items ? generateMultiLevelList(item.items, classes, ++level) : '';
+        html += item.items ? generateMultiLevelList(item.items, classes, level + 1) : '';
         html += '</li>';
     }
     html += '</ul>';
