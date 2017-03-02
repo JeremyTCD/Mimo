@@ -1,0 +1,91 @@
+﻿@import 'constants';
+@import '../node_modules/font-awesome/scss/_variables.scss';
+
+#right-menu {
+    font-size: $font-size-1;
+    // Default flex-shrink is 1. When toc contents become fixed, they are taken out of the document flow.
+    // Toc's adjacent article element expands fully width-wise. Flexbox thinks main's contents are overflowing width-wise
+    // and distributes negative space between toc and article 1:1. To avoid this, flex-shrink must be set to 0.
+    flex-shrink: 0;
+    overflow-y: hidden;
+
+    @media (min-width: 768px) {
+        margin-top: -3px;
+        width: 200px;
+        height: auto !important;
+        margin-left: $gap-1;
+    }
+
+    .wrapper {
+        @media (min-width: 768px) {
+            &.fixed {
+                position: fixed;
+                top: $gap-3;
+                margin-top: -3px;
+            }
+        }
+
+        #outline {
+            h5 {
+                padding-bottom: $gap-3;
+            }
+
+            ul {
+                display: flex;
+                flex-direction: column;
+
+                &.level1 {
+                    @media (min-width: 768px) {
+                        overflow-y: auto;
+                    }
+
+                    > li {
+                        &:first-child {
+                            > a {
+                                padding-top: 0;
+                            }
+                        }
+                    }
+                }
+
+                .level2 {
+                    padding-left: $gap-3;
+                }
+
+                li {
+                    a {
+                        padding-top: $gap-5;
+                        display: flex;
+                        padding-bottom: $gap-5;
+                        padding-right: $gap-3;
+
+                        &.active {
+                            span {
+                                &:first-child {
+                                    transform: scaleY(1);
+                                }
+                            }
+                        }
+
+                        span {
+                            &:first-child {
+                                width: $gap-8;
+                                background-color: $font-color-importance-3;
+                                transform: scaleY(0);
+                                transition: transform $transition-2;
+                                // When scrollbar appears, if flex-shrink is not 0, bar width can get set to 0
+                                flex-shrink: 0;
+                            }
+
+                            &:last-child {
+                                flex-shrink: 0;
+                                padding-left: $gap-5;
+                                @include animated-underline($link-color-main, $link-color-main, $gap-9);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
