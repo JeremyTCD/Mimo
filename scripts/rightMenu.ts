@@ -12,6 +12,17 @@ class RightMenuBuilder {
 
     private registerListeners(): void {
         $(window).scroll((event: JQueryEventObject) => {
+            this.rightMenuScrollListener();
+            this.outlineScrollAndResizeListener();
+        });
+
+        $(window).resize((event: JQueryEventObject) => {
+            this.outlineScrollAndResizeListener();
+        });
+    }
+
+    private rightMenuScrollListener() {
+        if ($(window).width() >= 1024) {
             let element = $('#right-menu > .wrapper');
             let top = element[0].parentElement.getBoundingClientRect().top;
             if (top < 23) {
@@ -20,13 +31,10 @@ class RightMenuBuilder {
             } else {
                 element.removeClass('fixed');
             }
+        }
+    }
 
-            this.outlineScrollAndResizeListener();
-        });
 
-        $(window).resize((event: JQueryEventObject) => {
-            this.outlineScrollAndResizeListener();
-        });
     }
 
     private setupOutline() {
