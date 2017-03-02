@@ -13,7 +13,7 @@ class LeftMenuBuilder {
             let toc = $.parseHTML(data);
             $('#left-menu-toc').append(toc);
 
-            this.setupSideMenuOnScroll();
+            this.setupOnScroll();
             this.setupTocTopics();
             this.setupTocOnResize();
             this.setupFilter();
@@ -69,7 +69,7 @@ class LeftMenuBuilder {
         topicElement.css('padding-left', (level - 1) * 23 + 'px');
     }
 
-    setupSideMenuOnScroll(): void {
+    setupOnScroll(): void {
         $(window).scroll((event: JQueryEventObject) => {
             let element = $('#left-menu > .wrapper');
             let top = element[0].parentElement.getBoundingClientRect().top;
@@ -92,13 +92,14 @@ class LeftMenuBuilder {
     }
 
     setTocMaxHeight(): void {
-        let tocMaxHeight = $(window).outerHeight()
+        let footerHeight = $(window).outerHeight() - $('footer')[0].getBoundingClientRect().top;
+        let maxHeight = $(window).outerHeight()
             - 23 * 2
             - $('#left-menu-filter').outerHeight()
-            - $('footer').outerHeight();
+            - (footerHeight < 0 ? 0 : footerHeight);
 
         $('#left-menu-toc').
-            css('max-height', tocMaxHeight);
+            css('max-height', maxHeight);
     }
 
     setupTocTopics(): void {
