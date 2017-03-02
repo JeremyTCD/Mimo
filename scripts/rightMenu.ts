@@ -94,6 +94,7 @@ class RightMenuBuilder {
             - 23 * 2
             + 3
             - $('#outline > h5').outerHeight()
+            - $('#edit').outerHeight()
             - (footerHeight < 0 ? 0 : footerHeight);
 
         $('#outline > ul').

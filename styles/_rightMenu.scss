@@ -89,3 +89,35 @@
         }
     }
 }
+
+#edit {
+    display: flex;
+    align-items: center;
+
+    @media(min-width: 1024px) {
+        padding-bottom: $gap-3;
+    }
+
+    span {
+        &:first-child {
+            @include font-awesome($fa-var-pencil);
+
+            &:before {
+                @media(min-width: 1024px) {
+                    color: $font-color-importance-3;
+                }
+            }
+        }
+
+        &:last-child {
+            flex-shrink: 0;
+            padding-left: $gap-6;
+
+            @media(min-width: 1024px) {
+                padding-left: $gap-5;
+            }
+
+            @include animated-underline($link-color-main, $link-color-main, $gap-9);
+        }
+    }
+}

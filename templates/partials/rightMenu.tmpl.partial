@@ -2,20 +2,18 @@
   <!-- Wrapper is required for adjacent article to maintain its width when filter and toc are fixed -->
   <div class="wrapper">
     {{^_disableContribution}}
-    <div id="edit-article">
-      <ul class="nav">
-        {{#docurl}}
-        <li>
-          <a href="{{docurl}}" class="contribution-link">{{__global.improveThisDoc}}</a>
-        </li>
-        {{/docurl}}
-        {{#sourceurl}}
-        <li>
-          <a href="{{sourceurl}}" class="contribution-link">{{__global.viewSource}}</a>
-        </li>
-        {{/sourceurl}}
-      </ul>
-    </div>
+    {{#docurl}}
+    <a href="{{docurl}}" id="edit">
+      <span class="icon"></span>
+      <span>Edit</span>
+    </a>
+    {{/docurl}}
+    {{#sourceurl}}
+    <a href="{{sourceurl}}" id="view-source">
+      <span class="icon"></span>
+      <span>View Source</span>
+    </a>
+    {{/sourceurl}}
     {{/_disableContribution}}
     <nav id="outline">
     </nav>
