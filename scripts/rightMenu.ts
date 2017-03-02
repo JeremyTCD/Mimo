@@ -7,6 +7,7 @@ class RightMenuBuilder {
     }
 
     private setup(): void {
+        this.rightMenuResizeListener();
         this.setupOutline();
     }
 
@@ -17,6 +18,7 @@ class RightMenuBuilder {
         });
 
         $(window).resize((event: JQueryEventObject) => {
+            this.rightMenuResizeListener();
             this.outlineScrollAndResizeListener();
         });
     }
@@ -34,7 +36,17 @@ class RightMenuBuilder {
         }
     }
 
+    private rightMenuResizeListener() {
+        let windowWidth = $(window).width();
+        let rightMenuInArticle = $('article > #right-menu').length === 1;
 
+        if (windowWidth < 1024 && !rightMenuInArticle) {
+            $('article > .meta').after($('#right-menu'));
+            $('article > .meta').append($('#edit'));
+        } else if (windowWidth >= 1024 && rightMenuInArticle) {
+            $('#main > .container').append($('#right-menu'));
+            $('#right-menu > .wrapper').prepend($('#edit'));
+        }
     }
 
     private setupOutline() {
