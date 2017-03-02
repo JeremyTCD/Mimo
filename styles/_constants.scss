@@ -39,6 +39,9 @@ $font-size-4: 37px;
     display: flex;
     flex-direction: column;
     text-decoration: none;
+    // Most fonts have characters that extend above or below the line when line-height: 1.
+    // This can cause vertical overflow. When overflow: auto, add padding to avoid unexpected
+    // scrollbars.
     line-height: 1;
 
     &:hover:after {
