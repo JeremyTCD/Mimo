@@ -24,7 +24,9 @@ $font-size-1: 14px;
 $font-size-2: 16px;
 $font-size-3: 18px;
 $font-size-4: 37px;
-
+$media-narrow: '(max-width: 768px)';
+$media-medium: '(min-width: 769px) and (max-width: 1024px)';
+$media-wide: '(min-width: 1025px)';
 @mixin font-awesome($code) {
     &:before {
         content: $code;
@@ -49,10 +51,6 @@ $font-size-4: 37px;
         -moz-osx-font-smoothing: grayscale;
         content: $code;
         color: $color;
-
-        @media(min-width: 1024px) {
-            color: $font-color-importance-3;
-        }
     }
 }
 

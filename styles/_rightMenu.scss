@@ -7,19 +7,21 @@
     // Toc's adjacent article element expands fully width-wise. Flexbox thinks main's contents are overflowing width-wise
     // and distributes negative space between toc and article 1:1. To avoid this, flex-shrink must be set to 0.
     flex-shrink: 0;
-    overflow-y: hidden;
-    padding-bottom: $gap-4;
 
-    @media (min-width: 1024px) {
+    @media #{$media-narrow}, #{$media-medium} {
+        padding-bottom: $gap-4;
+    }
+
+    @media #{$media-wide} {
+        overflow-y: hidden;
         margin-top: -3px;
         width: 200px;
         height: auto !important;
         margin-left: $gap-1;
-        padding-bottom: 0;
     }
 
     .wrapper {
-        @media (min-width: 1024px) {
+        @media #{$media-wide} {
             &.fixed {
                 position: fixed;
                 top: $gap-3;
@@ -31,7 +33,7 @@
             display: flex;
             align-items: center;
 
-            @media(min-width: 1024px) {
+            @media #{$media-wide} {
                 padding-bottom: $gap-3;
             }
 
@@ -42,9 +44,12 @@
 
                 &:last-child {
                     flex-shrink: 0;
-                    padding-left: $gap-6;
 
-                    @media(min-width: 1024px) {
+                    @media #{$media-narrow}, #{$media-medium} {
+                        padding-left: $gap-6;
+                    }
+
+                    @media #{$media-wide} {
                         padding-left: $gap-5;
                     }
 
@@ -54,7 +59,7 @@
         }
 
         .wrapper {
-            @media(max-width: 1023px) {
+            @media #{$media-narrow}, #{$media-medium} {
                 display: flex;
                 flex-direction: row;
 
@@ -66,10 +71,9 @@
             }
 
             #outline {
-                @media(max-width: 1023px) {
+                @media #{$media-narrow}, #{$media-medium} {
                     padding-left: $gap-4;
                 }
-
 
                 h5 {
                     padding-bottom: $gap-4;
@@ -82,7 +86,7 @@
                     flex-direction: column;
 
                     &.level1 {
-                        @media (min-width: 1024px) {
+                        @media #{$media-wide} {
                             overflow-y: auto;
                         }
 
@@ -115,7 +119,7 @@
                             }
 
                             span {
-                                @media(min-width: 1024px) {
+                                @media #{$media-wide} {
                                     &:first-child {
                                         width: $gap-7;
                                         background-color: $link-color-main;
@@ -127,8 +131,10 @@
                                 }
 
                                 &:last-child {
-                                    flex-shrink: 0;
-                                    padding-left: $gap-5;
+                                    @media #{$media-wide} {
+                                        flex-shrink: 0;
+                                        padding-left: $gap-5;
+                                    }
 
                                     @include animated-underline($link-color-main, $link-color-main, $gap-9);
                                 }

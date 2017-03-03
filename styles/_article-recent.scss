@@ -1,6 +1,6 @@
 ﻿/*.al-item {
     width: 90%;
-    @media (min-width: 768px) {
+    @media #{$media-wide}, #{$media-medium}{
         width: 61.8%;
     }
 }*/

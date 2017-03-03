@@ -1,12 +1,11 @@
 ﻿@import 'constants';
 
 article {
-    padding-top: $gap-1;
     margin-top: -10px;
     flex-grow: 1;
 
-    @media(min-width: 768px) {
-        padding-top: 0;
+    @media #{$media-narrow} {
+        padding-top: $gap-1;
     }
 
     h1 {
@@ -38,7 +37,7 @@ article {
                     align-items: center;
                     color: inherit;
 
-                    img{
+                    img {
                         padding-left: $gap-7;
                     }
                 }

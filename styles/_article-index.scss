@@ -1,4 +1,6 @@
-﻿article#index {
+﻿@import './constants';
+
+article#index {
     #article-list {
         align-items: center;
 
@@ -6,9 +8,11 @@
             align-items: center;
 
             .al-item {
-                width: 90%;
+                @media #{$media-narrow}{
+                    width: 90%;
+                }
 
-                @media (min-width: 768px) {
+                @media #{$media-wide}, #{$media-medium} {
                     width: 61.8%;
                 }
             }

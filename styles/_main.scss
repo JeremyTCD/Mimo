@@ -6,12 +6,14 @@
 
     .container {
         display: flex;
-        flex-direction: column;
         padding-bottom: $gap-1;
 
-        @media(min-width: 768px) {
+        @media #{$media-narrow} {
+            flex-direction: column;
+        }
+
+        @media #{$media-medium}, #{$media-wide} {
             padding-top: $gap-1;
-            flex-direction: row;
         }
     }
 }

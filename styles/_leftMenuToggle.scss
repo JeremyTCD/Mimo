@@ -1,22 +1,24 @@
 ﻿@import 'constants';
 
 #left-menu-toggle {
-    font-size: $font-size-1;
-    background-color: #f8f8f8;
-    border-bottom: 1px solid $border-color-1;
-
-    @media(min-width: 768px) {
+    @media #{$media-wide}, #{$media-medium} {
         display: none;
     }
 
-    .container {
-        a {
-            user-select: none;
-            color: $font-color-importance-3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: $gap-2;
+    @media #{$media-narrow} {
+        font-size: $font-size-1;
+        background-color: #f8f8f8;
+        border-bottom: 1px solid $border-color-1;
+
+        .container {
+            a {
+                user-select: none;
+                color: $font-color-importance-3;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: $gap-2;
+            }
         }
     }
 }

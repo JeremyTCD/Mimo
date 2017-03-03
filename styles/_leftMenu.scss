@@ -7,34 +7,34 @@
     // Toc's adjacent article element expands fully width-wise. Flexbox thinks main's contents are overflowing width-wise
     // and distributes negative space between toc and article 1:1. To avoid this, flex-shrink must be set to 0.
     flex-shrink: 0;
-    margin-top: -1px;
-    height: 0;
-    transition: height $transition-1;
-    overflow-y: hidden;
 
-    @media (min-width: 768px) {
-        margin-top: 0;
+    @media #{$media-narrow} {
+        margin-top: -1px;
+        overflow-y: hidden;
+        transition: height $transition-1;
+        height: 0;
+    }
+
+    @media #{$media-medium}, #{$media-wide} {
         width: 200px;
         margin-right: $gap-1;
         height: auto !important;
     }
 
     .wrapper {
-        background-color: #f8f8f8;
-        border: 1px solid $border-color-1;
-        border-top: none;
         width: inherit;
         display: flex;
         flex-direction: column;
-        padding: $gap-3;
-        border-bottom-left-radius: $border-radius-main;
-        border-bottom-right-radius: $border-radius-main;
 
-        @media (min-width: 768px) {
-            background-color: transparent;
-            padding: 0;
-            border: none;
+        @media #{$media-narrow} {
+            border: 1px solid $border-color-1;
+            border-bottom-left-radius: $border-radius-main;
+            border-bottom-right-radius: $border-radius-main;
+            background-color: #f8f8f8;
+            padding: $gap-3;
+        }
 
+        @media #{$media-medium}, #{$media-wide} {
             &.fixed {
                 position: fixed;
                 top: $gap-3;
@@ -61,7 +61,7 @@
         }
 
         #left-menu-toc {
-            @media (min-width: 768px) {
+            @media #{$media-medium}, #{$media-wide} {
                 overflow-y: auto;
             }
 

@@ -29,10 +29,13 @@
     }
 
     #al-pagination {
-        width: 90%;
         padding-top: $gap-1;
 
-        @media (min-width: 768px) {
+        @media #{$media-narrow} {
+            width: 90%;
+        }
+
+        @media #{$media-wide}, #{$media-medium} {
             width: 61.8%;
         }
     }
