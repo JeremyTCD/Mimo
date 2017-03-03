@@ -52,7 +52,7 @@ class RightMenuBuilder {
     private setupOutline() {
         let listItemTree: ListItem = generateListItemTree($('article > h1,h2,h3').get(), ['h2', 'h3'], 0);
         let html = generateMultiLevelList(listItemTree.items, '', 1);
-        $("#outline").append('<h5 class="title">In This Article</h5>' + html);
+         $("#outline").append('<h5>Outline</h5>' + html);
         $('#outline a').first().addClass('active');
     }
 
