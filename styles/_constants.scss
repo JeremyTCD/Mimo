@@ -35,6 +35,27 @@ $font-size-4: 37px;
     }
 }
 
+@mixin linearicon($code, $color) {
+    &:before {
+        font-family: 'Linearicons-Free';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: $code;
+        color: $color;
+
+        @media(min-width: 1024px) {
+            color: $font-color-importance-3;
+        }
+    }
+}
+
 @mixin animated-underline($startColor, $endColor, $underline-height) {
     display: flex;
     flex-direction: column;
