@@ -24,7 +24,7 @@ class RightMenuBuilder {
     }
 
     private rightMenuScrollListener() {
-        if ($(window).width() >= 1024) {
+        if (window.matchMedia('(min-width: 1025px)').matches) {
             let element = $('#right-menu > .wrapper');
             let top = element[0].parentElement.getBoundingClientRect().top;
             if (top < 23) {
@@ -37,12 +37,12 @@ class RightMenuBuilder {
     }
 
     private rightMenuResizeListener() {
-        let windowWidth = $(window).width();
+        let wide = window.matchMedia('(min-width: 1025px)').matches;
         let rightMenuInArticle = $('article > #right-menu').length === 1;
 
-        if (windowWidth < 1024 && !rightMenuInArticle) {
+        if (!wide && !rightMenuInArticle) {
             $('article > .meta').after($('#right-menu'));
-        } else if (windowWidth >= 1024 && rightMenuInArticle) {
+        } else if (wide && rightMenuInArticle) {
             $('#main > .container').append($('#right-menu'));
         }
     }
@@ -55,7 +55,7 @@ class RightMenuBuilder {
     }
 
     private outlineScrollAndResizeListener() {
-        if ($(window).width() >= 1024) {
+        if (window.matchMedia('(min-width: 1025px)')) {
             let minDistance = undefined;
             let activeAnchorIndex = undefined;
             let top = $('#right-menu > .wrapper')[0].getBoundingClientRect().top;
