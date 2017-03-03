@@ -55,34 +55,36 @@ class RightMenuBuilder {
     }
 
     private outlineScrollAndResizeListener() {
-        let minDistance = undefined;
-        let activeAnchorIndex = undefined;
-        let top = $('#right-menu > .wrapper')[0].getBoundingClientRect().top;
+        if ($(window).width() >= 1024) {
+            let minDistance = undefined;
+            let activeAnchorIndex = undefined;
+            let top = $('#right-menu > .wrapper')[0].getBoundingClientRect().top;
 
-        // Binary search not preferable because sequence is typically short
-        $('article').
-            find('h2, h3').
-            each((index: number, element: HTMLElement) => {
-                let elementTop = element.getBoundingClientRect().top;
-                let distance = Math.abs(elementTop - top);
+            // Binary search not preferable because sequence is typically short
+            $('article').
+                find('h2, h3').
+                each((index: number, element: HTMLElement) => {
+                    let elementTop = element.getBoundingClientRect().top;
+                    let distance = Math.abs(elementTop - top);
 
-                if (!minDistance || distance < minDistance) {
-                    minDistance = distance;
-                    activeAnchorIndex = index;
-                } else {
-                    return false;
-                }
-            });
+                    if (!minDistance || distance < minDistance) {
+                        minDistance = distance;
+                        activeAnchorIndex = index;
+                    } else {
+                        return false;
+                    }
+                });
 
-        $('#outline a').
-            removeClass('active').
-            eq(activeAnchorIndex).
-            addClass('active');
+            $('#outline a').
+                removeClass('active').
+                eq(activeAnchorIndex).
+                addClass('active');
 
-        if ($('#right-menu > .wrapper').hasClass('fixed')) {
-            this.setOutlineMaxHeight();
-        } else {
-            $('#outline > ul').css('max-height', 'initial');
+            if ($('#right-menu > .wrapper').hasClass('fixed')) {
+                this.setOutlineMaxHeight();
+            } else {
+                $('#outline > ul').css('max-height', 'initial');
+            }
         }
     }
 
