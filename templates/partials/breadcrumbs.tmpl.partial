@@ -1,6 +1,6 @@
-<div id="breadcrumbs">
+<nav id="breadcrumbs">
   <div class="container">
     <ul class="breadcrumb">
     </ul>
   </div>
-</div>
+</nav>

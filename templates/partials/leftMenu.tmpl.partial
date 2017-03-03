@@ -4,7 +4,7 @@
     <form id="left-menu-filter">
       <input type="text" id="left-menu-filter-input" placeholder="Filter" onkeypress="if(event.keyCode==13) {return false;}"/>
     </form>
-    <div id="left-menu-toc">
-    </div>
+    <nav id="left-menu-toc">
+    </nav>
   </div>
 </div>

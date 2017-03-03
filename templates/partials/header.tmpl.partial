@@ -13,8 +13,8 @@
     </div>
     <div id="header-navbar-and-search">
       <div class="wrapper">
-        <div id="header-navbar">
-        </div>
+        <nav id="header-navbar">
+        </nav>
         <form id="header-search" class="flex" role="search">
           <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off" />
         </form>
