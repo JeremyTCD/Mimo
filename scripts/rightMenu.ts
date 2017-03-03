@@ -42,10 +42,10 @@ class RightMenuBuilder {
 
         if (windowWidth < 1024 && !rightMenuInArticle) {
             $('article > .meta').after($('#right-menu'));
-            $('article > .meta').append($('#edit'));
+            $('article > .meta').append($('#edit-article'));
         } else if (windowWidth >= 1024 && rightMenuInArticle) {
             $('#main > .container').append($('#right-menu'));
-            $('#right-menu > .wrapper').prepend($('#edit'));
+            $('#right-menu > .wrapper').prepend($('#edit-article'));
         }
     }
 
@@ -94,7 +94,7 @@ class RightMenuBuilder {
             - 23 * 2
             + 3
             - $('#outline > h5').outerHeight()
-            - $('#edit').outerHeight()
+            - $('#edit-article').outerHeight()
             - (footerHeight < 0 ? 0 : footerHeight);
 
         $('#outline > ul').

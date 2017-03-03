@@ -3,9 +3,9 @@
   <div class="wrapper">
     {{^_disableContribution}}
     {{#docurl}}
-    <a href="{{docurl}}" id="edit">
+    <a href="{{docurl}}" id="edit-article">
       <span class="icon"></span>
-      <span>Edit</span>
+      <span>Edit Article</span>
     </a>
     {{/docurl}}
     {{#sourceurl}}
