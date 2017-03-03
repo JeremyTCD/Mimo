@@ -42,10 +42,8 @@ class RightMenuBuilder {
 
         if (windowWidth < 1024 && !rightMenuInArticle) {
             $('article > .meta').after($('#right-menu'));
-            $('article > .meta').append($('#edit-article'));
         } else if (windowWidth >= 1024 && rightMenuInArticle) {
             $('#main > .container').append($('#right-menu'));
-            $('#right-menu > .wrapper').prepend($('#edit-article'));
         }
     }
 
