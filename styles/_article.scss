@@ -1,15 +1,20 @@
 ﻿@import 'constants';
 
 article {
-    margin-top: -10px;
+    margin-top: -33px;
     flex-grow: 1;
+    flex-direction: column;
 
     @media #{$media-narrow} {
         padding-top: $gap-1;
     }
 
     h1 {
-        margin-bottom: 4px;
+        margin-bottom: $gap-6;
+    }
+
+    p, em {
+        display: inline;
     }
 
     .meta {
@@ -17,15 +22,10 @@ article {
             font-size: $font-size-1;
             color: $font-color-importance-2;
             padding-bottom: $gap-4;
-            display: flex;
-            align-items: center;
 
             li {
-                display: flex;
-                align-items: center;
-
                 + li {
-                    &:before {
+                    &::before {
                         padding-left: $gap-6;
                         padding-right: $gap-6;
                         content: "•";
@@ -33,7 +33,6 @@ article {
                 }
 
                 a {
-                    display: flex;
                     align-items: center;
                     color: inherit;
 

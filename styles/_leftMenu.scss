@@ -9,6 +9,7 @@
     flex-shrink: 0;
 
     @media #{$media-narrow} {
+        flex-direction: column;
         margin-top: -1px;
         overflow-y: hidden;
         transition: height $transition-1;
@@ -23,11 +24,11 @@
 
     .wrapper {
         width: inherit;
-        display: flex;
         flex-direction: column;
 
         @media #{$media-narrow} {
-            border: 1px solid $border-color-1;
+            flex-shrink: 0;
+            flex-grow: 1;
             border-bottom-left-radius: $border-radius-main;
             border-bottom-right-radius: $border-radius-main;
             background-color: #f8f8f8;
@@ -45,9 +46,9 @@
             padding-bottom: $gap-3;
 
             input {
+                flex-grow: 1;
                 height: $gap-2;
-                padding: 8px 12px;
-                width: 100%;
+                padding: 0 12px;
                 border: 1px solid $border-color-2;
                 border-radius: 0;
                 outline: none;
@@ -66,11 +67,9 @@
             }
 
             ul {
-                display: flex;
                 flex-direction: column;
 
                 li {
-                    display: flex;
                     flex-direction: column;
                     flex-shrink: 0;
 
@@ -82,7 +81,7 @@
                         > a {
                             span {
                                 &:first-child {
-                                    &:before {
+                                    &::before {
                                         visibility: visible;
                                         transform: rotate(0);
                                     }
@@ -94,7 +93,7 @@
                             > a {
                                 span {
                                     &:first-child {
-                                        &:before {
+                                        &::before {
                                             transform: rotate(90deg);
                                         }
                                     }
@@ -112,7 +111,6 @@
                     a {
                         user-select: none;
                         cursor: pointer;
-                        display: flex;
                         align-items: center;
                         transition: all $transition-delayed-2;
 
@@ -123,11 +121,10 @@
 
                             &:first-child {
                                 @include font-awesome($fa-var-angle-right);
-                                display: flex;
                                 padding-left: $gap-4;
                                 color: $font-color-importance-3;
 
-                                &:before {
+                                &::before {
                                     font-size: $font-size-3;
                                     visibility: hidden;
                                     transition: transform $transition-2;

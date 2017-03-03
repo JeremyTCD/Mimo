@@ -1,8 +1,6 @@
 <footer>
-  <div class="footer">
-    <div class="container">
-      {{{_appFooter}}}
-	  <a href="#top">Back to top</a>
-    </div>
+  <div class="container">
+    {{{_appFooter}}}
+    <a href="#top">Back to top</a>
   </div>
 </footer>

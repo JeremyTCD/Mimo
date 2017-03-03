@@ -2,14 +2,9 @@
 
 .container {
     max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+    flex-grow: 1;
     padding-left: $gap-3;
     padding-right: $gap-3;
-}
-
-.flex {
-    display: flex;
 }
 
 html, body {
@@ -19,9 +14,12 @@ html, body {
     color: $font-color-importance-3;
 }
 
+body, body * {
+    display: flex;
+}
+
 body {
     min-height: 100vh;
-    display: flex;
     flex-direction: column;
 }
 

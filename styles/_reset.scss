@@ -94,8 +94,8 @@ h6 {
     font-weight: normal;
 }
 
-q:before,
-q:after {
+q::before,
+q::after {
     content: '';
 }
 

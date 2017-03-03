@@ -8,13 +8,12 @@
     @media #{$media-narrow} {
         font-size: $font-size-1;
         background-color: #f8f8f8;
-        border-bottom: 1px solid $border-color-1;
 
         .container {
             a {
+                flex-grow: 1;
                 user-select: none;
                 color: $font-color-importance-3;
-                display: flex;
                 align-items: center;
                 justify-content: center;
                 height: $gap-2;

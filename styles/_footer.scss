@@ -4,11 +4,11 @@ footer {
     font-size: $font-size-1;
     border-top: 1px solid $border-color-1;
     background-color: #f8f8f8;
+    height: $gap-1;
+    justify-content: center;
 
     .container {
-        display: flex;
         align-items: center;
-        height: $gap-1;
 
         a {
             @include animated-underline($link-color-main, $link-color-main, $gap-9);

@@ -28,7 +28,7 @@ $media-narrow: '(max-width: 768px)';
 $media-medium: '(min-width: 769px) and (max-width: 1024px)';
 $media-wide: '(min-width: 1025px)';
 @mixin font-awesome($code) {
-    &:before {
+    &::before {
         content: $code;
         font: normal normal normal 14px/1 FontAwesome;
         text-rendering: auto;
@@ -38,7 +38,7 @@ $media-wide: '(min-width: 1025px)';
 }
 
 @mixin linearicon($code, $color) {
-    &:before {
+    &::before {
         font-family: 'Linearicons-Free';
         speak: none;
         font-style: normal;
@@ -55,7 +55,6 @@ $media-wide: '(min-width: 1025px)';
 }
 
 @mixin animated-underline($startColor, $endColor, $underline-height) {
-    display: flex;
     flex-direction: column;
     text-decoration: none;
     // Most fonts have characters that extend above or below the line when line-height: 1.
@@ -63,13 +62,13 @@ $media-wide: '(min-width: 1025px)';
     // scrollbars.
     line-height: 1;
 
-    &:hover:after {
+    &:hover::after {
         visibility: visible;
         transform: scaleX(1);
         background-color: $endColor;
     }
 
-    &:after {
+    &::after {
         content: "";
         width: 100%;
         height: $underline-height;
@@ -79,7 +78,7 @@ $media-wide: '(min-width: 1025px)';
         transition: all $transition-delayed-2;
     }
     // Facilitates centering of text
-    &:before {
+    &::before {
         content: "";
         height: $underline-height;
     }

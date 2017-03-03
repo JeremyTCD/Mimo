@@ -2,39 +2,38 @@
 
 #breadcrumbs {
     font-size: $font-size-1;
-    border-bottom: 1px solid $border-color-1;
     background-color: #f8f8f8;
+    justify-content: center;
 
-    ul {
-        display: flex;
-        list-style: none;
-        flex-wrap: wrap;
+    .container {
+        ul {
+            list-style: none;
+            flex-wrap: wrap;
 
-        li {
-            height: $gap-2;
-            display: flex;
-            align-items: center;
+            li {
+                height: $gap-2;
+                align-items: center;
 
-            + li {
-                span {
-                    &:first-child {
-                        &:before {
-                            content: "\00a0/";
-                            padding-left: $gap-6;
-                            padding-right: $gap-5;
-                            color: $font-color-importance-1;
+                + li {
+                    span {
+                        &:first-child {
+                            &::before {
+                                content: "\00a0/";
+                                padding-left: $gap-6;
+                                padding-right: $gap-5;
+                                color: $font-color-importance-1;
+                            }
                         }
                     }
                 }
-            }
 
-            a {
-                display: flex;
-                align-items: center;
+                a {
+                    align-items: center;
 
-                span {
-                    &:last-child {
-                        @include animated-underline($link-color-main, $link-color-main, $gap-9);
+                    span {
+                        &:last-child {
+                            @include animated-underline($link-color-main, $link-color-main, $gap-9);
+                        }
                     }
                 }
             }

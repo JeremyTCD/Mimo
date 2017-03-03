@@ -1,11 +1,10 @@
-﻿@import 'leftMenu';
-@import 'constants';
+﻿@import 'constants';
 
 #main {
     flex-grow: 1;
+    justify-content: center;
 
     .container {
-        display: flex;
         padding-bottom: $gap-1;
 
         @media #{$media-narrow} {

@@ -3,16 +3,19 @@
 header {
     background-color: #222;
     border-color: #080808;
+    align-items: stretch;
+    justify-content: center;
+
+    @media #{$media-medium}, #{$media-wide} {
+        height: $gap-1;
+    }
 
     .container {
-        display: flex;
-
         @media #{$media-narrow} {
             flex-direction: column;
         }
 
         #header-logo-and-button {
-            display: flex;
             align-items: center;
 
             #header-logo {
@@ -32,7 +35,6 @@ header {
                     border: 1px solid $font-color-importance-3;
                     border-radius: $border-radius-main;
                     text-decoration: none;
-                    display: flex;
                     flex-direction: column;
                     transition: background-color $transition-delayed-2;
 
@@ -80,12 +82,9 @@ header {
             }
 
             .wrapper {
-                display: flex;
-
                 @media #{$media-narrow} {
+                    flex-grow: 1;
                     overflow: hidden;
-                    border-top: 1px solid #111;
-                    box-shadow: inset 0px 1px $font-color-importance-3;
                     align-items: stretch;
                     transition: height $transition-1;
                     flex-direction: column-reverse;
@@ -93,17 +92,18 @@ header {
                 }
 
                 @media #{$media-medium}, #{$media-wide} {
-                    align-items: center;
+                    align-items: stretch;
                     height: auto !important;
+                    flex-grow: 1;
                 }
 
                 #header-navbar {
                     @media #{$media-narrow} {
-                        width: 40%;
+                        flex-shrink: 0;
                     }
 
                     ul {
-                        display: flex;
+                        flex-grow: 1;
                         list-style: none;
 
                         @media #{$media-narrow} {
@@ -123,11 +123,9 @@ header {
                                             color: #fff;
                                         }
 
-                                        @media #{$media-medium}, #{$media-wide} {
-                                            &:first-child {
-                                                height: $gap-7;
-                                                background-color: #fff;
-                                            }
+                                        &:first-child {
+                                            height: $gap-7;
+                                            background-color: #fff;
                                         }
                                     }
                                 }
@@ -142,20 +140,14 @@ header {
                             }
 
                             a {
-                                display: flex;
                                 flex-direction: column-reverse;
+                                flex-grow: 1;
 
                                 @media #{$media-narrow} {
                                     height: $gap-2;
                                 }
 
-                                @media #{$media-medium}, #{$media-wide} {
-                                    height: $gap-1;
-                                }
-
                                 span {
-                                    display: flex;
-                                    align-items: center;
                                     transition: all $transition-delayed-2;
 
                                     @media #{$media-medium}, #{$media-wide} {
@@ -167,14 +159,12 @@ header {
                                         flex-direction: column;
                                         justify-content: center;
                                         flex-grow: 1;
+                                        padding-left: $gap-4;
                                     }
-
-                                    @media #{$media-medium}, #{$media-wide} {
-                                        &:first-child {
-                                            content: "";
-                                            background-color: $font-color-importance-2;
-                                            height: 0;
-                                        }
+                                    &:first-child {
+                                        content: "";
+                                        background-color: $font-color-importance-2;
+                                        height: 0;
                                     }
                                 }
                             }
@@ -183,11 +173,14 @@ header {
                 }
 
                 #header-search {
-                    flex-shrink: 0;
-                    margin-top: 10px;
+
+                    @media #{$media-narrow} {
+                        flex-shrink: 0;
+                        margin-top: 10px;
+                    }
 
                     @media #{$media-medium}, #{$media-wide} {
-                        margin-top: 0px;
+                        align-items: center;
                         margin-left: auto;
                     }
 
