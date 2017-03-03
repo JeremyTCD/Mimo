@@ -15,7 +15,9 @@
     </a>
     {{/sourceurl}}
     {{/_disableContribution}}
-    <nav id="outline">
-    </nav>
+    <div class="wrapper">
+      <nav id="outline">
+      </nav>
+    </div>
   </div>
 </div>

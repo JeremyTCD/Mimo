@@ -1,5 +1,5 @@
 ﻿@import 'constants';
-@import '../node_modules/font-awesome/scss/_variables.scss';
+@import '../node_modules/linearicons/dist/web-font/style.css';
 
 #right-menu {
     font-size: $font-size-1;
@@ -8,16 +8,18 @@
     // and distributes negative space between toc and article 1:1. To avoid this, flex-shrink must be set to 0.
     flex-shrink: 0;
     overflow-y: hidden;
+    padding-bottom: $gap-4;
 
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
         margin-top: -3px;
         width: 200px;
         height: auto !important;
         margin-left: $gap-1;
+        padding-bottom: 0;
     }
 
     .wrapper {
-        @media (min-width: 768px) {
+        @media (min-width: 1024px) {
             &.fixed {
                 position: fixed;
                 top: $gap-3;
@@ -25,99 +27,116 @@
             }
         }
 
-        #outline {
-            h5 {
+        #edit-article {
+            display: flex;
+            align-items: center;
+
+            @media(min-width: 1024px) {
                 padding-bottom: $gap-3;
             }
 
-            ul {
+            span {
+                &:first-child {
+                    @include linearicon("\e802", $font-color-importance-3);
+                }
+
+                &:last-child {
+                    flex-shrink: 0;
+                    padding-left: $gap-6;
+
+                    @media(min-width: 1024px) {
+                        padding-left: $gap-5;
+                    }
+
+                    @include animated-underline($link-color-main, $link-color-main, $gap-9);
+                }
+            }
+        }
+
+        .wrapper {
+            @media(max-width: 1023px) {
                 display: flex;
-                flex-direction: column;
+                flex-direction: row;
 
-                &.level1 {
-                    @media (min-width: 768px) {
-                        overflow-y: auto;
-                    }
+                &:before {
+                    content: "";
+                    width: $gap-7;
+                    background-color: $link-color-main;
+                }
+            }
 
-                    > li {
-                        &:first-child {
-                            > a {
-                                padding-top: 0;
-                            }
+            #outline {
+                @media(max-width: 1023px) {
+                    padding-left: $gap-4;
+                }
+
+
+                h5 {
+                    padding-bottom: $gap-4;
+                    font-weight: bold;
+                    color: $font-color-importance-2;
+                }
+
+                ul {
+                    display: flex;
+                    flex-direction: column;
+
+                    &.level1 {
+                        @media (min-width: 1024px) {
+                            overflow-y: auto;
                         }
-                    }
-                }
 
-                .level2 {
-                    padding-left: $gap-3;
-                }
-
-                li {
-                    a {
-                        padding-top: $gap-5;
-                        display: flex;
-                        padding-bottom: $gap-5;
-                        padding-right: $gap-3;
-
-                        &.active {
-                            span {
-                                &:first-child {
-                                    transform: scaleY(1);
+                        > li {
+                            &:first-child {
+                                > a {
+                                    padding-top: 0;
                                 }
                             }
                         }
+                    }
 
-                        span {
-                            &:first-child {
-                                width: $gap-8;
-                                background-color: $font-color-importance-3;
-                                transform: scaleY(0);
-                                transition: transform $transition-2;
-                                // When scrollbar appears, if flex-shrink is not 0, bar width can get set to 0
-                                flex-shrink: 0;
+                    .level2 {
+                        padding-left: $gap-3;
+                    }
+
+                    li {
+                        a {
+                            padding-top: $gap-6;
+                            display: flex;
+                            padding-bottom: $gap-6;
+                            padding-right: $gap-3;
+
+                            &.active {
+                                span {
+                                    &:first-child {
+                                        transform: scaleY(1);
+                                    }
+                                }
                             }
 
-                            &:last-child {
-                                flex-shrink: 0;
-                                padding-left: $gap-5;
-                                @include animated-underline($link-color-main, $link-color-main, $gap-9);
+                            span {
+                                @media(min-width: 1024px) {
+                                    &:first-child {
+                                        width: $gap-7;
+                                        background-color: $link-color-main;
+                                        transform: scaleY(0);
+                                        transition: transform $transition-2;
+                                        // When scrollbar appears, if flex-shrink is not 0, bar width can get set to 0
+                                        flex-shrink: 0;
+                                    }
+                                }
+
+                                &:last-child {
+                                    flex-shrink: 0;
+                                    padding-left: $gap-5;
+
+                                    @include animated-underline($link-color-main, $link-color-main, $gap-9);
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-    }
-}
-
-#edit-article {
-    display: flex;
-    align-items: center;
-
-    @media(min-width: 1024px) {
-        padding-bottom: $gap-3;
-    }
-
-    span {
-        &:first-child {
-            @include font-awesome($fa-var-pencil);
-
-            &:before {
-                @media(min-width: 1024px) {
-                    color: $font-color-importance-3;
-                }
-            }
-        }
-
-        &:last-child {
-            flex-shrink: 0;
-            padding-left: $gap-6;
-
-            @media(min-width: 1024px) {
-                padding-left: $gap-5;
-            }
-
-            @include animated-underline($link-color-main, $link-color-main, $gap-9);
         }
     }
 }
