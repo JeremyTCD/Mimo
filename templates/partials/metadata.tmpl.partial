@@ -1,8 +1,14 @@
 <div class="meta">
-  <span class="date">{{jr.date}}</span>
-  <span>•</span>
-  <span class="author-text">{{jr.authorName}}</span>
-  <a href="{{jr.authorLink}}" title="{{jr.authorName}}">
-    <img src="{{jr.authorLink}}.png?size=16" alt="{{jr.authorName}}" />
-    </a>
+  <ul>
+    <li>
+      <span class="date">{{jr.date}}</span>
+    </li>
+    <li>
+      <a class="author" href="{{jr.authorLink}}" title="{{jr.authorName}}">
+        <span class="icon"></span>
+        <span class="author-text">{{jr.authorName}}</span>
+        <img src="{{jr.authorLink}}.png?size=16" alt="{{jr.authorName}}" />
+      </a>
+    </li>
+  </ul>
 </div>
