@@ -1,6 +1,4 @@
-<div id="article-list">
-  <div id="al-items-current"></div>
-  <div id="al-pagination">
-    <ul ></ul>
-  </div>
+﻿<div class="article-list">
+  <div class="al-items"> </div>
+  <ul class="al-pagination"></ul>
 </div>

@@ -1,18 +1,16 @@
 @import 'constants';
 
-#article-list {
+.article-list {
     flex-direction: column;
 
-    #al-items-current {
+    .al-items {
         flex-direction: column;
 
-        .al-item {
-            flex-direction: column;
+        article {
 
-            + .al-item {
+            + article {
                 padding-top: $gap-2;
             }
-
 
             h1 {
                 font-size: $font-size-4;
@@ -27,11 +25,7 @@
         }
     }
 
-    #al-pagination {
+    .al-pagination {
         padding-top: $gap-1;
-    }
-
-    .al-items-all {
-        display: none;
     }
 }

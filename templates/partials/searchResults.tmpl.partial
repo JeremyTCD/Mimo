@@ -1,9 +1,6 @@
-<div class="container body-content search-list">
-    <div id="search-results">
-        <div class="search-string"></div>
-        <div class="sr-items"></div>
-        <ul id="sr-pagination"></ul>
-    </div>
+<div id="search-results">
+  <div id="search-string"></div>
+  {{>partials/articleList}}
 </div>
 
-      
+
