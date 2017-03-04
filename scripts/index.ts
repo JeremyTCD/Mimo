@@ -5,7 +5,7 @@ import AnchorJs = require('anchor-js');
 import HighlightJs = require('highlightjs');
 
 import headerBuilder from './header';
-import articleListBuilder from './articleList';
+import sortedArticleList from './sortedArticleList';
 import searchBuilder from './search';
 import leftMenuToggleBuilder from './leftMenuToggle';
 import leftMenuBuilder from './leftMenu';
@@ -97,7 +97,7 @@ $(function () {
     })();
 
     searchBuilder.build();
-    articleListBuilder.build();
+    sortedArticleList.build();
     headerBuilder.build();
     leftMenuBuilder.build();
     footerBuilder.build();

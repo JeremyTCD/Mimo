@@ -25,6 +25,9 @@
 			{{>partials/leftMenu}}
 			{{/jr.disableLeftMenu}}
 			{{>partials/mainArticle}}
+			{{#jr.enableSal}}
+			{{>partials/sortedArticleList}}
+			{{/jr.enableSal}}
 			{{^jr.disableRightMenu}}
 			{{>partials/rightMenu}}
 			{{/jr.disableRightMenu}}

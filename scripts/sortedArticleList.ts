@@ -1,24 +1,24 @@
 import 'twbs-pagination';
 
-class ArticleListBuilder {
+class SortedArticleList{
     build() {
         let numPerPage = 3;
-        let allAlItems = $('.al-items-all > .al-item');
+        let allAlItems = $('#sal-all-items > article');
 
         if (allAlItems.length == 0) {
             return;
         }
 
-        $('#al-pagination > ul').twbsPagination({
+        $('#sorted-article-list > .article-list > .al-pagination').twbsPagination({
             totalPages: Math.ceil(allAlItems.length / numPerPage),
             visiblePages: 5,
             onPageClick: function (event: any, page: number) {
                 let start = (page - 1) * numPerPage;
                 let currentAlItems = allAlItems.slice(start, start + numPerPage);
-                $('#al-items-current').empty().append(currentAlItems);
+                $('#sorted-article-list > .article-list > .al-items').empty().append(currentAlItems);
             }
         })
     }
 }
 
-export default new ArticleListBuilder();
+export default new SortedArticleList();

@@ -1,0 +1,4 @@
+<div id="sorted-article-list">
+  <div id="sal-all-items"></div>
+  {{>partials/articleList}}
+</div>
