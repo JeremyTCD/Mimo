@@ -88,39 +88,35 @@
                         @media #{$media-wide} {
                             overflow-y: auto;
                         }
-
-                        > li {
-                            &:first-child {
-                                > a {
-                                    padding-top: 0;
-                                }
-                            }
-                        }
                     }
 
-                    .level2 {
+                    &.level2 {
                         padding-left: $gap-3;
                     }
 
                     li {
                         flex-direction: column;
 
-                        a {
-                            padding-top: $gap-6;
-                            padding-bottom: $gap-6;
-                            padding-right: $gap-3;
+                        @media #{$media-wide} {
+                            flex-shrink: 0;
+                        }
 
-                            &.active {
-                                span {
-                                    &:first-child {
-                                        transform: scaleY(1);
-                                    }
-                                }
-                            }
+                        a {
+                            user-select: none;
+                            cursor: pointer;
+                            align-items: stretch;
 
                             span {
+                                margin-top: $gap-6;
+                                margin-bottom: $gap-6;
+
+                                &:last-child {
+                                    padding-right: $gap-4;
+                                }
+
                                 @media #{$media-wide} {
                                     &:first-child {
+                                        margin-right: $gap-5;
                                         width: $gap-7;
                                         background-color: $link-color-main;
                                         transform: scaleY(0);
@@ -129,14 +125,15 @@
                                         flex-shrink: 0;
                                     }
                                 }
+                            }
 
-                                &:last-child {
-                                    @media #{$media-wide} {
-                                        flex-shrink: 0;
-                                        padding-left: $gap-5;
+                            @media #{$media-wide} {
+                                &.active, &:hover {
+                                    span {
+                                        &:first-child {
+                                            transform: scaleY(1);
+                                        }
                                     }
-
-                                    @include animated-underline($link-color-main, $link-color-main, $gap-9);
                                 }
                             }
                         }
