@@ -2,8 +2,10 @@
 
 class RightMenuBuilder {
     public initialize(): void {
-        this.setup();
-        this.registerListeners();
+        if ($('#right-menu').length === 1) {
+            this.setup();
+            this.registerListeners();
+        }
     }
 
     private setup(): void {
