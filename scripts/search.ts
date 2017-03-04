@@ -93,7 +93,7 @@ class SearchBuilder {
             keywords.forEach((keyword: string) => {
                 if (keyword !== "") {
                     $('.data-searchable *').mark(keyword);
-                    $('article *').mark(keyword);
+                    $('main article *').mark(keyword);
                 }
             });
         }

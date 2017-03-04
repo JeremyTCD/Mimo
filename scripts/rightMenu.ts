@@ -38,17 +38,22 @@ class RightMenuBuilder {
 
     private rightMenuResizeListener() {
         let wide = window.matchMedia('(min-width: 1025px)').matches;
-        let rightMenuInArticle = $('article > #right-menu').length === 1;
+        let rightMenuInArticle = $('main article > #right-menu').length === 1;
 
         if (!wide && !rightMenuInArticle) {
-            $('article > .meta').after($('#right-menu'));
+            $('main article > .meta').after($('#right-menu'));
         } else if (wide && rightMenuInArticle) {
-            $('#main > .container').append($('#right-menu'));
+            $('main > .container').append($('#right-menu'));
         }
     }
 
     private setupOutline() {
-        let listItemTree: ListItem = generateListItemTree($('article > h1,h2,h3').get(), ['h2', 'h3'], 0);
+        let headers = $('main .main-article > h1,h2,h3');
+        if (headers.length === 0) {
+            return;
+        }
+
+        let listItemTree: ListItem = generateListItemTree(headers.get(), ['h2', 'h3'], 0);
         let html = generateMultiLevelList(listItemTree.items, '', 1);
          $("#outline").append('<h5>Outline</h5>' + html);
         $('#outline a').first().addClass('active');
@@ -61,7 +66,7 @@ class RightMenuBuilder {
             let top = $('#right-menu > .wrapper')[0].getBoundingClientRect().top;
 
             // Binary search not preferable because sequence is typically short
-            $('article').
+            $('main article').
                 find('h2, h3').
                 each((index: number, element: HTMLElement) => {
                     let elementTop = element.getBoundingClientRect().top;

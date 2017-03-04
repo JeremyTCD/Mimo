@@ -19,7 +19,7 @@
       {{#jr.enableSearch}}
       {{>partials/searchResults}}
       {{/jr.enableSearch}}
-	  <div id="main" role="main" >
+	  <main role="main" >
 		  <div class="container">
 			{{^jr.disableLeftMenu}}
 			{{>partials/leftMenu}}
@@ -29,7 +29,7 @@
 			{{>partials/rightMenu}}
 			{{/jr.disableRightMenu}}
 		  </div>
-	  </div>
+	  </main>
       {{^_disableFooter}}
       {{>partials/footer}}
       {{/_disableFooter}}
