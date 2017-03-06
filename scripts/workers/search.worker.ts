@@ -3,7 +3,8 @@
   let lunrIndex = lunr(function() {
       this.pipeline.remove(lunr.stopWordFilter);
       this.ref('relPath');
-      this.field('text'); 
+      this.field('title', { boost: 50 });
+      this.field('text', { boost: 20 });
   });
   lunr.tokenizer.seperator = /[\s\-\.]+/;
 
