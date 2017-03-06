@@ -71,22 +71,26 @@ class LeftMenuBuilder {
 
     setupOnScroll(): void {
         $(window).scroll((event: JQueryEventObject) => {
-            let element = $('#left-menu > .wrapper');
-            let top = element[0].parentElement.getBoundingClientRect().top;
-            if (top < 23) {
-                element.addClass('fixed');
-                this.setTocMaxHeight();
-            } else {
-                element.removeClass('fixed');
-                $('#left-menu-toc').css('max-height', 'initial');
+            if ($('main').css('display') !== 'none') {
+                let element = $('#left-menu > .wrapper');
+                let top = element[0].parentElement.getBoundingClientRect().top;
+                if (top < 23) {
+                    element.addClass('fixed');
+                    this.setTocMaxHeight();
+                } else {
+                    element.removeClass('fixed');
+                    $('#left-menu-toc').css('max-height', 'initial');
+                }
             }
         });
     }
 
     setupTocOnResize(): void {
         $(window).on('resize', () => {
-            if ($('#left-menu > .wrapper').hasClass('fixed')) {
-                this.setTocMaxHeight();
+            if ($('main').css('display') !== 'none') {
+                if ($('#left-menu > .wrapper').hasClass('fixed')) {
+                    this.setTocMaxHeight();
+                }
             }
         });
     }

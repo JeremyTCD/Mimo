@@ -15,13 +15,17 @@ class RightMenuBuilder {
 
     private registerListeners(): void {
         $(window).scroll((event: JQueryEventObject) => {
-            this.rightMenuScrollListener();
-            this.outlineScrollAndResizeListener();
+            if ($('main').css('display') !== 'none') {
+                this.rightMenuScrollListener();
+                this.outlineScrollAndResizeListener();
+            }
         });
 
         $(window).resize((event: JQueryEventObject) => {
-            this.rightMenuResizeListener();
-            this.outlineScrollAndResizeListener();
+            if ($('main').css('display') !== 'none') {
+                this.rightMenuResizeListener();
+                this.outlineScrollAndResizeListener();
+            }
         });
     }
 
