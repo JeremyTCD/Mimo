@@ -1,4 +1,4 @@
-<nav id="breadcrumbs">
+<nav id="breadcrumbs" class="hide-on-search">
   <div class="container">
     <ul class="breadcrumb">
     </ul>
