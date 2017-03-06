@@ -14,5 +14,11 @@ main {
         @media #{$media-medium}, #{$media-wide} {
             padding-top: $gap-1;
         }
+
+        .main-article {
+            h1 {
+                margin-top: -10px;
+            }
+        }
     }
 }
