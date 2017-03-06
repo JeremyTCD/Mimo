@@ -5,10 +5,7 @@ class SearchBuilder {
     queryString: string;
 
     build(): void {
-        let relHref = $("meta[property='docfx\\:rel']").attr("content");
-        let searchResult = $("#search-results");
-
-        if (typeof searchResult != 'undefined') {
+        if ($("#search-results").length === 1) {
             this.setupSearch();
             this.highlightKeywords();
             this.addSearchEvent();
@@ -52,10 +49,10 @@ class SearchBuilder {
             searchDataRequest.send();
         }
 
-        $("body").bind("queryReady", function () {
-            let hits = lunrIndex.search(this.query);
+        $("body").bind("queryReady", () => {
+            let hits = lunrIndex.search(this.queryString);
             let results = [];
-            hits.forEach(function (hit) {
+            hits.forEach((hit: any) => {
                 let item = searchData[hit.ref];
                 results.push(item.snippetHtml);
             });
@@ -112,7 +109,6 @@ class SearchBuilder {
                 } else {
                     this.flipContents("hide");
                     $("body").trigger("queryReady");
-                    $('#search-results>.search-list').text('Search Results for "' + this.queryString + '"');
                 }
             }).off("keydown");
         });
@@ -120,42 +116,53 @@ class SearchBuilder {
 
     flipContents(action) {
         if (action === "show") {
-            $('.hide-when-search').show();
-            $('#search-results').hide();
+            $('.hide-on-search').css('display', 'flex');
+            $('#search-results').css('display', 'none');
         } else {
-            $('.hide-when-search').hide();
-            $('#search-results').show();
+            $('.hide-on-search').css('display', 'none');
+            $('#search-results').css('display', 'flex');
         }
     }
 
     handleSearchResults(hits) {
         let numPerPage = 5;
-        $('#sr-pagination').empty();
-        $('#sr-pagination').removeData("twbs-pagination");
+
+        $('#search-results .article-list > .al-pagination').empty();
+        $('#search-results .article-list > .al-pagination').removeData("twbs-pagination");
         if (hits.length === 0) {
-            $('#search-results > .sr-items').html('<p>No results found</p>');
+            $('#search-results .article-list > .al-items').empty();
+            $('#search-string .container > span').text(`No results found for: ${this.queryString}`);
+            $('#search-results > .container > span').text(`Your search - ${this.queryString} - did not match any documents`);
         } else {
-            $('#sr-pagination').twbsPagination({
+            $('#search-results > .container > span').text('');
+            $('#search-string .container > span').text(`Search Results for: ${this.queryString}`);
+            $('#search-results .article-list > .al-pagination').twbsPagination({
                 totalPages: Math.ceil(hits.length / numPerPage),
                 visiblePages: 5,
                 onPageClick: (event, page) => {
                     let start = (page - 1) * numPerPage;
                     let curHits = hits.slice(start, start + numPerPage);
-                    $('#search-results>.sr-items').empty().append(
-                        curHits
-                    );
+                    $('#search-results .article-list > .al-items').
+                        empty().
+                        append(curHits);
                     this.
                         queryString.
                         split(/\s+/).
                         forEach((word: string) => {
                             if (word !== '') {
-                                $('#search-results>.sr-items *').mark(word);
+                                $('#search-results .article-list > .al-items *').mark(word);
                             }
                         });
                 }
             });
         }
     }
+}
+
+interface SearchHit {
+    relPath: string,
+    snippetHtml: string,
+    text: string
 }
 
 export default new SearchBuilder();

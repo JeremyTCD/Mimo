@@ -1,0 +1,27 @@
+﻿@import 'constants';
+
+#search-results {
+    display: none;
+    padding-bottom: $gap-1;
+    flex-grow: 1;
+    flex-direction: column;
+
+    #search-string {
+        font-size: $font-size-1;
+        background-color: #f8f8f8;
+        height: $gap-2;
+        justify-content: center;
+
+        .container {
+            span {
+                align-items: center;
+            }
+        }
+    }
+
+    > .container {
+        align-self: center;
+        padding-top: $gap-1;
+        flex-direction: column;
+    }
+}
