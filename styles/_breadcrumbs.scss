@@ -4,6 +4,7 @@
     font-size: $font-size-1;
     background-color: #f8f8f8;
     justify-content: center;
+    height: $gap-2;
 
     .container {
         ul {
@@ -11,7 +12,6 @@
             flex-wrap: wrap;
 
             li {
-                height: $gap-2;
                 align-items: center;
 
                 + li {
