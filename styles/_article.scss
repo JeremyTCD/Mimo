@@ -32,6 +32,7 @@ article {
                 }
 
                 a {
+                    display: flex;
                     align-items: center;
                     color: inherit;
 
@@ -41,6 +42,22 @@ article {
                 }
             }
         }
+    }
+
+    a {
+        transition: color $transition-delayed-2;
+
+        mark {
+            color: inherit;
+        }
+
+        &:hover {
+            color: $link-color-hover;
+        }
+    }
+
+    span, em, mark, p, a {
+        display: inline;
     }
 
     h1, h2, h3, h4 {
