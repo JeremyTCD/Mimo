@@ -76,7 +76,7 @@ $media-wide: '(min-width: 1025px)';
         background-color: $startColor;
         visibility: hidden;
         transform: scaleX(0);
-        transition: all $transition-delayed-2;
+        transition: transform $transition-delayed-2;
     }
     // Facilitates centering of text
     &::before {

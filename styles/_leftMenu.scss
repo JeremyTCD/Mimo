@@ -53,7 +53,7 @@
                 border-radius: 0;
                 outline: none;
                 border-radius: $border-radius-main;
-                transition: all $transition-1;
+                transition: border-color $transition-2;
 
                 &:focus {
                     border-color: $border-color-3;
@@ -112,7 +112,7 @@
                         user-select: none;
                         cursor: pointer;
                         align-items: center;
-                        transition: all $transition-delayed-2;
+                        transition: background-color $transition-delayed-2, color $transition-delayed-2;
 
                         span {
                             padding-top: $gap-6;
