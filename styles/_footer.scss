@@ -2,16 +2,18 @@
 
 footer {
     font-size: $font-size-1;
-    border-top: 1px solid $border-color-1;
-    background-color: #f8f8f8;
+    background-color: $color-primary-2;
     height: $gap-1;
     justify-content: center;
 
     .container {
         align-items: center;
-
+        span{
+            color: #fff;
+        }
         a {
-            @include animated-underline($link-color-main, $link-color-main, $gap-9);
+            color: #fff;
+            @include animated-underline(#fff, #fff, $gap-9);
             margin-left: auto;
         }
     }

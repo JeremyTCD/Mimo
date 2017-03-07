@@ -1,16 +1,32 @@
-﻿$link-color-main: #337ab7;
+﻿/*$color-primary-2: #3f51b5;
+$color-primary-3: #3949ab;
+$color-primary-4: #303f9f;*/
+$color-primary-1: #26a69a;
+$color-primary-2: #009688;
+$color-primary-3: #00897b;
+$color-primary-4: #00796b;
+$color-secondary-1: #ff8f00;
+
+$opacity-importance-1: 0.87;
+$opacity-importance-2: .54;
+$opacity-importance-3: 0.38;
+$opacity-importance-4: 0.12;
+
+// importance should be determined by opacity, the following should be removed
+$link-color-main: #337ab7;
 $link-color-hover: #23527c;
-$border-radius-main: 4px;
 $border-color-1: #ddd;
 $border-color-2: #ccc;
 $border-color-3: #888;
+$font-color-importance-1: #ccc;
+$font-color-importance-2: #999;
+$font-color-importance-3: #333;
+
+$border-radius-main: 4px;
 $transition-2: 0.1s ease-in-out;
 $transition-1: 0.15s ease-in-out;
 $transition-delayed-2: 0.1s ease-in-out 0.050s;
 $transition-delayed-1: 0.15s ease-in-out 0.050s;
-$font-color-importance-1: #ccc;
-$font-color-importance-2: #999;
-$font-color-importance-3: #333;
 $gap-9: 1px;
 $gap-8: 2px;
 $gap-7: 3px;
@@ -28,6 +44,7 @@ $font-size-5: 37px;
 $media-narrow: '(max-width: 768px)';
 $media-medium: '(min-width: 769px) and (max-width: 1024px)';
 $media-wide: '(min-width: 1025px)';
+
 @mixin font-awesome($code) {
     &::before {
         content: $code;

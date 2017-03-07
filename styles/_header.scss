@@ -1,8 +1,7 @@
 @import 'constants';
 
 header {
-    background-color: #222;
-    border-color: #080808;
+    background-color: $color-primary-2;
     align-items: stretch;
     justify-content: center;
 
@@ -30,17 +29,17 @@ header {
 
             #header-button {
                 @media #{$media-narrow} {
-                    padding: 9px 10px;
-                    background-color: transparent;
-                    border: 1px solid $font-color-importance-3;
+                    padding: 9px 9px;
+                    background-color: $color-secondary-1;
                     border-radius: $border-radius-main;
                     text-decoration: none;
                     flex-direction: column;
                     transition: background-color $transition-delayed-2;
+                    border: none;
 
                     &:hover {
                         outline: 0;
-                        background-color: $font-color-importance-3;
+                        background-color: $color-secondary-1;
                     }
 
                     &:focus {
@@ -119,12 +118,8 @@ header {
                             &.active, &:hover {
                                 a {
                                     span {
-                                        &:last-child {
-                                            color: #fff;
-                                        }
-
                                         &:first-child {
-                                            height: $gap-7;
+                                            height: $gap-8;
                                             background-color: #fff;
                                         }
                                     }
@@ -132,11 +127,11 @@ header {
                             }
 
                             &.active {
-                                background-color: #080808;
+                                background-color: $color-primary-3;
                             }
 
                             &:hover {
-                                background-color: #121212;
+                                background-color: $color-primary-4;
                             }
 
                             a {
@@ -153,7 +148,7 @@ header {
                                     }
 
                                     &:last-child {
-                                        color: $font-color-importance-2;
+                                        color: #fff;
                                         flex-direction: column;
                                         justify-content: center;
                                         flex-grow: 1;

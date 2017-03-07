@@ -52,7 +52,7 @@
                         padding-left: $gap-5;
                     }
 
-                    @include animated-underline($link-color-main, $link-color-main, $gap-9);
+                    @include animated-underline($color-secondary-1, $color-secondary-1, $gap-9);
                 }
             }
         }
@@ -64,7 +64,7 @@
                 &::before {
                     content: "";
                     width: $gap-7;
-                    background-color: $link-color-main;
+                    background-color: $color-primary-2;
                 }
             }
 
@@ -77,8 +77,7 @@
 
                 h5 {
                     padding-bottom: $gap-4;
-                    font-weight: bold;
-                    color: $font-color-importance-2;
+                    color: $color-primary-2;
                 }
 
                 ul {
@@ -118,7 +117,7 @@
                                     &:first-child {
                                         margin-right: $gap-5;
                                         width: $gap-7;
-                                        background-color: $link-color-main;
+                                        background-color: $color-secondary-1;
                                         transform: scaleY(0);
                                         transition: transform $transition-2;
                                         // When scrollbar appears, if flex-shrink is not 0, bar width can get set to 0
