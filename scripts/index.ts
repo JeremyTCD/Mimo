@@ -1,5 +1,4 @@
 import "../styles/index.scss";
-import '../node_modules/font-awesome/scss/font-awesome.scss';
 
 import AnchorJs = require('anchor-js');
 import HighlightJs = require('highlightjs');

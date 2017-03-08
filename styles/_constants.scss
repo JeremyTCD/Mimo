@@ -1,4 +1,5 @@
 ﻿/*$color-primary-2: #3f51b5;
+﻿@import '../node_modules/material-design-icons/iconfont/material-icons.css';
 $color-primary-3: #3949ab;
 $color-primary-4: #303f9f;*/
 $color-primary-1: #26a69a;
@@ -45,30 +46,24 @@ $media-narrow: '(max-width: 768px)';
 $media-medium: '(min-width: 769px) and (max-width: 1024px)';
 $media-wide: '(min-width: 1025px)';
 
-@mixin font-awesome($code) {
+@mixin material-design-icon($code, $color) {
     &::before {
-        content: $code;
-        font: normal normal normal 14px/1 FontAwesome;
-        text-rendering: auto;
-        -webkit-font-smoothing: antialiased;
-        font-size: inherit;
-    }
-}
-
-@mixin linearicon($code, $color) {
-    &::before {
-        font-family: 'Linearicons-Free';
-        speak: none;
-        font-style: normal;
-        font-weight: normal;
-        font-variant: normal;
-        text-transform: none;
-        line-height: 1;
-        /* Better Font Rendering =========== */
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
         content: $code;
         color: $color;
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: $font-size-3;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+        font-feature-settings: 'liga';
     }
 }
 

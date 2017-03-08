@@ -1,5 +1,4 @@
 ﻿@import 'constants';
-@import '../node_modules/font-awesome/scss/_variables.scss';
 
 #left-menu {
     font-size: $font-size-1;
@@ -120,12 +119,11 @@
                             padding-right: $gap-4;
 
                             &:first-child {
-                                @include font-awesome($fa-var-angle-right);
+                                @include material-design-icon('\E5CC', inherit);
                                 padding-left: $gap-4;
                                 color: $font-color-importance-3;
 
                                 &::before {
-                                    font-size: $font-size-3;
                                     visibility: hidden;
                                     transition: transform $transition-2;
                                 }

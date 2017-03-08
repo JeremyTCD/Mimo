@@ -1,5 +1,4 @@
 ﻿@import 'constants';
-@import '../node_modules/linearicons/dist/web-font/style.css';
 
 #right-menu {
     font-size: $font-size-1;
@@ -36,9 +35,11 @@
                 padding-bottom: $gap-3;
             }
 
+
             span {
                 &:first-child {
-                    @include linearicon("\e802", $font-color-importance-3);
+                    align-items: center;
+                    @include material-design-icon("\E3C9", $font-color-importance-3);
                 }
 
                 &:last-child {
