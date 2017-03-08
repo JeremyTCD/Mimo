@@ -118,7 +118,7 @@
                                     &:first-child {
                                         margin-right: $gap-5;
                                         width: $gap-7;
-                                        background-color: $color-secondary-1;
+                                        background-color: $font-black-on-white-importance-2;
                                         transform: scaleY(0);
                                         transition: transform $transition-2;
                                         // When scrollbar appears, if flex-shrink is not 0, bar width can get set to 0
