@@ -49,7 +49,9 @@
             background-color: #fff;
             border: $gap-9 solid $font-black-on-white-importance-5;
             z-index: 1;
-            transition: border-color $transition-delayed-2, background-color $transition-delayed-2;
+            transition: border-color $transition-delayed-2, 
+                color $transition-delayed-2, 
+                background-color $transition-delayed-2;
 
             &:focus,
             &:hover {

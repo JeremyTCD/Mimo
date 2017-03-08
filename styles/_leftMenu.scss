@@ -111,7 +111,8 @@
                         user-select: none;
                         cursor: pointer;
                         align-items: center;
-                        transition: background-color $transition-delayed-2, color $transition-delayed-2;
+                        transition: background-color $transition-delayed-2, 
+                            color $transition-delayed-2;
 
                         span {
                             padding-top: $gap-6;
@@ -125,7 +126,7 @@
 
                                 &::before {
                                     visibility: hidden;
-                                    transition: transform $transition-2;
+                                    transition: transform $transition-2, color $transition-2;
                                 }
                             }
                         }
