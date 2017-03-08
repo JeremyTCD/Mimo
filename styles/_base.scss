@@ -14,7 +14,7 @@ html, body {
     color: $font-color-importance-3;
 }
 
-body, body * {
+body, body *, body *::before, body *::after {
     display: flex;
 }
 
@@ -58,6 +58,6 @@ h1 {
     font-size: 40px
 }
 
-* {
+*, *::before, *::after {
     box-sizing: border-box;
 }
