@@ -130,7 +130,7 @@ header {
                                 background-color: $color-primary-3;
                             }
 
-                            &:hover {
+                            &:not(.active):hover {
                                 background-color: $color-primary-4;
                             }
 
