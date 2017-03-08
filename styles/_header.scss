@@ -29,32 +29,24 @@ header {
 
             #header-button {
                 @media #{$media-narrow} {
-                    padding: 9px 9px;
-                    background-color: $color-secondary-1;
+                    @include material-design-icon('\E5D2', #fff);
+                    padding: $gap-6 $gap-5;
+                    background-color: $color-primary-3;
                     border-radius: $border-radius-main;
-                    text-decoration: none;
-                    flex-direction: column;
-                    transition: background-color $transition-delayed-2;
+                    transition: background-color $transition-delayed-1;
                     border: none;
 
                     &:hover {
                         outline: 0;
-                        background-color: $color-secondary-1;
+                        background-color: $color-primary-4;
+                    }
+
+                    &::before {
+                        font-size: 24px;
                     }
 
                     &:focus {
                         outline: 0;
-                    }
-
-                    .icon-bar {
-                        background-color: #fff;
-                        width: 22px;
-                        height: 2px;
-                        border-radius: 1px;
-
-                        + .icon-bar {
-                            margin-top: 4px
-                        }
                     }
 
                     .sr-only {

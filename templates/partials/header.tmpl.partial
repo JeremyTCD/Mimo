@@ -6,9 +6,6 @@
       </a>
       <button id="header-button" type="button">
         <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
       </button>
     </div>
     <div id="header-navbar-and-search">
