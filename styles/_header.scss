@@ -178,21 +178,37 @@ header {
                     @media #{$media-medium}, #{$media-wide} {
                         align-items: center;
                         margin-left: auto;
+                        width: 200px;
+                    }
+
+                    @include material-design-icon('\E8B6', black);
+                    align-items: center;
+
+                    &::before {
+                        height: $gap-2;
+                        background-color: #fff;
+                        border-top-left-radius: $border-radius-main;
+                        border-bottom-left-radius: $border-radius-main;
+                        border: 1px solid rgba(0, 0, 0, .196);
+                        border-right: none;
+                        box-shadow: inset 1px 1px rgba(0, 0, 0, .075);
+                        padding-left: $gap-4;
+                        padding-top: $gap-9;
+                        align-items: center;
                     }
 
                     input {
-                        @media #{$media-medium}, #{$media-wide} {
-                            width: 200px;
-                        }
-
+                        height: $gap-2;
+                        background-color: #fff;
+                        border-top-right-radius: $border-radius-main;
+                        border-bottom-right-radius: $border-radius-main;
+                        border: 1px solid rgba(0, 0, 0, .196);
+                        box-shadow: inset 0 1px rgba(0, 0, 0, .075);
+                        padding: $gap-5 $gap-4;
+                        padding-left: $gap-5;
                         width: 100%;
                         font-size: $font-size-1;
-                        height: $gap-2;
-                        padding: 8px 12px;
-                        background-color: #fff;
-                        border: 1px solid #ccc;
-                        box-shadow: inset 1px 1px rgba(0, 0, 0, .075);
-                        border-radius: $border-radius-main;
+                        border-left: none;
                         outline: none;
                     }
                 }
