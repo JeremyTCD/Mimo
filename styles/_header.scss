@@ -84,14 +84,12 @@ header {
                 @media #{$media-narrow} {
                     flex-grow: 1;
                     overflow: hidden;
-                    align-items: stretch;
                     transition: height $transition-1;
                     flex-direction: column-reverse;
                     height: 0;
                 }
 
                 @media #{$media-medium}, #{$media-wide} {
-                    align-items: stretch;
                     height: auto !important;
                     flex-grow: 1;
                 }
@@ -158,7 +156,7 @@ header {
 
                                     &:first-child {
                                         content: "";
-                                        background-color: $font-color-importance-2;
+                                        background-color: transparent;
                                         height: 0;
                                         transition: height $transition-delayed-2, background-color $transition-delayed-2;
                                     }
