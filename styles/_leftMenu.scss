@@ -131,24 +131,26 @@
                         transition: background-color $transition-delayed-2, color $transition-delayed-2;
 
                         span {
-                            padding-top: $gap-6;
-                            padding-bottom: $gap-6;
-                            padding-right: $gap-4;
-
                             &:first-child {
                                 @include material-design-icon('\E5CC', inherit);
-                                padding-left: $gap-4;
-                                color: $font-black-on-white-importance-1;
+                                padding: $gap-5;
+                                padding-right: $gap-6;
+                                color: $font-black-on-white-importance-2;
 
                                 &::before {
                                     visibility: hidden;
                                     transition: transform $transition-2, color $transition-2;
                                 }
                             }
+
+                            &:last-child {
+                                padding: $gap-6 $gap-5;
+                                padding-left: 0;
+                            }
                         }
 
                         &:not([href]) {
-                            color: $font-black-on-white-importance-1;
+                            color: $font-black-on-white-importance-2;
                         }
 
                         &.active, &:hover.is-link {
