@@ -123,6 +123,15 @@ class LeftMenuBuilder {
     }
 
     setupFilter(): void {
+        // Preferable to use a class to scss constants can be used
+        $('#left-menu-filter-input').
+            focus((event: JQueryEventObject) => {
+                $('#left-menu-filter').addClass('focus');
+            }).
+            focusout((event: JQueryEventObject) => {
+                $('#left-menu-filter').removeClass('focus');
+            });
+
         $('#left-menu-filter-input').on('input', (event: JQueryInputEventObject) => {
             let sideMenuToc = $('#left-menu-toc');
             let lis = sideMenuToc.find('li');

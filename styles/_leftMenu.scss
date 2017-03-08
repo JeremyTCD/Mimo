@@ -42,21 +42,38 @@
         }
 
         #left-menu-filter {
-            padding-bottom: $gap-3;
+            margin-bottom: $gap-3;
+
+            @include material-design-icon('\E152', black);
+            align-items: center;
+            border: 1px solid $font-black-on-white-importance-4;
+            border-radius: $border-radius-main;
+            transition: border-color $transition-2;
+            padding: 0 $gap-4;
+            height: $gap-2;
+
+            @media #{$media-narrow} {
+                background-color: #fff;
+            }
+
+            &.focus {
+                border-color: $color-secondary-1;
+            }
+
+            &::before {
+                background-color: transparent;
+                border: none;
+                padding-top: $gap-9;
+                align-items: center;
+                color: $font-black-on-white-importance-3;
+            }
 
             input {
-                flex-grow: 1;
-                height: $gap-2;
-                padding: 0 12px;
-                border: 1px solid $font-black-on-white-importance-4;
-                border-radius: 0;
+                background-color: transparent;
+                border: none;
+                padding-left: $gap-5;
                 outline: none;
-                border-radius: $border-radius-main;
-                transition: border-color $transition-2;
-
-                &:focus {
-                    border-color: $color-secondary-1;
-                }
+                flex-grow: 1;
             }
         }
 
@@ -111,8 +128,7 @@
                         user-select: none;
                         cursor: pointer;
                         align-items: center;
-                        transition: background-color $transition-delayed-2, 
-                            color $transition-delayed-2;
+                        transition: background-color $transition-delayed-2, color $transition-delayed-2;
 
                         span {
                             padding-top: $gap-6;
