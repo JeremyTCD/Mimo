@@ -26,15 +26,17 @@
                                 content: "\00a0/";
                                 padding-left: $gap-6;
                                 padding-right: $gap-5;
-                                // opacity
                                 color: #fff;
                             }
                         }
                     }
 
                     > span {
-                        //opacity
                         color: #fff;
+
+                        &:last-child {
+                            opacity: $opacity-disabled;
+                        }
                     }
                 }
 

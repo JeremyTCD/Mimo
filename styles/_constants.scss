@@ -1,7 +1,5 @@
-﻿/*$color-primary-2: #3f51b5;
 ﻿@import '../node_modules/material-design-icons/iconfont/material-icons.css';
-$color-primary-3: #3949ab;
-$color-primary-4: #303f9f;*/
+
 $color-primary-1: #26a69a;
 $color-primary-2: #009688;
 $color-primary-3: #00897b;
@@ -14,6 +12,9 @@ $font-black-on-white-importance-2: #757575;
 $font-black-on-white-importance-3: #ababab;
 $font-black-on-white-importance-4: #c9c9c9;
 $font-black-on-white-importance-5: #dedede;
+
+// For non black on white cases, disabled items should have the following opacity
+$opacity-disabled: 0.62;
 
 
 $font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif;
