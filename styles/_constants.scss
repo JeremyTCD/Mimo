@@ -9,20 +9,12 @@ $color-primary-4: #00796b;
 $color-secondary-1: #ff8f00;
 $color-secondary-2: #ff6f00;
 
-$opacity-importance-1: 0.87;
-$opacity-importance-2: .54;
-$opacity-importance-3: 0.38;
-$opacity-importance-4: 0.12;
+$font-black-on-white-importance-1: #212121;
+$font-black-on-white-importance-2: #757575;
+$font-black-on-white-importance-3: #ababab;
+$font-black-on-white-importance-4: #c9c9c9;
+$font-black-on-white-importance-5: #dedede;
 
-// importance should be determined by opacity, the following should be removed
-$link-color-main: #337ab7;
-$link-color-hover: #23527c;
-$border-color-1: #ddd;
-$border-color-2: #ccc;
-$border-color-3: #888;
-$font-color-importance-1: #ccc;
-$font-color-importance-2: #999;
-$font-color-importance-3: #333;
 
 $font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif;
 $border-radius-main: 4px;

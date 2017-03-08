@@ -39,7 +39,7 @@
             span {
                 &:first-child {
                     align-items: center;
-                    @include material-design-icon("\E3C9", $font-color-importance-3);
+                    @include material-design-icon("\E3C9", $font-black-on-white-importance-2);
                 }
 
                 &:last-child {

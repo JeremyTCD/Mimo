@@ -34,10 +34,10 @@
             a,
             a:focus,
             a:hover {
-                color: $font-color-importance-2;
+                color: $font-black-on-white-importance-3;
                 cursor: not-allowed;
-                background-color: #fff;
-                border-color: #ddd
+                background-color: transparent;
+                border-color: $font-black-on-white-importance-4;
             }
         }
 
@@ -47,7 +47,7 @@
             height: $gap-2;
             margin-left: -$gap-9;
             background-color: #fff;
-            border: $gap-9 solid $border-color-1;
+            border: $gap-9 solid $font-black-on-white-importance-5;
             z-index: 1;
             transition: border-color $transition-delayed-2, background-color $transition-delayed-2;
 
