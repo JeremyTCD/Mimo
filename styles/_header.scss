@@ -169,7 +169,7 @@ header {
                     @media #{$media-medium}, #{$media-wide} {
                         align-items: center;
                         margin-left: auto;
-                        width: 200px;
+                        width: $side-menu-width;
                         align-self: center;
                     }
 

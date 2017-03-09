@@ -16,7 +16,7 @@
     }
 
     @media #{$media-medium}, #{$media-wide} {
-        width: 200px;
+        width: $side-menu-width;
         margin-right: $gap-1;
         height: auto !important;
     }
