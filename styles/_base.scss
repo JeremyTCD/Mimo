@@ -1,6 +1,8 @@
 ﻿@import 'constants';
 
 .container {
+    // Ensures container stretches to max-width when it can
+    width: 100%;
     max-width: 1400px;
     flex-grow: 1;
     padding-left: $gap-3;
@@ -21,6 +23,19 @@ body, body *, body *::before, body *::after {
 body {
     min-height: 100vh;
     flex-direction: column;
+
+    > .container {
+        align-self: center;
+        padding-bottom: $gap-1;
+
+        @media #{$media-narrow} {
+            flex-direction: column;
+        }
+
+        @media #{$media-medium}, #{$media-wide} {
+            padding-top: $gap-1;
+        }
+    }
 }
 
 button, a {

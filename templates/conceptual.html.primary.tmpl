@@ -19,20 +19,20 @@
       {{#jr.enableSearch}}
       {{>partials/searchResults}}
       {{/jr.enableSearch}}
-	  <main role="main" class="hide-on-search">
-		  <div class="container">
+	  <div class="container hide-on-search">
 			{{^jr.disableLeftMenu}}
 			{{>partials/leftMenu}}
 			{{/jr.disableLeftMenu}}
-			{{>partials/mainArticle}}
-			{{#jr.enableSal}}
-			{{>partials/sortedArticleList}}
-			{{/jr.enableSal}}
+			<main role="main">
+				{{>partials/mainArticle}}
+				{{#jr.enableSal}}
+				{{>partials/sortedArticleList}}
+				{{/jr.enableSal}}
+			</main>
 			{{^jr.disableRightMenu}}
 			{{>partials/rightMenu}}
 			{{/jr.disableRightMenu}}
-		  </div>
-	  </main>
+	  </div>
       {{^_disableFooter}}
       {{>partials/footer}}
       {{/_disableFooter}}

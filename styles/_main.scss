@@ -2,23 +2,11 @@
 
 main {
     flex-grow: 1;
-    justify-content: center;
-
-    .container {
-        padding-bottom: $gap-1;
-
-        @media #{$media-narrow} {
-            flex-direction: column;
-        }
-
-        @media #{$media-medium}, #{$media-wide} {
-            padding-top: $gap-1;
-        }
+    flex-direction: column;
 
         .main-article {
             h1 {
                 margin-top: -10px;
             }
         }
-    }
 }
