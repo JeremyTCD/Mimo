@@ -132,11 +132,11 @@ class SearchBuilder {
         $('#search-results .article-list > .al-pagination').removeData("twbs-pagination");
         if (hits.length === 0) {
             $('#search-results .article-list > .al-items').empty();
-            $('#search-string .container > span').text(`No results found for: ${this.queryString}`);
-            $('#search-results > .container > span').text(`Your search - ${this.queryString} - did not match any documents`);
+            $('#search-string .container > span').text(`No results found for "${this.queryString}"`);
+            $('#search-results > .container > span').text(`Your search - "${this.queryString}" - did not match any documents`);
         } else {
             $('#search-results > .container > span').text('');
-            $('#search-string .container > span').text(`Search Results for: ${this.queryString}`);
+            $('#search-string .container > span').text(`Search results for "${this.queryString}"`);
             $('#search-results .article-list > .al-pagination').twbsPagination({
                 totalPages: Math.ceil(hits.length / numPerPage),
                 visiblePages: 5,
