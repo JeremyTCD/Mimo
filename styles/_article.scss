@@ -3,7 +3,6 @@
 article {
     flex-grow: 1;
     flex-direction: column;
-
     max-width: 794px;
 
     @media #{$media-narrow} {
@@ -26,18 +25,23 @@ article {
             padding-bottom: $gap-4;
 
             li {
-                + li {
-                    &::before {
-                        padding-left: $gap-6;
-                        padding-right: $gap-6;
-                        content: "•";
-                    }
-                }
-
-                a {
+                > * {
                     display: flex;
                     align-items: center;
                     color: inherit;
+                }
+
+                *::before {
+                    padding-right: $gap-6;
+                }
+
+                .date {
+                    @include material-design-icon('\E916', inherit);
+                    padding-right: $gap-4;
+                }
+
+                .author {
+                    @include material-design-icon('\E7FD', inherit);
 
                     img {
                         padding-left: $gap-7;
