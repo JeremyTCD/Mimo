@@ -48,8 +48,10 @@ class RightMenuBuilder {
 
         if (!wide && !rightMenuInArticle) {
             $('main article > .meta').after($('#right-menu'));
+            $('main article > .meta').append($('#edit-article'));
         } else if (wide && rightMenuInArticle) {
             $('main > .container').append($('#right-menu'));
+            $('#right-menu > .wrapper').prepend($('#edit-article'));
         }
     }
 
