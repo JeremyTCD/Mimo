@@ -99,7 +99,7 @@ class LeftMenuBuilder {
         let footerHeight = $(window).outerHeight() - $('footer')[0].getBoundingClientRect().top;
         let maxHeight = $(window).outerHeight()
             - 23 * 2
-            - $('#left-menu-filter').outerHeight()
+            - $('#left-menu-filter').outerHeight(true)
             - (footerHeight < 0 ? 0 : footerHeight);
 
         $('#left-menu-toc').
