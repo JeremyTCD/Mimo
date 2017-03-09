@@ -5,7 +5,8 @@
     background-color: $color-primary-1;
     justify-content: center;
     height: $gap-2;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+    background-clip: padding-box;
+    box-shadow: 0 2px $fade-box-shadow;
 
     .container {
         ul {
