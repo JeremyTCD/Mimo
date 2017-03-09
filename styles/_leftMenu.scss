@@ -153,8 +153,15 @@
                             color: $font-black-on-white-importance-2;
                         }
 
-                        &.active, &:hover.is-link {
+                        &.active {
                             background-color: $color-secondary-1;
+                        }
+
+                        &:hover.is-link:not(.active) {
+                            background-color: $color-secondary-2;
+                        }
+
+                        &.active, &:hover.is-link {
                             color: #fff;
 
                             span {
