@@ -10,5 +10,8 @@
         <img src="{{jr.authorLink}}.png?size=16" alt="{{jr.authorName}}" />
       </a>
     </li>
+    <li>
+      
+    </li>
   </ul>
 </div>

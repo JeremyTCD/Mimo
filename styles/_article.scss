@@ -25,7 +25,7 @@ article {
             padding-bottom: $gap-4;
 
             li {
-                > * {
+                * {
                     display: flex;
                     align-items: center;
                     color: inherit;
@@ -42,6 +42,7 @@ article {
 
                 .author {
                     @include material-design-icon('\E7FD', inherit);
+                    padding-right: $gap-4;
 
                     img {
                         padding-left: $gap-7;

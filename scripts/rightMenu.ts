@@ -47,10 +47,12 @@ class RightMenuBuilder {
         let rightMenuInArticle = $('main article > #right-menu').length === 1;
 
         if (!wide && !rightMenuInArticle) {
-            $('main article > .meta').after($('#right-menu'));
-            $('main article > .meta').append($('#edit-article'));
+            $('main article > .meta').
+                after($('#right-menu')).
+                find('ul > li:last-child').
+                append($('#edit-article'));
         } else if (wide && rightMenuInArticle) {
-            $('main > .container').append($('#right-menu'));
+            $('body > .container').append($('#right-menu'));
             $('#right-menu > .wrapper').prepend($('#edit-article'));
         }
     }
