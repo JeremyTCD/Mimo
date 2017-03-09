@@ -25,5 +25,12 @@
         align-self: center;
         padding-top: $gap-1;
         flex-direction: column;
+
+        mark {
+            background-color: #ffe57f;
+            padding: 0 $gap-6;
+            display: inline;
+            color: inherit;
+        }
     }
 }

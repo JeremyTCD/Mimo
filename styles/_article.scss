@@ -48,16 +48,12 @@ article {
     a {
         transition: color $transition-delayed-2;
 
-        mark {
-            color: inherit;
-        }
-
         &:hover {
             color: $color-secondary-2;
         }
     }
 
-    span, em, mark, p, a {
+    span, em, p, a {
         display: inline;
     }
 
