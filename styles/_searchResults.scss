@@ -8,9 +8,11 @@
 
     #search-string {
         font-size: $font-size-1;
-        background-color: #f8f8f8;
+        background-color: $color-primary-1;
         height: $gap-2;
         justify-content: center;
+        box-shadow: 0 2px $fade-box-shadow;
+        color: #fff;
 
         .container {
             span {
