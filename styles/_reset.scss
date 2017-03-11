@@ -1,3 +1,5 @@
+@import 'constants';
+
 /*
 YUI 3.18.1 (build f7e7bcb)
 Copyright 2014 Yahoo! Inc. All rights reserved.
@@ -10,8 +12,8 @@ http://yuilibrary.com/license/
 	TODO with the prefix, should I group by selector or property for weight savings?
 */
 html {
-    color: #000;
-    background: #FFF;
+    color: $color-grayscale-3;
+    background: $color-grayscale-1;
 }
 /*
 	TODO remove settings on BODY since we can't namespace it.
@@ -123,7 +125,7 @@ select {
 }
 /*because legend doesn't inherit in IE */
 legend {
-    color: #000;
+    color: $color-grayscale-3;
 }
 
 /* YUI CSS Detection Stamp */

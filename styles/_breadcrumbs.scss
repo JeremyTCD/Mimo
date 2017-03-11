@@ -16,7 +16,7 @@
                 align-items: center;
 
                 span {
-                    color: #fff;
+                    color: $color-grayscale-1;
                 }
 
                 + li {
@@ -26,13 +26,13 @@
                                 content: "\00a0/";
                                 padding-left: $gap-6;
                                 padding-right: $gap-5;
-                                color: #fff;
+                                color: $color-grayscale-1;
                             }
                         }
                     }
 
                     > span {
-                        color: #fff;
+                        color: $color-grayscale-1;
 
                         &:last-child {
                             opacity: $opacity-disabled;
@@ -45,7 +45,7 @@
 
                     span {
                         &:last-child {
-                            @include animated-underline(#fff, #fff, $gap-9);
+                            @include animated-underline($color-grayscale-1, $color-grayscale-1, $gap-9);
                         }
                     }
                 }
@@ -58,7 +58,7 @@
             }
 
             margin-left: auto;
-            @include material-design-icon('\E5CF', #fff)
+            @include material-design-icon('\E5CF', $color-grayscale-1);
         }
     }
 }

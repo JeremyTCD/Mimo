@@ -23,7 +23,7 @@
             a:focus,
             a:hover {
                 z-index: 3;
-                color: #fff;
+                color: $color-grayscale-1;
                 cursor: default;
                 background-color: $color-secondary-1;
                 border-color: $color-secondary-1;
@@ -46,7 +46,7 @@
             padding: 0 $gap-4;
             height: $gap-2;
             margin-left: -$gap-9;
-            background-color: #fff;
+            background-color: $color-grayscale-1;
             border: $gap-9 solid $font-black-on-white-importance-5;
             z-index: 1;
             transition: border-color $transition-delayed-2, 
@@ -58,7 +58,7 @@
                 z-index: 2;
                 background-color: $color-secondary-2;
                 border-color: $color-secondary-2;
-                color: #fff;
+                color: $color-grayscale-1;
             }
         }
     }

@@ -9,7 +9,6 @@
 
     @media #{$media-narrow} {
         flex-direction: column;
-        margin-top: -1px;
         overflow-y: hidden;
         transition: height $transition-1;
         height: 0;
@@ -30,7 +29,7 @@
             flex-grow: 1;
             border-bottom-left-radius: $border-radius-main;
             border-bottom-right-radius: $border-radius-main;
-            background-color: #f8f8f8;
+            background-color: $color-grayscale-2;
             padding: $gap-3;
         }
 
@@ -53,7 +52,7 @@
             height: $gap-2;
 
             @media #{$media-narrow} {
-                background-color: #fff;
+                background-color: $color-grayscale-1;
             }
 
             &.focus {
@@ -162,11 +161,11 @@
                         }
 
                         &.active, &:hover.is-link {
-                            color: #fff;
+                            color: $color-grayscale-1;
 
                             span {
                                 &:first-child {
-                                    color: #fff;
+                                    color: $color-grayscale-1;
                                 }
                             }
                         }

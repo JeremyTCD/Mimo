@@ -9,11 +9,11 @@ footer {
     .container {
         align-items: center;
         span{
-            color: #fff;
+            color: $color-grayscale-1;
         }
         a {
-            color: #fff;
-            @include animated-underline(#fff, #fff, $gap-9);
+            color: $color-grayscale-1;
+            @include animated-underline($color-grayscale-1, $color-grayscale-1, $gap-9);
             margin-left: auto;
         }
     }
