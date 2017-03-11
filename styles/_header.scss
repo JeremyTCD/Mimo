@@ -4,10 +4,7 @@ header {
     background-color: $color-primary-2;
     align-items: stretch;
     justify-content: center;
-
-    @media #{$media-medium}, #{$media-wide} {
-        height: $gap-1;
-    }
+    min-height: $gap-1;
 
     .container {
         @media #{$media-narrow} {
@@ -15,6 +12,10 @@ header {
         }
 
         #header-logo-and-button {
+            @media #{$media-narrow} {
+                height: $gap-1;
+            }
+
             align-items: center;
 
             #header-logo {
@@ -97,8 +98,7 @@ header {
 
                         @media #{$media-narrow} {
                             flex-direction: column;
-                            margin-top: $gap-4;
-                            margin-bottom: 8px;
+                            margin: $gap-4 0;
                             flex-shrink: 0;
                         }
 
