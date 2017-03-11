@@ -9,7 +9,7 @@ class BreadcrumbsBuilder {
         let html = generateMultiLevelList(this.breadcrumbs,
             'breadcrumb',
             1);
-        $('#breadcrumbs>.container').html(html);
+        $('#breadcrumbs>.container').prepend(html);
     }
 
     loadRootBreadCrumb(anchorElement: HTMLAnchorElement) {
@@ -21,7 +21,9 @@ class BreadcrumbsBuilder {
             });
 
             this.rootBreadcrumbLoaded = true;
-            this.build();
+            if (this.childBreadcrumbsLoaded) {
+                this.build();
+            }
         }
     }
 
@@ -36,7 +38,9 @@ class BreadcrumbsBuilder {
             }
 
             this.childBreadcrumbsLoaded = true;
-            this.build();
+            if (this.rootBreadcrumbLoaded) {
+                this.build();
+            }
         }
     }
 }

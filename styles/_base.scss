@@ -42,6 +42,15 @@ button, a {
     cursor: pointer;
 }
 
+button {
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    &:focus{
+        outline: none;
+    }
+}
+
 a {
     color: $color-secondary-1;
     text-decoration: none;

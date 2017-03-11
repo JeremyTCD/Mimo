@@ -51,5 +51,14 @@
                 }
             }
         }
+
+        #breadcrumbs-button {
+            @media #{$media-medium}, #{$media-wide} {
+                display: none;
+            }
+
+            margin-left: auto;
+            @include material-design-icon('\E5CF', #fff)
+        }
     }
 }
