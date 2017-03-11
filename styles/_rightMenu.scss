@@ -53,6 +53,10 @@
                     color: $color-primary-2;
                 }
 
+                > ul > li:first-child > a {
+                    margin-top: 0;
+                }
+
                 ul {
                     flex-direction: column;
 
@@ -77,10 +81,10 @@
                             user-select: none;
                             cursor: pointer;
                             align-items: stretch;
-
-                            span {
                                 margin-top: $gap-6;
                                 margin-bottom: $gap-6;
+
+                            span {
 
                                 &:last-child {
                                     padding-right: $gap-4;
