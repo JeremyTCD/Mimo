@@ -1,4 +1,4 @@
-﻿import { generateMultiLevelList, ListItem } from './utils';
+﻿import { generateMultiLevelList, ListItem, toggleHeightForTransition, contractHeightWithoutTransition } from './utils';
 
 class BreadcrumbsBuilder {
     breadcrumbs: ListItem[] = [];
@@ -10,6 +10,14 @@ class BreadcrumbsBuilder {
             'breadcrumb',
             1);
         $('#breadcrumbs>.container').prepend(html);
+
+        $('#toc-button').on('click', (event: JQueryEventObject) => {
+            toggleHeightForTransition($('#left-menu'), $(event.delegateTarget));
+        });
+
+        $(window).on('resize', () => {
+            contractHeightWithoutTransition($('#left-menu'), $('#toc-button'));
+        });
     }
 
     loadRootBreadCrumb(anchorElement: HTMLAnchorElement) {

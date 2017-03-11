@@ -1,5 +1,5 @@
 <nav id="breadcrumbs" class="hide-on-search">
   <div class="container">
-    <button id="breadcrumbs-button"></button>
+    <button id="toc-button"></button>
   </div>
 </nav>

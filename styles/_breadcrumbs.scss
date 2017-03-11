@@ -7,6 +7,10 @@
     height: $gap-2;
     box-shadow: 0 2px $fade-box-shadow;
 
+    @media #{$media-narrow} {
+        z-index: 2;
+    }
+
     .container {
         ul {
             list-style: none;
@@ -52,13 +56,25 @@
             }
         }
 
-        #breadcrumbs-button {
+        #toc-button {
             @media #{$media-medium}, #{$media-wide} {
                 display: none;
             }
 
+            padding-left: $gap-3;
             margin-left: auto;
             @include material-design-icon('\E5CF', $color-grayscale-1);
+
+            &::before {
+                transform: rotate(0);
+                transition: transform $transition-2;
+            }
+
+            &.expanded {
+                &::before {
+                    transform: rotate(180deg);
+                }
+            }
         }
     }
 }
