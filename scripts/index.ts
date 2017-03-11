@@ -6,7 +6,6 @@ import HighlightJs = require('highlightjs');
 import headerBuilder from './header';
 import sortedArticleList from './sortedArticleList';
 import searchBuilder from './search';
-import leftMenuToggleBuilder from './leftMenuToggle';
 import leftMenuBuilder from './leftMenu';
 import footerBuilder from './footer';
 import rightMenuBuilder from './rightMenu';
@@ -104,7 +103,6 @@ $(function () {
     headerBuilder.build();
     leftMenuBuilder.build();
     footerBuilder.build();
-    leftMenuToggleBuilder.build();
     rightMenuBuilder.initialize();
 
     // For LOGO SVG
