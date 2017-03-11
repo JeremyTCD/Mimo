@@ -1,4 +1,4 @@
-import { toggleHeightForTransition } from './utils';
+import { toggleHeightForTransition, contractHeightWithoutTransition } from './utils';
 import navbarBuilder from './navbar';
 
 class HeaderBuilder {
@@ -15,12 +15,7 @@ class HeaderBuilder {
         });
 
         $(window).on('resize', () => {
-            if (wrapper.hasClass('expanded')) {
-                wrapper.off('transitionend');
-                wrapper.
-                    css('height', 0).
-                    removeClass('expanded');
-            }
+            contractHeightWithoutTransition(wrapper, wrapper);
         });
     }
 }

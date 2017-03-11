@@ -99,6 +99,14 @@ export function toggleHeightForTransition(toggleHeightElement: JQuery, toggleCla
     $(toggleClassElement).toggleClass('expanded');
 }
 
+export function contractHeightWithoutTransition(toggleHeightElement: JQuery, toggleClassElement: JQuery) {
+    if (toggleClassElement.hasClass('expanded')) {
+        toggleHeightElement.off('transitionend');
+        toggleHeightElement.css('height', 0);
+        $(toggleClassElement).removeClass('expanded');
+    }
+}
+
 export function htmlEncode(value: string): string {
     return String(value)
         .replace(/&/g, '&amp;')
