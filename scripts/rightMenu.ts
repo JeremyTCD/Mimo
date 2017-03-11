@@ -65,8 +65,14 @@ class RightMenuBuilder {
 
         let listItemTree: ListItem = generateListItemTree(headers.get(), ['h2', 'h3'], 0);
         let html = generateMultiLevelList(listItemTree.items, '', 1);
-         $("#outline").append('<h5>Outline</h5>' + html);
-        $('#outline a').first().addClass('active');
+         $('#outline').append('<h5>Outline</h5>' + html);
+         $('#outline a').first().addClass('active');
+
+        // Remove bottom margin from last anchor so that decorative column does not overextend when screen
+        // is narrow
+         $('#outline a').
+             last().
+             css('margin-bottom', 0);
     }
 
     private outlineScrollAndResizeListener() {
