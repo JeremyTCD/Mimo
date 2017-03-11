@@ -13,9 +13,9 @@ class LeftMenuBuilder {
             let toc = $.parseHTML(data);
             $('#left-menu-toc').append(toc);
 
-            this.setupOnScroll();
+            this.tocOnScrollListener();
             this.setupTocTopics();
-            this.setupTocOnResize();
+            this.tocOnResizeListener();
             this.setupFilter();
 
             let index = tocPath.lastIndexOf('/');
@@ -69,33 +69,43 @@ class LeftMenuBuilder {
         topicElement.css('padding-left', (level - 1) * 23 + 'px');
     }
 
-    setupOnScroll(): void {
+    private tocOnScrollListener(): void {
         $(window).scroll((event: JQueryEventObject) => {
-            if ($('main').css('display') !== 'none') {
-                let element = $('#left-menu > .wrapper');
-                let top = element[0].parentElement.getBoundingClientRect().top;
-                if (top < 23) {
-                    element.addClass('fixed');
-                    this.setTocMaxHeight();
-                } else {
-                    element.removeClass('fixed');
-                    $('#left-menu-toc').css('max-height', 'initial');
-                }
+            let narrow = window.matchMedia('(max-width: 768px)').matches;
+
+            if (!narrow && $('main').css('display') !== 'none') {
+                let top = $('#left-menu > .wrapper')[0].parentElement.getBoundingClientRect().top;
+
+                this.setTocFixed(this.tocFixed());
             }
         });
     }
 
-    setupTocOnResize(): void {
+    private tocOnResizeListener(): void {
         $(window).on('resize', () => {
-            if ($('main').css('display') !== 'none') {
-                if ($('#left-menu > .wrapper').hasClass('fixed')) {
-                    this.setTocMaxHeight();
-                }
+            let narrow = window.matchMedia('(max-width: 768px)').matches;
+
+            if (narrow) {
+                this.setTocFixed(false);
+            } else if ($('main').css('display') !== 'none') {
+                this.setTocFixed(this.tocFixed());
             }
         });
     }
 
-    setTocMaxHeight(): void {
+    private setTocFixed(fixed: boolean): void {
+        let wrapper = $('#left-menu > .wrapper');
+
+        if (fixed) {
+            wrapper.addClass('fixed');
+            this.setTocMaxHeight();
+        } else {
+            wrapper.removeClass('fixed');
+            $('#left-menu-toc').css('max-height', 'initial');
+        }
+    }
+
+    private setTocMaxHeight(): void {
         let footerHeight = $(window).outerHeight() - $('footer')[0].getBoundingClientRect().top;
         let maxHeight = $(window).outerHeight()
             - 23 * 2
@@ -104,6 +114,12 @@ class LeftMenuBuilder {
 
         $('#left-menu-toc').
             css('max-height', maxHeight);
+    }
+
+    private tocFixed(): boolean {
+        let top = $('#left-menu > .wrapper')[0].parentElement.getBoundingClientRect().top;
+
+        return top < 23;
     }
 
     setupTocTopics(): void {
