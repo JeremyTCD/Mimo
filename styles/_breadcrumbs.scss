@@ -4,7 +4,7 @@
     font-size: $font-size-1;
     background-color: $color-primary-1;
     justify-content: center;
-    height: $gap-2;
+    min-height: $gap-2;
     box-shadow: 0 2px $fade-box-shadow;
 
     @media #{$media-narrow} {

@@ -19,12 +19,17 @@ header {
             align-items: center;
 
             #header-logo {
-                height: 50px;
                 color: #9d9d9d;
                 margin-right: auto;
+                transform: scale(1) rotate(0);
 
-                svg:hover path {
-                    fill: $color-grayscale-1;
+                svg {
+                    height: 40px;
+                    transition: transform $transition-delayed-1;
+
+                    &:hover {
+                        transform: scale(1.1) rotate(5deg);
+                    }
                 }
             }
 
@@ -71,6 +76,7 @@ header {
         #header-navbar-and-search {
             @media #{$media-medium}, #{$media-wide} {
                 flex-grow: 1;
+                padding-left: $gap-3;
             }
 
             .wrapper {
