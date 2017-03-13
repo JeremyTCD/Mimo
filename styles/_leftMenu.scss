@@ -44,7 +44,6 @@
             margin-bottom: $gap-3;
 
             @include material-design-icon('\E152', black);
-            align-items: center;
             border: 1px solid $font-black-on-white-importance-4;
             border-radius: $border-radius-main;
             transition: border-color $transition-2;
