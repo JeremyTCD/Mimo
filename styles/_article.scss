@@ -5,10 +5,6 @@ article {
     flex-direction: column;
     max-width: 794px;
 
-    @media #{$media-narrow} {
-        padding-top: $gap-1;
-    }
-
     h1 {
         margin-bottom: $gap-6;
         color: $color-primary-2;
