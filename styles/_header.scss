@@ -23,8 +23,7 @@ header {
                 margin-right: auto;
                 transform: scale(1) rotate(0);
 
-                svg {
-                    height: 40px;
+                img {
                     transition: transform $transition-delayed-1;
 
                     &:hover {
