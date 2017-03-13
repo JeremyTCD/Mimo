@@ -1,4 +1,4 @@
-﻿import { getAbsolutePath, isRelativePath } from './utils';
+﻿import { getAbsolutePath, isRelativePath } from './pathService';
 import { toggleHeightForTransition } from './transitionsService';
 import breadcrumbsComponent from './breadcrumbsComponent';
 

@@ -1,5 +1,7 @@
 import {
-    getAbsolutePath, isRelativePath, getDirectory,
+    getAbsolutePath, isRelativePath, getDirectory
+} from './pathService';
+import {
     mediaWidthNarrow
 } from './utils';
 import {
