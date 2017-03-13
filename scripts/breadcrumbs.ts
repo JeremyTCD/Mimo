@@ -1,26 +1,42 @@
-﻿import { generateMultiLevelList, ListItem, toggleHeightForTransition, contractHeightWithoutTransition } from './utils';
+﻿import {
+    generateMultiLevelList, ListItem, toggleHeightForTransition, contractHeightWithoutTransition,
+    mediaWidthNarrow
+} from './utils';
+import { Component } from './component';
 
-class BreadcrumbsBuilder {
+class Breadcrumbs extends Component {
     breadcrumbs: ListItem[] = [];
     rootBreadcrumbLoaded: boolean = false;
     childBreadcrumbsLoaded: boolean = false;
 
-    build() {
-        let html = generateMultiLevelList(this.breadcrumbs,
-            'breadcrumb',
-            1);
-        $('#breadcrumbs>.container').prepend(html);
+    protected canInitialize(): boolean {
+        return true;
+    }
 
+    protected setup(): void {
+        this.setupBreadcrumbs();
+    }
+
+    protected registerListeners(): void {
         $('#toc-button').on('click', (event: JQueryEventObject) => {
             toggleHeightForTransition($('#left-menu'), $(event.delegateTarget));
         });
 
-        $(window).on('resize', () => {
-            contractHeightWithoutTransition($('#left-menu'), $('#toc-button'));
+        $(window).on('resize', (event: JQueryEventObject) => {
+            if (mediaWidthNarrow()) {
+                contractHeightWithoutTransition($('#left-menu'), $('#toc-button'));
+            }
         });
     }
 
-    loadRootBreadCrumb(anchorElement: HTMLAnchorElement) {
+    private setupBreadcrumbs(): void {
+        let html = generateMultiLevelList(this.breadcrumbs,
+            'breadcrumb',
+            1);
+        $('#breadcrumbs>.container').prepend(html);
+    }
+
+    public loadRootBreadCrumb(anchorElement: HTMLAnchorElement): void {
         if (!this.rootBreadcrumbLoaded) {
             this.breadcrumbs.unshift({
                 href: anchorElement.href,
@@ -30,12 +46,12 @@ class BreadcrumbsBuilder {
 
             this.rootBreadcrumbLoaded = true;
             if (this.childBreadcrumbsLoaded) {
-                this.build();
+                this.initialize();
             }
         }
     }
 
-    loadChildBreadcrumbs(anchorElements: HTMLAnchorElement[]) {
+    public loadChildBreadcrumbs(anchorElements: HTMLAnchorElement[]): void {
         if (!this.childBreadcrumbsLoaded) {
             for (let i = anchorElements.length - 1; i >= 0; i--) {
                 this.breadcrumbs.push({
@@ -47,11 +63,11 @@ class BreadcrumbsBuilder {
 
             this.childBreadcrumbsLoaded = true;
             if (this.rootBreadcrumbLoaded) {
-                this.build();
+                this.initialize();
             }
         }
     }
 }
 
-export default new BreadcrumbsBuilder();
+export default new Breadcrumbs();
 
