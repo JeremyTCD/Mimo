@@ -1,7 +1,9 @@
 ﻿import {
-    toggleHeightForTransition, contractHeightWithoutTransition,
     mediaWidthNarrow
 } from './utils';
+import {
+    toggleHeightForTransition, contractHeightWithoutTransition,
+} from './transitions';
 import {
     generateMultiLevelList, ListItem
 } from './listItem';

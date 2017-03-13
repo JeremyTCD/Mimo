@@ -1,9 +1,10 @@
 import {
-    toggleHeightForTransition, contractHeightWithoutTransition,
     getAbsolutePath, isRelativePath, getDirectory,
     mediaWidthNarrow
 } from './utils';
-
+import {
+    toggleHeightForTransition, contractHeightWithoutTransition
+} from './transitions';
 import Component from './component';
 import breadcrumbsBuilder from './breadcrumbs';
 
