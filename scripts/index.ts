@@ -4,7 +4,7 @@ import articleComponent from './articleComponent';
 import headerComponent from './headerComponent';
 import sortedArticleList from './sortedArticleList';
 import searchBuilder from './search';
-import leftMenuBuilder from './leftMenu';
+import leftMenuComponent from './leftMenuComponent';
 import footerComponent from './footerComponent';
 import rightMenuComponent from './rightMenuComponent';
 
@@ -14,7 +14,7 @@ $(function () {
     searchBuilder.build();
     sortedArticleList.build();
     headerComponent.initialize();
-    leftMenuBuilder.build();
+    leftMenuComponent.initialize();
     footerComponent.initialize();
     rightMenuComponent.initialize();
     articleComponent.initialize();
