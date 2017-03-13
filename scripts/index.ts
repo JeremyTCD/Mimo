@@ -3,7 +3,7 @@ import "../styles/index.scss";
 import AnchorJs = require('anchor-js');
 import HighlightJs = require('highlightjs');
 
-import headerBuilder from './header';
+import header from './header';
 import sortedArticleList from './sortedArticleList';
 import searchBuilder from './search';
 import leftMenuBuilder from './leftMenu';
@@ -100,7 +100,7 @@ $(function () {
 
     searchBuilder.build();
     sortedArticleList.build();
-    headerBuilder.build();
+    header.initialize();
     leftMenuBuilder.build();
     footer.initialize();
     rightMenu.initialize();
