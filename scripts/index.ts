@@ -8,7 +8,7 @@ import sortedArticleList from './sortedArticleList';
 import searchBuilder from './search';
 import leftMenuBuilder from './leftMenu';
 import footerBuilder from './footer';
-import rightMenuBuilder from './rightMenu';
+import rightMenu from './rightMenu';
 
 $(function () {
     var active = 'active';
@@ -103,7 +103,7 @@ $(function () {
     headerBuilder.build();
     leftMenuBuilder.build();
     footerBuilder.build();
-    rightMenuBuilder.initialize();
+    rightMenu.initialize();
 
     // For LOGO SVG
     // Replace SVG with inline SVG

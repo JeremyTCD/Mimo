@@ -1,49 +1,49 @@
-﻿import { htmlEncode, htmlDecode, generateMultiLevelList, ListItem, generateListItemTree } from './utils';
+﻿import { htmlEncode, htmlDecode, generateMultiLevelList, ListItem, generateListItemTree, mediaWidthWide } from './utils';
+import { Component } from './component';
 
-class RightMenuBuilder {
-    public initialize(): void {
-        if ($('#right-menu').length === 1) {
-            this.setup();
-            this.registerListeners();
-        }
+class RightMenu extends Component {
+    protected canInitialize(): boolean {
+        return $('#right-menu').length === 1;
     }
 
-    private setup(): void {
-        this.rightMenuResizeListener();
+    protected setup(): void {
+        this.setRightMenuDomLocation();
         this.setupOutline();
     }
 
-    private registerListeners(): void {
+    protected registerListeners(): void {
         $(window).scroll((event: JQueryEventObject) => {
-            if ($('main').css('display') !== 'none') {
-                this.rightMenuScrollListener();
-                this.outlineScrollAndResizeListener();
+            if (mediaWidthWide() && $('main').css('display') !== 'none') {
+                this.setRightMenuFixed();
+
+                this.setOutlineActiveTopic();
+                this.setOutlineMaxHeight();
             }
         });
-
         $(window).resize((event: JQueryEventObject) => {
             if ($('main').css('display') !== 'none') {
-                this.rightMenuResizeListener();
-                this.outlineScrollAndResizeListener();
+                this.setRightMenuDomLocation();
+                this.setRightMenuFixed();
+
+                this.setOutlineActiveTopic();
+                this.setOutlineMaxHeight();
             }
         });
     }
 
-    private rightMenuScrollListener() {
-        if (window.matchMedia('(min-width: 1025px)').matches) {
-            let element = $('#right-menu > .wrapper');
-            let top = element[0].parentElement.getBoundingClientRect().top;
-            if (top < 23) {
-                element.addClass('fixed');
-                top = 23;
-            } else {
-                element.removeClass('fixed');
-            }
+    private setRightMenuFixed(): void {
+        let element = $('#right-menu > .wrapper');
+        let top = element[0].parentElement.getBoundingClientRect().top;
+        if (top < 23) {
+            element.addClass('fixed');
+            top = 23;
+        } else {
+            element.removeClass('fixed');
         }
     }
 
-    private rightMenuResizeListener() {
-        let wide = window.matchMedia('(min-width: 1025px)').matches;
+    private setRightMenuDomLocation(): void {
+        let wide = mediaWidthWide();
         let rightMenuInArticle = $('main article > #right-menu').length === 1;
 
         if (!wide && !rightMenuInArticle) {
@@ -57,7 +57,7 @@ class RightMenuBuilder {
         }
     }
 
-    private setupOutline() {
+    private setupOutline(): void {
         let headers = $('main #main-article > h1,h2,h3');
         if (headers.length === 0) {
             return;
@@ -65,62 +65,59 @@ class RightMenuBuilder {
 
         let listItemTree: ListItem = generateListItemTree(headers.get(), ['h2', 'h3'], 0);
         let html = generateMultiLevelList(listItemTree.items, '', 1);
-         $('#outline').append('<h5>Outline</h5>' + html);
-         $('#outline a').first().addClass('active');
+        $('#outline').append('<h5>Outline</h5>' + html);
+        $('#outline a').first().addClass('active');
 
         // Remove bottom margin from last anchor so that decorative column does not overextend when screen
         // is narrow
-         $('#outline a').
-             last().
-             css('margin-bottom', 0);
+        $('#outline a').
+            last().
+            css('margin-bottom', 0);
     }
 
-    private outlineScrollAndResizeListener() {
-        if (window.matchMedia('(min-width: 1025px)')) {
-            let minDistance = undefined;
-            let activeAnchorIndex = undefined;
-            let top = $('#right-menu > .wrapper')[0].getBoundingClientRect().top;
+    private setOutlineActiveTopic(): void {
+        let minDistance = undefined;
+        let activeAnchorIndex = undefined;
+        let top = $('#right-menu > .wrapper')[0].getBoundingClientRect().top;
 
-            // Binary search not preferable because sequence is typically short
-            $('main article').
-                find('h2, h3').
-                each((index: number, element: HTMLElement) => {
-                    let elementTop = element.getBoundingClientRect().top;
-                    let distance = Math.abs(elementTop - top);
+        // Binary search not preferable because sequence is typically short
+        $('main article').
+            find('h2, h3').
+            each((index: number, element: HTMLElement) => {
+                let elementTop = element.getBoundingClientRect().top;
+                let distance = Math.abs(elementTop - top);
 
-                    if (!minDistance || distance < minDistance) {
-                        minDistance = distance;
-                        activeAnchorIndex = index;
-                    } else {
-                        return false;
-                    }
-                });
+                if (!minDistance || distance < minDistance) {
+                    minDistance = distance;
+                    activeAnchorIndex = index;
+                } else {
+                    return false;
+                }
+            });
 
-            $('#outline a').
-                removeClass('active').
-                eq(activeAnchorIndex).
-                addClass('active');
-
-            if ($('#right-menu > .wrapper').hasClass('fixed')) {
-                this.setOutlineMaxHeight();
-            } else {
-                $('#outline > ul').css('max-height', 'initial');
-            }
-        }
+        $('#outline a').
+            removeClass('active').
+            eq(activeAnchorIndex).
+            addClass('active');
     }
 
     private setOutlineMaxHeight(): void {
-        let footerHeight = $(window).outerHeight() - $('footer')[0].getBoundingClientRect().top;
-        let maxHeight = $(window).outerHeight()
-            - 23 * 2
-            + 3
-            - $('#outline > h5').outerHeight()
-            - $('#edit-article').outerHeight()
-            - (footerHeight < 0 ? 0 : footerHeight);
+        if ($('#right-menu > .wrapper').hasClass('fixed')) {
+            let footerHeight = $(window).outerHeight() - $('footer')[0].getBoundingClientRect().top;
+            let maxHeight = $(window).outerHeight()
+                - 23 * 2
+                + 3
+                - $('#outline > h5').outerHeight()
+                - $('#edit-article').outerHeight()
+                - (footerHeight < 0 ? 0 : footerHeight);
 
-        $('#outline > ul').
-            css('max-height', maxHeight);
+            $('#outline > ul').
+                css('max-height', maxHeight);
+        } else {
+            $('#outline > ul').css('max-height', 'initial');
+        }
+
     }
 }
 
-export default new RightMenuBuilder();
+export default new RightMenu();
