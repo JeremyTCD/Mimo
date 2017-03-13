@@ -1,7 +1,10 @@
 ﻿import {
-    generateMultiLevelList, ListItem, toggleHeightForTransition, contractHeightWithoutTransition,
+    toggleHeightForTransition, contractHeightWithoutTransition,
     mediaWidthNarrow
 } from './utils';
+import {
+    generateMultiLevelList, ListItem
+} from './listItem';
 import Component from './component';
 
 class Breadcrumbs extends Component {

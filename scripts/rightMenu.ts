@@ -1,4 +1,5 @@
-﻿import { htmlEncode, htmlDecode, generateMultiLevelList, ListItem, generateListItemTree, mediaWidthWide } from './utils';
+﻿import { htmlEncode, htmlDecode, mediaWidthWide } from './utils';
+import { generateMultiLevelList, ListItem, generateListItemTree } from './listItem';
 import Component from './component';
 
 class RightMenu extends Component {
