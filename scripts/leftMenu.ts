@@ -1,6 +1,6 @@
 ﻿import { getAbsolutePath, isRelativePath } from './utils';
 import { toggleHeightForTransition } from './transitions';
-import breadcrumbsBuilder from './breadcrumbs';
+import breadcrumbsComponent from './breadcrumbsComponent';
 
 class LeftMenuBuilder {
     build(): void {
@@ -47,7 +47,7 @@ class LeftMenuBuilder {
                                 toggleHeightForTransition($(listElement).children('ul'), $(listElement));
                             });
 
-                        breadcrumbsBuilder.
+                        breadcrumbsComponent.
                             loadChildBreadcrumbs($(anchorElement).
                                 parentsUntil('#left-menu-toc').
                                 filter('li').

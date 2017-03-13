@@ -9,7 +9,7 @@ import {
 } from './listItem';
 import Component from './component';
 
-class Breadcrumbs extends Component {
+class BreadcrumbsComponent extends Component {
     breadcrumbs: ListItem[] = [];
     rootBreadcrumbLoaded: boolean = false;
     childBreadcrumbsLoaded: boolean = false;
@@ -74,5 +74,5 @@ class Breadcrumbs extends Component {
     }
 }
 
-export default new Breadcrumbs();
+export default new BreadcrumbsComponent();
 

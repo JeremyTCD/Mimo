@@ -2,7 +2,7 @@
 import { generateMultiLevelList, ListItem, generateListItemTree } from './listItem';
 import Component from './component';
 
-class RightMenu extends Component {
+class RightMenuComponent extends Component {
     protected canInitialize(): boolean {
         return $('#right-menu').length === 1;
     }
@@ -121,4 +121,4 @@ class RightMenu extends Component {
     }
 }
 
-export default new RightMenu();
+export default new RightMenuComponent();

@@ -1,6 +1,6 @@
 import Component from './component';
 
-class Footer extends Component {
+class FooterComponent extends Component {
     protected canInitialize(): boolean {
         return true;
     }
@@ -22,4 +22,4 @@ class Footer extends Component {
     }
 }
 
-export default new Footer();
+export default new FooterComponent();

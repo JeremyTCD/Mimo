@@ -6,9 +6,9 @@ import {
     toggleHeightForTransition, contractHeightWithoutTransition
 } from './transitions';
 import Component from './component';
-import breadcrumbsBuilder from './breadcrumbs';
+import breadcrumbsComponent from './breadcrumbsComponent';
 
-class Header extends Component {
+class HeaderComponent extends Component {
     protected canInitialize(): boolean {
         return true;
     }
@@ -86,7 +86,7 @@ class Header extends Component {
                     }
                     if (isActive) {
                         $(anchorElement).parent().addClass('active');
-                        breadcrumbsBuilder.loadRootBreadCrumb(anchorElement);
+                        breadcrumbsComponent.loadRootBreadCrumb(anchorElement);
                     } else {
                         $(anchorElement).parent().removeClass('active')
                     }
@@ -95,4 +95,4 @@ class Header extends Component {
     }
 }
 
-export default new Header();
+export default new HeaderComponent();

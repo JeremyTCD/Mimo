@@ -3,12 +3,12 @@ import "../styles/index.scss";
 import AnchorJs = require('anchor-js');
 import HighlightJs = require('highlightjs');
 
-import header from './header';
+import headerComponent from './headerComponent';
 import sortedArticleList from './sortedArticleList';
 import searchBuilder from './search';
 import leftMenuBuilder from './leftMenu';
-import footer from './footer';
-import rightMenu from './rightMenu';
+import footerComponent from './footerComponent';
+import rightMenuComponent from './rightMenuComponent';
 
 $(function () {
     var active = 'active';
@@ -100,10 +100,10 @@ $(function () {
 
     searchBuilder.build();
     sortedArticleList.build();
-    header.initialize();
+    headerComponent.initialize();
     leftMenuBuilder.build();
-    footer.initialize();
-    rightMenu.initialize();
+    footerComponent.initialize();
+    rightMenuComponent.initialize();
 
     // For LOGO SVG
     // Replace SVG with inline SVG
