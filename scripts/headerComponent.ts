@@ -4,7 +4,7 @@ import {
 } from './utils';
 import {
     toggleHeightForTransition, contractHeightWithoutTransition
-} from './transitions';
+} from './transitionsService';
 import Component from './component';
 import breadcrumbsComponent from './breadcrumbsComponent';
 

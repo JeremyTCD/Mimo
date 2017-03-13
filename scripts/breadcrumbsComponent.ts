@@ -3,10 +3,11 @@
 } from './utils';
 import {
     toggleHeightForTransition, contractHeightWithoutTransition,
-} from './transitions';
+} from './transitionsService';
 import {
-    generateMultiLevelList, ListItem
-} from './listItem';
+    generateMultiLevelList
+} from './listItemService';
+import ListItem from './listItem';
 import Component from './component';
 
 class BreadcrumbsComponent extends Component {

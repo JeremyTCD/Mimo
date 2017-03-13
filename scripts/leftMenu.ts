@@ -1,5 +1,5 @@
 ﻿import { getAbsolutePath, isRelativePath } from './utils';
-import { toggleHeightForTransition } from './transitions';
+import { toggleHeightForTransition } from './transitionsService';
 import breadcrumbsComponent from './breadcrumbsComponent';
 
 class LeftMenuBuilder {
