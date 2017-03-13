@@ -2,7 +2,7 @@ import "../styles/index.scss";
 
 import articleComponent from './articleComponent';
 import headerComponent from './headerComponent';
-import sortedArticleList from './sortedArticleList';
+import salComponent from './salComponent';
 import searchBuilder from './search';
 import leftMenuComponent from './leftMenuComponent';
 import footerComponent from './footerComponent';
@@ -12,7 +12,7 @@ import { openExternalLinksInNewTab } from './linkService';
 
 $(function () {
     searchBuilder.build();
-    sortedArticleList.build();
+    salComponent.initialize();
     headerComponent.initialize();
     leftMenuComponent.initialize();
     footerComponent.initialize();

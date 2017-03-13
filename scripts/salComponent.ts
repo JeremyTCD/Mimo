@@ -1,8 +1,13 @@
 import 'twbs-pagination';
+import Component from './component';
 
-class SortedArticleList{
-    build() {
-        let numPerPage = 3;
+class SalComponent extends Component {
+    protected canInitialize(): boolean {
+        return $('#sorted-article-list').length >= 1;
+    }
+
+    protected setup(): void {
+        let numPerPage = 5;
         let allAlItems = $('#sal-all-items > article');
 
         if (allAlItems.length == 0) {
@@ -17,8 +22,12 @@ class SortedArticleList{
                 let currentAlItems = allAlItems.slice(start, start + numPerPage);
                 $('#sorted-article-list > .article-list > .al-items').empty().append(currentAlItems);
             }
-        })
+        });
+    }
+
+    protected registerListeners(): void {
     }
 }
 
-export default new SortedArticleList();
+
+export default new SalComponent();
