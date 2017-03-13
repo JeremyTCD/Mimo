@@ -1,6 +1,4 @@
-﻿
-
-export function mediaWidthNarrow(): boolean {
+﻿export function mediaWidthNarrow(): boolean {
     return window.matchMedia('(max-width: 768px)').matches;
 }
 

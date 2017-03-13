@@ -1,5 +1,5 @@
 ﻿import { htmlEncode, htmlDecode } from './htmlEncodeService';
-import { mediaWidthWide } from './utils';
+import { mediaWidthWide } from './mediaService';
 import { generateMultiLevelList, generateListItemTree } from './listItemService';
 import ListItem from './listItem';
 import Component from './component';

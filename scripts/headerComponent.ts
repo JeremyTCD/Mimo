@@ -3,7 +3,7 @@ import {
 } from './pathService';
 import {
     mediaWidthNarrow
-} from './utils';
+} from './mediaService';
 import {
     toggleHeightForTransition, contractHeightWithoutTransition
 } from './transitionsService';
