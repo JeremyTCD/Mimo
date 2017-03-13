@@ -49,11 +49,11 @@ class HeaderComponent extends Component {
                 $('body').trigger("searchEvent");
             }
 
-            this.setNavbarActiveItem(navbarPath);
+            this.setNavbarActiveTopic(navbarPath);
         });
     }
 
-    private setNavbarActiveItem(navbarPath: string): void {
+    private setNavbarActiveTopic(navbarPath: string): void {
         let tocPath = $("meta[property='docfx\\:tocrel']").attr("content");
 
         if (tocPath) {
