@@ -1,4 +1,4 @@
-import { Component } from './component';
+import Component from './component';
 
 class Footer extends Component {
     protected canInitialize(): boolean {

@@ -1,4 +1,4 @@
-﻿export abstract class Component {
+﻿abstract class Component {
     public initialize(): void {
         if (this.canInitialize()) {
             this.setup();
@@ -11,3 +11,4 @@
     protected abstract registerListeners(): void;
 }
 
+export default Component;

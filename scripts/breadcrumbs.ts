@@ -2,7 +2,7 @@
     generateMultiLevelList, ListItem, toggleHeightForTransition, contractHeightWithoutTransition,
     mediaWidthNarrow
 } from './utils';
-import { Component } from './component';
+import Component from './component';
 
 class Breadcrumbs extends Component {
     breadcrumbs: ListItem[] = [];

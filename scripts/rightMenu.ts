@@ -1,5 +1,5 @@
 ﻿import { htmlEncode, htmlDecode, generateMultiLevelList, ListItem, generateListItemTree, mediaWidthWide } from './utils';
-import { Component } from './component';
+import Component from './component';
 
 class RightMenu extends Component {
     protected canInitialize(): boolean {
