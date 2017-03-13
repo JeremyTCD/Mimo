@@ -124,3 +124,7 @@ export function htmlDecode(value: string): string {
         .replace(/&gt;/g, '>')
         .replace(/&amp;/g, '&');
 }
+
+export function mediaWidthWide(): boolean {
+    return window.matchMedia('(min-width: 1025px)').matches;
+}
