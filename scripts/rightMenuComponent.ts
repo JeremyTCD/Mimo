@@ -1,4 +1,5 @@
-﻿import { htmlEncode, htmlDecode, mediaWidthWide } from './utils';
+﻿import { htmlEncode, htmlDecode } from './htmlEncodeService';
+import { mediaWidthWide } from './utils';
 import { generateMultiLevelList, generateListItemTree } from './listItemService';
 import ListItem from './listItem';
 import Component from './component';
