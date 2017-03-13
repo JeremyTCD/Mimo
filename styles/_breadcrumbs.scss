@@ -15,9 +15,15 @@
         ul {
             list-style: none;
             flex-wrap: wrap;
+            padding: $gap-6 0;
 
             li {
                 align-items: center;
+                padding-right: $gap-6;
+
+                &:last-child{
+                    padding-right: 0;
+                }
 
                 span {
                     color: $color-grayscale-1;
@@ -28,7 +34,6 @@
                         &:first-child {
                             &::before {
                                 content: "\00a0/";
-                                padding-left: $gap-6;
                                 padding-right: $gap-5;
                                 color: $color-grayscale-1;
                             }
