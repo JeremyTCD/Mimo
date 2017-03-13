@@ -1,9 +1,9 @@
 ﻿main#recent {
     #main-article {
-        padding-top: 0;
+        display: none;
     }
 
     #sorted-article-list {
-        margin-top: -9px;
+        flex-grow: 1;
     }
 }

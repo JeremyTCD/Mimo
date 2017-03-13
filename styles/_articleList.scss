@@ -2,9 +2,12 @@
 
 .article-list {
     flex-direction: column;
+    flex-grow: 1;
+    margin-top: -9px;
 
     .al-items {
         flex-direction: column;
+        flex-grow: 1;
 
         article {
 
