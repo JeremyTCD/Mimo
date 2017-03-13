@@ -7,7 +7,7 @@ import headerBuilder from './header';
 import sortedArticleList from './sortedArticleList';
 import searchBuilder from './search';
 import leftMenuBuilder from './leftMenu';
-import footerBuilder from './footer';
+import footer from './footer';
 import rightMenu from './rightMenu';
 
 $(function () {
@@ -102,7 +102,7 @@ $(function () {
     sortedArticleList.build();
     headerBuilder.build();
     leftMenuBuilder.build();
-    footerBuilder.build();
+    footer.initialize();
     rightMenu.initialize();
 
     // For LOGO SVG

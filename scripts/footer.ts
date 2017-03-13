@@ -1,11 +1,19 @@
-class FooterBuilder {
-    build() {
-        this.setBackToTopOpacity();
+import { Component } from './component';
 
+class Footer extends Component {
+    protected canInitialize(): boolean {
+        return true;
+    }
+
+    protected setup(): void {
+        this.setBackToTopOpacity();
+    }
+
+    protected registerListeners(): void {
         $(window).on('resize', this.setBackToTopOpacity);
     }
 
-    setBackToTopOpacity() {
+    private setBackToTopOpacity(): void {
         if ($("body").height() > $(window).height()) {
             $('footer a').css('visibility', 'visible');
         } else {
@@ -14,4 +22,4 @@ class FooterBuilder {
     }
 }
 
-export default new FooterBuilder();
+export default new Footer();
