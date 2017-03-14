@@ -1,5 +1,4 @@
 ﻿import AnchorJs = require('anchor-js');
-import HighlightJs = require('highlightjs');
 import Component from './component';
 
 class ArticleComponent extends Component {
@@ -9,7 +8,6 @@ class ArticleComponent extends Component {
 
     protected setup(): void {
         this.addAnchorsToHeadings();
-        this.highlightCodeBlocks();
     }
 
     protected registerListeners(): void {
@@ -26,12 +24,6 @@ class ArticleComponent extends Component {
             article h4:not(.no-anchor),
             article h5:not(.no-anchor),
             article h6:not(.no-anchor)`);
-    }
-
-    private highlightCodeBlocks(): void {
-        $('pre code').each(function (i, block) {
-            HighlightJs.highlightBlock(block);
-        });
     }
 }
 
