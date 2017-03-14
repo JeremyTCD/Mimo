@@ -7,11 +7,10 @@ import leftMenuComponent from './leftMenuComponent';
 import footerComponent from './footerComponent';
 import rightMenuComponent from './rightMenuComponent';
 
-import searchBuilder from './searchService';
+import searchService from './searchService';
 import { openExternalLinksInNewTab } from './linkService';
 
 $(function () {
-    searchBuilder.build();
     salComponent.initialize();
     headerComponent.initialize();
     leftMenuComponent.initialize();
@@ -19,5 +18,6 @@ $(function () {
     rightMenuComponent.initialize();
     articleComponent.initialize();
 
+    searchService.setupSearch();
     openExternalLinksInNewTab();
 })
