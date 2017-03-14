@@ -23,10 +23,10 @@ $fade-box-shadow: 1px rgba(0, 0, 0, 0.19);
 
 $font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif;
 $border-radius-main: 4px;
-$transition-2: 0.1s ease-in-out;
-$transition-1: 0.15s ease-in-out;
-$transition-delayed-2: 0.1s ease-in-out 0.050s;
-$transition-delayed-1: 0.15s ease-in-out 0.050s;
+$transition-2: 0.15s ease-out;
+$transition-1: 0.21s ease-out;
+$transition-delayed-2: 0.15s ease-out 0.050s;
+$transition-delayed-1: 0.21s ease-out 0.050s;
 $gap-9: 1px;
 $gap-8: 2px;
 $gap-7: 3px;
