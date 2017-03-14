@@ -15,16 +15,16 @@ class RightMenuComponent extends Component {
     }
 
     protected registerListeners(): void {
-        $(window).scroll((event: JQueryEventObject) => {
-            if (mediaWidthWide() && $('main').css('display') !== 'none') {
+        $(window).on('scroll', () => {
+            if (mediaWidthWide() && $('body > .container').css('display') !== 'none') {
                 this.setRightMenuFixed();
 
                 this.setOutlineActiveTopic();
                 this.setOutlineMaxHeight();
             }
         });
-        $(window).resize((event: JQueryEventObject) => {
-            if ($('main').css('display') !== 'none') {
+        $(window).on('resize', () => {
+            if ($('body > .container').css('display') !== 'none') {
                 this.setRightMenuDomLocation();
                 this.setRightMenuFixed();
 

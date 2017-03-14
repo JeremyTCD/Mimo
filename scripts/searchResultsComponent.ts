@@ -18,6 +18,11 @@ class SearchResultsComponent extends Component {
         } else {
             $('.hide-on-search').css('display', 'flex');
             $('#search-results').css('display', 'none');
+
+            // Resize or scroll may have occurred while 'body > .container' was hidden.
+            // Components that react to scroll/resize events must have their listeners executed
+            $(window).trigger('scroll');
+            $(window).trigger('resize');
         }
     }
 

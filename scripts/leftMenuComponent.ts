@@ -15,13 +15,13 @@ class LeftMenuComponent extends Component {
     }
 
     protected registerListeners(): void {
-        $(window).scroll((event: JQueryEventObject) => {
-            if (!mediaWidthNarrow() && $('main').css('display') !== 'none') {
+        $(window).on('scroll', () => {
+            if (!mediaWidthNarrow() && $('body > .container').css('display') !== 'none') {
                 this.setTocFixed();
             }
         });
         $(window).on('resize', () => {
-            if ($('main').css('display') !== 'none') {
+            if ($('body > .container').css('display') !== 'none') {
                 this.setTocFixed();
             }
         });
