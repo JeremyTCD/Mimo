@@ -1,13 +1,34 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
+
+var environment = process.env.NODE_ENV;
+var isProduction = environment === 'production';
+
+var plugins = [
+    // Need to create a plugin for docfx that inserts files name according to environment
+    new ExtractTextPlugin('bundle.' + 'css'), // (isProduction ? 'min.css' : 'css')),
+    new webpack.ProvidePlugin({
+        $: 'jquery',
+        'window.jQuery': 'jquery',
+        jQuery: 'jquery'
+    })
+];
+
+if (isProduction) {
+    plugins.push(new UglifyJsPlugin());
+}
 
 module.exports = {
     entry: {
         bundle: [path.join(__dirname, '/scripts/index.ts')]
     },
     output: {
-        filename: '[name].js',
+        // Need to create a plugin for docfx that inserts files name according to environment
+        // Additionally, should split into vendor and app scripts. By doing so and adding hash to app scripts
+        // vendor scripts will be cached even when app scripts are tweaked.
+        filename: '[name].' + 'js', // (isProduction ? 'min.js' : 'js'),
         path: path.join(__dirname, '/bin/styles'),
         publicPath: '/styles/'
     },
@@ -33,7 +54,7 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: ExtractTextPlugin.extract({
-                    use: [{ loader: 'css-loader' },
+                    use: [{ loader: 'css-loader', options: { minimize: isProduction } },
                     { loader: 'sass-loader' }]
                 })
             },
@@ -47,12 +68,5 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new ExtractTextPlugin('bundle.css'),
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            'window.jQuery': 'jquery',
-            jQuery: 'jquery'
-        })
-    ]
+    plugins: plugins
 };
