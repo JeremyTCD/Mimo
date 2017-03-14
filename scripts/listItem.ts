@@ -3,5 +3,3 @@
     innerHtml: string;
     items: ListItem[];
 }
-
-export default ListItem;

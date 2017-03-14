@@ -1,6 +1,4 @@
-﻿import ListItem from './listItem';
-
-export function generateMultiLevelList(items: ListItem[], classes: string, level: number) {
+﻿export function generateMultiLevelList(items: ListItem[], classes: string, level: number) {
     let numItems = items.length;
     let html = '<ul class="level' + level + ' ' + (classes || '') + '">';
 

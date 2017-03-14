@@ -7,7 +7,6 @@ import {
 import {
     generateMultiLevelList
 } from './listItemService';
-import ListItem from './listItem';
 import Component from './component';
 
 class BreadcrumbsComponent extends Component {
