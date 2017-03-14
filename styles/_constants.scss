@@ -76,7 +76,6 @@ $media-wide: '(min-width: 1025px)';
     line-height: 1;
 
     &:hover::after {
-        visibility: visible;
         transform: scaleX(1);
         background-color: $endColor;
     }
@@ -86,7 +85,6 @@ $media-wide: '(min-width: 1025px)';
         width: 100%;
         height: $underline-height;
         background-color: $startColor;
-        visibility: hidden;
         transform: scaleX(0);
         transition: transform $transition-delayed-2;
     }
