@@ -13,7 +13,6 @@
         <nav id="header-navbar">
         </nav>
         <form id="header-search" class="flex" role="search">
-          <img class="icon"></img>
           <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off" />
         </form>
       </div>
