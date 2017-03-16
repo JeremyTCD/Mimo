@@ -14,9 +14,7 @@
   "author": "JeremyTCD",
   "license": "MIT",
   "devDependencies": {
-    "@types/bootstrap": "^3.3.32",
     "@types/jquery": "^2.0.40",
-    "@types/js-url": "^1.8.28",
     "@types/lunr": "^0.5.28",
     "@types/node": "^7.0.5",
     "css-loader": "^0.26.1",
@@ -39,7 +37,6 @@
     "anchor-js": "^3.2.2",
     "highlight.js": "^9.10.0",
     "jquery": "^2.1.4",
-    "js-url": "^2.3.0",
     "lunr": "^0.6.0",
     "mark.js": "github:julmot/mark.js",
     "material-design-icons": "^3.0.1",
