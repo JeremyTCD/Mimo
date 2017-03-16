@@ -13,7 +13,12 @@ var plugins = [
         $: 'jquery',
         'window.jQuery': 'jquery',
         jQuery: 'jquery'
-    })
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks: Infinity
+    }),
+    new webpack.BannerPlugin({ banner: 'DocFxBlogTemplate, Copyright 2017 JeremyTCD', include: /^bundle\..*$/ })
 ];
 
 if (isProduction) {
@@ -22,6 +27,7 @@ if (isProduction) {
 
 module.exports = {
     entry: {
+        vendor: ['jquery', 'anchor-js', 'lunr', 'mark.js', 'twbs-pagination'], 
         bundle: [path.join(__dirname, '/scripts/index.ts')]
     },
     output: {
