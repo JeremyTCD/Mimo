@@ -28,22 +28,22 @@ if (isProduction) {
 module.exports = {
     entry: {
         vendor: ['jquery', 'anchor-js', 'lunr', 'mark.js', 'twbs-pagination'], 
-        bundle: [path.join(__dirname, '/scripts/index.ts')]
+        bundle: [path.join(__dirname, '../scripts/index.ts')]
     },
     output: {
         // Need to create a plugin for docfx that inserts files name according to environment
         // Additionally, should split into vendor and app scripts. By doing so and adding hash to app scripts
         // vendor scripts will be cached even when app scripts are tweaked.
         filename: '[name].' + 'js', // (isProduction ? 'min.js' : 'js'),
-        path: path.join(__dirname, '/bin/styles'),
+        path: path.join(__dirname, '../bin/styles'),
         publicPath: '/styles/'
     },
     resolve: {
         extensions: ['.ts', '.js'],
-        modules: [path.join(__dirname, '/node_modules')]
+        modules: [path.join(__dirname, '../node_modules')]
     },
     resolveLoader: {
-        modules: [path.join(__dirname, '/node_modules')]
+        modules: [path.join(__dirname, '../node_modules')]
     },
     module: {
         rules: [
