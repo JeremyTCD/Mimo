@@ -4,7 +4,10 @@
 /**/node_modules/
 /**/bin/
 /**/.sass-cache
+/plugins/
+/**/obj/
+
 .vscode
 .vs
 debug.log
-/plugins/
+npm-debug.log
