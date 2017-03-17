@@ -1,12 +1,12 @@
 const path = require('path');
-const fs = require('fs-extra');
+const cpy = require('cpy');
 
-module.exports = function copyFiles() {
+module.exports = function copySimpleFilesToBin() {
     const outputDir = path.join(__dirname, 'bin');
 
-    fs.copySync(path.join(__dirname, 'fonts'), path.join(outputDir, 'fonts'));
-    fs.copySync(path.join(__dirname, 'plugins'), path.join(outputDir, 'plugins'));
-    fs.copySync(path.join(__dirname, 'templates'), outputDir);
-    fs.copySync(path.join(__dirname, 'misc'), outputDir);
-    fs.copySync(path.join(__dirname, 'docfx.js'), path.join(outputDir, 'common.js'));
+    return Promise.all([cpy(path.join(__dirname, 'fonts/*.*'), path.join(outputDir, 'fonts')),
+    cpy([path.join(__dirname, 'plugins/net452/*.*'), '!**/Microsoft.DocAsCode.*.dll'], path.join(outputDir, 'plugins')),
+    cpy(path.join(__dirname, 'templates/*.*'), outputDir),
+    cpy(path.join(__dirname, 'templates/partials/*.*'), path.join(outputDir, 'partials')),
+    cpy(path.join(__dirname, 'misc/*.*'), outputDir)]);
 };
