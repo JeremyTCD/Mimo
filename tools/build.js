@@ -1,21 +1,25 @@
 const copySimpleFilesToBin = require('./copySimpleFilesToBin');
-const webpack = require('webpack');
-const webpackConfig = require('./webpack.config.js');
-const rimraf = require('rimraf');
-const execSync = require('child_process').execSync;
-const path = require('path');
+const restorePlugins = require('./restorePlugins');
+const webpackCompile = require('./webpackCompile');
+const clean = require('./clean');
 
-rimraf.sync('./bin');
+async function build() {
+    console.log('*** start - clean ***');
+    await clean();
+    console.log('*** complete - clean ***');
 
-execSync('msbuild', { stdio: [0, 1, 2] });
+    console.log('*** start - restore plugins ***');
+    await restorePlugins();
+    console.log('*** complete - restore plugins ***');
 
-copySimpleFilesToBin();
+    console.log('*** start - copy simple files ***');
+    await copySimpleFilesToBin();
+    console.log('*** complete - copy simple files ***');
 
-webpack(webpackConfig, (err, stats) => {
-    if (err) {
-        console.log(err);
-        console.log(stats);
-    }
-});
+    console.log('*** start - webpack compile ***');
+    await webpackCompile();
+    console.log('*** complete - webpack compile ***');
 
-  
+}
+
+build();
