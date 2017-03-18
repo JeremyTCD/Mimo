@@ -4,7 +4,7 @@
   "keywords": [ "docfx", "template", "blog" ],
   "homepage": "https://github.com/JeremyTCD/DocFx.Templates.BasicBlog",
   "bugs": "https://github.com/JeremyTCD/DocFx.Templates.BasicBlog/issues",
-  "license": "MIT License",
+  "license": "MIT",
   "author": "JeremyTCD",
   "scripts": {
     "build-dev": "set NODE_ENV=development&&node tools/build.js",
