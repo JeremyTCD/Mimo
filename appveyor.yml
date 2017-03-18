@@ -16,7 +16,7 @@ build_script:
     yarn run build-production
     new-item .npmrc -type file
     add-content .npmrc "//registry.npmjs.org/:_authToken=$($env:npm_token)"
-    npm version from-git
+    npm version $env:APPVEYOR_REPO_TAG_NAME
     npm publish
 cache:
     - node_modules -> package.json
