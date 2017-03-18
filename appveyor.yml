@@ -1,0 +1,23 @@
+version: '{build}'
+branches:
+  only:
+  - master
+skip_non_tags: true
+image: Visual Studio 2017
+environment:
+  npm_token:
+    secure: 6EuYnTHhFGD0uTKWxNy17MiH1oANxoFqKjbC+LaExoPJha6g9K337TiZ5rvXrBuW
+install:
+- cmd: |
+    cinst nodejs.install --version 7.7.3
+    yarn install --ignore-optional
+build_script:
+- ps: |
+    yarn run build-production
+    new-item .npmrc -type file
+    add-content .npmrc "//registry.npmjs.org/:_authToken=$($env:npm_token)"
+    npm version from-git
+    npm publish
+cache:
+    - node_modules -> package.json
+    - '%USERPROFILE%\.nuget\packages -> tools/plugins.proj'
