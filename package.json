@@ -1,5 +1,5 @@
 {
-  "name": "docfx.templates.basicblog",
+  "name": "docfx-templates-basicblog",
   "description": "A minimalist DocFx blog template.",
   "keywords": [ "docfx", "template", "blog" ],
   "homepage": "https://github.com/JeremyTCD/DocFx.Templates.BasicBlog",
