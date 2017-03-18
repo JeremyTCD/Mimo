@@ -21,3 +21,4 @@ build_script:
 cache:
     - node_modules -> package.json
     - '%USERPROFILE%\.nuget\packages -> tools/plugins.proj'
+test: off
