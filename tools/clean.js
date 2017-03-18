@@ -2,7 +2,7 @@
 
 module.exports = function clean() {
     return new Promise((resolve, reject) => {
-        rimraf('./bin', (err) => {
+        rimraf('./dist', (err) => {
             if (err) {
                 reject();
             } else {

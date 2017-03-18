@@ -1,8 +1,8 @@
 const path = require('path');
 const cpy = require('cpy');
 
-module.exports = function copySimpleFilesToBin() {
-    const outputDir = path.join(__dirname, '../bin');
+module.exports = function copySimpleFilesTodist() {
+    const outputDir = path.join(__dirname, '../dist');
 
     return Promise.all([cpy(path.join(__dirname, '../fonts/*.*'), path.join(outputDir, 'fonts')),
     cpy([path.join(__dirname, '../plugins/net452/*.*'), '!**/Microsoft.DocAsCode.*.dll'], path.join(outputDir, 'plugins')),

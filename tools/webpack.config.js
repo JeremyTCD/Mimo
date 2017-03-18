@@ -35,7 +35,7 @@ module.exports = {
         // Additionally, should split into vendor and app scripts. By doing so and adding hash to app scripts
         // vendor scripts will be cached even when app scripts are tweaked.
         filename: '[name].' + 'js', // (isProduction ? 'min.js' : 'js'),
-        path: path.join(__dirname, '../bin/styles'),
+        path: path.join(__dirname, '../dist/styles'),
         publicPath: '/styles/'
     },
     resolve: {
