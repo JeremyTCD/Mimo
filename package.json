@@ -1,18 +1,15 @@
 {
-  "name": "blog",
-  "version": "1.0.0",
-  "description": "A DocFx template for blogs",
+  "name": "docfx.templates.basicblog",
+  "description": "A minimalist DocFx blog template.",
+  "keywords": [ "docfx", "template", "blog" ],
+  "homepage": "https://github.com/JeremyTCD/DocFx.Templates.BasicBlog",
+  "bugs": "https://github.com/JeremyTCD/DocFx.Templates.BasicBlog/issues",
+  "license": "MIT License",
+  "author": "JeremyTCD",
   "scripts": {
     "build-dev": "set NODE_ENV=development&&node tools/build.js",
     "build-production": "set NODE_ENV=production&&node tools/build.js"
   },
-  "keywords": [
-    "docfx",
-    "template",
-    "blog"
-  ],
-  "author": "JeremyTCD",
-  "license": "MIT",
   "devDependencies": {
     "@types/jquery": "^2.0.40",
     "@types/lunr": "^0.5.28",
