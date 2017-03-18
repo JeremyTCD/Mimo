@@ -30,9 +30,7 @@
     "uglifyjs-webpack-plugin": "^0.3.0",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.1",
-    "worker-loader": "^0.7.1"
-  },
-  "dependencies": {
+    "worker-loader": "^0.7.1",
     "anchor-js": "^3.2.2",
     "highlight.js": "^9.10.0",
     "jquery": "^2.1.4",
