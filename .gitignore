@@ -4,6 +4,7 @@ dist/
 tools/obj/
 plugins/
 
+.npmrc
 .vscode
 .vs
 debug.log
