@@ -9,7 +9,7 @@ async function build() {
     console.log('*** complete - clean ***');
 
     console.log('*** start - restore plugins ***');
-    await restorePlugins();
+    await restorePlugins('debug');
     console.log('*** complete - restore plugins ***');
 
     console.log('*** start - copy simple files ***');
