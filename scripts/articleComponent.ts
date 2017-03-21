@@ -7,7 +7,7 @@ class ArticleComponent extends Component {
     }
 
     protected setup(): void {
-        this.addAnchorsToHeadings();
+        //this.addAnchorsToHeadings();
     }
 
     protected registerListeners(): void {
