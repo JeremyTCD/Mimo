@@ -28,16 +28,10 @@ async function serve() {
         path.join(__dirname, '../plugins'),
         path.join(__dirname, '../fonts'),
         path.join(__dirname, '../misc'),
-        path.join(docfxProjectDir, '**/*.md'),
-        path.join(docfxProjectDir, '**/toc.yml')
+        path.join(docfxProjectDir, 'src'),
     ], {
             ignored: [
-                path.join(__dirname, '../tools/obj'),
-                path.join(docfxProjectDir, 'node_modules'),
-                path.join(docfxProjectDir, '.git'),
-                path.join(docfxProjectDir, '.vs'),
-                path.join(docfxProjectDir, '_site'),
-                path.join(docfxProjectDir, 'obj'),
+                path.join(docfxProjectDir, 'src/**/*.json'),
             ]
         });
     var building = false;
