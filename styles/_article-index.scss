@@ -8,4 +8,10 @@ main#index {
         align-items: center;
         text-align: center;
     }
+
+    &::after {
+        content: "";
+        max-height: $gap-2;
+        flex-grow: 1;
+    }
 }
