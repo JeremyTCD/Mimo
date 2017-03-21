@@ -5,6 +5,7 @@ header {
     align-items: stretch;
     justify-content: center;
     min-height: $gap-1;
+    box-shadow: 0 2px $fade-box-shadow;
 
     .container {
         @media #{$media-narrow} {
