@@ -3,7 +3,7 @@
 .article-list {
     flex-direction: column;
     flex-grow: 1;
-    margin-top: -9px;
+    margin-top: -5px;
 
     .al-items {
         flex-direction: column;
@@ -18,7 +18,10 @@
             h1 {
                 margin-top: 0;
                 font-size: $font-size-5;
-                margin-bottom: $gap-3;
+            }
+
+            .meta{
+                margin-top: $gap-5;
             }
         }
     }

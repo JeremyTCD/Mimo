@@ -15,16 +15,24 @@ article {
 
     h1 {
         font-size: $font-size-6;
-        margin-bottom: $gap-2;
+
+        & + p {
+            margin-top: $gap-2;
+        }
     }
 
     h2 {
         font-size: $font-size-5;
-        margin-bottom: $gap-4;
+
+        & + p {
+            margin-top: $gap-4;
+        }
     }
 
-    p{
-        margin-bottom: $gap-3;
+    p {
+        & + h2 {
+            margin-top: $gap-3;
+        }
     }
 
     p, em {
@@ -32,6 +40,12 @@ article {
     }
 
     .meta {
+        margin-top: $gap-4;
+
+        & + p {
+            margin-top: $gap-2;
+        }
+
         ul {
             font-size: $font-size-1;
             color: $font-black-on-white-importance-2;
