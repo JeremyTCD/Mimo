@@ -110,7 +110,7 @@ header {
                         }
 
                         li {
-                            transition: background-color $transition-delayed-2;
+                            transition: background-color $transition-delayed-3;
 
                             &.active, &:hover {
                                 a {
@@ -156,7 +156,7 @@ header {
                                         content: "";
                                         background-color: transparent;
                                         height: 0;
-                                        transition: height $transition-delayed-2, background-color $transition-delayed-2;
+                                        transition: height $transition-delayed-3, background-color $transition-delayed-3;
                                     }
                                 }
                             }
