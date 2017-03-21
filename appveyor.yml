@@ -10,7 +10,7 @@ environment:
 install:
 - cmd: |
     cinst nodejs.install --version 7.7.3
-    yarn install --ignore-optional
+    if not exist "./node_modules" yarn install --pure-lockfile --ignore-optional
 build_script:
 - ps: |
     yarn run build-production
@@ -20,5 +20,4 @@ build_script:
     npm publish
 cache:
     - node_modules -> package.json
-    - '%USERPROFILE%\.nuget\packages -> tools/plugins.proj'
 test: off
