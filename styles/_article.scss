@@ -5,9 +5,26 @@ article {
     flex-direction: column;
     max-width: 794px;
 
-    h1 {
-        margin-bottom: $gap-6;
+    h1, h2, h3, h4 {
         color: $color-primary-2;
+        line-height: 1.1;
+        word-break: normal;
+        word-wrap: normal;
+    }
+
+
+    h1 {
+        font-size: $font-size-6;
+        margin-bottom: $gap-2;
+    }
+
+    h2 {
+        font-size: $font-size-5;
+        margin-bottom: $gap-4;
+    }
+
+    p{
+        margin-bottom: $gap-3;
     }
 
     p, em {
@@ -60,13 +77,6 @@ article {
         display: inline;
     }
 
-    h1, h2, h3, h4 {
-        margin-top: 25px;
-    }
-
-    h4 {
-        border-bottom: 1px solid #ccc;
-    }
 
     section {
         margin-left: 1em;
