@@ -8,9 +8,8 @@ environment:
   npm_token:
     secure: 6EuYnTHhFGD0uTKWxNy17MiH1oANxoFqKjbC+LaExoPJha6g9K337TiZ5rvXrBuW
 install:
-- cmd: |
-    cinst nodejs.install --version 7.7.3
-    if not exist "./node_modules" yarn install --pure-lockfile --ignore-optional
+- cmd: if not exist "./node_modules" yarn install --pure-lockfile --ignore-optional
+- ps: Install-Product node 7.7.3 x64
 build_script:
 - ps: |
     yarn run build-production
