@@ -1,9 +1,10 @@
 ﻿<!-- Note: The Sdk attribute allows for a custom set of targets, properties etc - https://github.com/Microsoft/msbuild/issues/1493 -->
-<Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Restore;ResolveReferences;_CopyFilesMarkedCopyLocal" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk" 
+         DefaultTargets="Restore;ResolveReferences;RemoveDocAsCodeReferences;_CopyFilesMarkedCopyLocal" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TargetFramework>net452</TargetFramework>
     <Configuration>release</Configuration>
-    <OutputPath>../plugins</OutputPath>
+    <OutDir>../plugins</OutDir>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,15 +13,12 @@
     <PackageReference Include="JeremyTCD.DocFx.Plugins.FileMetadataExposer" Version="0.1.0-beta" />
   </ItemGroup>
 
-  <!--
-  Need to remove references to dlls in the microsoft.docascode namespace. 
-  Unfortunately, msbuild wildcards are broken
-  <Target Name="RemoveUnecessaryReferences">
+  <!-- Including DocAsCode assemblies will cause errors -->
+  <Target Name="RemoveDocAsCodeReferences">
     <ItemGroup>
-      <ReferenceCopyLocalPaths Remove="**\htmlagilitypack\**\*.*"/>
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" 
+                               Condition="$([System.Text.RegularExpressions.Regex]::IsMatch(%(Filename), '.*(?:DocAsCode).*'))" />
     </ItemGroup>
-    <Message Text="paths: @(ReferenceCopyLocalPaths)" />
+    <Message Text="Included assemblies:%0a @(ReferenceCopyLocalPaths, '%0a')" />
   </Target>
-  -->
-  
 </Project>
