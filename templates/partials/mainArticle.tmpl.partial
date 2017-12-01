@@ -1,4 +1,4 @@
-<article id="main-article">
+<article id="_content">
 	{{{rawTitle}}}
 	{{^jr.disableMetadata}}
 	{{>partials/metadata}}
