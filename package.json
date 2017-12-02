@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "1.3.2",
   "name": "docfx-templates-basicblog",
   "description": "A minimalist DocFx blog template.",
   "keywords": [
@@ -49,5 +49,8 @@
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.2",
     "worker-loader": "^0.7.1"
+  },
+  "dependencies": {
+    "yarn": "^1.3.2"
   }
 }
