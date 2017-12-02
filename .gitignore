@@ -9,4 +9,5 @@ plugins/
 .vs
 debug.log
 npm-debug.log
+# Both yarn and npm generate lock files, only yarn.lock needs to be committed
 package-lock.json
