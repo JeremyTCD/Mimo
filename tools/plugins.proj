@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk" 
          DefaultTargets="Restore;ResolveReferences;RemoveDocAsCodeReferences;_CopyFilesMarkedCopyLocal">
   <PropertyGroup>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
     <Configuration>release</Configuration>
     <OutDir>../plugins</OutDir>
   </PropertyGroup>
