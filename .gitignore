@@ -9,3 +9,4 @@ plugins/
 .vs
 debug.log
 npm-debug.log
+package-lock.json
