@@ -22,9 +22,9 @@
 			{{/jr.disableLeftMenu}}
 			<main role="main" id={{uid}}>
 				{{>partials/mainArticle}}
-				{{#jr.enableSal}}
+				{{#jr.insertSal}}
 				{{>partials/sortedArticleList}}
-				{{/jr.enableSal}}
+				{{/jr.insertSal}}
 			</main>
 			{{^jr.disableRightMenu}}
 			{{>partials/rightMenu}}
