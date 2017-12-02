@@ -18,7 +18,7 @@ var plugins = [
         name: 'vendor',
         minChunks: Infinity
     }),
-    new webpack.BannerPlugin({ banner: 'DocFxBlogTemplate, Copyright 2017 JeremyTCD', include: /^bundle\..*$/ })
+    new webpack.BannerPlugin({ banner: 'JeremyTCD.DocFx.Themes.BasicBlog, Copyright 2017 JeremyTCD', include: /^bundle\..*$/ })
 ];
 
 if (isProduction) {

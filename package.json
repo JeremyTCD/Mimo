@@ -1,14 +1,14 @@
 {
   "version": "0.0.0",
-  "name": "docfx-templates-basicblog",
-  "description": "A minimalist DocFx blog template.",
+  "name": "docfx-themes-basicblog",
+  "description": "A minimalist DocFx blog theme.",
   "keywords": [
     "docfx",
-    "template",
+    "theme",
     "blog"
   ],
-  "homepage": "https://github.com/JeremyTCD/DocFx.Templates.BasicBlog",
-  "bugs": "https://github.com/JeremyTCD/DocFx.Templates.BasicBlog/issues",
+  "homepage": "https://github.com/JeremyTCD/DocFx.Themes.BasicBlog",
+  "bugs": "https://github.com/JeremyTCD/DocFx.Themes.BasicBlog/issues",
   "license": "MIT",
   "author": "JeremyTCD",
   "files": [
