@@ -23,11 +23,11 @@ class BreadcrumbsComponent extends Component {
     }
 
     protected registerListeners(): void {
-        $('#toc-button').on('click', (event: JQueryEventObject) => {
+        $('#toc-button').on('click', (event: JQuery.Event) => {
             toggleHeightForTransition($('#left-menu'), $(event.delegateTarget));
         });
 
-        $(window).on('resize', (event: JQueryEventObject) => {
+        $(window).on('resize', (event: JQuery.Event) => {
             if (mediaWidthNarrow()) {
                 contractHeightWithoutTransition($('#left-menu'), $('#toc-button'));
             }

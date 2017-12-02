@@ -85,13 +85,13 @@ class SearchService {
     private addSearchEvent() {
         $('body').bind("searchEvent", () => {
             $('#search-query').
-                keypress((event: JQueryEventObject) => {
+                keypress((event: JQuery.Event) => {
                     return event.which !== 13;
                 });
 
             $('#search-query').
-                keyup((event: JQueryEventObject) => {
-                    this.queryString = $(event.target).val();
+                keyup((event: JQuery.Event) => {
+                    this.queryString = $(event.target).val().toString();
                     if (this.queryString.length < 3) {
                         searchResultsComponent.setShown(false);
                     } else {

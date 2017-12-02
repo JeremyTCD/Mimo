@@ -10,6 +10,8 @@ import rightMenuComponent from './rightMenuComponent';
 import searchService from './searchService';
 import { openExternalLinksInNewTab } from './linkService';
 
+import * as $ from 'jquery';
+
 $(function () {
     salComponent.initialize();
     headerComponent.initialize();

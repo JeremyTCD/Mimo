@@ -47,7 +47,7 @@ class SearchResultsComponent extends Component {
                         let currentSnippets = snippets.slice(start, start + numPerPage);
                         $('#search-results .article-list > .al-items').
                             empty().
-                            append(currentSnippets);
+                            append(...currentSnippets);
                         queryString.
                             split(/\s+/).
                             forEach((word: string) => {

@@ -47,7 +47,7 @@ class LeftMenuComponent extends Component {
     }
 
     private registerTocTopicListener() {
-        $('#left-menu-toc ul > li.expandable > a').click((event: JQueryEventObject) => {
+        $('#left-menu-toc ul > li.expandable > a').click((event: JQuery.Event) => {
             let href = $(event.delegateTarget).attr('href');
 
             if ($(event.target).hasClass('icon') || !href) {
@@ -142,14 +142,14 @@ class LeftMenuComponent extends Component {
     private setupFilter(): void {
         // Preferable to use a class to scss constants can be used
         $('#left-menu-filter-input').
-            focus((event: JQueryEventObject) => {
+            focus((event: JQuery.Event) => {
                 $('#left-menu-filter').addClass('focus');
             }).
-            focusout((event: JQueryEventObject) => {
+            focusout((event: JQuery.Event) => {
                 $('#left-menu-filter').removeClass('focus');
             });
 
-        $('#left-menu-filter-input').on('input', (event: JQueryInputEventObject) => {
+        $('#left-menu-filter-input').on('input', (event: JQuery.Event) => {
             let sideMenuToc = $('#left-menu-toc');
             let lis = sideMenuToc.find('li');
 
