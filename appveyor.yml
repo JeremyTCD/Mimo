@@ -1,8 +1,6 @@
 version: '{build}'
-branches:
-  only:
-  - master
-skip_non_tags: true
+on:
+  appveyor_repo_tag: true
 image: Visual Studio 2017
 environment:
   npm_token:
