@@ -7,7 +7,7 @@ environment:
     secure: 6EuYnTHhFGD0uTKWxNy17MiH1oANxoFqKjbC+LaExoPJha6g9K337TiZ5rvXrBuW
 install:
 - cmd: if not exist "./node_modules" yarn install --pure-lockfile --ignore-optional
-- ps: Install-Product node 7.7.3 x64
+- ps: Install-Product node 8.9.1 x64
 build_script:
 - ps: |
     yarn run build-production
