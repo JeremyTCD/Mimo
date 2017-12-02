@@ -61,7 +61,7 @@ class RightMenuComponent extends Component {
     }
 
     private setupOutline(): void {
-        let headers = $('main #main-article > h1,h2,h3');
+        let headers = $('main #_content > h1,h2,h3');
         if (headers.length === 0) {
             return;
         }
