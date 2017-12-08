@@ -1,9 +1,13 @@
 ﻿main#recent {
     #_content {
-        display: none;
+        flex-grow: 0;
+        padding-bottom: $gap-2;
     }
 
     #sorted-article-list {
         flex-grow: 1;
+        article {
+            flex-grow: 0;
+        }
     }
 }

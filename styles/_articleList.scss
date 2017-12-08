@@ -12,7 +12,7 @@
         article {
 
             + article {
-                padding-top: $gap-2;
+                padding-top: $gap-3;
             }
 
             h1 {
@@ -20,8 +20,30 @@
                 font-size: $font-size-5;
             }
 
+            h2 {
+                font-size: $font-size-3;
+
+                & + p {
+                    margin-top: $gap-4;
+                }
+            }
+
+            p {
+                & + h2 {
+                    margin-top: $gap-3;
+                }
+        
+                & + h3 {
+                    margin-top: $gap-4;
+                }
+            }
+
             .meta{
                 margin-top: $gap-5;
+
+                & + p {
+                    margin-top: 0;
+                }
             }
         }
     }
