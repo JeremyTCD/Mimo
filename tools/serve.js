@@ -11,7 +11,7 @@ async function serve() {
     const isProduction = environment === 'production';
 
     // Set docfx project directory
-    var docfxProjectDir = argv.d.trim();
+    var docfxProjectDir = argv.d ? argv.d.trim() : '../examples/blog';
     if (!path.isAbsolute(docfxProjectDir)) {
         docfxProjectDir = path.join(__dirname, docfxProjectDir);
     }
@@ -29,11 +29,7 @@ async function serve() {
         path.join(__dirname, '../fonts'),
         path.join(__dirname, '../misc'),
         path.join(docfxProjectDir, 'src'),
-    ], {
-            ignored: [
-                path.join(docfxProjectDir, 'src/**/*.json'),
-            ]
-        });
+    ]);
     var building = false;
     var pendingBuild = true;
     watcher.on('ready', () => {
@@ -43,6 +39,7 @@ async function serve() {
                 // only one more build needs to occur
                 pendingBuild = true;
             } else {
+                pendingBuild = true;
                 while (pendingBuild) {
                     pendingBuild = false;
                     building = true;
@@ -51,17 +48,15 @@ async function serve() {
                 }
                 // Manually trigger refresh https://github.com/webpack/webpack-dev-server/issues/166
                 server.sockWrite(server.sockets, 'ok');
-                pendingBuild = true;
             }
         });
 
         if (logLevel === 'debug') {
-            console.log(`*** Watching these Files ***`);
+            console.log(`*** Watching these Files and Directories ***`);
             var watchedPaths = watcher.getWatched();
             Object.keys(watchedPaths).forEach((dir) => {
-                console.log(`Directory: ${dir}`);
                 watchedPaths[dir].forEach((file) => {
-                    console.log(`    File/Sub-Directory: ${file}`);
+                    console.log(`    File/Directory: ${file}`);
                 });
             });
         }
