@@ -1,9 +1,0 @@
-/**/node_modules/
-/**/.sass-cache
-tools/obj/
-plugins/
-
-.vscode
-.vs
-debug.log
-npm-debug.log
