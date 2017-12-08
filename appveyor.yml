@@ -13,8 +13,8 @@ build_script:
     yarn run build-production
     new-item .npmrc -type file
     add-content .npmrc "//registry.npmjs.org/:_authToken=$($env:npm_token)"
-    npm version $env:APPVEYOR_REPO_TAG_NAME
-    npm publish
+    yarn version $env:APPVEYOR_REPO_TAG_NAME
+    yarn publish
 cache:
     - node_modules -> package.json
 test: off
