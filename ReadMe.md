@@ -12,7 +12,7 @@ Notes for this ReadMe
 [![Build status](https://ci.appveyor.com/api/projects/status/3gt21k5ah72ae31p?svg=true)](https://ci.appveyor.com/project/JeremyTCD/docfx-themes-basicblog)
 <!--- Add test status once badge with logo is available https://github.com/badges/shields/pull/812 --->
 
-#### Table of Contents  
+### Table of Contents  
 * [Summary](#summary)  
 * [Prerequisites](#prerequisites)  
 * [Creating Your Blog Using BasicBlog](#creating-your-blog-using-basicblog) 
@@ -23,10 +23,10 @@ Notes for this ReadMe
   * [Overriding BasicBlog](#overriding-basicblog)  
     * [Example: Overriding colors](#example-overriding-colors)
 * [Publishing Your Blog](#publishing-your-blog)
-* [Modifying BasicBlog](#building)  
+* [Modifying BasicBlog](#modifying-basicblog)  
   * [Building BasicBlog](#building-basicblog)
   * [Serving BasicBlog in watch mode](#serving-basicblog-in-watch-mode)
-    * [Example: Changing the number of articles displayed by recent](#example-changing-the-number-of-articles-displayed-by-recent)
+    * [Example: Editing scripts in watch mode](#editing-scripts-in-watch-mode)
 * [Packing BasicBlog](#packing-basicblog)
 * [Alternatives](#alternatives)  
 * [Further Reading](#further-reading)  
@@ -61,66 +61,71 @@ Install the following command line tools if you don't already have them:
 ### Building and Serving Your Blog
 1. Clone this repository:
  
-    ```ps
-    C:\any\path> git clone https://github.com/JeremyTCD/DocFx.Themes.BasicBlog.git
-    ```
+   ```
+   C:\any\path> git clone https://github.com/JeremyTCD/DocFx.Themes.BasicBlog.git
+   ```
+   
 2. Copy *docfx-themes-basicblog/examples/blog* to a new location. 
    
    The *blog* directory is a quickstart template. It has the following structure: 
 
-	```
-	|-- blog
-		|-- src
-		|-- docfx.json
-        |-- package.json
-	```    
+   ```
+   |-- blog
+       |-- src
+       |-- docfx.json
+       |-- package.json
+   ```    
 
-    *src* contains the source files for your blog. *docfx.json* is your DocFx configuration file and *package.json* is your Yarn configuration file.
+   *src* contains the source files for your blog. *docfx.json* is your DocFx configuration file and *package.json* is your Yarn configuration file.
 
 3. Install BasicBlog by running the following command in *blog*:
 
-    ```ps
-    C:\your\path\blog> yarn install
-    ```
-    This command generates a directory named *node_modules*. *node_modules* will have the following structure:
-	```
-	|-- node_modules
-    	|-- ...
-		|-- jeremytcd-docfx-themes-basicblog
-            |-- dist
-                |-- theme
-                |-- tools
-            |-- ...
-		|-- ...
-	```    
-    The *theme* directory is the BasicBlog DocFx theme. Note that it was not necessary to specify what you were installing when you ran `yarn install` because *package.json* is preconfigured with BasicBlog as a dependency.
+   ```
+   C:\your\path\blog> yarn install
+   ```
+   
+   This command generates a directory named *node_modules*. *node_modules* will have the following structure:
+   
+   ```
+   |-- node_modules
+       |-- ...
+       |-- jeremytcd-docfx-themes-basicblog
+           |-- dist
+               |-- theme
+               |-- tools
+           |-- ...
+       |-- ...
+   ```
+   
+   The *theme* directory is the BasicBlog DocFx theme. Note that it was not necessary to specify what you were installing when you ran `yarn install` because *package.json* is preconfigured with BasicBlog as a dependency.
 
 4. Build your blog by running the following command in *blog*, using an administrator shell: 
     
-    ```ps
-    C:\your\path\blog> yarn run build
-    ```
-    This command runs `docfx build`, which generates a directory named *_site*. *_site* contains your static site. 
+   ```
+   C:\your\path\blog> yarn run build
+   ```
+   
+   This command runs `docfx build`, which generates a directory named *_site*. *_site* contains your static site. 
 
 5. Serve your blog by running the following command in *blog*: 
     
-    ```ps
-    C:\your\path\blog> docfx serve _site
-    ```
+   ```
+   C:\your\path\blog> docfx serve _site
+   ```
     
-    To view your site, navigate to *localhost:8080* in your browser.
+   To view your site, navigate to *localhost:8080* in your browser.
     
 ### Serving Your Blog in Watch Mode
 Serve your blog in watch mode by running the following command in *blog*, using an 
 administrator shell: 
     
-```ps
-# Append "-- -l debug" to view debug level output.
-
+```
 C:\your\path\blog> yarn run serve [-- -l debug]
+
+# Append "-- -l debug" to view debug level output.
 ```
 
-This command runs `docfx build`, serves the site (on port 3000 by default - navigate to *localhost:3000* in your browser to view it) and starts watching *src*. Any change to *src*'s contents causes `docfx build` to run again and reloads the page.
+This command runs `docfx build`, serves the site (on port 3000 by default - navigate to *localhost:3000* in your browser to view it) and starts watching *blog/src*. Any change to *blog/src*'s contents causes `docfx build` to run again and reloads the page.
 
 Note that DocFx has to rebuild the entire static site whenever changes are made. This is because DocFx has no built-in watch feature. At the time of writing, DocFx takes about 2.5 seconds to rebuild *docfx-themes-basicblog/examples/blog*. That is pretty slow, but beats manually running `docfx build` and refreshing the page on every change.
         
@@ -129,27 +134,28 @@ Note that DocFx has to rebuild the entire static site whenever changes are made.
 2. In *blog/src/content/articles*, duplicate *exampleArticle4.md*. Rename the new file to *myFirstArticle.md*.
 3. Open *myFirstArticle.md* in a text editor or IDE of your choice. Amend the following two lines near the beggining of the file:
     
-    ```yml
-    ---
-    title: My First Article # Inserted into the <title> html element
-    ...
-    ---
+   ```yaml
+   ---
+   title: My First Article # Inserted into the <title> html element
+   ...
+   ---
 
-    # My First Article
-    ...
-    ```
+   # My First Article
+   ...
+   ```
 
 4. Open *blog/src/content/articles/toc.yml* in a text editor or IDE of your choice. Add the following properties to the end of the file: 
 
-    ```yml
-    - name: My First Category
-      items:
-      - name: My First Article
-        href: myFirstArticle.md
-    ```
-   Your browser should reload the page automatically. The left menu should contain a new category named *My First Category*. This category should contain a new article named *My First Article*.
+   ```yaml
+   - name: My First Category
+     items:
+       - name: My First Article
+         href: myFirstArticle.md
+   ```
+   
+   Your browser should reload the page automatically. The menu on the left should contain a new category named *My First Category*. This category should contain a new article named *My First Article*.
 
-    Refer to the [DocFx documentation](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html) for an explanation on DocFx flavoured markdown, toc files etc.
+   Refer to the [DocFx documentation](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html) for an explanation on DocFx flavoured markdown, toc files etc.
 
 ### Configuring Your Blog
 TODO
@@ -159,16 +165,16 @@ TODO
 TODO
 
 ### Overriding BasicBlog
-DocFx themes are simply directories containing resources such as [Mustache templates](https://mustache.github.io/mustache.5.html), stylesheets and scripts. If more than one theme is specified when building a DocFx project, resources from all of the themes are combined into a single theme. Resources from latter themes take precedence. For example, your *blog/docfx.json* has the following property (the property should really be named `theme`, however, DocFx themes were referred to as templates initially):
+DocFx themes are simply directories containing resources such as [Mustache templates](https://mustache.github.io/mustache.5.html), stylesheets and scripts. If more than one theme is specified when building a DocFx project, resources from all of the themes are combined into a single theme. Resources from latter themes take precedence. For example, your *blog/docfx.json* has the following `template` property (the property should really be named `theme`, however, DocFx themes were referred to as templates initially):
 
 ```
 "template": [
-	"./node_modules/jeremytcd-docfx-themes-basicblog/dist/theme",
-	"./src/customizations"
+    "./node_modules/jeremytcd-docfx-themes-basicblog/dist/theme",
+    "./src/customizations"
 ]
 ```
 
-Resources from *blog/src/customizations* take precedence. Essentially, *blog/src/customizations* is a custom theme for overriding files in the BasicBlog theme. It has several intended extensibility points:
+Resources from *blog/src/customizations* take precedence. Essentially, *blog/src/customizations* is a custom theme for overriding files in BasicBlog. It has several intended extensibility points:
 
 * *blog/src/customizations/styles/customStyles.css* can be used to overwrite BasicBlog styles.
 * Mustache templates can be placed in *blog/src/customizations/partials* to overwrite BasicBlog Mustache templates.
@@ -177,16 +183,17 @@ Resources from *blog/src/customizations* take precedence. Essentially, *blog/src
 1. Ensure that you are serving your blog in watch mode. In your browser, navigate to *localhost:3000*.
 2. Open *blog/src/customizations/styles/customStyles.css* in a text editor or IDE of your choice. Replace its contents with the following text:
 
-    ```css
-    header{
-		background-color: black;
-    }
-    footer{
-        background-color: black;
-    }
-    ```
+   ```css
+   header {
+       background-color: black;
+   }
+   footer {
+       background-color: black;
+   }
+   ```
 
-	Your browser should reload the page automatically. Your header and footer should now be black. You can use this technique to customize your blog's color scheme and more.
+   Your browser should reload the page automatically. Your header and footer should now be black. You can use this technique to customize your blog's color scheme and more.
+   
 ## Publishing Your Blog
 TODO  
 I recommend [Github Pages](https://pages.github.com/).
@@ -198,38 +205,44 @@ The sections above pertain to using BasicBlog as is. You might want to modify Ba
 1. Fork this repository. 
 2. Clone your fork:
  
-    ```ps
-    C:\your\path> git clone https://github.com/YourName/DocFx.Themes.BasicBlog.git
-    ```
+   ```
+   C:\your\path> git clone https://github.com/YourName/DocFx.Themes.BasicBlog.git
+   ```
+   
 3. Install BasicBlog's yarn dependencies by running the following command in the  *docfx-themes-basicblog* directory:
     
-    ```
-    C:\your\path\docfx-themes-basicblog> yarn install
-    ```
+   ```
+   C:\your\path\docfx-themes-basicblog> yarn install
+   ```
     
-    This command generates a directory named *node_modules*. *node_modules* contains BasicBlog's Yarn dependencies.
+   This command generates a directory named *node_modules*. *node_modules* contains BasicBlog's Yarn dependencies.
     
 2. Build BasicBlog by running one of the following commands:
 
-    ```
-    C:\your\path\docfx-themes-basicblog> yarn run build-dev
-    C:\your\path\docfx-themes-basicblog> yarn run build-production
-    ```
+   ```
+   C:\your\path\docfx-themes-basicblog> yarn run build-dev
+   ```
+   
+   or
+   
+   ```
+   C:\your\path\docfx-themes-basicblog> yarn run build-production
+   ```
     
-    Both of these commands generate a directory named *dist*. *dist* contains everything that will be included in the BasicBlog Yarn package. Note that when running `build-production`, some files will be minified and some file names will be appended with hashes to help with caching. Production mode is slower and should not be used while developing.
+   Both of these commands generate a directory named *dist*. *dist* contains everything that will be included in the BasicBlog Yarn package. Note that when running `build-production`, some files will be minified and some file names will be appended with hashes to help with caching. Production mode is slower and should not be used while developing.
     
 ### Serving BasicBlog in watch mode
     
 1. To serve BasicBlog in watch mode, a blog project is required so that there is content to display (articles, categories etc). By default, *docfx-themes-basicblog/examples/blog* is served locally when you run the following command in *docfx-themes-basicblog*, using an administrator shell:
  
-   ```
+   ```   
+   yarn run serve-dev [-- [-d <blog project directory>] [-l debug]]
+   
    # Append `-- -d <blog project directory>` to use a blog project other than *docfx-themes-basicblog/examples/blog*. 
    # Append `-- -l debug` to view debug level ouput.
-   
-   yarn run serve-dev [-- [-d <blog project directory>] [-l debug]]
    ```
    
-   The site should be available at port 8080 (navigate to *localhost:8080* in your browser to view it). Changes to the contents of the following directories will trigger a DocFx rebuild and a page reload: 
+   The site should be available at port 8080 (navigate to *localhost:8080* in your browser to view it). Changes to the contents of the following directories in *docfx-themes-basicblog* will trigger a DocFx rebuild and a page reload: 
    - *fonts*
    - *misc*
    - *plugins*
@@ -239,24 +252,24 @@ The sections above pertain to using BasicBlog as is. You might want to modify Ba
    Changes to the contents of the following directories will trigger a webpack incremental build and a page reload:
    - *scripts*
    - *styles*
-
-#### Example: Changing the number of articles displayed by recent 
+   
+#### Example: Editing scripts in watch mode
 1. Navigate to *localhost:8080/articles/recent.html* in your browser.
 2. Edit the following line in *docfx-themes-basicblog/scripts/salComponent.ts*:
     
-    ```
-    class SalComponent extends Component {
-        ...
-        protected setup(): void {
-            let numPerPage = 2; // Change from 5 to 2
-            ...
-        }
-    }
-    ```
+   ```ts
+   class SalComponent extends Component {
+       ...
+       protected setup(): void {
+           let numPerPage = 2; // Change from 5 to 2
+           ...
+       }
+   }
+   ```
     
-    Your browser should reload the page automatically. Instead of displaying 4 articles, your recent page should display 2 articles and a link to view the other two.
+   Your browser should reload the page automatically. Instead of displaying 4 articles, your recent page should display 2 articles and a link to view the other two.
 
-### Packing BasicBlog
+## Packing BasicBlog
 
 Pack BasicBlog (or your modified version of it) by running the following command in the *docfx-themes-basicblog* directory:
     
@@ -281,14 +294,12 @@ C:\your\path\blog> yarn add "C:/your/path/jeremytcd-docfx-themes-basicblog-v0.0.
 Don't forget to clear your cache or increment the version number in *project.json* if you repack the package.
 
 ## Alternatives
-DocFx is one of the best - if not the best - tool for generating documentation from .Net projects. Indeed, I started working on a DocFx theme with the intention of using the theme to build documentation for my .Net projects. BasicBlog was a detour, branched off from my documentation centric theme. DocFx is very much geared toward generating documentation sites.
-
-There are however, some pros for using DocFx to generate your blog:
+DocFx is very much geared toward generating documentation sites. There are however, some pros for using DocFx to generate your blog:
 - You can write plugins using .Net languages.
 - DocFx makes it easy to insert code from .Net projects into your articles.
 - You get to familiarize yourself with a great tool for documenting .Net projects.
 
-If you are looking for a quick blog, you can try the following platforms:  
+If you are looking for a simpler blog or a platform with more templates to choose from, you can try the following platforms:  
 - [Jekyll](https://jekyllrb.com/)
 - [Hugo](https://gohugo.io/)
 
@@ -307,10 +318,8 @@ technologies may be of interest:
 - [Node](https://nodejs.org/en/)
 - [Lunr](https://lunrjs.com/)
  
-## Things To Do
-
-
-
+## Contributions
+Contributions are welcome! If you are looking for existing issues to work on, they can be found [here](https://github.com/JeremyTCD/DocFx.Themes.BasicBlog/labels/help%20wanted).
 
 ## License
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/JeremyTCD/JeremyTCD.github.io/dev/License.txt)  
