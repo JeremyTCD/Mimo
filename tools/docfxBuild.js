@@ -7,9 +7,9 @@ module.exports = function docfxBuild(docfxProjectDir, logLevel) {
         await docfxClean(docfxProjectDir);
 
         if (logLevel === 'debug') {
-            console.log(`docfx build -t "${path.join(__dirname, '../dist')}"`);
+            console.log(`docfx build -t "${path.join(__dirname, '../dist/theme')}"`);
         }
-        exec(`docfx build -t "${path.join(__dirname, '../dist')}"`, { cwd: docfxProjectDir }, (err, stdout, stderr) => {
+        exec(`docfx build -t "${path.join(__dirname, '../dist/theme')}"`, { cwd: docfxProjectDir }, (err, stdout, stderr) => {
             if (logLevel === 'debug') {
                 console.log(stdout);
             }

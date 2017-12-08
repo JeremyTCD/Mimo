@@ -32,10 +32,10 @@ module.exports = {
     },
     output: {
         // Need to create a plugin for docfx that inserts files name according to environment
-        // Additionally, should split into vendor and app scripts. By doing so and adding hash to app scripts
+        // By doing so and adding hash to app scripts
         // vendor scripts will be cached even when app scripts are tweaked.
         filename: '[name].' + 'js', // (isProduction ? 'min.js' : 'js'),
-        path: path.join(__dirname, '../dist/styles'),
+        path: path.join(__dirname, '../dist/theme/styles'),
         publicPath: '/styles/'
     },
     resolve: {
