@@ -3,6 +3,8 @@
 dist/
 tools/obj/
 plugins/
+/**/_site
+/**/obj
 
 .npmrc
 .vscode
