@@ -11,5 +11,9 @@ module.exports = function copySimpleFilesTodist() {
     cpy(path.join(__dirname, '../templates/partials/*'), path.join(themeDir, 'partials')),
     cpy(path.join(__dirname, '../misc/*'), themeDir),
     cpy(path.join(__dirname, '../styles/*.css'), path.join(themeDir, 'styles')),
-    cpy(path.join(__dirname, '../tools/distTools/*'), toolsDir)]);
+    cpy(path.join(__dirname, '../tools/distTools/*'), toolsDir),
+    cpy(path.join(__dirname, '../tools/docfxClean.js'), toolsDir),
+    cpy(path.join(__dirname, '../tools/docfxBuild.js'), toolsDir)]).then(_ => {
+        console.log(`complete - copy simple files`);
+    });
 };
