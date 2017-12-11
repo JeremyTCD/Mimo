@@ -4,6 +4,7 @@ const docfxClean = require('./docfxClean');
 
 module.exports = function docfxBuild(docfxProjectDir, logLevel) {
     return new Promise(async (resolve, reject) => {
+        console.log(`start - docfx build`);
         await docfxClean(docfxProjectDir);
 
         if (logLevel === 'debug') {
@@ -18,6 +19,7 @@ module.exports = function docfxBuild(docfxProjectDir, logLevel) {
                 console.log(stderr);
                 reject();
             } else {
+                console.log(`complete - docfx build`);
                 resolve();
             }
         });

@@ -5,20 +5,18 @@ const docfxBuild = require(`./docfxBuild`);
 
 module.exports = async function serveBuild(docfxProjectDir, logLevel) {
     console.log(`*** start - serve build ***`);
-    console.log(`start - clean`);
-    await clean();
-    console.log(`complete - clean`);
 
-    console.log(`start - restore plugins`);
-    await restorePlugins(logLevel);
-    console.log(`complete - restore plugins`);
+    try {
+        await clean();
+        await restorePlugins(logLevel);
+        await copySimpleFilesToDist();
+        await docfxBuild(docfxProjectDir, logLevel);
 
-    console.log(`start - copy simple files`);
-    await copySimpleFilesToDist();
-    console.log(`complete - copy simple files`);
-
-    console.log(`start - docfx build`);
-    await docfxBuild(docfxProjectDir, logLevel);
-    console.log(`complete - docfx build`);
-    console.log(`*** complete - serve build ***`);
+        console.log(`*** complete - serve build ***`);
+    }
+    catch (error)
+    {
+        // Each promise should handle printing of its own errors then call reject with no arguments
+        console.log(`***failed - serve build ***`);
+    }
 }
