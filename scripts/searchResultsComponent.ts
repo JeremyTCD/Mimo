@@ -37,7 +37,7 @@ class SearchResultsComponent extends Component {
             $('#search-results > .container > span').text(`Your search - "${queryString}" - did not match any documents`);
         } else {
             $('#search-results > .container > span').text('');
-            $('#search-string .container > span').text(`Search results for "${queryString}"`);
+            $('#search-string .container > span').text(`Search results for "${queryString}" ...`);
             $('#search-results .article-list > .al-pagination').
                 twbsPagination({
                     totalPages: Math.ceil(snippets.length / numPerPage),
