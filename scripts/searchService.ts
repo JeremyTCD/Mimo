@@ -55,7 +55,7 @@ class SearchService {
                     let data: SearchData = searchData[hit.ref];
                     snippets.push(data.snippetHtml);
                 });
-            searchResultsComponent.setSnippets(snippets, this.queryString, this.queryString);
+            searchResultsComponent.setSnippets(snippets, this.queryString);
         });
     }
 
@@ -70,8 +70,7 @@ class SearchService {
                     break;
                 case 'query-ready':
                     let snippets = event.data.d;
-                    let highlightString = event.data.q;
-                    searchResultsComponent.setSnippets(snippets, highlightString, this.queryString);
+                    searchResultsComponent.setSnippets(snippets, this.queryString);
                     break;
             }
         }
