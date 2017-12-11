@@ -12,7 +12,7 @@ async function serve() {
     var logLevel = argv.l ? argv.l.trim() : null;
 
     // Run serve build once
-    await docfxBuild(docfxProjectDir, logLevel);
+    await docfxBuild(docfxProjectDir, null, logLevel);
 
     // Start watcher for serve build
     var watcher = chokidar.watch([path.join(docfxProjectDir, 'src')]);
@@ -29,7 +29,12 @@ async function serve() {
                 while (pendingBuild) {
                     pendingBuild = false;
                     building = true;
-                    await docfxBuild(docfxProjectDir, logLevel);
+                    try {
+                        await docfxBuild(docfxProjectDir, null, logLevel);
+                    }
+                    catch (err){
+                        // Do nothing. docfxBuild prints stdout from running docfx.
+                    }
                     building = false;
                 }
                 browserSync.reload();
