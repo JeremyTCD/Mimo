@@ -13,14 +13,13 @@ module.exports = function docfxBuild(docfxProjectDir, themeDir, logLevel) {
             console.log(`docfx build ${themeOption}`);
         }
         exec(`docfx build ${themeOption}`, { cwd: docfxProjectDir }, (err, stdout, stderr) => {
-            if (logLevel === 'debug') {
-                console.log(stdout);
-            }
             if (err) {
-                console.log(err);
-                console.log(stderr);
+                console.log(stdout);
                 reject();
             } else {
+                if (logLevel === 'debug') {
+                    console.log(stdout);
+                }
                 console.log(`complete - docfx build`);
                 resolve();
             }

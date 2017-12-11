@@ -6,18 +6,17 @@ module.exports = function restorePlugins(logLevel) {
         console.log(`start - restore plugins`);
 
         var childProcess = exec('msbuild', { cwd: __dirname }, (err, stdout, stderr) => {
-            if (logLevel === 'debug') {
-                console.log(stdout);
-            }
             if (err) {
-                console.log(err);
-                console.log(stderr);
+                console.log(stdout);
                 reject();
             } else {
+                if (logLevel === 'debug') {
+                    console.log(stdout);
+                }
                 console.log(`complete - restore plugins`);
 
                 resolve();
             }
-        }); 
+        });
     });
 };
