@@ -29,8 +29,8 @@ class SearchResultsComponent extends Component {
     public setSnippets(snippets: string[], queryString: string) {
         let numPerPage = 5;
 
-        $('#search-results .article-list > .al-pagination').empty();
-        $('#search-results .article-list > .al-pagination').removeData("twbs-pagination");
+        $('#search-results .article-list > .al-pagination').twbsPagination('destroy');
+
         if (snippets.length === 0) {
             $('#search-results .article-list > .al-items').empty();
             $('#search-string .container > span').text(`No results found for "${queryString}"`);
