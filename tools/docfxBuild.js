@@ -2,15 +2,17 @@ const exec = require('child_process').exec;
 const path = require('path');
 const docfxClean = require('./docfxClean');
 
-module.exports = function docfxBuild(docfxProjectDir, logLevel) {
+module.exports = function docfxBuild(docfxProjectDir, themeDir, logLevel) {
     return new Promise(async (resolve, reject) => {
         console.log(`start - docfx build`);
         await docfxClean(docfxProjectDir);
 
+        var themeOption = themeDir ? `-t "${themeDir}"` : ``;
+
         if (logLevel === 'debug') {
-            console.log(`docfx build -t "${path.join(__dirname, '../dist/theme')}"`);
+            console.log(`docfx build ${themeOption}`);
         }
-        exec(`docfx build -t "${path.join(__dirname, '../dist/theme')}"`, { cwd: docfxProjectDir }, (err, stdout, stderr) => {
+        exec(`docfx build ${themeOption}`, { cwd: docfxProjectDir }, (err, stdout, stderr) => {
             if (logLevel === 'debug') {
                 console.log(stdout);
             }
