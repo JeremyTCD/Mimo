@@ -92,7 +92,7 @@ class SearchService {
             $('#search-query').
                 keyup((event: JQuery.Event) => {
                     this.queryString = $(event.target).val().toString();
-                    if (this.queryString.length < 3) {
+                    if (this.queryString.length < 1) {
                         searchResultsComponent.setShown(false);
                     } else {
                         $("body").trigger("queryReady");
