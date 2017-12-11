@@ -46,7 +46,9 @@ async function serve() {
                     await serveBuild(docfxProjectDir, logLevel);
                     building = false;
                 }
+
                 // Manually trigger refresh https://github.com/webpack/webpack-dev-server/issues/166
+                // TODO does not work after serveBuild fails once (even when subsequent serveBuilds succeed)
                 server.sockWrite(server.sockets, 'ok');
             }
         });
