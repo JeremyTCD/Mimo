@@ -1,6 +1,7 @@
 import '../node_modules/mark.js/dist/jquery.mark'; // Use relative path since mark.js has multiple dist files
 
 import searchResultsComponent from './searchResultsComponent';
+import * as lunr from 'lunr';
 
 class SearchService {
     private queryString: string;
@@ -10,54 +11,10 @@ class SearchService {
             let SearchWorker = require("./workers/search.worker");
             let searchWorker = new SearchWorker() as Worker;
 
-            if (Worker && searchWorker) {
-                this.setupWebWorkerSearch(searchWorker);
-            } else {
-                this.setupLocalSearch();
-            }
-
+            this.setupWebWorkerSearch(searchWorker);
             this.addSearchEvent();
         }
     };
-
-    private setupLocalSearch(): void {
-        console.log("using local search");
-        let lunr = require('lunr');
-        let lunrIndex = lunr(function () {
-            this.ref('relPath');
-            this.field('title', { boost: 50 });
-            this.field('text', { boost: 20 });
-        });
-        lunr.tokenizer.seperator = /[\s\-\.]+/;
-        let searchData: { [key: string]: SearchData } = {};
-        let searchDataRequest = new XMLHttpRequest();
-
-        let indexPath = "/index.json";
-        if (indexPath) {
-            searchDataRequest.open('GET', indexPath);
-            searchDataRequest.onload = function () {
-                if (searchDataRequest.status != 200) {
-                    return;
-                }
-                searchData = JSON.parse(searchDataRequest.responseText);
-                for (let prop in searchData) {
-                    lunrIndex.add(searchData[prop]);
-                }
-            }
-            searchDataRequest.send();
-        }
-
-        $("body").bind("queryReady", () => {
-            let hits = lunrIndex.search(this.queryString);
-            let snippets: string[] = [];
-            hits.
-                forEach((hit: any) => {
-                    let data: SearchData = searchData[hit.ref];
-                    snippets.push(data.snippetHtml);
-                });
-            searchResultsComponent.setSnippets(snippets, this.queryString);
-        });
-    }
 
     private setupWebWorkerSearch(searchWorker: Worker): void {
         console.log("using Web Worker");
