@@ -26,7 +26,7 @@ class SearchResultsComponent extends Component {
         }
     }
 
-    public setSnippets(snippets: string[], queryString: string) {
+    public setSnippets(snippets: string[], highlightString: string, queryString: string) {
         let numPerPage = 5;
 
         $('#search-results .article-list > .al-pagination').twbsPagination('destroy');
@@ -38,7 +38,8 @@ class SearchResultsComponent extends Component {
         } else {
             $('#search-results > .container > span').text('');
             $('#search-string .container > span').text(`Search results for "${queryString}" ...`);
-            $('#search-results .article-list > .al-pagination').
+
+            $('#search-results .article-list > .al-pagination').      
                 twbsPagination({
                     totalPages: Math.ceil(snippets.length / numPerPage),
                     visiblePages: 5,
@@ -48,7 +49,8 @@ class SearchResultsComponent extends Component {
                         $('#search-results .article-list > .al-items').
                             empty().
                             append(...currentSnippets);
-                        queryString.
+
+                        highlightString.
                             split(/\s+/).
                             forEach((word: string) => {
                                 if (word !== '') {
