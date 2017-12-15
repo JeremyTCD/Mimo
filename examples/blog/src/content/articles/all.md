@@ -1,5 +1,5 @@
 ---
-title: Recent Articles
+title: All Articles
 _disableAffix: true
 _disableContribution: true
 uid: recent
@@ -8,4 +8,4 @@ jr.disableMetadata: true
 jr.disableRightMenu: true
 ---
 
-# Recent
+# All

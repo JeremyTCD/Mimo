@@ -1,5 +1,5 @@
-- name: Recent
-  href: recent.md
+- name: All
+  href: all.md
 - name: Example Category 1
   items:
   - name: Example Article 1

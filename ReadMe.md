@@ -38,7 +38,7 @@ BasicBlog is a minimalist [DocFx](https://dotnet.github.io/docfx/) blog theme. I
 
 Features:
 
-- Recent articles page.
+- Page with list of articles sorted by date.
 - Cient side search. Search results contain article snippets.
 - A menu displaying articles by category.
 - Watch mode (explained [here](#serving-your-blog-in-watch-mode)). Displays changes in real time as you edit your blog.
@@ -130,7 +130,7 @@ This command runs `docfx build`, serves the site (on port 3000 by default - navi
 Note that DocFx has to rebuild the entire static site whenever changes are made. This is because DocFx has no built-in watch feature. At the time of writing, DocFx takes about 2.5 seconds to rebuild *docfx-themes-basicblog/examples/blog*. That is pretty slow, but beats manually running `docfx build` and refreshing the page on every change.
         
 #### Example: Adding an article in watch mode
-1. Navigate to *localhost:3000/articles/recent.html* in your browser.
+1. Navigate to *localhost:3000/articles/all.html* in your browser.
 2. In *blog/src/content/articles*, duplicate *exampleArticle4.md*. Rename the new file to *myFirstArticle.md*.
 3. Open *myFirstArticle.md* in a text editor or IDE of your choice. Amend the following two lines near the beggining of the file:
     
@@ -254,7 +254,7 @@ The sections above pertain to using BasicBlog as is. You might want to modify Ba
    - *styles*
    
 #### Example: Editing scripts in watch mode
-1. Navigate to *localhost:8080/articles/recent.html* in your browser.
+1. Navigate to *localhost:8080/articles/all.html* in your browser.
 2. Edit the following line in *docfx-themes-basicblog/scripts/salComponent.ts*:
     
    ```ts
@@ -267,7 +267,7 @@ The sections above pertain to using BasicBlog as is. You might want to modify Ba
    }
    ```
     
-   Your browser should reload the page automatically. Instead of displaying 4 articles, your recent page should display 2 articles and a link to view the other two.
+   Your browser should reload the page automatically. Instead of displaying 4 articles, your "all articles" page should display 2 articles and a link to view the other two.
 
 ## Packing BasicBlog
 
