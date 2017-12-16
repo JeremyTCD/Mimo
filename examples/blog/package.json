@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "serve": "node node_modules/jeremytcd-docfx-themes-basicblog/dist/tools/serve.js",
+    "serve": "node node_modules/jeremytcd-docfx-themes-basicblog/dist/tools/serveBlog.js",
     "build": "docfx build"
   },
   "dependencies": {},
