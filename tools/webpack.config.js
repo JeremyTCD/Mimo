@@ -3,7 +3,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const Webpack = require('webpack');
 const Path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const FileChanger = require('webpack-file-changer');
 const FileSystem = require("fs");
 
 module.exports = (env) => {
@@ -81,11 +80,13 @@ module.exports = (env) => {
     }
 
     // Add banner after minifying
+    // TODO included files
     plugins.push(new Webpack.BannerPlugin({ banner: 'JeremyTCD.DocFx.Themes.BasicBlog, Copyright 2017 JeremyTCD', include: /^bundle\..*$/ }));
 
     return {
         entry: {
-            bundle: Path.join(__dirname, '../scripts/index.ts'),
+            // Bundle must be an array so other sources can be added to it (see serve.js)
+            bundle: [Path.join(__dirname, '../scripts/index.ts')],
             vendor: ['jquery', 'anchor-js', 'lunr', 'mark.js', 'twbs-pagination']
         },
         output: {
