@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
 const chokidar = require('chokidar');
 const serveBuild = require('./serveBuild');
+const webpackConfig = require('./webpack.config.js');
 
 async function serve() {
     // Set environment
@@ -65,10 +66,10 @@ async function serve() {
     });
 
     // Start webpack-dev-server
-    const webpackConfig = require('./webpack.config.js');
-    webpackConfig.entry.bundle.unshift("webpack-dev-server/client?http://localhost:8080/");
-    webpackConfig.resolve.modules.unshift(path.join(__dirname, "../node_modules"));
-    const compiler = webpack(webpackConfig);
+    var config = webpackConfig();
+    config.entry.bundle.unshift("webpack-dev-server/client?http://localhost:8080/");
+    config.resolve.modules.unshift(path.join(__dirname, "../node_modules"));
+    const compiler = webpack(config);
     const server = new webpackDevServer(compiler,
         {
             contentBase: path.join(docfxProjectDir, '_site'),
