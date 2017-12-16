@@ -1,66 +1,104 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const webpack = require('webpack');
-const path = require('path');
+const Webpack = require('webpack');
+const Path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const FileChanger = require('webpack-file-changer');
+const FileSystem = require("fs");
 
 module.exports = (env) => {
     // Consider NODE_ENV from command line arguments and environment variables
-    const isProduction = process.env.NODE_ENV == 'production' || env.NODE_ENV === 'production';
+    const isProduction = process.env.NODE_ENV == 'production' || (env && env.NODE_ENV === 'production');
 
     var plugins = [
+        new Webpack.ProvidePlugin({
+            $: 'jquery',
+            'window.jQuery': 'jquery',
+            jQuery: 'jquery'
+        }),
+
         // Css files are referenced in ts files. They must be extracted into a css bundle.
         new ExtractTextPlugin(`bundle.${isProduction ? '[contenthash].min.' : ''}css`),
 
         // Webpack uses an incrementing digit for module ids by default, this means hashes can change unexpectedly -
         // https://webpack.js.org/guides/caching/#module-identifiers
-        new webpack.NamedModulesPlugin(),
+        new Webpack.NamedModulesPlugin(),
 
         // Creates vendor.*js. Includes files specified in entry.
-        new webpack.optimize.CommonsChunkPlugin({
+        new Webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minChunks: Infinity
         }),
 
         // Creates manifest.*js. Built in preset that extracts a manifest. Necessary for consistent hashes - 
         // https://webpack.js.org/guides/caching/#extracting-boilerplate
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'manifest'
+        new Webpack.optimize.CommonsChunkPlugin({
+            name: 'manifest',
+            minChunks: Infinity
         }),
 
         // Runs ts type checking in a separate process
         new ForkTsCheckerWebpackPlugin({
-            tsconfig: path.join(__dirname, '../tsconfig.json')
+            tsconfig: Path.join(__dirname, '../tsconfig.json')
         })
     ];
 
     // Minify if in production environment
     if (isProduction) {
         plugins.push(new UglifyJsPlugin());
+        plugins.push(function () {
+            this.plugin("done", function (statsData) {
+                debugger;
+                var stats = statsData.toJson();
+
+                if (!stats.errors.length) {
+                    // Replace script files with hash-appended names
+                    var file = Path.join(__dirname, '../dist/theme/partials/scripts.tmpl.partial');
+                    var html = FileSystem.readFileSync(file, "utf8");
+                    var htmlOutput = html.replace(
+                        /bundle\.js/,
+                        stats.assetsByChunkName.bundle.filter(name => name.endsWith('.js'))[0]);
+                    htmlOutput = htmlOutput.replace(
+                        /vendor\.js/,
+                        stats.assetsByChunkName.vendor
+                    );
+                    htmlOutput = htmlOutput.replace(
+                        /manifest\.js/,
+                        stats.assetsByChunkName.manifest
+                    );
+                    FileSystem.writeFileSync(file, htmlOutput);
+
+                    // Replace style file names with hash-appended names
+                    file = Path.join(__dirname, '../dist/theme/partials/head.tmpl.partial');
+                    html = FileSystem.readFileSync(file, "utf8");
+                    htmlOutput = html.replace(
+                        /bundle\.css/,
+                        stats.assetsByChunkName.bundle.filter(name => name.endsWith('.css'))[0]);
+                    FileSystem.writeFileSync(file, htmlOutput);
+                }
+            });
+        });
     }
 
     // Add banner after minifying
-    plugins.push(new webpack.BannerPlugin({ banner: 'JeremyTCD.DocFx.Themes.BasicBlog, Copyright 2017 JeremyTCD', include: /^bundle\..*$/ }));
+    plugins.push(new Webpack.BannerPlugin({ banner: 'JeremyTCD.DocFx.Themes.BasicBlog, Copyright 2017 JeremyTCD', include: /^bundle\..*$/ }));
 
     return {
         entry: {
-            bundle: path.join(__dirname, '../scripts/index.ts'),
+            bundle: Path.join(__dirname, '../scripts/index.ts'),
             vendor: ['jquery', 'anchor-js', 'lunr', 'mark.js', 'twbs-pagination']
         },
         output: {
             filename: `[name].${isProduction ? '[chunkhash].min.' : ''}js`,
-            path: path.join(__dirname, '../dist/theme/styles'),
+            path: Path.join(__dirname, '../dist/theme/styles'),
             publicPath: '/styles/'
-        },
-        externals: {
-            jquery: 'jQuery'
         },
         resolve: {
             extensions: ['.ts', '.js'],
-            modules: [path.join(__dirname, '../node_modules')]
+            modules: [Path.join(__dirname, '../node_modules')]
         },
         resolveLoader: {
-            modules: [path.join(__dirname, '../node_modules')]
+            modules: [Path.join(__dirname, '../node_modules')]
         },
         module: {
             rules: [
