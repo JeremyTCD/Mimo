@@ -4,6 +4,7 @@ const clean = require(`./clean`);
 const docfxBuild = require(`./docfxBuild`);
 const path = require(`path`);
 
+// Builds a partial dist folder for serving
 module.exports = async function serveBuild(docfxProjectDir, logLevel) {
     console.log(`*** start - serve build ***`);
 
