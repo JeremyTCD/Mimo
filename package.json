@@ -1,56 +1,58 @@
 {
-  "version": "0.0.0",
-  "name": "jeremytcd-docfx-themes-basicblog",
-  "description": "A minimalist DocFx blog theme.",
-  "keywords": [
-    "docfx",
-    "theme",
-    "blog"
-  ],
-  "homepage": "https://github.com/JeremyTCD/DocFx.Themes.BasicBlog",
-  "bugs": "https://github.com/JeremyTCD/DocFx.Themes.BasicBlog/issues",
-  "license": "MIT",
-  "author": "JeremyTCD",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "serve-dev": "set NODE_ENV=development&&node tools/serve.js",
-    "serve-production": "set NODE_ENV=production&&node tools/serve.js",
-    "build-dev": "set NODE_ENV=development&&node tools/build.js",
-    "build-production": "set NODE_ENV=production&&node tools/build.js"
-  },
-  "devDependencies": {
-    "@types/jquery": "^3.2.16",
-    "@types/lunr": "2.1.3",
-    "@types/node": "^8.0.53",
-    "anchor-js": "^4.1.0",
-    "cpy": "^6.0.0",
-    "css-loader": "^0.28.7",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "file-loader": "^1.1.5",
-    "grunt": "^1.0.1",
-    "highlight.js": "^9.10.0",
-    "jquery": "^3.2.1",
-    "lunr": "2.1.3",
-    "mark.js": "github:julmot/mark.js",
-    "material-design-icons": "^3.0.1",
-    "node-sass": "^4.5.0",
-    "sass-loader": "^6.0.0",
-    "ts-loader": "^3.2.0",
-    "twbs-pagination": "^1.3.1",
-    "typescript": "^2.1.6",
-    "uglify-js": "^3.2.0",
-    "uglifyjs-webpack-plugin": "^1.1.2",
-    "url-loader": "^0.6.2",
-    "webpack": "^3.9.1",
-    "webpack-dev-server": "^2.4.2",
-    "worker-loader": "^1.1.0"
-  },
-  "dependencies": {
-    "browser-sync": "^2.18.13",
-    "chokidar": "^1.7.0",
-    "minimist": "^1.2.0",
-    "rimraf": "^2.6.2"
-  }
+    "version": "0.0.0",
+    "name": "jeremytcd-docfx-themes-basicblog",
+    "description": "A minimalist DocFx blog theme.",
+    "keywords": [
+        "docfx",
+        "theme",
+        "blog"
+    ],
+    "homepage": "https://github.com/JeremyTCD/DocFx.Themes.BasicBlog",
+    "bugs": "https://github.com/JeremyTCD/DocFx.Themes.BasicBlog/issues",
+    "license": "MIT",
+    "author": "JeremyTCD",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "serve-dev": "set NODE_ENV=development&&node tools/serve.js",
+        "serve-production": "set NODE_ENV=production&&node tools/serve.js",
+        "build-dev": "set NODE_ENV=development&&node tools/build.js",
+        "build-production": "set NODE_ENV=production&&node tools/build.js"
+    },
+    "devDependencies": {
+        "@types/jquery": "^3.2.16",
+        "@types/lunr": "2.1.3",
+        "@types/node": "^8.0.53",
+        "anchor-js": "^4.1.0",
+        "cpy": "^6.0.0",
+        "css-loader": "^0.28.7",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "file-loader": "^1.1.5",
+        "fork-ts-checker-webpack-plugin": "^0.2.9",
+        "grunt": "^1.0.1",
+        "highlight.js": "^9.10.0",
+        "jquery": "^3.2.1",
+        "lunr": "2.1.3",
+        "mark.js": "github:julmot/mark.js",
+        "material-design-icons": "^3.0.1",
+        "name-all-modules-plugin": "^1.0.1",
+        "node-sass": "^4.5.0",
+        "sass-loader": "^6.0.0",
+        "ts-loader": "^3.2.0",
+        "twbs-pagination": "^1.3.1",
+        "typescript": "^2.1.6",
+        "uglify-js": "^3.2.0",
+        "uglifyjs-webpack-plugin": "^1.1.2",
+        "url-loader": "^0.6.2",
+        "webpack": "^3.9.1",
+        "webpack-dev-server": "^2.4.2",
+        "worker-loader": "^1.1.0"
+    },
+    "dependencies": {
+        "browser-sync": "^2.18.13",
+        "chokidar": "^1.7.0",
+        "minimist": "^1.2.0",
+        "rimraf": "^2.6.2"
+    }
 }
