@@ -15,10 +15,10 @@
         "dist"
     ],
     "scripts": {
-        "serve-dev": "set NODE_ENV=development&&node tools/serve.js",
-        "serve-production": "set NODE_ENV=production&&node tools/serve.js",
-        "build-dev": "set NODE_ENV=development&&node tools/build.js",
-        "build-production": "set NODE_ENV=production&&node tools/build.js"
+        "serve-dev": "set NODE_ENV=development&&node tools/serveDev.js",
+        "serve-production": "set NODE_ENV=production&&node tools/serveProduction.js",
+        "build-dev": "set NODE_ENV=development&&node tools/buildDist.js",
+        "build-production": "set NODE_ENV=production&&node tools/buildDist.js"
     },
     "devDependencies": {
         "@types/jquery": "^3.2.16",

@@ -80,7 +80,6 @@ module.exports = (env) => {
     }
 
     // Add banner after minifying
-    // TODO included files
     plugins.push(new Webpack.BannerPlugin({ banner: 'JeremyTCD.DocFx.Themes.BasicBlog, Copyright 2017 JeremyTCD', include: /^bundle\..*$/ }));
 
     return {

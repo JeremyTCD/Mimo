@@ -1,27 +1,38 @@
 const path = require('path');
 const argv = require('minimist')(process.argv.slice(2));
-const webpack = require('webpack');
-const webpackDevServer = require('webpack-dev-server');
 const chokidar = require('chokidar');
-const serveBuild = require('./serveBuild');
-const webpackConfig = require('./webpack.config.js');
+const buildBaseDist = require('./buildBaseDist.js');
+const webpackCompile = require('./webpackCompile');
+const docfxBuild = require('./docfxBuild');
+const browserSync = require('browser-sync').create();
 
-async function serve() {
-    // Set environment
-    const environment = process.env.NODE_ENV;
-    const isProduction = environment === 'production';
+async function tryBuild(docfxProjectDir, themeDir, logLevel) {
+    try {
+        await buildBaseDist(logLevel);
+        await webpackCompile();
+        await docfxBuild(docfxProjectDir, themeDir, logLevel);
+    } catch (err) {
+        // do nothing
+    }
+}
 
+// Builds and serves full dist. Necessary since in production mode every change to pipelineable resources causes hashes to change,
+// necessitating a subsequent docfx build.
+async function serveProduction() {
     // Set docfx project directory
     var docfxProjectDir = argv.d ? argv.d.trim() : '../examples/blog';
     if (!path.isAbsolute(docfxProjectDir)) {
         docfxProjectDir = path.join(__dirname, docfxProjectDir);
     }
 
+    // Set theme directory
+    var themeDir = path.join(__dirname, `../dist/theme`);
+
     // Set logging verbosity (use environment variable instead?)
     var logLevel = argv.l ? argv.l.trim() : null;
 
-    // Run serve build once
-    await serveBuild(docfxProjectDir, logLevel);
+    // Initial build
+    await tryBuild(docfxProjectDir, themeDir, logLevel);
 
     // Start watcher for serve build
     var watcher = chokidar.watch([
@@ -29,6 +40,8 @@ async function serve() {
         path.join(__dirname, '../plugins'),
         path.join(__dirname, '../fonts'),
         path.join(__dirname, '../misc'),
+        path.join(__dirname, '../scripts'),
+        path.join(__dirname, '../styles'),
         path.join(docfxProjectDir, 'src'),
     ]);
     var building = false;
@@ -44,13 +57,10 @@ async function serve() {
                 while (pendingBuild) {
                     pendingBuild = false;
                     building = true;
-                    await serveBuild(docfxProjectDir, logLevel);
+                    await tryBuild(docfxProjectDir, themeDir, logLevel);
                     building = false;
                 }
-
-                // Manually trigger refresh https://github.com/webpack/webpack-dev-server/issues/166
-                // TODO does not work after serveBuild fails once (even when subsequent serveBuilds succeed)
-                server.sockWrite(server.sockets, 'ok');
+                browserSync.reload();
             }
         });
 
@@ -65,21 +75,12 @@ async function serve() {
         }
     });
 
-    // Start webpack-dev-server
-    var config = webpackConfig();
-    config.entry.bundle.unshift("webpack-dev-server/client?http://localhost:8080/");
-    config.resolve.modules.unshift(path.join(__dirname, "../node_modules"));
-    const compiler = webpack(config);
-    const server = new webpackDevServer(compiler,
-        {
-            contentBase: path.join(docfxProjectDir, '_site'),
-            publicPath: '/styles/',
-            compress: isProduction,
-            stats: logLevel === 'debug' ? 'verbose' : 'errors-only'
-        });
-    server.listen(8080, "127.0.0.1", function () {
-        console.log("Starting server on http://localhost:8080");
+    // Start server
+    console.log(`start - browsersync serve`);
+    browserSync.init({
+        server: path.join(docfxProjectDir, '_site'),
+        ui: false
     });
 }
 
-serve();
+serveProduction();
