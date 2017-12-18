@@ -21,7 +21,8 @@
             "_appTitle": "MyBlog",
             "_appFooter": "<span>Copyright © 2017 MyName</span>",
             "_enableSearch": false,
-            "jr.enableSearch": true
+            "jr.enableSearch": true,
+            "jr.disqusShortname":  "jeremytcd"
         },
         "template": [
             "./node_modules/jeremytcd-docfx-themes-basicblog/dist/theme",

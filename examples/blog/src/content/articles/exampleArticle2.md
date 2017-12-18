@@ -1,6 +1,7 @@
 ---
 title: Example Article 2
 description: This is an example article
+jr.enableComments: true
 jr.authorLink: https://github.com/JeremyTCD
 jr.authorName: JeremyTCD
 jr.date: 11/7/2017
