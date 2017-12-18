@@ -25,7 +25,11 @@
 				{{#jr.insertSal}}
 				{{>partials/sortedArticleList}}
 				{{/jr.insertSal}}
+                {{#jr.enableComments}}
+                {{>partials/comments}}
+                {{/jr.enableComments}}
 			</main>
+
 			{{^jr.disableRightMenu}}
 			{{>partials/rightMenu}}
 			{{/jr.disableRightMenu}}
@@ -33,6 +37,6 @@
       {{^_disableFooter}}
       {{>partials/footer}}
       {{/_disableFooter}}
-    {{>partials/scripts}}
+      {{>partials/scripts}}
   </body>
 </html>

@@ -6,6 +6,7 @@ import salComponent from './salComponent';
 import leftMenuComponent from './leftMenuComponent';
 import footerComponent from './footerComponent';
 import rightMenuComponent from './rightMenuComponent';
+import commentsComponent from './commentsComponent';
 
 import searchService from './searchService';
 import { openExternalLinksInNewTab } from './linkService';
@@ -19,6 +20,7 @@ $(function () {
     footerComponent.initialize();
     rightMenuComponent.initialize();
     articleComponent.initialize();
+    commentsComponent.initialize();
 
     searchService.setupSearch();
     openExternalLinksInNewTab();
