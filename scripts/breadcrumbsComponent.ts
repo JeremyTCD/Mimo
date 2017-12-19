@@ -1,9 +1,7 @@
 ﻿import {
     mediaWidthNarrow
 } from './mediaService';
-import {
-    toggleHeightForTransition, contractHeightWithoutTransition,
-} from './transitionsService';
+import transitionsService from './transitionsService';
 import {
     generateMultiLevelList
 } from './listItemService';
@@ -23,13 +21,16 @@ class BreadcrumbsComponent extends Component {
     }
 
     protected registerListeners(): void {
-        $('#toc-button').on('click', (event: JQuery.Event) => {
-            toggleHeightForTransition($('#left-menu'), $(event.delegateTarget));
+        let tocButton: HTMLElement = document.getElementById('toc-button');
+        let leftMenu: HTMLElement = document.getElementById('left-menu');
+
+        tocButton.addEventListener('click', (event: Event) => {
+            transitionsService.toggleHeightForTransition(leftMenu, tocButton);
         });
 
-        $(window).on('resize', (event: JQuery.Event) => {
+        window.addEventListener('resize', (event: Event) => {
             if (mediaWidthNarrow()) {
-                contractHeightWithoutTransition($('#left-menu'), $('#toc-button'));
+                transitionsService.contractHeightWithoutTransition(leftMenu, tocButton);
             }
         });
     }
@@ -38,7 +39,10 @@ class BreadcrumbsComponent extends Component {
         let html = generateMultiLevelList(this.breadcrumbs,
             'breadcrumb',
             1);
-        $('#breadcrumbs>.container').prepend(html);
+        let breadcrumbFrag = document.createRange().createContextualFragment(html);
+
+        let breadcrumbsContainer = document.querySelector('#breadcrumbs>.container');
+        breadcrumbsContainer.insertBefore(breadcrumbFrag, breadcrumbsContainer.childNodes[0]);
     }
 
     public loadRootBreadCrumb(anchorElement: HTMLAnchorElement): void {

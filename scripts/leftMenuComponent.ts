@@ -1,6 +1,6 @@
 ﻿import { mediaWidthNarrow } from './mediaService';
 import { getAbsolutePath, isRelativePath } from './pathService';
-import { toggleHeightForTransition } from './transitionsService';
+import transitionsService from './transitionsService';
 import breadcrumbsComponent from './breadcrumbsComponent';
 import Component from './component';
 
@@ -53,7 +53,7 @@ class LeftMenuComponent extends Component {
             if ($(event.target).hasClass('icon') || !href) {
                 let closestLi = $(event.target).closest('li');
                 let childUl = closestLi.children('ul');
-                toggleHeightForTransition(childUl, closestLi);
+                transitionsService.toggleHeightForTransition(childUl[0], closestLi[0]);
                 event.preventDefault();
                 // If event propogates, every parent li.expandable's click listener will
                 // be called
@@ -97,7 +97,7 @@ class LeftMenuComponent extends Component {
                         parentsUntil('#left-menu-toc').
                         filter('li.expandable').
                         each((index: number, listElement: HTMLLIElement) => {
-                            toggleHeightForTransition($(listElement).children('ul'), $(listElement));
+                            transitionsService.toggleHeightForTransition($(listElement).children('ul')[0], listElement);
                         });
 
                     breadcrumbsComponent.
@@ -164,7 +164,7 @@ class LeftMenuComponent extends Component {
                         let expanded = $(liElement).hasClass('expanded');
 
                         if (preExpanded && !expanded || !preExpanded && expanded) {
-                            toggleHeightForTransition($(liElement).children('ul'), $(liElement));
+                            transitionsService.toggleHeightForTransition($(liElement).children('ul')[0], liElement);
                         }
 
                         $(liElement).removeClass('pre-expanded')
@@ -206,7 +206,7 @@ class LeftMenuComponent extends Component {
                     let expanded = $(liElement).hasClass('expanded');
 
                     if (filterExpanded && !expanded || !filterExpanded && expanded) {
-                        toggleHeightForTransition($(liElement).children('ul'), $(liElement));
+                        transitionsService.toggleHeightForTransition($(liElement).children('ul')[0], liElement);
                     }
                 });
         });

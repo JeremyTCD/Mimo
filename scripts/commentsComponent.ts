@@ -1,5 +1,5 @@
 import Component from './component';
-import { currentHeightToAutoHeight, autoHeightToFixedHeight } from './transitionsService';
+import transitionsService from './transitionsService';
 
 class CommentsComponent extends Component {
     disqusThread: HTMLElement;
@@ -70,18 +70,21 @@ class CommentsComponent extends Component {
         let commentsLoader: HTMLElement = document.getElementById('comments-loader');
 
         commentsLoader.style.opacity = '0';
-        autoHeightToFixedHeight(commentsLoader, 0);
-        commentsLoader.addEventListener('transitionend', this.commentsLoaderOnRemoved);
+        transitionsService.autoHeightToFixedHeight(commentsLoader, 0);
+        commentsLoader.addEventListener('transitionend', this.commentsLoaderOnRemoved, true);
 
         // Disqus has some unusual behaviour whereby it it displays a login menu for a split 
         // second even if you are logged in (after the onready callback is called). This causes
         // an unavoidable jerk.
-        currentHeightToAutoHeight(this.disqusThread);
+        transitionsService.currentHeightToAutoHeight(this.disqusThread);
     }
 
     private commentsLoaderOnRemoved = (event: Event): void => {
-        event.target.removeEventListener('transitionend', this.commentsLoaderOnRemoved);
-        (event.target as HTMLElement).style.display = 'none';
+        if (event.target === event.currentTarget) {
+            event.target.removeEventListener('transitionend', this.commentsLoaderOnRemoved, true);
+            (event.target as HTMLElement).style.display = 'none';
+        }
+        event.stopPropagation();
     }
 }
 

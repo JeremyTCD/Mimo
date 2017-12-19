@@ -4,9 +4,7 @@ import {
 import {
     mediaWidthNarrow
 } from './mediaService';
-import {
-    toggleHeightForTransition, contractHeightWithoutTransition
-} from './transitionsService';
+import transitionsService from './transitionsService';
 import Component from './component';
 import breadcrumbsComponent from './breadcrumbsComponent';
 
@@ -22,12 +20,12 @@ class HeaderComponent extends Component {
     protected registerListeners(): void {
         let wrapper = $('#header-navbar-and-search > .wrapper');
         $('#header-button').on('click', function () {
-            toggleHeightForTransition(wrapper, wrapper);
+            transitionsService.toggleHeightForTransition(wrapper[0], wrapper[0]);
         });
 
         $(window).on('resize', () => {
             if (mediaWidthNarrow()) {
-                contractHeightWithoutTransition(wrapper, wrapper);
+                transitionsService.contractHeightWithoutTransition(wrapper[0], wrapper[0]);
             }
         });
     }

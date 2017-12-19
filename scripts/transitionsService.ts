@@ -1,67 +1,63 @@
-﻿export function toggleHeightForTransition(toggleHeightElement: JQuery, toggleClassElement: JQuery) {
-    toggleHeightElement.off('transitionend');
-    let initialHeight = toggleHeightElement.height();
+﻿class TransitionsService {
+    public toggleHeightForTransition (toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
+        toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
 
-    if (toggleClassElement.hasClass('expanded')) {
-        toggleHeightElement.css('height', initialHeight);
-        //trigger layout
-        toggleHeightElement[0].clientHeight;
-        toggleHeightElement.css('height', 0);
-    } else {
-        toggleHeightElement.css('height', 'auto');
-        let expandedHeight = toggleHeightElement.height();
+        if (toggleClassElement.classList.contains('expanded')) {
+            this.autoHeightToFixedHeight(toggleHeightElement, 0);
+        } else {
+            this.currentHeightToAutoHeight(toggleHeightElement);
+        }
 
-        toggleHeightElement.css('height', initialHeight);
-        //trigger layout
-        toggleHeightElement[0].clientHeight;
-        toggleHeightElement.css('height', expandedHeight);
-
-        toggleHeightElement.one('transitionend', () => {
-            toggleHeightElement.css('height', 'auto');
-        });
+        toggleClassElement.classList.toggle('expanded');
     }
 
-    $(toggleClassElement).toggleClass('expanded');
-}
-
-export function contractHeightWithoutTransition(toggleHeightElement: JQuery, toggleClassElement: JQuery) {
-    if (toggleClassElement.hasClass('expanded')) {
-        toggleHeightElement.off('transitionend');
-        toggleHeightElement.css('height', 0);
-        $(toggleClassElement).removeClass('expanded');
+    public contractHeightWithoutTransition (toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
+        if (toggleClassElement.classList.contains('expanded')) {
+            toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
+            toggleHeightElement.style.height = '0px';
+            toggleClassElement.classList.remove('expanded');
+        }
     }
-}
 
-export function currentHeightToAutoHeight(element: HTMLElement) {
-    let initialHeight = element.clientHeight;
+    public currentHeightToAutoHeight (element: HTMLElement): void {
+        let initialHeight = element.clientHeight;
 
-    // Get auto height
-    element.style.height = 'auto';
-    let autoHeight = element.clientHeight;
-
-    // Reset to initial height
-    element.style.height = `${initialHeight}px`;
-
-    // Trigger layout
-    element.clientHeight;
-
-    // Set auto height
-    element.style.height = `${autoHeight}px`;
-
-    element.addEventListener('transitionend', (event: Event) => {
+        // Get auto height
         element.style.height = 'auto';
-    });
+        let autoHeight = element.clientHeight;
+
+        // Reset to initial height
+        element.style.height = `${initialHeight}px`;
+
+        // Trigger layout
+        element.clientHeight;
+
+        // Set auto height
+        element.style.height = `${autoHeight}px`;
+
+        element.addEventListener('transitionend', this.setHeightAutoListener, true);
+    }
+
+    public autoHeightToFixedHeight (element: HTMLElement, fixedHeight: number): void {
+        let initialHeight = element.clientHeight;
+
+        // Set initial height
+        element.style.height = `${initialHeight}px`;
+
+        // Trigger layout
+        element.clientHeight;
+
+        // Set fixed height
+        element.style.height = `${fixedHeight}px`;
+    }
+
+    private setHeightAutoListener = (event: Event): void => {
+        if (event.target === event.currentTarget) {
+            event.target.removeEventListener('transitionend', this.setHeightAutoListener, true);
+            (event.target as HTMLElement).style.height = 'auto';
+        }
+        event.stopPropagation();
+    }
 }
 
-export function autoHeightToFixedHeight(element: HTMLElement, fixedHeight: number) {
-    let initialHeight = element.clientHeight;
-
-    // Set initial height
-    element.style.height = `${initialHeight}px`;
-
-    // Trigger layout
-    element.clientHeight;
-
-    // Set fixed height
-    element.style.height = `${fixedHeight}px`;
-}
+export default new TransitionsService();
