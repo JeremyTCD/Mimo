@@ -31,3 +31,37 @@ export function contractHeightWithoutTransition(toggleHeightElement: JQuery, tog
         $(toggleClassElement).removeClass('expanded');
     }
 }
+
+export function currentHeightToAutoHeight(element: HTMLElement) {
+    let initialHeight = element.clientHeight;
+
+    // Get auto height
+    element.style.height = 'auto';
+    let autoHeight = element.clientHeight;
+
+    // Reset to initial height
+    element.style.height = `${initialHeight}px`;
+
+    // Trigger layout
+    element.clientHeight;
+
+    // Set auto height
+    element.style.height = `${autoHeight}px`;
+
+    element.addEventListener('transitionend', (event: Event) => {
+        element.style.height = 'auto';
+    });
+}
+
+export function autoHeightToFixedHeight(element: HTMLElement, fixedHeight: number) {
+    let initialHeight = element.clientHeight;
+
+    // Set initial height
+    element.style.height = `${initialHeight}px`;
+
+    // Trigger layout
+    element.clientHeight;
+
+    // Set fixed height
+    element.style.height = `${fixedHeight}px`;
+}
