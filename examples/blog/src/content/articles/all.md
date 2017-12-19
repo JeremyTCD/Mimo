@@ -7,5 +7,3 @@ jr.insertSal: true
 jr.disableMetadata: true
 jr.disableRightMenu: true
 ---
-
-# All
