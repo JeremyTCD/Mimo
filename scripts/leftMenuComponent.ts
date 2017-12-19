@@ -15,35 +15,44 @@ class LeftMenuComponent extends Component {
     }
 
     protected registerListeners(): void {
-        $(window).on('scroll', () => {
-            if (!mediaWidthNarrow() && $('body > .container').css('display') !== 'none') {
+        let bodyContainer: HTMLElement = document.querySelector('body > .container') as HTMLElement;
+
+        window.addEventListener('scroll', () => {
+            if (!mediaWidthNarrow() && bodyContainer.style.display !== 'none') {
                 this.setTocFixed();
             }
         });
-        $(window).on('resize', () => {
-            if ($('body > .container').css('display') !== 'none') {
+        window.addEventListener('resize', () => {
+            if (bodyContainer.style.display !== 'none') {
                 this.setTocFixed();
             }
         });
     }
 
     private setupToc(): void {
-        let tocPath = $("meta[property='docfx\\:tocrel']").attr("content");
+        let tocPath = document.querySelector("meta[property='docfx\\:tocrel']").getAttribute("content");
 
         if (tocPath) {
             tocPath = tocPath.replace(/\\/g, '/');
         }
 
-        $.get(tocPath, (data) => {
-            let toc = $.parseHTML(data);
-            $('#left-menu-toc').append(toc);
+        let getTocRequest = new XMLHttpRequest()
+        getTocRequest.onreadystatechange = (event: Event) => {
+            // TODO check status too
+            if (getTocRequest.readyState === XMLHttpRequest.DONE) {
+                let tocFrag = document.createRange().createContextualFragment(getTocRequest.responseText);
+                document.getElementById('left-menu-toc').appendChild(tocFrag);
 
-            this.setTocTopicPadding();
-            this.setTocActiveTopic(tocPath);
-            this.registerTocTopicListener();
-        });
+                this.setTocTopicPadding();
+                this.setTocActiveTopic(tocPath);
+                this.registerTocTopicListener();
+            }
+        }
+        getTocRequest.open('GET', tocPath)
+        getTocRequest.send()
 
-
+        // Initial call
+        this.setTocFixed();
     }
 
     private registerTocTopicListener() {

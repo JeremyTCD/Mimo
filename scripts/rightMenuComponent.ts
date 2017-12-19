@@ -12,26 +12,29 @@ class RightMenuComponent extends Component {
     protected setup(): void {
         this.setRightMenuDomLocation();
         this.setupOutline();
+
+        // Initial call
+        this.updateRightMenu();
     }
 
     protected registerListeners(): void {
         $(window).on('scroll', () => {
             if (mediaWidthWide() && $('body > .container').css('display') !== 'none') {
-                this.setRightMenuFixed();
-
-                this.setOutlineActiveTopic();
-                this.setOutlineMaxHeight();
+                this.updateRightMenu();
             }
         });
         $(window).on('resize', () => {
             if ($('body > .container').css('display') !== 'none') {
                 this.setRightMenuDomLocation();
-                this.setRightMenuFixed();
-
-                this.setOutlineActiveTopic();
-                this.setOutlineMaxHeight();
+                this.updateRightMenu();
             }
         });
+    }
+
+    private updateRightMenu(): void {
+        this.setRightMenuFixed();
+        this.setOutlineActiveTopic();
+        this.setOutlineMaxHeight();
     }
 
     private setRightMenuFixed(): void {
