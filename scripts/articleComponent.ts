@@ -7,7 +7,7 @@ class ArticleComponent extends Component {
     }
 
     protected setup(): void {
-        //this.addAnchorsToHeadings();
+        this.addAnchorsToHeadings();
     }
 
     protected registerListeners(): void {
@@ -16,14 +16,11 @@ class ArticleComponent extends Component {
     private addAnchorsToHeadings(): void {
         let anchors = new AnchorJs();
         anchors.options = {
-            placement: 'left',
-            visible: 'touch'
+            placement: 'right',
+            visible: 'hover',
         };
         anchors.add(`article h2:not(.no-anchor), 
-            article h3:not(.no-anchor),
-            article h4:not(.no-anchor),
-            article h5:not(.no-anchor),
-            article h6:not(.no-anchor)`);
+            article h3:not(.no-anchor)`);
     }
 }
 

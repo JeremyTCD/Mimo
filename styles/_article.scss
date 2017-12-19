@@ -107,4 +107,8 @@ article {
     section {
         margin-left: 1em;
     }
+
+    .anchorjs-link {
+        transition: opacity $transition-1;
+    }
 }
