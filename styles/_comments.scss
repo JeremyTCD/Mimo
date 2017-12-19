@@ -1,0 +1,22 @@
+﻿@import 'constants';
+
+#comments {
+    margin-top: 70px;
+    flex-direction: column;
+
+    #disqus_thread {
+        height: 0px;
+        overflow: hidden;
+        transition: height $transition-1;
+    }
+
+    #comments-loader {
+        flex-direction: column;
+        align-items: center;
+        transition: opacity $transition-1, height $transition-1;
+
+        span{
+            margin-top: 6px;
+        }
+    }
+}
