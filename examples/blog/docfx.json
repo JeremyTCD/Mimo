@@ -22,7 +22,8 @@
             "_appFooter": "<span>Copyright © 2017 MyName</span>",
             "_enableSearch": false,
             "jr.enableSearch": true,
-            "jr.disqusShortname":  "jeremytcd"
+            "jr.disqusShortname": "jeremytcd"
+            //"jr.googleTrackingID": "UA-111443979-1"
         },
         "template": [
             "./node_modules/jeremytcd-docfx-themes-basicblog/dist/theme",
