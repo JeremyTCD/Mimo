@@ -15,9 +15,9 @@ class FooterComponent extends Component {
 
     private setBackToTopOpacity(): void {
         if ($("body").height() > $(window).height()) {
-            $('footer a').css('visibility', 'visible');
+            $('#footer-button').css('visibility', 'visible');
         } else {
-            $('footer a').css('visibility', 'hidden');
+            $('#footer-button').css('visibility', 'hidden');
         }
     }
 }

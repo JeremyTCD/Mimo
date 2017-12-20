@@ -3,18 +3,87 @@
 footer {
     font-size: $font-size-1;
     background-color: $color-primary-2;
-    height: $gap-1;
     justify-content: center;
+    padding: $gap-3 0px;
 
     .container {
         align-items: center;
-        span{
-            color: $color-grayscale-1;
+
+        #footer-information {
+            flex-direction: column;
+
+            div {
+
+                & + div {
+                    padding-top: 14px;
+                }
+
+                &#footer-attribution {
+                    font-size: 11px;
+                    padding-top: 28px;
+                }
+
+                &#footer-social-media {
+                    align-items: center;
+
+                    a {
+                        & + a {
+                            padding-left: 14px;
+                        }
+                    }
+
+                    .github-icon {
+                        @include ionicons-icon("\f239", $color-grayscale-1, $font-size-4);
+                    }
+
+                    .twitter-icon {
+                        @include ionicons-icon("\f2b0", $color-grayscale-1, $font-size-4);
+                    }
+
+                    .instagram-icon {
+                        @include ionicons-icon("\f23e", $color-grayscale-1, $font-size-4);
+                    }
+
+                    .facebook-icon {
+                        @include ionicons-icon("\f236", $color-grayscale-1, $font-size-4);
+                    }
+
+                    .googleplus-icon {
+                        @include ionicons-icon("\f23b", $color-grayscale-1, $font-size-4);
+                    }
+                }
+
+                span {
+                    line-height: 1.2;
+                    display: inline;
+                    align-items: center;
+                    color: $color-grayscale-1;
+
+                    a {
+                        display: inline;
+                        color: $color-grayscale-1;
+                    }
+
+                    &.divider-icon {
+                        &::before {
+                            display: inline;
+                            content: "\23D0";
+                            padding-left: $gap-5;
+                            padding-right: $gap-5;
+                            color: $color-grayscale-1;
+                        }
+                    }
+                }
+            }
         }
-        a {
-            color: $color-grayscale-1;
-            @include animated-underline($color-grayscale-1, $color-grayscale-1, $gap-9);
+
+        #footer-button {
             margin-left: auto;
+            padding-left: $gap-4;
+
+            a {
+                @include material-design-icon("\E5D8", $color-grayscale-1, $font-size-4);
+            }
         }
     }
 }

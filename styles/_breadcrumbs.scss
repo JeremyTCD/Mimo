@@ -21,7 +21,7 @@
                 align-items: center;
                 padding-right: $gap-6;
 
-                &:last-child{
+                &:last-child {
                     padding-right: 0;
                 }
 
@@ -33,8 +33,9 @@
                     span {
                         &:first-child {
                             &::before {
-                                content: "\00a0/";
+                                content: "\23D0";
                                 padding-right: $gap-5;
+                                padding-left: $gap-8;
                                 color: $color-grayscale-1;
                             }
                         }

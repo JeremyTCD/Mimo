@@ -19,10 +19,15 @@
         "dest": "_site",
         "globalMetadata": {
             "_appTitle": "MyBlog",
-            "_appFooter": "<span>Copyright © 2017 MyName</span>",
             "_enableSearch": false,
+            "jr.copyrightText": "© 2017 JeremyTCD",
             "jr.enableSearch": true,
-            "jr.disqusShortname": "jeremytcd"
+            "jr.disqusShortname": "jeremytcd",
+            "jr.githubLink": "https://github.com/JeremyTCD",
+            "jr.twitterLink": "https://twitter.com/JeremyTCD?lang=en",
+            "jr.instagramLink": "https://www.instagram.com/jeremytcd/?hl=en",
+            "jr.facebookLink": "https://www.facebook.com/jeremy.chongdao",
+            "jr.googleplusLink": "https://plus.google.com/u/0/103822374294532823770"
             //"jr.googleTrackingID": "UA-111443979-1"
         },
         "template": [
