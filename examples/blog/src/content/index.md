@@ -1,4 +1,5 @@
 ---
+title: Home
 _disableBreadcrumb: true
 _disableContribution: true
 _disableAffix: true
