@@ -42,6 +42,7 @@ async function serveProduction() {
         path.join(__dirname, '../misc'),
         path.join(__dirname, '../scripts'),
         path.join(__dirname, '../styles'),
+        path.join(docfxProjectDir, 'docfx.json'),
         path.join(docfxProjectDir, 'src'),
     ]);
     var building = false;

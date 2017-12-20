@@ -15,7 +15,7 @@ async function serve() {
     await docfxBuild(docfxProjectDir, null, logLevel);
 
     // Start watcher for serve build
-    var watcher = chokidar.watch([path.join(docfxProjectDir, 'src')]);
+    var watcher = chokidar.watch([path.join(docfxProjectDir, 'src'), path.join(docfxProjectDir, 'docfx.json')]);
     var building = false;
     var pendingBuild = true;
     watcher.on('ready', () => {

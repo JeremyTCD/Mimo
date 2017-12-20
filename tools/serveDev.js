@@ -39,6 +39,7 @@ async function serveDev() {
         path.join(__dirname, '../plugins'),
         path.join(__dirname, '../fonts'),
         path.join(__dirname, '../misc'),
+        path.join(docfxProjectDir, 'docfx.json'),
         path.join(docfxProjectDir, 'src'),
     ]);
     var building = false;

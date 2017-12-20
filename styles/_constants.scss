@@ -1,4 +1,5 @@
 ﻿@import '../node_modules/material-design-icons/iconfont/material-icons.css';
+@import '../node_modules/ionicons/dist/css/ionicons.css';
 
 $color-primary-1: #26a69a;
 $color-primary-2: #009688;
@@ -17,7 +18,7 @@ $font-black-on-white-importance-4: #c9c9c9;
 $font-black-on-white-importance-5: #dedede;
 
 // For non black on white cases, disabled items should have the following opacity
-$opacity-disabled: 0.62;
+$opacity-disabled: 0.8;
 
 $fade-box-shadow: 1px rgba(0, 0, 0, 0.19);
 
@@ -48,14 +49,35 @@ $media-narrow: '(max-width: 768px)';
 $media-medium: '(min-width: 769px) and (max-width: 1024px)';
 $media-wide: '(min-width: 1025px)';
 
-@mixin material-design-icon($code, $color) {
+@mixin material-design-icon($code, $color, $font-size: $font-size-3) {
     &::before {
         content: $code;
         color: $color;
         font-family: 'Material Icons';
         font-weight: normal;
         font-style: normal;
-        font-size: $font-size-3;
+        font-size: $font-size;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+        font-feature-settings: 'liga';
+    }
+}
+
+@mixin ionicons-icon($code, $color, $font-size: $font-size-3) {
+    &::before {
+        content: $code;
+        color: $color;
+        font-family: 'Ionicons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: $font-size;
         line-height: 1;
         text-transform: none;
         letter-spacing: normal;
