@@ -1,7 +1,7 @@
 <article id="_content">
 	{{{rawTitle}}}
-	{{^jr.disableMetadata}}
+	{{^bb.disableMetadata}}
 	{{>partials/metadata}}
-	{{/jr.disableMetadata}}
+	{{/bb.disableMetadata}}
 	{{{conceptual}}}
 </article>

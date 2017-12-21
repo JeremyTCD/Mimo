@@ -1,11 +1,11 @@
 ---
+title: License
 _disableBreadcrumb: true
 _disableContribution: true
 _disableAffix: true
-jr.disableMetadata: true
-jr.disableLeftMenu: true
-jr.disableRightMenu: true
-uid: about
+bb.disableMetadata: true
+bb.disableLeftMenu: true
+bb.disableRightMenu: true
 ---
 
 # License

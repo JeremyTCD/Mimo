@@ -13,26 +13,26 @@
 	  {{^_disableBreadcrumb}}
 	  {{>partials/breadcrumbs}}
 	  {{/_disableBreadcrumb}}
-      {{#jr.enableSearch}}
+      {{#bb.enableSearch}}
       {{>partials/searchResults}}
-      {{/jr.enableSearch}}
+      {{/bb.enableSearch}}
 	  <div class="container hide-on-search">
-			{{^jr.disableLeftMenu}}
+			{{^bb.disableLeftMenu}}
 			{{>partials/leftMenu}}
-			{{/jr.disableLeftMenu}}
+			{{/bb.disableLeftMenu}}
 			<main role="main" id={{uid}}>
 				{{>partials/mainArticle}}
-				{{#jr.insertSal}}
+				{{#bb.insertSal}}
 				{{>partials/sortedArticleList}}
-				{{/jr.insertSal}}
-                {{#jr.enableComments}}
+				{{/bb.insertSal}}
+                {{#bb.enableComments}}
                 {{>partials/comments}}
-                {{/jr.enableComments}}
+                {{/bb.enableComments}}
 			</main>
 
-			{{^jr.disableRightMenu}}
+			{{^bb.disableRightMenu}}
 			{{>partials/rightMenu}}
-			{{/jr.disableRightMenu}}
+			{{/bb.disableRightMenu}}
 	  </div>
       {{^_disableFooter}}
       {{>partials/footer}}
