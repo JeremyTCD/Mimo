@@ -1,12 +1,12 @@
 ---
-title: Example Article 4 # Inserted into the <title> html element
+jtcd.pageName: Example Article 4 # Inserted into the <title> html element
 description: This is an example article
-bb.enableComments: true
-bb.authorLink: https://github.com/JeremyTCD
-bb.authorName: JeremyTCD
-bb.date: 7/12/2016
-bb.includeInSal: true
-bb.includeInSearchIndex: true
+jtcd.enableComments: true
+jtcd.authorLink: https://github.com/JeremyTCD
+jtcd.authorName: JeremyTCD
+jtcd.date: 7/12/2016
+jtcd.includeInSal: true
+jtcd.includeInSearchIndex: true
 ---
 
 # Example Article 4

@@ -18,17 +18,16 @@
         ],
         "dest": "_site",
         "globalMetadata": {
-            "_appTitle": "MyBlog",
-            "_enableSearch": false,
-            "bb.copyrightText": "© 2017 JeremyTCD",
-            "bb.enableSearch": true,
-            "bb.disqusShortname": "jeremytcd",
-            "bb.githubLink": "https://github.com/JeremyTCD",
-            "bb.twitterLink": "https://twitter.com/JeremyTCD?lang=en",
-            "bb.instagramLink": "https://www.instagram.com/jeremytcd/?hl=en",
-            "bb.facebookLink": "https://www.facebook.com/jeremy.chongdao",
-            "bb.googleplusLink": "https://plus.google.com/u/0/103822374294532823770"
-            //"bb.googleTrackingID": "UA-111443979-1"
+            "jtcd.websiteName": "MyBlog",
+            "jtcd.copyrightText": "© 2017 JeremyTCD",
+            "jtcd.enableSearch": true,
+            "jtcd.disqusShortname": "jeremytcd",
+            "jtcd.githubLink": "https://github.com/JeremyTCD",
+            "jtcd.twitterLink": "https://twitter.com/JeremyTCD?lang=en",
+            "jtcd.instagramLink": "https://www.instagram.com/jeremytcd/?hl=en",
+            "jtcd.facebookLink": "https://www.facebook.com/jeremy.chongdao",
+            "jtcd.googleplusLink": "https://plus.google.com/u/0/103822374294532823770"
+            //"jtcd.googleTrackingID": "UA-111443979-1"
         },
         "template": [
             "./node_modules/jeremytcd-docfx-themes-basicblog/dist/theme",

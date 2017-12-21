@@ -2,21 +2,21 @@
     <div class="container">
         <div id="footer-information">
             <div id="footer-social-media">
-                {{#bb.githubLink}}
-                <a class="github-icon" href="{{bb.githubLink}}"></a>
-                {{/bb.githubLink}}
-                {{#bb.twitterLink}}
-                <a class="twitter-icon" href="{{bb.twitterLink}}"></a>
-                {{/bb.twitterLink}}
-                {{#bb.instagramLink}}
-                <a class="instagram-icon" href="{{bb.instagramLink}}"></a>
-                {{/bb.instagramLink}}
-                {{#bb.facebookLink}}
-                <a class="facebook-icon" href="{{bb.facebookLink}}"></a>
-                {{/bb.facebookLink}}
-                {{#bb.googleplusLink}}
-                <a class="googleplus-icon" href="{{bb.googleplusLink}}"></a>
-                {{/bb.googleplusLink}}
+                {{#jtcd.githubLink}}
+                <a class="github-icon" href="{{jtcd.githubLink}}"></a>
+                {{/jtcd.githubLink}}
+                {{#jtcd.twitterLink}}
+                <a class="twitter-icon" href="{{jtcd.twitterLink}}"></a>
+                {{/jtcd.twitterLink}}
+                {{#jtcd.instagramLink}}
+                <a class="instagram-icon" href="{{jtcd.instagramLink}}"></a>
+                {{/jtcd.instagramLink}}
+                {{#jtcd.facebookLink}}
+                <a class="facebook-icon" href="{{jtcd.facebookLink}}"></a>
+                {{/jtcd.facebookLink}}
+                {{#jtcd.googleplusLink}}
+                <a class="googleplus-icon" href="{{jtcd.googleplusLink}}"></a>
+                {{/jtcd.googleplusLink}}
             </div>
             <div>
                 <span>
@@ -32,7 +32,7 @@
                 </span>
             </div>
             <div id="footer-copyright">
-                <span>{{bb.copyrightText}}</span>
+                <span>{{jtcd.copyrightText}}</span>
             </div>
             <div id="footer-attribution">
                 <span>

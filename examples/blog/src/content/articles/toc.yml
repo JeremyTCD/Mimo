@@ -1,5 +1,5 @@
-- name: All
-  href: all.md
+- name: All Articles
+  href: allArticles.md
 - name: Example Category 1
   items:
   - name: Example Article 1

@@ -1,12 +1,12 @@
 ---
-title: Example Article 1
 description: This is an example article
-bb.enableComments: true
-bb.authorLink: https://github.com/JeremyTCD
-bb.authorName: JeremyTCD
-bb.date: 12/4/2017
-bb.includeInSal: true
-bb.includeInSearchIndex: true
+jtcd.pageName: Example Article 1
+jtcd.enableComments: true
+jtcd.authorLink: https://github.com/JeremyTCD
+jtcd.authorName: JeremyTCD
+jtcd.date: 12/4/2017
+jtcd.includeInSal: true
+jtcd.includeInSearchIndex: true
 ---
 
 # Example Article 1

@@ -1,8 +1,8 @@
-<script async src="https://www.googletagmanager.com/gtag/js?id={{bb.googleTrackingID}}"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{jtcd.googleTrackingID}}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', '{{bb.googleTrackingID}}');
+  gtag('config', '{{jtcd.googleTrackingID}}');
 </script>

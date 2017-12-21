@@ -1,11 +1,11 @@
 ---
-title: License
+jtcd.pageName: License
 _disableBreadcrumb: true
 _disableContribution: true
 _disableAffix: true
-bb.disableMetadata: true
-bb.disableLeftMenu: true
-bb.disableRightMenu: true
+jtcd.disableMetadata: true
+jtcd.disableLeftMenu: true
+jtcd.disableRightMenu: true
 ---
 
 # License

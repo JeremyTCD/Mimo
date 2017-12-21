@@ -1,13 +1,13 @@
 <div class="meta">
   <ul>
     <li>
-      <span class="date">{{bb.date}}</span>
+      <span class="date">{{jtcd.date}}</span>
     </li>
     <li>
-      <a class="author" href="{{bb.authorLink}}" title="{{bb.authorName}}">
+      <a class="author" href="{{jtcd.authorLink}}" title="{{jtcd.authorName}}">
         <span class="icon"></span>
-        <span class="author-text">{{bb.authorName}}</span>
-        <img src="{{bb.authorLink}}.png?size=16" alt="{{bb.authorName}}" />
+        <span class="author-text">{{jtcd.authorName}}</span>
+        <img src="{{jtcd.authorLink}}.png?size=16" alt="{{jtcd.authorName}}" />
       </a>
     </li>
     <li>
