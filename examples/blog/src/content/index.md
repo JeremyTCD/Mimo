@@ -1,12 +1,17 @@
 ---
+jtcd.pageDescription: A landing page.
 jtcd.pageName: Home
-_disableBreadcrumb: true
-_disableContribution: true
-_disableAffix: true
+jtcd.mainID: index
+
+jtcd.includeInSal: false
+jtcd.includeInSearchIndex: false
+
+jtcd.disableBreadcrumb: true
+jtcd.disableContribution: true
 jtcd.disableMetadata: true
 jtcd.disableLeftMenu: true
 jtcd.disableRightMenu: true
-uid: index
+jtcd.disableComments: true
 ---
 
 # hello, welcome to my blog

@@ -1,23 +1,23 @@
 <div id="right-menu">
-  <!-- Wrapper is required for adjacent article to maintain its width when filter and toc are fixed -->
-  <div class="wrapper">
-    {{^_disableContribution}}
-    {{#docurl}}
-    <a href="{{docurl}}" id="edit-article">
-      <span class="icon"></span>
-      <span>Edit Article</span>
-    </a>
-    {{/docurl}}
-    {{#sourceurl}}
-    <a href="{{sourceurl}}" id="view-source">
-      <span class="icon"></span>
-      <span>View Source</span>
-    </a>
-    {{/sourceurl}}
-    {{/_disableContribution}}
+    <!-- Wrapper is required for adjacent article to maintain its width when filter and toc are fixed -->
     <div class="wrapper">
-      <nav id="outline">
-      </nav>
+        {{^jtcd.disableContribution}}
+        {{#docurl}}
+        <a href="{{docurl}}" id="edit-article">
+            <span class="icon"></span>
+            <span>Edit Article</span>
+        </a>
+        {{/docurl}}
+        {{#sourceurl}}
+        <a href="{{sourceurl}}" id="view-source">
+            <span class="icon"></span>
+            <span>View Source</span>
+        </a>
+        {{/sourceurl}}
+        {{/jtcd.disableContribution}}
+        <div class="wrapper">
+            <nav id="outline">
+            </nav>
+        </div>
     </div>
-  </div>
 </div>

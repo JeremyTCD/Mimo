@@ -2,7 +2,7 @@
   <div class="container">
     <div id="header-logo-and-button">
       <a id="header-logo" href="/index.html">
-        <img class="svg" src="{{_rel}}{{{_appLogoPath}}}{{^_appLogoPath}}logo.svg{{/_appLogoPath}}" alt="{{_appName}}" />
+        <img class="svg" src="{{_rel}}{{{_appLogoPath}}}{{^_appLogoPath}}logo.svg{{/_appLogoPath}}" alt="{{jtcd.websiteName}}" />
       </a>
       <button id="header-button" type="button">
         <span class="sr-only">Toggle navigation</span>

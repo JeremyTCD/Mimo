@@ -1,11 +1,16 @@
 ---
+jtcd.pageDescription: A page containing the privacy policy for this blog.
 jtcd.pageName: Privacy
-_disableBreadcrumb: true
-_disableContribution: true
-_disableAffix: true
+
+jtcd.includeInSal: false
+jtcd.includeInSearchIndex: false
+
+jtcd.disableBreadcrumb: true
+jtcd.disableContribution: true
 jtcd.disableMetadata: true
 jtcd.disableLeftMenu: true
 jtcd.disableRightMenu: true
+jtcd.disableComments: true
 ---
 
 # Privacy Policy

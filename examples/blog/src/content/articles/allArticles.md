@@ -1,9 +1,14 @@
 ---
+jtcd.pageDescription: A list of all articles in this blog, sorted by date.
 jtcd.pageName: All Articles
-_disableAffix: true
-_disableContribution: true
-uid: recent
-jtcd.insertSal: true
+jtcd.mainID: recent
+
+jtcd.includeInSal: false
+jtcd.includeInSearchIndex: false
+
+jtcd.enableSal: true
+jtcd.disableContribution: true
 jtcd.disableMetadata: true
 jtcd.disableRightMenu: true
+jtcd.disableComments: true
 ---

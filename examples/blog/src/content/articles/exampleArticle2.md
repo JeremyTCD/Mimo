@@ -1,12 +1,7 @@
 ---
+jtcd.pageDescription: This is an example article.
 jtcd.pageName: Example Article 2
-description: This is an example article
-jtcd.enableComments: true
-jtcd.authorLink: https://github.com/JeremyTCD
-jtcd.authorName: JeremyTCD
 jtcd.date: 11/7/2017
-jtcd.includeInSal: true
-jtcd.includeInSearchIndex: true
 ---
 
 # Example Article 2

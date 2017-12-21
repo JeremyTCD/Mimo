@@ -10,33 +10,39 @@
   {{>partials/head}}
   <body>
       {{>partials/header}}
-	  {{^_disableBreadcrumb}}
+
+	  {{^jtcd.disableBreadcrumbs}}
 	  {{>partials/breadcrumbs}}
-	  {{/_disableBreadcrumb}}
-      {{#jtcd.enableSearch}}
+	  {{/jtcd.disableBreadcrumbs}}
+
+      {{^jtcd.disableSearch}}
       {{>partials/searchResults}}
-      {{/jtcd.enableSearch}}
+      {{/jtcd.disableSearch}}
+
 	  <div class="container hide-on-search">
 			{{^jtcd.disableLeftMenu}}
 			{{>partials/leftMenu}}
 			{{/jtcd.disableLeftMenu}}
-			<main role="main" id={{uid}}>
+			<main role="main" id={{jtcd.mainID}}>
 				{{>partials/mainArticle}}
-				{{#jtcd.insertSal}}
+
+				{{#jtcd.enableSal}}
 				{{>partials/sortedArticleList}}
-				{{/jtcd.insertSal}}
-                {{#jtcd.enableComments}}
+				{{/jtcd.enableSal}}
+
+                {{^jtcd.disableComments}}
                 {{>partials/comments}}
-                {{/jtcd.enableComments}}
+                {{/jtcd.disableComments}}
 			</main>
 
 			{{^jtcd.disableRightMenu}}
 			{{>partials/rightMenu}}
 			{{/jtcd.disableRightMenu}}
 	  </div>
-      {{^_disableFooter}}
+      {{^jtcd.disableFooter}}
       {{>partials/footer}}
-      {{/_disableFooter}}
+      {{/jtcd.disableFooter}}
+
       {{>partials/scripts}}
   </body>
 </html>
