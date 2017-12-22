@@ -1,8 +1,10 @@
 <div class="meta">
     <ul>
+        {{#jtcd.date}}
         <li>
             <span class="date">{{jtcd.date}}</span>
         </li>
+        {{/jtcd.date}}
         <li>
             <a class="author" {{#jtcd.githubLink}}href="{{jtcd.githubLink}}"{{/jtcd.githubLink}} title="{{jtcd.authorName}}">
                 <span class="icon"></span>
