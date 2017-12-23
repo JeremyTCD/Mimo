@@ -1,6 +1,6 @@
 ---
 jtcd.pageDescription: A list of all articles in this blog, sorted by date.
-jtcd.pageName: All Articles
+jtcd.pageTitle: All Articles
 jtcd.mainID: recent
 
 jtcd.includeInSal: false

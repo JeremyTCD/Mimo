@@ -1,6 +1,6 @@
 ---
 jtcd.pageDescription: This is an example article.
-jtcd.pageName: Example Article 4 # Inserted into the <title> html element
+jtcd.pageTitle: Example Article 4 # Inserted into the <title> html element
 jtcd.date: 07/12/2016
 ---
 

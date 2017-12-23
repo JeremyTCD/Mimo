@@ -1,5 +1,5 @@
 <div id="comments">
-    <div id="disqus_thread" data-disqus-identifier="{{jtcd.pageName}}" data-disqus-shortname="{{jtcd.disqusShortname}}">
+    <div id="disqus_thread" data-disqus-identifier="{{jtcd.pageTitle}}" data-disqus-shortname="{{jtcd.disqusShortname}}">
     </div>
     <div id="comments-loader">
         <div id="disqus-spinner" class="spinner">

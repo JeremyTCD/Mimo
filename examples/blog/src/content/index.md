@@ -1,6 +1,6 @@
 ---
 jtcd.pageDescription: A landing page.
-jtcd.pageName: Home
+jtcd.pageTitle: Home
 jtcd.mainID: index
 
 jtcd.includeInSal: false
@@ -16,4 +16,3 @@ jtcd.disableComments: true
 
 # hello, welcome to my blog
 Introduction here.
-

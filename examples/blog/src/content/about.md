@@ -1,6 +1,6 @@
 ---
 jtcd.pageDescription: A page containing details about this blog.
-jtcd.pageName: About
+jtcd.pageTitle: About
 jtcd.mainID: about
 
 jtcd.includeInSal: false
@@ -14,7 +14,7 @@ jtcd.disableRightMenu: true
 jtcd.disableComments: true
 ---
 
-# about
+# About
 Description here.
 
 ## contact

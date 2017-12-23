@@ -1,6 +1,6 @@
 ---
 jtcd.pageDescription: A page containing details about the license for this blog.
-jtcd.pageName: License
+jtcd.pageTitle: License
 
 jtcd.includeInSal: false
 jtcd.includeInSearchIndex: false

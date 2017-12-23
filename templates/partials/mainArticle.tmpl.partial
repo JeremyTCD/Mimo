@@ -1,7 +1,9 @@
 <article id="_content">
-	{{^jtcd.disableMetadata}}
-	{{>partials/metadata}}
-	{{/jtcd.disableMetadata}}
-    
-	{{{conceptual}}}
+    {{{rawTitle}}}
+
+    {{^jtcd.disableMetadata}}
+    {{>partials/metadata}}
+    {{/jtcd.disableMetadata}}
+
+    {{{conceptual}}}
 </article>
