@@ -14,14 +14,20 @@ class CommentsComponent extends Component {
         }
 
         this.disqusShortname = this.disqusThread.getAttribute('data-disqus-shortname');
-        if (!this.disqusShortname) {
+        if (!this.disqusShortname || this.disqusShortname.length === 0) {
             console.log('Disqus enabled but shortname not specified.');
+
+            document.getElementById('#comments').style.display = 'none';
+
             return false;
         }
 
         this.disqusIdentifier = this.disqusThread.getAttribute('data-disqus-identifier');
-        if (!this.disqusIdentifier) {
+        if (!this.disqusIdentifier || this.disqusIdentifier.length === 0) {
             console.log('Disqus enabled but identifier not specified.');
+
+            document.getElementById('#comments').style.display = 'none';
+
             return false;
         }
 
