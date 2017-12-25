@@ -1,3 +1,6 @@
+{{^jtcd.disableComments}}
+{{#jtcd.pageTitle}}
+{{#jtcd.disqusShortname}}
 <div id="comments">
     <div id="disqus_thread" data-disqus-identifier="{{jtcd.pageTitle}}" data-disqus-shortname="{{jtcd.disqusShortname}}">
     </div>
@@ -12,3 +15,6 @@
         <span>Loading comments ...</span>
     </div>
 </div>
+{{/jtcd.disqusShortname}}
+{{/jtcd.pageTitle}}
+{{/jtcd.disableComments}}

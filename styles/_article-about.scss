@@ -1,17 +1,19 @@
 ﻿@import 'constants';
 
-main#about {
-    align-items: center;
-
-    #_content {
-        justify-content: center;
+html#about {
+    main {
         align-items: center;
-        text-align: center;
-    }
 
-    &::after {
-        content: "";
-        max-height: $gap-2;
-        flex-grow: 1;
+        & > article {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        &::after {
+            content: "";
+            max-height: $gap-2;
+            flex-grow: 1;
+        }
     }
 }

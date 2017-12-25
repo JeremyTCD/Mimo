@@ -74,17 +74,23 @@ article {
                     padding-right: $gap-6;
                 }
 
-                .date {
-                    @include material-design-icon('\E916', inherit);
-                    padding-right: $gap-4;
+                & + li {
+                    div {
+                        padding-left: $gap-4;
+                    }
                 }
 
-                .author {
-                    @include material-design-icon('\E7FD', inherit);
-                    padding-right: $gap-4;
+                div {
+                    &#metadata-date {
+                        @include material-design-icon('\E916', inherit);
+                    }
 
-                    img {
-                        padding-left: $gap-7;
+                    &#metadata-author {
+                        @include material-design-icon('\E7FD', inherit);
+
+                        img {
+                            padding-left: $gap-7;
+                        }
                     }
                 }
             }

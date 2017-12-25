@@ -1,17 +1,14 @@
-{{!Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license. See LICENSE file in the project root for full license information.}}
-
 <head>
-  {{#jtcd.googleTrackingID}}
   {{>partials/analytics}}
-  {{/jtcd.googleTrackingID}}
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>{{#jtcd.pageTitle}}{{jtcd.pageTitle}}{{/jtcd.pageTitle}} {{#jtcd.websiteName}}- {{jtcd.websiteName}} {{/jtcd.websiteName}}</title>
   <meta name="viewport" content="width=device-width">
   <meta name="title" content="{{#jtcd.pageTitle}}{{jtcd.pageTitle}}{{/jtcd.pageTitle}} {{#jtcd.websiteName}}- {{jtcd.websiteName}} {{/jtcd.websiteName}}">
   <meta name="generator" content="docfx {{_docfxVersion}}">
-  {{#jtcd.pageDescription}}<meta name="description" content="{{jtcd.pageDescription}}">{{/jtcd.pageDescription}}
-  <link rel="shortcut icon" href="{{_rel}}{{{_appFaviconPath}}}{{^_appFaviconPath}}favicon.ico{{/_appFaviconPath}}">
+  <meta name="description" content="{{jtcd.pageDescription}}">
+  <link rel="shortcut icon" href="{{_rel}}{{#jtcd.faviconRelPath}}{{jtcd.faviconRelPath}}{{/jtcd.faviconRelPath}}{{^jtcd.faviconRelPath}}favicon.ico{{/jtcd.faviconRelPath}}">
   <link rel="stylesheet" href="/styles/bundle.css">
   <link rel="stylesheet" href="/styles/customStyles.css">
   <meta property="docfx:navrel" content="{{_navRel}}">

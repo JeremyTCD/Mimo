@@ -3,7 +3,7 @@
 main#index {
     align-items: center;
 
-    #_content {
+    & > article {
         justify-content: center;
         align-items: center;
         text-align: center;

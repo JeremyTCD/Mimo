@@ -5,8 +5,8 @@ jtcd.pageTitle: License
 jtcd.includeInSal: false
 jtcd.includeInSearchIndex: false
 
-jtcd.disableBreadcrumb: true
-jtcd.disableContribution: true
+jtcd.disableBreadcrumbs: true
+jtcd.disableEditArticle: true
 jtcd.disableMetadata: true
 jtcd.disableLeftMenu: true
 jtcd.disableRightMenu: true

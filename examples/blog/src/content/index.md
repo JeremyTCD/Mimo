@@ -1,13 +1,13 @@
 ---
 jtcd.pageDescription: A landing page.
 jtcd.pageTitle: Home
-jtcd.mainID: index
+jtcd.pageID: index
 
 jtcd.includeInSal: false
 jtcd.includeInSearchIndex: false
 
-jtcd.disableBreadcrumb: true
-jtcd.disableContribution: true
+jtcd.disableBreadcrumbs: true
+jtcd.disableEditArticle: true
 jtcd.disableMetadata: true
 jtcd.disableLeftMenu: true
 jtcd.disableRightMenu: true

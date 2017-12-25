@@ -1,21 +1,24 @@
 <header role="navigation">
-  <div class="container">
-    <div id="header-logo-and-button">
-      <a id="header-logo" href="/index.html">
-        <img class="svg" src="{{_rel}}{{{_appLogoPath}}}{{^_appLogoPath}}logo.svg{{/_appLogoPath}}" alt="{{jtcd.websiteName}}" />
-      </a>
-      <button id="header-button" type="button">
-        <span class="sr-only">Toggle navigation</span>
-      </button>
+    <div class="container">
+        <div id="header-logo-and-button">
+            <a id="header-logo" href="/index.html">
+                <img class="svg" src="{{_rel}}{{#jtcd.logoRelPath}}{{jtcd.logoRelPath}}{{/jtcd.logoRelPath}}{{^jtcd.logoRelPath}}logo.svg{{/jtcd.logoRelPath}}" alt="{{jtcd.websiteName}}" />
+            </a>
+            <button id="header-button" type="button">
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+        </div>
+        <div id="header-navbar-and-search">
+            <div class="wrapper">
+                <nav id="header-navbar">
+                </nav>
+                {{^jtcd.disableSearch}}
+                <form id="header-search" class="flex" role="search">
+                    <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off" />
+                </form>
+                {{/jtcd.disableSearch}}
+            </div>
+        </div>
+
     </div>
-    <div id="header-navbar-and-search">
-      <div class="wrapper">
-        <nav id="header-navbar">
-        </nav>
-        <form id="header-search" class="flex" role="search">
-          <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off" />
-        </form>
-      </div>
-    </div>
-  </div>
 </header>

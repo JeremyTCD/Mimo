@@ -1,0 +1,38 @@
+<article id="_content">
+    {{{rawTitle}}}
+
+    {{^jtcd.disableMetadata}}
+    <div class="meta">
+        <ul>
+            {{#jtcd.date}}
+            <li>
+                <div id="metadata-date">
+                    <span>{{jtcd.date}}</span>
+                </div>
+            </li>
+            {{/jtcd.date}}
+            {{#jtcd.authorName}}
+            <li>
+                <div id="metadata-author">
+                    {{#jtcd.githubLink}}
+                    <a href="{{jtcd.githubLink}}" title="{{jtcd.authorName}}">
+                        <span class="author-text">{{jtcd.authorName}}</span>
+                        <img src="{{jtcd.githubLink}}.png?size=16" alt="{{jtcd.authorName}}" />
+                    </a>
+                    {{/jtcd.githubLink}}
+                    {{^jtcd.githubLink}}
+                    <span class="author-text">{{jtcd.authorName}}</span>
+                    {{/jtcd.githubLink}}
+                </div>
+            </li>
+            {{/jtcd.authorName}}
+            <li>
+                <div id="metadata-edit-article">
+                </div>
+            </li>
+        </ul>
+    </div>
+    {{/jtcd.disableMetadata}}
+
+    {{{conceptual}}}
+</article>

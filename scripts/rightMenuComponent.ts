@@ -54,8 +54,8 @@ class RightMenuComponent extends Component {
 
         if (!wide && !rightMenuInArticle) {
             $('main article > .meta').
-                after($('#right-menu')).
-                find('ul > li:last-child').
+                after($('#right-menu'));
+            $('#metadata-edit-article').
                 append($('#edit-article'));
         } else if (wide && rightMenuInArticle) {
             $('body > .container').append($('#right-menu'));
@@ -64,7 +64,7 @@ class RightMenuComponent extends Component {
     }
 
     private setupOutline(): void {
-        let headers = $('main #_content > h1,h2,h3');
+        let headers = $ ('main > article > h1,h2,h3');
         if (headers.length === 0) {
             return;
         }

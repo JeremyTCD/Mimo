@@ -27,8 +27,8 @@
             "jtcd.twitterLink": "https://twitter.com/JeremyTCD?lang=en",
             "jtcd.instagramLink": "https://www.instagram.com/jeremytcd/?hl=en",
             "jtcd.facebookLink": "https://www.facebook.com/jeremy.chongdao",
-            "jtcd.googleplusLink": "https://plus.google.com/u/0/103822374294532823770"
-            //"jtcd.googleTrackingID": "UA-111443979-1"
+            "jtcd.googleplusLink": "https://plus.google.com/u/0/103822374294532823770",
+            "jtcd.googleTrackingID": "UA-111443979-1" 
         },
         "template": [
             "./node_modules/jeremytcd-docfx-themes-basicblog/dist/theme",

@@ -3,46 +3,29 @@
 {{!include(/^fonts/.*/)}}
 {{!include(favicon.ico)}}
 {{!include(logo.svg)}}
-{{!include(search-stopwords.json)}}
 <!DOCTYPE html>
 
-<html>
+<html id={{jtcd.pageID}}>
   {{>partials/head}}
   <body>
       {{>partials/header}}
-
-	  {{^jtcd.disableBreadcrumbs}}
 	  {{>partials/breadcrumbs}}
-	  {{/jtcd.disableBreadcrumbs}}
-
-      {{^jtcd.disableSearch}}
       {{>partials/searchResults}}
-      {{/jtcd.disableSearch}}
 
 	  <div class="container hide-on-search">
-			{{^jtcd.disableLeftMenu}}
 			{{>partials/leftMenu}}
-			{{/jtcd.disableLeftMenu}}
-			<main role="main" id={{jtcd.mainID}}>
-				{{>partials/mainArticle}}
 
-				{{#jtcd.enableSal}}
+			<main role="main">
+				{{>partials/article}}
 				{{>partials/sortedArticleList}}
-				{{/jtcd.enableSal}}
-
-                {{^jtcd.disableComments}}
                 {{>partials/comments}}
-                {{/jtcd.disableComments}}
+
 			</main>
-
-			{{^jtcd.disableRightMenu}}
 			{{>partials/rightMenu}}
-			{{/jtcd.disableRightMenu}}
-	  </div>
-      {{^jtcd.disableFooter}}
-      {{>partials/footer}}
-      {{/jtcd.disableFooter}}
 
+	  </div>
+      {{>partials/footer}}
       {{>partials/scripts}}
+
   </body>
 </html>
