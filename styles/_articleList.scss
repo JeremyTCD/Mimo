@@ -18,6 +18,10 @@
             h1 {
                 margin-top: 0;
                 font-size: $font-size-5;
+
+                & + p {
+                    margin-top: $gap-5;
+                }
             }
 
             h2 {
@@ -32,17 +36,17 @@
                 & + h2 {
                     margin-top: $gap-3;
                 }
-        
+
                 & + h3 {
                     margin-top: $gap-4;
                 }
             }
 
-            .meta{
+            .meta {
                 margin-top: $gap-5;
 
                 & + p {
-                    margin-top: 0;
+                    margin-top: $gap-5;
                 }
             }
         }

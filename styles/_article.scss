@@ -17,7 +17,7 @@ article {
         font-size: $font-size-6;
 
         & + p {
-            margin-top: $gap-2;
+            margin-top: $gap-4;
         }
     }
 
@@ -55,13 +55,12 @@ article {
         margin-top: $gap-4;
 
         & + p {
-            margin-top: $gap-5;
+            margin-top: $gap-4;
         }
 
         ul {
             font-size: $font-size-1;
             color: $font-black-on-white-importance-2;
-            padding-bottom: $gap-4;
 
             li {
                 * {
@@ -82,11 +81,15 @@ article {
 
                 div {
                     &#metadata-date {
-                        @include material-design-icon('\E916', inherit);
+                        span {
+                            @include material-design-icon('\E916', inherit);
+                        }
                     }
 
                     &#metadata-author {
-                        @include material-design-icon('\E7FD', inherit);
+                        span {
+                            @include material-design-icon('\E7FD', inherit);
+                        }
 
                         img {
                             padding-left: $gap-7;
