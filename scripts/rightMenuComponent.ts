@@ -111,14 +111,13 @@ class RightMenuComponent extends Component {
         if ($('#right-menu > .wrapper').hasClass('fixed')) {
             let footerHeight = $(window).outerHeight() - $('footer')[0].getBoundingClientRect().top;
             let maxHeight = $(window).outerHeight()
-                - 23 * 2
+                - 23 * 2 // top gap, bottom gap
                 + 3
                 - $('#outline > h5').outerHeight()
-                - $('#edit-article').outerHeight()
+                - $('#edit-article').outerHeight(true)
                 - (footerHeight < 0 ? 0 : footerHeight);
 
-            $('#outline > ul').
-                css('max-height', maxHeight);
+            $('#outline > ul').css('max-height', maxHeight);
         } else {
             $('#outline > ul').css('max-height', 'initial');
         }
