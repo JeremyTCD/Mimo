@@ -7,7 +7,7 @@ class SearchService {
     private queryString: string;
 
     public setupSearch(): void {
-        if ($("#search-results").length === 1) {
+        if (document.getElementById('search-results')) {
             let SearchWorker = require("./workers/search.worker");
             let searchWorker = new SearchWorker() as Worker;
 
