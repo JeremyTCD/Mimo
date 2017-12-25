@@ -4,7 +4,7 @@
     <div class="wrapper">
         {{^jtcd.disableEditArticle}}
         {{#docurl}}
-        <a href="{{docurl}}" id="edit-article">
+        <a href="{{docurl}}" id="edit-article"  title="Edit article on Github">
             <span class="icon"></span>
             <span>Edit Article</span>
         </a>
