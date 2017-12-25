@@ -1,11 +1,4 @@
 ﻿@import 'constants';
 
-main#page-not-found{
-    align-items: center;
-
-    & > article {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
+html#page-not-found{
 }

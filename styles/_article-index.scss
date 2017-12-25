@@ -1,17 +1,4 @@
 ﻿@import 'constants';
 
-main#index {
-    align-items: center;
-
-    & > article {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-
-    &::after {
-        content: "";
-        max-height: $gap-2;
-        flex-grow: 1;
-    }
+html#index {
 }
