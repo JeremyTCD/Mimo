@@ -21,6 +21,7 @@
 
     > .wrapper {
         width: inherit;
+        align-items: flex-start; // Scroll for outline should be adjacent to headers links
         flex-direction: column;
 
         @media #{$media-wide} {
