@@ -15,7 +15,11 @@ async function serve() {
     await docfxBuild(docfxProjectDir, null, logLevel);
 
     // Start watcher for serve build
-    var watcher = chokidar.watch([path.join(docfxProjectDir, 'src'), path.join(docfxProjectDir, 'docfx.json')]);
+    var watcher = chokidar.watch([
+            docfxProjectDir
+        ], {
+            ignored: [path.join(docfxProjectDir, '_site'), path.join(docfxProjectDir, 'obj')]
+        });
     var building = false;
     var pendingBuild = true;
     watcher.on('ready', () => {
@@ -45,6 +49,7 @@ async function serve() {
             console.log(`*** Watching these Files and Directories ***`);
             var watchedPaths = watcher.getWatched();
             Object.keys(watchedPaths).forEach((dir) => {
+                console.log(`Directory: ${dir}`);
                 watchedPaths[dir].forEach((file) => {
                     console.log(`    File/Directory: ${file}`);
                 });

@@ -36,15 +36,16 @@ async function serveProduction() {
 
     // Start watcher for serve build
     var watcher = chokidar.watch([
-        path.join(__dirname, '../templates'),
-        path.join(__dirname, '../plugins'),
-        path.join(__dirname, '../fonts'),
-        path.join(__dirname, '../misc'),
-        path.join(__dirname, '../scripts'),
-        path.join(__dirname, '../styles'),
-        path.join(docfxProjectDir, 'docfx.json'),
-        path.join(docfxProjectDir, 'src'),
-    ]);
+            path.join(__dirname, '../templates'),
+            path.join(__dirname, '../plugins'),
+            path.join(__dirname, '../fonts'),
+            path.join(__dirname, '../misc'),
+            path.join(__dirname, '../scripts'),
+            path.join(__dirname, '../styles'),
+            docfxProjectDir
+        ], {
+            ignored: [path.join(docfxProjectDir, '_site'), path.join(docfxProjectDir, 'obj')]
+        });
     var building = false;
     var pendingBuild = true;
     watcher.on('ready', () => {
@@ -69,6 +70,7 @@ async function serveProduction() {
             console.log(`*** Watching these Files and Directories ***`);
             var watchedPaths = watcher.getWatched();
             Object.keys(watchedPaths).forEach((dir) => {
+                console.log(`Directory: ${dir}`);
                 watchedPaths[dir].forEach((file) => {
                     console.log(`    File/Directory: ${file}`);
                 });
