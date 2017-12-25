@@ -6,7 +6,7 @@ import Component from './component';
 
 class LeftMenuComponent extends Component {
     protected canInitialize(): boolean {
-        return $('#left-menu').length === 1;
+        return document.getElementById('left-menu') ? true : false;
     }
 
     protected setup(): void {
