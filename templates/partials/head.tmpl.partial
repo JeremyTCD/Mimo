@@ -7,7 +7,9 @@
   <meta name="viewport" content="width=device-width">
   <meta name="title" content="{{#jtcd.pageTitle}}{{jtcd.pageTitle}}{{/jtcd.pageTitle}} {{#jtcd.websiteName}}- {{jtcd.websiteName}} {{/jtcd.websiteName}}">
   <meta name="generator" content="docfx {{_docfxVersion}}">
+  {{#jtcd.pageDescription}}
   <meta name="description" content="{{jtcd.pageDescription}}">
+  {{/jtcd.pageDescription}}
   <link rel="shortcut icon" href="{{_rel}}{{#jtcd.faviconRelPath}}{{jtcd.faviconRelPath}}{{/jtcd.faviconRelPath}}{{^jtcd.faviconRelPath}}favicon.ico{{/jtcd.faviconRelPath}}">
   <link rel="stylesheet" href="/styles/bundle.css">
   <link rel="stylesheet" href="/styles/customStyles.css">
