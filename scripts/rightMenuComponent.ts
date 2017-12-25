@@ -6,7 +6,7 @@ import Component from './component';
 
 class RightMenuComponent extends Component {
     protected canInitialize(): boolean {
-        return $('#right-menu').length === 1;
+        return document.getElementById('right-menu') ? true : false;
     }
 
     protected setup(): void {
