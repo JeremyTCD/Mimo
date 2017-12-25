@@ -1,5 +1,7 @@
 import Component from './component';
 import transitionsService from './transitionsService';
+import rightMenuComponent from './rightMenuComponent';
+import leftMenuComponent from './leftMenuComponent';
 
 class CommentsComponent extends Component {
     disqusThread: HTMLElement;
@@ -89,6 +91,8 @@ class CommentsComponent extends Component {
         if (event.target === event.currentTarget) {
             event.target.removeEventListener('transitionend', this.commentsLoaderOnRemoved, true);
             (event.target as HTMLElement).style.display = 'none';
+            rightMenuComponent.onScrollListener();
+            leftMenuComponent.onScrollListener();
         }
         event.stopPropagation();
     }

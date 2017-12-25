@@ -5,28 +5,34 @@ import breadcrumbsComponent from './breadcrumbsComponent';
 import Component from './component';
 
 class LeftMenuComponent extends Component {
+    bodyContainerElement: HTMLElement;
+
     protected canInitialize(): boolean {
         return document.getElementById('left-menu') ? true : false;
     }
 
     protected setup(): void {
+        this.bodyContainerElement = document.querySelector('body > .container') as HTMLElement;
+
         this.setupToc();
         this.setupFilter();
     }
 
     protected registerListeners(): void {
-        let bodyContainer: HTMLElement = document.querySelector('body > .container') as HTMLElement;
+        window.addEventListener('scroll', this.onScrollListener);
+        window.addEventListener('resize', this.onResizeListener);
+    }
 
-        window.addEventListener('scroll', () => {
-            if (!mediaWidthNarrow() && bodyContainer.style.display !== 'none') {
-                this.setTocFixed();
-            }
-        });
-        window.addEventListener('resize', () => {
-            if (bodyContainer.style.display !== 'none') {
-                this.setTocFixed();
-            }
-        });
+    public onScrollListener = (): void => {
+        if (!mediaWidthNarrow() && this.bodyContainerElement.style.display !== 'none') {
+            this.setTocFixed();
+        }
+    }
+
+    public onResizeListener = (): void => {
+        if (this.bodyContainerElement.style.display !== 'none') {
+            this.setTocFixed();
+        }
     }
 
     private setupToc(): void {

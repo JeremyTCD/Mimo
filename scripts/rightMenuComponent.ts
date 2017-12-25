@@ -29,17 +29,21 @@ class RightMenuComponent extends Component {
     }
 
     protected registerListeners(): void {
-        window.addEventListener('scroll', () => {
-            if (mediaWidthWide() && this.mainContainer.style.display !== 'none') {
-                this.updateRightMenu();
-            }
-        });
-        window.addEventListener('resize', () => {
-            if (this.mainContainer.style.display !== 'none') {
-                this.setRightMenuDomLocation();
-                this.updateRightMenu();
-            }
-        });
+        window.addEventListener('scroll', this.onScrollListener);
+        window.addEventListener('resize', this.onResizeListener);
+    }
+
+    public onResizeListener = (): void => {
+        if (this.mainContainer.style.display !== 'none') {
+            this.setRightMenuDomLocation();
+            this.updateRightMenu();
+        }
+    }
+
+    public onScrollListener = (): void => {
+        if (mediaWidthWide() && this.mainContainer.style.display !== 'none') {
+            this.updateRightMenu();
+        }
     }
 
     private updateRightMenu(): void {
