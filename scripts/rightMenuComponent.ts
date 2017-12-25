@@ -5,11 +5,22 @@ import { generateMultiLevelList, generateListItemTree } from './listItemService'
 import Component from './component';
 
 class RightMenuComponent extends Component {
+    rightMenuElement: HTMLElement;
+    editArticleElement: HTMLElement;
+    articleElement: HTMLElement;
+    mainContainer: HTMLElement;
+
     protected canInitialize(): boolean {
-        return document.getElementById('right-menu') ? true : false;
+        this.rightMenuElement = document.getElementById('right-menu');
+
+        return this.rightMenuElement ? true : false;
     }
 
     protected setup(): void {
+        this.editArticleElement = document.getElementById('edit-article');
+        this.articleElement = document.querySelector('main > article') as HTMLElement;
+        this.mainContainer = document.querySelector('body > .container') as HTMLElement;
+
         this.setRightMenuDomLocation();
         this.setupOutline();
 
@@ -18,13 +29,13 @@ class RightMenuComponent extends Component {
     }
 
     protected registerListeners(): void {
-        $(window).on('scroll', () => {
-            if (mediaWidthWide() && $('body > .container').css('display') !== 'none') {
+        window.addEventListener('scroll', () => {
+            if (mediaWidthWide() && this.mainContainer.style.display !== 'none') {
                 this.updateRightMenu();
             }
         });
-        $(window).on('resize', () => {
-            if ($('body > .container').css('display') !== 'none') {
+        window.addEventListener('resize', () => {
+            if (this.mainContainer.style.display !== 'none') {
                 this.setRightMenuDomLocation();
                 this.updateRightMenu();
             }
@@ -50,21 +61,25 @@ class RightMenuComponent extends Component {
 
     private setRightMenuDomLocation(): void {
         let wide = mediaWidthWide();
-        let rightMenuInArticle = $('main article > #right-menu').length === 1;
+        let rightMenuInArticle = this.articleElement.querySelector('#right-menu');
 
         if (!wide && !rightMenuInArticle) {
-            $('main article > .meta').
-                after($('#right-menu'));
-            $('#metadata-edit-article').
-                append($('#edit-article'));
+            $('main > article > .meta').after(this.rightMenuElement);
+
+            if (this.editArticleElement) {
+                document.getElementById('metadata-edit-article').appendChild(this.editArticleElement);
+            }
         } else if (wide && rightMenuInArticle) {
-            $('body > .container').append($('#right-menu'));
-            $('#right-menu > .wrapper').prepend($('#edit-article'));
+            $('body > .container').append(this.rightMenuElement);
+
+            if (this.editArticleElement) {
+                $('#right-menu > .wrapper').prepend(this.editArticleElement);
+            }
         }
     }
 
     private setupOutline(): void {
-        let headers = $ ('main > article > h1,h2,h3');
+        let headers = $('main > article > h1,h2,h3');
         if (headers.length === 0) {
             return;
         }
@@ -87,7 +102,7 @@ class RightMenuComponent extends Component {
         let top = $('#right-menu > .wrapper')[0].getBoundingClientRect().top;
 
         // Binary search not preferable because sequence is typically short
-        $('main article').
+        $('main > article').
             find('h2, h3').
             each((index: number, element: HTMLElement) => {
                 let elementTop = element.getBoundingClientRect().top;
@@ -114,7 +129,7 @@ class RightMenuComponent extends Component {
                 - 23 * 2 // top gap, bottom gap
                 + 3
                 - $('#outline > h5').outerHeight()
-                - $('#edit-article').outerHeight(true)
+                - (this.editArticleElement ? this.editArticleElement.offsetHeight + parseInt(getComputedStyle(this.editArticleElement).marginBottom) : 0)
                 - (footerHeight < 0 ? 0 : footerHeight);
 
             $('#outline > ul').css('max-height', maxHeight);
