@@ -14,7 +14,7 @@ class CommentsComponent extends Component {
         }
 
         this.disqusShortname = this.disqusThread.getAttribute('data-disqus-shortname');
-        if (!this.disqusShortname || this.disqusShortname.length === 0) {
+        if (!this.disqusShortname) {
             console.log('Disqus enabled but shortname not specified.');
 
             document.getElementById('#comments').style.display = 'none';
@@ -23,7 +23,7 @@ class CommentsComponent extends Component {
         }
 
         this.disqusIdentifier = this.disqusThread.getAttribute('data-disqus-identifier');
-        if (!this.disqusIdentifier || this.disqusIdentifier.length === 0) {
+        if (!this.disqusIdentifier) {
             console.log('Disqus enabled but identifier not specified.');
 
             document.getElementById('#comments').style.display = 'none';
