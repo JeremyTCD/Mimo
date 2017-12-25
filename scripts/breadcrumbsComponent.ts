@@ -13,7 +13,7 @@ class BreadcrumbsComponent extends Component {
     childBreadcrumbsLoaded: boolean = false;
 
     protected canInitialize(): boolean {
-        return true;
+        return document.getElementById('breadcrumbs') ? true : false;
     }
 
     protected setup(): void {
