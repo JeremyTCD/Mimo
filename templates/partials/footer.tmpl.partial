@@ -1,4 +1,3 @@
-{{^jtcd.disableFooter}}
 <footer>
     <div class="container">
         <div id="footer-information">
@@ -52,4 +51,3 @@
         </div>
     </div>
 </footer>
-{{/jtcd.disableFooter}}
