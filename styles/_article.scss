@@ -54,7 +54,7 @@ article {
     .meta {
         margin-top: $gap-4;
 
-        & + p {
+        & + p, & + div {
             margin-top: $gap-4;
         }
 
