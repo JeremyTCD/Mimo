@@ -20,6 +20,7 @@
     }
 
     > .wrapper {
+        width: inherit;
         flex-direction: column;
 
         @media #{$media-wide} {
@@ -81,8 +82,8 @@
                             user-select: none;
                             cursor: pointer;
                             align-items: stretch;
-                                margin-top: $gap-6;
-                                margin-bottom: $gap-6;
+                            margin-top: $gap-6;
+                            margin-bottom: $gap-6;
 
                             span {
 
