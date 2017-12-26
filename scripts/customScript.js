@@ -1,0 +1,2 @@
+/* This file is intentionally empty. It is meant to be overwritten by a file of the same
+name in another theme. Refer to the ReadMe for more information. */
