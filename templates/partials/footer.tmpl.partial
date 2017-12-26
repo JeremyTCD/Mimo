@@ -18,18 +18,25 @@
                 <a class="googleplus-icon" href="{{jtcd.googleplusLink}}"></a>
                 {{/jtcd.googleplusLink}}
             </div>
-            <div>
+            <div id="footer-legal">
+                {{#jtcd.licenseRelPath}}
                 <span>
-                    <a href="../license.html">License</a>
+                    <a href="{{_rel}}{{jtcd.licenseRelPath}}">License</a>
                 </span>
-                <span class="divider-icon"></span>
+                {{/jtcd.licenseRelPath}}
+
+                {{#jtcd.privacyRelPath}}
                 <span>
-                    <a href="../privacy.html">Privacy</a>
+                    <a href="{{_rel}}{{jtcd.privacyRelPath}}">Privacy</a>
                 </span>
-                <span class="divider-icon"></span>
+                {{/jtcd.privacyRelPath}}
+                
+                {{#jtcd.contactRelPath}}
                 <span>
-                    <a href="../about.html#contact">Contact</a>
+                    <a href="{{_rel}}{{jtcd.contactRelPath}}">Contact</a>
                 </span>
+                {{/jtcd.contactRelPath}}
+
             </div>
             {{#jtcd.copyrightText}}
             <div id="footer-copyright">

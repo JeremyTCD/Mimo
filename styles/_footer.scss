@@ -53,6 +53,20 @@ footer {
                     }
                 }
 
+                &#footer-legal {
+                    span {
+                        & + span {
+                            &::before {
+                                display: inline;
+                                content: "\23D0";
+                                padding-left: $gap-5;
+                                padding-right: $gap-5;
+                                color: $color-grayscale-1;
+                            }
+                        }
+                    }
+                }
+
                 span {
                     line-height: 1.2;
                     display: inline;
@@ -62,16 +76,6 @@ footer {
                     a {
                         display: inline;
                         color: $color-grayscale-1;
-                    }
-
-                    &.divider-icon {
-                        &::before {
-                            display: inline;
-                            content: "\23D0";
-                            padding-left: $gap-5;
-                            padding-right: $gap-5;
-                            color: $color-grayscale-1;
-                        }
                     }
                 }
             }
