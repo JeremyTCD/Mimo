@@ -188,11 +188,11 @@ Global scope values are specified in *blog/docfx.json*'s `build.globalMetadata` 
 1. Ensure that you are serving your blog in watch mode. Navigate to *localhost:8080/articles/exampleArticle1.html*.
 2. Open *blog/docfx.json* in a text editor or IDE of your choice. Change the value assigned to `build.globalMetadata.jtcd.authorName` to your name: 
 
-    ```json
+    ```
     "build": {
         ...
         "globalMetadata": {
-            ....
+            ...
             "jtcd.authorName": "<your name>",
             ...
         },
