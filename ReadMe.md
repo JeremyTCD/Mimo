@@ -263,6 +263,9 @@ This is the full list of options. Each option is prepended with `jtcd.`. Note th
 | jtcd.instagramLink | String | null | If defined, the link is linked to in the page's footer. |
 | jtcd.facebookLink | String | null | If defined, the link is linked to in the page's footer. |
 | jtcd.googleplusLink | String | null | If defined, the link is linked to in the page's footer. |
+| jtcd.licenseRelPath | String | null | If defined, the link is linked to in the page's footer. |
+| jtcd.privacyRelPath | String | null | If defined, the link is linked to in the page's footer. |
+| jtcd.contactRelPath | String | null | If defined, the link is linked to in the page's footer. |
 | jtcd.copyrightText | String | null | If defined, the string is displayed as part of the page's footer. |
 
 ##### Head
