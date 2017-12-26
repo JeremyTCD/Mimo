@@ -46,8 +46,8 @@ Features:
 - Watch mode (explained [here](#serving-your-blog-in-watch-mode)). Displays changes in real time as you edit your blog.
 - Lazily loaded Disqus comments.
 - Google Analytics.
-- Configurable and customizable.
-- Additionally, BasicBlog itself is modifiable:  
+- Configurable and customizable architecture.
+- Additionally, BasicBlog itself easy to modify:  
 	- Scripts and styles are organized by component.
 	- Logic is written in Typescript.
 	- Styles are written in Scss.
