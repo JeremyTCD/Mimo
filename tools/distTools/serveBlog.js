@@ -18,7 +18,7 @@ async function serve() {
     var watcher = chokidar.watch([
             docfxProjectDir
         ], {
-            ignored: [path.join(docfxProjectDir, '_site'), path.join(docfxProjectDir, 'obj')]
+            ignored: [path.join(docfxProjectDir, '_site'), path.join(docfxProjectDir, 'obj'), path.join(docfxProjectDir, 'node_modules')]
         });
     var building = false;
     var pendingBuild = true;
