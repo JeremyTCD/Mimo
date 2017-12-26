@@ -274,12 +274,12 @@ This is the full list of options. Each option is prepended with `jtcd.`. Note th
 | jtcd.pageTitle | String | null | If defined, the string is added to the [title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title). The string is also added to a [meta element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta) for search engine optimization.<br/><br/> If undefined, an empty string is used in its place.|
 | jtcd.websiteName | String | null | If defined, the string is added to the [title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title). The string is also added to a [meta element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta) for search engine optimization.<br/><br/> If undefined, an empty string is used in its place.|
 | jtcd.pageDescription | String | null | If defined, the string is added to a [meta element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta) for search engine optimization. |
-| jtcd.faviconRelPath | String | ./favicon.ico | Value must be the relative path of the file from the root of the site.<br/><br/> If defined, the file is used as the favicon.
+| jtcd.faviconRelPath | String | ./resources/favicon.ico | Value must be the relative path of the file from the root of the site.<br/><br/> If defined, the file is used as the favicon.
 
 ##### Header
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.logoRelPath | String | ./logo.svg |  Value must be the relative path of the file from the root of the site.<br/><br/> If defined, the file is used as the logo.
+| jtcd.logoRelPath | String | ./resources/logo.svg |  Value must be the relative path of the file from the root of the site.<br/><br/> If defined, the file is used as the logo.
 | jtcd.websiteName | String | null | If defined and `jtcd.logoRelPath` is undefined or invalid, the string is used as the [`alt`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) text for the logo.
 | jtcd.disableSearch | Boolean | false | If true, the search box is removed from the page's header.
 

@@ -10,7 +10,7 @@
   {{#jtcd.pageDescription}}
   <meta name="description" content="{{jtcd.pageDescription}}">
   {{/jtcd.pageDescription}}
-  <link rel="shortcut icon" href="{{_rel}}{{#jtcd.faviconRelPath}}{{jtcd.faviconRelPath}}{{/jtcd.faviconRelPath}}{{^jtcd.faviconRelPath}}favicon.ico{{/jtcd.faviconRelPath}}">
+  <link rel="shortcut icon" href="{{_rel}}{{#jtcd.faviconRelPath}}{{jtcd.faviconRelPath}}{{/jtcd.faviconRelPath}}{{^jtcd.faviconRelPath}}./resources/favicon.ico{{/jtcd.faviconRelPath}}">
   <link rel="stylesheet" href="/styles/bundle.css">
   <link rel="stylesheet" href="/styles/customStyles.css">
   <meta property="docfx:navrel" content="{{_navRel}}">

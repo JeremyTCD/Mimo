@@ -3,17 +3,14 @@
         "content": [
             {
                 "src": "src/content",
-                "files": [
-                    "**"
-                ]
+                "files": [ "**" ]
             }
         ],
         "resource": [
             {
                 "src": "src/resources",
-                "files": [
-                    "**"
-                ]
+                "files": [ "**" ],
+                "dest": "resources"
             }
         ],
         "dest": "_site",
