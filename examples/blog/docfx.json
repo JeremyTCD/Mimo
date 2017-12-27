@@ -11,6 +11,10 @@
                 "src": "src/resources",
                 "files": [ "**" ],
                 "dest": "resources"
+            },
+            {
+                "src": "src/misc",
+                "files": [ "**" ]
             }
         ],
         "dest": "_site",
@@ -36,6 +40,17 @@
             "./src/customizations"
         ],
         "postProcessors": [ "SortedArticleListGenerator", "SearchIndexGenerator" ],
-        "noLangKeyword": false
+        "sitemap": {
+            "baseUrl": "https://wwww.jeremytcd.com",
+            "priority": 0.1,
+            "fileOptions": {
+                "**/src/content/articles/*.md": {
+                    "priority": 1.0
+                },
+                "**/src/content/articles/allArticles.md": {
+                    "priority": 0.1
+                }
+            }
+        }
     }
 }
