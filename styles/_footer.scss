@@ -10,22 +10,31 @@ footer {
         align-items: center;
 
         #footer-information {
+            line-height: 1;
             flex-direction: column;
 
-            div {
+            span, a, ::before {
+                display: inline; // So that items wrap normally
+            }
 
+
+            div {
+                display: block; // Cannot be flex or inline children will not wrap
                 & + div {
-                    padding-top: 14px;
+                    padding-top: 19px;
                 }
 
                 &#footer-attribution {
                     font-size: 11px;
-                    padding-top: 28px;
+                    padding-top: 38px;
+                    padding-bottom: 2px;
+                }
+
+                &#footer-legal {
+                    padding-bottom: 2px;
                 }
 
                 &#footer-social-media {
-                    align-items: center;
-
                     a {
                         & + a {
                             padding-left: 14px;
@@ -53,29 +62,20 @@ footer {
                     }
                 }
 
-                &#footer-legal {
-                    span {
-                        & + span {
-                            &::before {
-                                display: inline;
-                                content: "\23D0";
-                                padding-left: $gap-5;
-                                padding-right: $gap-5;
-                                color: $color-grayscale-1;
-                            }
-                        }
-                    }
-                }
-
                 span {
-                    line-height: 1.2;
-                    display: inline;
-                    align-items: center;
                     color: $color-grayscale-1;
 
+                    & + span {
+                        &::before {
+                            content: "  \23D0 ";
+                            color: $color-grayscale-1;
+                            white-space: pre;
+                        }
+                    }
+
                     a {
-                        display: inline;
                         color: $color-grayscale-1;
+                        white-space: pre;
                     }
                 }
             }
