@@ -37,18 +37,24 @@ class HeaderComponent extends Component {
             navbarPath = navbarPath.replace(/\\/g, '/');
         }
 
-        $.get(navbarPath, (data: string) => {
-            let navbarUl = $.parseHTML(data);
-            $("#header-navbar").append(navbarUl);
+        let getNavbarRequest = new XMLHttpRequest()
+        getNavbarRequest.onreadystatechange = (event: Event) => {
+            // TODO check status too
+            if (getNavbarRequest.readyState === XMLHttpRequest.DONE) {
+                let tocFrag = document.createRange().createContextualFragment(getNavbarRequest.responseText);
+                document.getElementById('header-navbar').appendChild(tocFrag);
 
-            // Query string can be used to perform search on page load
-            if ($('#search-results').length !== 0) {
-                $('#search').show();
-                $('body').trigger("searchEvent");
+                // TODO allow query string to perform search on page load
+                //if ($('#search-results').length !== 0) {
+                //    $('#search').show();
+                //    $('body').trigger("searchEvent");
+                //}
+
+                this.setNavbarActiveTopic(navbarPath);
             }
-
-            this.setNavbarActiveTopic(navbarPath);
-        });
+        }
+        getNavbarRequest.open('GET', navbarPath)
+        getNavbarRequest.send()
     }
 
     private setNavbarActiveTopic(navbarPath: string): void {
