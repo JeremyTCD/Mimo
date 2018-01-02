@@ -157,7 +157,7 @@ header {
 
                 #header-search {
                     height: 37px;
-                    background-image: linear-gradient($color-primary-search, $color-primary-search);
+                    background-image: linear-gradient($color-primary-border, $color-primary-border);
                     background-repeat: no-repeat;
                     background-position: 0 100%;
 
@@ -179,7 +179,7 @@ header {
                         }
                     }
 
-                    @include material-design-icon('\E8B6', $color-primary-search);
+                    @include material-design-icon('\E8B6', $color-primary-text);
                     //background-color: $color-primary-background;
                     //border-bottom: 1px solid $color-primary-border;
                     transition: border-color 0.26s $ease-out-quad;
@@ -189,6 +189,7 @@ header {
                         background-color: transparent;
                         border: none;
                         padding-right: $icon-text-gap;
+                        opacity: $opacity-2;
                     }
 
                     input {
