@@ -62,13 +62,13 @@ class LeftMenuComponent extends Component {
     }
 
     private registerTocTopicListener() {
-        $('#left-menu-toc ul > li.expandable > a').click((event: JQuery.Event) => {
+        $('#left-menu-toc ul > li.expandable > a, #left-menu-toc ul > li.expandable > span').click((event: JQuery.Event) => {
             let href = $(event.delegateTarget).attr('href');
 
             if ($(event.target).hasClass('icon') || !href) {
                 let closestLi = $(event.target).closest('li');
                 let childUl = closestLi.children('ul');
-                transitionsService.toggleHeightForTransition(childUl[0], closestLi[0]);
+                transitionsService.toggleHeightWithTransition(childUl[0], closestLi[0]);
                 event.preventDefault();
                 // If event propogates, every parent li.expandable's click listener will
                 // be called
@@ -106,23 +106,38 @@ class LeftMenuComponent extends Component {
                 }
 
                 if (getAbsolutePath(anchorElement.href) === currentHref) {
-                    $(anchorElement).addClass('active');
-                    $(anchorElement).
+                    anchorElement.classList.add('active');
+                    let expandableLis = $(anchorElement).
                         parent().
                         parentsUntil('#left-menu-toc').
-                        filter('li.expandable').
-                        each((index: number, listElement: HTMLLIElement) => {
-                            transitionsService.toggleHeightForTransition($(listElement).children('ul')[0], listElement);
-                        });
+                        filter('li.expandable');
+
+                    // If an element is nested in another element and a height transition is started for both at the same
+                    // time, the outer element only transitions to its height. This is because 
+                    // toggleHeightForTransition has no way to know the final heights of an element's children. Nested children at
+                    // the bottom of the outer element are only revealed when its height is set to auto in its transitionend callback.
+                    // Therefore it is necessary to immediately expand nested elements.
+                    for (let i = 0; i < expandableLis.length; i++) {
+                        let listElement = expandableLis[i];
+
+                        if (i === expandableLis.length - 1) {
+                            transitionsService.toggleHeightWithTransition($(listElement).children('ul')[0], listElement);
+                        }
+                        else {
+                            transitionsService.expandHeightWithoutTransition($(listElement).children('ul')[0], listElement);
+                        }
+                    }
 
                     breadcrumbsComponent.
-                        loadChildBreadcrumbs($(anchorElement).
+                        loadChildBreadcrumbs(
+                        $(anchorElement).
                             parentsUntil('#left-menu-toc').
                             filter('li').
-                            children('a').
+                            children('span, a').
                             add(anchorElement).
                             get().
-                            reverse() as HTMLAnchorElement[]);
+                            reverse() as HTMLAnchorElement[]
+                        );
                 } else {
                     $(anchorElement).removeClass('active');
                 }
@@ -131,13 +146,13 @@ class LeftMenuComponent extends Component {
 
     private setTocTopicPadding(): void {
         $('#left-menu-toc').
-            find('a[href]').
+            find('li > a, li > span').
             each((index: number, anchorElement: HTMLAnchorElement) => {
                 let level = $(anchorElement).data('level');
                 if (level == 1) {
                     return
                 }
-                $(anchorElement).css('padding-left', (level - 1) * 23 + 'px');
+                $(anchorElement).css('padding-left', (level - 1) * 14 + 'px');
             });
     }
 
@@ -167,23 +182,14 @@ class LeftMenuComponent extends Component {
         $('#left-menu-filter-input').on('input', (event: JQuery.Event) => {
             let sideMenuToc = $('#left-menu-toc');
             let lis = sideMenuToc.find('li');
+            let rootLis = document.querySelectorAll('#left-menu-toc > ul > li');
 
-            let val = $(event.target).val();
-            if (val === '') {
+            let filterValue: string = $(event.target).val().toString();
+            if (filterValue === '') {
                 // Restore toc
-                lis.
-                    removeClass('filter-hidden').
-                    removeClass('filter-expanded').
-                    each((index: number, liElement: HTMLLIElement) => {
-                        let preExpanded = $(liElement).hasClass('pre-expanded');
-                        let expanded = $(liElement).hasClass('expanded');
-
-                        if (preExpanded && !expanded || !preExpanded && expanded) {
-                            transitionsService.toggleHeightForTransition($(liElement).children('ul')[0], liElement);
-                        }
-
-                        $(liElement).removeClass('pre-expanded')
-                    });
+                for (let i = 0; i < rootLis.length; i++) {
+                    this.handleLiElement(rootLis[i] as HTMLLIElement, true, true, filterValue)
+                }
 
                 sideMenuToc.removeClass('filtered');
                 return;
@@ -197,34 +203,77 @@ class LeftMenuComponent extends Component {
                 sideMenuToc.addClass('filtered');
             }
 
-            lis.
-                addClass('filter-hidden').
-                removeClass('filter-expanded').
-                find('span:not(.icon)').
-                each((index: number, spanElement: HTMLSpanElement) => {
-                    if (this.contains($(spanElement).text(), val)) {
-                        $(spanElement).
-                            parentsUntil('#left-menu-toc').
-                            filter('li').
-                            each((index: number, liElement: HTMLLIElement) => {
-                                $(liElement).removeClass('filter-hidden');
-
-                                if (index !== 0) {
-                                    $(liElement).addClass('filter-expanded');
-                                }
-                            });
-                    }
-                }).
-                end().
-                each((index: number, liElement: HTMLLIElement) => {
-                    let filterExpanded = $(liElement).hasClass('filter-expanded');
-                    let expanded = $(liElement).hasClass('expanded');
-
-                    if (filterExpanded && !expanded || !filterExpanded && expanded) {
-                        transitionsService.toggleHeightForTransition($(liElement).children('ul')[0], liElement);
-                    }
-                });
+            for (let i = 0; i < rootLis.length; i++) {
+                this.handleLiElement(rootLis[i] as HTMLLIElement, true, false, filterValue)
+            }
         });
+    }
+
+    private handleLiElement = (liElement: HTMLLIElement, allParentsExpanded: boolean, restore: boolean, filterValue: string): void => {
+        let expanded = liElement.classList.contains('expanded');
+
+        // Reset
+        liElement.classList.remove('filter-hidden', 'filter-expanded', 'filter-match');
+
+        // Visit all children
+        let expand: boolean = false;
+        $(liElement).
+            find('> ul > li').
+            each((index: number, childLiElement: HTMLLIElement) => {
+                this.handleLiElement(childLiElement, allParentsExpanded && expanded, restore, filterValue);
+
+                if (!restore && !expand && !childLiElement.classList.contains('filter-hidden')) {
+                    expand = true;
+                }
+            });
+
+        if (restore) {
+            let preExpanded = liElement.classList.contains('pre-expanded');
+            liElement.classList.remove('pre-expanded')
+
+            if (preExpanded && !expanded) {
+                if (allParentsExpanded) {
+                    transitionsService.toggleHeightWithTransition($(liElement).children('ul')[0], liElement);
+                } else {
+                    transitionsService.toggleHeightWithoutTransition($(liElement).children('ul')[0], liElement);
+                }
+            }
+            else if (!preExpanded && expanded) {
+                transitionsService.toggleHeightWithTransition($(liElement).children('ul')[0], liElement);
+            }
+        } else {
+            // Expand if any children are displayed
+            if (expand) {
+                liElement.classList.add('filter-expanded');
+
+                if (!expanded) {
+                    if (allParentsExpanded) {
+                        transitionsService.toggleHeightWithTransition($(liElement).children('ul')[0], liElement);
+                    } else {
+                        transitionsService.toggleHeightWithoutTransition($(liElement).children('ul')[0], liElement);
+                    }
+                }
+            }
+
+            // Check if it matches
+            let displayedElement = $(liElement).children('span, a')[0];
+            let displayedText = $(displayedElement).text();
+            let matches = this.contains(displayedText, filterValue);
+
+            if (matches) {
+                liElement.classList.add('filter-match');
+            }
+
+            if (!liElement.classList.contains('filter-expanded')) {
+                if (!matches) {
+                    liElement.classList.add('filter-hidden');
+                }
+
+                if (expanded) {
+                    transitionsService.toggleHeightWithTransition($(liElement).children('ul')[0], liElement);
+                }
+            }
+        }
     }
 
     private contains(text, val): boolean {
