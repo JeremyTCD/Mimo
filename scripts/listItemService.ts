@@ -7,7 +7,8 @@
         let href = item.href;
         let innerHtml = item.innerHtml;
 
-        html += href ? '<li><a href="' + href + '">' + innerHtml + '</a>' : '<li>' + innerHtml;
+        html += '<li>'
+        html += href ? `<a href="${href}">${innerHtml}</a>` : `<span>${innerHtml}</span>`;
         html += item.items ? generateMultiLevelList(item.items, classes, level + 1) : '';
         html += '</li>';
     }
