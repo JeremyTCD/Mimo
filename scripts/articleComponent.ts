@@ -1,5 +1,4 @@
-﻿import AnchorJs = require('anchor-js');
-import Component from './component';
+﻿import Component from './component';
 
 class ArticleComponent extends Component {
     protected canInitialize(): boolean {
@@ -7,20 +6,27 @@ class ArticleComponent extends Component {
     }
 
     protected setup(): void {
-        this.addAnchorsToHeadings();
+        this.addLinks();
     }
 
     protected registerListeners(): void {
     }
 
-    private addAnchorsToHeadings(): void {
-        let anchors = new AnchorJs();
-        anchors.options = {
-            placement: 'right',
-            visible: 'hover',
-        };
-        anchors.add(`article h2:not(.no-anchor), 
-            article h3:not(.no-anchor)`);
+    private addLinks(): void {
+        let article: HTMLElement = document.getElementById('_content');
+        let headers: NodeList = article.querySelectorAll('h2, h3');
+        let linkMaster: HTMLAnchorElement = document.createElement('a');
+
+        linkMaster.classList.add('header-link');
+
+        for (let i: number = 0; i < headers.length; i++) {
+            let header: HTMLElement = headers[i] as HTMLElement;
+            let link: HTMLAnchorElement = linkMaster.cloneNode() as HTMLAnchorElement;
+
+            link.setAttribute('href', location.protocol + '//' + location.host + location.pathname + '#' + header.id);
+
+            header.appendChild(link.cloneNode());
+        }
     }
 }
 
