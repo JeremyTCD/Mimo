@@ -78,13 +78,13 @@ class CommentsComponent extends Component {
         let commentsLoader: HTMLElement = document.getElementById('comments-loader');
 
         commentsLoader.style.opacity = '0';
-        transitionsService.autoHeightToFixedHeight(commentsLoader, 0);
+        transitionsService.autoHeightToFixedHeightWithTransition(commentsLoader, 0);
         commentsLoader.addEventListener('transitionend', this.commentsLoaderOnRemoved, true);
 
         // Disqus has some unusual behaviour whereby it it displays a login menu for a split 
         // second even if you are logged in (after the onready callback is called). This causes
         // an unavoidable jerk.
-        transitionsService.currentHeightToAutoHeight(this.disqusThread);
+        transitionsService.currentHeightToAutoHeightWithTransition(this.disqusThread);
     }
 
     private commentsLoaderOnRemoved = (event: Event): void => {

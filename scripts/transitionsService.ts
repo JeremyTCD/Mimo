@@ -1,11 +1,23 @@
 ﻿class TransitionsService {
-    public toggleHeightForTransition (toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
+    public toggleHeightWithTransition (toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
         toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
 
         if (toggleClassElement.classList.contains('expanded')) {
-            this.autoHeightToFixedHeight(toggleHeightElement, 0);
+            this.autoHeightToFixedHeightWithTransition(toggleHeightElement, 0);
         } else {
-            this.currentHeightToAutoHeight(toggleHeightElement);
+            this.currentHeightToAutoHeightWithTransition(toggleHeightElement);
+        }
+
+        toggleClassElement.classList.toggle('expanded');
+    }
+
+    public toggleHeightWithoutTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
+        toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
+
+        if (toggleClassElement.classList.contains('expanded')) {
+            this.autoHeightToFixedHeightWithoutTransition(toggleHeightElement, 0);
+        } else {
+            this.currentHeightToAutoHeightWithoutTransition(toggleHeightElement);
         }
 
         toggleClassElement.classList.toggle('expanded');
@@ -14,12 +26,20 @@
     public contractHeightWithoutTransition (toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
         if (toggleClassElement.classList.contains('expanded')) {
             toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
-            toggleHeightElement.style.height = '0px';
+            this.autoHeightToFixedHeightWithoutTransition(toggleHeightElement, 0);
             toggleClassElement.classList.remove('expanded');
         }
     }
 
-    public currentHeightToAutoHeight (element: HTMLElement): void {
+    public expandHeightWithoutTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
+        if (!toggleClassElement.classList.contains('expanded')) {
+            toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
+            this.currentHeightToAutoHeightWithoutTransition(toggleHeightElement);
+            toggleClassElement.classList.add('expanded');
+        }
+    }
+
+    public currentHeightToAutoHeightWithTransition (element: HTMLElement): void {
         let initialHeight = element.clientHeight;
 
         // Get auto height
@@ -38,7 +58,11 @@
         element.addEventListener('transitionend', this.setHeightAutoListener, true);
     }
 
-    public autoHeightToFixedHeight (element: HTMLElement, fixedHeight: number): void {
+    public currentHeightToAutoHeightWithoutTransition(element: HTMLElement): void {
+        element.style.height = 'auto';
+    }
+
+    public autoHeightToFixedHeightWithTransition (element: HTMLElement, fixedHeight: number): void {
         let initialHeight = element.clientHeight;
 
         // Set initial height
@@ -48,6 +72,10 @@
         element.clientHeight;
 
         // Set fixed height
+        element.style.height = `${fixedHeight}px`;
+    }
+
+    public autoHeightToFixedHeightWithoutTransition(element: HTMLElement, fixedHeight: number): void {
         element.style.height = `${fixedHeight}px`;
     }
 

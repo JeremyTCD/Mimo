@@ -19,13 +19,15 @@ class HeaderComponent extends Component {
 
     protected registerListeners(): void {
         let wrapper = $('#header-navbar-and-search > .wrapper');
-        $('#header-button').on('click', function () {
-            transitionsService.toggleHeightForTransition(wrapper[0], wrapper[0]);
+        document.getElementById('header-button').addEventListener('click', (event: Event) => {
+            transitionsService.toggleHeightWithTransition(wrapper[0], wrapper[0]);
+            (event.currentTarget as HTMLElement).classList.toggle('active');
         });
 
-        $(window).on('resize', () => {
+        window.addEventListener('resize', (event: Event) => {
             if (mediaWidthNarrow()) {
                 transitionsService.contractHeightWithoutTransition(wrapper[0], wrapper[0]);
+                document.getElementById('header-button').classList.remove('active');
             }
         });
     }

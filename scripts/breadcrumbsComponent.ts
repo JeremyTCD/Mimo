@@ -25,7 +25,7 @@ class BreadcrumbsComponent extends Component {
         let leftMenu: HTMLElement = document.getElementById('left-menu');
 
         tocButton.addEventListener('click', (event: Event) => {
-            transitionsService.toggleHeightForTransition(leftMenu, tocButton);
+            transitionsService.toggleHeightWithTransition(leftMenu, tocButton);
         });
 
         window.addEventListener('resize', (event: Event) => {
