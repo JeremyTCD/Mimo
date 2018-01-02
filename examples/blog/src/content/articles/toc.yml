@@ -4,11 +4,13 @@
   items:
   - name: Example Article 1
     href: exampleArticle1.md
-  - name: Example Article 2
-    href: exampleArticle2.md
+  - name: Example Sub-Category 1
+    items:    
+    - name: Example Article 2
+      href: exampleArticle2.md
+    - name: Example Article 3
+      href: exampleArticle3.md
 - name: Example Category 2
   items:
-  - name: Example Article 3
-    href: exampleArticle3.md
   - name: Example Article 4
     href: exampleArticle4.md
