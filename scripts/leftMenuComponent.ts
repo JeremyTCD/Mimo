@@ -170,18 +170,21 @@ class LeftMenuComponent extends Component {
     }
 
     private setupFilter(): void {
-        // Preferable to use a class to scss constants can be used
-        $('#left-menu-filter-input').
-            focus((event: JQuery.Event) => {
-                $('#left-menu-filter').addClass('focus');
-            }).
-            focusout((event: JQuery.Event) => {
-                $('#left-menu-filter').removeClass('focus');
+        let leftMenuFilterInputElement = document.getElementById('left-menu-filter-input');
+        let leftMenuFilterElement = document.getElementById('left-menu-filter');
+
+        // Preferable to use a class over css
+        leftMenuFilterInputElement.
+            addEventListener('focus', (event: Event) => {
+                leftMenuFilterElement.classList.add('focus');
+            });
+        leftMenuFilterInputElement.
+            addEventListener('focusout', (event: Event) => {
+                leftMenuFilterElement.classList.remove('focus');
             });
 
-        $('#left-menu-filter-input').on('input', (event: JQuery.Event) => {
-            let sideMenuToc = $('#left-menu-toc');
-            let lis = sideMenuToc.find('li');
+        leftMenuFilterInputElement.addEventListener('input', (event: Event) => {
+            let sideMenuTocElement = document.getElementById('left-menu-toc');
             let rootLis = document.querySelectorAll('#left-menu-toc > ul > li');
 
             let filterValue: string = $(event.target).val().toString();
@@ -191,16 +194,19 @@ class LeftMenuComponent extends Component {
                     this.handleLiElement(rootLis[i] as HTMLLIElement, true, true, filterValue)
                 }
 
-                sideMenuToc.removeClass('filtered');
+                sideMenuTocElement.classList.remove('filtered');
                 return;
             }
 
-            if (!sideMenuToc.hasClass('filtered')) {
-                lis.
-                    filter('.expanded').
-                    addClass('pre-expanded');
+            if (!sideMenuTocElement.classList.contains('filtered')) {
+                let expandedLis = sideMenuTocElement.
+                    querySelectorAll('.expanded');
 
-                sideMenuToc.addClass('filtered');
+                for (let i = 0; i < expandedLis.length; i++) {
+                    expandedLis[i].classList.add('pre-expanded');
+                }
+
+                sideMenuTocElement.classList.add('filtered');
             }
 
             for (let i = 0; i < rootLis.length; i++) {
