@@ -1,5 +1,8 @@
 ﻿@import 'constants';
 
+$bar-margin-right: 9px;
+$bar-width: 3px;
+
 #right-menu {
     font-size: $font-size-2;
     // Default flex-shrink is 1. When toc contents become fixed, they are taken out of the document flow.
@@ -8,15 +11,15 @@
     flex-shrink: 0;
 
     @media #{$media-narrow}, #{$media-medium} {
-        padding-bottom: 14px;
+        padding-bottom: 23px;
     }
 
     @media #{$media-wide} {
         overflow-y: hidden;
-        margin-top: -7px;
+        margin-top: -4px;
         width: $side-menu-width;
         height: auto !important;
-        margin-left: $component-gap;
+        margin-left: 64px;
     }
 
     > .wrapper {
@@ -27,8 +30,7 @@
         @media #{$media-wide} {
             &.fixed {
                 position: fixed;
-                top: $window-border-gap;
-                margin-top: -3px;
+                top: 15px;
             }
         }
 
@@ -38,17 +40,14 @@
 
                 &::before {
                     content: "";
-                    width: 3px;
+                    width: $bar-width;
                     background-color: $color-secondary;
+                    margin-right: $bar-margin-right;
                 }
             }
 
             #outline {
                 flex-direction: column;
-
-                @media #{$media-narrow}, #{$media-medium} {
-                    padding-left: 14px;
-                }
 
                 h5 {
                     padding-bottom: 9px;
@@ -74,6 +73,7 @@
 
                     li {
                         flex-direction: column;
+                        align-items: flex-start;
 
                         @media #{$media-wide} {
                             flex-shrink: 0;
@@ -84,26 +84,22 @@
                             cursor: pointer;
                             align-items: stretch;
                             margin-top: 5px;
-                            margin-bottom: 5px;
-
-                            &:hover{
-                                color: $color-tertiary;
-                            }
+                            margin-bottom: 4px;
 
                             span {
-
                                 &:last-child {
-                                    padding-right: 14px;
+                                    margin-right: 14px;
+                                    @include animated-underline($color-tertiary, $color-tertiary);
                                 }
 
                                 @media #{$media-wide} {
                                     &:first-child {
-                                        margin-right:9px;
-                                        width: 3px;
+                                        margin-right: $bar-margin-right;
+                                        width: $bar-width;
                                         background-color: $color-primary-text;
                                         opacity: $opacity-2;
                                         transform: scaleY(0);
-                                        transition: transform $transition-1;
+                                        transition: transform 0.26s $ease-out-quad;
                                         // When scrollbar appears, if flex-shrink is not 0, bar width can get set to 0
                                         flex-shrink: 0;
                                     }
@@ -111,7 +107,7 @@
                             }
 
                             @media #{$media-wide} {
-                                &.active, &:hover {
+                                &.active {
                                     span {
                                         &:first-child {
                                             transform: scaleY(1);
@@ -133,21 +129,19 @@
     }
 
     span {
-        &:first-child {
+        &.icon {
             align-items: center;
             @include material-design-icon("\E3C9", $color-primary-text);
 
             &::before {
                 opacity: $opacity-2;
+                padding-right: $icon-text-gap;
             }
         }
 
         &:last-child {
             flex-shrink: 0;
-
-            @media #{$media-wide} {
-                padding-left: $icon-text-gap;
-            }
+            @include animated-underline($color-tertiary, $color-tertiary);
         }
     }
 }

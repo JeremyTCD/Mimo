@@ -1,24 +1,26 @@
 <ul>
-{{#items}}
-	{{^leaf}}
-	<li class="expandable">
-	{{/leaf}}
-	{{#leaf}}
-	<li>
-	{{/leaf}}
-			{{#topicHref}}
-			<a class="topic is-link" data-level="{{level}}" href="{{topicHref}}" name="{{tocHref}}" title="{{name}}">
-			{{/topicHref}}
-			{{^topicHref}}
-			<a class="topic" data-level="{{level}}">
-			{{/topicHref}}
-			<span class="icon"></span>
-			<span>{{name}}</span>
-			</a>
-		</span>
+    {{#items}}
     {{^leaf}}
-    {{>partials/li}}
+    <li data-level="{{level}}" class="expandable">
     {{/leaf}}
-  </li>
-{{/items}}
-</ul>
+    {{#leaf}}
+    <li data-level="{{level}}">
+    {{/leaf}}
+        {{#topicHref}}
+        <a class="topic" data-level="{{level}}" href="{{topicHref}}" name="{{tocHref}}" title="{{name}}">
+            {{name}}
+        </a>
+        {{/topicHref}}
+
+        {{^topicHref}}
+        <span class="topic" data-level="{{level}}">
+            {{name}}
+        </span>
+        {{/topicHref}}
+            
+        {{^leaf}}
+        {{>partials/li}}
+        {{/leaf}}
+    </li>
+    {{/items}}
+    </ul>

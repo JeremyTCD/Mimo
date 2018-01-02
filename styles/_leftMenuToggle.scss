@@ -6,14 +6,14 @@
     }
 
     @media #{$media-narrow} {
-        font-size: $font-size-1;
+        font-size: $font-size-2;
         background-color: #f8f8f8;
 
         .container {
             a {
                 flex-grow: 1;
                 user-select: none;
-                color: $font-black-on-white-importance-1;
+                opacity: $opacity-4;
                 align-items: center;
                 justify-content: center;
                 height: $gap-2;

@@ -1,34 +1,39 @@
 ﻿@import '../node_modules/material-design-icons/iconfont/material-icons.css';
 @import '../node_modules/ionicons/dist/css/ionicons.css';
 
-$color-primary-1: #26a69a;
-$color-primary-2: #009688;
-$color-primary-3: #00897b;
-$color-primary-4: #00796b;
-$color-secondary-1: #ff8f00;
-$color-secondary-2: #ff6f00;
-$color-grayscale-1: #fff;
-$color-grayscale-2: #ececec;
-$color-grayscale-3: #000;
+// Used for backgrounds
+$color-primary: #fff;
+// Color of text that appears on elements with primary color as background
+$color-primary-text: #212121;
+// Color of borders for elements that have primary color as background
+$color-primary-border: #bfbfbf;
+$color-primary-background: #efefef;
 
-$font-black-on-white-importance-1: #212121;
-$font-black-on-white-importance-2: #757575;
-$font-black-on-white-importance-3: #ababab;
-$font-black-on-white-importance-4: #c9c9c9;
-$font-black-on-white-importance-5: #dedede;
+// Used for headers and uninteractive visual elements
+$color-secondary: #0277bd;
+$color-secondary-text: #fff;
 
-// For non black on white cases, disabled items should have the following opacity
-$opacity-disabled: 0.8;
+// Used for links and interactive visual elements
+$color-tertiary: #FF8C00;
+
+// Uninteractive, unimportant elements
+$opacity-1: 0.4;
+// Uninteractive elements
+$opacity-2: 0.6;
+// Inactive interactive elements
+$opacity-3: 0.80;
+// Active interactive elements and important elements
+$opacity-4: 1.0;
 
 $fade-box-shadow: 1px rgba(0, 0, 0, 0.19);
 
 $font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif;
 $border-radius-main: 4px;
-$transition-2: 0.15s ease-out;
-$transition-1: 0.21s ease-out;
-$transition-delayed-3: 0.1s ease-out 0.050s;
-$transition-delayed-2: 0.15s ease-out 0.050s;
-$transition-delayed-1: 0.21s ease-out 0.050s;
+
+$ease-out-quad: cubic-bezier(0.33, 0.67, 0.67, 1);
+// To prevent flickering on temporal pointer drivebys
+$ease-out-quad-delayed: cubic-bezier(0.33, 0.67, 0.67, 1) 0.050s;
+
 $gap-9: 1px;
 $gap-8: 2px;
 $gap-7: 3px;
@@ -38,18 +43,26 @@ $gap-4: 14px;
 $gap-3: 23px;
 $gap-2: 37px;
 $gap-1: 60px;
-$font-size-1: 13px;
+
+$font-size-1: 11px;
 $font-size-2: 14px;
-$font-size-3: 18px;
-$font-size-4: 24px;
-$font-size-5: 32px;
-$font-size-6: 42px;
+$font-size-3: 16px;
+$font-size-4: 18px;
+$font-size-5: 24px;
+$font-size-6: 32px;
+$font-size-7: 42px;
+
+$icon-text-gap: 5px;
+$window-border-gap: 23px;
+$component-gap: 59px;
+
 $side-menu-width: 220px;
+
 $media-narrow: '(max-width: 768px)';
 $media-medium: '(min-width: 769px) and (max-width: 1024px)';
 $media-wide: '(min-width: 1025px)';
 
-@mixin material-design-icon($code, $color, $font-size: $font-size-3) {
+@mixin material-design-icon($code, $color, $font-size: $font-size-4) {
     &::before {
         content: $code;
         color: $color;
@@ -70,7 +83,7 @@ $media-wide: '(min-width: 1025px)';
     }
 }
 
-@mixin ionicons-icon($code, $color, $font-size: $font-size-3) {
+@mixin ionicons-icon($code, $color, $font-size: $font-size-4) {
     &::before {
         content: $code;
         color: $color;
@@ -91,30 +104,33 @@ $media-wide: '(min-width: 1025px)';
     }
 }
 
-@mixin animated-underline($startColor, $endColor, $underline-height) {
-    flex-direction: column;
-    text-decoration: none;
-    // Most fonts have characters that extend above or below the line when line-height: 1.
-    // This can cause vertical overflow. When overflow: auto, add padding to avoid unexpected
-    // scrollbars.
-    line-height: 1;
+@mixin animated-underline($startColor, $endColor, $underline-height: 1px, $duration: 0.5s, $before: false) {
+    @if $before == true {
+        &::before {
+            @include animated-underline-core($startColor, $endColor, $underline-height, $duration);
+        }
 
-    &:hover::after {
-        transform: scaleX(1);
-        background-color: $endColor;
+        &:hover {
+            &::before {
+                background-size: 100% $underline-height;
+            }
+        }
     }
+    @else {
+        @include animated-underline-core($startColor, $endColor, $underline-height, $duration);
 
-    &::after {
-        content: "";
-        width: 100%;
-        height: $underline-height;
-        background-color: $startColor;
-        transform: scaleX(0);
-        transition: transform $transition-delayed-2;
+        &:hover {
+            background-size: 100% $underline-height;
+        }
     }
-    // Facilitates centering of text
-    &::before {
-        content: "";
-        height: $underline-height;
-    }
+}
+
+
+@mixin animated-underline-core($startColor, $endColor, $underline-height: 1px, $duration: 0.5s) {
+    background-image: linear-gradient(to right, $startColor, $endColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0 $underline-height;
+    transition: background-size $duration $ease-out-quad-delayed;
+    display: inline;
 }

@@ -1,4 +1,4 @@
-{{^jtcd.disableLeftMenu}}
+﻿{{^jtcd.disableLeftMenu}}
 <div id="left-menu">
   <!-- Wrapper is required for adjacent article to maintain its width when filter and toc are fixed -->
   <div class="wrapper">

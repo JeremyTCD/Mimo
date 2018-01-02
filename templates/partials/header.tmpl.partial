@@ -5,7 +5,9 @@
                 <img class="svg" src="{{_rel}}{{#jtcd.logoRelPath}}{{jtcd.logoRelPath}}{{/jtcd.logoRelPath}}{{^jtcd.logoRelPath}}./resources/logo.svg{{/jtcd.logoRelPath}}" alt="{{jtcd.websiteName}}" />
             </a>
             <button id="header-button" type="button">
-                <span class="sr-only">Toggle navigation</span>
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
         <div id="header-navbar-and-search">

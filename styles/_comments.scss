@@ -1,21 +1,24 @@
 ﻿@import 'constants';
 
 #comments {
-    margin-top: 70px;
+    margin-top: 72px;
+    margin-bottom: -11px;
     flex-direction: column;
 
     #disqus_thread {
         height: 0px;
         overflow: hidden;
-        transition: height $transition-1;
+        transition: height 0.5s $ease-out-quad;
     }
 
     #comments-loader {
+        padding-top: 17px;
+        padding-bottom: 6px;
         flex-direction: column;
         align-items: center;
-        transition: opacity $transition-1, height $transition-1;
+        transition: opacity 0.26s $ease-out-quad, height 0.26s $ease-out-quad;
 
-        span{
+        span {
             margin-top: 6px;
         }
     }

@@ -1,7 +1,7 @@
 ﻿@import 'constants';
 
 .pagination {
-    font-size: $font-size-1;
+    font-size: $font-size-2;
     flex-direction: row;
 
     li {
@@ -23,10 +23,10 @@
             a:focus,
             a:hover {
                 z-index: 3;
-                color: $color-grayscale-1;
+                color: $color-secondary-text;
                 cursor: default;
-                background-color: $color-secondary-1;
-                border-color: $color-secondary-1;
+                background-color: $color-tertiary;
+                border-color: $color-tertiary;
             }
         }
 
@@ -34,10 +34,10 @@
             a,
             a:focus,
             a:hover {
-                color: $font-black-on-white-importance-3;
+                opacity: $opacity-3;
                 cursor: not-allowed;
                 background-color: transparent;
-                border-color: $font-black-on-white-importance-4;
+                //border-color: $font-black-on-white-importance-4;
             }
         }
 
@@ -46,19 +46,19 @@
             padding: 0 $gap-4;
             height: $gap-2;
             margin-left: -$gap-9;
-            background-color: $color-grayscale-1;
-            border: $gap-9 solid $font-black-on-white-importance-5;
+            background-color: $color-secondary-text;
+            //border: $gap-9 solid $font-black-on-white-importance-5;
             z-index: 1;
-            transition: border-color $transition-delayed-2, 
-                color $transition-delayed-2, 
-                background-color $transition-delayed-2;
+            transition: border-color 0.26 $ease-out-quad-delayed, 
+                color 0.26 $ease-out-quad-delayed, 
+                background-color 0.26 $ease-out-quad-delayed;
 
             &:focus,
             &:hover {
                 z-index: 2;
-                background-color: $color-secondary-2;
-                border-color: $color-secondary-2;
-                color: $color-grayscale-1;
+                background-color: $color-tertiary;
+                border-color: $color-tertiary;
+                color: $color-secondary-text;
             }
         }
     }

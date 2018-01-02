@@ -3,7 +3,7 @@
 .container {
     // Ensures container stretches to max-width when it can
     width: 100%;
-    max-width: 1400px;
+    max-width: 1600px;
     flex-grow: 1;
     padding-left: $gap-3;
     padding-right: $gap-3;
@@ -11,12 +11,12 @@
 
 html, body {
     font-family: $font-family;
-    font-size: $font-size-2;
-    line-height: 1.618;
-    color: $font-black-on-white-importance-1;
+    font-size: $font-size-3;
+    line-height: 1.5;
+    opacity: $opacity-4;
 }
 
-body, body *, body *::before, body *::after {
+body, body *{
     display: flex;
 }
 
@@ -26,14 +26,14 @@ body {
 
     > .container {
         align-self: center;
-        padding-bottom: $gap-1;
+        padding-bottom: $component-gap;
 
         @media #{$media-narrow} {
             flex-direction: column;
         }
 
         @media #{$media-medium}, #{$media-wide} {
-            padding-top: $gap-1;
+            padding-top: 59px;
         }
     }
 }
@@ -56,7 +56,7 @@ script{
 }
 
 a {
-    color: $color-secondary-1;
+    color: $color-tertiary;
     text-decoration: none;
 }
 
@@ -67,4 +67,40 @@ a {
 
 *, *::before, *::after {
     box-sizing: border-box;
+}
+
+h1{
+    font-size: $font-size-7;
+}
+
+h2 {
+    font-size: $font-size-6;
+}
+
+h3 {
+    font-size: $font-size-5;
+}
+
+h4 {
+    font-size: $font-size-4;
+}
+
+h5 {
+    font-size: $font-size-3;
+}
+
+*::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    opacity: $opacity-2;
+}
+
+*::-moz-placeholder { /* Firefox 19+ */
+    opacity: $opacity-2;
+}
+
+*:-ms-input-placeholder { /* IE 10+ */
+    opacity: $opacity-2;
+}
+
+*:-moz-placeholder { /* Firefox 18- */
+    opacity: $opacity-2;
 }

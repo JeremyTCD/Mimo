@@ -12,8 +12,8 @@ http://yuilibrary.com/license/
 	TODO with the prefix, should I group by selector or property for weight savings?
 */
 html {
-    color: $color-grayscale-3;
-    background: $color-grayscale-1;
+    color: $color-primary-text;
+    background: $color-secondary-text;
 }
 /*
 	TODO remove settings on BODY since we can't namespace it.
@@ -125,7 +125,7 @@ select {
 }
 /*because legend doesn't inherit in IE */
 legend {
-    color: $color-grayscale-3;
+    color: $color-primary-text;
 }
 
 /* YUI CSS Detection Stamp */

@@ -1,11 +1,10 @@
 @import 'constants';
 
 header {
-    background-color: $color-primary-2;
+    background-color: $color-secondary-text;
     align-items: stretch;
     justify-content: center;
-    min-height: $gap-1;
-    box-shadow: 0 2px $fade-box-shadow;
+    min-height: 95px;
 
     .container {
         @media #{$media-narrow} {
@@ -14,46 +13,67 @@ header {
 
         #header-logo-and-button {
             @media #{$media-narrow} {
-                height: $gap-1;
+                height: 95px;
             }
 
             align-items: center;
 
             #header-logo {
-                color: #9d9d9d;
                 margin-right: auto;
-                transform: scale(1) rotate(0);
-                height: 42px;
+                transform: scale(1);
 
                 img {
-                    transition: transform $transition-delayed-1;
+                    transition: transform 0.2 $ease-out-quad;
+                    height: 52px;
 
                     &:hover {
-                        transform: scale(1.1) rotate(5deg);
+                        transform: scale(1.15);
                     }
                 }
             }
 
             #header-button {
                 @media #{$media-narrow} {
-                    @include material-design-icon('\E5D2', $color-grayscale-1);
-                    padding: $gap-6 $gap-5;
-                    background-color: $color-primary-3;
-                    border-radius: $border-radius-main;
-                    transition: background-color $transition-delayed-1;
+                    width: 23px;
+                    height: 18px;
                     border: none;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-around;
+
+                    span {
+                        height: 3px;
+                        width: 23px;
+                        background-color: $color-tertiary;
+                        transition: transform 0.2 $ease-out-quad, background-color 0.2 $ease-out-quad;
+                    }
 
                     &:hover {
                         outline: 0;
-                        background-color: $color-primary-4;
-                    }
 
-                    &::before {
-                        font-size: 24px;
+                        span {
+                            //background-color: $color-tertiary-active;
+                        }
                     }
 
                     &:focus {
                         outline: 0;
+                    }
+
+                    &.active {
+                        span {
+                            &:nth-child(1) {
+                                transform: translate(0, 6px) rotate(45deg);
+                            }
+
+                            &:nth-child(2) {
+                                transform: scaleX(0);
+                            }
+
+                            &:nth-child(3) {
+                                transform: translate(0, -6px) rotate(-45deg);
+                            }
+                        }
                     }
 
                     .sr-only {
@@ -77,15 +97,15 @@ header {
         #header-navbar-and-search {
             @media #{$media-medium}, #{$media-wide} {
                 flex-grow: 1;
-                padding-left: $gap-3;
+                padding-left: 36px;
             }
 
             .wrapper {
                 @media #{$media-narrow} {
                     flex-grow: 1;
                     overflow: hidden;
-                    transition: height $transition-1;
-                    flex-direction: column-reverse;
+                    transition: height 0.26 $ease-out-quad;
+                    flex-direction: column;
                     height: 0;
                 }
 
@@ -97,6 +117,7 @@ header {
                 #header-navbar {
                     @media #{$media-narrow} {
                         flex-shrink: 0;
+                        margin-top: 7px;
                     }
 
                     ul {
@@ -105,70 +126,51 @@ header {
 
                         @media #{$media-narrow} {
                             flex-direction: column;
-                            margin: $gap-4 0;
+                            margin-bottom: 31px;
                             flex-shrink: 0;
                         }
 
                         li {
-                            transition: background-color $transition-delayed-3;
+                            @media #{$media-medium}, #{$media-wide} {
+                                padding-right: 35px;
 
-                            &.active, &:hover {
+                                &:last-child {
+                                    padding-right: 0px;
+                                }
+                            }
+
+                            @media #{$media-narrow} {
+                                padding-bottom: 8px;
+
+                                &:last-child {
+                                    padding-bottom: 0px;
+                                }
+                            }
+
+                            &.active {
                                 a {
                                     span {
-                                        &:first-child {
-                                            height: $gap-8;
-                                            background-color: $color-grayscale-1;
+                                        &:last-child {
+                                            color: #E07B00;
                                         }
                                     }
                                 }
                             }
 
-                            &.active {
-                                background-color: $color-primary-3;
-                            }
-
-                            &:not(.active):hover {
-                                background-color: $color-primary-4;
-                            }
-
                             a {
-                                flex-direction: column-reverse;
+                                flex-direction: column;
                                 flex-grow: 1;
-
-                                @media #{$media-narrow} {
-                                    height: $gap-2;
-                                }
-
-                                span {
-                                    @media #{$media-medium}, #{$media-wide} {
-                                        padding: 0 15px;
-                                    }
-
-                                    &:last-child {
-                                        color: $color-grayscale-1;
-                                        flex-direction: column;
-                                        justify-content: center;
-                                        flex-grow: 1;
-                                        padding-left: $gap-4;
-                                    }
-
-                                    &:first-child {
-                                        content: "";
-                                        background-color: transparent;
-                                        height: 0;
-                                        transition: height $transition-delayed-3, background-color $transition-delayed-3;
-                                    }
-                                }
+                                align-items: center;
+                                justify-content: center;
                             }
                         }
                     }
                 }
 
                 #header-search {
-
                     @media #{$media-narrow} {
                         flex-shrink: 0;
-                        margin-top: 10px;
+                        margin-bottom: 37px;
                         align-self: stretch;
                     }
 
@@ -176,30 +178,39 @@ header {
                         margin-left: auto;
                         width: $side-menu-width;
                         align-self: center;
+                        padding-top: 10px;
                     }
 
-                    @include material-design-icon('\E8B6', black);
-                    box-shadow: inset 0 2px $fade-box-shadow;
-                    border-radius: $border-radius-main;
-                    border: none;
-                    background-color: $color-grayscale-1;
-                    height: $gap-2;
-                    padding: 0 $gap-4;
+                    @include material-design-icon('\E8B6', $color-primary-text);
+                    //background-color: $color-primary-background;
+                    //border-bottom: 1px solid $color-primary-border;
+                    transition: border-color 0.2 $ease-out-quad;
+                    padding-left: 12px;
+                    padding-bottom: 10px;
+                    align-items: center;
+
+                    // Does not work, event not propogating or something
+                    &.focus {
+                        display: none;
+                        border-color: $color-tertiary;
+                    }
 
                     &::before {
+                        background-color: transparent;
                         border: none;
-                        padding-top: $gap-9;
-                        align-items: center;
-                        color: $font-black-on-white-importance-2;
+                        padding-top: 1px;
+                        padding-right: $icon-text-gap;
+                        opacity: $opacity-2;
                     }
 
                     input {
+                        color: $color-primary-text;
                         background-color: transparent;
                         border: none;
-                        padding-left: $gap-5;
-                        font-size: $font-size-1;
                         outline: none;
                         flex-grow: 1;
+                        opacity: $opacity-2;
+                        font-size: $font-size-2;
                     }
                 }
             }

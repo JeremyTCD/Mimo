@@ -3,108 +3,131 @@
 article {
     flex-grow: 1;
     flex-direction: column;
-    max-width: 794px;
+    max-width: 994px;
 
-    h1, h2, h3, h4 {
-        color: $color-primary-2;
+    &#_content {
+        h1 {
+            margin-top: -9px;
+        }
+
+        h1, h2, h3 {
+            align-items: center;
+
+            &:hover {
+                .header-link {
+                    opacity: $opacity-4;
+                }
+            }
+
+            .header-link {
+                display: flex;
+                align-items: center;
+
+                @include material-design-icon('\e157', $color-tertiary, $font-size-5 );
+                opacity: 0;
+                transition: opacity 0.26s $ease-out-quad-delayed;
+                margin-left: 9px;
+            }
+        }
+    }
+
+    h1, h2, h3 {
+        color: $color-secondary;
         line-height: 1.1;
         word-break: normal;
         word-wrap: normal;
     }
 
-
     h1 {
-        font-size: $font-size-6;
-
         & + p {
-            margin-top: $gap-4;
+            margin-top: 12px;
         }
     }
 
     h2 {
-        font-size: $font-size-5;
-
         & + p {
-            margin-top: $gap-3;
+            margin-top: 11px;
         }
     }
 
     h3 {
-        font-size: $font-size-4;
-
         & + p {
-            margin-top: $gap-4;
+            margin-top: 12px;
         }
     }
 
     p {
         & + h2 {
-            margin-top: $gap-2;
+            margin-top: 40px;
         }
 
         & + h3 {
-            margin-top: $gap-3;
+            margin-top: 24px;
         }
-    }
-
-    p, em {
-        display: inline;
     }
 
     .meta {
-        margin-top: $gap-4;
+        margin-top: 12px;
 
         & + p, & + div {
-            margin-top: $gap-4;
+            margin-top: 20px;
+        }
+
+        & + #right-menu {
+            margin-top: 18px;
         }
 
         ul {
-            font-size: $font-size-1;
-            color: $font-black-on-white-importance-2;
+            font-size: $font-size-2;
+            flex-wrap: wrap;
 
             li {
-                * {
+                align-items: center;
+                padding-right: 13px;
+                padding-bottom: 5px;
+
+                &:last-child {
+                    padding-right: 0;
+                }
+
+                a, span {
                     display: flex;
                     align-items: center;
                     color: inherit;
                 }
 
-                *::before {
-                    padding-right: $gap-6;
+                &::before {
+                    padding-right: $icon-text-gap;
                 }
 
-                & + li {
-                    div {
-                        padding-left: $gap-4;
+                &#metadata-date {
+                    @include material-design-icon('\E916', inherit);
+                    opacity: $opacity-2;
+                }
+
+                &#metadata-author {
+                    @include material-design-icon('\E7FD', inherit);
+
+                    span {
+                        @include animated-underline($color-primary-text, $color-primary-text);
+                    }
+
+                    &::before, span {
+                        opacity: $opacity-2;
+                    }
+
+                    img {
+                        padding-left: 4px;
                     }
                 }
 
-                div {
-                    &#metadata-date {
-                        span {
-                            @include material-design-icon('\E916', inherit);
-                        }
-                    }
-
-                    &#metadata-author {
-                        span {
-                            @include material-design-icon('\E7FD', inherit);
-                        }
-
-                        img {
-                            padding-left: $gap-7;
-                        }
+                &#metadata-edit-article {
+                    span:last-child {
+                        opacity: $opacity-2;
+                        background-image: linear-gradient(to right, $color-primary-text, $color-primary-text);
                     }
                 }
             }
-        }
-    }
-
-    a {
-        transition: color $transition-delayed-2;
-
-        &:hover {
-            color: $color-secondary-2;
         }
     }
 
@@ -112,12 +135,11 @@ article {
         display: inline;
     }
 
+    #content {
+        flex-direction: column;
 
-    section {
-        margin-left: 1em;
-    }
-
-    .anchorjs-link {
-        transition: opacity $transition-1;
+        a {
+            @include animated-underline($color-tertiary, $color-tertiary);
+        }
     }
 }
