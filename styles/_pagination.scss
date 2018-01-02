@@ -3,63 +3,46 @@
 .pagination {
     font-size: $font-size-2;
     flex-direction: row;
+    height: 37px;
 
     li {
+        align-items: center;
         list-style: none;
+        border: solid 1px $color-primary-border;
+        border-left: none;
 
-        &:first-child > a {
-            margin-left: 0;
-            border-top-left-radius: $border-radius-main;
-            border-bottom-left-radius: $border-radius-main
-        }
-
-        &:last-child > a {
-            border-top-right-radius: $border-radius-main;
-            border-bottom-right-radius: $border-radius-main
-        }
-
-        &.active {
-            a,
-            a:focus,
-            a:hover {
-                z-index: 3;
-                color: $color-secondary-text;
-                cursor: default;
-                background-color: $color-tertiary;
-                border-color: $color-tertiary;
-            }
+        &:first-child {
+            border-left: solid 1px $color-primary-border;
         }
 
         &.disabled {
             a,
             a:focus,
             a:hover {
-                opacity: $opacity-3;
+                opacity: $opacity-1;
                 cursor: not-allowed;
-                background-color: transparent;
-                //border-color: $font-black-on-white-importance-4;
+            }
+        }
+
+        &:not(.disabled) {
+            a {
+                @include animated-underline($color-tertiary, $color-tertiary, 1px, 0.3s);
+            }
+
+            &.active {
+                a,
+                a:focus,
+                a:hover {
+                    cursor: default;
+                    background-size: 100% 1px;
+                }
             }
         }
 
         a {
             align-items: center;
-            padding: 0 $gap-4;
-            height: $gap-2;
-            margin-left: -$gap-9;
-            background-color: $color-secondary-text;
-            //border: $gap-9 solid $font-black-on-white-importance-5;
-            z-index: 1;
-            transition: border-color 0.26 $ease-out-quad-delayed, 
-                color 0.26 $ease-out-quad-delayed, 
-                background-color 0.26 $ease-out-quad-delayed;
-
-            &:focus,
-            &:hover {
-                z-index: 2;
-                background-color: $color-tertiary;
-                border-color: $color-tertiary;
-                color: $color-secondary-text;
-            }
+            margin: 0 14px;
+            background-color: $color-primary;
         }
     }
 }

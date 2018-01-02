@@ -7,7 +7,7 @@ class SalComponent extends Component {
     }
 
     protected setup(): void {
-        let numPerPage = 5;
+        let numPerPage = 3;
         let allAlItems = $('#sal-all-items > article');
 
         if (allAlItems.length == 0) {
@@ -16,7 +16,7 @@ class SalComponent extends Component {
 
         $('#sorted-article-list > .article-list > .al-pagination').twbsPagination({
             totalPages: Math.ceil(allAlItems.length / numPerPage),
-            visiblePages: 5,
+            visiblePages: 3,
             onPageClick: function (event: any, page: number) {
                 let start = (page - 1) * numPerPage;
                 let currentAlItems = allAlItems.slice(start, start + numPerPage);
