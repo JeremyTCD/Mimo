@@ -15,6 +15,7 @@ class HeaderComponent extends Component {
 
     protected setup(): void {
         this.setupNavbar();
+        this.setupSearchInput();
     }
 
     protected registerListeners(): void {
@@ -30,6 +31,20 @@ class HeaderComponent extends Component {
                 document.getElementById('header-button').classList.remove('active');
             }
         });
+    }
+
+    private setupSearchInput() {
+        let headerSearchElement = document.getElementById('header-search');
+        let headerSearchInputElement = headerSearchElement.querySelector('input');
+
+        headerSearchInputElement.
+            addEventListener('focus', (event: Event) => {
+                headerSearchElement.classList.add('focus');
+            });
+        headerSearchInputElement.
+            addEventListener('focusout', (event: Event) => {
+                headerSearchElement.classList.remove('focus');
+            });
     }
 
     private setupNavbar() {
