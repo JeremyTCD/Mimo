@@ -12,7 +12,7 @@ $horizontal-bar-ease-timing: 0.6s;
     @media #{$media-narrow} {
         flex-direction: column;
         overflow-y: hidden;
-        transition: height 0.26s $ease-out-quad;
+        transition: height 0.4s $ease-out-quad;
         height: 0;
     }
 
@@ -29,8 +29,6 @@ $horizontal-bar-ease-timing: 0.6s;
         @media #{$media-narrow} {
             flex-shrink: 0;
             flex-grow: 1;
-            border-bottom-left-radius: $border-radius-main;
-            border-bottom-right-radius: $border-radius-main;
             background-color: $color-primary-background;
             padding: 23px;
         }
@@ -76,7 +74,6 @@ $horizontal-bar-ease-timing: 0.6s;
             &::before {
                 background-color: transparent;
                 border: none;
-                padding-top: 1px;
                 padding-right: $icon-text-gap;
                 opacity: $opacity-2;
             }

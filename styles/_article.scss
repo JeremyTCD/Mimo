@@ -23,7 +23,7 @@ article {
                 display: flex;
                 align-items: center;
 
-                @include material-design-icon('\e157', $color-tertiary, $font-size-5 );
+                @include material-design-icon('\e157', $color-tertiary, $font-size-5);
                 opacity: 0;
                 transition: opacity 0.26s $ease-out-quad-delayed;
                 margin-left: 9px;

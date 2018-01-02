@@ -63,7 +63,7 @@
 
             &::before {
                 transform: rotate(0);
-                transition: transform 0.26s $ease-out-quad;
+                transition: transform 0.4s $ease-out-quad;
             }
 
             &.expanded {
