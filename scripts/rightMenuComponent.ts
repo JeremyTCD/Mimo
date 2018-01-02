@@ -55,9 +55,9 @@ class RightMenuComponent extends Component {
     private setRightMenuFixed(): void {
         let element = $('#right-menu > .wrapper');
         let top = element[0].parentElement.getBoundingClientRect().top;
-        if (top < 23) {
+        if (top < 15) {
             element.addClass('fixed');
-            top = 23;
+            top = 15;
         } else {
             element.removeClass('fixed');
         }
@@ -130,8 +130,8 @@ class RightMenuComponent extends Component {
         if ($('#right-menu > .wrapper').hasClass('fixed')) {
             let footerHeight = $(window).outerHeight() - $('footer')[0].getBoundingClientRect().top;
             let maxHeight = $(window).outerHeight()
-                - 23 * 2 // top gap, bottom gap
-                + 3
+                - 15 // top gap 
+                - 23 // bottom gap
                 - $('#outline > h5').outerHeight()
                 - (this.editArticleElement ? this.editArticleElement.offsetHeight + parseInt(getComputedStyle(this.editArticleElement).marginBottom) : 0)
                 - (footerHeight < 0 ? 0 : footerHeight);
