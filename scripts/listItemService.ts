@@ -16,11 +16,11 @@
     return html;
 }
 
-export function generateListItemTree(elements: HTMLElement[], tags: string[], tagIndex: number): ListItem {
+export function generateListItemTree(elements: HTMLElement[]|NodeList, tags: string[], tagIndex: number): ListItem {
     let result: ListItem = {
         innerHtml: `<span class="icon"></span>
                     <span>${elements[0].textContent}</span>`,
-        href: '#' + elements[0].id,
+        href: '#' + (elements[0] as HTMLElement).id,
         items: []
     };
 
@@ -36,7 +36,7 @@ export function generateListItemTree(elements: HTMLElement[], tags: string[], ta
             branch = [];
         }
 
-        branch.push(elements[i]);
+        branch.push(elements[i] as HTMLElement);
     }
 
     return result;
