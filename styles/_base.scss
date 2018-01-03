@@ -16,8 +16,12 @@ html, body {
     opacity: $opacity-4;
 }
 
-body, body *{
+body, body * {
     display: flex;
+}
+
+html {
+    min-width: 320px;
 }
 
 body {
@@ -46,12 +50,13 @@ button {
     border: none;
     background-color: transparent;
     padding: 0;
-    &:focus{
+
+    &:focus {
         outline: none;
     }
 }
 
-script{
+script {
     display: none;
 }
 
