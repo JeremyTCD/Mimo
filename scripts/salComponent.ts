@@ -17,6 +17,10 @@ class SalComponent extends Component {
         $('#sorted-article-list > .article-list > .al-pagination').twbsPagination({
             totalPages: Math.ceil(allAlItems.length / numPerPage),
             visiblePages: 3,
+            first: ' ',
+            prev: ' ',
+            next: ' ',
+            last: ' ',
             onPageClick: function (event: any, page: number) {
                 let start = (page - 1) * numPerPage;
                 let currentAlItems = allAlItems.slice(start, start + numPerPage);

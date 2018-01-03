@@ -1,18 +1,77 @@
 ﻿@import 'constants';
 
+$hover-animation-duration: 0.4s;
+
 .pagination {
     font-size: $font-size-2;
     flex-direction: row;
-    height: 37px;
 
     li {
-        align-items: center;
+        height: 37px;
         list-style: none;
+        cursor: pointer;
+        align-items: stretch;
         border: solid 1px $color-primary-border;
         border-right: none;
+        transition: border-color $hover-animation-duration $ease-out-quad-delayed;
 
         &:last-child {
             border-right: solid 1px $color-primary-border;
+        }
+
+        &.first {
+            a {
+                @include material-design-icon('\e5dc', $color-tertiary);
+            }
+        }
+
+        &.prev {
+            a {
+                @include material-design-icon('\e408', $color-tertiary);
+            }
+        }
+
+
+        &.next {
+            a {
+                @include material-design-icon('\e409', $color-tertiary);
+            }
+        }
+
+
+        &.last {
+            a {
+                @include material-design-icon('\e5dd', $color-tertiary);
+            }
+        }
+
+        &.first, &.last, &.prev, &.next {
+            a {
+                padding: 0 9px;
+
+                &::before {
+                    transition: color $hover-animation-duration $ease-out-quad-delayed;
+                }
+            }
+        }
+
+        &.active {
+            background-color: $color-secondary;
+            border-color: $color-secondary;
+
+            a {
+                color: $color-secondary-text;
+            }
+
+            & + li {
+                border-left-color: $color-secondary;
+            }
+        }
+
+        a {
+            padding: 0 14px;
+            align-items: center;
+            background-color: transparent;
         }
 
         &.disabled {
@@ -25,28 +84,32 @@
         }
 
         &:not(.disabled) {
-            a {
-                @include animated-underline($color-tertiary, $color-tertiary, 1px, 0.3s);
-            }
+            &:not(.active) {
+                &:hover {
+                    border-color: $color-tertiary;
 
-            &.active {
-                background-color: $color-secondary;
-                border-color: $color-secondary;
+                    & + li {
+                        border-left-color: $color-tertiary;
+                    }
+                }
 
                 a {
-                    color: $color-secondary-text;
-                }
+                    background-image: linear-gradient(to right, $color-tertiary, $color-tertiary);
+                    background-repeat: no-repeat;
+                    background-position: 0 100%;
+                    background-size: 0 100%;
+                    transition: background-size $hover-animation-duration $ease-out-quad-delayed, color $hover-animation-duration $ease-out-quad-delayed;
 
-                &+li{
-                    border-left-color: $color-secondary;
+                    &:hover {
+                        background-size: 100% 100%;
+                        color: $color-secondary-text;
+
+                        &::before {
+                            color: $color-secondary-text;
+                        }
+                    }
                 }
             }
-        }
-
-        a {
-            align-items: center;
-            margin: 0 14px;
-            background-color: transparent;
         }
     }
 }
