@@ -83,7 +83,7 @@ class RightMenuComponent extends Component {
     }
 
     private setupOutline(): void {
-        let headerElements = document.querySelectorAll('main > article > h1,h2,h3');
+        let headerElements = document.querySelectorAll('main > article > h1,h2,h3,h4');
         if (headerElements.length === 0) {
             return;
         }
@@ -91,7 +91,7 @@ class RightMenuComponent extends Component {
         let titleElement = document.querySelector('main > article > h1');
         let outlineTitle = titleElement ? titleElement.textContent : 'Outline';
 
-        let listItemTree: ListItem = generateListItemTree(headerElements, ['h2', 'h3'], 0);
+        let listItemTree: ListItem = generateListItemTree(headerElements, ['h2', 'h3', 'h4'], 0);
         let html = generateMultiLevelList(listItemTree.items, '', 1);
         $('#outline').append(`<span>${outlineTitle}</span>${html}`);
         $('#outline a').first().addClass('active');
@@ -109,8 +109,7 @@ class RightMenuComponent extends Component {
         let top = $('#right-menu > .wrapper')[0].getBoundingClientRect().top;
 
         // Binary search not preferable because sequence is typically short
-        $('main > article').
-            find('h2, h3').
+        $('main > article > h2, h3, h4').
             each((index: number, element: HTMLElement) => {
                 let elementTop = element.getBoundingClientRect().top;
                 let distance = Math.abs(elementTop - top);

@@ -7,10 +7,10 @@ article {
 
     &#_content {
         h1 {
-            margin-top: -9px;
+            margin-top: -11px;
         }
 
-        h1, h2, h3 {
+        h1, h2, h3, h4 {
             align-items: center;
 
             &:hover {
@@ -31,7 +31,7 @@ article {
         }
     }
 
-    h1, h2, h3 {
+    h1, h2, h3, h4 {
         line-height: 1.1;
         word-break: normal;
         word-wrap: normal;
@@ -49,12 +49,20 @@ article {
         color: #696969;
 
         & + p {
-            margin-top: 11px;
+            margin-top:11px;
         }
     }
 
     h3 {
         color: #4a4a4a;
+
+        & + p {
+            margin-top:12px;
+        }
+    }
+
+    h4 {
+        color: #252525;
 
         & + p {
             margin-top: 12px;
@@ -67,6 +75,10 @@ article {
         }
 
         & + h3 {
+            margin-top: 24px;
+        }
+
+        & + h4 {
             margin-top: 24px;
         }
     }
@@ -88,7 +100,7 @@ article {
 
             li {
                 align-items: center;
-                padding-right: 13px;
+                padding-right: 18px;
                 padding-bottom: 5px;
 
                 &:last-child {

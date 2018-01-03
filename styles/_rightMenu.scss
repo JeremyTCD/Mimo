@@ -11,12 +11,12 @@ $bar-width: 3px;
     flex-shrink: 0;
 
     @media #{$media-narrow}, #{$media-medium} {
-        padding-bottom: 23px;
+        padding-bottom: 21px;
     }
 
     @media #{$media-wide} {
         overflow-y: hidden;
-        margin-top: -4px;
+        margin-top: -6px;
         width: $side-menu-width;
         height: auto !important;
         margin-left: 64px;
@@ -73,7 +73,7 @@ $bar-width: 3px;
                         }
                     }
 
-                    &.level2 {
+                    &.level2, &.level3 {
                         padding-left: 14px;
                     }
 

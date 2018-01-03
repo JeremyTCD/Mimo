@@ -14,7 +14,7 @@ class ArticleComponent extends Component {
 
     private addLinks(): void {
         let article: HTMLElement = document.getElementById('_content');
-        let headers: NodeList = article.querySelectorAll('h2, h3');
+        let headers: NodeList = article.querySelectorAll('h2, h3, h4');
         let linkMaster: HTMLAnchorElement = document.createElement('a');
 
         linkMaster.classList.add('header-link');

@@ -121,7 +121,7 @@ header {
 
                         @media #{$media-narrow} {
                             flex-direction: column;
-                            margin-bottom: 16px;
+                            margin-bottom: 13px;
                             flex-shrink: 0;
                         }
 
@@ -135,7 +135,7 @@ header {
                             }
 
                             @media #{$media-narrow} {
-                                padding-bottom: 8px;
+                                padding-bottom: 6px;
 
                                 &:last-child {
                                     padding-bottom: 0px;
