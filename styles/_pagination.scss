@@ -9,10 +9,10 @@
         align-items: center;
         list-style: none;
         border: solid 1px $color-primary-border;
-        border-left: none;
+        border-right: none;
 
-        &:first-child {
-            border-left: solid 1px $color-primary-border;
+        &:last-child {
+            border-right: solid 1px $color-primary-border;
         }
 
         &.disabled {
@@ -30,11 +30,15 @@
             }
 
             &.active {
-                a,
-                a:focus,
-                a:hover {
-                    cursor: default;
-                    background-size: 100% 1px;
+                background-color: $color-secondary;
+                border-color: $color-secondary;
+
+                a {
+                    color: $color-secondary-text;
+                }
+
+                &+li{
+                    border-left-color: $color-secondary;
                 }
             }
         }
@@ -42,7 +46,7 @@
         a {
             align-items: center;
             margin: 0 14px;
-            background-color: $color-primary;
+            background-color: transparent;
         }
     }
 }

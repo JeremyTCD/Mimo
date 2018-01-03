@@ -144,12 +144,12 @@ header {
 
                             &.active {
                                 a {
-                                    background-size: 100% 2px;
+                                    font-weight: 500;
                                 }
                             }
 
                             a {
-                                @include animated-underline($color-tertiary, $color-tertiary, 2px, 0.4s);
+                                @include animated-underline($color-tertiary, $color-tertiary, 1px, 0.4s);
                             }
                         }
                     }
@@ -157,7 +157,7 @@ header {
 
                 #header-search {
                     height: 37px;
-                    background-image: linear-gradient($color-primary-border, $color-primary-border);
+                    background-image: linear-gradient($color-secondary, $color-secondary);
                     background-repeat: no-repeat;
                     background-position: 0 100%;
 
