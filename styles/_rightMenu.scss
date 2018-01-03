@@ -49,9 +49,15 @@ $bar-width: 3px;
             #outline {
                 flex-direction: column;
 
-                h5 {
-                    padding-bottom: 9px;
-                    color: $color-secondary;
+                > span {
+                    @media #{$media-narrow}, #{$media-medium} {
+                        display: none;
+                    }
+
+                    @media #{$media-wide} {
+                        font-size: $font-size-3;
+                        padding-bottom: 9px;
+                    }
                 }
 
                 > ul > li:first-child > a {
