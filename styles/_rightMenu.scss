@@ -11,7 +11,7 @@ $bar-width: 3px;
     flex-shrink: 0;
 
     @media #{$media-narrow}, #{$media-medium} {
-        padding-bottom: 21px;
+        padding-bottom: 24px;
     }
 
     @media #{$media-wide} {
@@ -131,7 +131,7 @@ $bar-width: 3px;
 
 #edit-article {
     @media #{$media-wide} {
-        margin-bottom: 24px;
+        margin-bottom: 23px;
     }
 
     span {

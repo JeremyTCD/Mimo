@@ -26,8 +26,8 @@ footer {
             #footer-attribution {
                 display: block; // Cannot be flex or inline children will not wrap
                 font-size: $font-size-1;
-                padding-top: 29px;
-                padding-bottom: 3px;
+                padding-top: 28px;
+                padding-bottom: 1px;
 
                 span, a {
                     display: inline; // So that items wrap normally
@@ -77,7 +77,7 @@ footer {
             }
 
             #footer-copyright {
-                padding-top: 13px;
+                padding-top: 12px;
             }
 
             #footer-social-media {

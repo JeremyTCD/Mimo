@@ -135,7 +135,7 @@ header {
                             }
 
                             @media #{$media-narrow} {
-                                padding-bottom: 6px;
+                                padding-bottom: 7px;
 
                                 &:last-child {
                                     padding-bottom: 0px;
@@ -143,9 +143,6 @@ header {
                             }
 
                             &.active {
-                                a {
-                                    font-weight: 500;
-                                }
                             }
 
                             a {
