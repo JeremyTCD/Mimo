@@ -61,12 +61,6 @@ class HeaderComponent extends Component {
                 let tocFrag = document.createRange().createContextualFragment(getNavbarRequest.responseText);
                 document.getElementById('header-navbar').appendChild(tocFrag);
 
-                // TODO allow query string to perform search on page load
-                //if ($('#search-results').length !== 0) {
-                //    $('#search').show();
-                //    $('body').trigger("searchEvent");
-                //}
-
                 this.setNavbarActiveTopic(navbarPath);
             }
         }

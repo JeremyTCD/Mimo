@@ -12,7 +12,6 @@ class SearchService {
             let searchWorker = new SearchWorker() as Worker;
 
             this.setupWebWorkerSearch(searchWorker);
-            this.addSearchEvent();
         }
     };
 
@@ -23,8 +22,31 @@ class SearchService {
         searchWorker.onmessage = (event: MessageEvent) => {
             switch (event.data.e) {
                 case 'index-ready':
-                    indexReady.resolve();
-                    break;
+                    {
+                        // TODO allow query string to perform search on page load
+                        let searchInputElement = document.getElementById('search-query');
+
+                        searchInputElement.
+                            addEventListener('keypress', (event: KeyboardEvent) => {
+                                // By default, browsers attempt to submit form if enter is pressed
+                                if (event.key === 'Enter') {
+                                    event.preventDefault();
+                                }
+                            });
+
+                        searchInputElement.
+                            addEventListener('keyup', (event: KeyboardEvent) => {
+                                this.queryString = $(event.currentTarget).val().toString();
+                                if (this.queryString.length < 1) {
+                                    searchResultsComponent.setShown(false);
+                                } else {
+                                    $("body").trigger("queryReady");
+                                }
+                            });
+
+                        indexReady.resolve();
+                        break;
+                    }
                 case 'query-ready':
                     let snippets = event.data.d;
                     searchResultsComponent.setSnippets(snippets, this.queryString);
@@ -36,26 +58,6 @@ class SearchService {
             $("body").bind("queryReady", () => {
                 searchWorker.postMessage({ q: this.queryString });
             });
-        });
-    }
-
-    private addSearchEvent() {
-        $('body').bind("searchEvent", () => {
-            $('#search-query').
-                keypress((event: JQuery.Event) => {
-                    return event.which !== 13;
-                });
-
-            $('#search-query').
-                keyup((event: JQuery.Event) => {
-                    this.queryString = $(event.target).val().toString();
-                    if (this.queryString.length < 1) {
-                        searchResultsComponent.setShown(false);
-                    } else {
-                        $("body").trigger("queryReady");
-                    }
-                }).
-                off("keydown");
         });
     }
 }
