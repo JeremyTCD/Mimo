@@ -14,7 +14,6 @@ jtcd.disableComments: true
 ---
 
 # Privacy Policy
-This blog does not collect or store any personal information from visitors. Also, this blog does not use
-cookies to track visitors. This blog does employ the services of third-parties such
-as "Google Analytics" and "Disqus Comments". These third-party services have separate and independent
+This blog does not collect or store any of your personal information. Also, it does not use cookies to track you. This blog does utilize third-party 
+services such as [Google Analytics](https://analytics.google.com/) and [Disqus](https://disqus.com/). These third-party services have separate and independent 
 privacy policies.

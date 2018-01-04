@@ -19,16 +19,16 @@
                 {{/jtcd.googleplusLink}}
             </div>
             <div id="footer-legal">
-                {{#jtcd.licenseRelPath}}
+                {{#jtcd.licensesRelPath}}
                 <span>
-                    <a href="{{_rel}}{{jtcd.licenseRelPath}}">License</a>
+                    <a href="{{_rel}}{{jtcd.licensesRelPath}}">Licenses</a>
                 </span>
-                {{/jtcd.licenseRelPath}}
-                {{#jtcd.privacyRelPath}}
+                {{/jtcd.licensesRelPath}}
+                {{#jtcd.privacyPolicyRelPath}}
                  <span>
-                     <a href="{{_rel}}{{jtcd.privacyRelPath}}">Privacy</a>
+                     <a href="{{_rel}}{{jtcd.privacyPolicyRelPath}}">Privacy Policy</a>
                  </span>
-                {{/jtcd.privacyRelPath}}
+                {{/jtcd.privacyPolicyRelPath}}
                 {{#jtcd.contactRelPath}}
                  <span class="footer-item">
                      <a href="{{_rel}}{{jtcd.contactRelPath}}">Contact</a>

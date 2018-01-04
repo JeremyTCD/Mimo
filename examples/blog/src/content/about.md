@@ -1,7 +1,6 @@
 ---
 jtcd.pageDescription: A page containing details about this blog.
 jtcd.pageTitle: About
-jtcd.pageID: about
 
 jtcd.includeInSal: false
 jtcd.includeInSearchIndex: false
