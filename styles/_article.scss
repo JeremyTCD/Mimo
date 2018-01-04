@@ -40,8 +40,8 @@ article {
     h1 {
         color: #707070;
 
-        & + p {
-            margin-top: 12px;
+        & + p, & + div {
+            margin-top: 25px;
         }
     }
 
@@ -49,7 +49,7 @@ article {
         color: #696969;
 
         & + p {
-            margin-top:11px;
+            margin-top: 11px;
         }
     }
 
@@ -57,7 +57,7 @@ article {
         color: #4a4a4a;
 
         & + p {
-            margin-top:12px;
+            margin-top: 12px;
         }
     }
 
@@ -80,6 +80,10 @@ article {
 
         & + h4 {
             margin-top: 24px;
+        }
+
+        & + p {
+            margin-top: 9px;
         }
     }
 
