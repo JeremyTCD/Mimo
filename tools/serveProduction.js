@@ -1,4 +1,5 @@
 const path = require('path');
+const compression = require('compression');
 const argv = require('minimist')(process.argv.slice(2));
 const chokidar = require('chokidar');
 const buildBaseDist = require('./buildBaseDist.js');
@@ -26,7 +27,7 @@ async function serveProduction() {
     }
 
     // Set theme directory
-    var themeDir = path.join(__dirname, `../dist/theme`);
+    var themeDir = `${path.join(__dirname, `../dist/theme`)},./src/customizations`;
 
     // Set logging verbosity (use environment variable instead?)
     var logLevel = argv.l ? argv.l.trim() : null;
@@ -81,7 +82,10 @@ async function serveProduction() {
     // Start server
     console.log(`start - browsersync serve`);
     browserSync.init({
-        server: path.join(docfxProjectDir, '_site'),
+        server: {
+            baseDir: path.join(docfxProjectDir, '_site'),
+            middleware: [compression()]
+        },
         ui: false
     });
 }
