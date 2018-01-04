@@ -31,8 +31,8 @@
             "jtcd.facebookLink": "https://www.facebook.com/jeremy.chongdao",
             "jtcd.googleplusLink": "https://plus.google.com/u/0/103822374294532823770",
 
-            "jtcd.licenseRelPath": "./license.html",
-            "jtcd.privacyRelPath": "./privacy.html",
+            "jtcd.licensesRelPath": "./licenses.html",
+            "jtcd.privacyPolicyRelPath": "./privacypolicy.html",
             "jtcd.contactRelPath": "./about.html#contact"
         },
         "template": [
