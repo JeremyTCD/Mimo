@@ -95,7 +95,7 @@ $bar-width: 3px;
                             span {
                                 &:last-child {
                                     margin-right: 14px;
-                                    @include animated-underline($color-tertiary, $color-tertiary);
+                                    @include animated-underline($color-tertiary, 17px, $background-color: $color-primary);
                                 }
 
                                 @media #{$media-wide} {
@@ -147,7 +147,7 @@ $bar-width: 3px;
 
         &:last-child {
             flex-shrink: 0;
-            @include animated-underline($color-tertiary, $color-tertiary);
+            @include animated-underline($color-tertiary, 17px, $background-color: $color-primary);
         }
     }
 }

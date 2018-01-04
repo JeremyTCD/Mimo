@@ -48,7 +48,7 @@ footer {
                 }
 
                 a {
-                    @include animated-underline($color-secondary-text, $color-secondary-text);
+                    @include animated-underline($color-secondary-text, 13px, $background-color: $color-secondary);
                 }
             }
 
@@ -72,7 +72,7 @@ footer {
                 }
 
                 a {
-                    @include animated-underline($color-secondary-text, $color-secondary-text);
+                    @include animated-underline($color-secondary-text, 17px, $background-color: $color-secondary);
                 }
             }
 
@@ -84,7 +84,7 @@ footer {
                 flex-wrap: wrap;
 
                 a {
-                    @include animated-underline($color-secondary-text, $color-secondary-text, 1px, 0.3s, true);
+                    @include animated-underline($color-secondary-text, 23px, $duration: 0.3s, $before: true);
                     margin-right: 18px;
 
                     &:last-child {
@@ -120,7 +120,7 @@ footer {
 
             a {
                 @include material-design-icon("\E5D8", $color-secondary-text, $font-size-5);
-                @include animated-underline($color-secondary-text, $color-secondary-text, 1px, 0.3s, true);
+                @include animated-underline($color-secondary-text, 23px, 1px, 0.3s, true);
             }
         }
     }

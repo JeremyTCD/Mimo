@@ -104,10 +104,10 @@ $media-wide: '(min-width: 1025px)';
     }
 }
 
-@mixin animated-underline($startColor, $endColor, $underline-height: 1px, $duration: 0.5s, $before: false) {
-    @if $before == true {
+@mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: 0.5s, $before: false, $background-color: null, $descenders-gap-width: 1px) {
+    @if ($before) {
         &::before {
-            @include animated-underline-core($startColor, $endColor, $underline-height, $duration);
+            @include animated-underline-core($color, $y-position, $underline-height, $duration);
         }
 
         &:hover {
@@ -117,20 +117,28 @@ $media-wide: '(min-width: 1025px)';
         }
     }
     @else {
-        @include animated-underline-core($startColor, $endColor, $underline-height, $duration);
+        @include animated-underline-core($color, $y-position, $underline-height, $duration);
 
         &:hover {
             background-size: 100% $underline-height;
         }
     }
+
+    @if ($background-color) {
+        @include decenders-gap($background-color, $descenders-gap-width);
+    }
 }
 
 
-@mixin animated-underline-core($startColor, $endColor, $underline-height: 1px, $duration: 0.5s) {
-    background-image: linear-gradient(to right, $startColor, $endColor);
+@mixin animated-underline-core($color, $y-position, $underline-height, $duration) {
+    background-image: linear-gradient(to top, $color 0, $color $underline-height, transparent $underline-height);
     background-repeat: no-repeat;
-    background-position: 0 100%;
+    background-position: 0 $y-position;
     background-size: 0 $underline-height;
     transition: background-size $duration $ease-out-quad-delayed;
     display: inline;
+}
+
+@mixin decenders-gap($background-color, $width: 1px) {
+    text-shadow: $width 0 0 $background-color, -$width 0 0 $background-color, 0 $width 0 $background-color, 0 -$width 0 $background-color;
 }

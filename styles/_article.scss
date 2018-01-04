@@ -126,7 +126,7 @@ article {
                     @include material-design-icon('\E7FD', inherit);
 
                     span {
-                        @include animated-underline($color-primary-text, $color-primary-text);
+                        @include animated-underline($color-primary-text, 17px, $background-color: $color-primary);
                     }
 
                     &::before, span {
@@ -156,7 +156,7 @@ article {
         flex-direction: column;
 
         a:not(.header-link) {
-            @include animated-underline($color-tertiary, $color-tertiary);
+            @include animated-underline($color-tertiary, 18px, $background-color: $color-primary);
         }
     }
 }

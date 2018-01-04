@@ -47,7 +47,7 @@
 
                 // Links
                 a {
-                    @include animated-underline($color-secondary-text, $color-secondary-text);
+                    @include animated-underline($color-secondary-text, 17px, $background-color: $color-secondary);
                 }
             }
         }
