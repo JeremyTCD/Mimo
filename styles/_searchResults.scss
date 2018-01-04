@@ -2,16 +2,15 @@
 
 #search-results {
     display: none;
-    padding-bottom: $gap-1;
+    padding-bottom: 59px;
     flex-grow: 1;
     flex-direction: column;
 
     #search-string {
         font-size: $font-size-2;
         background-color: $color-secondary;
-        height: $gap-2;
+        height: 37px;
         justify-content: center;
-        box-shadow: 0 2px $fade-box-shadow;
         color: $color-secondary-text;
 
         .container {
@@ -23,14 +22,16 @@
 
     > .container {
         align-self: center;
-        padding-top: $gap-1;
+        padding-top: 59px;
         flex-direction: column;
 
         mark {
-            background-color: #ffe57f;
-            padding: 0 $gap-6;
+            background-color: $color-primary-text-highlight;
+            padding: 0 5px;
+
             display: inline;
             color: inherit;
+            text-shadow: none;
         }
     }
 }
