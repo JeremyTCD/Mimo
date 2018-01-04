@@ -40,6 +40,10 @@ class SearchResultsComponent extends Component {
             $('#search-string .container > span').text(`Search results for "${queryString}" ...`);
             $('#search-results .article-list > .al-pagination').
                 twbsPagination({
+                    first: ' ',
+                    prev: ' ',
+                    next: ' ',
+                    last: ' ',
                     totalPages: Math.ceil(snippets.length / numPerPage),
                     visiblePages: 5,
                     onPageClick: (event, page) => {
