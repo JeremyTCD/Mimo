@@ -14,6 +14,7 @@ require('../resources/material-design-first-page.svg');
 require('../resources/material-design-previous-page.svg');
 require('../resources/material-design-next-page.svg');
 require('../resources/material-design-last-page.svg');
+require('../resources/material-design-mode-edit.svg');
 
 
 import articleComponent from './articleComponent';
