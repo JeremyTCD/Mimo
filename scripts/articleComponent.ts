@@ -18,7 +18,7 @@ class ArticleComponent extends Component {
         let headers: NodeList = article.querySelectorAll('h2, h3, h4');
         let linkMaster: HTMLAnchorElement = document.createElement('a');
 
-        linkMaster.classList.add('header-link');
+        linkMaster.classList.add('heading-link');
 
         for (let i: number = 0; i < headers.length; i++) {
             let headerElement: HTMLElement = headers[i] as HTMLElement;
@@ -33,7 +33,7 @@ class ArticleComponent extends Component {
             headerElement.appendChild(anchorElement.cloneNode());
         }
 
-        let clipboard = new Clipboard('.header-link');
+        let clipboard = new Clipboard('.heading-link');
     }
 }
 

@@ -14,12 +14,12 @@ article {
             align-items: center;
 
             &:hover {
-                .header-link {
+                .heading-link {
                     opacity: $opacity-4;
                 }
             }
 
-            .header-link {
+            .heading-link {
                 display: flex;
                 align-items: center;
 
@@ -159,7 +159,7 @@ article {
     #content {
         flex-direction: column;
 
-        a:not(.header-link) {
+        a:not(.heading-link) {
             @include animated-underline($color-primary-text-link, 18px, $background-color: $color-primary);
         }
     }
