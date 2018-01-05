@@ -131,7 +131,7 @@ class RightMenuComponent extends Component {
             let maxHeight = $(window).outerHeight()
                 - 15 // top gap 
                 - 23 // bottom gap
-                - $('#outline > h5').outerHeight()
+                - $('#outline > span').outerHeight()
                 - (this.editArticleElement ? this.editArticleElement.offsetHeight + parseInt(getComputedStyle(this.editArticleElement).marginBottom) : 0)
                 - (footerHeight < 0 ? 0 : footerHeight);
 
