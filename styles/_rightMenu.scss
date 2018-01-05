@@ -95,7 +95,7 @@ $bar-width: 3px;
                             span {
                                 &:last-child {
                                     margin-right: 14px;
-                                    @include animated-underline($color-tertiary, 17px, $background-color: $color-primary);
+                                    @include animated-underline($color-primary-text-link, 17px, $background-color: $color-primary);
                                 }
 
                                 @media #{$media-wide} {
@@ -141,13 +141,13 @@ $bar-width: 3px;
 
             &::before {
                 opacity: $opacity-2;
-                padding-right: $icon-text-gap;
+                padding-right: 5px;
             }
         }
 
         &:last-child {
             flex-shrink: 0;
-            @include animated-underline($color-tertiary, 17px, $background-color: $color-primary);
+            @include animated-underline($color-primary-text-link, 17px, $background-color: $color-primary);
         }
     }
 }

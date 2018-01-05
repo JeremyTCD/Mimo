@@ -1,50 +1,26 @@
 ﻿@import '../node_modules/material-design-icons/iconfont/material-icons.css';
 @import '../node_modules/ionicons/dist/css/ionicons.css';
 
-// Used for backgrounds
 $color-primary: #fff;
-// Color of text that appears on elements with primary color as background
 $color-primary-text: #212121;
 $color-primary-text-highlight: #ffdd80;
 $color-primary-text-casual: #FFBB00;
-// Color of borders for elements that have primary color as background
+$color-primary-text-link: #0291e3;
 $color-primary-border: #bfbfbf;
 $color-primary-background: #efefef;
 
-// Used for headers and uninteractive visual elements
 $color-secondary: #0277bd;
 $color-secondary-text: #fff;
 
-// Used for links and interactive visual elements
-$color-tertiary: #0291e3;
-
-// Uninteractive, unimportant elements
 $opacity-1: 0.4;
-// Uninteractive elements
 $opacity-2: 0.6;
-// Inactive interactive elements
 $opacity-3: 0.80;
-// Active interactive elements and important elements
 $opacity-4: 1.0;
 
-$fade-box-shadow: 1px rgba(0, 0, 0, 0.19);
-
 $font-family: 'Segoe UI', Tahoma, Helvetica, sans-serif;
-$border-radius-main: 4px;
 
 $ease-out-quad: cubic-bezier(0.33, 0.67, 0.67, 1);
-// To prevent flickering on temporal pointer drivebys
 $ease-out-quad-delayed: cubic-bezier(0.33, 0.67, 0.67, 1) 0.050s;
-
-$gap-9: 1px;
-$gap-8: 2px;
-$gap-7: 3px;
-$gap-6: 5px;
-$gap-5: 9px;
-$gap-4: 14px;
-$gap-3: 23px;
-$gap-2: 37px;
-$gap-1: 60px;
 
 $font-size-1: 11px;
 $font-size-2: 14px;
@@ -53,10 +29,6 @@ $font-size-4: 18px;
 $font-size-5: 24px;
 $font-size-6: 32px;
 $font-size-7: 42px;
-
-$icon-text-gap: 5px;
-$window-border-gap: 23px;
-$component-gap: 59px;
 
 $side-menu-width: 220px;
 

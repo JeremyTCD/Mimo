@@ -5,8 +5,8 @@
     width: 100%;
     max-width: 1600px;
     flex-grow: 1;
-    padding-left: $gap-3;
-    padding-right: $gap-3;
+    padding-left: 23px;
+    padding-right: 23px;
 }
 
 html, body {
@@ -36,6 +36,7 @@ body {
             flex-direction: column;
         }
 
+        // When screen is narrow, left menu needs to be just beneath breadcrumbs
         @media #{$media-medium}, #{$media-wide} {
             padding-top: 59px;
         }
@@ -61,7 +62,7 @@ script {
 }
 
 a {
-    color: $color-tertiary;
+    color: $color-primary-text-link;
     text-decoration: none;
 }
 

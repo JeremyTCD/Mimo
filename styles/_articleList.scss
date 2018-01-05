@@ -26,7 +26,7 @@
                 display: block; // necessary for underlining to work
 
                 > a{
-                    @include animated-underline($color-tertiary, 37px, 3px, $background-color: $color-primary, $descenders-gap-width: 2px);
+                    @include animated-underline($color-primary-text-link, 37px, 3px, $background-color: $color-primary, $descenders-gap-width: 2px);
                 }
             }
 

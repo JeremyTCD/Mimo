@@ -4,7 +4,8 @@ main {
     flex-grow: 1;
     flex-direction: column;
 
+    // When screen is narrow, left menu needs to be just beneath breadcrumbs
     @media #{$media-narrow} {
-        padding-top: $gap-1;
+        padding-top: 59px;
     }
 }

@@ -37,7 +37,7 @@ $horizontal-bar-ease-timing: 0.6s;
         @media #{$media-medium}, #{$media-wide} {
             &.fixed {
                 position: fixed;
-                top: $window-border-gap;
+                top: 23px;
             }
         }
 
@@ -65,7 +65,7 @@ $horizontal-bar-ease-timing: 0.6s;
             @media #{$media-narrow} {
                 border: 1px solid $color-primary;
                 background-color: $color-primary;
-                transition: border-color 0.4s $ease-out-quad-delayed;
+                transition: border-color 0.4s $ease-out-quad;
 
                 &.focus {
                     border-color: $color-primary-border;
@@ -75,7 +75,7 @@ $horizontal-bar-ease-timing: 0.6s;
             &::before {
                 background-color: transparent;
                 border: none;
-                padding-right: $icon-text-gap;
+                padding-right: 5px;
                 opacity: $opacity-2;
             }
 
@@ -153,7 +153,7 @@ $horizontal-bar-ease-timing: 0.6s;
                     }
 
                     > a {
-                        background-image: linear-gradient($color-tertiary, $color-tertiary);
+                        background-image: linear-gradient($color-primary-text-link, $color-primary-text-link);
                         background-repeat: no-repeat;
                         background-position: 0 0;
                         background-size: 0 100%;

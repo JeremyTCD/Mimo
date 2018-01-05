@@ -23,7 +23,7 @@ article {
                 display: flex;
                 align-items: center;
 
-                @include material-design-icon('\e157', $color-tertiary, $font-size-5);
+                @include material-design-icon('\e157', $color-primary-text-link, $font-size-5);
                 opacity: 0;
                 transition: opacity 0.26s $ease-out-quad-delayed;
                 margin-left: 9px;
@@ -118,7 +118,7 @@ article {
                 }
 
                 &::before {
-                    padding-right: $icon-text-gap;
+                    padding-right: 5px;
                 }
 
                 &#metadata-date {
@@ -160,7 +160,7 @@ article {
         flex-direction: column;
 
         a:not(.header-link) {
-            @include animated-underline($color-tertiary, 18px, $background-color: $color-primary);
+            @include animated-underline($color-primary-text-link, 18px, $background-color: $color-primary);
         }
     }
 }

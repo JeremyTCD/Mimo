@@ -21,27 +21,27 @@ $hover-animation-duration: 0.4s;
 
         &.first {
             a {
-                @include material-design-icon('\e5dc', $color-tertiary);
+                @include material-design-icon('\e5dc', $color-primary-text-link);
             }
         }
 
         &.prev {
             a {
-                @include material-design-icon('\e408', $color-tertiary);
+                @include material-design-icon('\e408', $color-primary-text-link);
             }
         }
 
 
         &.next {
             a {
-                @include material-design-icon('\e409', $color-tertiary);
+                @include material-design-icon('\e409', $color-primary-text-link);
             }
         }
 
 
         &.last {
             a {
-                @include material-design-icon('\e5dd', $color-tertiary);
+                @include material-design-icon('\e5dd', $color-primary-text-link);
             }
         }
 
@@ -86,15 +86,15 @@ $hover-animation-duration: 0.4s;
         &:not(.disabled) {
             &:not(.active) {
                 &:hover {
-                    border-color: $color-tertiary;
+                    border-color: $color-primary-text-link;
 
                     & + li {
-                        border-left-color: $color-tertiary;
+                        border-left-color: $color-primary-text-link;
                     }
                 }
 
                 a {
-                    background-image: linear-gradient(to right, $color-tertiary, $color-tertiary);
+                    background-image: linear-gradient(to right, $color-primary-text-link, $color-primary-text-link);
                     background-repeat: no-repeat;
                     background-position: 0 100%;
                     background-size: 0 100%;

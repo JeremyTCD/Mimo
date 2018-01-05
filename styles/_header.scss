@@ -23,7 +23,7 @@ header {
                 transform: scale(1);
 
                 img {
-                    transition: transform 0.2s $ease-out-quad;
+                    transition: transform 0.2s $ease-out-quad-delayed;
                     height: 52px;
 
                     &:hover {
@@ -44,7 +44,7 @@ header {
                     span {
                         height: 3px;
                         width: 23px;
-                        background-color: $color-tertiary;
+                        background-color: $color-primary-text-link;
                         transition: transform 0.26s $ease-out-quad, background-color 0.26s $ease-out-quad;
                     }
 
@@ -146,7 +146,7 @@ header {
                             }
 
                             a {
-                                @include animated-underline($color-tertiary, 19px, $duration: 0.4s, $background-color: $color-primary);
+                                @include animated-underline($color-primary-text-link, 19px, $duration: 0.4s, $background-color: $color-primary);
                             }
                         }
                     }
@@ -177,13 +177,12 @@ header {
                     }
 
                     @include material-design-icon('\E8B6', $color-primary-text);
-                    transition: border-color 0.26s $ease-out-quad;
                     align-items: center;
 
                     &::before {
                         background-color: transparent;
                         border: none;
-                        padding-right: $icon-text-gap;
+                        padding-right: 5px;
                         opacity: $opacity-2;
                     }
 
