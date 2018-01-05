@@ -9,7 +9,7 @@ import rightMenuComponent from './rightMenuComponent';
 import commentsComponent from './commentsComponent';
 
 import searchService from './searchService';
-import { openExternalLinksInNewTab } from './linkService';
+import linkService from './linkService';
 
 import * as $ from 'jquery';
 
@@ -23,5 +23,6 @@ $(function () {
     commentsComponent.initialize();
 
     searchService.setupSearch();
-    openExternalLinksInNewTab();
+    linkService.setupOpenExternalLinksInNewTab();
+    linkService.setupSmoothScroll();
 })

@@ -51,7 +51,8 @@
             </div>
         </nav>
         <div id="footer-button">
-            <a href="#top"></a>
+            <!--smooth-scroll automatically scroll to top if href is #-->
+            <a href="#"></a>
         </div>
     </div>
 </footer>

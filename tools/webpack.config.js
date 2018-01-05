@@ -86,7 +86,7 @@ module.exports = (env) => {
         entry: {
             // Bundle must be an array so other sources can be added to it (see serve.js)
             bundle: [Path.join(__dirname, '../scripts/index.ts')],
-            vendor: ['jquery', 'mark.js', 'twbs-pagination']
+            vendor: ['jquery', 'mark.js', 'twbs-pagination', 'smooth-scroll']
         },
         output: {
             filename: `[name].${isProduction ? '[chunkhash].min.' : ''}js`,
