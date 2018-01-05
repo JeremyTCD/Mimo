@@ -9,6 +9,7 @@ class RightMenuComponent extends Component {
     editArticleElement: HTMLElement;
     articleElement: HTMLElement;
     mainContainer: HTMLElement;
+    articleHeadingElements: NodeList;
 
     protected canInitialize(): boolean {
         this.rightMenuElement = document.getElementById('right-menu');
@@ -20,6 +21,7 @@ class RightMenuComponent extends Component {
         this.editArticleElement = document.getElementById('edit-article');
         this.articleElement = document.querySelector('main > article') as HTMLElement;
         this.mainContainer = document.querySelector('body > .container') as HTMLElement;
+        this.articleHeadingElements = this.articleElement.querySelectorAll('h2,h3,h4');
 
         this.setRightMenuDomLocation();
         this.setupOutline();
@@ -83,15 +85,15 @@ class RightMenuComponent extends Component {
     }
 
     private setupOutline(): void {
-        let headerElements = document.querySelectorAll('main > article > h1,h2,h3,h4');
-        if (headerElements.length === 0) {
+        let headingElements = document.querySelectorAll('main > article > h1,h2,h3,h4');
+        if (headingElements.length === 0) {
             return;
         }
 
         let titleElement = document.querySelector('main > article > h1');
         let outlineTitle = titleElement ? titleElement.textContent : 'Outline';
 
-        let listItemTree: ListItem = generateListItemTree(headerElements, ['h2', 'h3', 'h4'], 0);
+        let listItemTree: ListItem = generateListItemTree(headingElements, ['h2', 'h3', 'h4'], 0);
         let html = generateMultiLevelList(listItemTree.items, '', 1);
         $('#outline').append(`<span>${outlineTitle}</span>${html}`);
         $('#outline a').first().addClass('active');
@@ -104,28 +106,23 @@ class RightMenuComponent extends Component {
     }
 
     private setOutlineActiveTopic(): void {
-        let minDistance = undefined;
         let activeAnchorIndex = undefined;
-        let top = $('#right-menu > .wrapper')[0].getBoundingClientRect().top;
+        let minDistance = -1;
 
-        // Binary search not preferable because sequence is typically short
-        $('main > article > h2, h3, h4').
-            each((index: number, element: HTMLElement) => {
-                let elementTop = element.getBoundingClientRect().top;
-                let distance = Math.abs(elementTop - top);
+        for (let i = 0; i < this.articleHeadingElements.length; i++) {
+            let headingElement = this.articleHeadingElements[i] as HTMLHeadingElement;
+            let elementDistanceFromTop = Math.abs(headingElement.getBoundingClientRect().top);
 
-                if (!minDistance || distance < minDistance) {
-                    minDistance = distance;
-                    activeAnchorIndex = index;
-                } else {
-                    return false;
-                }
-            });
+            if (minDistance === -1 || elementDistanceFromTop < minDistance) {
+                minDistance = elementDistanceFromTop;
+                activeAnchorIndex = i;
+            } else {
+                break;
+            }
+        }
 
-        $('#outline a').
-            removeClass('active').
-            eq(activeAnchorIndex).
-            addClass('active');
+        document.querySelector('#outline a.active').classList.remove('active');
+        document.querySelectorAll('#outline a').item(activeAnchorIndex).classList.add('active');
     }
 
     private setOutlineMaxHeight(): void {
