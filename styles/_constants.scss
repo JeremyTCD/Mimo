@@ -1,7 +1,4 @@
-﻿@import '../node_modules/material-design-icons/iconfont/material-icons.css';
-@import '../node_modules/ionicons/dist/css/ionicons.css';
-
-$color-primary: #fff;
+﻿$color-primary: #fff;
 $color-primary-text: #212121;
 $color-primary-text-highlight: #ffdd80;
 $color-primary-text-casual: #FFBB00;
@@ -12,7 +9,7 @@ $color-primary-background: #efefef;
 $color-secondary: #0277bd;
 $color-secondary-text: #fff;
 
-$opacity-1: 0.4;
+$opacity-1: 0.45;
 $opacity-2: 0.6;
 $opacity-3: 0.80;
 $opacity-4: 1.0;
@@ -36,47 +33,6 @@ $media-narrow: '(max-width: 768px)';
 $media-medium: '(min-width: 769px) and (max-width: 1024px)';
 $media-wide: '(min-width: 1025px)';
 
-@mixin material-design-icon($code, $color, $font-size: $font-size-4) {
-    &::before {
-        content: $code;
-        color: $color;
-        font-family: 'Material Icons';
-        font-weight: normal;
-        font-style: normal;
-        font-size: $font-size;
-        line-height: 1;
-        text-transform: none;
-        letter-spacing: normal;
-        word-wrap: normal;
-        white-space: nowrap;
-        direction: ltr;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-        -moz-osx-font-smoothing: grayscale;
-        font-feature-settings: 'liga';
-    }
-}
-
-@mixin ionicons-icon($code, $color, $font-size: $font-size-4) {
-    &::before {
-        content: $code;
-        color: $color;
-        font-family: 'Ionicons';
-        font-weight: normal;
-        font-style: normal;
-        font-size: $font-size;
-        line-height: 1;
-        text-transform: none;
-        letter-spacing: normal;
-        word-wrap: normal;
-        white-space: nowrap;
-        direction: ltr;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-        -moz-osx-font-smoothing: grayscale;
-        font-feature-settings: 'liga';
-    }
-}
 
 @mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: 0.5s, $before: false, $background-color: null, $descenders-gap-width: 1px) {
     @if ($before) {
