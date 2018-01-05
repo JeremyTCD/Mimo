@@ -18,7 +18,10 @@ class SalComponent extends Component {
         if (allAlItems.length == 0) {
             return;
         }
-
+        let firstIcon = SvgService.createSvgExternalSpriteElement('material-design-first-page');
+        let previousIcon = SvgService.createSvgExternalSpriteElement('material-design-previous-page');
+        let nextIcon = SvgService.createSvgExternalSpriteElement('material-design-next-page');
+        let lastIcon = SvgService.createSvgExternalSpriteElement('material-design-last-page');
         $('#sorted-article-list > .article-list > .al-pagination').twbsPagination({
             totalPages: Math.ceil(allAlItems.length / numPerPage),
             visiblePages: 3,
@@ -34,22 +37,22 @@ class SalComponent extends Component {
                 this.
                     salElement.
                     querySelector('.al-pagination .first > a').
-                    appendChild(SvgService.createSvgExternalSpriteElement('material-design-first-page'));
+                    appendChild(firstIcon);
 
                 this.
                     salElement.
                     querySelector('.al-pagination .prev > a').
-                    appendChild(SvgService.createSvgExternalSpriteElement('material-design-previous-page'));
+                    appendChild(previousIcon);
 
                 this.
                     salElement.
                     querySelector('.al-pagination .next > a').
-                    appendChild(SvgService.createSvgExternalSpriteElement('material-design-next-page'));
+                    appendChild(nextIcon);
 
                 this.
                     salElement.
                     querySelector('.al-pagination .last > a').
-                    appendChild(SvgService.createSvgExternalSpriteElement('material-design-last-page'));
+                    appendChild(lastIcon);
             }
         });
     }
