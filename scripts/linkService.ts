@@ -8,13 +8,19 @@ class LinkService {
     }
 
     public setupOpenExternalLinksInNewTab(): void {
-        $(document.links).
-            filter(function () {
-                return (this as HTMLAnchorElement).hostname !== window.location.hostname;
-            }).
-            attr('target', '_blank').
+        let anchorElements = document.getElementsByTagName('a');
+
+        for (let i = 0; i < anchorElements.length; i++) {
+            let anchorElement = anchorElements[i];
+
+            if ((anchorElement as HTMLAnchorElement).hostname === window.location.hostname) {
+                continue;
+            }
+
+            anchorElement.setAttribute('target', '_blank');
             // Prevents malicious sites from manipulating the window object https://mathiasbynens.github.io/rel-noopener/#hax
-            attr('rel', 'noopener');
+            anchorElement.setAttribute('rel', 'noopener');
+        }
     }
 }
 
