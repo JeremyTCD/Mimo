@@ -21,9 +21,11 @@
         "build-production": "set NODE_ENV=production&&node tools/buildDist.js"
     },
     "devDependencies": {
+        "@types/clipboard": "^1.5.35",
         "@types/jquery": "^3.2.16",
         "@types/lunr": "2.1.3",
         "@types/node": "^8.0.53",
+        "clipboard": "^1.7.1",
         "cpy": "^6.0.0",
         "css-loader": "^0.28.7",
         "extract-text-webpack-plugin": "^3.0.2",

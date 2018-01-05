@@ -1,4 +1,5 @@
 ﻿import Component from './component';
+import * as Clipboard from 'clipboard';
 
 class ArticleComponent extends Component {
     protected canInitialize(): boolean {
@@ -20,13 +21,19 @@ class ArticleComponent extends Component {
         linkMaster.classList.add('header-link');
 
         for (let i: number = 0; i < headers.length; i++) {
-            let header: HTMLElement = headers[i] as HTMLElement;
-            let link: HTMLAnchorElement = linkMaster.cloneNode() as HTMLAnchorElement;
+            let headerElement: HTMLElement = headers[i] as HTMLElement;
+            let anchorElement: HTMLAnchorElement = linkMaster.cloneNode() as HTMLAnchorElement;
+            let href: string = location.protocol + '//' + location.host + location.pathname + '#' + headerElement.id;
 
-            link.setAttribute('href', location.protocol + '//' + location.host + location.pathname + '#' + header.id);
+            anchorElement.setAttribute('href', href);
+            anchorElement.setAttribute('data-clipboard-text', href);
+            anchorElement.setAttribute('data-clipboard-action', 'copy');
+            anchorElement.setAttribute('data-tooltip', 'Link copied');
 
-            header.appendChild(link.cloneNode());
+            headerElement.appendChild(anchorElement.cloneNode());
         }
+
+        let clipboard = new Clipboard('.header-link');
     }
 }
 
