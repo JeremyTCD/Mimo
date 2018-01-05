@@ -22,11 +22,15 @@ article {
             .heading-link {
                 display: flex;
                 align-items: center;
-
-                @include material-design-icon('\e157', $color-primary-text-link, $font-size-5);
                 opacity: 0;
                 transition: opacity 0.26s $ease-out-quad-delayed;
                 margin-left: 9px;
+
+                svg {
+                    width: 24px;
+                    height: 24px;
+                    fill: $color-primary-text-link;
+                }
             }
         }
     }
@@ -122,18 +126,29 @@ article {
                 }
 
                 &#metadata-date {
-                    @include material-design-icon('\E916', inherit);
+                    svg {
+                        width: 18px;
+                        height: 18px;
+                        margin-right: 5px;
+                        fill: $color-primary-text;
+                    }
+
                     opacity: $opacity-2;
                 }
 
                 &#metadata-author {
-                    @include material-design-icon('\E7FD', inherit);
+                    svg {
+                        width: 18px;
+                        height: 18px;
+                        margin-right: 5px;
+                        fill: $color-primary-text;
+                    }
 
                     span {
                         @include animated-underline($color-primary-text, 17px, $background-color: $color-primary);
                     }
 
-                    &::before, span {
+                    svg, span {
                         opacity: $opacity-2;
                     }
 

@@ -1,4 +1,20 @@
-import "../styles/index.scss";
+import '../styles/index.scss';
+
+// TODO use commonjs style since tsc removes es6 style imports, e.g "import logo from './logo.svg'". This shouldn't 
+// be the case.
+require('../resources/material-design-search.svg');
+require('../resources/material-design-filter.svg');
+require('../resources/material-design-link.svg');
+require('../resources/material-design-date.svg');
+require('../resources/material-design-person.svg');
+require('../resources/material-design-drop-down.svg');
+require('../resources/material-design-arrow-upward.svg');
+require('../resources/material-design-chevron-right.svg');
+require('../resources/material-design-first-page.svg');
+require('../resources/material-design-previous-page.svg');
+require('../resources/material-design-next-page.svg');
+require('../resources/material-design-last-page.svg');
+
 
 import articleComponent from './articleComponent';
 import headerComponent from './headerComponent';

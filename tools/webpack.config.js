@@ -4,12 +4,16 @@ const Webpack = require('webpack');
 const Path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const FileSystem = require("fs");
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 module.exports = (env) => {
     // Consider NODE_ENV from command line arguments and environment variables
     const isProduction = process.env.NODE_ENV == 'production' || (env && env.NODE_ENV === 'production');
 
     var plugins = [
+        // Combines svg files into an svg sprite
+        new SpriteLoaderPlugin({ plainSprite: true }),
+
         new Webpack.ProvidePlugin({
             $: 'jquery',
             'window.jQuery': 'jquery',
@@ -42,16 +46,16 @@ module.exports = (env) => {
         })
     ];
 
-    // Minify if in production environment
     if (isProduction) {
+        // Minify
         plugins.push(new UglifyJsPlugin());
+        // Replace script files with hash-appended names 
         plugins.push(function () {
             this.plugin("done", function (statsData) {
                 debugger;
                 var stats = statsData.toJson();
 
                 if (!stats.errors.length) {
-                    // Replace script files with hash-appended names
                     var file = Path.join(__dirname, '../dist/theme/partials/scripts.tmpl.partial');
                     var html = FileSystem.readFileSync(file, "utf8");
                     var htmlOutput = html.replace(
@@ -67,7 +71,6 @@ module.exports = (env) => {
                     );
                     FileSystem.writeFileSync(file, htmlOutput);
 
-                    // Replace style file names with hash-appended names
                     file = Path.join(__dirname, '../dist/theme/partials/head.tmpl.partial');
                     html = FileSystem.readFileSync(file, "utf8");
                     htmlOutput = html.replace(
@@ -103,6 +106,17 @@ module.exports = (env) => {
         module: {
             rules: [
                 {
+                    test: /\.svg$/,
+                    use: [{
+                        loader: 'svg-sprite-loader',
+                        options: {
+                            extract: true
+                        }
+                    },
+                        'svgo-loader'
+                    ]
+                },
+                {
                     test: /search\.worker\.ts$/,
                     use: 'worker-loader',
                     exclude: ['node_modules']
@@ -131,7 +145,7 @@ module.exports = (env) => {
                     use: "url-loader?limit=10000&mimetype=application/font-woff"
                 },
                 {
-                    test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
+                    test: /\.(ttf|eot)(\?v=[0-9].[0-9].[0-9])?$/,
                     use: "file-loader"
                 }
             ]

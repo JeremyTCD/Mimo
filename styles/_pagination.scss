@@ -19,38 +19,18 @@ $hover-animation-duration: 0.4s;
             border-right: solid 1px $color-primary-border;
         }
 
-        &.first {
-            a {
-                @include material-design-icon('\e5dc', $color-primary-text-link);
-            }
-        }
-
-        &.prev {
-            a {
-                @include material-design-icon('\e408', $color-primary-text-link);
-            }
-        }
-
-
-        &.next {
-            a {
-                @include material-design-icon('\e409', $color-primary-text-link);
-            }
-        }
-
-
-        &.last {
-            a {
-                @include material-design-icon('\e5dd', $color-primary-text-link);
-            }
+        svg {
+            height: 18px;
+            width: 18px;
+            fill: $color-primary-text-link;
         }
 
         &.first, &.last, &.prev, &.next {
             a {
                 padding: 0 9px;
 
-                &::before {
-                    transition: color $hover-animation-duration $ease-out-quad-delayed;
+                svg {
+                    transition: fill $hover-animation-duration $ease-out-quad-delayed;
                 }
             }
         }
@@ -104,8 +84,8 @@ $hover-animation-duration: 0.4s;
                         background-size: 100% 100%;
                         color: $color-secondary-text;
 
-                        &::before {
-                            color: $color-secondary-text;
+                        svg {
+                            fill: $color-secondary-text;
                         }
                     }
                 }

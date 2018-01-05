@@ -134,20 +134,18 @@ $bar-width: 3px;
         margin-bottom: 23px;
     }
 
+    align-items: center;
+
+    svg {
+        height: 18px;
+        width: 18px;
+        opacity: $opacity-2;
+        fill: $color-primary-text;
+        margin-right: 5px;
+    }
+
     span {
-        &.icon {
-            align-items: center;
-            @include material-design-icon("\E3C9", $color-primary-text);
-
-            &::before {
-                opacity: $opacity-2;
-                padding-right: 5px;
-            }
-        }
-
-        &:last-child {
-            flex-shrink: 0;
-            @include animated-underline($color-primary-text-link, 17px, $background-color: $color-primary);
-        }
+        flex-shrink: 0;
+        @include animated-underline($color-primary-text-link, 17px, $background-color: $color-primary);
     }
 }

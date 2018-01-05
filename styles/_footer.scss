@@ -93,23 +93,23 @@ footer {
                 }
 
                 .github-icon {
-                    @include ionicons-icon("\f239", inherit, $font-size-5);
+                   // @include ionicons-icon("\f239", inherit, $font-size-5);
                 }
 
                 .twitter-icon {
-                    @include ionicons-icon("\f2b0", inherit, $font-size-5);
+                   // @include ionicons-icon("\f2b0", inherit, $font-size-5);
                 }
 
                 .instagram-icon {
-                    @include ionicons-icon("\f23e", inherit, $font-size-5);
+                   // @include ionicons-icon("\f23e", inherit, $font-size-5);
                 }
 
                 .facebook-icon {
-                    @include ionicons-icon("\f236", inherit, $font-size-5);
+                   // @include ionicons-icon("\f236", inherit, $font-size-5);
                 }
 
                 .googleplus-icon {
-                    @include ionicons-icon("\f23b", inherit, $font-size-5);
+                  //  @include ionicons-icon("\f23b", inherit, $font-size-5);
                 }
             }
         }
@@ -119,8 +119,11 @@ footer {
             padding-left: 20px;
 
             a {
-                @include material-design-icon("\E5D8", $color-secondary-text, $font-size-5);
-                @include animated-underline($color-secondary-text, 23px, 1px, 0.3s, true);
+                svg {
+                    height: 24px;
+                    width: 24px;
+                    fill: $color-secondary-text;
+                }
             }
         }
     }

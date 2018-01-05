@@ -1,4 +1,5 @@
 ﻿import Component from './component';
+import SvgService from './svgService';
 import * as Clipboard from 'clipboard';
 
 class ArticleComponent extends Component {
@@ -16,21 +17,24 @@ class ArticleComponent extends Component {
     private addLinks(): void {
         let article: HTMLElement = document.getElementById('_content');
         let headers: NodeList = article.querySelectorAll('h2, h3, h4');
-        let linkMaster: HTMLAnchorElement = document.createElement('a');
+        let anchorMaster: HTMLAnchorElement = document.createElement('a');
+        let svgElement: SVGElement = SvgService.createSvgExternalSpriteElement('material-design-link');
 
-        linkMaster.classList.add('heading-link');
+        anchorMaster.classList.add('heading-link');
+        anchorMaster.appendChild(svgElement);
+
+        // Clipboard shared attributes
+        anchorMaster.setAttribute('data-clipboard-action', 'copy');
 
         for (let i: number = 0; i < headers.length; i++) {
             let headerElement: HTMLElement = headers[i] as HTMLElement;
-            let anchorElement: HTMLAnchorElement = linkMaster.cloneNode() as HTMLAnchorElement;
-            let href: string = location.protocol + '//' + location.host + location.pathname + '#' + headerElement.id;
+            let anchorElement: HTMLAnchorElement = anchorMaster.cloneNode(true) as HTMLAnchorElement;
+            let href: string = `${location.protocol}//${location.host}${location.pathname}#${headerElement.id}`;
 
             anchorElement.setAttribute('href', href);
             anchorElement.setAttribute('data-clipboard-text', href);
-            anchorElement.setAttribute('data-clipboard-action', 'copy');
-            anchorElement.setAttribute('data-tooltip', 'Link copied');
 
-            headerElement.appendChild(anchorElement.cloneNode());
+            headerElement.appendChild(anchorElement);
         }
 
         let clipboard = new Clipboard('.heading-link');

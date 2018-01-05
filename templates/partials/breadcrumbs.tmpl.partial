@@ -1,7 +1,11 @@
 {{^jtcd.disableBreadcrumbs}}
 <nav id="breadcrumbs" class="hide-on-search">
   <div class="container">
-    <button id="toc-button"></button>
+    <button id="toc-button">
+        <svg>
+            <use xlink:href="/styles/sprite.svg#material-design-drop-down" />
+        </svg>
+    </button>
   </div>
 </nav>
 {{/jtcd.disableBreadcrumbs}}
