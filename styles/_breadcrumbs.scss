@@ -23,6 +23,10 @@
             padding-top: 5px;
             padding-bottom: 2px;
 
+            svg{
+                display: none;
+            }
+
             li {
                 align-items: center;
                 padding-bottom: 3px;
@@ -39,12 +43,10 @@
                         content: none;
                     }
                 }
-
                 // Non links
                 > span {
                     opacity: $opacity-2;
                 }
-
                 // Links
                 a {
                     @include animated-underline($color-secondary-text, 17px, $background-color: $color-secondary);
@@ -59,15 +61,17 @@
 
             padding-left: 20px;
             margin-left: auto;
-            @include material-design-icon('\E5CF', $color-secondary-text);
 
-            &::before {
+            svg {
+                height: 24px;
+                width: 24px;
+                fill: $color-secondary-text;
                 transform: rotate(0);
                 transition: transform 0.4s $ease-out-quad;
             }
 
             &.expanded {
-                &::before {
+                svg {
                     transform: rotate(180deg);
                 }
             }

@@ -1,13 +1,18 @@
 import 'twbs-pagination';
+import SvgService from './svgService';
 import Component from './component';
 
 class SalComponent extends Component {
+    salElement: HTMLElement;
+
     protected canInitialize(): boolean {
-        return $('#sorted-article-list').length >= 1;
+        this.salElement = document.getElementById('sorted-article-list');
+
+        return this.salElement ? true : false;
     }
 
     protected setup(): void {
-        let numPerPage = 5;
+        let numPerPage = 1;
         let allAlItems = $('#sal-all-items > article');
 
         if (allAlItems.length == 0) {
@@ -21,10 +26,30 @@ class SalComponent extends Component {
             prev: ' ',
             next: ' ',
             last: ' ',
-            onPageClick: function (event: any, page: number) {
+            onPageClick: (event: any, page: number) => {
                 let start = (page - 1) * numPerPage;
                 let currentAlItems = allAlItems.slice(start, start + numPerPage);
                 $('#sorted-article-list > .article-list > .al-items').empty().append(currentAlItems);
+
+                this.
+                    salElement.
+                    querySelector('.al-pagination .first > a').
+                    appendChild(SvgService.createSvgExternalSpriteElement('material-design-first-page'));
+
+                this.
+                    salElement.
+                    querySelector('.al-pagination .prev > a').
+                    appendChild(SvgService.createSvgExternalSpriteElement('material-design-previous-page'));
+
+                this.
+                    salElement.
+                    querySelector('.al-pagination .next > a').
+                    appendChild(SvgService.createSvgExternalSpriteElement('material-design-next-page'));
+
+                this.
+                    salElement.
+                    querySelector('.al-pagination .last > a').
+                    appendChild(SvgService.createSvgExternalSpriteElement('material-design-last-page'));
             }
         });
     }

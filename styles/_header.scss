@@ -119,6 +119,10 @@ header {
                         list-style: none;
                         align-items: center;
 
+                        svg{
+                            display: none;
+                        }
+
                         @media #{$media-narrow} {
                             flex-direction: column;
                             margin-bottom: 13px;
@@ -176,7 +180,6 @@ header {
                         }
                     }
 
-                    @include material-design-icon('\E8B6', $color-primary-text);
                     align-items: center;
 
                     &::before {
@@ -184,6 +187,14 @@ header {
                         border: none;
                         padding-right: 5px;
                         opacity: $opacity-2;
+                    }
+
+                    svg {
+                        margin-right: 5px;
+                        height: 18px;
+                        width: 18px;
+                        opacity: $opacity-2;
+                        fill: $color-primary-text;
                     }
 
                     input {

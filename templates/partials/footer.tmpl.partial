@@ -52,7 +52,11 @@
         </nav>
         <div id="footer-button">
             <!--smooth-scroll automatically scroll to top if href is #-->
-            <a href="#"></a>
+            <a href="#">
+                <svg>
+                    <use xlink:href="/styles/sprite.svg#material-design-arrow-upward" />
+                </svg>
+            </a>
         </div>
     </div>
 </footer>
