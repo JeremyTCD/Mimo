@@ -12,7 +12,7 @@ class SalComponent extends Component {
     }
 
     protected setup(): void {
-        let numPerPage = 1;
+        let numPerPage = 5;
         let allAlItems = $('#sal-all-items > article');
 
         if (allAlItems.length == 0) {
