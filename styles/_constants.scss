@@ -37,6 +37,7 @@ $media-wide: '(min-width: 1025px)';
 @mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: 0.5s, $before: false, $background-color: null, $descenders-gap-width: 1px) {
     @if ($before) {
         &::before {
+            content: "";
             @include animated-underline-core($color, $y-position, $underline-height, $duration);
         }
 
