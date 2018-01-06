@@ -13,7 +13,6 @@
         {{/docurl}}
         {{#sourceurl}}
         <a href="{{sourceurl}}" id="view-source">
-            <span class="icon"></span>
             <span>View Source</span>
         </a>
         {{/sourceurl}}

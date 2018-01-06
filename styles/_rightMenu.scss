@@ -92,33 +92,34 @@ $bar-width: 3px;
                             margin-top: 5px;
                             margin-bottom: 4px;
 
-                            span {
-                                &:last-child {
-                                    margin-right: 14px;
-                                    @include animated-underline($color-primary-text-link, 17px, $background-color: $color-primary);
+                            @media #{$media-wide} {
+                                &::before {
+                                    content: "";
+                                    margin-right: $bar-margin-right;
+                                    width: $bar-width;
+                                    background-color: $color-primary-text;
+                                    opacity: $opacity-2;
+                                    transform: scaleY(0);
+                                    transition: transform 0.26s $ease-out-quad;
+                                    // When scrollbar appears, if flex-shrink is not 0, bar width can get set to 0
+                                    flex-shrink: 0;
                                 }
 
-                                @media #{$media-wide} {
-                                    &:first-child {
-                                        margin-right: $bar-margin-right;
-                                        width: $bar-width;
-                                        background-color: $color-primary-text;
-                                        opacity: $opacity-2;
-                                        transform: scaleY(0);
-                                        transition: transform 0.26s $ease-out-quad;
-                                        // When scrollbar appears, if flex-shrink is not 0, bar width can get set to 0
-                                        flex-shrink: 0;
+                                &.active {
+                                    &::before {
+                                        transform: scaleY(1);
                                     }
                                 }
                             }
 
-                            @media #{$media-wide} {
-                                &.active {
-                                    span {
-                                        &:first-child {
-                                            transform: scaleY(1);
-                                        }
-                                    }
+                            & > span {
+                                // animated-underline only works if the element who's background is animated has a parent that has display block,
+                                // inlin-block or inline. In this case it doesn't matter since a has display flex and all its children are just flex items.
+                                display: inline; 
+
+                                & > span {
+                                    margin-right: 14px;
+                                    @include animated-underline($color-primary-text-link, 17px, $background-color: $color-primary);
                                 }
                             }
                         }

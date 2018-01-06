@@ -18,8 +18,7 @@
 
 export function generateListItemTree(elements: HTMLElement[]|NodeList, tags: string[], tagIndex: number): ListItem {
     let result: ListItem = {
-        innerHtml: `<span class="icon"></span>
-                    <span>${elements[0].textContent}</span>`,
+        innerHtml: `<span><span>${elements[0].textContent}</span></span>`, // Outer span required for text content to have an animated underline - see right menu
         href: '#' + (elements[0] as HTMLElement).id,
         items: []
     };
