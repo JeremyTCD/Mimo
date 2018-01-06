@@ -87,14 +87,20 @@ footer {
                     &:last-child {
                         margin-right: 0px;
                     }
-                }
 
-                svg {
-                    @include animated-underline($color-secondary-text, 23px, 1px, $duration: 0.3s);
-                    height: 24px;
-                    width: 24px;
-                    margin-right: 16px;
-                    fill: $color-secondary-text;
+                    &:hover {
+                        svg {
+                            transform: scale(1.3333);
+                        }
+                    }
+
+                    svg {
+                        transition: transform 0.3s $ease-out-quad-delayed;
+                        height: 24px;
+                        width: 24px;
+                        margin-right: 16px;
+                        fill: $color-secondary-text;
+                    }
                 }
             }
         }
@@ -104,8 +110,14 @@ footer {
             padding-left: 20px;
 
             a {
+                &:hover {
+                    svg {
+                        transform: scale(1.3333);
+                    }
+                }
+
                 svg {
-                    @include animated-underline($color-secondary-text, 23px, 1px, $duration: 0.3s);
+                    transition: transform 0.3s $ease-out-quad-delayed;
                     height: 24px;
                     width: 24px;
                     fill: $color-secondary-text;
