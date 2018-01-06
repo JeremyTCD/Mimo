@@ -1,16 +1,23 @@
 - name: All Articles
   href: allArticles.md
-- name: Example Category 1
+- name: Plain Text Articles
   items:
-  - name: Example Article 1
-    href: exampleArticle1.md
-  - name: Example Sub-Category 1
+  - name: Basic Article
+    href: basicArticle.md
+  - name: Articles that Cause Wrapping
     items:    
-    - name: Example Article 2
-      href: exampleArticle2.md
-    - name: Example Article 3
-      href: exampleArticle3.md
-- name: Example Category 2
+    - name: Article with an Extremely Lengthy Title
+      href: articleWithAnExtremelyLengthyTitle.md
+    - name: Article with Long Headings
+      href: articleWithLongHeadings.md
+- name: Articles that use External Resources
   items:
-  - name: Example Article 4
-    href: exampleArticle4.md
+  - name: Article with Images
+    href: articleWithImages.md
+  - name: Article with Text Snippets
+    href: articleWithTextSnippets.md
+  - name: Article with Code Snippets
+    href: articleWithCodeSnippets.md
+  - name: Article with Article References
+    href: articleWithArticleReferences.md
+- name: Articles that use Custom Styles
