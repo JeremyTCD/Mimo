@@ -6,6 +6,7 @@ const buildBaseDist = require('./buildBaseDist.js');
 const webpackCompile = require('./webpackCompile');
 const docfxBuild = require('./docfxBuild');
 const browserSync = require('browser-sync').create();
+const fs = require('fs');
 
 async function tryBuild(docfxProjectDir, themeDir, logLevel) {
     try {
@@ -35,16 +36,25 @@ async function serveProduction() {
     // Initial build
     await tryBuild(docfxProjectDir, themeDir, logLevel);
 
+    // Note: If all of these directories are watched and one of them does not exist, chokidar fails silently - https://github.com/paulmillr/chokidar/issues/346
+    var foldersToWatch = [docfxProjectDir,
+        path.join(__dirname, '../templates'),
+        path.join(__dirname, '../plugins'),
+        path.join(__dirname, '../fonts'),
+        path.join(__dirname, '../misc'),
+        path.join(__dirname, '../scripts'),
+        path.join(__dirname, '../styles')];
+
+    for (var i = foldersToWatch.length - 1; i >= 0; i--) {
+        if (!fs.existsSync(foldersToWatch[i])) {
+            foldersToWatch.splice(i, 1);
+        }
+    }
+
     // Start watcher for serve build
-    var watcher = chokidar.watch([
-            path.join(__dirname, '../templates'),
-            path.join(__dirname, '../plugins'),
-            path.join(__dirname, '../fonts'),
-            path.join(__dirname, '../misc'),
-            path.join(__dirname, '../scripts'),
-            path.join(__dirname, '../styles'),
-            docfxProjectDir
-        ], {
+    var watcher = chokidar.watch(
+        foldersToWatch,
+        {
             ignored: [path.join(docfxProjectDir, '_site'), path.join(docfxProjectDir, 'obj')]
         });
     var building = false;
