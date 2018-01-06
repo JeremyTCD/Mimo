@@ -2,40 +2,42 @@
     <div class="container">
         <nav id="footer-information">
             <div id="footer-social-media">
+                <!--Chrome and firefox both ignore whitespace between inline and flex elements, 
+                edge and ie on the other hand, do not-->
                 {{#jtcd.githubLink}}
-                <a class="github-link" href="{{jtcd.githubLink}}">
-                <svg>
-                    <use xlink:href="/styles/sprite.svg#ion-icons-logo-github" />
-                </svg>
-            </a>
+                <a class="github-link" href="{{jtcd.githubLink}}"><!--
+                 --><svg>
+                        <use xlink:href="/styles/sprite.svg#ion-icons-logo-github" />
+                    </svg><!--
+             --></a>
                 {{/jtcd.githubLink}}
                 {{#jtcd.twitterLink}}
-                <a class="twitter-link" href="{{jtcd.twitterLink}}">
-                    <svg>
+                <a class="twitter-link" href="{{jtcd.twitterLink}}"><!--
+                    --><svg>
                         <use xlink:href="/styles/sprite.svg#ion-icons-logo-twitter" />
-                    </svg>
-                </a>
+                    </svg><!--
+                --></a>
                 {{/jtcd.twitterLink}}
                 {{#jtcd.instagramLink}}
-                <a class="instagram-link" href="{{jtcd.instagramLink}}">
-                    <svg>
+                <a class="instagram-link" href="{{jtcd.instagramLink}}"><!--
+                    --><svg>
                         <use xlink:href="/styles/sprite.svg#ion-icons-logo-instagram" />
-                    </svg>
-                </a>
+                    </svg><!--
+                --></a>
                 {{/jtcd.instagramLink}}
                 {{#jtcd.facebookLink}}
-                 <a class="facebook-link" href="{{jtcd.facebookLink}}">
-                     <svg>
-                         <use xlink:href="/styles/sprite.svg#ion-icons-logo-facebook" />
-                     </svg>
-                 </a>
+                <a class="facebook-link" href="{{jtcd.facebookLink}}"><!--
+                    --><svg>
+                        <use xlink:href="/styles/sprite.svg#ion-icons-logo-facebook" />
+                    </svg><!--
+                --></a>
                 {{/jtcd.facebookLink}}
                 {{#jtcd.googleplusLink}}
-               <a class="googleplus-link" href="{{jtcd.googleplusLink}}">
-                   <svg>
-                       <use xlink:href="/styles/sprite.svg#ion-icons-logo-googleplus" />
-                   </svg>
-               </a>
+                <a class="googleplus-link" href="{{jtcd.googleplusLink}}"><!--
+                    --><svg>
+                        <use xlink:href="/styles/sprite.svg#ion-icons-logo-googleplus" />
+                    </svg><!--
+                --></a>
                 {{/jtcd.googleplusLink}}
             </div>
             <div id="footer-legal">
@@ -45,14 +47,14 @@
                 </span>
                 {{/jtcd.licensesRelPath}}
                 {{#jtcd.privacyPolicyRelPath}}
-                 <span>
-                     <a href="{{_rel}}{{jtcd.privacyPolicyRelPath}}">Privacy Policy</a>
-                 </span>
+                <span>
+                    <a href="{{_rel}}{{jtcd.privacyPolicyRelPath}}">Privacy Policy</a>
+                </span>
                 {{/jtcd.privacyPolicyRelPath}}
                 {{#jtcd.contactRelPath}}
-                 <span class="footer-item">
-                     <a href="{{_rel}}{{jtcd.contactRelPath}}">Contact</a>
-                 </span>
+                <span class="footer-item">
+                    <a href="{{_rel}}{{jtcd.contactRelPath}}">Contact</a>
+                </span>
                 {{/jtcd.contactRelPath}}
 
             </div>

@@ -82,16 +82,15 @@ footer {
 
             #footer-social-media {
                 flex-wrap: wrap;
-                align-items: center;
 
                 a {
-                    //@include animated-underline($color-secondary-text, 10px, $duration: 0.3s, $before: true);
                     &:last-child {
                         margin-right: 0px;
                     }
                 }
 
                 svg {
+                    @include animated-underline($color-secondary-text, 23px, 1px, $duration: 0.3s);
                     height: 24px;
                     width: 24px;
                     margin-right: 16px;
@@ -106,6 +105,7 @@ footer {
 
             a {
                 svg {
+                    @include animated-underline($color-secondary-text, 23px, 1px, $duration: 0.3s);
                     height: 24px;
                     width: 24px;
                     fill: $color-secondary-text;
