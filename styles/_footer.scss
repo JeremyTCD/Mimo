@@ -82,34 +82,35 @@ footer {
 
             #footer-social-media {
                 flex-wrap: wrap;
+                align-items: center;
 
                 a {
-                    @include animated-underline($color-secondary-text, 23px, $duration: 0.3s, $before: true);
-                    margin-right: 18px;
-
+                    //                    @include animated-underline($color-secondary-text, 10px, $duration: 0.3s, $before: true);
                     &:last-child {
                         margin-right: 0px;
                     }
                 }
 
-                .github-icon {
-                   // @include ionicons-icon("\f239", inherit, $font-size-5);
+                .github-link {
+                    padding-right: 20px;
                 }
 
-                .twitter-icon {
-                   // @include ionicons-icon("\f2b0", inherit, $font-size-5);
+                .twitter-link {
+                    padding-right: 18px;
                 }
 
-                .instagram-icon {
-                   // @include ionicons-icon("\f23e", inherit, $font-size-5);
+                .instagram-link {
+                    padding-right: 12px;
                 }
 
-                .facebook-icon {
-                   // @include ionicons-icon("\f236", inherit, $font-size-5);
+                .facebook-link {
+                    padding-right: 14px;
                 }
 
-                .googleplus-icon {
-                  //  @include ionicons-icon("\f23b", inherit, $font-size-5);
+                svg {
+                    height: 24px;
+                    width: 24px;
+                    fill: $color-secondary-text;
                 }
             }
         }

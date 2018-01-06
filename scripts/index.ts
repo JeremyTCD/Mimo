@@ -15,6 +15,11 @@ require('../resources/material-design-previous-page.svg');
 require('../resources/material-design-next-page.svg');
 require('../resources/material-design-last-page.svg');
 require('../resources/material-design-mode-edit.svg');
+require('../resources/ion-icons-social-github.svg');
+require('../resources/ion-icons-social-twitter.svg');
+require('../resources/ion-icons-social-instagram.svg');
+require('../resources/ion-icons-social-facebook.svg');
+require('../resources/ion-icons-social-googleplus.svg');
 
 
 import articleComponent from './articleComponent';

@@ -3,19 +3,39 @@
         <nav id="footer-information">
             <div id="footer-social-media">
                 {{#jtcd.githubLink}}
-                <a class="github-icon" href="{{jtcd.githubLink}}"></a>
+                <a class="github-link" href="{{jtcd.githubLink}}">
+                <svg>
+                    <use xlink:href="/styles/sprite.svg#ion-icons-social-github" />
+                </svg>
+            </a>
                 {{/jtcd.githubLink}}
                 {{#jtcd.twitterLink}}
-                <a class="twitter-icon" href="{{jtcd.twitterLink}}"></a>
+                <a class="twitter-link" href="{{jtcd.twitterLink}}">
+                    <svg>
+                        <use xlink:href="/styles/sprite.svg#ion-icons-social-twitter" />
+                    </svg>
+                </a>
                 {{/jtcd.twitterLink}}
                 {{#jtcd.instagramLink}}
-                <a class="instagram-icon" href="{{jtcd.instagramLink}}"></a>
+                <a class="instagram-link" href="{{jtcd.instagramLink}}">
+                    <svg>
+                        <use xlink:href="/styles/sprite.svg#ion-icons-social-instagram" />
+                    </svg>
+                </a>
                 {{/jtcd.instagramLink}}
                 {{#jtcd.facebookLink}}
-                 <a class="facebook-icon" href="{{jtcd.facebookLink}}"></a>
+                 <a class="facebook-link" href="{{jtcd.facebookLink}}">
+                     <svg>
+                         <use xlink:href="/styles/sprite.svg#ion-icons-social-facebook" />
+                     </svg>
+                 </a>
                 {{/jtcd.facebookLink}}
                 {{#jtcd.googleplusLink}}
-               <a class="googleplus-icon" href="{{jtcd.googleplusLink}}"></a>
+               <a class="googleplus-link" href="{{jtcd.googleplusLink}}">
+                   <svg>
+                       <use xlink:href="/styles/sprite.svg#ion-icons-social-googleplus" />
+                   </svg>
+               </a>
                 {{/jtcd.googleplusLink}}
             </div>
             <div id="footer-legal">
