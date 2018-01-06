@@ -15,4 +15,4 @@ jtcd.disableComments: true
 ---
 
 # Page Not Found
-The page you requested does not exist. Sorry about that.
+Apology here.
