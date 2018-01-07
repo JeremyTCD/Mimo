@@ -126,6 +126,12 @@ class LeftMenuComponent extends Component {
                         else {
                             transitionsService.expandHeightWithoutTransition($(listElement).children('ul')[0], listElement);
                         }
+
+                        // Edge does not rotate the svg until a mouse hovers over the li element it is contained in.
+                        // This is a really dirty temporary fix that forces the rotation.
+                        let svgElement = listElement.firstElementChild.firstElementChild as SVGSVGElement;
+                        svgElement.style.transform = 'rotate(90deg)';
+                        svgElement.style.transform = '';
                     }
 
                     breadcrumbsComponent.

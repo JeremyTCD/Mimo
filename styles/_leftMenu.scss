@@ -113,7 +113,10 @@ $horizontal-bar-ease-timing: 0.6s;
                         > span, > a {
                             svg {
                                 visibility: visible;
-                                transform: rotate(0);
+                                transform: rotate(0deg);
+                                opacity: $opacity-2;
+                                transition: transform 0.4s $ease-out-quad;
+                                fill: $color-primary-text;
                             }
                         }
 
@@ -138,15 +141,13 @@ $horizontal-bar-ease-timing: 0.6s;
                         user-select: none;
                         align-items: center;
 
+                        // Prefix every span and a with the same svg so that they are all aligned
                         svg {
                             flex-shrink: 0;
                             margin-right: 4px;
                             height: 18px;
                             width: 18px;
-                            fill: $color-primary-text;
-                            opacity: $opacity-2;
                             visibility: hidden;
-                            transition: transform 0.4s $ease-out-quad;
                         }
                     }
 
