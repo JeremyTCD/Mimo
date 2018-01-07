@@ -6,7 +6,7 @@
       <svg>
           <use xlink:href="/styles/sprite.svg#material-design-filter" />
       </svg>
-      <input type="text" id="left-menu-filter-input" placeholder="Filter" onkeypress="if(event.keyCode==13) {return false;}"/>
+      <input type="text" autocomplete="off" id="left-menu-filter-input" placeholder="Filter" onkeypress="if(event.keyCode==13) {return false;}"/>
     </form>
     <nav id="left-menu-toc">
     </nav>
