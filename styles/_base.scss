@@ -92,9 +92,11 @@ h4 {
 }
 
 *::placeholder {
-    opacity: $opacity-2;
+    opacity: $opacity-1;
+    color: $color-primary-text;
 }
 
 *:placeholder {
-    opacity: $opacity-2;
+    opacity: $opacity-1;
+    color: $color-primary-text;
 }
