@@ -145,7 +145,7 @@ article {
                     }
 
                     span {
-                        @include animated-underline($color-primary-text, 17px, $background-color: $color-primary);
+                        @include animated-underline($color-primary-text, 18px, $background-color: $color-primary);
                     }
 
                     svg, span {
@@ -175,7 +175,7 @@ article {
         flex-direction: column;
 
         a:not(.heading-link) {
-            @include animated-underline($color-primary-text-link, 18px, $background-color: $color-primary);
+            @include animated-underline($color-primary-text-link, 19px, $background-color: $color-primary);
         }
     }
 }

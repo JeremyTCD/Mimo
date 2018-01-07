@@ -71,7 +71,7 @@ footer {
                 }
 
                 a {
-                    @include animated-underline($color-secondary-text, 17px, $background-color: $color-secondary);
+                    @include animated-underline($color-secondary-text, 18px, $background-color: $color-secondary);
                 }
             }
 

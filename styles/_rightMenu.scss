@@ -147,6 +147,6 @@ $bar-width: 3px;
 
     span {
         flex-shrink: 0;
-        @include animated-underline($color-primary-text-link, 17px, $background-color: $color-primary);
+        @include animated-underline($color-primary-text-link, 18px, $background-color: $color-primary);
     }
 }
