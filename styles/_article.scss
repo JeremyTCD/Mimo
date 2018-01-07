@@ -5,7 +5,7 @@ article {
     flex-direction: column;
     max-width: 994px;
 
-    &#_content {
+    &.jtcd-article {
         h1 {
             margin-top: -11px;
         }

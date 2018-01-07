@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JeremyTCD.DocFx.Plugins.SearchIndexGenerator" Version="1.1.0-beta" />
-    <PackageReference Include="JeremyTCD.DocFx.Plugins.SortedArticleListGenerator" Version="1.1.0-beta" />
+    <PackageReference Include="JeremyTCD.DocFx.Plugins.SearchIndexGenerator" Version="1.3.0-beta" />
+    <PackageReference Include="JeremyTCD.DocFx.Plugins.SortedArticleListGenerator" Version="1.3.0-beta" />
     <PackageReference Include="JeremyTCD.DocFx.Plugins.FileMetadataExposer" Version="0.3.0-beta" />
   </ItemGroup>
 
