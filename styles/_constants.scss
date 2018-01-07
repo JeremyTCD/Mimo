@@ -33,6 +33,10 @@ $media-narrow: '(max-width: 768px)';
 $media-medium: '(min-width: 769px) and (max-width: 1024px)';
 $media-wide: '(min-width: 1025px)';
 
+$animated-underline-11px-ypos: 13px;
+$animated-underline-14px-ypos: 18px;
+$animated-underline-16px-ypos: 20px;
+$animated-underline-32px-ypos: 37px;
 
 @mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: 0.5s, $before: false, $background-color: null, $descenders-gap-width: 1px) {
     @if ($before) {

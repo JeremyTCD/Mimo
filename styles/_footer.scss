@@ -47,7 +47,7 @@ footer {
                 }
 
                 a {
-                    @include animated-underline($color-secondary-text, 13px, $background-color: $color-secondary);
+                    @include animated-underline($color-secondary-text, $animated-underline-11px-ypos, $background-color: $color-secondary);
                 }
             }
 
@@ -71,7 +71,7 @@ footer {
                 }
 
                 a {
-                    @include animated-underline($color-secondary-text, 18px, $background-color: $color-secondary);
+                    @include animated-underline($color-secondary-text, $animated-underline-14px-ypos, $background-color: $color-secondary);
                 }
             }
 

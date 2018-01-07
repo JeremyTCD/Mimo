@@ -150,7 +150,7 @@ header {
                             }
 
                             a {
-                                @include animated-underline($color-primary-text-link, 19px, $duration: 0.4s, $background-color: $color-primary);
+                                @include animated-underline($color-primary-text-link, $animated-underline-16px-ypos, $duration: 0.4s, $background-color: $color-primary);
                             }
                         }
                     }
