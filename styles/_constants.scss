@@ -65,7 +65,7 @@ $media-wide: '(min-width: 1025px)';
     background-image: linear-gradient(to top, $color 0, $color $underline-height, transparent $underline-height);
     background-repeat: no-repeat;
     background-position: 0 $y-position;
-    background-size: 0 $underline-height;
+    background-size: 0% $underline-height; // Note: Edge is unable to handle the background-size transition if width is specified as 0 instead of 0%
     transition: background-size $duration $ease-out-quad-delayed;
     display: inline;
 }
