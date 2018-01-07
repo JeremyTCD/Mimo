@@ -55,6 +55,8 @@
         }
 
         #toc-button {
+            align-items: center;
+
             @media #{$media-medium}, #{$media-wide} {
                 display: none;
             }
