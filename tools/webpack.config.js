@@ -5,6 +5,7 @@ const Path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const FileSystem = require("fs");
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+const Autoprefixer = require('autoprefixer');
 
 module.exports = (env) => {
     // Consider NODE_ENV from command line arguments and environment variables
@@ -107,13 +108,12 @@ module.exports = (env) => {
             rules: [
                 {
                     test: /\.svg$/,
-                    use: [{
-                        loader: 'svg-sprite-loader',
-                        options: {
-                            extract: true
-                        }
-                    },
-                        'svgo-loader'
+                    use: [
+                        {
+                            loader: 'svg-sprite-loader',
+                            options: { extract: true }
+                        },
+                        { loader: 'svgo-loader' }
                     ]
                 },
                 {
@@ -136,8 +136,20 @@ module.exports = (env) => {
                 {
                     test: /\.scss$/,
                     use: ExtractTextPlugin.extract({
-                        use: [{ loader: 'css-loader', options: { minimize: isProduction } },
-                        { loader: 'sass-loader' }]
+                        use: [
+                            {
+                                loader: 'css-loader',
+                                options: { minimize: isProduction }
+                            },
+                            {
+                                // Set of tools for processing css: https://github.com/postcss
+                                loader: 'postcss-loader',
+                                // Plugin that adds css prefixes: https://github.com/postcss/autoprefixer
+                                // Browsers to add prefixes for specified using: https://github.com/ai/browserslist
+                                options: { plugins: () => [Autoprefixer({browsers: ['last 3 versions', '> 1%']})] }
+                            },
+                            { loader: 'sass-loader' }
+                        ]
                     })
                 },
                 {
