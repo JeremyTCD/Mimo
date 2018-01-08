@@ -35,9 +35,13 @@ $bar-width: 3px;
         }
 
         .wrapper {
-            @media #{$media-narrow}, #{$media-medium} {
-                flex-direction: row;
+            @media #{$media-wide} {
+                flex-direction: column;
+                align-items: stretch;
+                align-self: stretch;
+            }
 
+            @media #{$media-narrow}, #{$media-medium} {
                 &::before {
                     content: "";
                     width: $bar-width;
@@ -115,7 +119,7 @@ $bar-width: 3px;
                             & > span {
                                 // animated-underline only works if the element who's background is animated has a parent that has display block,
                                 // inline-block or inline. In this case it doesn't matter since a has display flex and all its children are just flex items.
-                                display: inline; 
+                                display: inline;
 
                                 & > span {
                                     margin-right: 14px;
