@@ -4,8 +4,6 @@ footer {
     font-size: $font-size-2;
     background-color: $color-secondary;
     justify-content: center;
-    padding-top: 26px;
-    padding-bottom: 20px;
 
     .container {
         align-items: center;
@@ -23,6 +21,7 @@ footer {
             }
 
             #footer-attribution {
+                margin-bottom: 20px;
                 display: block; // Cannot be flex or inline children will not wrap
                 font-size: $font-size-1;
                 padding-top: 28px;
@@ -54,7 +53,7 @@ footer {
             #footer-legal {
                 flex-wrap: wrap;
                 padding-bottom: 2px;
-                padding-top: 18px;
+                padding-top: 22px;
 
                 span {
                     &::after {
@@ -80,7 +79,14 @@ footer {
             }
 
             #footer-social-media {
+                margin-top: 26px;
                 flex-wrap: wrap;
+
+                // TODO every section in footer-information should have something similar for top padding so that if one is removed
+                // footer contents are still properly spaced out
+                & + #footer-legal{
+                    padding-top: 18px;
+                }
 
                 a {
                     &:last-child {

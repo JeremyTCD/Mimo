@@ -1,6 +1,7 @@
 <footer>
     <div class="container">
         <nav id="footer-information">
+            {{#jtcd.displaySocialMediaLinks}}
             <div id="footer-social-media">
                 {{#jtcd.githubLink}}
                 <a class="github-link" href="{{jtcd.githubLink}}">
@@ -38,6 +39,8 @@
                 </a>
                 {{/jtcd.googleplusLink}}
             </div>
+            {{/jtcd.displaySocialMediaLinks}}
+
             <div id="footer-legal">
                 {{#jtcd.licensesRelPath}}
                 <span>
