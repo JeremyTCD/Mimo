@@ -86,8 +86,7 @@ module.exports = (env) => {
     // Add banner after minifying
     plugins.push(new Webpack.BannerPlugin({ banner: 'JeremyTCD.DocFx.Themes.BasicBlog, Copyright 2017 JeremyTCD', include: /^bundle\..*$/ }));
 
-    return {
-        devtool: 'cheap-module-eval-source-map',
+    var result =  {
         entry: {
             // Bundle must be an array so other sources can be added to it (see serve.js)
             bundle: [Path.join(__dirname, '../scripts/index.ts')],
@@ -165,4 +164,11 @@ module.exports = (env) => {
         },
         plugins: plugins
     }
+
+    // Enable source map for dev
+    if (!isProduction) {
+        result.devtool = 'source-map';
+    }
+
+    return result;
 };
