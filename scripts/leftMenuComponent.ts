@@ -3,9 +3,11 @@ import { getAbsolutePath, isRelativePath } from './pathService';
 import transitionsService from './transitionsService';
 import breadcrumbsComponent from './breadcrumbsComponent';
 import Component from './component';
+import EdgeWorkaroundsService from './edgeWorkaroundsService';
 
 class LeftMenuComponent extends Component {
     bodyContainerElement: HTMLElement;
+    leftMenuTocElement: HTMLElement;
 
     protected canInitialize(): boolean {
         return document.getElementById('left-menu') ? true : false;
@@ -13,6 +15,7 @@ class LeftMenuComponent extends Component {
 
     protected setup(): void {
         this.bodyContainerElement = document.querySelector('body > .container') as HTMLElement;
+        this.leftMenuTocElement = document.getElementById('left-menu-toc');
 
         this.setupToc();
         this.setupFilter();
@@ -25,17 +28,17 @@ class LeftMenuComponent extends Component {
 
     public onScrollListener = (): void => {
         if (!mediaWidthNarrow() && this.bodyContainerElement.style.display !== 'none') {
-            this.setTocFixed();
+            this.updateLeftMenu();
         }
     }
 
     public onResizeListener = (): void => {
         if (this.bodyContainerElement.style.display !== 'none') {
-            this.setTocFixed();
+            this.updateLeftMenu();
         }
     }
 
-    private setupToc(): void {
+    private setupToc = (): void => {
         let tocPath = document.querySelector("meta[property='docfx\\:tocrel']").getAttribute("content");
 
         if (tocPath) {
@@ -47,7 +50,7 @@ class LeftMenuComponent extends Component {
             // TODO check status too
             if (getTocRequest.readyState === XMLHttpRequest.DONE) {
                 let tocFrag = document.createRange().createContextualFragment(getTocRequest.responseText);
-                document.getElementById('left-menu-toc').appendChild(tocFrag);
+                this.leftMenuTocElement.appendChild(tocFrag);
 
                 this.setTocTopicPadding();
                 this.setTocActiveTopic(tocPath);
@@ -58,7 +61,7 @@ class LeftMenuComponent extends Component {
         getTocRequest.send()
 
         // Initial call
-        this.setTocFixed();
+        this.updateLeftMenu();
     }
 
     private registerTocTopicListener() {
@@ -84,8 +87,7 @@ class LeftMenuComponent extends Component {
             - $('#left-menu-filter').outerHeight(true)
             - (footerHeight < 0 ? 0 : footerHeight);
 
-        $('#left-menu-toc').
-            css('max-height', maxHeight);
+        this.leftMenuTocElement.style.maxHeight = `${maxHeight}px`;
     }
 
     private setTocActiveTopic(tocPath: string): void {
@@ -127,7 +129,9 @@ class LeftMenuComponent extends Component {
                             transitionsService.expandHeightWithoutTransition($(listElement).children('ul')[0], listElement);
                         }
 
-                        // Edge does not rotate the svg until a mouse hovers over the li element it is contained in.
+                        // TODO generalize and move to edgeWorkaroundsService
+                        // Yet another Edge workaround - 
+                        // On page load, Edge does not rotate the svg until mouse hovers over the li element it is contained in.
                         // This is a really dirty temporary fix that forces the rotation.
                         let svgElement = listElement.firstElementChild.firstElementChild as SVGSVGElement;
                         svgElement.style.transform = 'rotate(90deg)';
@@ -162,16 +166,24 @@ class LeftMenuComponent extends Component {
             });
     }
 
-    private setTocFixed(): void {
-        let wrapper = $('#left-menu > .wrapper');
-        let top = $('#left-menu > .wrapper')[0].parentElement.getBoundingClientRect().top;
+    private updateLeftMenu(): void {
+        let wrapper = document.querySelector('#left-menu > .wrapper');
+        let top = wrapper.parentElement.getBoundingClientRect().top;
+        let fixed = wrapper.classList.contains('fixed');
 
+        // toc should only be fixed if left menu is less than 23 px below top of window
+        // and screen is not narrow
         if (top < 23 && !mediaWidthNarrow()) {
-            wrapper.addClass('fixed');
             this.setTocMaxHeight();
-        } else {
-            wrapper.removeClass('fixed');
-            $('#left-menu-toc').css('max-height', 'initial');
+
+            if (!fixed) {
+                wrapper.classList.add('fixed');
+            }
+            EdgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
+        } else if (fixed) {
+            wrapper.classList.remove('fixed');
+            this.leftMenuTocElement.style.maxHeight = 'initial';
+            EdgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
         }
     }
 

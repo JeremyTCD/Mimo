@@ -1,7 +1,7 @@
 ﻿import { htmlEncode, htmlDecode } from './htmlEncodeService';
 import { mediaWidthWide } from './mediaService';
 import { generateMultiLevelList, generateListItemTree } from './listItemService';
-
+import EdgeWorkaroundsService from './edgeWorkaroundsService';
 import Component from './component';
 
 class RightMenuComponent extends Component {
@@ -10,6 +10,7 @@ class RightMenuComponent extends Component {
     articleElement: HTMLElement;
     mainContainer: HTMLElement;
     articleHeadingElements: NodeList;
+    outlineUlElement: HTMLElement;
 
     protected canInitialize(): boolean {
         this.rightMenuElement = document.getElementById('right-menu');
@@ -25,6 +26,7 @@ class RightMenuComponent extends Component {
 
         this.setRightMenuDomLocation();
         this.setupOutline();
+        this.outlineUlElement = document.querySelector('#outline > ul') as HTMLUListElement;
 
         // Initial call
         this.updateRightMenu();
@@ -49,19 +51,28 @@ class RightMenuComponent extends Component {
     }
 
     private updateRightMenu(): void {
-        this.setRightMenuFixed();
-        this.setOutlineActiveTopic();
-        this.setOutlineMaxHeight();
-    }
+        let wrapperElement = document.querySelector('#right-menu > .wrapper');
+        if (mediaWidthWide()) {
+            let top = wrapperElement.parentElement.getBoundingClientRect().top;
+            let fixed = wrapperElement.classList.contains('fixed');
+            // max-height placed only on ul since outline title should still be displayed
 
-    private setRightMenuFixed(): void {
-        let element = $('#right-menu > .wrapper');
-        let top = element[0].parentElement.getBoundingClientRect().top;
-        if (top < 15) {
-            element.addClass('fixed');
-            top = 15;
+            if (top < 15) {
+                this.setOutlineMaxHeight();
+
+                if (!fixed) {
+                    wrapperElement.classList.add('fixed');
+                }
+                EdgeWorkaroundsService.overflowBugWorkaround(this.outlineUlElement);
+            } else if (fixed) {
+                wrapperElement.classList.remove('fixed');
+                this.outlineUlElement.style.maxHeight = 'initial';
+                EdgeWorkaroundsService.overflowBugWorkaround(this.outlineUlElement);
+            }
+            this.setOutlineActiveTopic();
         } else {
-            element.removeClass('fixed');
+            this.outlineUlElement.style.maxHeight = 'initial';
+            wrapperElement.classList.remove('fixed');
         }
     }
 
@@ -126,20 +137,15 @@ class RightMenuComponent extends Component {
     }
 
     private setOutlineMaxHeight(): void {
-        if ($('#right-menu > .wrapper').hasClass('fixed')) {
-            let footerHeight = $(window).outerHeight() - $('footer')[0].getBoundingClientRect().top;
-            let maxHeight = $(window).outerHeight()
-                - 15 // top gap 
-                - 23 // bottom gap
-                - $('#outline > span').outerHeight()
-                - (this.editArticleElement ? this.editArticleElement.offsetHeight + parseInt(getComputedStyle(this.editArticleElement).marginBottom) : 0)
-                - (footerHeight < 0 ? 0 : footerHeight);
+        let footerHeight = $(window).outerHeight() - $('footer')[0].getBoundingClientRect().top;
+        let maxHeight = $(window).outerHeight()
+            - 15 // top gap 
+            - 23 // bottom gap
+            - $('#outline > span').outerHeight()
+            - (this.editArticleElement ? this.editArticleElement.offsetHeight + parseInt(getComputedStyle(this.editArticleElement).marginBottom) : 0)
+            - (footerHeight < 0 ? 0 : footerHeight);
 
-            $('#outline > ul').css('max-height', maxHeight);
-        } else {
-            $('#outline > ul').css('max-height', 'initial');
-        }
-
+        this.outlineUlElement.style.maxHeight = `${maxHeight}px`;
     }
 }
 
