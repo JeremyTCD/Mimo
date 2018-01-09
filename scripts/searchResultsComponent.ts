@@ -34,8 +34,8 @@ class SearchResultsComponent extends Component {
 
             // Resize or scroll may have occurred while 'body > .container' was hidden.
             // Components that react to scroll/resize events must have their listeners executed
-            $(window).trigger('scroll');
-            $(window).trigger('resize');
+            window.dispatchEvent(new Event('resize'));
+            window.dispatchEvent(new Event('scroll'));
         }
     }
 
