@@ -1,8 +1,8 @@
-{{^jtcd.disableRightMenu}}
+{{^jtcd_disableRightMenu}}
 <div id="right-menu">
     <!-- Wrapper is required for adjacent article to maintain its width when filter and toc are fixed -->
     <div class="wrapper">
-        {{^jtcd.disableEditArticle}}
+        {{^jtcd_disableEditArticle}}
         {{#docurl}}
         <a href="{{docurl}}" id="edit-article"  title="Edit article on Github">
             <svg>
@@ -16,11 +16,11 @@
             <span>View Source</span>
         </a>
         {{/sourceurl}}
-        {{/jtcd.disableEditArticle}}
+        {{/jtcd_disableEditArticle}}
         <div class="wrapper">
             <nav id="outline">
             </nav>
         </div>
     </div>
 </div>
-{{/jtcd.disableRightMenu}}
+{{/jtcd_disableRightMenu}}

@@ -1,17 +1,17 @@
 ---
-jtcd.pageDescription: A landing page.
-jtcd.pageTitle: Home
-jtcd.pageID: index
+jtcd_pageDescription: A landing page.
+jtcd_pageTitle: Home
+jtcd_pageID: index
 
-jtcd.includeInSal: false
-jtcd.includeInSearchIndex: false
+jtcd_includeInSal: false
+jtcd_includeInSearchIndex: false
 
-jtcd.disableBreadcrumbs: true
-jtcd.disableEditArticle: true
-jtcd.disableMetadata: true
-jtcd.disableLeftMenu: true
-jtcd.disableRightMenu: true
-jtcd.disableComments: true
+jtcd_disableBreadcrumbs: true
+jtcd_disableEditArticle: true
+jtcd_disableMetadata: true
+jtcd_disableLeftMenu: true
+jtcd_disableRightMenu: true
+jtcd_disableComments: true
 ---
 
 # hello, welcome to my blog

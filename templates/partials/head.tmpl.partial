@@ -3,14 +3,14 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>{{#jtcd.pageTitle}}{{jtcd.pageTitle}}{{/jtcd.pageTitle}} {{#jtcd.websiteName}}- {{jtcd.websiteName}} {{/jtcd.websiteName}}</title>
+  <title>{{#jtcd_pageTitle}}{{jtcd_pageTitle}}{{/jtcd_pageTitle}} {{#jtcd_websiteName}}- {{jtcd_websiteName}} {{/jtcd_websiteName}}</title>
   <meta name="viewport" content="width=device-width">
-  <meta name="title" content="{{#jtcd.pageTitle}}{{jtcd.pageTitle}}{{/jtcd.pageTitle}} {{#jtcd.websiteName}}- {{jtcd.websiteName}} {{/jtcd.websiteName}}">
+  <meta name="title" content="{{#jtcd_pageTitle}}{{jtcd_pageTitle}}{{/jtcd_pageTitle}} {{#jtcd_websiteName}}- {{jtcd_websiteName}} {{/jtcd_websiteName}}">
   <meta name="generator" content="docfx {{_docfxVersion}}">
-  {{#jtcd.pageDescription}}
-  <meta name="description" content="{{jtcd.pageDescription}}">
-  {{/jtcd.pageDescription}}
-  <link rel="shortcut icon" href="{{_rel}}{{#jtcd.faviconRelPath}}{{jtcd.faviconRelPath}}{{/jtcd.faviconRelPath}}{{^jtcd.faviconRelPath}}./resources/favicon.ico{{/jtcd.faviconRelPath}}">
+  {{#jtcd_pageDescription}}
+  <meta name="description" content="{{jtcd_pageDescription}}">
+  {{/jtcd_pageDescription}}
+  <link rel="shortcut icon" href="{{#jtcd_faviconRelPath}}{{jtcd_faviconRelPath}}{{/jtcd_faviconRelPath}}{{^jtcd_faviconRelPath}}/resources/favicon.ico{{/jtcd_faviconRelPath}}">
   <link rel="stylesheet" href="/styles/bundle.css">
   <link rel="stylesheet" href="/styles/customStyles.css">
   <meta property="docfx:navrel" content="{{_navRel}}">

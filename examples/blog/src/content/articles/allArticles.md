@@ -1,14 +1,14 @@
 ---
-jtcd.pageDescription: A list of all articles in this blog, sorted by date.
-jtcd.pageTitle: All Articles
-jtcd.pageID: all-articles
+jtcd_pageDescription: A list of all articles in this blog, sorted by date.
+jtcd_pageTitle: All Articles
+jtcd_pageID: all-articles
 
-jtcd.includeInSal: false
-jtcd.includeInSearchIndex: false
+jtcd_includeInSal: false
+jtcd_includeInSearchIndex: false
 
-jtcd.enableSal: true
-jtcd.disableEditArticle: true
-jtcd.disableMetadata: true
-jtcd.disableRightMenu: true
-jtcd.disableComments: true
+jtcd_enableSal: true
+jtcd_disableEditArticle: true
+jtcd_disableMetadata: true
+jtcd_disableRightMenu: true
+jtcd_disableComments: true
 ---

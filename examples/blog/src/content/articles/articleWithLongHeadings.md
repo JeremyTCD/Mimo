@@ -1,7 +1,7 @@
 ---
-jtcd.pageDescription: This is an example of an article with an extremely length title.
-jtcd.pageTitle: Article with Long Headings
-jtcd.date: 01/02/2016
+jtcd_pageDescription: This is an example of an article with an extremely length title.
+jtcd_pageTitle: Article with Long Headings
+jtcd_date: 01/02/2016
 ---
 
 # Article with Long Headings

@@ -1,17 +1,17 @@
 ---
-jtcd.pageDescription: A page to display if a user attempts to access a non existent page.
-jtcd.pageTitle: Page Not Found
-jtcd.pageID: page-not-found
+jtcd_pageDescription: A page to display if a user attempts to access a non existent page.
+jtcd_pageTitle: Page Not Found
+jtcd_pageID: page-not-found
 
-jtcd.includeInSal: false
-jtcd.includeInSearchIndex: false
+jtcd_includeInSal: false
+jtcd_includeInSearchIndex: false
 
-jtcd.disableBreadcrumbs: true
-jtcd.disableEditArticle: true
-jtcd.disableMetadata: true
-jtcd.disableLeftMenu: true
-jtcd.disableRightMenu: true
-jtcd.disableComments: true
+jtcd_disableBreadcrumbs: true
+jtcd_disableEditArticle: true
+jtcd_disableMetadata: true
+jtcd_disableLeftMenu: true
+jtcd_disableRightMenu: true
+jtcd_disableComments: true
 ---
 
 # Page Not Found

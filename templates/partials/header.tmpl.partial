@@ -2,7 +2,7 @@
     <div class="container">
         <div id="header-logo-and-button">
             <a id="header-logo" href="/index.html">
-                <img class="svg" src="{{_rel}}{{#jtcd.logoRelPath}}{{jtcd.logoRelPath}}{{/jtcd.logoRelPath}}{{^jtcd.logoRelPath}}./resources/logo.svg{{/jtcd.logoRelPath}}" alt="{{jtcd.websiteName}}" />
+                <img class="svg" src="{{#jtcd_logoRelPath}}{{jtcd_logoRelPath}}{{/jtcd_logoRelPath}}{{^jtcd_logoRelPath}}/resources/logo.svg{{/jtcd_logoRelPath}}" alt="{{jtcd_websiteName}}" />
             </a>
             <button id="header-button" type="button">
                 <span></span>
@@ -14,14 +14,14 @@
             <div class="wrapper">
                 <nav id="header-navbar">
                 </nav>
-                {{^jtcd.disableSearch}}
+                {{^jtcd_disableSearch}}
                 <form id="header-search" class="flex" role="search">
                     <svg>
                         <use xlink:href="#material-design-search" />
                     </svg>
                     <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off" />
                 </form>
-                {{/jtcd.disableSearch}}
+                {{/jtcd_disableSearch}}
             </div>
         </div>
 

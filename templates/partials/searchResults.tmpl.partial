@@ -1,4 +1,4 @@
-{{^jtcd.disableSearch}}
+{{^jtcd_disableSearch}}
 <div id="search-results">
     <div id="search-string">
       <div class="container">
@@ -10,5 +10,5 @@
     {{>partials/articleList}}
   </div>
 </div>
-{{/jtcd.disableSearch}}
+{{/jtcd_disableSearch}}
 

@@ -1,7 +1,7 @@
 ---
-jtcd.pageDescription: This is an example of a basic article.
-jtcd.pageTitle: Basic Article
-jtcd.date: 12/04/2017
+jtcd_pageDescription: This is an example of a basic article.
+jtcd_pageTitle: Basic Article
+jtcd_date: 12/04/2017
 ---
 
 # Basic Article

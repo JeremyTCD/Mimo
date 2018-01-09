@@ -1,38 +1,38 @@
 <article class="jtcd-article">
     {{{rawTitle}}}
 
-    {{^jtcd.disableMetadata}}
+    {{^jtcd_disableMetadata}}
     <div class="meta">
         <ul>
-            {{#jtcd.date}}
+            {{#jtcd_date}}
             <li id="metadata-date">
                 <svg>
                     <use xlink:href="#material-design-date" />
                 </svg>
-                <span>{{jtcd.date}}</span>
+                <span>{{jtcd_date}}</span>
             </li>
-            {{/jtcd.date}}
-            {{#jtcd.authorName}}
+            {{/jtcd_date}}
+            {{#jtcd_authorName}}
             <li id="metadata-author">
                 <svg>
                     <use xlink:href="#material-design-person" />
                 </svg>
-                {{#jtcd.githubLink}}
-                <a id="metdata-author-link" href="{{jtcd.githubLink}}" title="{{jtcd.authorName}}">
-                    <span class="author-text">{{jtcd.authorName}}</span>
-                    <img src="{{jtcd.githubLink}}.png?size=16" alt="{{jtcd.authorName}}" />
+                {{#jtcd_githubLink}}
+                <a id="metdata-author-link" href="{{jtcd_githubLink}}" title="{{jtcd_authorName}}">
+                    <span class="author-text">{{jtcd_authorName}}</span>
+                    <img src="{{jtcd_githubLink}}.png?size=16" alt="{{jtcd_authorName}}" />
                 </a>
-                {{/jtcd.githubLink}}
-                {{^jtcd.githubLink}}
-                <span class="author-text">{{jtcd.authorName}}</span>
-                {{/jtcd.githubLink}}
+                {{/jtcd_githubLink}}
+                {{^jtcd_githubLink}}
+                <span class="author-text">{{jtcd_authorName}}</span>
+                {{/jtcd_githubLink}}
             </li>
-            {{/jtcd.authorName}}
+            {{/jtcd_authorName}}
             <li id="metadata-edit-article">
             </li>
         </ul>
     </div>
-    {{/jtcd.disableMetadata}}
+    {{/jtcd_disableMetadata}}
 
     <div id="content">
         {{{conceptual}}}

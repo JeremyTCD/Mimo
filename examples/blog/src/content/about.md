@@ -1,16 +1,16 @@
 ---
-jtcd.pageDescription: A page containing details about this blog.
-jtcd.pageTitle: About
+jtcd_pageDescription: A page containing details about this blog.
+jtcd_pageTitle: About
 
-jtcd.includeInSal: false
-jtcd.includeInSearchIndex: false
+jtcd_includeInSal: false
+jtcd_includeInSearchIndex: false
 
-jtcd.disableBreadcrumbs: true
-jtcd.disableEditArticle: true
-jtcd.disableMetadata: true
-jtcd.disableLeftMenu: true
-jtcd.disableRightMenu: true
-jtcd.disableComments: true
+jtcd_disableBreadcrumbs: true
+jtcd_disableEditArticle: true
+jtcd_disableMetadata: true
+jtcd_disableLeftMenu: true
+jtcd_disableRightMenu: true
+jtcd_disableComments: true
 ---
 
 # About
