@@ -38,7 +38,7 @@ $animated-underline-14px-ypos: 18px;
 $animated-underline-16px-ypos: 20px;
 $animated-underline-32px-ypos: 37px;
 
-@mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: 0.5s, $before: false, $background-color: null, $descenders-gap-width: 1px) {
+@mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: 0.5s, $before: false, $background-color: null) {
     @if ($before) {
         &::before {
             content: "";
@@ -60,7 +60,7 @@ $animated-underline-32px-ypos: 37px;
     }
 
     @if ($background-color) {
-        @include decenders-gap($background-color, $descenders-gap-width);
+        @include decenders-gap($background-color);
     }
 }
 
@@ -74,6 +74,10 @@ $animated-underline-32px-ypos: 37px;
     display: inline;
 }
 
-@mixin decenders-gap($background-color, $width: 1px) {
-    text-shadow: $width 0 0 $background-color, -$width 0 0 $background-color, 0 $width 0 $background-color, 0 -$width 0 $background-color;
+@mixin decenders-gap($background-color) {
+    /*text-shadow: 1px 0 0 $background-color, 
+        2px 0 0 $background-color, 
+        -1px 0 0 $background-color, 
+        -2px 0 0 $background-color;*/
+    text-shadow: 1px 1px 0 $background-color, 1px -1px 0 $background-color, -1px 1px 0 $background-color, -1px -1px 0 $background-color;
 }
