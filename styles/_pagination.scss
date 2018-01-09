@@ -8,48 +8,28 @@ $hover-animation-duration: 0.4s;
 
     li {
         height: 37px;
+        min-width: 37px;
         list-style: none;
         cursor: pointer;
-        align-items: stretch;
-        border: solid 1px $color-primary-border;
-        border-right: none;
-        transition: border-color $hover-animation-duration $ease-out-quad-delayed;
-
-        &:last-child {
-            border-right: solid 1px $color-primary-border;
-        }
 
         svg {
             height: 18px;
             width: 18px;
             fill: $color-primary-text-link;
-        }
-
-        &.first, &.last, &.prev, &.next {
-            a {
-                padding: 0 9px;
-
-                svg {
-                    transition: fill $hover-animation-duration $ease-out-quad-delayed;
-                }
-            }
+            transition: fill $hover-animation-duration $ease-out-quad-delayed;
         }
 
         &.active {
             background-color: $color-secondary;
-            border-color: $color-secondary;
 
             a {
                 color: $color-secondary-text;
             }
-
-            & + li {
-                border-left-color: $color-secondary;
-            }
         }
 
         a {
-            padding: 0 14px;
+            width: 100%;
+            justify-content: center;
             align-items: center;
             background-color: transparent;
         }
@@ -65,14 +45,6 @@ $hover-animation-duration: 0.4s;
 
         &:not(.disabled) {
             &:not(.active) {
-                &:hover {
-                    border-color: $color-primary-text-link;
-
-                    & + li {
-                        border-left-color: $color-primary-text-link;
-                    }
-                }
-
                 a {
                     background-image: linear-gradient(to right, $color-primary-text-link, $color-primary-text-link);
                     background-repeat: no-repeat;
