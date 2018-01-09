@@ -17,7 +17,7 @@
                 {{^jtcd.disableSearch}}
                 <form id="header-search" class="flex" role="search">
                     <svg>
-                        <use xlink:href="/styles/sprite.svg#material-design-search" />
+                        <use xlink:href="#material-design-search" />
                     </svg>
                     <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off" />
                 </form>

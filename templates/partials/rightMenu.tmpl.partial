@@ -6,7 +6,7 @@
         {{#docurl}}
         <a href="{{docurl}}" id="edit-article"  title="Edit article on Github">
             <svg>
-                <use xlink:href="/styles/sprite.svg#material-design-mode-edit" />
+                <use xlink:href="#material-design-mode-edit" />
             </svg>
             <span>Edit Article</span>
         </a>

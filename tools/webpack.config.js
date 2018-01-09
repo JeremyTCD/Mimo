@@ -4,7 +4,7 @@ const Webpack = require('webpack');
 const Path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const FileSystem = require("fs");
-const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+//const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const Autoprefixer = require('autoprefixer');
 
 module.exports = (env) => {
@@ -12,8 +12,11 @@ module.exports = (env) => {
     const isProduction = process.env.NODE_ENV == 'production' || (env && env.NODE_ENV === 'production');
 
     var plugins = [
+        // TODO: This setting extracts the svg sprite sheet so it can be cached. Svg sprites are however, somewhat poorly implemented.
+        // Chrome for example, randomly fails to display sprites - https://stackoverflow.com/questions/35049842/svgs-in-chrome-sometimes-dont-render.
+        //
         // Combines svg files into an svg sprite
-        new SpriteLoaderPlugin({ plainSprite: true }),
+        //new SpriteLoaderPlugin({ plainSprite: true }),
 
         new Webpack.ProvidePlugin({
             $: 'jquery',
@@ -110,8 +113,9 @@ module.exports = (env) => {
                     test: /\.svg$/,
                     use: [
                         {
-                            loader: 'svg-sprite-loader',
-                            options: { extract: true }
+                            loader: 'svg-sprite-loader'//,
+                            // TODO see SpriteLoaderPlugin
+                            // options: { extract: true }
                         },
                         { loader: 'svgo-loader' }
                     ]

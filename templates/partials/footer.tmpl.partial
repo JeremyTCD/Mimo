@@ -6,35 +6,35 @@
                 {{#jtcd.githubLink}}
                 <a class="github-link" href="{{jtcd.githubLink}}">
                  <svg>
-                        <use xlink:href="/styles/sprite.svg#ion-icons-logo-github" />
+                        <use xlink:href="#ion-icons-logo-github" />
                     </svg>
              </a>
                 {{/jtcd.githubLink}}
                 {{#jtcd.twitterLink}}
                 <a class="twitter-link" href="{{jtcd.twitterLink}}">
                     <svg>
-                        <use xlink:href="/styles/sprite.svg#ion-icons-logo-twitter" />
+                        <use xlink:href="#ion-icons-logo-twitter" />
                     </svg>
                 </a>
                 {{/jtcd.twitterLink}}
                 {{#jtcd.instagramLink}}
                 <a class="instagram-link" href="{{jtcd.instagramLink}}">
                     <svg>
-                        <use xlink:href="/styles/sprite.svg#ion-icons-logo-instagram" />
+                        <use xlink:href="#ion-icons-logo-instagram" />
                     </svg>
                 </a>
                 {{/jtcd.instagramLink}}
                 {{#jtcd.facebookLink}}
                 <a class="facebook-link" href="{{jtcd.facebookLink}}">
                     <svg>
-                        <use xlink:href="/styles/sprite.svg#ion-icons-logo-facebook" />
+                        <use xlink:href="#ion-icons-logo-facebook" />
                     </svg>
                 </a>
                 {{/jtcd.facebookLink}}
                 {{#jtcd.googleplusLink}}
                 <a class="googleplus-link" href="{{jtcd.googleplusLink}}">
                     <svg>
-                        <use xlink:href="/styles/sprite.svg#ion-icons-logo-googleplus" />
+                        <use xlink:href="#ion-icons-logo-googleplus" />
                     </svg>
                 </a>
                 {{/jtcd.googleplusLink}}
@@ -77,7 +77,7 @@
             <!--smooth-scroll automatically scroll to top if href is #-->
             <a href="#">
                 <svg>
-                    <use xlink:href="/styles/sprite.svg#material-design-arrow-upward" />
+                    <use xlink:href="#material-design-arrow-upward" />
                 </svg>
             </a>
         </div>

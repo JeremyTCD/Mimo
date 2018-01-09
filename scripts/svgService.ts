@@ -5,7 +5,7 @@ class SvgService {
         let svgElement: SVGElement = document.createElementNS(svgns, 'svg') as SVGElement;
         let useElement: SVGUseElement = document.createElementNS(svgns, 'use') as SVGUseElement;
 
-        useElement.setAttributeNS(xlinkns, 'href', `/styles/sprite.svg#${id}`);
+        useElement.setAttributeNS(xlinkns, 'xlink:href', `#${id}`);
         svgElement.appendChild(useElement);
 
         return svgElement;

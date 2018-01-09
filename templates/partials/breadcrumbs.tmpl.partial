@@ -3,7 +3,7 @@
   <div class="container">
     <button id="toc-button">
         <svg>
-            <use xlink:href="/styles/sprite.svg#material-design-drop-down" />
+            <use xlink:href="#material-design-drop-down" />
         </svg>
     </button>
   </div>

@@ -9,7 +9,7 @@
         {{#topicHref}}
         <a class="topic" data-level="{{level}}" href="{{topicHref}}" name="{{tocHref}}" title="{{name}}">
             <svg>
-                <use xlink:href="/styles/sprite.svg#material-design-chevron-right" />
+                <use xlink:href="#material-design-chevron-right" />
             </svg>
             {{name}}
         </a>
@@ -18,7 +18,7 @@
         {{^topicHref}}
         <span class="topic" data-level="{{level}}">
             <svg>
-                <use xlink:href="/styles/sprite.svg#material-design-chevron-right" />
+                <use xlink:href="#material-design-chevron-right" />
             </svg>
             {{name}}
         </span>

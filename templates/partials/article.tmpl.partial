@@ -7,7 +7,7 @@
             {{#jtcd.date}}
             <li id="metadata-date">
                 <svg>
-                    <use xlink:href="/styles/sprite.svg#material-design-date" />
+                    <use xlink:href="#material-design-date" />
                 </svg>
                 <span>{{jtcd.date}}</span>
             </li>
@@ -15,7 +15,7 @@
             {{#jtcd.authorName}}
             <li id="metadata-author">
                 <svg>
-                    <use xlink:href="/styles/sprite.svg#material-design-person" />
+                    <use xlink:href="#material-design-person" />
                 </svg>
                 {{#jtcd.githubLink}}
                 <a id="metdata-author-link" href="{{jtcd.githubLink}}" title="{{jtcd.authorName}}">
