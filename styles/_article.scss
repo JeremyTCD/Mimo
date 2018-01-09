@@ -144,8 +144,10 @@ article {
                         fill: $color-primary-text;
                     }
 
-                    span {
-                        @include animated-underline($color-primary-text, $animated-underline-14px-ypos, $background-color: $color-primary);
+                    a {
+                        span {
+                            @include animated-underline($color-primary-text, $animated-underline-14px-ypos, $background-color: $color-primary);
+                        }
                     }
 
                     svg, span {
