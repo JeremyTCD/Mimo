@@ -1,11 +1,24 @@
 ﻿import Component from './component';
+import PaginationService from './paginationService';
 
 class SearchResultsComponent extends Component {
+    searchResultsElement: HTMLElement;
+    searchResultsMessageElement: HTMLSpanElement;
+    searchStringMessageElement: HTMLSpanElement;
+    paginationParentElement: HTMLElement;
+    itemsParentElement: HTMLElement;
+
     protected canInitialize(): boolean {
-        return true;
+        this.searchResultsElement = document.getElementById('search-results');
+
+        return this.searchResultsElement ? true : false;
     }
 
     protected setup(): void {
+        this.searchResultsMessageElement = document.querySelector('#search-results > .container > span') as HTMLSpanElement;
+        this.searchStringMessageElement = document.querySelector('#search-string > .container > span') as HTMLSpanElement;
+        this.paginationParentElement = this.searchResultsElement.querySelector('.al-pagination') as HTMLElement;
+        this.itemsParentElement = this.searchResultsElement.querySelector('.al-items') as HTMLElement;
     }
 
     protected registerListeners(): void {
@@ -26,41 +39,32 @@ class SearchResultsComponent extends Component {
         }
     }
 
-    public setSnippets(snippets: string[], queryString: string) {
+    public setSnippets = (snippets: string[], queryString: string) : void => {
         let numPerPage = 5;
 
-        $('#search-results .article-list > .al-pagination').twbsPagination('destroy');
+        $(this.paginationParentElement).twbsPagination('destroy');
 
         if (snippets.length === 0) {
-            $('#search-results .article-list > .al-items').empty();
-            $('#search-string .container > span').text(`No results found for "${queryString}"`);
-            $('#search-results > .container > span').text(`Your search - "${queryString}" - did not match any documents`);
+            this.itemsParentElement.innerHTML = '';
+            this.searchStringMessageElement.textContent = `No results found for "${queryString}" ...`;
+            this.searchResultsMessageElement.textContent = `Your search - "${queryString}" - did not match any articles`;
         } else {
-            $('#search-results > .container > span').text('');
-            $('#search-string .container > span').text(`Search results for "${queryString}" ...`);
-            $('#search-results .article-list > .al-pagination').
-                twbsPagination({
-                    first: ' ',
-                    prev: ' ',
-                    next: ' ',
-                    last: ' ',
-                    totalPages: Math.ceil(snippets.length / numPerPage),
-                    visiblePages: 5,
-                    onPageClick: (event, page) => {
-                        let start = (page - 1) * numPerPage;
-                        let currentSnippets = snippets.slice(start, start + numPerPage);
-                        $('#search-results .article-list > .al-items').
-                            empty().
-                            append(...currentSnippets);
-                        queryString.
-                            split(/\s+/).
-                            forEach((word: string) => {
-                                if (word !== '') {
-                                    $('#search-results .article-list > .al-items *').mark(word);
-                                }
-                            });
-                    }
-                });
+            this.searchStringMessageElement.textContent = `Search results for "${queryString}" ...`;
+            this.searchResultsMessageElement.textContent = '';
+
+            PaginationService.setupPagination(
+                this.paginationParentElement,
+                this.itemsParentElement,
+                snippets,
+                () => {
+                    queryString.
+                        split(/\s+/).
+                        forEach((word: string) => {
+                            if (word !== '') {
+                                $(this.itemsParentElement).mark(word);
+                            }
+                        });
+                })
         }
 
         this.setShown(true);

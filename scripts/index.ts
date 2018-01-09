@@ -29,6 +29,7 @@ import leftMenuComponent from './leftMenuComponent';
 import footerComponent from './footerComponent';
 import rightMenuComponent from './rightMenuComponent';
 import commentsComponent from './commentsComponent';
+import searchResultsComponent from './searchResultsComponent';
 
 import searchService from './searchService';
 import linkService from './linkService';
@@ -43,6 +44,7 @@ $(function () {
     rightMenuComponent.initialize();
     articleComponent.initialize();
     commentsComponent.initialize();
+    searchResultsComponent.initialize();
 
     searchService.setupSearch();
     linkService.setupOpenExternalLinksInNewTab();
