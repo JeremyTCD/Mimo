@@ -1,5 +1,5 @@
 import 'twbs-pagination';
-import SvgService from './svgService';
+import svgService from './svgService';
 import Component from './component';
 import paginationService from './paginationService';
 

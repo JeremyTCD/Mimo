@@ -1,9 +1,9 @@
-﻿import { mediaWidthNarrow } from './mediaService';
-import { getAbsolutePath, isRelativePath } from './pathService';
+﻿import mediaService from './mediaService';
+import pathService from './pathService';
 import transitionsService from './transitionsService';
 import breadcrumbsComponent from './breadcrumbsComponent';
 import Component from './component';
-import EdgeWorkaroundsService from './edgeWorkaroundsService';
+import edgeWorkaroundsService from './edgeWorkaroundsService';
 
 class LeftMenuComponent extends Component {
     bodyContainerElement: HTMLElement;
@@ -27,7 +27,7 @@ class LeftMenuComponent extends Component {
     }
 
     public onScrollListener = (): void => {
-        if (!mediaWidthNarrow() && this.bodyContainerElement.style.display !== 'none') {
+        if (!mediaService.mediaWidthNarrow() && this.bodyContainerElement.style.display !== 'none') {
             this.updateLeftMenu();
         }
     }
@@ -96,18 +96,18 @@ class LeftMenuComponent extends Component {
         if (index > -1) {
             tocrel = tocPath.substr(0, index + 1);
         }
-        let currentHref = getAbsolutePath(window.location.pathname);
+        let currentHref = pathService.getAbsolutePath(window.location.pathname);
 
         $('#left-menu-toc').
             find('a[href]').
             each((index: number, anchorElement: HTMLAnchorElement) => {
                 let href = $(anchorElement).attr("href");
-                if (isRelativePath(href)) {
+                if (pathService.isRelativePath(href)) {
                     href = tocrel + href;
                     $(anchorElement).attr("href", href);
                 }
 
-                if (getAbsolutePath(anchorElement.href) === currentHref) {
+                if (pathService.getAbsolutePath(anchorElement.href) === currentHref) {
                     anchorElement.classList.add('active');
                     let expandableLis = $(anchorElement).
                         parent().
@@ -173,17 +173,17 @@ class LeftMenuComponent extends Component {
 
         // toc should only be fixed if left menu is less than 23 px below top of window
         // and screen is not narrow
-        if (top < 23 && !mediaWidthNarrow()) {
+        if (top < 23 && !mediaService.mediaWidthNarrow()) {
             this.setTocMaxHeight();
 
             if (!fixed) {
                 wrapper.classList.add('fixed');
             }
-            EdgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
+            edgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
         } else if (fixed) {
             wrapper.classList.remove('fixed');
             this.leftMenuTocElement.style.maxHeight = 'initial';
-            EdgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
+            edgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
         }
     }
 

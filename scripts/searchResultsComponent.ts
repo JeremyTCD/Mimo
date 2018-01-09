@@ -1,5 +1,5 @@
 ﻿import Component from './component';
-import PaginationService from './paginationService';
+import paginationService from './paginationService';
 
 class SearchResultsComponent extends Component {
     searchResultsElement: HTMLElement;
@@ -52,7 +52,7 @@ class SearchResultsComponent extends Component {
             this.searchStringMessageElement.textContent = `Search results for "${queryString}" ...`;
             this.searchResultsMessageElement.textContent = '';
 
-            PaginationService.setupPagination(
+            paginationService.setupPagination(
                 this.paginationParentElement,
                 this.itemsParentElement,
                 snippets,

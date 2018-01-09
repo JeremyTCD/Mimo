@@ -1,10 +1,6 @@
-﻿import {
-    mediaWidthNarrow
-} from './mediaService';
+﻿import mediaService from './mediaService';
 import transitionsService from './transitionsService';
-import {
-    generateMultiLevelList
-} from './listItemService';
+import listItemService from './listItemService';
 import Component from './component';
 
 class BreadcrumbsComponent extends Component {
@@ -29,14 +25,14 @@ class BreadcrumbsComponent extends Component {
         });
 
         window.addEventListener('resize', (event: Event) => {
-            if (mediaWidthNarrow()) {
+            if (mediaService.mediaWidthNarrow()) {
                 transitionsService.contractHeightWithoutTransition(leftMenu, tocButton);
             }
         });
     }
 
     private setupBreadcrumbs(): void {
-        let html = generateMultiLevelList(this.breadcrumbs,
+        let html = listItemService.generateMultiLevelList(this.breadcrumbs,
             'breadcrumb',
             1);
         let breadcrumbFrag = document.createRange().createContextualFragment(html);

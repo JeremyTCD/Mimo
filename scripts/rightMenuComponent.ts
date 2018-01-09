@@ -1,7 +1,6 @@
-﻿import { htmlEncode, htmlDecode } from './htmlEncodeService';
-import { mediaWidthWide } from './mediaService';
-import { generateMultiLevelList, generateListItemTree } from './listItemService';
-import EdgeWorkaroundsService from './edgeWorkaroundsService';
+﻿import mediaService from './mediaService';
+import listItemService from './listItemService';
+import edgeWorkaroundsService from './edgeWorkaroundsService';
 import Component from './component';
 
 class RightMenuComponent extends Component {
@@ -45,14 +44,14 @@ class RightMenuComponent extends Component {
     }
 
     public onScrollListener = (): void => {
-        if (mediaWidthWide() && this.mainContainer.style.display !== 'none') {
+        if (mediaService.mediaWidthWide() && this.mainContainer.style.display !== 'none') {
             this.updateRightMenu();
         }
     }
 
     private updateRightMenu(): void {
         let wrapperElement = document.querySelector('#right-menu > .wrapper');
-        if (mediaWidthWide()) {
+        if (mediaService.mediaWidthWide()) {
             let top = wrapperElement.parentElement.getBoundingClientRect().top;
             let fixed = wrapperElement.classList.contains('fixed');
             // max-height placed only on ul since outline title should still be displayed
@@ -63,11 +62,11 @@ class RightMenuComponent extends Component {
                 if (!fixed) {
                     wrapperElement.classList.add('fixed');
                 }
-                EdgeWorkaroundsService.overflowBugWorkaround(this.outlineUlElement);
+                edgeWorkaroundsService.overflowBugWorkaround(this.outlineUlElement);
             } else if (fixed) {
                 wrapperElement.classList.remove('fixed');
                 this.outlineUlElement.style.maxHeight = 'initial';
-                EdgeWorkaroundsService.overflowBugWorkaround(this.outlineUlElement);
+                edgeWorkaroundsService.overflowBugWorkaround(this.outlineUlElement);
             }
             this.setOutlineActiveTopic();
         } else {
@@ -77,7 +76,7 @@ class RightMenuComponent extends Component {
     }
 
     private setRightMenuDomLocation(): void {
-        let wide = mediaWidthWide();
+        let wide = mediaService.mediaWidthWide();
         let rightMenuInArticle = this.articleElement.querySelector('#right-menu');
 
         if (!wide && !rightMenuInArticle) {
@@ -104,8 +103,8 @@ class RightMenuComponent extends Component {
         let titleElement = document.querySelector('main > article > h1');
         let outlineTitle = titleElement ? titleElement.textContent : 'Outline';
 
-        let listItemTree: ListItem = generateListItemTree(headingElements, ['h2', 'h3', 'h4'], 0);
-        let html = generateMultiLevelList(listItemTree.items, '', 1);
+        let listItemTree: ListItem = listItemService.generateListItemTree(headingElements, ['h2', 'h3', 'h4'], 0);
+        let html = listItemService.generateMultiLevelList(listItemTree.items, '', 1);
         $('#outline').append(`<span>${outlineTitle}</span>${html}`);
         $('#outline a').first().addClass('active');
 

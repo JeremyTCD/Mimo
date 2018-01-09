@@ -1,5 +1,5 @@
 ﻿import Component from './component';
-import SvgService from './svgService';
+import svgService from './svgService';
 import * as Clipboard from 'clipboard';
 
 class ArticleComponent extends Component {
@@ -18,7 +18,7 @@ class ArticleComponent extends Component {
         let articleElement: HTMLElement = document.querySelector('.jtcd-article') as HTMLElement;
         let headers: NodeList = articleElement.querySelectorAll('h2, h3, h4');
         let anchorMaster: HTMLAnchorElement = document.createElement('a');
-        let svgElement: SVGElement = SvgService.createSvgExternalSpriteElement('material-design-link');
+        let svgElement: SVGElement = svgService.createSvgExternalSpriteElement('material-design-link');
 
         anchorMaster.classList.add('heading-link');
         anchorMaster.appendChild(svgElement);

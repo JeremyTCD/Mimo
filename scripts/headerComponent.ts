@@ -1,9 +1,5 @@
-import {
-    getAbsolutePath, isRelativePath, getDirectory
-} from './pathService';
-import {
-    mediaWidthNarrow
-} from './mediaService';
+import pathService from './pathService';
+import mediaService from './mediaService';
 import transitionsService from './transitionsService';
 import Component from './component';
 import breadcrumbsComponent from './breadcrumbsComponent';
@@ -26,7 +22,7 @@ class HeaderComponent extends Component {
         });
 
         window.addEventListener('resize', (event: Event) => {
-            if (mediaWidthNarrow()) {
+            if (mediaService.mediaWidthNarrow()) {
                 transitionsService.contractHeightWithoutTransition(wrapper[0], wrapper[0]);
                 document.getElementById('header-button').classList.remove('active');
             }
@@ -79,13 +75,13 @@ class HeaderComponent extends Component {
         if (index > -1) {
             navRel = navbarPath.substr(0, index + 1);
         }
-        let currentAbsPath = getAbsolutePath(window.location.pathname);
+        let currentAbsPath = pathService.getAbsolutePath(window.location.pathname);
 
         $('#header-navbar').
             find('a[href]').
             each(function (index: number, anchorElement: HTMLAnchorElement) {
                 let href = $(anchorElement).attr("href");
-                if (isRelativePath(href)) {
+                if (pathService.isRelativePath(href)) {
                     href = navRel + href;
                     $(anchorElement).attr("href", href);
 
@@ -93,11 +89,11 @@ class HeaderComponent extends Component {
                     let originalHref = anchorElement.name;
                     if (originalHref) {
                         originalHref = navRel + originalHref;
-                        if (getDirectory(getAbsolutePath(originalHref)) === getDirectory(getAbsolutePath(tocPath))) {
+                        if (pathService.getDirectory(pathService.getAbsolutePath(originalHref)) === pathService.getDirectory(pathService.getAbsolutePath(tocPath))) {
                             isActive = true;
                         }
                     } else {
-                        if (getAbsolutePath(href) === currentAbsPath) {
+                        if (pathService.getAbsolutePath(href) === currentAbsPath) {
                             isActive = true;
                         }
                     }
