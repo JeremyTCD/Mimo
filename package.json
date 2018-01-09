@@ -1,14 +1,14 @@
 {
     "version": "0.0.0",
-    "name": "jeremytcd-docfx-themes-basicblog",
+    "name": "jeremytcd-docfx-themes-mimo",
     "description": "A minimalist DocFx blog theme.",
     "keywords": [
         "docfx",
         "theme",
         "blog"
     ],
-    "homepage": "https://github.com/JeremyTCD/DocFx.Themes.BasicBlog",
-    "bugs": "https://github.com/JeremyTCD/DocFx.Themes.BasicBlog/issues",
+    "homepage": "https://github.com/JeremyTCD/DocFx.Themes.Mimo",
+    "bugs": "https://github.com/JeremyTCD/DocFx.Themes.Mimo/issues",
     "license": "MIT",
     "author": "JeremyTCD",
     "files": [

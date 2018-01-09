@@ -8,8 +8,8 @@ Notes for this ReadMe
 - All headers must have a link in the table of contents 
 -->
 
-# BasicBlog 
-[![Build status](https://ci.appveyor.com/api/projects/status/3gt21k5ah72ae31p?svg=true)](https://ci.appveyor.com/project/JeremyTCD/docfx-themes-basicblog)
+# Mimo 
+[![Build status](https://ci.appveyor.com/api/projects/status/3gt21k5ah72ae31p?svg=true)](https://ci.appveyor.com/project/JeremyTCD/docfx-themes-mimo)
 <!--- Add test status once badge with logo is available https://github.com/badges/shields/pull/812 --->
 
 ### Table of Contents  
@@ -22,13 +22,13 @@ Notes for this ReadMe
     * [Configuring at the Global Scope](#configuring-at-the-global-scope)
     * [Configuring at the Page Scope](#configuring-at-the-page-scope)
     * [Options](#options)
-  * [Overriding BasicBlog](#overriding-basicblog)  
+  * [Overriding Mimo](#overriding-mimo)  
   * [Creating Articles](#creating-articles)
 * [Publishing Your Blog](#publishing-your-blog)
-* [Modifying BasicBlog](#modifying-basicblog)  
-  * [Building BasicBlog](#building-basicblog)
-  * [Serving BasicBlog in watch mode](#serving-basicblog-in-watch-mode)
-* [Packing BasicBlog](#packing-basicblog)
+* [Modifying Mimo](#modifying-mimo)  
+  * [Building Mimo](#building-mimo)
+  * [Serving Mimo in watch mode](#serving-mimo-in-watch-mode)
+* [Packing Mimo](#packing-mimo)
 * [Alternatives](#alternatives)  
 * [Further Reading](#further-reading)  
 * [Related Projects](#related-projects)
@@ -36,7 +36,7 @@ Notes for this ReadMe
 * [License](#license)
 
 ## Summary
-BasicBlog is a [DocFx](https://dotnet.github.io/docfx/) blog theme. It is inspired by the [default DocFx theme](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html).  
+Mimo is a [DocFx](https://dotnet.github.io/docfx/) blog theme. It is inspired by the [default DocFx theme](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html).  
 
 Features:
 
@@ -47,17 +47,17 @@ Features:
 - Lazily loaded Disqus comments.
 - Google Analytics.
 - Configurable and customizable architecture.
-- Additionally, BasicBlog itself easy to modify:  
+- Additionally, Mimo itself easy to modify:  
 	- Scripts and styles are organized by component.
 	- Logic is written in Typescript.
 	- Styles are written in Scss.
-	- Webpack powered watch mode (explained [here](#serving-basicblog-in-watch-mode)). Displays changes in real time as you modify BasicBlog. 
+	- Webpack powered watch mode (explained [here](#serving-mimo-in-watch-mode)). Displays changes in real time as you modify Mimo. 
 
-This ReadMe covers everything you need to know to create and publish your blog using the BasicBlog theme. It also covers everything you need to know to modify basic blog. This ReadMe is intentionally verbose so that it is accessible to the widest possible audience. 
+This ReadMe covers everything you need to know to create and publish your blog using the Mimo theme. It also covers everything you need to know to modify Mimo. This ReadMe is intentionally verbose so that it is accessible to the widest possible audience. 
 
 ## Prerequisites
 Install the following command line tools if they aren't already installed:
-1. [Yarn](https://yarnpkg.com/lang/en/docs/install/), the frontend/javascript package manager used to distribute BasicBlog.
+1. [Yarn](https://yarnpkg.com/lang/en/docs/install/), the frontend/javascript package manager used to distribute Mimo.
 2. [DocFx](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html#2-use-docfx-as-a-command-line-tool) command line tool.
 3. [MSBuild](https://www.visualstudio.com/downloads/#other) command line tool (comes with "Build Tools for Visual Studio 2017"). 
 
@@ -66,10 +66,10 @@ Install the following command line tools if they aren't already installed:
 1. Clone this repository:
  
    ```
-   C:\any\path> git clone https://github.com/JeremyTCD/DocFx.Themes.BasicBlog.git
+   C:\any\path> git clone https://github.com/JeremyTCD/DocFx.Themes.Mimo.git
    ```
    
-2. Copy *docfx-themes-basicblog/examples/blog* to a new location. 
+2. Copy *docfx-themes-mimo/examples/blog* to a new location. 
    
    The *blog* directory is a quickstart template. It has the following structure: 
 
@@ -82,7 +82,7 @@ Install the following command line tools if they aren't already installed:
 
    *src* contains the source files for your blog. *docfx.json* is your DocFx configuration file and *package.json* is your Yarn configuration file.
 
-3. Install BasicBlog by running the following command in *blog*:
+3. Install Mimo by running the following command in *blog*:
 
    ```
    C:\your\path\blog> yarn install
@@ -93,7 +93,7 @@ Install the following command line tools if they aren't already installed:
    ```
    |-- /node_modules
        |-- ...
-       |-- /jeremytcd-docfx-themes-basicblog
+       |-- /jeremytcd-docfx-themes-mimo
            |-- /dist
                |-- /theme
                |-- /tools
@@ -101,7 +101,7 @@ Install the following command line tools if they aren't already installed:
        |-- ...
    ```
    
-   The *theme* directory is the BasicBlog DocFx theme. 
+   The *theme* directory is the Mimo DocFx theme. 
    
    Note: It was not necessary to specify what you were installing when you ran `yarn install` because *blog/package.json* is preconfigured with the necessary dependencies.
 
@@ -137,7 +137,7 @@ C:\your\path\blog> yarn run serve [-- -l debug]
 
 This command runs `docfx build`, serves the site on port 3000 (navigate to *localhost:3000* to view it) and starts watching *blog/src*, *blog/docfx.json* and *blog/package.json*. Any change to a watched item causes `docfx build` to run again and reloads the page.
 
-Note: DocFx has to rebuild the entire static site whenever changes are made. This is because DocFx has no built-in watch feature. At the time of writing, DocFx takes about 2.5 seconds to rebuild *docfx-themes-basicblog/examples/blog*. That is pretty slow, but beats manually running `docfx build` and refreshing the page on every change.
+Note: DocFx has to rebuild the entire static site whenever changes are made. This is because DocFx has no built-in watch feature. At the time of writing, DocFx takes about 2.5 seconds to rebuild *docfx-themes-mimo/examples/blog*. That is pretty slow, but beats manually running `docfx build` and refreshing the page on every change.
         
 #### Example: Adding an article in watch mode
 1. Ensure that you are serving your blog in watch mode. Navigate to *http://localhost:3000/articles/allArticles.html*.
@@ -177,7 +177,7 @@ Markdown files in *blog/src/content* are converted into Html fragments by `docfx
 
 In other words, each markdown file corresponds to a unique `<article>` element that resides in a unique Html page. For example, the file *blog/src/content/exampleArticle1.md* is converted into a Html fragment, then inserted into an `<article>` element, which in turn, is then inserted in a Html page named *exampleArticle1.html*.
 
-Within the context of BasicBlog, *article* refers to an `<article>` element and its contents; *Page* refers to a Html page, which includes a header, menus, a footer, an article and more.
+Within the context of Mimo, *article* refers to an `<article>` element and its contents; *Page* refers to a Html page, which includes a header, menus, a footer, an article and more.
 
 Configuration is done by specifying values for a set of options. Values can be specified at two scopes: the global scope and the page scope. A value specified at the global scope applies to all pages. A value specified at the page scope applies only to the configured page. Values specified at the page scope take precedence over values specified at the global scope.
 
@@ -305,21 +305,21 @@ This is the full list of options. Each option is prepended with `jtcd.`. Note th
 | --------- | ---- | ------------- | ----- |
 | jtcd.pageID | String | null | If defined, the string is used as the ID of the html element of the page. This facilitates custom page specific styles and scripts. | 
 
-### Overriding BasicBlog
+### Overriding Mimo
 DocFx themes are simply directories containing resources such as [Mustache templates](https://mustache.github.io/mustache.5.html), stylesheets and scripts. If more than one theme is specified when building a DocFx project, resources from all of the themes are combined into a single theme. Resources from latter themes take precedence. For example, your *blog/docfx.json* has the following `template` property (the property should really be named `theme`, however, DocFx themes were referred to as templates initially):
 
 ```
 "template": [
-    "./node_modules/jeremytcd-docfx-themes-basicblog/dist/theme",
+    "./node_modules/jeremytcd-docfx-themes-mimo/dist/theme",
     "./src/customizations"
 ]
 ```
 
-Resources from *blog/src/customizations* take precedence. *blog/src/customizations* is essentially a theme for overriding files in BasicBlog. It has several intended extensibility points:
+Resources from *blog/src/customizations* take precedence. *blog/src/customizations* is essentially a theme for overriding files in Mimo. It has several intended extensibility points:
 
-* *blog/src/customizations/styles/customStyles.css* can be used to overwrite BasicBlog styles.
-* *blog/src/customizations/styles/customScript.js* can be used to overwrite BasicBlog scripts.
-* Mustache templates can be placed in *blog/src/customizations/partials* to overwrite BasicBlog Mustache templates.
+* *blog/src/customizations/styles/customStyles.css* can be used to overwrite Mimo styles.
+* *blog/src/customizations/styles/customScript.js* can be used to overwrite Mimo scripts.
+* Mustache templates can be placed in *blog/src/customizations/partials* to overwrite Mimo Mustache templates.
 
 #### Example: Overriding colors
 1. Ensure that you are serving your blog in watch mode. Navigate to *localhost:3000*.
@@ -342,51 +342,51 @@ TODO
 ## Publishing Your Blog
 TODO
 
-## Modifying BasicBlog
-The sections above pertain to using BasicBlog as is. You might want to modify BasicBlog to create your own theme instead. This section covers all you need to know to get started. 
+## Modifying Mimo
+The sections above pertain to using Mimo as is. You might want to modify Mimo to create your own theme instead. This section covers all you need to know to get started. 
 
-### Building BasicBlog
+### Building Mimo
 1. Fork this repository. 
 2. Clone your fork:
  
    ```
-   C:\your\path> git clone https://github.com/YourName/DocFx.Themes.BasicBlog.git
+   C:\your\path> git clone https://github.com/YourName/DocFx.Themes.Mimo.git
    ```
    
-3. Install BasicBlog's yarn dependencies by running the following command in the  *docfx-themes-basicblog* directory:
+3. Install Mimo's yarn dependencies by running the following command in the  *docfx-themes-mimo* directory:
     
    ```
-   C:\your\path\docfx-themes-basicblog> yarn install
+   C:\your\path\docfx-themes-mimo> yarn install
    ```
     
-   This command generates a directory named *node_modules*. *node_modules* contains BasicBlog's Yarn dependencies.
+   This command generates a directory named *node_modules*. *node_modules* contains Mimo's Yarn dependencies.
     
-2. Build BasicBlog by running one of the following commands:
+2. Build Mimo by running one of the following commands:
 
    ```
-   C:\your\path\docfx-themes-basicblog> yarn run build-dev
+   C:\your\path\docfx-themes-mimo> yarn run build-dev
    ```
    
    or
    
    ```
-   C:\your\path\docfx-themes-basicblog> yarn run build-production
+   C:\your\path\docfx-themes-mimo> yarn run build-production
    ```
     
-   Both of these commands generate a directory named *dist*. *dist* contains everything that will be included in the BasicBlog Yarn package. Note that when running `build-production`, some files will be minified and some file names will be appended with hashes to help with caching. Production mode is slower and should not be used while developing.
+   Both of these commands generate a directory named *dist*. *dist* contains everything that will be included in the Mimo Yarn package. Note that when running `build-production`, some files will be minified and some file names will be appended with hashes to help with caching. Production mode is slower and should not be used while developing.
     
-### Serving BasicBlog in watch mode
+### Serving Mimo in watch mode
     
-1. To serve BasicBlog in watch mode, a blog project is required so that there is content to display (articles, categories etc). By default, the blog project *docfx-themes-basicblog/examples/blog* is served when you run the following command in *docfx-themes-basicblog*, using an administrator shell:
+1. To serve Mimo in watch mode, a blog project is required so that there is content to display (articles, categories etc). By default, the blog project *docfx-themes-mimo/examples/blog* is served when you run the following command in *docfx-themes-mimo*, using an administrator shell:
  
    ```   
    yarn run serve-dev [-- [-d <blog project directory>] [-l debug]]
    
-   # Append `-- -d <blog project directory>` to use a blog project other than docfx-themes-basicblog/examples/blog. 
+   # Append `-- -d <blog project directory>` to use a blog project other than docfx-themes-mimo/examples/blog. 
    # Append `-- -l debug` to view debug level ouput.
    ```
    
-   The site should be available at port 8080 (navigate to *localhost:8080* to view it). Changes to the contents of the following directories in *docfx-themes-basicblog* will trigger a DocFx rebuild and a page reload: 
+   The site should be available at port 8080 (navigate to *localhost:8080* to view it). Changes to the contents of the following directories in *docfx-themes-mimo* will trigger a DocFx rebuild and a page reload: 
    - *fonts*
    - *misc*
    - *plugins*
@@ -401,7 +401,7 @@ The sections above pertain to using BasicBlog as is. You might want to modify Ba
    
 #### Example: Editing scripts in watch mode
 1. Navigate to *localhost:8080/articles/allArticles.html*.
-2. Edit the following line in *docfx-themes-basicblog/scripts/salComponent.ts*:
+2. Edit the following line in *docfx-themes-mimo/scripts/salComponent.ts*:
     
    ```ts
    class SalComponent extends Component {
@@ -415,12 +415,12 @@ The sections above pertain to using BasicBlog as is. You might want to modify Ba
     
    Your browser should reload the page automatically. Instead of displaying 4 articles, your "All Articles" page should display 2 articles and a link to view the other two.
 
-## Packing BasicBlog
+## Packing Mimo
 
-Pack BasicBlog (or your modified version of it) by running the following command in the *docfx-themes-basicblog* directory:
+Pack Mimo (or your modified version of it) by running the following command in the *docfx-themes-mimo* directory:
     
 ```
-C:\your\path\docfx-themes-basicblog> yarn pack
+C:\your\path\docfx-themes-mimo> yarn pack
 ```
     
 A gzip (*.tgz*) folder will be generated. 
@@ -428,13 +428,13 @@ A gzip (*.tgz*) folder will be generated.
 To use your package locally, in your blog project directory, run the following command:
     
 ```
-C:\your\path\blog> yarn remove jeremytcd-docfx-themes-basicblog
+C:\your\path\blog> yarn remove jeremytcd-docfx-themes-mimo
 ```
     
 Then add your customized package using the following command:
     
 ```
-C:\your\path\blog> yarn add "C:/your/path/jeremytcd-docfx-themes-basicblog-v0.0.0.tgz"    
+C:\your\path\blog> yarn add "C:/your/path/jeremytcd-docfx-themes-mimo-v0.0.0.tgz"    
 ```
     
 Don't forget to clear your Yarn cache or increment the version number in *project.json* if you repack the package.
@@ -450,11 +450,11 @@ If you are looking for an alternative platform, the following are quality altern
 - [Hugo](https://gohugo.io/)
 
 ## Further Reading
-Familiarity with these technologies will make using BasicBlog easier:
+Familiarity with these technologies will make using Mimo easier:
 - [DocFx](https://dotnet.github.io/docfx/)
 - [Yaml](http://yaml.org/spec/1.2/spec.html)
  
-Additionally, if you intend to modify BasicBlog to create your own theme, these 
+Additionally, if you intend to modify Mimo to create your own theme, these 
 technologies will be of interest:  
 - [Typescript](https://www.typescriptlang.org/)  
 - [Sass/Scss](http://sass-lang.com/)
@@ -468,7 +468,7 @@ technologies will be of interest:
 TODO
  
 ## Contributions
-Contributions are welcome! If you are looking for existing issues to work on, they can be found [here](https://github.com/JeremyTCD/DocFx.Themes.BasicBlog/labels/help%20wanted).
+Contributions are welcome! If you are looking for existing issues to work on, they can be found [here](https://github.com/JeremyTCD/DocFx.Themes.Mimo/labels/help%20wanted).
 
 ## License
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/JeremyTCD/JeremyTCD.github.io/dev/License.txt)  
