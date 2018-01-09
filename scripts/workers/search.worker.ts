@@ -44,12 +44,13 @@ import * as lunr from 'lunr';
                 // Start and end wild cards, e.g "correct" will match with "rre". Note that wildcard query strings are not passed 
                 // through the search pipeline since they are hard to stem.
                 q.term("*" + subQueryString + "*", { fields: ['title'], usePipeline: true, boost: 100 })
+                // TODO disabled since there is no way to highlight fuzzily matched words
                 // Fuzzy maching, e.g "correct" will match with search term "correcc"
-                q.term(subQueryString, { fields: ['title'], usePipeline: true, editDistance: 1 })
+                // q.term(subQueryString, { fields: ['title'], usePipeline: true, editDistance: 1 })
 
                 q.term(subQueryString, { fields: ['text'], usePipeline: true, boost: 20 })
                 q.term("*" + subQueryString + "*", { fields: ['text'], usePipeline: true, boost: 10 })
-                q.term(subQueryString, { fields: ['text'], usePipeline: true, editDistance: 1 })
+                // q.term(subQueryString, { fields: ['text'], usePipeline: true, editDistance: 1 })
             })
         });
         let results = [];
