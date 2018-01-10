@@ -1,5 +1,3 @@
-import '../node_modules/mark.js/dist/jquery.mark'; // Use relative path since mark.js has multiple dist files
-
 import searchResultsComponent from './searchResultsComponent';
 import * as lunr from 'lunr';
 

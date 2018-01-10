@@ -1,4 +1,6 @@
-﻿import Component from './component';
+﻿import '../node_modules/mark.js/dist/jquery.mark'; // Use relative path since mark.js has multiple dist files
+
+import Component from './component';
 import paginationService from './paginationService';
 
 class SearchResultsComponent extends Component {
@@ -60,11 +62,14 @@ class SearchResultsComponent extends Component {
                 this.itemsParentElement,
                 snippets,
                 () => {
+                    let marked: string[] = [];
+                    
                     queryString.
                         split(/\s+/).
                         forEach((word: string) => {
-                            if (word !== '') {
+                            if (word !== '' && marked.indexOf(word) === -1) {
                                 $(this.itemsParentElement).mark(word);
+                                marked.push(word);
                             }
                         });
                 })
