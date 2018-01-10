@@ -26,6 +26,9 @@ html, body {
 
 body, body * {
     display: flex;
+    // By default, if an element is tapped in chrome for android, it flashes blue.
+    // This is unecessary since animations are used by mimo to signify successful interation.
+    -webkit-tap-highlight-color: transparent;
 }
 
 html {
