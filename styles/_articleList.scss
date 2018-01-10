@@ -3,7 +3,7 @@
 .article-list {
     flex-direction: column;
     flex-grow: 1;
-    margin-top: -8px;
+    margin-top: -7px;
 
     .al-items {
         flex-direction: column;
@@ -12,12 +12,22 @@
         article {
 
             + article {
-                padding-top: 24px;
+                padding-top: 29px;
             }
 
             h2, h3, h4 {
                 color: $color-primary-text;
                 font-size: $font-size-4;
+
+                & + p{
+                    margin-top: 12px;
+                }
+            }
+
+            p {
+                & + h2, & + h3, & + h4 {
+                    margin-top: 13px;
+                }
             }
 
             h1 {
@@ -29,21 +39,17 @@
                 }
             }
 
-            p {
-                & + h2 {
-                    margin-top: 17px;
-                }
-            }
-
             .meta {
+                margin-top: 4px;
+
                 & + div {
-                    margin-top: 8px;
+                    margin-top: 7px;
                 }
             }
         }
     }
 
     .al-pagination {
-        margin-top: 37px;
+        margin-top: 39px;
     }
 }

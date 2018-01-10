@@ -1,6 +1,6 @@
 ﻿@import 'constants';
 
-$bar-margin-right: 9px;
+$bar-margin-right: 10px;
 $bar-width: 3px;
 
 #right-menu {
@@ -59,8 +59,8 @@ $bar-width: 3px;
                     }
 
                     @media #{$media-wide} {
-                        font-size: $font-size-3;
-                        padding-bottom: 9px;
+                        font-size: $font-size-2;
+                        padding-bottom: 11px;
                     }
                 }
 
@@ -92,12 +92,13 @@ $bar-width: 3px;
                         a {
                             user-select: none;
                             cursor: pointer;
-                            align-items: stretch;
+                            align-items: center;
                             margin-top: 5px;
-                            margin-bottom: 4px;
+                            margin-bottom: 5px;
 
                             @media #{$media-wide} {
                                 &::before {
+                                    height: 15px;
                                     content: "";
                                     margin-right: $bar-margin-right;
                                     width: $bar-width;
@@ -136,7 +137,7 @@ $bar-width: 3px;
 
 #edit-article {
     @media #{$media-wide} {
-        margin-bottom: 23px;
+        margin-bottom: 25px;
     }
 
     align-items: center;
@@ -146,7 +147,7 @@ $bar-width: 3px;
         width: 18px;
         opacity: $opacity-2;
         fill: $color-primary-text;
-        margin-right: 5px;
+        margin-right: 6px;
     }
 
     span {

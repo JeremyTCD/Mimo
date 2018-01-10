@@ -9,7 +9,8 @@
     #search-string {
         font-size: $font-size-2;
         background-color: $color-secondary;
-        height: 37px;
+        min-height: 37px;
+        padding: 8px 0;
         justify-content: center;
         color: $color-secondary-text;
 
