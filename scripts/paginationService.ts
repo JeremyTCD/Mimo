@@ -2,7 +2,8 @@ import svgService from './svgService';
 
 class PaginationService {
     public setupPagination(
-        paginationParentElement: HTMLElement,
+        rootElement: HTMLElement,
+        paginationParentElements: NodeList | HTMLElement[],
         itemsParentElement: HTMLElement,
         items: NodeList | HTMLElement[] | string[],
         onDomReady: () => void = null,
@@ -14,7 +15,7 @@ class PaginationService {
         let nextIcon = svgService.createSvgExternalSpriteElement('material-design-next-page');
         let lastIcon = svgService.createSvgExternalSpriteElement('material-design-last-page');
 
-        $(paginationParentElement).
+        $(paginationParentElements).
             twbsPagination({
                 first: ' ',
                 prev: ' ',
@@ -22,7 +23,7 @@ class PaginationService {
                 last: ' ',
                 totalPages: Math.ceil(items.length / numPerPage),
                 visiblePages: numPageButtons,
-                onPageClick: (event, page) => {
+                onPageClick: (event: JQueryEventObject, page) => {
                     let start = (page - 1) * numPerPage;
                     let currentSnippets = [].slice.call(items, start, start + numPerPage);
 
@@ -38,21 +39,25 @@ class PaginationService {
                         }
                     }
 
-                    paginationParentElement.
-                        querySelector('.first > a').
-                        appendChild(firstIcon);
+                    let firstAnchorElements = rootElement.querySelectorAll('.al-pagination > .first > a');
+                    for (let i = 0; i < firstAnchorElements.length; i++) {
+                        firstAnchorElements[i].appendChild(firstIcon.cloneNode(true));
+                    }
 
-                    paginationParentElement.
-                        querySelector('.prev > a').
-                        appendChild(previousIcon);
+                    let prevAnchorElements = rootElement.querySelectorAll('.al-pagination > .prev > a');
+                    for (let i = 0; i < prevAnchorElements.length; i++) {
+                        prevAnchorElements[i].appendChild(previousIcon.cloneNode(true));
+                    }
 
-                    paginationParentElement.
-                        querySelector('.next > a').
-                        appendChild(nextIcon);
+                    let nextAnchorElements = rootElement.querySelectorAll('.al-pagination > .next > a');
+                    for (let i = 0; i < nextAnchorElements.length; i++) {
+                        nextAnchorElements[i].appendChild(nextIcon.cloneNode(true));
+                    }
 
-                    paginationParentElement.
-                        querySelector('.last > a').
-                        appendChild(lastIcon);
+                    let lastAnchorElements = rootElement.querySelectorAll('.al-pagination > .last > a');
+                    for (let i = 0; i < lastAnchorElements.length; i++) {
+                        lastAnchorElements[i].appendChild(lastIcon.cloneNode(true));
+                    }
 
                     if (onDomReady) {
                         onDomReady();

@@ -5,7 +5,8 @@ class SearchResultsComponent extends Component {
     searchResultsElement: HTMLElement;
     searchResultsMessageElement: HTMLSpanElement;
     searchStringMessageElement: HTMLSpanElement;
-    paginationParentElement: HTMLElement;
+    articleListElement: HTMLElement;
+    paginationParentElements: NodeList;
     itemsParentElement: HTMLElement;
 
     protected canInitialize(): boolean {
@@ -15,9 +16,10 @@ class SearchResultsComponent extends Component {
     }
 
     protected setup(): void {
+        this.articleListElement = this.searchResultsElement.querySelector('.article-list') as HTMLElement;
         this.searchResultsMessageElement = document.querySelector('#search-results > .container > span') as HTMLSpanElement;
         this.searchStringMessageElement = document.querySelector('#search-string > .container > span') as HTMLSpanElement;
-        this.paginationParentElement = this.searchResultsElement.querySelector('.al-pagination') as HTMLElement;
+        this.paginationParentElements = this.searchResultsElement.querySelectorAll('.al-pagination');
         this.itemsParentElement = this.searchResultsElement.querySelector('.al-items') as HTMLElement;
     }
 
@@ -42,7 +44,7 @@ class SearchResultsComponent extends Component {
     public setSnippets = (snippets: string[], queryString: string) : void => {
         let numPerPage = 5;
 
-        $(this.paginationParentElement).twbsPagination('destroy');
+        $(this.paginationParentElements).twbsPagination('destroy');
 
         if (snippets.length === 0) {
             this.itemsParentElement.innerHTML = '';
@@ -53,7 +55,8 @@ class SearchResultsComponent extends Component {
             this.searchResultsMessageElement.textContent = '';
 
             paginationService.setupPagination(
-                this.paginationParentElement,
+                this.articleListElement,
+                this.paginationParentElements,
                 this.itemsParentElement,
                 snippets,
                 () => {

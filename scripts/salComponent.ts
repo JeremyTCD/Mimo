@@ -5,7 +5,8 @@ import paginationService from './paginationService';
 
 class SalComponent extends Component {
     salElement: HTMLElement;
-    paginationParentElement: HTMLElement;
+    articleListElement: HTMLElement;
+    paginationParentElements: NodeList;
     itemsParentElement: HTMLElement;
 
     protected canInitialize(): boolean {
@@ -15,7 +16,8 @@ class SalComponent extends Component {
     }
 
     protected setup(): void {
-        this.paginationParentElement = this.salElement.querySelector('.al-pagination') as HTMLElement;
+        this.articleListElement = this.salElement.querySelector('.article-list') as HTMLElement;
+        this.paginationParentElements = this.salElement.querySelectorAll('.al-pagination');
         this.itemsParentElement = this.salElement.querySelector('.al-items') as HTMLElement;
 
         let numPerPage = 5;
@@ -26,7 +28,8 @@ class SalComponent extends Component {
         }
 
         paginationService.setupPagination(
-            this.paginationParentElement,
+            this.articleListElement,
+            this.paginationParentElements,
             this.itemsParentElement,
             allAlItems)
     }
