@@ -2,6 +2,8 @@
 
 import Component from './component';
 import paginationService from './paginationService';
+import leftMenuComponent from './leftMenuComponent';
+import rightMenuComponent from './rightMenuComponent';
 
 class SearchResultsComponent extends Component {
     searchResultsElement: HTMLElement;
@@ -36,10 +38,13 @@ class SearchResultsComponent extends Component {
             $('.hide-on-search').css('display', 'flex');
             $('#search-results').css('display', 'none');
 
-            // Resize or scroll may have occurred while 'body > .container' was hidden.
-            // Components that react to scroll/resize events must have their listeners executed
-            window.dispatchEvent(new Event('resize'));
-            window.dispatchEvent(new Event('scroll'));
+            // While search results are displayed, main container (including left and right menu) have their dispay set to none.
+            // This means that left and right menu cannot be updated on resize/scroll since they rely on getBoundingClientRect
+            // which is meaningles when they are not displayed. Therefore, just before re-displaying main container, left and 
+            // right menu must be updated. 
+            leftMenuComponent.updateLeftMenu();
+            rightMenuComponent.setRightMenuDomLocation();
+            rightMenuComponent.updateRightMenu();
         }
     }
 

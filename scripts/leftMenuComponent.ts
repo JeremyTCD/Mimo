@@ -166,7 +166,7 @@ class LeftMenuComponent extends Component {
             });
     }
 
-    private updateLeftMenu(): void {
+    public updateLeftMenu(): void {
         let wrapper = document.querySelector('#left-menu > .wrapper');
         let top = wrapper.parentElement.getBoundingClientRect().top;
         let fixed = wrapper.classList.contains('fixed');

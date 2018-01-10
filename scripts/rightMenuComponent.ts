@@ -49,7 +49,7 @@ class RightMenuComponent extends Component {
         }
     }
 
-    private updateRightMenu(): void {
+    public updateRightMenu(): void {
         let wrapperElement = document.querySelector('#right-menu > .wrapper');
         if (mediaService.mediaWidthWide()) {
             let top = wrapperElement.parentElement.getBoundingClientRect().top;
@@ -75,7 +75,7 @@ class RightMenuComponent extends Component {
         }
     }
 
-    private setRightMenuDomLocation(): void {
+    public setRightMenuDomLocation(): void {
         let wide = mediaService.mediaWidthWide();
         let rightMenuInArticle = this.articleElement.querySelector('#right-menu');
 
