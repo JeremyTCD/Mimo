@@ -9,6 +9,14 @@
     padding-right: 23px;
 }
 
+html{
+    height: 100%;
+}
+
+body{
+    min-height: 100%;
+}
+
 html, body {
     font-family: $font-family;
     font-size: $font-size-3;
@@ -25,7 +33,6 @@ html {
 }
 
 body {
-    min-height: 100vh;
     flex-direction: column;
 
     > .container {
