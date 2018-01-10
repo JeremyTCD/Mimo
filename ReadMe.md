@@ -14,6 +14,7 @@ Notes for this ReadMe
 
 ### Table of Contents  
 * [Summary](#summary)  
+* [Browser Compatibility](#browser-compatibility)
 * [Prerequisites](#prerequisites)  
 * [Creating Your Blog](#creating-your-blog) 
   * [Building and Serving Your Blog](#building-and-serving-your-blog)  
@@ -54,6 +55,24 @@ Features:
 	- Webpack powered watch mode (explained [here](#serving-mimo-in-watch-mode)). Displays changes in real time as you modify Mimo. 
 
 This ReadMe covers everything you need to know to create and publish your blog using the Mimo theme. It also covers everything you need to know to modify Mimo. This ReadMe is intentionally verbose so that it is accessible to the widest possible audience. 
+
+## Browser Compatiblity
+### Supported Browsers
+Mimo has been tested on and tuned for the following browsers:
+- Chrome 63+
+- Firefox 57+
+- Edge 16+
+- Opera 50+
+- Chrome for Android 63+
+- Firefox for Android 57+
+- UC Browser for Android 11+
+
+Pending approval of a Browserstack open source account, Mimo will be tested on and tuned for the following browsers:
+- iOS Safari 11+
+- Safari 11+
+
+Mimo does not support the following browsers, but pull requests to add support for them are welcome:
+- IE 11
 
 ## Prerequisites
 Install the following command line tools if they aren't already installed:
