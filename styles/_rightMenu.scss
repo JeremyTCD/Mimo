@@ -118,13 +118,13 @@ $bar-width: 3px;
                             }
 
                             & > span {
-                                // animated-underline only works if the element who's background is animated has a parent that has display block,
-                                // inline-block or inline. In this case it doesn't matter since a has display flex and all its children are just flex items.
-                                display: inline;
+                                // animated-underline only works if the element whose background is animated is an only child or has a parent that has display block,
+                                // inline-block or inline.
+                                // TODO figure out why
 
                                 & > span {
+                                    @include animated-underline($color-primary-text-link, $animated-underline-13px-ypos, $background-color: $color-primary);
                                     margin-right: 14px;
-                                    @include animated-underline($color-primary-text-link, $animated-underline-14px-ypos, $background-color: $color-primary);
                                 }
                             }
                         }
@@ -152,6 +152,6 @@ $bar-width: 3px;
 
     span {
         flex-shrink: 0;
-        @include animated-underline($color-primary-text-link, $animated-underline-14px-ypos, $background-color: $color-primary);
+        @include animated-underline($color-primary-text-link, $animated-underline-13px-ypos, $background-color: $color-primary);
     }
 }

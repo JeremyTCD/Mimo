@@ -146,7 +146,7 @@ article {
 
                     a {
                         span {
-                            @include animated-underline($color-primary-text, $animated-underline-14px-ypos, $background-color: $color-primary);
+                            @include animated-underline($color-primary-text, $animated-underline-13px-ypos, $background-color: $color-primary);
                         }
                     }
 
@@ -180,7 +180,7 @@ article {
         margin-bottom: -6px;
 
         a:not(.heading-link) {
-            @include animated-underline($color-primary-text-link, $animated-underline-16px-ypos, $background-color: $color-primary);
+            @include animated-underline($color-primary-text-link, $animated-underline-15px-ypos, $background-color: $color-primary);
         }
     }
 }
