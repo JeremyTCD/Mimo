@@ -11,6 +11,7 @@ $hover-animation-duration: 0.4s;
         min-width: 37px;
         list-style: none;
         cursor: pointer;
+        background-color: $color-primary-background;
 
         svg {
             height: 18px;
@@ -35,12 +36,7 @@ $hover-animation-duration: 0.4s;
         }
 
         &.disabled {
-            a,
-            a:focus,
-            a:hover {
-                opacity: $opacity-1;
-                cursor: not-allowed;
-            }
+            display: none;
         }
 
         &:not(.disabled) {
@@ -49,7 +45,7 @@ $hover-animation-duration: 0.4s;
                     background-image: linear-gradient(to right, $color-primary-text-link, $color-primary-text-link);
                     background-repeat: no-repeat;
                     background-position: 0 100%;
-                    background-size: 0 100%;
+                    background-size: 100% 0;
                     transition: background-size $hover-animation-duration $ease-out-quad-delayed, color $hover-animation-duration $ease-out-quad-delayed;
 
                     &:hover {

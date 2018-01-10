@@ -3,7 +3,7 @@
 .article-list {
     flex-direction: column;
     flex-grow: 1;
-    margin-top: -9px;
+    margin-top: -8px;
 
     .al-items {
         flex-direction: column;
@@ -12,7 +12,7 @@
         article {
 
             + article {
-                padding-top: 34px;
+                padding-top: 24px;
             }
 
             h2, h3, h4 {
@@ -24,8 +24,7 @@
                 margin-top: 0;
                 font-size: $font-size-6;
                 display: block; // necessary for underlining to work
-
-                > a{
+                > a {
                     @include animated-underline($color-primary-text-link, $animated-underline-32px-ypos, 3px, $background-color: $color-primary);
                 }
             }
@@ -37,7 +36,7 @@
             }
 
             .meta {
-                & + div{
+                & + div {
                     margin-top: 8px;
                 }
             }
@@ -45,6 +44,6 @@
     }
 
     .al-pagination {
-        margin-top: 48px;
+        margin-top: 37px;
     }
 }
