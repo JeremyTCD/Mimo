@@ -54,7 +54,7 @@ header {
                         outline: 0;
                     }
 
-                    &.active {
+                    &.expanded {
                         span {
                             &:nth-child(1) {
                                 transform: translate(0, 6px) rotate(45deg);
@@ -148,6 +148,7 @@ header {
                             }
 
                             &.active {
+                                // TODO some neat way to show which page is active
                             }
 
                             a {

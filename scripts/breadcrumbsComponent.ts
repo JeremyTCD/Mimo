@@ -25,7 +25,7 @@ class BreadcrumbsComponent extends Component {
         });
 
         window.addEventListener('resize', (event: Event) => {
-            if (mediaService.mediaWidthNarrow()) {
+            if (!mediaService.mediaWidthNarrow()) {
                 transitionsService.contractHeightWithoutTransition(leftMenu, tocButton);
             }
         });

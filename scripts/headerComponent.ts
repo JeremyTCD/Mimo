@@ -5,26 +5,28 @@ import Component from './component';
 import breadcrumbsComponent from './breadcrumbsComponent';
 
 class HeaderComponent extends Component {
+    headerButtonElement: HTMLElement;
+
     protected canInitialize(): boolean {
         return true;
     }
 
     protected setup(): void {
+        this.headerButtonElement = document.getElementById('header-button');
+
         this.setupNavbar();
         this.setupSearchInput();
     }
 
     protected registerListeners(): void {
         let wrapper = $('#header-navbar-and-search > .wrapper');
-        document.getElementById('header-button').addEventListener('click', (event: Event) => {
-            transitionsService.toggleHeightWithTransition(wrapper[0], wrapper[0]);
-            (event.currentTarget as HTMLElement).classList.toggle('active');
+        this.headerButtonElement.addEventListener('click', (event: Event) => {
+            transitionsService.toggleHeightWithTransition(wrapper[0], this.headerButtonElement);
         });
 
         window.addEventListener('resize', (event: Event) => {
-            if (mediaService.mediaWidthNarrow()) {
-                transitionsService.contractHeightWithoutTransition(wrapper[0], wrapper[0]);
-                document.getElementById('header-button').classList.remove('active');
+            if (!mediaService.mediaWidthNarrow()) {
+                transitionsService.contractHeightWithoutTransition(wrapper[0], this.headerButtonElement);
             }
         });
     }
