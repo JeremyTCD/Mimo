@@ -61,10 +61,14 @@ button {
     border: none;
     background-color: transparent;
     padding: 0;
+}
 
-    &:focus {
-        outline: none;
-    }
+*:focus {
+    outline: none;
+}
+
+*::-moz-focus-inner{
+    border: 0;
 }
 
 script {
