@@ -1,4 +1,5 @@
 import svgService from './svgService';
+import footerComponent from './footerComponent';
 
 class PaginationService {
     public setupPagination(
@@ -62,6 +63,9 @@ class PaginationService {
                     if (onDomReady) {
                         onDomReady();
                     }
+
+                    // Addition and removal of items will change page height
+                    footerComponent.setBackToTopButtonOpacity();
                 }
             });
     }
