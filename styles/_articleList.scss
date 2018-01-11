@@ -12,14 +12,14 @@
         article {
 
             + article {
-                padding-top: 29px;
+                padding-top: 44px;
             }
 
             h2, h3, h4 {
                 color: $color-primary-text;
                 font-size: $font-size-4;
 
-                & + p{
+                & + p {
                     margin-top: 12px;
                 }
             }
@@ -50,6 +50,6 @@
     }
 
     .al-pagination {
-        margin-top: 39px;
+        margin-top: 56px;
     }
 }
