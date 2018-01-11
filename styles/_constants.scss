@@ -38,29 +38,22 @@ $animated-underline-13px-ypos: 17px;
 $animated-underline-15px-ypos: 19px;
 $animated-underline-32px-ypos: 37px;
 
-@mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: 0.5s, $before: false, $background-color: null) {
-    @if ($before) {
-        &::before {
-            content: "";
-            @include animated-underline-core($color, $y-position, $underline-height, $duration);
-        }
+@mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: 0.5s, $background-color: null) {
+    @include animated-underline-core($color, $y-position, $underline-height, $duration);
+    transition: background-size $duration $ease-out-quad-delayed, text-shadow 0s linear $duration;
 
-        &:hover {
-            &::before {
-                background-size: 100% $underline-height;
-            }
-        }
-    }
-    @else {
-        @include animated-underline-core($color, $y-position, $underline-height, $duration);
-
-        &:hover {
-            background-size: 100% $underline-height;
-        }
+    &:hover {
+        background-size: 100% $underline-height;
     }
 
     @if ($background-color) {
-        @include decenders-gap($background-color);
+        text-shadow: none;
+
+        &:hover {
+            // No mouse enter transition for text-shadow
+            transition: background-size $duration $ease-out-quad-delayed;
+            @include decenders-gap($background-color);
+        }
     }
 }
 
@@ -70,7 +63,6 @@ $animated-underline-32px-ypos: 37px;
     background-repeat: no-repeat;
     background-position: 0 $y-position;
     background-size: 0% $underline-height; // Note: Edge is unable to handle the background-size transition if width is specified as 0 instead of 0%
-    transition: background-size $duration $ease-out-quad-delayed;
     display: inline;
 }
 
