@@ -26,7 +26,7 @@ async function serveDev() {
     }
 
     // Set theme directory
-    var themeDir = path.join(__dirname, `../dist/theme`);
+    var themeDir = `${path.join(__dirname, '../dist/theme')},./src/customizations`;
 
     // Set logging verbosity (use environment variable instead?)
     var logLevel = argv.l ? argv.l.trim() : null;
