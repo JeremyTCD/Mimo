@@ -1,23 +1,31 @@
 import Component from './component';
 
 class FooterComponent extends Component {
+    footerButtonElement: HTMLElement;
+
     protected canInitialize(): boolean {
         return true;
     }
 
     protected setup(): void {
-        this.setBackToTopOpacity();
+        this.footerButtonElement = document.getElementById('footer-button');
+
+        this.setBackToTopButtonOpacity();
     }
 
     protected registerListeners(): void {
-        $(window).on('resize', this.setBackToTopOpacity);
+        window.addEventListener('resize', this.setBackToTopButtonOpacity);
     }
 
-    private setBackToTopOpacity(): void {
-        if ($("body").height() > $(window).height()) {
-            $('#footer-button').css('visibility', 'visible');
-        } else {
-            $('#footer-button').css('visibility', 'hidden');
+    public setBackToTopButtonOpacity = (): void => {
+        let visible = this.footerButtonElement.classList.contains('visible');
+        let footerTop = document.querySelector('footer').getBoundingClientRect().top;
+        let pageScrollable = document.body.offsetHeight > window.innerHeight;
+
+        if (!visible && pageScrollable) {
+            this.footerButtonElement.classList.add('visible');
+        } else if(visible && !pageScrollable){
+            this.footerButtonElement.classList.remove('visible');
         }
     }
 }

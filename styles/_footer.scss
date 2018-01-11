@@ -113,6 +113,12 @@ footer {
         #footer-button {
             margin-left: auto;
             padding-left: 20px;
+            opacity: 0;
+            transition: opacity 0.26s $ease-out-quad;
+
+            &.visible{
+                opacity: $opacity-4;
+            }
 
             a {
                 &:hover {
