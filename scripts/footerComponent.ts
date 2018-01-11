@@ -18,14 +18,16 @@ class FooterComponent extends Component {
     }
 
     public setBackToTopButtonOpacity = (): void => {
-        let visible = this.footerButtonElement.classList.contains('visible');
-        let footerTop = document.querySelector('footer').getBoundingClientRect().top;
-        let pageScrollable = document.body.offsetHeight > window.innerHeight;
+        if (this.footerButtonElement) {
+            let visible = this.footerButtonElement.classList.contains('visible');
+            let footerTop = document.querySelector('footer').getBoundingClientRect().top;
+            let pageScrollable = document.body.offsetHeight > window.innerHeight;
 
-        if (!visible && pageScrollable) {
-            this.footerButtonElement.classList.add('visible');
-        } else if(visible && !pageScrollable){
-            this.footerButtonElement.classList.remove('visible');
+            if (!visible && pageScrollable) {
+                this.footerButtonElement.classList.add('visible');
+            } else if (visible && !pageScrollable) {
+                this.footerButtonElement.classList.remove('visible');
+            }
         }
     }
 }
