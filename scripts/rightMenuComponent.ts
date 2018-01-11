@@ -136,11 +136,11 @@ class RightMenuComponent extends Component {
     }
 
     private setOutlineMaxHeight(): void {
-        let footerHeight = $(window).outerHeight() - $('footer')[0].getBoundingClientRect().top;
-        let maxHeight = $(window).outerHeight()
+        let footerHeight = window.innerHeight - document.querySelector('footer').getBoundingClientRect().top;
+        let maxHeight = window.innerHeight
             - 15 // top gap 
             - 23 // bottom gap
-            - $('#outline > span').outerHeight()
+            - (document.querySelector('#outline > span') as HTMLSpanElement).offsetHeight
             - (this.editArticleElement ? this.editArticleElement.offsetHeight + parseInt(getComputedStyle(this.editArticleElement).marginBottom) : 0)
             - (footerHeight < 0 ? 0 : footerHeight);
 
