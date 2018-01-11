@@ -131,8 +131,15 @@ class RightMenuComponent extends Component {
             }
         }
 
-        document.querySelector('#outline a.active').classList.remove('active');
-        document.querySelectorAll('#outline a').item(activeAnchorIndex).classList.add('active');
+        let oldActiveAnchorElement = document.querySelector('#outline a.active');
+        if (oldActiveAnchorElement) {
+            oldActiveAnchorElement.classList.remove('active');
+        }
+
+        let newActiveAnchorElement = document.querySelectorAll('#outline a').item(activeAnchorIndex);
+        if (newActiveAnchorElement) {
+            newActiveAnchorElement.classList.add('active');
+        }
     }
 
     private setOutlineMaxHeight(): void {
