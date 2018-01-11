@@ -9,12 +9,13 @@
     padding-right: 23px;
 }
 
-html{
-    height: 100%;
-}
-
-body{
-    min-height: 100%;
+body {
+    // Note: The popular mobile browsers fix vh to the entire viewport height (including url bar height) - https: //developers.google.com/web/updates/2016/12/url-bar-resizing.
+    // They fix 100% for html height to viewport height - url bar height. This means that there is no reliable way to avoid overflow immediately after page load.
+    // Consider a page with auto height < (viewport height - url bar), that has its html height set to 100% and body min-height set to 100%: if a drop down is expanded, 
+    // and the page is scrolled down such that the url bar transitions out, and finally the drop down is collapsed, there will be empty whitespace at the bottom of 
+    // the page.
+    min-height: 100vh;
 }
 
 html, body {
@@ -45,7 +46,6 @@ body {
         @media #{$media-narrow} {
             flex-direction: column;
         }
-
         // When screen is narrow, left menu needs to be just beneath breadcrumbs
         @media #{$media-medium}, #{$media-wide} {
             padding-top: 59px;
@@ -67,7 +67,7 @@ button {
     outline: none;
 }
 
-*::-moz-focus-inner{
+*::-moz-focus-inner {
     border: 0;
 }
 
