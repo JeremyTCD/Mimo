@@ -27,7 +27,10 @@
             "jtcd_privacyPolicyRelPath": "/privacypolicy.html",
             "jtcd_contactRelPath": "/about.html#contact",
             "jtcd_logoRelPath": "/resources/logo.svg",
-            "jtcd_favIconRelPath":  "/resources/favicon.ico"
+            "jtcd_favIconRelPath": "/resources/favicon.ico",
+            "jtcd_fontLinks": [
+                { "link": "https://fonts.googleapis.com/css?family=Open+Sans" }
+            ]
         },
         "template": [
             "./node_modules/jeremytcd-docfx-themes-mimo/dist/theme",

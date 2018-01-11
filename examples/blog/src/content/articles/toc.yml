@@ -21,3 +21,6 @@
   - name: Article with Article References
     href: articleWithArticleReferences.md
 - name: Articles that use Custom Styles
+  items:
+  - name: Article with Additional Fonts
+    href: articleWithAdditionalFonts.md
