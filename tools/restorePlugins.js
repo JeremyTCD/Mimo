@@ -1,7 +1,7 @@
 ﻿const exec = require('child_process').exec;
 const path = require('path');
 
-module.exports = function restorePlugins(logLevel) {
+module.exports = function restorePlugins(debug) {
     return new Promise((resolve, reject) => {
         console.log(`start - restore plugins`);
 
@@ -10,7 +10,7 @@ module.exports = function restorePlugins(logLevel) {
                 console.log(stdout);
                 reject();
             } else {
-                if (logLevel === 'debug') {
+                if (debug) {
                     console.log(stdout);
                 }
                 console.log(`complete - restore plugins`);

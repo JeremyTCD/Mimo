@@ -1,8 +1,8 @@
 const copySimpleFilesToDist = require('./copySimpleFilesToDist');
 const restorePlugins = require('./restorePlugins');
 const webpackCompile = require('./webpackCompile');
-const cleanDist = require('./cleanDist');
-const buildBaseDist = require('./buildBaseDist');
+const clean = require('./clean');
+const buildBase = require('./buildBase');
 const argv = require('minimist')(process.argv.slice(2));
 
 async function buildDist() {
@@ -10,8 +10,8 @@ async function buildDist() {
     var logLevel = argv.l ? argv.l.trim() : null;
 
     console.log(`*** start - build dist ***`);
-    await cleanDist();
-    await buildBaseDist(logLevel);
+    await clean();
+    await buildBase(logLevel);
     await webpackCompile(logLevel);
     console.log(`*** complete - build dist ***`);
 }

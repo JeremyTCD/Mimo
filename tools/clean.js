@@ -1,17 +1,17 @@
 ﻿const rimraf = require('rimraf');
 const path = require('path');
 
-module.exports = function cleanDist() {
+// Deletes bin
+module.exports = function clean(docfxProjectDir) {
     return new Promise((resolve, reject) => {
-        console.log(`start - clean dist`);
+        console.log(`start - clean`);
 
-        rimraf(path.join(__dirname, '../dist'), (err) => {
+        rimraf(path.join(docfxProjectDir, './bin'), (err) => {
             if (err) {
                 console.log(`${err.name}\n${err.message}\n${err.stack}`)
                 reject();
             } else {
-                console.log(`complete - clean dist`);
-
+                console.log(`complete - clean`);
                 resolve();
             }
         });
