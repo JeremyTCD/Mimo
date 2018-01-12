@@ -8,6 +8,8 @@ Notes for this ReadMe
 - All headers must have a link in the table of contents 
 -->
 
+**This ReadMe is out of date. It will be updated when changes to the project are complete.**
+
 # Mimo 
 [![Build status](https://ci.appveyor.com/api/projects/status/3gt21k5ah72ae31p?svg=true)](https://ci.appveyor.com/project/JeremyTCD/docfx-themes-mimo)
 <!--- Add test status once badge with logo is available https://github.com/badges/shields/pull/812 --->
@@ -37,24 +39,17 @@ Notes for this ReadMe
 * [License](#license)
 
 ## Summary
-Mimo is a [DocFx](https://dotnet.github.io/docfx/) blog theme. It is inspired by the [default DocFx theme](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html).  
+Mimo is a minimalistic and modern [DocFx](https://dotnet.github.io/docfx/) theme. It is designed with documentation sites and blogs in mind.
 
 Features:
 
-- A page with a list of article snippets sorted by date. 
-- Cient side search with search results that contain article snippets.
-- A menu displaying articles by category.
-- Watch mode (explained [here](#serving-your-blog-in-watch-mode)). Displays changes in real time as you edit your blog.
-- Lazily loaded Disqus comments.
-- Google Analytics.
-- Configurable and customizable architecture.
-- Additionally, Mimo itself easy to modify:  
-	- Scripts and styles are organized by component.
-	- Logic is written in Typescript.
-	- Styles are written in Scss.
-	- Webpack powered watch mode (explained [here](#serving-mimo-in-watch-mode)). Displays changes in real time as you modify Mimo. 
+- Thoughfully designed: Mimo's [design](#TODO-design-overview) is neat, functional and responsive.
+- Customizable: Mimo is [configurable](#configuring-your-blog), [overridable](#overriding-mimo) and [modifiable](#modifying-mimo).
+- Lightweight: Pages weigh in at as little as 90kb (gzipped).
+- Modern: Mimo's [internals](#TODO-internals) follow modern standards for static sites.
+- Free and open source.
 
-This ReadMe covers everything you need to know to create and publish your blog using the Mimo theme. It also covers everything you need to know to modify Mimo. This ReadMe is intentionally verbose so that it is accessible to the widest possible audience. 
+This documentation covers everything you need to know to create and publish your documentation site or blog using Mimo. It also covers everything you need to know to create your own theme by modifying Mimo. This documentation is intentionally verbose so that it is accessible to the widest possible audience. 
 
 ## Browser Compatiblity
 ### Supported Browsers
@@ -65,18 +60,20 @@ Mimo has been tested on and tuned for the following browsers:
 - Opera 50+
 - Chrome for Android 63+
 - Firefox for Android 57+
-- UC Browser for Android 11+
+- Opera for Android 44+
+- Edge for Android 1+
 
-Pending approval of a Browserstack open source account, Mimo will be tested on and tuned for the following browsers:
+Pending approval for a Browserstack open source account, Mimo will be tested on and tuned for the following browsers:
 - iOS Safari 11+
 - Safari 11+
 
-Mimo does not support the following browsers, but pull requests to add support for them are welcome:
+Mimo does not work properly on the following browsers, but pull requests to add support for them are welcome:
 - IE 11
+- UC Browser for Android
 
 ## Prerequisites
-Install the following command line tools if they aren't already installed:
-1. [Yarn](https://yarnpkg.com/lang/en/docs/install/), the frontend/javascript package manager used to distribute Mimo.
+You will need the following command line tools:
+1. [Yarn](https://yarnpkg.com/lang/en/docs/install/), a frontend/javascript package manager.
 2. [DocFx](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html#2-use-docfx-as-a-command-line-tool) command line tool.
 3. [MSBuild](https://www.visualstudio.com/downloads/#other) command line tool (comes with "Build Tools for Visual Studio 2017"). 
 
@@ -119,10 +116,10 @@ Install the following command line tools if they aren't already installed:
            |-- ...
        |-- ...
    ```
-   
-   The *theme* directory is the Mimo DocFx theme. 
-   
-   Note: It was not necessary to specify what you were installing when you ran `yarn install` because *blog/package.json* is preconfigured with the necessary dependencies.
+
+   The *theme* directory is the DocFx theme.  
+
+   Note: It was not necessary to specify what you were installing when you ran `yarn install` since *blog/package.json* is preconfigured with the necessary dependencies.
 
 4. Build your blog by running the following command in *blog*, using an administrator shell: 
     
@@ -132,7 +129,7 @@ Install the following command line tools if they aren't already installed:
    
    This command generates a directory named *_site*. *_site* contains your static site.
    
-   Note: `build` is defined in *blog/package.json*. It deletes *_site* if it already exists then runs `docfx build`, which generates a new *_site*.
+   Note: `build` is a custom [yarn script](https://yarnpkg.com/lang/en/docs/cli/run/) defined in *blog/package.json*. It deletes *_site* if it already exists then runs `docfx build`, which generates a new *_site*.
 
 5. Serve your blog by running the following command in *blog*: 
     
