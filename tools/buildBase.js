@@ -1,12 +1,12 @@
-const copySimpleFilesToDist = require('./copySimpleFilesToDist');
+const copySimpleFilesToTheme = require('./copySimpleFilesToTheme');
 const restorePlugins = require('./restorePlugins');
-const clean = require('./clean');
+const cleanBin = require('./cleanBin');
 
 // Builds base output folder (without files from webpack pipeline)
 module.exports = async function buildBase(docfxProjectDir, debug) {
     console.log(`*** start - build base ***`);
-    await clean(docfxProjectDir);
+    await cleanBin(docfxProjectDir);
     await restorePlugins(debug);
-    await copySimpleFilesToDist(docfxProjectDir);
+    await copySimpleFilesToTheme(docfxProjectDir);
     console.log(`*** complete - build base ***`);
 }

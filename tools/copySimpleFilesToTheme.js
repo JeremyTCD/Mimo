@@ -1,7 +1,7 @@
 const path = require('path');
 const cpy = require('cpy');
 
-module.exports = function copySimpleFilesTodist(docfxProjectDir) {
+module.exports = function copySimpleFilesToTheme(docfxProjectDir) {
     console.log(`start - copy simple files`);
 
     const themeDir = path.join(docfxProjectDir, './bin/theme');
