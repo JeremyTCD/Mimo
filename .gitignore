@@ -5,6 +5,7 @@ tools/obj/
 plugins/
 /**/_site
 /**/obj
+/**/bin
 
 .npmrc
 .vscode
