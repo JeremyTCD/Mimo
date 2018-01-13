@@ -63,7 +63,12 @@ async function serve() {
     const watcher = chokidar.watch(
         foldersToWatch,
         {
-            ignored: [path.join(docfxProjectDir, 'obj'), path.join(docfxProjectDir, 'bin'), path.join(docfxProjectDir, 'node_modules')]
+            ignored: [
+                path.join(docfxProjectDir, 'obj'),
+                path.join(docfxProjectDir, 'bin'),
+                path.join(docfxProjectDir, 'node_modules'),
+                path.join(docfxProjectDir, 'src/customizations/scripts'), // Watched by webpack
+                path.join(docfxProjectDir, 'src/customizations/styles')] // Watched by webpack
         });
     var building = false;
     var pendingBuild = true;

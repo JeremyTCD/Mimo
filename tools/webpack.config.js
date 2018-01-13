@@ -11,12 +11,20 @@ const Glob = require('glob');
 module.exports = (docfxProjectDir, nodeModulesDir) => {
     const isProduction = process.env.NODE_ENV.trim() === 'production';
 
+    const scriptsCustomIndex = Glob.sync(Path.join(docfxProjectDir, 'src/customizations/scripts/customIndex.*'))[0];
+    const stylesCustomIndex = Glob.sync(Path.join(docfxProjectDir, 'src/customizations/styles/customIndex.*'))[0];
+
     var plugins = [
         // TODO: This setting extracts the svg sprite sheet so it can be cached. Svg sprites are however, somewhat poorly implemented.
         // Chrome for example, randomly fails to display sprites - https://stackoverflow.com/questions/35049842/svgs-in-chrome-sometimes-dont-render.
         //
         // Combines svg files into an svg sprite
         //new SpriteLoaderPlugin({ plainSprite: true }),
+        // Used to add requires for custom files
+        new Webpack.DefinePlugin({
+            SCRIPTS_CUSTOM_INDEX: scriptsCustomIndex ? `"${scriptsCustomIndex}"` : false,
+            STYLES_CUSTOM_INDEX: stylesCustomIndex ? `"${stylesCustomIndex}"` : false
+        }),
 
         new Webpack.ProvidePlugin({
             $: 'jquery',

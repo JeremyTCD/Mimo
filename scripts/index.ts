@@ -50,3 +50,11 @@ $(function () {
     linkService.setupOpenExternalLinksInNewTab();
     linkService.setupSmoothScroll();
 })
+
+// These constants are defined by webpack's define plugin (see webpack.config.js)
+if (SCRIPTS_CUSTOM_INDEX) {
+    require(SCRIPTS_CUSTOM_INDEX);
+}
+if (STYLES_CUSTOM_INDEX) {
+    require(STYLES_CUSTOM_INDEX);
+}
