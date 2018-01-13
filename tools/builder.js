@@ -47,7 +47,8 @@ class Builder {
             console.log(`** start - build site **`);
 
             var themeDir = path.join(this.docfxProjectDir, './bin/theme');
-            var themeOption = `-t "${themeDir}"`;
+            var overrideThemeDir = path.join(this.docfxProjectDir, './src/customizations/overrideTheme');
+            var themeOption = `-t "${themeDir},${overrideThemeDir}"`;
             var siteContainingDir = path.join(this.docfxProjectDir, './bin/_site');
             var outputOption = `-o "${siteContainingDir}"`;
 
