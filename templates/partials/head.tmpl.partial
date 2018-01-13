@@ -11,7 +11,6 @@
   {{/jtcd_pageDescription}}
   <link rel="shortcut icon" href="{{#jtcd_faviconRelPath}}{{jtcd_faviconRelPath}}{{/jtcd_faviconRelPath}}{{^jtcd_faviconRelPath}}/resources/favicon.ico{{/jtcd_faviconRelPath}}">
   <link rel="stylesheet" href="/styles/bundle.css">
-  <link rel="stylesheet" href="/styles/customStyles.css">
   {{#jtcd_fontLinks}}
   <link href="{{link}}" rel="stylesheet">
   {{/jtcd_fontLinks}}

@@ -1,59 +1,52 @@
 const path = require('path');
-const argv = require('minimist')(process.argv.slice(2));
 const webpack = require('webpack');
 const webpackDevServer = require('webpack-dev-server');
 const chokidar = require('chokidar');
-const webpackConfig = require('./webpack.config.js');
-const buildBase = require('./buildBase');
-const docfxBuild = require(`./docfxBuild`);
 const fs = require('fs');
+const argv = require('minimist')(process.argv.slice(2));
 
-async function tryBuild(docfxProjectDir, debug) {
+const webpackConfig = require('./webpack.config.js');
+const Parser = require('./parser');
+const Builder = require('./builder');
+
+async function triggerWebpackRecompilation() {
+    // Really dirty, just reading and saving to trigger recompilation.
+    // Chose a file that will always exists and is quite small though.
+    var indexTsPath = path.join(__dirname, '../scripts/index.ts');
+    var content = fs.readFileSync(indexTsPath, "utf8");
+    fs.writeFileSync(indexTsPath, content);
+}
+
+async function tryBuildBasicBin(builder) {
     try {
-        await buildBase(docfxProjectDir, debug);
-        await docfxBuild(docfxProjectDir, debug);
+        await builder.buildBasicBin();
     } catch (err) {
-        // do nothing
+        console.log(err);
+        console.log('serve: Failed to build basic bin, watcher will continue to watch.');
     }
 }
 
 // Builds base dist then builds docfx site using just base dist. Serves pipelineable resources using webpack dev server.
-async function serveDev() {
+async function serve() {
+    const isProduction = process.env.NODE_ENV.trim() === 'production';
+
     // Set debug mode
-    var debug = argv.d ? true : false;
+    const debug = argv.d ? true : false;
+
+    // Initialize parser
+    var parser = new Parser(debug);
 
     // Set docfx project directory
-    if (!argv.p) {
-        throw "Docfx project directory must be specified";
-    }
-    var docfxProjectDir = argv.p.trim();
-    if (!path.isAbsolute(docfxProjectDir)) {
-        docfxProjectDir = path.join(__dirname, docfxProjectDir);
-    }
-    if (!fs.existsSync(docfxProjectDir)) {
-        throw `Docfx project directory ${docfxProjectDir} does not exist`;
-    }
-    if (debug) {
-        console.log(`serveDev: Docfx project directory set to ${docfxProjectDir}`);
-    }
+    var docfxProjectDir = parser.getProjectDir();
 
     // Set node modules directory
-    if (!argv.n) {
-        throw "node_modules directory must be specified";
-    }
-    var nodeModulesDir = argv.n.trim();
-    if (!path.isAbsolute(nodeModulesDir)) {
-        nodeModulesDir = path.join(nodeModulesDir, docfxProjectDir);
-    }
-    if (!fs.existsSync(nodeModulesDir)) {
-        throw `node_modules directory ${nodeModulesDir} does not exist`;
-    }
-    if (debug) {
-        console.log(`serveDev: node_modules directory set to ${nodeModulesDir}`);
-    }
+    var nodeModulesDir = parser.getNodeDir();
+
+    // Initialize builder
+    var builder = new Builder(docfxProjectDir, nodeModulesDir, debug);
 
     // Initial build
-    await tryBuild(docfxProjectDir, debug);
+    await tryBuildBasicBin(builder);
 
     // Start watcher for simple files
     // Note: If all of these directories are watched and one of them does not exist, chokidar fails silently - https://github.com/paulmillr/chokidar/issues/346
@@ -67,10 +60,10 @@ async function serveDev() {
             foldersToWatch.splice(i, 1);
         }
     }
-    var watcher = chokidar.watch(
+    const watcher = chokidar.watch(
         foldersToWatch,
         {
-            ignored: [path.join(docfxProjectDir, 'obj'), path.join(docfxProjectDir, 'bin')]
+            ignored: [path.join(docfxProjectDir, 'obj'), path.join(docfxProjectDir, 'bin'), path.join(docfxProjectDir, 'node_modules')]
         });
     var building = false;
     var pendingBuild = true;
@@ -85,7 +78,16 @@ async function serveDev() {
                 while (pendingBuild) {
                     pendingBuild = false;
                     building = true;
-                    await tryBuild(docfxProjectDir, themeDir, debug);
+                    await tryBuildBasicBin(builder);
+
+                    // TODO In production mode, webpack is configured to append hashes to bundles. This necessitated a webpack plugin that manually replaces bundle 
+                    // urls in _site's html files at the end of each webpack compilation. This means that after docfx build runs and _site's html files are 
+                    // regenerated, they no longer contain the correct bundle links. It is possible to manually replace the urls after each docfx build. This should
+                    // be attempted - carefully. Node's asynchrnous model could result in the read (reading "current" bundle file names) and the write (overwriting
+                    // bundle names in html files) not being atomic.
+                    if (isProduction) {
+                        await triggerWebpackRecompilation();
+                    }
                     building = false;
                 }
 
@@ -109,15 +111,16 @@ async function serveDev() {
 
     // Start webpack-dev-server
     console.log(`start - webpack serve`);
-    var config = webpackConfig();
+    var config = webpackConfig(docfxProjectDir, nodeModulesDir);
     config.entry.bundle.unshift("webpack-dev-server/client?http://localhost:8080/");
     config.resolve.modules.unshift(nodeModulesDir);
     const compiler = webpack(config);
     const server = new webpackDevServer(compiler,
         {
+            inline: false, // This doesn't work, as a result, sock.js gets inlined in bundle.js, making it hard to tell how large bundle.js actually is
             contentBase: path.join(docfxProjectDir, './bin/_site'),
             publicPath: '/styles/',
-            compress: false,
+            compress: isProduction,
             stats: debug ? 'verbose' : 'errors-only'
         });
     server.listen(8080, "127.0.0.1", function () {
@@ -125,4 +128,4 @@ async function serveDev() {
     });
 }
 
-serveDev();
+serve();

@@ -3,13 +3,13 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const Webpack = require('webpack');
 const Path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const FileSystem = require("fs");
+const Fs = require("fs");
 //const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const Autoprefixer = require('autoprefixer');
+const Glob = require('glob');
 
-module.exports = (env) => {
-    // Consider NODE_ENV from command line arguments and environment variables
-    const isProduction = process.env.NODE_ENV == 'production' || (env && env.NODE_ENV === 'production');
+module.exports = (docfxProjectDir, nodeModulesDir) => {
+    const isProduction = process.env.NODE_ENV.trim() === 'production';
 
     var plugins = [
         // TODO: This setting extracts the svg sprite sheet so it can be cached. Svg sprites are however, somewhat poorly implemented.
@@ -56,31 +56,32 @@ module.exports = (env) => {
         // Replace script files with hash-appended names 
         plugins.push(function () {
             this.plugin("done", function (statsData) {
-                debugger;
                 var stats = statsData.toJson();
 
                 if (!stats.errors.length) {
-                    var file = Path.join(__dirname, '../dist/theme/partials/scripts.tmpl.partial');
-                    var html = FileSystem.readFileSync(file, "utf8");
-                    var htmlOutput = html.replace(
-                        /bundle\.js/,
-                        stats.assetsByChunkName.bundle.filter(name => name.endsWith('.js'))[0]);
-                    htmlOutput = htmlOutput.replace(
-                        /vendor\.js/,
-                        stats.assetsByChunkName.vendor
-                    );
-                    htmlOutput = htmlOutput.replace(
-                        /manifest\.js/,
-                        stats.assetsByChunkName.manifest
-                    );
-                    FileSystem.writeFileSync(file, htmlOutput);
+                    var searchGlob = Path.join(docfxProjectDir, './bin/_site/**/*.html');
+                    var files = Glob.sync(searchGlob);
 
-                    file = Path.join(__dirname, '../dist/theme/partials/head.tmpl.partial');
-                    html = FileSystem.readFileSync(file, "utf8");
-                    htmlOutput = html.replace(
-                        /bundle\.css/,
-                        stats.assetsByChunkName.bundle.filter(name => name.endsWith('.css'))[0]);
-                    FileSystem.writeFileSync(file, htmlOutput);
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+
+                        var html = Fs.readFileSync(file, "utf8");
+                        var htmlOutput = html.replace(
+                            /bundle\.js/,
+                            stats.assetsByChunkName.bundle.filter(name => name.endsWith('.js'))[0]);
+                        htmlOutput = htmlOutput.replace(
+                            /vendor\.js/,
+                            stats.assetsByChunkName.vendor
+                        );
+                        htmlOutput = htmlOutput.replace(
+                            /manifest\.js/,
+                            stats.assetsByChunkName.manifest
+                        );
+                        htmlOutput = htmlOutput.replace(
+                            /bundle\.css/,
+                            stats.assetsByChunkName.bundle.filter(name => name.endsWith('.css'))[0]);
+                        Fs.writeFileSync(file, htmlOutput);
+                    }
                 }
             });
         });
@@ -89,7 +90,10 @@ module.exports = (env) => {
     // Add banner after minifying
     plugins.push(new Webpack.BannerPlugin({ banner: 'JeremyTCD.DocFx.Themes.Mimo, Copyright 2017 JeremyTCD', include: /^bundle\..*$/ }));
 
-    var result =  {
+    var result = {
+        devServer: {
+            inline: false
+        },
         entry: {
             // Bundle must be an array so other sources can be added to it (see serve.js)
             bundle: [Path.join(__dirname, '../scripts/index.ts')],
@@ -97,15 +101,15 @@ module.exports = (env) => {
         },
         output: {
             filename: `[name].${isProduction ? '[chunkhash].min.' : ''}js`,
-            path: Path.join(__dirname, '../dist/theme/styles'),
+            path: Path.join(docfxProjectDir, './bin/theme/styles'),
             publicPath: '/styles/'
         },
         resolve: {
             extensions: ['.ts', '.js'],
-            modules: [Path.join(__dirname, '../node_modules')]
+            modules: [nodeModulesDir]
         },
         resolveLoader: {
-            modules: [Path.join(__dirname, '../node_modules')]
+            modules: [nodeModulesDir]
         },
         module: {
             rules: [

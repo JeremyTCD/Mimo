@@ -17,7 +17,6 @@
                 "files": [ "**" ]
             }
         ],
-        "dest": "_site",
         "globalMetadata": {
             "jtcd_websiteName": "Website Name",
             "jtcd_authorName": "Your Name",
@@ -32,10 +31,6 @@
                 { "link": "https://fonts.googleapis.com/css?family=Open+Sans" }
             ]
         },
-        "template": [
-            "./node_modules/jeremytcd-docfx-themes-mimo/dist/theme",
-            "./src/customizations"
-        ],
         "postProcessors": [ "SortedArticleListGenerator", "SearchIndexGenerator" ],
         "sitemap": {
             "baseUrl": "https://yourdomain",
