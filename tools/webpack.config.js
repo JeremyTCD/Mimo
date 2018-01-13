@@ -66,20 +66,24 @@ module.exports = (docfxProjectDir, nodeModulesDir) => {
                         var file = files[i];
 
                         var html = Fs.readFileSync(file, "utf8");
-                        var htmlOutput = html.replace(
-                            /bundle\.js/,
-                            stats.assetsByChunkName.bundle.filter(name => name.endsWith('.js'))[0]);
-                        htmlOutput = htmlOutput.replace(
-                            /vendor\.js/,
-                            stats.assetsByChunkName.vendor
-                        );
-                        htmlOutput = htmlOutput.replace(
-                            /manifest\.js/,
-                            stats.assetsByChunkName.manifest
-                        );
-                        htmlOutput = htmlOutput.replace(
-                            /bundle\.css/,
-                            stats.assetsByChunkName.bundle.filter(name => name.endsWith('.css'))[0]);
+                        // TODO can combine replace calls to avoid repeating logic
+                        htmlOutput = html.
+                            replace(
+                            /<(?:script|link).*?(?:src|href)\s*=\s*".*?\/(([^\/]*)(\.[a-zA-Z]*))"\s*>/g, // script tags cannot be self closing
+                            (match, s1, s2, s3) => {
+                                var assets = stats.assetsByChunkName[s2];
+
+                                if (!assets) {
+                                    throw `Webpack bundle name replacer: No chunk with name ${s2}`;
+                                }
+
+                                var newFile = assets;
+                                if (typeof assets !== 'string') {
+                                    newFile = assets.filter(name => name.endsWith(s3))[0]
+                                }
+
+                                return match.replace(s1, newFile);
+                            });
                         Fs.writeFileSync(file, htmlOutput);
                     }
                 }
@@ -154,7 +158,7 @@ module.exports = (docfxProjectDir, nodeModulesDir) => {
                                 loader: 'postcss-loader',
                                 // Plugin that adds css prefixes: https://github.com/postcss/autoprefixer
                                 // Browsers to add prefixes for specified using: https://github.com/ai/browserslist
-                                options: { plugins: () => [Autoprefixer({browsers: ['last 3 versions', '> 1%']})] }
+                                options: { plugins: () => [Autoprefixer({ browsers: ['last 3 versions', '> 1%'] })] }
                             },
                             { loader: 'sass-loader' }
                         ]
