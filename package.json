@@ -47,7 +47,7 @@
         "name-all-modules-plugin": "^1.0.1",
         "node-sass": "^4.5.0",
         "postcss-loader": "^2.0.10",
-        "rimraf": "^2.6.2", 
+        "rimraf": "^2.6.2",
         "sass-loader": "^6.0.0",
         "smooth-scroll": "^12.1.5",
         "svg-sprite-loader": "^3.6.2",
