@@ -8,6 +8,7 @@ import edgeWorkaroundsService from './edgeWorkaroundsService';
 class LeftMenuComponent extends Component {
     bodyContainerElement: HTMLElement;
     leftMenuTocElement: HTMLElement;
+    leftMenuElement: HTMLElement;
 
     protected canInitialize(): boolean {
         return document.getElementById('left-menu') ? true : false;
@@ -16,6 +17,7 @@ class LeftMenuComponent extends Component {
     protected setup(): void {
         this.bodyContainerElement = document.querySelector('body > .container') as HTMLElement;
         this.leftMenuTocElement = document.getElementById('left-menu-toc');
+        this.leftMenuElement = document.getElementById('left-menu');
 
         this.setupToc();
         this.setupFilter();
@@ -81,13 +83,14 @@ class LeftMenuComponent extends Component {
     }
 
     private setTocMaxHeight(): void {
-        let footerHeight = $(window).outerHeight() - $('footer')[0].getBoundingClientRect().top;
-        let maxHeight = $(window).outerHeight()
+        let footerTop = $('footer')[0].getBoundingClientRect().top
+        let footerHeight = $(window).outerHeight() - footerTop;
+        let tocMaxHeight = $(window).outerHeight()
             - 23 * 2
             - $('#left-menu-filter').outerHeight(true)
             - (footerHeight < 0 ? 0 : footerHeight);
 
-        this.leftMenuTocElement.style.maxHeight = `${maxHeight}px`;
+        this.leftMenuTocElement.style.maxHeight = `${tocMaxHeight}px`;
     }
 
     private setTocActiveTopic(tocPath: string): void {
@@ -168,8 +171,8 @@ class LeftMenuComponent extends Component {
 
     public updateLeftMenu(): void {
         let wrapper = document.querySelector('#left-menu > .wrapper');
-        let top = wrapper.parentElement.getBoundingClientRect().top;
-        let fixed = wrapper.classList.contains('fixed');
+        let top = this.leftMenuElement.getBoundingClientRect().top;
+        let fixed = wrapper.classList.contains('fixed'); // why wrapper? why not on left menu
 
         // toc should only be fixed if left menu is less than 23 px below top of window
         // and screen is not narrow
@@ -177,11 +180,19 @@ class LeftMenuComponent extends Component {
             this.setTocMaxHeight();
 
             if (!fixed) {
+                // If a page's article's height is less than its left menu's height, when the toc's position is set to fixed, the footer will shift up.
+                // This causes the page to shrink vertically, which in turn, increases the top value of all elements (can fit more on the screen, 
+                // so everything moves down). When left menu moves down, this functions triggers again and toc's position is set to initial. Basically,
+                // it becomes impossible to scroll past the point where toc becomes fixed. This simple fix prevents that by preventing footer from shifting up.
+                // Note: clientHeight is rounded to an integer, but I can't find any evidence that it gets rounded up on all browsers, so add 1.
+                this.leftMenuElement.style.minHeight = `${this.leftMenuElement.clientHeight + 1}px`;
+
                 wrapper.classList.add('fixed');
             }
             edgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
         } else if (fixed) {
             wrapper.classList.remove('fixed');
+            this.leftMenuElement.style.minHeight = 'initial';
             this.leftMenuTocElement.style.maxHeight = 'initial';
             edgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
         }

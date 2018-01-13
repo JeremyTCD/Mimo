@@ -60,11 +60,15 @@ class RightMenuComponent extends Component {
                 this.setOutlineMaxHeight();
 
                 if (!fixed) {
+                    // See leftMenuComponent.updateLeftMenu
+                    this.rightMenuElement.style.minHeight = `${this.rightMenuElement.clientHeight + 1}px`;
+
                     wrapperElement.classList.add('fixed');
                 }
                 edgeWorkaroundsService.overflowBugWorkaround(this.outlineUlElement);
             } else if (fixed) {
                 wrapperElement.classList.remove('fixed');
+                this.rightMenuElement.style.minHeight = 'initial';
                 this.outlineUlElement.style.maxHeight = 'initial';
                 edgeWorkaroundsService.overflowBugWorkaround(this.outlineUlElement);
             }
