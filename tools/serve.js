@@ -28,7 +28,7 @@ async function tryBuildBasicBin(builder) {
 
 // Builds base dist then builds docfx site using just base dist. Serves pipelineable resources using webpack dev server.
 async function serve() {
-    const isProduction = process.env.NODE_ENV.trim() === 'production';
+    const isProduction = process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production';
 
     // Set debug mode
     const debug = argv.d ? true : false;

@@ -9,7 +9,8 @@ const Autoprefixer = require('autoprefixer');
 const Glob = require('glob');
 
 module.exports = (docfxProjectDir, nodeModulesDir) => {
-    const isProduction = process.env.NODE_ENV.trim() === 'production';
+    // TODO duplicated logic
+    const isProduction = process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production';
 
     const scriptsCustomIndex = Glob.sync(Path.join(docfxProjectDir, 'src/customizations/scripts/customIndex.*'))[0];
     const stylesCustomIndex = Glob.sync(Path.join(docfxProjectDir, 'src/customizations/styles/customIndex.*'))[0];
