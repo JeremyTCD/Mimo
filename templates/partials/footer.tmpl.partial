@@ -70,7 +70,10 @@
              --></span><!--
              --><span><!--
                  --><a href="https://github.com/JeremyTCD/DocFx.Themes.Mimo">Theme</a> <span class="uninteractive">by</span> <a href="https://jeremytcd.com">JeremyTCD</a><!--
-             --></span>
+             --></span>{{#jtcd_hostLink}}<!--
+             --><span><!--
+                 --><span class="uninteractive">Hosting by</span> {{{jtcd_hostLink}}}<!--
+             --></span>{{/jtcd_hostLink}}
             </div>
         </nav>
         <div id="footer-button">
