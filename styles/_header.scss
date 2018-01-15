@@ -38,14 +38,15 @@ header {
                     border: none;
                     flex-direction: column;
                     //justify-content: space-around; // Does not work with firefox
-
                     span {
                         height: 3px;
                         width: 23px;
                         margin-bottom: 3px;
-                        &:last-child{
+
+                        &:last-child {
                             margin-bottom: 0px;
                         }
+
                         background-color: $color-primary-text-link;
                         transition: transform 0.26s $ease-out-quad, background-color 0.26s $ease-out-quad;
                     }
@@ -120,10 +121,6 @@ header {
                         list-style: none;
                         align-items: center;
 
-                        svg {
-                            display: none;
-                        }
-
                         @media #{$media-narrow} {
                             flex-direction: column;
                             margin-bottom: 14px;
@@ -148,11 +145,16 @@ header {
                             }
 
                             &.active {
-                                // TODO some neat way to show which page is active
+                                a {
+                                    color: $color-primary-text;
+                                    @include animated-underline($color-primary-text, $animated-underline-15px-ypos, $duration: 0.4s, $background-color: $color-primary);
+                                }
                             }
 
-                            a {
-                                @include animated-underline($color-primary-text-link, $animated-underline-15px-ypos, $duration: 0.4s, $background-color: $color-primary);
+                            &:not(.active) {
+                                a {
+                                    @include animated-underline($color-primary-text-link, $animated-underline-15px-ypos, $duration: 0.4s, $background-color: $color-primary);
+                                }
                             }
                         }
                     }
