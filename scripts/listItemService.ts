@@ -1,37 +1,57 @@
 ﻿class ListItemService {
     public generateMultiLevelList(items: ListItem[], classes: string, level: number) {
         let numItems = items.length;
-        let html = '<ul class="level' + level + ' ' + (classes || '') + '">';
+        let ulElement = document.createElement('ul');
+
+        ulElement.setAttribute('class', `level${level} ${classes || ''}`);
 
         for (let i = 0; i < numItems; i++) {
             let item = items[i];
-            let href = item.href;
-            let innerHtml = item.innerHtml;
+            let liElement = document.createElement('li');
 
-            html += '<li>'
-            html += href ? `<a href="${href}">${innerHtml}</a>` : `<span>${innerHtml}</span>`;
-            html += item.items ? this.generateMultiLevelList(item.items, classes, level + 1) : '';
-            html += '</li>';
+            liElement.appendChild(item.element);
+
+            if (item.items) {
+                liElement.appendChild(this.generateMultiLevelList(item.items, classes, level + 1) as HTMLElement);
+            }
+
+            ulElement.appendChild(liElement);
         }
-        html += '</ul>';
-        return html;
+
+        return ulElement;
     }
 
-    public generateListItemTree(elements: HTMLElement[] | NodeList, tags: string[], tagIndex: number): ListItem {
+    public generateListItemTree(elements: HTMLElement[] | NodeList,
+        tags: string[],
+        wrapper: HTMLElement,
+        tagIndex: number): ListItem {
+        let element: HTMLElement = elements[0] as HTMLElement;
+        let newElement: HTMLElement = wrapper.cloneNode() as HTMLElement;
+
+        // These span elements are necessary for animated underlines, quite a hacky solution tho
+        let spanElement1: HTMLElement = document.createElement('span');
+        let spanElement2: HTMLElement = spanElement1.cloneNode() as HTMLElement;
+        spanElement1.innerHTML = (element).innerHTML; 
+        spanElement2.appendChild(spanElement1);
+
+        newElement.appendChild(spanElement2);
+        if (wrapper.tagName === 'A') {
+            newElement.setAttribute('href', `#${element.id}`);
+        }
         let result: ListItem = {
-            innerHtml: `<span><span>${elements[0].textContent}</span></span>`, // Outer span required for text content to have an animated underline - see right menu
-            href: '#' + (elements[0] as HTMLElement).id,
+            element: newElement,
             items: []
         };
 
         let branch: HTMLElement[] = [];
 
         for (let i = 1; i <= elements.length; i++) {
+            // Iterate till next element of equivalent tag (or end of elements) then backtrack and build branch
             if (i === elements.length || elements[i].nodeName.toLowerCase() === tags[tagIndex]) {
                 if (branch.length > 0) {
                     result.
                         items.
-                        push(this.generateListItemTree(branch, tags, tagIndex + 1));
+                        push(this.generateListItemTree(branch, tags, wrapper, tagIndex + 1));
                 }
                 branch = [];
             }

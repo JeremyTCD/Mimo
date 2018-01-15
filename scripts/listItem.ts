@@ -1,5 +1,4 @@
 ﻿interface ListItem {
-    href: string;
-    innerHtml: string;
+    element: HTMLElement
     items: ListItem[];
 }

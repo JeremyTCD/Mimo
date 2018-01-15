@@ -107,9 +107,17 @@ class RightMenuComponent extends Component {
         let titleElement = document.querySelector('main > article > h1');
         let outlineTitle = titleElement ? titleElement.textContent : 'Outline';
 
-        let listItemTree: ListItem = listItemService.generateListItemTree(headingElements, ['h2', 'h3', 'h4'], 0);
-        let html = listItemService.generateMultiLevelList(listItemTree.items, '', 1);
-        $('#outline').append(`<span>${outlineTitle}</span>${html}`);
+        let listItemTree: ListItem = listItemService.generateListItemTree(headingElements,
+            ['h2', 'h3', 'h4'],
+            document.createElement('a'),
+            0);
+        let ulElement = listItemService.generateMultiLevelList(listItemTree.items, '', 1);
+        let outlineElement = document.getElementById('outline');
+        let spanElement = document.createElement('span');
+
+        spanElement.innerHTML = outlineTitle;
+        outlineElement.appendChild(spanElement);
+        outlineElement.appendChild(ulElement);
         $('#outline a').first().addClass('active');
 
         // Remove bottom margin from last anchor so that decorative column does not overextend when screen

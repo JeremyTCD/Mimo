@@ -4,6 +4,7 @@ import transitionsService from './transitionsService';
 import breadcrumbsComponent from './breadcrumbsComponent';
 import Component from './component';
 import edgeWorkaroundsService from './edgeWorkaroundsService';
+import svgService from './svgService';
 
 class LeftMenuComponent extends Component {
     bodyContainerElement: HTMLElement;
@@ -52,10 +53,18 @@ class LeftMenuComponent extends Component {
             // TODO check status too
             if (getTocRequest.readyState === XMLHttpRequest.DONE) {
                 let tocFrag = document.createRange().createContextualFragment(getTocRequest.responseText);
+                let svgElement: SVGElement = svgService.createSvgExternalSpriteElement('material-design-chevron-right');
+                let items = tocFrag.querySelectorAll('li > a, li > span');
+
+                for (let i = 0; i < items.length; i++) {
+                    let item = items[i];
+                    item.insertBefore(svgElement.cloneNode(true), item.firstChild);
+                }
+
                 this.leftMenuTocElement.appendChild(tocFrag);
 
-                this.setTocTopicPadding();
                 this.setTocActiveTopic(tocPath);
+                this.setTocTopicPadding();
                 this.registerTocTopicListener();
             }
         }

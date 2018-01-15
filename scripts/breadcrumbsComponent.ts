@@ -32,20 +32,18 @@ class BreadcrumbsComponent extends Component {
     }
 
     private setupBreadcrumbs(): void {
-        let html = listItemService.generateMultiLevelList(this.breadcrumbs,
+        let ulElement = listItemService.generateMultiLevelList(this.breadcrumbs,
             'breadcrumb',
             1);
-        let breadcrumbFrag = document.createRange().createContextualFragment(html);
 
         let breadcrumbsContainer = document.querySelector('#breadcrumbs>.container');
-        breadcrumbsContainer.insertBefore(breadcrumbFrag, breadcrumbsContainer.childNodes[0]);
+        breadcrumbsContainer.insertBefore(ulElement, breadcrumbsContainer.childNodes[0]);
     }
 
     public loadRootBreadCrumb(anchorElement: HTMLAnchorElement): void {
         if (!this.rootBreadcrumbLoaded) {
             this.breadcrumbs.unshift({
-                href: anchorElement.href,
-                innerHtml: anchorElement.innerHTML,
+                element: anchorElement.cloneNode(true) as HTMLElement,
                 items: null
             });
 
@@ -56,12 +54,16 @@ class BreadcrumbsComponent extends Component {
         }
     }
 
-    public loadChildBreadcrumbs(anchorElements: HTMLAnchorElement[]): void {
+    public loadChildBreadcrumbs(elements: HTMLElement[]): void {
         if (!this.childBreadcrumbsLoaded) {
-            for (let i = anchorElements.length - 1; i >= 0; i--) {
+            for (let i = elements.length - 1; i >= 0; i--) {
+                let element = elements[i];
+                let clone = element.cloneNode(true) as HTMLElement;
+
+                clone.removeChild(clone.querySelector('svg'));
+
                 this.breadcrumbs.push({
-                    href: anchorElements[i].href,
-                    innerHtml: anchorElements[i].innerHTML,
+                    element: clone,
                     items: null
                 });
             }
