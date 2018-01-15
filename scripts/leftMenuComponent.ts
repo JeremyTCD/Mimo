@@ -191,13 +191,13 @@ class LeftMenuComponent extends Component {
             if (!fixed) {
                 // If a page's article's height is less than its left menu's height, when the toc's position is set to fixed, the footer will shift up.
                 // This causes the page to shrink vertically, which in turn, increases the top value of all elements (can fit more on the screen, 
-                // so everything moves down). When left menu moves down, this functions triggers again and toc's position is set to initial. Basically,
+                // so everything moves down). When left menu moves down, this functions triggers again and toc's position is set to initial. This makes 
                 // it becomes impossible to scroll past the point where toc becomes fixed. This simple fix prevents that by preventing footer from shifting up.
                 // Note: clientHeight is rounded to an integer, but I can't find any evidence that it gets rounded up on all browsers, so add 1.
                 this.leftMenuElement.style.minHeight = `${this.leftMenuElement.clientHeight + 1}px`;
 
                 wrapper.classList.add('fixed');
-            }
+            } 
             edgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
         } else if (fixed) {
             wrapper.classList.remove('fixed');

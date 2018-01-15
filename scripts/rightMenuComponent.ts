@@ -74,6 +74,7 @@ class RightMenuComponent extends Component {
             }
             this.setOutlineActiveTopic();
         } else {
+            this.rightMenuElement.style.minHeight = 'initial';
             this.outlineUlElement.style.maxHeight = 'initial';
             wrapperElement.classList.remove('fixed');
         }
