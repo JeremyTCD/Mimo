@@ -27,26 +27,18 @@ footer {
                 padding-top: 28px;
 
                 > span {
-                    display: block;
-
-                    * {
-                        vertical-align: middle;
-                    }
-
-                    span {
-                        display: inline;
-                    }
+                    // Since spans and anchors are in different elements, wrapping will break up sentences
+                    flex-wrap: nowrap;
+                    align-items: center;
 
                     &::after {
                         content: "";
-                        height: 3px;
-                        width: 3px;
+                        height: 11px;
+                        width: 2px;
                         background-color: $color-primary;
                         margin-right: 5px;
                         margin-left: 5px;
                         opacity: $opacity-1;
-                        display: inline-block;
-                        vertical-align: middle;
                     }
 
                     &:last-child {
@@ -57,13 +49,13 @@ footer {
                 }
 
                 a {
+                    white-space: pre;
                     @include animated-underline($color-secondary-text, $animated-underline-11px-ypos, $background-color: $color-secondary);
                 }
             }
-
             #footer-legal {
                 flex-wrap: wrap;
-                padding-top: 23px;
+                padding-top: 24px;
 
                 span {
                     align-items: center;
