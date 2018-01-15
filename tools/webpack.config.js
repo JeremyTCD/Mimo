@@ -77,20 +77,22 @@ module.exports = (docfxProjectDir, nodeModulesDir) => {
                         // TODO can combine replace calls to avoid repeating logic
                         htmlOutput = html.
                             replace(
-                            /<(?:script|link).*?(?:src|href)\s*=\s*".*?\/(([^\/]*)(\.[a-zA-Z]*))"\s*>/g, // script tags cannot be self closing
+                            /<(?:script|link).*?(?:src|href)\s*=\s*".*?\/(([^\/]*)(\.[a-zA-Z]+))"\s*>/g, // script tags cannot be self closing
                             (match, s1, s2, s3) => {
                                 var assets = stats.assetsByChunkName[s2];
 
-                                if (!assets) {
-                                    throw `Webpack bundle name replacer: No chunk with name ${s2}`;
+                                if (assets) {
+
+                                    var newFile = assets;
+                                    if (typeof assets !== 'string') {
+                                        newFile = assets.filter(name => name.endsWith(s3))[0]
+                                    }
+
+                                    return match.replace(s1, newFile);
+                                } else {
+                                    return match;
                                 }
 
-                                var newFile = assets;
-                                if (typeof assets !== 'string') {
-                                    newFile = assets.filter(name => name.endsWith(s3))[0]
-                                }
-
-                                return match.replace(s1, newFile);
                             });
                         Fs.writeFileSync(file, htmlOutput);
                     }
