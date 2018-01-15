@@ -78,7 +78,7 @@ module.exports = (docfxProjectDir, nodeModulesDir) => {
                         // TODO can combine replace calls to avoid repeating logic
                         htmlOutput = html.
                             replace(
-                            /<(?:script|link).*?(?:src|href)\s*=\s*".*?\/(([^\/]*)(\.[a-zA-Z]+))"\s*>/g, // script tags cannot be self closing
+                            /<(?:script|link).*?(?:src|href)\s*=\s*".*?\/(([^\/]*?)(?:\..+?)*(\.[a-zA-Z]+))"\s*>/g, // script tags cannot be self closing
                             (match, s1, s2, s3) => {
                                 var assets = stats.assetsByChunkName[s2];
 
