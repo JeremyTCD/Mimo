@@ -37,6 +37,10 @@ class SearchResultsComponent extends Component {
             $('.hide-on-search').css('display', 'flex');
             $('#search-results').css('display', 'none');
 
+            // Reset
+            this.itemsParentElement.innerHTML = '';
+            $(this.paginationParentElements).twbsPagination('destroy');
+
             // While search results are displayed, main container (including left and right menu) have their dispay set to none.
             // This means that left and right menu cannot be updated on resize/scroll since they rely on getBoundingClientRect
             // which is meaningles when they are not displayed. Therefore, just before re-displaying main container, left and 
