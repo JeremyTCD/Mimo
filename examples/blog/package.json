@@ -6,13 +6,13 @@
     "scripts": {
         "serve-dev": "set NODE_ENV=development && npm run serve",
         "serve-production": "set NODE_ENV=production && npm run serve",
-        "serve": "node node_modules/jeremytcd-docfx-themes-mimo/dist/tools/serve.js -p ../../../../ -n ../../../",
+        "serve": "node node_modules/mimo-theme/dist/tools/serve.js -p ../../../../ -n ../../../",
         "build-dev": "set NODE_ENV=development && npm run build",
         "build-production": "set NODE_ENV=production && npm run build",
         "build": "node tools/build.js -p ../../../../ -n ../../../"
     },
     "dependencies": {},
     "devDependencies": {
-        "jeremytcd-docfx-themes-mimo": "latest"
+        "mimo-theme": "latest"
     }
 }
