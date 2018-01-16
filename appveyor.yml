@@ -1,20 +1,18 @@
 version: '{build}'
-on:
-  appveyor_repo_tag: true
+skip_non_tags: true
 image: Visual Studio 2017
 environment:
   npm_token:
     secure: 6EuYnTHhFGD0uTKWxNy17MiH1oANxoFqKjbC+LaExoPJha6g9K337TiZ5rvXrBuW
 install:
-- cmd: if not exist "./node_modules" yarn install --pure-lockfile --ignore-optional
 - ps: Install-Product node 8.9.1 x64
+- cmd: if not exist "./node_modules" yarn install --pure-lockfile
 build_script:
 - ps: |
-    yarn run build-production
+    yarn run build-dist
     new-item .npmrc -type file
     add-content .npmrc "//registry.npmjs.org/:_authToken=$($env:npm_token)"
-    yarn version $env:APPVEYOR_REPO_TAG_NAME
-    yarn publish
+    yarn publish --new-version $env:APPVEYOR_REPO_TAG_NAME
 cache:
     - node_modules -> package.json
 test: off
