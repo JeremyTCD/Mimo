@@ -50,23 +50,25 @@ async function serve() {
 
     // Start watcher for simple files
     // Note: If all of these directories are watched and one of them does not exist, chokidar fails silently - https://github.com/paulmillr/chokidar/issues/346
-    var foldersToWatch = [docfxProjectDir,
-        path.join(__dirname, '../templates'),
-        path.join(__dirname, '../plugins'),
-        path.join(__dirname, '../fonts'),
-        path.join(__dirname, '../misc')];
+    var foldersToWatch = [path.join(docfxProjectDir, 'src'),
+    path.join(__dirname, '../templates'),
+    path.join(__dirname, '../plugins'),
+    path.join(__dirname, '../fonts'),
+    path.join(__dirname, '../misc')];
     for (var i = foldersToWatch.length - 1; i >= 0; i--) {
         if (!fs.existsSync(foldersToWatch[i])) {
             foldersToWatch.splice(i, 1);
         }
     }
+
+    // If chokidar is set to watch a specific file and the file is written over (this happens when you save changes to the file), 
+    // chokidar will no longer watch the file. Therefore, to watch specific files, a glob must be used - https://github.com/paulmillr/chokidar/issues/601#issuecomment-299198825.
+    foldersToWatch.push(path.join(docfxProjectDir, '/[d]ocfx.json'));
+
     const watcher = chokidar.watch(
         foldersToWatch,
         {
             ignored: [
-                path.join(docfxProjectDir, 'obj'),
-                path.join(docfxProjectDir, 'bin'),
-                path.join(docfxProjectDir, 'node_modules'),
                 path.join(docfxProjectDir, 'src/customizations/scripts'), // Watched by webpack
                 path.join(docfxProjectDir, 'src/customizations/styles')] // Watched by webpack
         });
