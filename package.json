@@ -1,15 +1,15 @@
 {
-    "version": "123.0.0",
-    "name": "jeremytcd-docfx-themes-mimo",
-    "description": "Mimo is a minimalist, modern DocFx theme.",
+    "version": "0.0.0",
+    "name": "mimo-theme",
+    "description": "Mimo is a minimalistic, modern, documentation/blog theme.",
     "keywords": [
         "docfx",
         "theme",
         "documentation",
         "blog"
     ],
-    "homepage": "https://github.com/JeremyTCD/DocFx.Themes.Mimo",
-    "bugs": "https://github.com/JeremyTCD/DocFx.Themes.Mimo/issues",
+    "homepage": "https://github.com/JeremyTCD/Mimo",
+    "bugs": "https://github.com/JeremyTCD/Mimo/issues",
     "license": "CC-BY-4.0",
     "author": "JeremyTCD",
     "files": [
