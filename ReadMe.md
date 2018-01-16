@@ -73,7 +73,7 @@ Mimo does not work properly on the following browsers, but pull requests to add 
 
 ## Prerequisites
 You will need the following command line tools:
-1. [Yarn](https://yarnpkg.com/lang/en/docs/install/), a frontend/javascript package manager.
+1. [Npm](https://npmpkg.com/lang/en/docs/install/), a frontend/javascript package manager.
 2. [DocFx](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html#2-use-docfx-as-a-command-line-tool) command line tool.
 3. [MSBuild](https://www.visualstudio.com/downloads/#other) command line tool (comes with "Build Tools for Visual Studio 2017"). 
 
@@ -96,12 +96,12 @@ You will need the following command line tools:
        |-- package.json
    ```    
 
-   *src* contains the source files for your blog. *docfx.json* is your DocFx configuration file and *package.json* is your Yarn configuration file.
+   *src* contains the source files for your blog. *docfx.json* is your DocFx configuration file and *package.json* is your Npm configuration file.
 
 3. Install Mimo by running the following command in *blog*:
 
    ```
-   C:\your\path\blog> yarn install
+   C:\your\path\blog> npm install
    ```
    
    This command generates a directory named *node_modules*. *node_modules* will have the following structure:
@@ -119,17 +119,17 @@ You will need the following command line tools:
 
    The *theme* directory is the DocFx theme.  
 
-   Note: It was not necessary to specify what you were installing when you ran `yarn install` since *blog/package.json* is preconfigured with the necessary dependencies.
+   Note: It was not necessary to specify what you were installing when you ran `npm install` since *blog/package.json* is preconfigured with the necessary dependencies.
 
 4. Build your blog by running the following command in *blog*, using an administrator shell: 
     
    ```
-   C:\your\path\blog> yarn run build
+   C:\your\path\blog> npm run build
    ```
    
    This command generates a directory named *_site*. *_site* contains your static site.
    
-   Note: `build` is a custom [yarn script](https://yarnpkg.com/lang/en/docs/cli/run/) defined in *blog/package.json*. It deletes *_site* if it already exists then runs `docfx build`, which generates a new *_site*.
+   Note: `build` is a custom [npm script](https://npmpkg.com/lang/en/docs/cli/run/) defined in *blog/package.json*. It deletes *_site* if it already exists then runs `docfx build`, which generates a new *_site*.
 
 5. Serve your blog by running the following command in *blog*: 
     
@@ -146,7 +146,7 @@ Serve your blog in watch mode by running the following command in *blog*, using 
 administrator shell: 
     
 ```
-C:\your\path\blog> yarn run serve [-- -l debug]
+C:\your\path\blog> npm run serve [-- -l debug]
 
 # Append "-- -l debug" to view debug level output.
 ```
@@ -369,34 +369,34 @@ The sections above pertain to using Mimo as is. You might want to modify Mimo to
    C:\your\path> git clone https://github.com/YourName/DocFx.Themes.Mimo.git
    ```
    
-3. Install Mimo's yarn dependencies by running the following command in the  *docfx-themes-mimo* directory:
+3. Install Mimo's npm dependencies by running the following command in the  *docfx-themes-mimo* directory:
     
    ```
-   C:\your\path\docfx-themes-mimo> yarn install
+   C:\your\path\docfx-themes-mimo> npm install
    ```
     
-   This command generates a directory named *node_modules*. *node_modules* contains Mimo's Yarn dependencies.
+   This command generates a directory named *node_modules*. *node_modules* contains Mimo's Npm dependencies.
     
 2. Build Mimo by running one of the following commands:
 
    ```
-   C:\your\path\docfx-themes-mimo> yarn run build-dev
+   C:\your\path\docfx-themes-mimo> npm run build-dev
    ```
    
    or
    
    ```
-   C:\your\path\docfx-themes-mimo> yarn run build-production
+   C:\your\path\docfx-themes-mimo> npm run build-production
    ```
     
-   Both of these commands generate a directory named *dist*. *dist* contains everything that will be included in the Mimo Yarn package. Note that when running `build-production`, some files will be minified and some file names will be appended with hashes to help with caching. Production mode is slower and should not be used while developing.
+   Both of these commands generate a directory named *dist*. *dist* contains everything that will be included in the Mimo Npm package. Note that when running `build-production`, some files will be minified and some file names will be appended with hashes to help with caching. Production mode is slower and should not be used while developing.
     
 ### Serving Mimo in watch mode
     
 1. To serve Mimo in watch mode, a blog project is required so that there is content to display (articles, categories etc). By default, the blog project *docfx-themes-mimo/examples/blog* is served when you run the following command in *docfx-themes-mimo*, using an administrator shell:
  
    ```   
-   yarn run serve-dev [-- [-d <blog project directory>] [-l debug]]
+   npm run serve-dev [-- [-d <blog project directory>] [-l debug]]
    
    # Append `-- -d <blog project directory>` to use a blog project other than docfx-themes-mimo/examples/blog. 
    # Append `-- -l debug` to view debug level ouput.
@@ -436,7 +436,7 @@ The sections above pertain to using Mimo as is. You might want to modify Mimo to
 Pack Mimo (or your modified version of it) by running the following command in the *docfx-themes-mimo* directory:
     
 ```
-C:\your\path\docfx-themes-mimo> yarn pack
+C:\your\path\docfx-themes-mimo> npm pack
 ```
     
 A gzip (*.tgz*) folder will be generated. 
@@ -444,16 +444,16 @@ A gzip (*.tgz*) folder will be generated.
 To use your package locally, in your blog project directory, run the following command:
     
 ```
-C:\your\path\blog> yarn remove jeremytcd-docfx-themes-mimo
+C:\your\path\blog> npm remove jeremytcd-docfx-themes-mimo
 ```
     
 Then add your customized package using the following command:
     
 ```
-C:\your\path\blog> yarn add "C:/your/path/jeremytcd-docfx-themes-mimo-v0.0.0.tgz"    
+C:\your\path\blog> npm add "C:/your/path/jeremytcd-docfx-themes-mimo-v0.0.0.tgz"    
 ```
     
-Don't forget to clear your Yarn cache or increment the version number in *project.json* if you repack the package.
+Don't forget to clear your Npm cache or increment the version number in *project.json* if you repack the package.
 
 ## Alternatives
 DocFx is geared toward generating documentation sites. There are however, some pros for using DocFx to generate your blog:
@@ -476,7 +476,7 @@ technologies will be of interest:
 - [Sass/Scss](http://sass-lang.com/)
 - [Mustache](https://mustache.github.io/mustache.5.html)
 - [Webpack](https://webpack.js.org/)
-- [Yarn](https://yarnpkg.com/en/)  
+- [Npm](https://npmpkg.com/en/)  
 - [Node](https://nodejs.org/en/)
 - [Lunr](https://lunrjs.com/)
 

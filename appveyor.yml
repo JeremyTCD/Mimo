@@ -3,16 +3,17 @@ skip_non_tags: true
 image: Visual Studio 2017
 environment:
   npm_token:
-    secure: 6EuYnTHhFGD0uTKWxNy17MiH1oANxoFqKjbC+LaExoPJha6g9K337TiZ5rvXrBuW
+    secure: 2tcIzBlTe2DofM7okzQ6OVggfm+edmpGTb2c2c34KlTdFlhvM1QdsVatS+YDFd2z
 install:
 - ps: Install-Product node 8.9.1 x64
-- cmd: if not exist "./node_modules" yarn install --pure-lockfile
+- cmd: if not exist "./node_modules" npm install
 build_script:
 - ps: |
-    yarn run build-dist
+    npm run build-dist
     new-item .npmrc -type file
     add-content .npmrc "//registry.npmjs.org/:_authToken=$($env:npm_token)"
-    yarn publish --new-version $env:APPVEYOR_REPO_TAG_NAME
+    npm --no-git-tag-version version $env:APPVEYOR_REPO_TAG_NAME
+    npm publish
 cache:
     - node_modules -> package.json
 test: off
