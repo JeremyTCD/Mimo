@@ -8,6 +8,10 @@
         "documentation",
         "blog"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/JeremyTCD/Mimo"
+    },
     "homepage": "https://github.com/JeremyTCD/Mimo",
     "bugs": "https://github.com/JeremyTCD/Mimo/issues",
     "license": "CC-BY-4.0",
