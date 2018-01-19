@@ -17,6 +17,7 @@ footer {
             flex-direction: column;
 
             .uninteractive {
+                white-space: pre;
                 opacity: $opacity-2;
             }
 
@@ -53,6 +54,7 @@ footer {
                     @include animated-underline($color-secondary-text, $animated-underline-11px-ypos, $background-color: $color-secondary);
                 }
             }
+
             #footer-legal {
                 flex-wrap: wrap;
                 padding-top: 24px;
