@@ -103,7 +103,7 @@ $bar-width: 3px;
                                     margin-right: $bar-margin-right;
                                     width: $bar-width;
                                     background-color: $color-primary-text;
-                                    opacity: $opacity-2;
+                                    opacity: $opacity-3;
                                     transform: scaleY(0);
                                     transition: transform 0.26s $ease-out-quad;
                                     // When scrollbar appears, if flex-shrink is not 0, bar width can get set to 0
@@ -145,7 +145,7 @@ $bar-width: 3px;
     svg {
         height: 18px;
         width: 18px;
-        opacity: $opacity-2;
+        opacity: $opacity-3;
         fill: $color-primary-text;
         margin-right: 6px;
     }
