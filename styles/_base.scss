@@ -49,6 +49,12 @@ body {
         // When screen is narrow, left menu needs to be just beneath breadcrumbs
         @media #{$media-medium}, #{$media-wide} {
             padding-top: 59px;
+
+            &.breadcrumbs-disabled {
+                // When breadcrumbs are disabled, header height remains the same, so padding top must be less
+                padding-top: 38px;
+            }
+
             // See leftMenuComponent UpdateLeftMenu - If left and right menu are the same height as the article,
             // the min-height fix does not work properly when resizing.
             align-items: flex-start;

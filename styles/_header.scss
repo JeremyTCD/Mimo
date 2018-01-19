@@ -163,9 +163,17 @@ header {
 
                     @media #{$media-narrow} {
                         flex-shrink: 0;
-                        margin-bottom: 37px;
                         align-self: stretch;
                         background-size: 100% 2px;
+                        margin-bottom: 37px;
+                        // When breadcrumbs are disabled search is adjacent to main, so its margin is different
+                        &.breadcrumbs-disabled {
+                            margin-bottom: 21px;
+
+                            &.search-results-visible {
+                                margin-bottom: 37px;
+                            }
+                        }
                     }
 
                     @media #{$media-medium}, #{$media-wide} {

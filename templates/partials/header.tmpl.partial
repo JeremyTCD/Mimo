@@ -15,7 +15,7 @@
                 <nav id="header-navbar">
                 </nav>
                 {{^jtcd_disableSearch}}
-                <form id="header-search" class="flex" role="search">
+                <form id="header-search" class="flex {{#jtcd_disableBreadcrumbs}}breadcrumbs-disabled{{/jtcd_disableBreadcrumbs}}" role="search">
                     <svg>
                         <use xlink:href="#material-design-search" />
                     </svg>

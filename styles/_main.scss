@@ -4,8 +4,12 @@ main {
     flex-grow: 1;
     flex-direction: column;
 
-    // When screen is narrow, left menu needs to be just beneath breadcrumbs
     @media #{$media-narrow} {
         padding-top: 59px;
+
+        &.breadcrumbs-disabled {
+            // When breadcrumbs are disabled, header height remains the same, so padding top must be less
+            padding-top: 38px;
+        }
     }
 }

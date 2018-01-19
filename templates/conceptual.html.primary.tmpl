@@ -9,10 +9,10 @@
 	  {{>partials/breadcrumbs}}
       {{>partials/searchResults}}
 
-	  <div class="container hide-on-search">
+	  <div class="container hide-on-search {{#jtcd_disableBreadcrumbs}}breadcrumbs-disabled{{/jtcd_disableBreadcrumbs}}">
 			{{>partials/leftMenu}}
 
-			<main role="main">
+			<main role="main" class="{{#jtcd_disableBreadcrumbs}}breadcrumbs-disabled{{/jtcd_disableBreadcrumbs}}">
 				{{>partials/article}}
 				{{>partials/sortedArticleList}}
                 {{>partials/comments}}

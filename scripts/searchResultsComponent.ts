@@ -11,6 +11,7 @@ class SearchResultsComponent extends Component {
     articleListElement: HTMLElement;
     paginationParentElements: NodeList;
     itemsParentElement: HTMLElement;
+    hideOnSearchElements: NodeList;
 
     protected canInitialize(): boolean {
         this.searchResultsElement = document.getElementById('search-results');
@@ -19,6 +20,7 @@ class SearchResultsComponent extends Component {
     }
 
     protected setup(): void {
+        // TODO should init all these lazily
         this.articleListElement = this.searchResultsElement.querySelector('.article-list') as HTMLElement;
         this.searchResultsMessageElement = document.querySelector('#search-results > .container > span') as HTMLSpanElement;
         this.searchStringMessageElement = document.querySelector('#search-string > .container > span') as HTMLSpanElement;
@@ -30,12 +32,27 @@ class SearchResultsComponent extends Component {
     }
 
     public setShown(shown: boolean) {
+        if (!this.hideOnSearchElements) {
+            this.hideOnSearchElements = document.querySelectorAll('.hide-on-search');
+        }
+
         if (shown) {
-            $('.hide-on-search').css('display', 'none');
-            $('#search-results').css('display', 'flex');
+            for (let i = 0; i < this.hideOnSearchElements.length; i++) {
+                (this.hideOnSearchElements[i] as HTMLElement).style.display = 'none';
+            }
+            document.getElementById('search-results').style.display = 'flex';
+
+            // Required for consistent spacing across page when breadcrumbs aren't displayed
+            document.getElementById('header-search').classList.add('search-results-visible');
+
         } else {
-            $('.hide-on-search').css('display', 'flex');
-            $('#search-results').css('display', 'none');
+            for (let i = 0; i < this.hideOnSearchElements.length; i++) {
+                (this.hideOnSearchElements[i] as HTMLElement).style.display = 'flex';
+            }
+            document.getElementById('search-results').style.display = 'none';
+
+            // Required for consistent spacing across page when breadcrumbs aren't displayed
+            document.getElementById('header-search').classList.remove('search-results-visible');
 
             // Reset
             this.itemsParentElement.innerHTML = '';
