@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 15.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="39px"
-	 height="52px" viewBox="0 0 39 52" enable-background="new 0 0 39 52" xml:space="preserve">
-<g id="logo">
-	<polygon fill="#FE3D00" points="0,13 26,13 26,39 13,39 13,26 0,26 0,39 13,52 26,52 39,39 39,13 26,0 13,0 0,0 	"/>
-	<rect x="26" y="13" opacity="0.11" width="13" height="26"/>
-	<rect y="26" opacity="0.11" width="13" height="13"/>
-	<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="32.5" y1="19" x2="32.5" y2="13">
-		<stop  offset="0" style="stop-color:#000000;stop-opacity:0"/>
-		<stop  offset="1" style="stop-color:#000000;stop-opacity:0.15"/>
-	</linearGradient>
-	<rect x="26" y="13" fill="url(#SVGID_4_)" width="13" height="6"/>
-</g>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="66px"
+	 height="52px" viewBox="0 0 66 52" enable-background="new 0 0 66 52" xml:space="preserve">
+	<rect fill="#1565C0" width="11" height="52"/>
+	<rect x="18" y="19" fill="#212121" width="8" height="33"/>
+	<rect x="40" y="19" fill="#212121" width="8" height="33"/>
+	<rect x="55" fill="#1565C0" width="11" height="52"/>
+	<rect x="29" fill="#212121" width="8" height="33"/>
 </svg>
