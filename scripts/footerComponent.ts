@@ -3,7 +3,8 @@ import Component from './component';
 class FooterComponent extends Component {
     footerButtonElement: HTMLElement;
 
-    protected canInitialize(): boolean {
+    protected validDomElementExists(): boolean {
+        // Footer always exists
         return true;
     }
 

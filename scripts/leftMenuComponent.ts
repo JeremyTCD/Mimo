@@ -7,12 +7,12 @@ import edgeWorkaroundsService from './edgeWorkaroundsService';
 import svgService from './svgService';
 
 class LeftMenuComponent extends Component {
+    leftMenuElement: HTMLElement = document.getElementById('left-menu');
     bodyContainerElement: HTMLElement;
     leftMenuTocElement: HTMLElement;
-    leftMenuElement: HTMLElement;
 
-    protected canInitialize(): boolean {
-        return document.getElementById('left-menu') ? true : false;
+    protected validDomElementExists(): boolean {
+        return this.leftMenuElement ? true : false;
     }
 
     protected setup(): void {

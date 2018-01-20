@@ -4,12 +4,15 @@ import listItemService from './listItemService';
 import Component from './component';
 
 class BreadcrumbsComponent extends Component {
+    breadcrumbsElement: HTMLElement = document.getElementById('breadcrumbs');
     breadcrumbs: ListItem[] = [];
     rootBreadcrumbLoaded: boolean = false;
     childBreadcrumbsLoaded: boolean = false;
 
-    protected canInitialize(): boolean {
-        return document.getElementById('breadcrumbs') ? true : false;
+    protected validDomElementExists(): boolean {
+
+
+        return this.breadcrumbsElement ? true : false;
     }
 
     protected setup(): void {

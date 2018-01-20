@@ -7,7 +7,8 @@ import breadcrumbsComponent from './breadcrumbsComponent';
 class HeaderComponent extends Component {
     headerButtonElement: HTMLElement;
 
-    protected canInitialize(): boolean {
+    protected validDomElementExists(): boolean {
+        // Header always exists
         return true;
     }
 

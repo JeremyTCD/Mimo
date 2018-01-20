@@ -4,16 +4,14 @@ import edgeWorkaroundsService from './edgeWorkaroundsService';
 import Component from './component';
 
 class RightMenuComponent extends Component {
-    rightMenuElement: HTMLElement;
+    rightMenuElement: HTMLElement = document.getElementById('right-menu');
     editArticleElement: HTMLElement;
     articleElement: HTMLElement;
     mainContainer: HTMLElement;
     articleHeadingElements: NodeList;
     outlineUlElement: HTMLElement;
 
-    protected canInitialize(): boolean {
-        this.rightMenuElement = document.getElementById('right-menu');
-
+    protected validDomElementExists(): boolean {
         return this.rightMenuElement ? true : false;
     }
 

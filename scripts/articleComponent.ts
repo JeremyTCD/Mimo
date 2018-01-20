@@ -3,7 +3,8 @@ import svgService from './svgService';
 import * as Clipboard from 'clipboard';
 
 class ArticleComponent extends Component {
-    protected canInitialize(): boolean {
+    protected validDomElementExists(): boolean {
+        // Article always exists
         return true;
     }
 

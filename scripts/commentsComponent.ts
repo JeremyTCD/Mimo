@@ -4,36 +4,12 @@ import rightMenuComponent from './rightMenuComponent';
 import leftMenuComponent from './leftMenuComponent';
 
 class CommentsComponent extends Component {
-    disqusThread: HTMLElement;
+    disqusThreadElement: HTMLElement = document.getElementById('disqus_thread');
     disqusShortname: string;
     disqusIdentifier: string;
 
-    protected canInitialize(): boolean {
-        this.disqusThread = document.getElementById('disqus_thread');
-
-        if (!this.disqusThread) {
-            return false;
-        }
-
-        this.disqusShortname = this.disqusThread.getAttribute('data-disqus-shortname');
-        if (!this.disqusShortname) {
-            console.log('Disqus enabled but shortname not specified.');
-
-            document.getElementById('#comments').style.display = 'none';
-
-            return false;
-        }
-
-        this.disqusIdentifier = this.disqusThread.getAttribute('data-disqus-identifier');
-        if (!this.disqusIdentifier) {
-            console.log('Disqus enabled but identifier not specified.');
-
-            document.getElementById('#comments').style.display = 'none';
-
-            return false;
-        }
-
-        return true;
+    protected validDomElementExists(): boolean {
+        return this.disqusThreadElement ? true : false;
     }
 
     protected setup(): void {
@@ -47,7 +23,7 @@ class CommentsComponent extends Component {
 
     private tryLoad = (): boolean => {
         // top is relative to the top of the viewport, so as you scroll down, this number decreases
-        let disqusTop: number = this.disqusThread.getBoundingClientRect().top;
+        let disqusTop: number = this.disqusThreadElement.getBoundingClientRect().top;
 
         if (disqusTop < (window.innerHeight || document.documentElement.clientHeight)) {
             window.removeEventListener('scroll', this.tryLoad);
@@ -84,7 +60,7 @@ class CommentsComponent extends Component {
         // Disqus has some unusual behaviour whereby it it displays a login menu for a split 
         // second even if you are logged in (after the onready callback is called). This causes
         // an unavoidable jerk.
-        transitionsService.currentHeightToAutoHeightWithTransition(this.disqusThread);
+        transitionsService.currentHeightToAutoHeightWithTransition(this.disqusThreadElement);
     }
 
     private commentsLoaderOnRemoved = (event: Event): void => {

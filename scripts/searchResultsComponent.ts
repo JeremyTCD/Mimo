@@ -5,7 +5,7 @@ import leftMenuComponent from './leftMenuComponent';
 import rightMenuComponent from './rightMenuComponent';
 
 class SearchResultsComponent extends Component {
-    searchResultsElement: HTMLElement;
+    searchResultsElement: HTMLElement = document.getElementById('search-results');
     searchResultsMessageElement: HTMLSpanElement;
     searchStringMessageElement: HTMLSpanElement;
     articleListElement: HTMLElement;
@@ -13,9 +13,7 @@ class SearchResultsComponent extends Component {
     itemsParentElement: HTMLElement;
     hideOnSearchElements: NodeList;
 
-    protected canInitialize(): boolean {
-        this.searchResultsElement = document.getElementById('search-results');
-
+    protected validDomElementExists(): boolean {
         return this.searchResultsElement ? true : false;
     }
 

@@ -4,14 +4,12 @@ import Component from './component';
 import paginationService from './paginationService';
 
 class SalComponent extends Component {
-    salElement: HTMLElement;
+    salElement: HTMLElement = document.getElementById('sorted-article-list');
     articleListElement: HTMLElement;
     paginationParentElements: NodeList;
     itemsParentElement: HTMLElement;
 
-    protected canInitialize(): boolean {
-        this.salElement = document.getElementById('sorted-article-list');
-
+    protected validDomElementExists(): boolean {
         return this.salElement ? true : false;
     }
 
