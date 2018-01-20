@@ -29,7 +29,7 @@ class LeftMenuComponent extends Component {
         window.addEventListener('resize', this.onResizeListener);
     }
 
-    private onScrollListener = (): void => {
+    public onScrollListener = (): void => {
         if (!mediaService.mediaWidthNarrow() && this.bodyContainerElement.style.display !== 'none') {
             this.updateLeftMenu();
         }

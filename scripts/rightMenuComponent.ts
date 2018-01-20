@@ -39,7 +39,7 @@ class RightMenuComponent extends Component {
         }
     }
 
-    private onScrollListener = (): void => {
+    public onScrollListener = (): void => {
         if (mediaService.mediaWidthWide() && this.mainContainer.style.display !== 'none') {
             this.setHeights();
         }
