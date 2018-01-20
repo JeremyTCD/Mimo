@@ -1,6 +1,4 @@
-﻿import footerComponent from './footerComponent';
-
-class TransitionsService {
+﻿class TransitionsService {
     public toggleHeightWithTransition (toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
         toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
 
@@ -62,7 +60,6 @@ class TransitionsService {
 
     public currentHeightToAutoHeightWithoutTransition(element: HTMLElement): void {
         element.style.height = 'auto';
-        footerComponent.setBackToTopButtonOpacity();
     }
 
     public autoHeightToFixedHeightWithTransition (element: HTMLElement, fixedHeight: number): void {
@@ -82,18 +79,15 @@ class TransitionsService {
 
     public autoHeightToFixedHeightWithoutTransition(element: HTMLElement, fixedHeight: number): void {
         element.style.height = `${fixedHeight}px`;
-        footerComponent.setBackToTopButtonOpacity();
     }
 
     private setHeightFixedListener = (event: Event): void => {
-        footerComponent.setBackToTopButtonOpacity();
     }
 
     private setHeightAutoListener = (event: Event): void => {
         if (event.target === event.currentTarget) {
             event.target.removeEventListener('transitionend', this.setHeightAutoListener, true);
             (event.target as HTMLElement).style.height = 'auto';
-            footerComponent.setBackToTopButtonOpacity();
         }
         event.stopPropagation();
     }

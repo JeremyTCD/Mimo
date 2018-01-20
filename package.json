@@ -52,6 +52,7 @@
         "name-all-modules-plugin": "^1.0.1",
         "node-sass": "^4.5.0",
         "postcss-loader": "^2.0.10",
+        "resize-observer-polyfill": "^1.5.0",
         "rimraf": "^2.6.2",
         "sass-loader": "^6.0.0",
         "smooth-scroll": "^12.1.5",

@@ -63,9 +63,6 @@ class PaginationService {
                     if (onDomReady) {
                         onDomReady();
                     }
-
-                    // Addition and removal of items will change page height
-                    footerComponent.setBackToTopButtonOpacity();
                 }
             });
     }
