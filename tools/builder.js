@@ -17,8 +17,7 @@ class Builder {
     async buildFullBin() {
         console.log(`*** start - build full bin ***`);
         await this.cleanBin();
-        await this.buildBasicTheme();
-        await this.buildSite();
+        await this.buildBasicBin();
         await this.webpackCompile();
         await this.copyStylesFromThemeToSite();
         console.log(`*** complete - build full bin ***`);
@@ -27,7 +26,6 @@ class Builder {
     // Builds theme and site, excluding styles and scripts
     async buildBasicBin() {
         console.log(`*** start - build basic bin ***`);
-        await this.cleanBin();
         await this.buildBasicTheme();
         await this.buildSite();
         console.log(`*** complete - build basic bin ***`);

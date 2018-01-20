@@ -46,6 +46,7 @@ async function serve() {
     var builder = new Builder(docfxProjectDir, nodeModulesDir, debug);
 
     // Initial build
+    await builder.cleanBin();
     await tryBuildBasicBin(builder);
 
     // Start watcher for simple files
