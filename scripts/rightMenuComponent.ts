@@ -33,13 +33,13 @@ class RightMenuComponent extends Component {
         window.addEventListener('resize', this.onResizeListener);
     }
 
-    public onResizeListener = (): void => {
+    private onResizeListener = (): void => {
         if (this.mainContainer.style.display !== 'none') {
             this.updateRightMenu();
         }
     }
 
-    public onScrollListener = (): void => {
+    private onScrollListener = (): void => {
         if (mediaService.mediaWidthWide() && this.mainContainer.style.display !== 'none') {
             this.setHeights();
         }
