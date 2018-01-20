@@ -179,6 +179,10 @@ class LeftMenuComponent extends Component {
     }
 
     public updateLeftMenu(): void {
+        if (!this.validDomElementExists()) {
+            return;
+        }
+
         let wrapper = document.querySelector('#left-menu > .wrapper');
         let top = this.leftMenuElement.getBoundingClientRect().top;
         let fixed = wrapper.classList.contains('fixed'); // why wrapper? why not on left menu

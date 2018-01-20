@@ -30,6 +30,10 @@ class SearchResultsComponent extends Component {
     }
 
     public setShown(shown: boolean) {
+        if (!this.validDomElementExists()) {
+            return;
+        }
+
         if (!this.hideOnSearchElements) {
             this.hideOnSearchElements = document.querySelectorAll('.hide-on-search');
         }
@@ -61,7 +65,6 @@ class SearchResultsComponent extends Component {
             // which is meaningles when they are not displayed. Therefore, just before re-displaying main container, left and 
             // right menu must be updated. 
             leftMenuComponent.updateLeftMenu();
-            rightMenuComponent.setRightMenuDomLocation();
             rightMenuComponent.updateRightMenu();
         }
     }

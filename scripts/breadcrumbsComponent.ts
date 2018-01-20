@@ -10,8 +10,6 @@ class BreadcrumbsComponent extends Component {
     childBreadcrumbsLoaded: boolean = false;
 
     protected validDomElementExists(): boolean {
-
-
         return this.breadcrumbsElement ? true : false;
     }
 
@@ -44,6 +42,10 @@ class BreadcrumbsComponent extends Component {
     }
 
     public loadRootBreadCrumb(anchorElement: HTMLAnchorElement): void {
+        if (!this.validDomElementExists()) {
+            return;
+        }
+
         if (!this.rootBreadcrumbLoaded) {
             this.breadcrumbs.unshift({
                 element: anchorElement.cloneNode(true) as HTMLElement,
@@ -58,6 +60,10 @@ class BreadcrumbsComponent extends Component {
     }
 
     public loadChildBreadcrumbs(elements: HTMLElement[]): void {
+        if (!this.validDomElementExists()) {
+            return;
+        }
+
         if (!this.childBreadcrumbsLoaded) {
             for (let i = elements.length - 1; i >= 0; i--) {
                 let element = elements[i];

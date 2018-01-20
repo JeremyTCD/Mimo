@@ -21,7 +21,6 @@ class RightMenuComponent extends Component {
         this.mainContainer = document.querySelector('body > .container') as HTMLElement;
         this.articleHeadingElements = this.articleElement.querySelectorAll('h2,h3,h4');
 
-        this.setRightMenuDomLocation();
         this.setupOutline();
         this.outlineUlElement = document.querySelector('#outline > ul') as HTMLUListElement;
 
@@ -36,18 +35,26 @@ class RightMenuComponent extends Component {
 
     public onResizeListener = (): void => {
         if (this.mainContainer.style.display !== 'none') {
-            this.setRightMenuDomLocation();
             this.updateRightMenu();
         }
     }
 
     public onScrollListener = (): void => {
         if (mediaService.mediaWidthWide() && this.mainContainer.style.display !== 'none') {
-            this.updateRightMenu();
+            this.setHeights();
         }
     }
 
     public updateRightMenu(): void {
+        if (!this.validDomElementExists()) {
+            return;
+        }
+
+        this.setHeights();
+        this.setRightMenuDomLocation();
+    }
+
+    private setHeights(): void {
         let wrapperElement = document.querySelector('#right-menu > .wrapper');
         if (mediaService.mediaWidthWide()) {
             let top = wrapperElement.parentElement.getBoundingClientRect().top;
@@ -78,7 +85,7 @@ class RightMenuComponent extends Component {
         }
     }
 
-    public setRightMenuDomLocation(): void {
+    private setRightMenuDomLocation(): void {
         let wide = mediaService.mediaWidthWide();
         let rightMenuInArticle = this.articleElement.querySelector('#right-menu');
 
