@@ -87,20 +87,20 @@ async function serve() {
                     building = true;
                     await tryBuildBasicBin(builder);
 
-                    // TODO In production mode, webpack is configured to append hashes to bundles. This necessitated a webpack plugin that manually replaces bundle 
-                    // urls in _site's html files at the end of each webpack compilation. This means that after docfx build runs and _site's html files are 
-                    // regenerated, they no longer contain the correct bundle links. It is possible to manually replace the urls after each docfx build. This should
-                    // be attempted - carefully. Node's asynchrnous model could result in the read (reading "current" bundle file names) and the write (overwriting
-                    // bundle names in html files) not being atomic.
-                    if (isProduction) {
-                        await triggerWebpackRecompilation();
-                    }
                     building = false;
                 }
 
-                // Manually trigger refresh https://github.com/webpack/webpack-dev-server/issues/166
-                // TODO does not work after serveBuild fails once (even when subsequent serveBuilds succeed)
-                server.sockWrite(server.sockets, 'ok');
+                // TODO In production mode, webpack is configured to append hashes to bundles. This necessitated a webpack plugin that manually replaces bundle 
+                // urls in _site's html files at the end of each webpack compilation. This means that after docfx build runs and _site's html files are 
+                // regenerated, they no longer contain the correct bundle links. It is possible to manually replace the urls after each docfx build. This should
+                // be attempted - carefully. Node's asynchronous model could result in the read (reading "current" bundle file names) and the write (overwriting
+                // bundle names in html files) not being atomic.
+                if (isProduction) {
+                    await triggerWebpackRecompilation();
+                } else {
+                    // Manually trigger refresh https://github.com/webpack/webpack-dev-server/issues/166
+                    server.sockWrite(server.sockets, 'ok');
+                }
             }
         });
 
