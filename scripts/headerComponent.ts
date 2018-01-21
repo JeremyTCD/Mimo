@@ -5,7 +5,9 @@ import Component from './component';
 import breadcrumbsComponent from './breadcrumbsComponent';
 
 class HeaderComponent extends Component {
+    headerNavbarElement: HTMLElement;
     headerButtonElement: HTMLElement;
+    navbarAndSearchWrapper: HTMLElement;
 
     protected validDomElementExists(): boolean {
         // Header always exists
@@ -13,21 +15,22 @@ class HeaderComponent extends Component {
     }
 
     protected setup(): void {
+        this.headerNavbarElement = document.getElementById('header-navbar');
         this.headerButtonElement = document.getElementById('header-button');
+        this.navbarAndSearchWrapper = document.querySelector('#header-navbar-and-search > .wrapper') as HTMLElement;
 
         this.setupNavbar();
         this.setupSearchInput();
     }
 
     protected registerListeners(): void {
-        let wrapper = $('#header-navbar-and-search > .wrapper');
         this.headerButtonElement.addEventListener('click', (event: Event) => {
-            transitionsService.toggleHeightWithTransition(wrapper[0], this.headerButtonElement);
+            transitionsService.toggleHeightWithTransition(this.navbarAndSearchWrapper, this.headerButtonElement);
         });
 
         window.addEventListener('resize', (event: Event) => {
             if (!mediaService.mediaWidthNarrow()) {
-                transitionsService.contractHeightWithoutTransition(wrapper[0], this.headerButtonElement);
+                transitionsService.contractHeightWithoutTransition(this.navbarAndSearchWrapper, this.headerButtonElement);
             }
         });
     }
@@ -47,7 +50,7 @@ class HeaderComponent extends Component {
     }
 
     private setupNavbar() {
-        let navbarPath = $("meta[property='docfx\\:navrel']").attr("content");
+        let navbarPath = document.querySelector("meta[property='docfx\\:navrel']").getAttribute('content');
 
         if (navbarPath) {
             navbarPath = navbarPath.replace(/\\/g, '/');
@@ -58,7 +61,7 @@ class HeaderComponent extends Component {
             // TODO check status too
             if (getNavbarRequest.readyState === XMLHttpRequest.DONE) {
                 let tocFrag = document.createRange().createContextualFragment(getNavbarRequest.responseText);
-                document.getElementById('header-navbar').appendChild(tocFrag);
+                this.headerNavbarElement.appendChild(tocFrag);
 
                 this.setNavbarActiveTopic(navbarPath);
             }
@@ -68,7 +71,7 @@ class HeaderComponent extends Component {
     }
 
     private setNavbarActiveTopic(navbarPath: string): void {
-        let tocPath = $("meta[property='docfx\\:tocrel']").attr("content");
+        let tocPath = document.querySelector("meta[property='docfx\\:tocrel']").getAttribute('content');
 
         if (tocPath) {
             tocPath = tocPath.replace(/\\/g, '/');
@@ -80,34 +83,36 @@ class HeaderComponent extends Component {
         }
         let currentAbsPath = pathService.getAbsolutePath(window.location.pathname);
 
-        $('#header-navbar').
-            find('a[href]').
-            each(function (index: number, anchorElement: HTMLAnchorElement) {
-                let href = $(anchorElement).attr("href");
-                if (pathService.isRelativePath(href)) {
-                    href = navRel + href;
-                    $(anchorElement).attr("href", href);
+        let navbarAnchorElements = this.headerNavbarElement.querySelectorAll('a[href]');
 
-                    let isActive = false;
-                    let originalHref = anchorElement.name;
-                    if (originalHref) {
-                        originalHref = navRel + originalHref;
-                        if (pathService.getDirectory(pathService.getAbsolutePath(originalHref)) === pathService.getDirectory(pathService.getAbsolutePath(tocPath))) {
-                            isActive = true;
-                        }
-                    } else {
-                        if (pathService.getAbsolutePath(href) === currentAbsPath) {
-                            isActive = true;
-                        }
+        for (let i = 0; i < navbarAnchorElements.length; i++) {
+            let anchorElement = navbarAnchorElements[i] as HTMLAnchorElement;
+            let href = anchorElement.getAttribute('href');
+
+            if (pathService.isRelativePath(href)) {
+                href = navRel + href;
+                anchorElement.setAttribute('href', href);
+
+                let isActive = false;
+                let originalHref = anchorElement.name;
+                if (originalHref) {
+                    originalHref = navRel + originalHref;
+                    if (pathService.getDirectory(pathService.getAbsolutePath(originalHref)) === pathService.getDirectory(pathService.getAbsolutePath(tocPath))) {
+                        isActive = true;
                     }
-                    if (isActive) {
-                        $(anchorElement).parent().addClass('active');
-                        breadcrumbsComponent.loadRootBreadCrumb(anchorElement);
-                    } else {
-                        $(anchorElement).parent().removeClass('active')
+                } else {
+                    if (pathService.getAbsolutePath(href) === currentAbsPath) {
+                        isActive = true;
                     }
                 }
-            });
+                if (isActive) {
+                    anchorElement.parentElement.classList.add('active');
+                    breadcrumbsComponent.loadRootBreadCrumb(anchorElement);
+                } else {
+                    anchorElement.parentElement.classList.remove('active')
+                }
+            }
+        }
     }
 }
 
