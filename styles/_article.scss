@@ -42,8 +42,8 @@ article {
     }
 
     h1 {
-        & + p, & + div {
-            margin-top: 26px;
+        & + div {
+            margin-top: 25px;
         }
     }
 
@@ -79,7 +79,7 @@ article {
         }
 
         & + p {
-            margin-top: 10px;
+            margin-top: 15px;
         }
     }
 

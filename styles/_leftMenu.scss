@@ -57,7 +57,7 @@ $horizontal-bar-ease-timing: 0.6s;
 
                 &:hover, &.focus {
                     background-size: 0 100%;
-                    border-color: $color-primary-border;
+                    border-color: $color-primary-text;
                 }
             }
 
@@ -67,7 +67,7 @@ $horizontal-bar-ease-timing: 0.6s;
                 transition: border-color 0.4s $ease-out-quad;
 
                 &.focus {
-                    border-color: $color-primary-border;
+                    border-color: $color-primary-text;
                 }
             }
 
