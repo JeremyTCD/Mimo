@@ -20,6 +20,9 @@
                         <use xlink:href="#material-design-search" />
                     </svg>
                     <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off" />
+                    <svg>
+                        <use xlink:href="#material-design-clear-black" />
+                    </svg>
                 </form>
                 {{/jtcd_disableSearch}}
             </div>

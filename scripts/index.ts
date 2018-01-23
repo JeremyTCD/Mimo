@@ -2,6 +2,7 @@ import '../styles/index.scss';
 
 // TODO use commonjs style since tsc removes es6 style imports, e.g "import logo from './logo.svg'". This shouldn't 
 // be the case.
+require('../resources/material-design-clear-black.svg');
 require('../resources/material-design-search.svg');
 require('../resources/material-design-filter.svg');
 require('../resources/material-design-link.svg');
