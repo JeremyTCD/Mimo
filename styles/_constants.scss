@@ -39,6 +39,36 @@ $animated-underline-13px-ypos: 17px;
 $animated-underline-15px-ypos: 19px;
 $animated-underline-32px-ypos: 37px;
 
+@mixin text-input-icons() {
+    svg {
+        height: 18px;
+        width: 18px;
+        fill: $color-primary-text;
+
+        &:first-child {
+            opacity: $opacity-3;
+            margin-right: 5px;
+        }
+
+        &:last-child {
+            transition: opacity 0.26s $ease-out-quad, transform 0.3s $ease-out-quad-delayed;
+            margin-left: 5px;
+            opacity: 0;
+            pointer-events: none;
+
+            &.active {
+                opacity: $opacity-3;
+                cursor: pointer;
+                pointer-events: initial;
+
+                &:hover {
+                    transform: scale(1.3333);
+                }
+            }
+        }
+    }
+}
+
 @mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: 0.5s, $background-color: null) {
     @include animated-underline-core($color, $y-position, $underline-height, $duration);
     transition: background-size $duration $ease-out-quad-delayed, text-shadow 0s linear $duration;
