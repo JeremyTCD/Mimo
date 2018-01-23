@@ -123,3 +123,7 @@ h4 {
     opacity: $opacity-2;
     color: $color-primary-text;
 }
+
+*::-ms-clear{
+    display: none;
+}

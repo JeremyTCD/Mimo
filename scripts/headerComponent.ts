@@ -3,11 +3,15 @@ import mediaService from './mediaService';
 import transitionsService from './transitionsService';
 import Component from './component';
 import breadcrumbsComponent from './breadcrumbsComponent';
+import searchResultsComponent from './searchResultsComponent';
 
 class HeaderComponent extends Component {
     headerNavbarElement: HTMLElement;
     headerButtonElement: HTMLElement;
     navbarAndSearchWrapper: HTMLElement;
+    headerSearchElement: HTMLElement;
+    headerSearchInputElement: HTMLInputElement;
+    headerSearchClearElement: HTMLElement;
 
     protected validDomElementExists(): boolean {
         // Header always exists
@@ -15,38 +19,78 @@ class HeaderComponent extends Component {
     }
 
     protected setup(): void {
+        this.headerSearchElement = document.getElementById('header-search') as HTMLElement;
+        this.headerSearchInputElement = this.headerSearchElement.querySelector('input') as HTMLInputElement;
+        this.headerSearchClearElement = this.headerSearchElement.querySelector('svg:last-child') as HTMLElement;
         this.headerNavbarElement = document.getElementById('header-navbar');
         this.headerButtonElement = document.getElementById('header-button');
         this.navbarAndSearchWrapper = document.querySelector('#header-navbar-and-search > .wrapper') as HTMLElement;
 
         this.setupNavbar();
-        this.setupSearchInput();
     }
 
     protected registerListeners(): void {
         this.headerButtonElement.addEventListener('click', (event: Event) => {
             transitionsService.toggleHeightWithTransition(this.navbarAndSearchWrapper, this.headerButtonElement);
+
+            if (!this.headerButtonElement.classList.contains('expanded')) {
+                this.resetSearchInput();
+            }
         });
 
         window.addEventListener('resize', (event: Event) => {
-            if (!mediaService.mediaWidthNarrow()) {
-                transitionsService.contractHeightWithoutTransition(this.navbarAndSearchWrapper, this.headerButtonElement);
+            // Going from wide/medium to narrow with text in search input
+            if (this.headerSearchInputElement.value.length > 0 &&
+                !this.headerButtonElement.classList.contains('expanded') &&
+                mediaService.mediaWidthNarrow()) {
+                transitionsService.expandHeightWithoutTransition(this.navbarAndSearchWrapper, this.headerButtonElement);
             }
         });
+
+        this.headerSearchInputElement.addEventListener('focus', this.searchInputFocusListener);
+        this.headerSearchInputElement.addEventListener('focusout', this.searchInputFocusOutListener);
+        this.headerSearchInputElement.addEventListener('keyup', this.searchInputKeyUpListener);
+        this.headerSearchClearElement.addEventListener('click', this.searchClearClickListener);
     }
 
-    private setupSearchInput() {
-        let headerSearchElement = document.getElementById('header-search');
-        let headerSearchInputElement = headerSearchElement.querySelector('input');
+    private resetSearchInput() {
+        this.headerSearchInputElement.value = '';
+        this.headerSearchClearElement.classList.remove('active');
 
-        headerSearchInputElement.
-            addEventListener('focus', (event: Event) => {
-                headerSearchElement.classList.add('focus');
-            });
-        headerSearchInputElement.
-            addEventListener('focusout', (event: Event) => {
-                headerSearchElement.classList.remove('focus');
-            });
+        // This is exactly what search service calls when value is an empty string
+        searchResultsComponent.setShown(false);
+    }
+
+    private searchClearClickListener = (event: Event) => {
+        this.resetSearchInput();
+
+        // Keep focus on search input so further searches can be made (no point placing focus on clear button)
+        this.headerSearchInputElement.focus();
+    }
+
+    private searchInputKeyUpListener = (event: KeyboardEvent) => {
+        // Edge returns Esc
+        if (event.key === 'Escape' || event.key === 'Esc') {
+            this.resetSearchInput();
+            return;
+        }
+
+        if (this.headerSearchInputElement.value.length > 0) {
+            this.headerSearchClearElement.classList.add('active');
+        } else {
+            this.headerSearchClearElement.classList.remove('active');
+        }
+    }
+
+    private searchInputFocusListener = (event: Event) => {
+        this.headerSearchElement.classList.add('active');
+    }
+
+    private searchInputFocusOutListener = (event: Event) => {
+        // If there is still text, search results are still displayed, search input is still "active"
+        if (this.headerSearchInputElement.value.length === 0) {
+            this.headerSearchElement.classList.remove('active');
+        }
     }
 
     private setupNavbar() {
