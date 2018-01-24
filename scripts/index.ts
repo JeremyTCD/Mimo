@@ -35,9 +35,10 @@ import searchResultsComponent from './searchResultsComponent';
 import searchService from './searchService';
 import linkService from './linkService';
 
+import * as domready from 'domready';
 import * as $ from 'jquery';
 
-$(function () {
+domready(function () {
     salComponent.initialize();
     headerComponent.initialize();
     leftMenuComponent.initialize();
@@ -50,7 +51,7 @@ $(function () {
     searchService.setupSearch();
     linkService.setupOpenExternalLinksInNewTab();
     linkService.setupSmoothScroll();
-})
+});
 
 // These constants are defined by webpack's define plugin (see webpack.config.js)
 if (SCRIPTS_CUSTOM_INDEX) {
