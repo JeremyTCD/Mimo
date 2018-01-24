@@ -1,7 +1,18 @@
 # Changelog
-This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html)
+This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.2...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.3...HEAD)
+- No commits yet
+
+## [1.0.0-alpha.3](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.2...1.0.0-alpha.3) - Jan 24, 2018
+### Added
+- Standalone contact page for example project (before, contact was just a section in the about page).
+- Clear button for filter and search inputs. 
+### Changed
+- Minor style improvements across the page.
+- Miscellaneous improvements to the example project.
+### Fixed
+- Filter bugs related to expanding and collapsing of topics. 
 
 ## [1.0.0-alpha.2](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.1...1.0.0-alpha.2) - Jan 22, 2018
 ### Added
