@@ -17,6 +17,8 @@ class LeftMenuComponent extends Component {
     textInputService: TextInputService;
     tocElement: HTMLElement;
     tocRootLIElements: NodeList;
+    tocTopicElements: NodeList;
+    footerElement: HTMLElement;
 
     protected validDomElementExists(): boolean {
         return this.leftMenuElement ? true : false;
@@ -29,6 +31,7 @@ class LeftMenuComponent extends Component {
         this.bodyContainerElement = document.querySelector('body > .container') as HTMLElement;
         this.leftMenuTocElement = document.getElementById('left-menu-toc');
         this.tocElement = document.getElementById('left-menu-toc');
+        this.footerElement = document.getElementsByTagName('footer')[0];
 
         this.setupToc();
 
@@ -83,6 +86,7 @@ class LeftMenuComponent extends Component {
 
                 // Can only get root li elements after inserting toc frag
                 this.tocRootLIElements = document.querySelectorAll('#left-menu-toc > ul > li');
+                this.tocTopicElements = document.querySelectorAll('#left-menu-toc ul > li.expandable > span');
                 this.setupFilter();
 
                 this.setTocTopicPadding();
@@ -98,28 +102,37 @@ class LeftMenuComponent extends Component {
     }
 
     private registerTocTopicListener() {
-        $('#left-menu-toc ul > li.expandable > a, #left-menu-toc ul > li.expandable > span').click((event: JQuery.Event) => {
-            let href = $(event.delegateTarget).attr('href');
+        for (let i = 0; i < this.tocTopicElements.length; i++) {
+            let tocTopic = this.tocTopicElements[i] as HTMLElement;
 
-            if ($(event.target).hasClass('icon') || !href) {
-                let closestLi = $(event.target).closest('li');
-                let childUl = closestLi.children('ul');
-                transitionsService.toggleHeightWithTransition(childUl[0], closestLi[0]);
+            tocTopic.addEventListener('click', (event: Event) => {
+                let parentLI = tocTopic.parentElement;
+                // According to MDN browsers use DFS with pre-order processing, so the ul should be the direct child
+                let childUl = parentLI.querySelector('ul');
+                transitionsService.toggleHeightWithTransition(childUl, parentLI);
                 event.preventDefault();
                 // If event propogates, every parent li.expandable's click listener will
                 // be called
                 event.stopPropagation();
-            }
-        });
+            });
+        }
     }
 
     private setTocMaxHeight(): void {
-        let footerTop = $('footer')[0].getBoundingClientRect().top
-        let footerHeight = $(window).outerHeight() - footerTop;
-        let tocMaxHeight = $(window).outerHeight()
+        let footerTop = this.footerElement.getBoundingClientRect().top;
+        let footerHeight = window.innerHeight - footerTop;
+        let leftMenuFilterStyle = getComputedStyle(this.leftMenuFilterElement);
+        let tocMaxHeight = window.innerHeight
             - 23 * 2
-            - $('#left-menu-filter').outerHeight(true)
+            - this.leftMenuFilterElement.offsetHeight
+            - parseFloat(leftMenuFilterStyle.marginTop)
+            - parseFloat(leftMenuFilterStyle.marginBottom)
             - (footerHeight < 0 ? 0 : footerHeight);
+
+        console.log('marginbottom: ' + leftMenuFilterStyle.marginBottom);
+        console.log('footerHeigth: ' + footerHeight);
+        console.log('windowheight: ' + window.innerHeight);
+        console.log('footerTop: ' + footerTop);
 
         this.leftMenuTocElement.style.maxHeight = `${tocMaxHeight}px`;
     }
@@ -131,61 +144,62 @@ class LeftMenuComponent extends Component {
             tocrel = tocPath.substr(0, index + 1);
         }
         let currentHref = pathService.getAbsolutePath(window.location.pathname);
+        let tocAnchorElements = this.tocElement.querySelectorAll('a');
 
-        $('#left-menu-toc').
-            find('a[href]').
-            each((index: number, anchorElement: HTMLAnchorElement) => {
-                let href = $(anchorElement).attr("href");
-                if (pathService.isRelativePath(href)) {
-                    href = tocrel + href;
-                    $(anchorElement).attr("href", href);
-                }
+        for (let i = 0; i < tocAnchorElements.length; i++) {
+            let anchorElement = tocAnchorElements[i];
 
-                if (pathService.getAbsolutePath(anchorElement.href) === currentHref) {
-                    anchorElement.classList.add('active');
-                    let expandableLis = $(anchorElement).
-                        parent().
-                        parentsUntil('#left-menu-toc').
-                        filter('li.expandable');
+            let href = anchorElement.getAttribute("href");
+            if (pathService.isRelativePath(href)) {
+                href = tocrel + href;
+                anchorElement.setAttribute("href", href);
+            }
 
-                    // If an element is nested in another element and a height transition is started for both at the same
-                    // time, the outer element only transitions to its height. This is because 
-                    // toggleHeightForTransition has no way to know the final heights of an element's children. Nested children at
-                    // the bottom of the outer element are only revealed when its height is set to auto in its transitionend callback.
-                    // Therefore it is necessary to immediately expand nested elements.
-                    for (let i = 0; i < expandableLis.length; i++) {
-                        let listElement = expandableLis[i];
+            if (pathService.getAbsolutePath(anchorElement.href) === currentHref) {
+                anchorElement.classList.add('active');
+                let expandableLis = $(anchorElement).
+                    parent().
+                    parentsUntil('#left-menu-toc').
+                    filter('li.expandable');
 
-                        if (i === expandableLis.length - 1) {
-                            transitionsService.toggleHeightWithTransition($(listElement).children('ul')[0], listElement);
-                        }
-                        else {
-                            transitionsService.expandHeightWithoutTransition($(listElement).children('ul')[0], listElement);
-                        }
+                // If an element is nested in another element and a height transition is started for both at the same
+                // time, the outer element only transitions to its height. This is because 
+                // toggleHeightForTransition has no way to know the final heights of an element's children. Nested children at
+                // the bottom of the outer element are only revealed when its height is set to auto in its transitionend callback.
+                // Therefore it is necessary to immediately expand nested elements.
+                for (let i = 0; i < expandableLis.length; i++) {
+                    let listElement = expandableLis[i];
 
-                        // TODO generalize and move to edgeWorkaroundsService
-                        // Yet another Edge workaround - 
-                        // On page load, Edge does not rotate the svg until mouse hovers over the li element it is contained in.
-                        // This is a really dirty temporary fix that forces the rotation.
-                        let svgElement = listElement.firstElementChild.firstElementChild as SVGSVGElement;
-                        svgElement.style.transform = 'rotate(90deg)';
-                        svgElement.style.transform = '';
+                    if (i === expandableLis.length - 1) {
+                        transitionsService.toggleHeightWithTransition($(listElement).children('ul')[0], listElement);
+                    }
+                    else {
+                        transitionsService.expandHeightWithoutTransition($(listElement).children('ul')[0], listElement);
                     }
 
-                    breadcrumbsComponent.
-                        loadChildBreadcrumbs(
-                        $(anchorElement).
-                            parentsUntil('#left-menu-toc').
-                            filter('li').
-                            children('span, a').
-                            add(anchorElement).
-                            get().
-                            reverse() as HTMLAnchorElement[]
-                        );
-                } else {
-                    $(anchorElement).removeClass('active');
+                    // TODO generalize and move to edgeWorkaroundsService
+                    // Yet another Edge workaround - 
+                    // On page load, Edge does not rotate the svg until mouse hovers over the li element it is contained in.
+                    // This is a really dirty temporary fix that forces the rotation.
+                    let svgElement = listElement.firstElementChild.firstElementChild as SVGSVGElement;
+                    svgElement.style.transform = 'rotate(90deg)';
+                    svgElement.style.transform = '';
                 }
-            });
+
+                breadcrumbsComponent.
+                    loadChildBreadcrumbs(
+                    $(anchorElement).
+                        parentsUntil('#left-menu-toc').
+                        filter('li').
+                        children('span, a').
+                        add(anchorElement).
+                        get().
+                        reverse() as HTMLAnchorElement[]
+                    );
+            } else {
+                anchorElement.classList.remove('active');
+            }
+        }
     }
 
     private setTocTopicPadding(): void {
@@ -223,7 +237,7 @@ class LeftMenuComponent extends Component {
                 this.leftMenuElement.style.minHeight = `${this.leftMenuElement.clientHeight + 1}px`;
 
                 wrapper.classList.add('fixed');
-            } 
+            }
             edgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
         } else if (fixed) {
             wrapper.classList.remove('fixed');
