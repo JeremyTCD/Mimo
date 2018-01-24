@@ -129,11 +129,6 @@ class LeftMenuComponent extends Component {
             - parseFloat(leftMenuFilterStyle.marginBottom)
             - (footerHeight < 0 ? 0 : footerHeight);
 
-        console.log('marginbottom: ' + leftMenuFilterStyle.marginBottom);
-        console.log('footerHeigth: ' + footerHeight);
-        console.log('windowheight: ' + window.innerHeight);
-        console.log('footerTop: ' + footerTop);
-
         this.leftMenuTocElement.style.maxHeight = `${tocMaxHeight}px`;
     }
 
@@ -256,95 +251,140 @@ class LeftMenuComponent extends Component {
             }
 
             if (!this.tocElement.classList.contains('filtered')) {
-                let expandedLis = this.tocElement.
-                    querySelectorAll('.expanded');
-
-                for (let i = 0; i < expandedLis.length; i++) {
-                    expandedLis[i].classList.add('pre-expanded');
-                }
-
+                this.saveTocState();
                 this.tocElement.classList.add('filtered');
             }
 
             for (let i = 0; i < this.tocRootLIElements.length; i++) {
-                this.handleLiElement(this.tocRootLIElements[i] as HTMLLIElement, true, false, filterValue)
+                this.setLIElementState(this.tocRootLIElements[i] as HTMLLIElement, filterValue);
+                this.setLIElementHeight(this.tocRootLIElements[i] as HTMLLIElement, true);
             }
         });
     }
 
-    private restoreToc = () => {
-        for (let i = 0; i < this.tocRootLIElements.length; i++) {
-            this.handleLiElement(this.tocRootLIElements[i] as HTMLLIElement, true, true)
-        }
+    private saveTocState = () => {
+        let expandedLis = this.tocElement.
+            querySelectorAll('.expanded');
 
-        this.tocElement.classList.remove('filtered');
+        for (let i = 0; i < expandedLis.length; i++) {
+            expandedLis[i].classList.add('pre-expanded');
+        }
     }
 
-    private handleLiElement = (liElement: HTMLLIElement, allParentsExpanded: boolean, restore: boolean, filterValue: string = null): void => {
-        let expanded = liElement.classList.contains('expanded');
+    private restoreToc = () => {
+        if (this.tocElement.classList.contains('filtered')) {
+            for (let i = 0; i < this.tocRootLIElements.length; i++) {
+                this.restoreLIElement(this.tocRootLIElements[i] as HTMLLIElement, true);
+            }
 
+            this.tocElement.classList.remove('filtered');
+        }
+    }
+
+    // An LI element can have three possible states, filter-expanded, filter-match and filter-hidden. filter-hidden is mutually exclusive from the other
+    // two states, also an element can have the filter-match state but not the filter-expanded state. An LI element has the filter-match state if its 
+    // contents contain the filter value. It has the filter-expanded state if any of its children has the filter-match or filter-expanded states.
+    // Lastly, it has the filter-hidden state if it does not have either of the filter-match or filter-expanded states.
+    //
+    // Since LI elements are organized as a tree and the states of children must be determined first, this state setting function 
+    // performs a depth first search, post order.
+    private setLIElementState = (liElement: HTMLLIElement, filterValue: string = null): void => {
         // Reset
-        liElement.classList.remove('filter-hidden', 'filter-expanded', 'filter-match');
+        this.resetLIElement(liElement);
 
-        // Visit all children
-        let expand: boolean = false;
-        $(liElement).
-            find('> ul > li').
-            each((index: number, childLiElement: HTMLLIElement) => {
-                this.handleLiElement(childLiElement, allParentsExpanded && expanded, restore, filterValue);
+        let directChildULElement = liElement.querySelector('ul');
+        let toBeExpanded: boolean = false;
 
-                if (!restore && !expand && !childLiElement.classList.contains('filter-hidden')) {
-                    expand = true;
-                }
-            });
+        // Skip leaves
+        if (directChildULElement) {
+            let closestChildLIElements = directChildULElement.children;
 
-        if (restore) {
-            let preExpanded = liElement.classList.contains('pre-expanded');
-            liElement.classList.remove('pre-expanded')
+            for (let i = 0; i < closestChildLIElements.length; i++) {
+                let childLIElement = closestChildLIElements[i] as HTMLLIElement;
+                this.setLIElementState(childLIElement, filterValue);
 
-            if (preExpanded && !expanded) {
-                if (allParentsExpanded) {
-                    transitionsService.toggleHeightWithTransition($(liElement).children('ul')[0], liElement);
-                } else {
-                    transitionsService.toggleHeightWithoutTransition($(liElement).children('ul')[0], liElement);
-                }
-            }
-            else if (!preExpanded && expanded) {
-                transitionsService.toggleHeightWithTransition($(liElement).children('ul')[0], liElement);
-            }
-        } else {
-            // Expand if any children are displayed
-            if (expand) {
-                liElement.classList.add('filter-expanded');
-
-                if (!expanded) {
-                    if (allParentsExpanded) {
-                        transitionsService.toggleHeightWithTransition($(liElement).children('ul')[0], liElement);
-                    } else {
-                        transitionsService.toggleHeightWithoutTransition($(liElement).children('ul')[0], liElement);
-                    }
-                }
-            }
-
-            // Check if it matches
-            let displayedElement = $(liElement).children('span, a')[0];
-            let displayedText = $(displayedElement).text();
-            let matches = this.contains(displayedText, filterValue);
-
-            if (matches) {
-                liElement.classList.add('filter-match');
-            }
-
-            if (!liElement.classList.contains('filter-expanded')) {
-                if (!matches) {
-                    liElement.classList.add('filter-hidden');
-                }
-
-                if (expanded) {
-                    transitionsService.toggleHeightWithTransition($(liElement).children('ul')[0], liElement);
+                if (!toBeExpanded && !childLIElement.classList.contains('filter-hidden')) {
+                    toBeExpanded = true;
+                    liElement.classList.add('filter-expanded');
                 }
             }
         }
+
+        // Check if text matches
+        let displayedElement = liElement.querySelector('span, a');
+        let displayedText = displayedElement.textContent;
+        let matches = this.contains(displayedText, filterValue);
+
+        if (matches) {
+            liElement.classList.add('filter-match');
+        } else if (!toBeExpanded) {
+            // Does not match and has no children that match
+            liElement.classList.add('filter-hidden');
+        }
+    }
+
+    // Restore Toc to initial state. DFS in post-order since child elements must be assigned their height values
+    // before animations are started for parent elements (parent elements need to know how much to grow).
+    private restoreLIElement = (liElement: HTMLLIElement, allParentsAlreadyExpanded: boolean): void => {
+        // Reset
+        this.resetLIElement(liElement);
+
+        let directChildULElement = liElement.querySelector('ul');
+
+        // Leaves don't need their heights toggled
+        if (directChildULElement) {
+            let alreadyExpanded = liElement.classList.contains('expanded');
+            let preExpanded = liElement.classList.contains('pre-expanded');
+            let closestChildLIElements = directChildULElement.children;
+
+            liElement.classList.remove('pre-expanded')
+
+            for (let i = 0; i < closestChildLIElements.length; i++) {
+                this.restoreLIElement(closestChildLIElements[i] as HTMLLIElement, allParentsAlreadyExpanded && alreadyExpanded);
+            }
+
+            if (preExpanded && !alreadyExpanded) {
+                if (allParentsAlreadyExpanded) {
+                    transitionsService.toggleHeightWithTransition(directChildULElement, liElement);
+                } else {
+                    transitionsService.toggleHeightWithoutTransition(directChildULElement, liElement);
+                }
+            }
+            else if (!preExpanded && alreadyExpanded) {
+                transitionsService.toggleHeightWithTransition(directChildULElement, liElement);
+            }
+        }
+    }
+
+    // Called after setLIElementState. setLIElementState sets some elements to "display: none" threough the filter-hidden class.
+    // It is necessary to process the entire tree before toggling heights, since the final height of each element must be known.
+    private setLIElementHeight = (liElement: HTMLLIElement, allParentsAlreadyExpanded: boolean): void => {
+        let directChildULElement = liElement.querySelector('ul');
+
+        // Leaves don't need their heights toggled
+        if (directChildULElement) {
+            let alreadyExpanded = liElement.classList.contains('expanded');
+            let toBeExpanded = liElement.classList.contains('filter-expanded');
+            let closestChildLIElements = directChildULElement.children;
+
+            for (let i = 0; i < closestChildLIElements.length; i++) {
+                this.setLIElementHeight(closestChildLIElements[i] as HTMLLIElement, allParentsAlreadyExpanded && alreadyExpanded);
+            }
+
+            if (toBeExpanded && !alreadyExpanded) {
+                if (allParentsAlreadyExpanded) {
+                    transitionsService.toggleHeightWithTransition(directChildULElement, liElement);
+                } else {
+                    transitionsService.toggleHeightWithoutTransition(directChildULElement, liElement);
+                }
+            } else if (!toBeExpanded && alreadyExpanded) {
+                transitionsService.toggleHeightWithTransition(directChildULElement, liElement);
+            }
+        }
+    }
+
+    private resetLIElement = (liElement: HTMLLIElement): void => {
+        liElement.classList.remove('filter-hidden', 'filter-expanded', 'filter-match');
     }
 
     private contains(text, val): boolean {
