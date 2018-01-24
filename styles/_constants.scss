@@ -41,6 +41,8 @@ $animated-underline-32px-ypos: 37px;
 
 @mixin text-input-icons() {
     svg {
+        // TODO for some reason, text input icons shrink despite there being ample space and no min-width on the input element
+        flex-shrink: 0;
         height: 18px;
         width: 18px;
         fill: $color-primary-text;

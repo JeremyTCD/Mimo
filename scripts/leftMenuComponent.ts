@@ -5,23 +5,41 @@ import breadcrumbsComponent from './breadcrumbsComponent';
 import Component from './component';
 import edgeWorkaroundsService from './edgeWorkaroundsService';
 import svgService from './svgService';
+import TextInputService from './textInputService';
 
 class LeftMenuComponent extends Component {
     leftMenuElement: HTMLElement = document.getElementById('left-menu');
     bodyContainerElement: HTMLElement;
     leftMenuTocElement: HTMLElement;
+    leftMenuFilterInputElement: HTMLInputElement;
+    leftMenuFilterElement: HTMLElement;
+    leftMenuClearElement: HTMLElement;
+    textInputService: TextInputService;
+    tocElement: HTMLElement;
+    tocRootLIElements: NodeList;
 
     protected validDomElementExists(): boolean {
         return this.leftMenuElement ? true : false;
     }
 
     protected setup(): void {
+        this.leftMenuFilterElement = document.getElementById('left-menu-filter');
+        this.leftMenuFilterInputElement = this.leftMenuFilterElement.querySelector('input');
+        this.leftMenuClearElement = this.leftMenuFilterElement.querySelector('svg:last-child') as HTMLElement;
         this.bodyContainerElement = document.querySelector('body > .container') as HTMLElement;
         this.leftMenuTocElement = document.getElementById('left-menu-toc');
-        this.leftMenuElement = document.getElementById('left-menu');
+        this.tocElement = document.getElementById('left-menu-toc');
 
         this.setupToc();
-        this.setupFilter();
+
+        this.textInputService = new TextInputService(
+            this.leftMenuFilterElement,
+            this.leftMenuFilterInputElement,
+            this.leftMenuClearElement,
+            () => {
+                this.restoreToc();
+            });
+        this.textInputService.setupEventListeners();
     }
 
     protected registerListeners(): void {
@@ -62,6 +80,10 @@ class LeftMenuComponent extends Component {
                 }
 
                 this.leftMenuTocElement.appendChild(tocFrag);
+
+                // Can only get root li elements after inserting toc frag
+                this.tocRootLIElements = document.querySelectorAll('#left-menu-toc > ul > li');
+                this.setupFilter();
 
                 this.setTocActiveTopic(tocPath);
                 this.setTocTopicPadding();
@@ -212,52 +234,39 @@ class LeftMenuComponent extends Component {
     }
 
     private setupFilter(): void {
-        let leftMenuFilterInputElement = document.getElementById('left-menu-filter-input');
-        let leftMenuFilterElement = document.getElementById('left-menu-filter');
-
-        // Preferable to use a class over css
-        leftMenuFilterInputElement.
-            addEventListener('focus', (event: Event) => {
-                leftMenuFilterElement.classList.add('focus');
-            });
-        leftMenuFilterInputElement.
-            addEventListener('focusout', (event: Event) => {
-                leftMenuFilterElement.classList.remove('focus');
-            });
-
-        leftMenuFilterInputElement.addEventListener('input', (event: Event) => {
-            let sideMenuTocElement = document.getElementById('left-menu-toc');
-            let rootLis = document.querySelectorAll('#left-menu-toc > ul > li');
-
-            let filterValue: string = $(event.target).val().toString();
+        this.leftMenuFilterInputElement.addEventListener('input', (event: Event) => {
+            let filterValue: string = this.leftMenuFilterInputElement.value;
             if (filterValue === '') {
-                // Restore toc
-                for (let i = 0; i < rootLis.length; i++) {
-                    this.handleLiElement(rootLis[i] as HTMLLIElement, true, true, filterValue)
-                }
-
-                sideMenuTocElement.classList.remove('filtered');
+                this.restoreToc();
                 return;
             }
 
-            if (!sideMenuTocElement.classList.contains('filtered')) {
-                let expandedLis = sideMenuTocElement.
+            if (!this.tocElement.classList.contains('filtered')) {
+                let expandedLis = this.tocElement.
                     querySelectorAll('.expanded');
 
                 for (let i = 0; i < expandedLis.length; i++) {
                     expandedLis[i].classList.add('pre-expanded');
                 }
 
-                sideMenuTocElement.classList.add('filtered');
+                this.tocElement.classList.add('filtered');
             }
 
-            for (let i = 0; i < rootLis.length; i++) {
-                this.handleLiElement(rootLis[i] as HTMLLIElement, true, false, filterValue)
+            for (let i = 0; i < this.tocRootLIElements.length; i++) {
+                this.handleLiElement(this.tocRootLIElements[i] as HTMLLIElement, true, false, filterValue)
             }
         });
     }
 
-    private handleLiElement = (liElement: HTMLLIElement, allParentsExpanded: boolean, restore: boolean, filterValue: string): void => {
+    private restoreToc = () => {
+        for (let i = 0; i < this.tocRootLIElements.length; i++) {
+            this.handleLiElement(this.tocRootLIElements[i] as HTMLLIElement, true, true)
+        }
+
+        this.tocElement.classList.remove('filtered');
+    }
+
+    private handleLiElement = (liElement: HTMLLIElement, allParentsExpanded: boolean, restore: boolean, filterValue: string = null): void => {
         let expanded = liElement.classList.contains('expanded');
 
         // Reset
