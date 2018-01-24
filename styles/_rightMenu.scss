@@ -12,7 +12,7 @@ $bar-width: 3px;
 
     @media #{$media-wide} {
         overflow-y: hidden;
-        margin-top: -6px;
+        margin-top: -4px;
         width: $side-menu-width;
         height: auto !important;
         margin-left: 64px;
