@@ -47,8 +47,12 @@ class BreadcrumbsComponent extends Component {
         }
 
         if (!this.rootBreadcrumbLoaded) {
+            let clone = anchorElement.cloneNode(true) as HTMLElement;
+
+            clone.setAttribute('style', '');
+
             this.breadcrumbs.unshift({
-                element: anchorElement.cloneNode(true) as HTMLElement,
+                element: clone,
                 items: null
             });
 
@@ -70,6 +74,7 @@ class BreadcrumbsComponent extends Component {
                 let clone = element.cloneNode(true) as HTMLElement;
 
                 clone.removeChild(clone.querySelector('svg'));
+                clone.setAttribute('style', '');
 
                 this.breadcrumbs.push({
                     element: clone,
