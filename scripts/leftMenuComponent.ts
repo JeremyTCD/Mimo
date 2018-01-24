@@ -85,8 +85,8 @@ class LeftMenuComponent extends Component {
                 this.tocRootLIElements = document.querySelectorAll('#left-menu-toc > ul > li');
                 this.setupFilter();
 
-                this.setTocActiveTopic(tocPath);
                 this.setTocTopicPadding();
+                this.setTocActiveTopic(tocPath);
                 this.registerTocTopicListener();
             }
         }
