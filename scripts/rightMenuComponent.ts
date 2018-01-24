@@ -10,6 +10,7 @@ class RightMenuComponent extends Component {
     mainContainer: HTMLElement;
     articleHeadingElements: NodeList;
     outlineUlElement: HTMLElement;
+    metadataElement: HTMLElement;
 
     protected validDomElementExists(): boolean {
         return this.rightMenuElement ? true : false;
@@ -74,31 +75,41 @@ class RightMenuComponent extends Component {
             } else if (fixed) {
                 wrapperElement.classList.remove('fixed');
                 this.rightMenuElement.style.minHeight = 'initial';
-                this.outlineUlElement.style.maxHeight = 'initial';
+                if (this.outlineUlElement) {
+                    this.outlineUlElement.style.maxHeight = 'initial';
+                }
                 edgeWorkaroundsService.overflowBugWorkaround(this.outlineUlElement);
             }
             this.setOutlineActiveTopic();
         } else {
             this.rightMenuElement.style.minHeight = 'initial';
-            this.outlineUlElement.style.maxHeight = 'initial';
+            if (this.outlineUlElement) {
+                this.outlineUlElement.style.maxHeight = 'initial';
+            }
             wrapperElement.classList.remove('fixed');
         }
     }
 
     private setRightMenuDomLocation(): void {
         let wide = mediaService.mediaWidthWide();
-        let rightMenuInArticle = this.articleElement.querySelector('#right-menu');
+        let outlineInArticle = this.articleElement.querySelector('#outline') ? true : false;
+        let editArticleInMetadata = this.articleElement.querySelector('#edit-article') ? true : false;
 
-        if (!wide && !rightMenuInArticle) {
-            $('main > article > .meta').after(this.rightMenuElement);
+        if (!wide) {
+            // Don't bother moving if outline is empty, moving messes up styles for surrounding elements
+            if (this.outlineUlElement && !outlineInArticle) {
+                $('main > article > .meta').after(this.rightMenuElement);
+            }
 
-            if (this.editArticleElement) {
+            if (this.editArticleElement && !editArticleInMetadata) {
                 document.getElementById('metadata-edit-article').appendChild(this.editArticleElement);
             }
-        } else if (wide && rightMenuInArticle) {
-            $('body > .container').append(this.rightMenuElement);
+        } else if (wide) {
+            if (this.outlineUlElement && outlineInArticle) {
+                $('body > .container').append(this.rightMenuElement);
+            }
 
-            if (this.editArticleElement) {
+            if (this.editArticleElement && editArticleInMetadata) {
                 $('#right-menu > .wrapper').prepend(this.editArticleElement);
             }
         }
@@ -106,7 +117,8 @@ class RightMenuComponent extends Component {
 
     private setupOutline(): void {
         let headingElements = document.querySelectorAll('main > article > h1,h2,h3,h4');
-        if (headingElements.length === 0) {
+        // Only title exists, nothing to display in outline
+        if (headingElements.length === 1) {
             return;
         }
 

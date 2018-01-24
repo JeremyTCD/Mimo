@@ -10,10 +10,6 @@ $bar-width: 3px;
     // and distributes negative space between toc and article 1:1. To avoid this, flex-shrink must be set to 0.
     flex-shrink: 0;
 
-    @media #{$media-narrow}, #{$media-medium} {
-        padding-bottom: 24px;
-    }
-
     @media #{$media-wide} {
         overflow-y: hidden;
         margin-top: -6px;
@@ -121,7 +117,6 @@ $bar-width: 3px;
                                 // animated-underline only works if the element whose background is animated is an only child or has a parent that has display block,
                                 // inline-block or inline.
                                 // TODO figure out why
-
                                 & > span {
                                     @include animated-underline($color-primary-text-link, $animated-underline-13px-ypos, $background-color: $color-primary);
                                     margin-right: 14px;
@@ -153,5 +148,13 @@ $bar-width: 3px;
     span {
         flex-shrink: 0;
         @include animated-underline($color-primary-text-link, $animated-underline-13px-ypos, $background-color: $color-primary);
+    }
+}
+
+article {
+    #right-menu {
+        @media #{$media-narrow}, #{$media-medium} {
+            margin-bottom: 24px;
+        }
     }
 }
