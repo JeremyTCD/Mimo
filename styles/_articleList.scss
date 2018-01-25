@@ -3,7 +3,7 @@
 .article-list {
     flex-direction: column;
     flex-grow: 1;
-    margin-top: -7px;
+    margin-top: -10px;
 
     .al-items {
         flex-direction: column;
@@ -12,7 +12,7 @@
         article {
 
             + article {
-                padding-top: 44px;
+                padding-top: 41px;
             }
 
             h2, h3, h4 {
@@ -20,13 +20,13 @@
                 font-size: $font-size-4;
 
                 & + p {
-                    margin-top: 10px;
+                    margin-top: 8px;
                 }
             }
 
             p {
                 & + h2, & + h3, & + h4 {
-                    margin-top: 13px;
+                    margin-top: 11px;
                 }
             }
 
@@ -40,7 +40,7 @@
             }
 
             .meta {
-                margin-top: 4px;
+                margin-top: 1px;
 
                 & + div {
                     margin-top: 6px;
