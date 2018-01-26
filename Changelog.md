@@ -1,7 +1,16 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.4...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.5...HEAD)
+
+## [1.0.0-alpha.5](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.4...1.0.0-alpha.5) - Jan 26, 2018
+### Added
+- Minor performance enhancement for back to top button.
+### Changed
+- Renamed blog example's 404 page so it works with github pages out of the box.
+### Fixed
+- Back to top button being visible at the wrong time on some browsers.
+- Search not working if there are no searcheable pages. 
 
 ## [1.0.0-alpha.4](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.3...1.0.0-alpha.4) - Jan 25, 2018
 ### Added
@@ -30,5 +39,6 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 ### Fixed
 - Dealt with some serve mode issues.
 - Back to top button now fades in and out correctly.
+
 ## 1.0.0-alpha.1 - Jan 16, 2018
 Initial release.
