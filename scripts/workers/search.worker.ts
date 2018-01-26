@@ -16,12 +16,12 @@ import * as lunr from 'lunr';
     let searchDataRequest = new XMLHttpRequest();
     searchDataRequest.open('GET', '/index.json');
     searchDataRequest.onload = function () {
-        if (searchDataRequest.status != 200) {
-            return;
-        }
-        searchData = JSON.parse(searchDataRequest.responseText);
-        for (let prop in searchData) {
-            lunrBuilder.add(searchData[prop]);
+        // If no index.json is found, just leave the index empty
+        if (searchDataRequest.status === 200) {
+            searchData = JSON.parse(searchDataRequest.responseText);
+            for (let prop in searchData) {
+                lunrBuilder.add(searchData[prop]);
+            }
         }
         postMessage({ e: 'index-ready' });
     }
