@@ -11,23 +11,31 @@ class FooterComponent extends Component {
 
     protected setup(): void {
         this.footerButtonElement = document.getElementById('footer-button');
+
+        // ResizeObserver typically makes an initial call to setBackToTopButtonOpacity because other js scripts modify dom elements in body when page is loading,
+        // not reliable though.
+        this.setBackToTopButtonOpacity();
     }
 
     protected registerListeners(): void {
-        const resizeObserver = new ResizeObserver((entries, observer) => {
-            // A selling point of ResizeObserver is that it provides dimensions so layouts can be avoided - https://developers.google.com/web/updates/2016/10/resizeobserver
-            // Consider utilizing those values.
-            this.setBackToTopButtonOpacity();
-        });
-        // Note: Makes initial call to setBackToTopButtonOpacity
+        // A selling point of ResizeObserver is that it provides dimensions so layouts can be avoided - https://developers.google.com/web/updates/2016/10/resizeobserver
+        // Consider utilizing those values.
+        const resizeObserver = new ResizeObserver(this.setBackToTopButtonOpacity);
+
         resizeObserver.observe(document.body);
     }
 
     private setBackToTopButtonOpacity = (): void => {
         if (this.footerButtonElement) {
             let visible = this.footerButtonElement.classList.contains('visible');
-            let footerTop = document.querySelector('footer').getBoundingClientRect().top;
-            let pageScrollable = document.body.offsetHeight > window.innerHeight;
+
+            // This is a hack for getting around android chrome and ios safari url bars.
+            // 100vh corresponds to the viewport height + the url bar height on both and is fixed - https://developers.google.com/web/updates/2016/12/url-bar-resizing.
+            // If body.offsetHeight is === (viewport height + url bar height), there will be no verical scrollbar since url bar just scrolls out. 
+            // 100vh is just viewport height (window.innerHeight) on normal browsers, so this is safe for them.
+            let documentElementStyle = getComputedStyle(document.documentElement);
+            let viewportHeight = parseFloat(documentElementStyle.height);
+            let pageScrollable = document.body.offsetHeight > viewportHeight;
 
             if (!visible && pageScrollable) {
                 this.footerButtonElement.classList.add('visible');
