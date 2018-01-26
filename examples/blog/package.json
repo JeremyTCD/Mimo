@@ -1,7 +1,6 @@
 {
     "name": "my-blog",
     "version": "1.0.0",
-    "main": "index.js",
     "private":  true,
     "scripts": {
         "serve-dev": "set NODE_ENV=development && npm run serve",
