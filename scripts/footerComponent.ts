@@ -1,8 +1,11 @@
 import Component from './component';
-import ResizeObserver from 'resize-observer-polyfill'
+import ResizeObserver from 'resize-observer-polyfill';
 
 class FooterComponent extends Component {
     footerButtonElement: HTMLElement;
+    debounceTime: 150;
+    timeoutID: number;
+
 
     protected validDomElementExists(): boolean {
         // Footer always exists
@@ -20,9 +23,14 @@ class FooterComponent extends Component {
     protected registerListeners(): void {
         // A selling point of ResizeObserver is that it provides dimensions so layouts can be avoided - https://developers.google.com/web/updates/2016/10/resizeobserver
         // Consider utilizing those values.
-        const resizeObserver = new ResizeObserver(this.setBackToTopButtonOpacity);
+        const resizeObserver = new ResizeObserver(this.debouncedSetBackToTopOpacity);
 
         resizeObserver.observe(document.body);
+    }
+
+    private debouncedSetBackToTopOpacity = (): void => {
+        window.clearTimeout(this.timeoutID);
+        this.timeoutID = window.setTimeout(this.setBackToTopButtonOpacity, this.debounceTime);
     }
 
     private setBackToTopButtonOpacity = (): void => {
