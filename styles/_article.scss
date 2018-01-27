@@ -42,7 +42,7 @@ article {
     }
 
     h1 {
-        & + #content {
+        & + .content {
             h2 {
                 &:first-child {
                     margin-top: 30px;
@@ -57,39 +57,19 @@ article {
         }
     }
 
-    h2 {
-        & + p {
-            margin-top: 7px;
-        }
-    }
+    #right-menu {
+        & + .content {
+            h2 {
+                &:first-child {
+                    margin-top: 37px;
+                }
+            }
 
-    h3 {
-        & + p {
-            margin-top: 9px;
-        }
-    }
-
-    h4 {
-        & + p {
-            margin-top: 10px;
-        }
-    }
-
-    p {
-        & + h2 {
-            margin-top: 35px;
-        }
-
-        & + h3 {
-            margin-top: 24px;
-        }
-
-        & + h4 {
-            margin-top: 26px;
-        }
-
-        & + p {
-            margin-top: 15px;
+            p {
+                &:first-child {
+                    margin-top: 25px;
+                }
+            }
         }
     }
 
@@ -97,11 +77,11 @@ article {
         margin-top: 7px;
 
         & + p, & + div {
-            margin-top: 18px;
+            margin-top: 16px;
         }
 
         & + #right-menu {
-            margin-top: 23px;
+            margin-top: 22px;
         }
 
         ul {
@@ -118,7 +98,6 @@ article {
                 }
 
                 a, span {
-                    display: flex;
                     align-items: center;
                     color: inherit;
                 }
@@ -173,16 +152,64 @@ article {
         }
     }
 
-    span, em, p, a {
-        display: inline;
-    }
+    .content {
+        p {
+            display: block;
+        }
 
-    #content {
+        span, em, code, a {
+            display: inline;
+        }
+
         flex-direction: column;
         margin-bottom: -6px;
 
         a:not(.heading-link) {
-            @include animated-underline($color-primary-text-link,  $animated-underline-15px-inline-ypos, $background-color: $color-primary);
+            @include animated-underline($color-primary-text-link, $animated-underline-15px-inline-ypos, $background-color: $color-primary);
+        }
+
+        h2 {
+            & + p {
+                margin-top: 20px;
+            }
+
+            & + h3 {
+                margin-top: 23px;
+            }
+        }
+
+        h3 {
+            & + p {
+                margin-top: 21px;
+            }
+
+            & + h4 {
+                margin-top: 24px;
+            }
+        }
+
+        h4 {
+            & + p {
+                margin-top: 22px;
+            }
+        }
+
+        p {
+            & + h2 {
+                margin-top: 35px;
+            }
+
+            & + h3 {
+                margin-top: 21px;
+            }
+
+            & + h4 {
+                margin-top: 24px;
+            }
+
+            & + p {
+                margin-top: 15px;
+            }
         }
     }
 }
