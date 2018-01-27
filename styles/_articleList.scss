@@ -15,12 +15,29 @@
                 padding-top: 41px;
             }
 
+            h2 {
+                font-size: $font-size-5;
+
+                & + h3{
+                    margin-top: 9px;
+                }
+            }
+
+            h3{
+                & + h4{
+                    margin-top: 9px;
+                }
+            }
+
+            h3, h4 {
+                font-size: $font-size-4;
+            }
+
             h2, h3, h4 {
                 color: $color-primary-text;
-                font-size: $font-size-4;
 
                 & + p {
-                    margin-top: 8px;
+                    margin-top: 9px;
                 }
             }
 
