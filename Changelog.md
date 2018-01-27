@@ -1,7 +1,16 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.5...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.6...HEAD)
+
+## [1.0.0-alpha.6](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.5...1.0.0-alpha.6) - Jan 27, 2018
+### Added
+- Content for example page "Article with Links to Other Articles"
+- Outline for "Publishing Your Site" section in readme.
+### Changed
+- Styles across the page.
+- All scripts now only use yarn.
+- Content div in article element no longer has ID "content". Instead it has class "content".
 
 ## [1.0.0-alpha.5](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.4...1.0.0-alpha.5) - Jan 26, 2018
 ### Added
