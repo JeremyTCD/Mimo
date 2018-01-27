@@ -11,6 +11,9 @@ jtcd_disableMetadata: true
 jtcd_disableLeftMenu: true
 jtcd_disableRightMenu: true
 jtcd_disableComments: true
+
+# Used in articleWithLinksToOtherArticles
+uid: about
 ---
 
 # About
