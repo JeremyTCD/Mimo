@@ -132,7 +132,7 @@ $bar-width: 3px;
 
 #edit-article {
     @media #{$media-wide} {
-        margin-bottom: 25px;
+        margin-bottom: 23px;
     }
 
     align-items: center;
@@ -148,13 +148,5 @@ $bar-width: 3px;
     span {
         flex-shrink: 0;
         @include animated-underline($color-primary-text-link, $animated-underline-13px-ypos, $background-color: $color-primary);
-    }
-}
-
-article {
-    #right-menu {
-        @media #{$media-narrow}, #{$media-medium} {
-            margin-bottom: 24px;
-        }
     }
 }
