@@ -27,7 +27,7 @@ Notes for this ReadMe
     * [Options](#options)
   * [Overriding Mimo](#overriding-mimo)  
   * [Creating Articles](#creating-articles)
-* [Publishing Your Blog](#publishing-your-blog)
+* [Publishing Your Site](#publishing-your-site)
 * [Modifying Mimo](#modifying-mimo)  
   * [Building Mimo](#building-mimo)
   * [Serving Mimo in watch mode](#serving-mimo-in-watch-mode)
@@ -355,8 +355,34 @@ Resources from *blog/src/customizations* take precedence. *blog/src/customizatio
 ### Creating Articles
 TODO
 
-## Publishing Your Blog
+## Publishing Your Site
+TODO write entire step by step walkthrough using example blog
+### Github Pages
+#### User/Organization Page
+#### Preparing Your Repository
+- Create dev branch
+- Generate site, push to master branch
+- Do it using CI
+- Custom url
+#### Project Page
 TODO
+### Cloudflare
+- Create account
+- Create site
+- Setup nameservers
+- Setup CNAME records
+- Setup minification
+  - only js and html
+- Setup caching
+  - cache everything, including html (since site uses toc.html)
+	- https://support.cloudflare.com/hc/en-us/articles/115000150272-How-do-I-use-Cache-Everything-with-Cloudflare-
+    - cache duration 1 year
+  - verify caching by observing headers cf-cache-control=hit
+- Setup https
+  - crypto > full
+- Setup cache purging in your CI
+  - https://api.cloudflare.com/#zone-purge-all-files
+
 
 ## Modifying Mimo
 The sections above pertain to using Mimo as is. You might want to modify Mimo to create your own theme instead. This section covers all you need to know to get started. 
