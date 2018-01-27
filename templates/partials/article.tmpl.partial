@@ -34,7 +34,7 @@
     </div>
     {{/jtcd_disableMetadata}}
 
-    <div id="content">
+    <div class="content">
         {{{conceptual}}}
     </div>
 </article>
