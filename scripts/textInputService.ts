@@ -21,10 +21,11 @@
             return;
         }
 
+        this.clearElement.removeEventListener('transitionend', this.clearElementTransitionEndListener);
         if (this.inputElement.value.length > 0) {
-            this.clearElement.classList.add('active');
+            this.showClearElement();
         } else {
-            this.clearElement.classList.remove('active');
+            this.hideClearElement();
         }
     }
 
@@ -48,11 +49,25 @@
 
     public resetSearchInput() {
         this.inputElement.value = '';
-        this.clearElement.classList.remove('active');
+        this.hideClearElement();
 
         if (this.onResetSearchInput) {
             this.onResetSearchInput();
         }
+    }
+
+    private showClearElement() {
+        this.clearElement.style.display = 'flex';
+        this.clearElement.classList.add('active');
+    }
+
+    private hideClearElement() {
+        this.clearElement.classList.remove('active');
+        this.clearElement.addEventListener('transitionend', this.clearElementTransitionEndListener);
+    }
+
+    private clearElementTransitionEndListener = () => {
+        this.clearElement.style.display = 'none';
     }
 }
 

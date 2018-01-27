@@ -54,12 +54,11 @@ $animated-underline-32px-ypos: 37px;
             transition: opacity 0.26s $ease-out-quad, transform 0.3s $ease-out-quad-delayed;
             margin-left: 5px;
             opacity: 0;
-            pointer-events: none;
+            display: none;
+            cursor: pointer;
 
             &.active {
                 opacity: $opacity-3;
-                cursor: pointer;
-                pointer-events: initial;
 
                 &:hover {
                     transform: scale(1.3333);
