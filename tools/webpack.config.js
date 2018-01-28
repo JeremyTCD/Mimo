@@ -5,7 +5,8 @@ const Path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const Fs = require("fs");
 //const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
-const Autoprefixer = require('autoprefixer');
+const AutoPrefixer = require('autoprefixer');
+const CssNano = require('cssnano');
 const Glob = require('glob');
 
 module.exports = (docfxProjectDir, nodeModulesDir) => {
@@ -161,15 +162,25 @@ module.exports = (docfxProjectDir, nodeModulesDir) => {
                     use: ExtractTextPlugin.extract({
                         use: [
                             {
-                                loader: 'css-loader',
-                                options: { minimize: isProduction }
+                                loader: 'css-loader'
                             },
                             {
                                 // Set of tools for processing css: https://github.com/postcss
                                 loader: 'postcss-loader',
                                 // Plugin that adds css prefixes: https://github.com/postcss/autoprefixer
                                 // Browsers to add prefixes for specified using: https://github.com/ai/browserslist
-                                options: { plugins: () => [Autoprefixer({ browsers: ['last 3 versions', '> 1%'] })] }
+                                options: {
+                                    plugins: () => {
+                                        var result = [AutoPrefixer({ browsers: ['last 3 versions', '> 1%'] })];
+                                        if (isProduction) {
+                                            // CssNano is a minifier plugin for postcss. convertValues must be set to false or 0% will be converted to 0, messing up transitions in edge that start or end at 0%.
+                                            // see constants.scss.
+                                            result.push(CssNano({ convertValues: false }));
+                                        }
+
+                                        return result;
+                                    }
+                                }
                             },
                             { loader: 'sass-loader' }
                         ]
