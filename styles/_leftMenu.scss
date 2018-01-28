@@ -57,7 +57,7 @@ $horizontal-bar-ease-timing: 0.6s;
                 transition: background-size $horizontal-bar-ease-timing $ease-out-quad-delayed, border-color 0.4s $ease-out-quad-delayed;
 
                 &:hover, &.active {
-                    background-size: 0 100%;
+                    background-size: 0% 100%;
                     border-color: $color-primary-text;
                 }
             }
@@ -157,7 +157,7 @@ $horizontal-bar-ease-timing: 0.6s;
                         background-image: linear-gradient($color-primary-text-link, $color-primary-text-link);
                         background-repeat: no-repeat;
                         background-position: 0 0;
-                        background-size: 0 100%;
+                        background-size: 0% 100%;
                         transition: background-size $horizontal-bar-ease-timing $ease-out-quad-delayed, color 0.4s $ease-out-quad-delayed;
 
                         &.active {
