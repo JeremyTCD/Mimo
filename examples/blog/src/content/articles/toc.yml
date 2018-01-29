@@ -19,7 +19,9 @@
   - name: Article with Code Snippets
     href: articleWithCodeSnippets.md
   - name: Article with Links to Other Articles
-    href: aritcleWithLinksToOtherArticles.md
+    href: articleWithLinksToOtherArticles.md
+  - name: Article with Embedded Files
+    href: articleWithEmbeddedFiles.md
 - name: Articles that use Custom Styles
   items:
   - name: Article with Additional Fonts

@@ -1,11 +1,11 @@
 ---
-jtcd_pageDescription: This is an example of an article with links to other articles.
+jtcd_pageDescription: Article with examples of links to other articles.
 jtcd_pageTitle: Article with Links to Other Articles
 jtcd_date: 10/25/2013
 ---
 
 # Article with Links to Other Articles
-This article contains examples for linking to other articles. It is part of the [writing articles](TODO) tutorial. Please refer to the tutorial for an explanation of the
+This article contains examples of links to other articles. It is part of the [writing articles tutorial](TODO). Please refer to the tutorial for an explanation of the
 following examples.
 
 ## Linking Using UIDs
