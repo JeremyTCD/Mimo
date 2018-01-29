@@ -30,12 +30,17 @@ class ArticleComponent extends Component {
         for (let i: number = 0; i < headers.length; i++) {
             let headerElement: HTMLElement = headers[i] as HTMLElement;
             let anchorElement: HTMLAnchorElement = anchorMaster.cloneNode(true) as HTMLAnchorElement;
+            let spanElement: HTMLElement = document.createElement('span');
             let href: string = `${location.protocol}//${location.host}${location.pathname}#${headerElement.id}`;
+
+            spanElement.innerHTML = headerElement.innerHTML;
+            headerElement.innerHTML = '';
+            headerElement.appendChild(spanElement);
 
             anchorElement.setAttribute('href', href);
             anchorElement.setAttribute('data-clipboard-text', href);
 
-            headerElement.appendChild(anchorElement);
+            spanElement.appendChild(anchorElement);
         }
 
         let clipboard = new Clipboard('.heading-link');
