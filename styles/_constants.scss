@@ -9,11 +9,12 @@ $color-primary-background: #efefef;
 $color-secondary: #1565c0;
 $color-secondary-text: #fff;
 
-$opacity-1: 0.44;
-$opacity-2: 0.6;
-$opacity-3: 0.7;
-$opacity-4: 0.80;
-$opacity-5: 1.0;
+$opacity-1: 0.45;
+$opacity-2: 0.52;
+$opacity-3: 0.6;
+$opacity-4: 0.7;
+$opacity-5: 0.80;
+$opacity-6: 1.0;
 
 $font-family: 'Open Sans', sans-serif;
 
@@ -47,7 +48,7 @@ $animated-underline-32px-ypos: 37px;
         fill: $color-primary-text;
 
         &:first-child {
-            opacity: $opacity-3;
+            opacity: $opacity-4;
             margin-right: 5px;
         }
 
@@ -59,7 +60,7 @@ $animated-underline-32px-ypos: 37px;
             cursor: pointer;
 
             &.active {
-                opacity: $opacity-3;
+                opacity: $opacity-4;
 
                 &:hover {
                     transform: scale(1.3333);

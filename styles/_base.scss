@@ -22,7 +22,7 @@ html, body {
     font-family: $font-family;
     font-size: $font-size-3;
     line-height: 1.6;
-    opacity: $opacity-5;
+    opacity: $opacity-6;
 }
 
 body, body * {
@@ -117,12 +117,12 @@ h4 {
 }
 
 *::placeholder {
-    opacity: $opacity-2;
+    opacity: $opacity-3;
     color: $color-primary-text;
 }
 
 *:placeholder {
-    opacity: $opacity-2;
+    opacity: $opacity-3;
     color: $color-primary-text;
 }
 

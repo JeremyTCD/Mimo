@@ -65,7 +65,7 @@ article {
                         fill: $color-primary-text;
                     }
 
-                    opacity: $opacity-3;
+                    opacity: $opacity-4;
                 }
 
                 &#metadata-author {
@@ -83,7 +83,7 @@ article {
                     }
 
                     svg, span {
-                        opacity: $opacity-3;
+                        opacity: $opacity-4;
                     }
 
                     img {
@@ -95,7 +95,7 @@ article {
 
                 &#metadata-edit-article {
                     span:last-child {
-                        opacity: $opacity-3;
+                        opacity: $opacity-4;
                         background-image: linear-gradient(to right, $color-primary-text, $color-primary-text);
                     }
                 }
@@ -128,7 +128,7 @@ article {
 
             &:hover {
                 .heading-link {
-                    opacity: $opacity-5;
+                    opacity: $opacity-6;
                 }
             }
 
@@ -186,7 +186,7 @@ article {
                 height: 1px;
                 margin-top: 10px;
                 background-color: $color-primary-border;
-                opacity: $opacity-1;
+                opacity: $opacity-2;
             }
         }
 

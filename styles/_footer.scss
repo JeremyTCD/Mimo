@@ -18,7 +18,7 @@ footer {
 
             .uninteractive {
                 white-space: pre;
-                opacity: $opacity-2;
+                opacity: $opacity-3;
             }
 
             #footer-attribution {
@@ -127,7 +127,7 @@ footer {
             transition: opacity 0.26s $ease-out-quad;
 
             &.visible {
-                opacity: $opacity-5;
+                opacity: $opacity-6;
             }
 
             a {
