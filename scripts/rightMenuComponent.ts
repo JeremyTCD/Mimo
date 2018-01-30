@@ -9,8 +9,10 @@ class RightMenuComponent extends Component {
     articleElement: HTMLElement;
     mainContainer: HTMLElement;
     articleHeadingElements: NodeList;
-    outlineUlElement: HTMLElement;
+    outlineElement: HTMLElement;
     metadataElement: HTMLElement;
+    outlineWrapperElement: HTMLElement;
+    outlineTitleElement: HTMLElement;
 
     protected validDomElementExists(): boolean {
         return this.rightMenuElement ? true : false;
@@ -21,9 +23,11 @@ class RightMenuComponent extends Component {
         this.articleElement = document.querySelector('main > article') as HTMLElement;
         this.mainContainer = document.querySelector('body > .container') as HTMLElement;
         this.articleHeadingElements = this.articleElement.querySelectorAll('h2,h3');
+        this.outlineWrapperElement = document.querySelector('#right-menu > .wrapper > .wrapper') as HTMLElement;
+        this.outlineElement = document.getElementById('outline') as HTMLElement;
 
         this.setupOutline();
-        this.outlineUlElement = document.querySelector('#outline > ul') as HTMLUListElement;
+        this.outlineTitleElement = document.querySelector('#right-menu > .wrapper > .wrapper > span') as HTMLElement;
 
         // Initial call
         this.updateRightMenu();
@@ -71,20 +75,20 @@ class RightMenuComponent extends Component {
 
                     wrapperElement.classList.add('fixed');
                 }
-                edgeWorkaroundsService.overflowBugWorkaround(this.outlineUlElement);
+                edgeWorkaroundsService.overflowBugWorkaround(this.outlineElement);
             } else if (fixed) {
                 wrapperElement.classList.remove('fixed');
                 this.rightMenuElement.style.minHeight = 'initial';
-                if (this.outlineUlElement) {
-                    this.outlineUlElement.style.maxHeight = 'initial';
+                if (this.outlineElement) {
+                    this.outlineElement.style.maxHeight = 'initial';
                 }
-                edgeWorkaroundsService.overflowBugWorkaround(this.outlineUlElement);
+                edgeWorkaroundsService.overflowBugWorkaround(this.outlineElement);
             }
             this.setOutlineActiveTopic();
         } else {
             this.rightMenuElement.style.minHeight = 'initial';
-            if (this.outlineUlElement) {
-                this.outlineUlElement.style.maxHeight = 'initial';
+            if (this.outlineElement) {
+                this.outlineElement.style.maxHeight = 'initial';
             }
             wrapperElement.classList.remove('fixed');
         }
@@ -97,7 +101,7 @@ class RightMenuComponent extends Component {
 
         if (!wide) {
             // Don't bother moving if outline is empty, moving messes up styles for surrounding elements
-            if (this.outlineUlElement && !outlineInArticle) {
+            if (this.outlineElement && !outlineInArticle) {
                 $('main > article > .meta').after(this.rightMenuElement);
             }
 
@@ -105,7 +109,7 @@ class RightMenuComponent extends Component {
                 document.getElementById('metadata-edit-article').appendChild(this.editArticleElement);
             }
         } else if (wide) {
-            if (this.outlineUlElement && outlineInArticle) {
+            if (this.outlineElement && outlineInArticle) {
                 $('body > .container').append(this.rightMenuElement);
             }
 
@@ -117,25 +121,22 @@ class RightMenuComponent extends Component {
 
     private setupOutline(): void {
         let headingElements = document.querySelectorAll('main > article > h1,h2,h3');
-        // Only title exists, nothing to display in outline
-        if (headingElements.length === 1) {
-            return;
-        }
 
         let titleElement = document.querySelector('main > article > h1');
         let outlineTitle = titleElement ? titleElement.textContent : 'Outline';
+        let spanElement = document.createElement('span');
+
+        spanElement.innerHTML = outlineTitle;
+        this.outlineWrapperElement.insertBefore(spanElement, this.outlineWrapperElement.children[0]);
 
         let listItemTree: ListItem = listItemService.generateListItemTree(headingElements,
             ['h2', 'h3'],
             document.createElement('a'),
             0);
         let ulElement = listItemService.generateMultiLevelList(listItemTree.items, '', 1);
-        let outlineElement = document.getElementById('outline');
-        let spanElement = document.createElement('span');
+        let outlineContentElement = document.querySelector('#outline-content');
 
-        spanElement.innerHTML = outlineTitle;
-        outlineElement.appendChild(spanElement);
-        outlineElement.appendChild(ulElement);
+        outlineContentElement.appendChild(ulElement);
         $('#outline a').first().addClass('active');
 
         // Remove bottom margin from last anchor so that decorative column does not overextend when screen
@@ -177,11 +178,11 @@ class RightMenuComponent extends Component {
         let maxHeight = window.innerHeight
             - 15 // top gap 
             - 23 // bottom gap
-            - (document.querySelector('#outline > span') as HTMLSpanElement).offsetHeight
+            - this.outlineTitleElement.offsetHeight
             - (this.editArticleElement ? this.editArticleElement.offsetHeight + parseInt(getComputedStyle(this.editArticleElement).marginBottom) : 0)
             - (footerHeight < 0 ? 0 : footerHeight);
 
-        this.outlineUlElement.style.maxHeight = `${maxHeight}px`;
+        this.outlineElement.style.maxHeight = `${maxHeight}px`;
     }
 }
 

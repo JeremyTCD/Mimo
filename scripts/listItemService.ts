@@ -1,6 +1,10 @@
 ﻿class ListItemService {
     public generateMultiLevelList(items: ListItem[], classes: string, level: number) {
         let numItems = items.length;
+        if (numItems === 0) {
+            return;
+        }
+
         let ulElement = document.createElement('ul');
 
         ulElement.setAttribute('class', `level${level} ${classes || ''}`);
@@ -12,7 +16,11 @@
             liElement.appendChild(item.element);
 
             if (item.items) {
-                liElement.appendChild(this.generateMultiLevelList(item.items, classes, level + 1) as HTMLElement);
+                let childUl = this.generateMultiLevelList(item.items, classes, level + 1) as HTMLElement;
+
+                if (childUl) {
+                    liElement.appendChild(childUl);
+                }
             }
 
             ulElement.appendChild(liElement);

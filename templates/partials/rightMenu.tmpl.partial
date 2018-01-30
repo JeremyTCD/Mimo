@@ -19,6 +19,11 @@
         {{/jtcd_disableEditArticle}}
         <div class="wrapper">
             <nav id="outline">
+                <div id="outline-indicator">
+                    <span></span>
+                </div>
+                <div id="outline-content">
+                </div>           
             </nav>
         </div>
     </div>

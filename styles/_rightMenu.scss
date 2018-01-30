@@ -46,80 +46,84 @@ $bar-width: 3px;
                 }
             }
 
+            > span {
+                @media #{$media-narrow}, #{$media-medium} {
+                    display: none;
+                }
+
+                @media #{$media-wide} {
+                    font-size: $font-size-2;
+                    padding-bottom: 13px;
+                }
+            }
+
             #outline {
-                flex-direction: column;
+                flex-direction: row;
 
-                > span {
-                    @media #{$media-narrow}, #{$media-medium} {
-                        display: none;
-                    }
+                #outline-indicator {
+                    min-height: 100%;
+                    width: 3px;
+                    margin-right: 14px;
+                    background-color: $color-primary-background;
+                    position: relative;
 
-                    @media #{$media-wide} {
-                        font-size: $font-size-2;
-                        padding-bottom: 12px;
+                    span {
+                        position: absolute;
+                        top: 10px;
+                        height: 20px;
+                        transition: top 0.26s $ease-out-quad, height 0.26s $ease-out-quad;
+                        width: 3px;
+                        background-color: $color-primary-text;
+                        opacity: $opacity-4;
                     }
                 }
 
-                > ul > li:first-child > a {
-                    margin-top: 0;
-                }
-
-                ul {
+                #outline-content {
+                    flex-grow: 1;
                     flex-direction: column;
+                    // So it doesn't cause its neighbors to shrink
+                    width: 0;
 
-                    &.level1 {
+                    > ul {
+                        > li:first-child > a {
+                            margin-top: 0;
+                        }
+
                         @media #{$media-wide} {
                             overflow-y: auto;
                         }
                     }
 
-                    &.level2, &.level3 {
-                        padding-left: 14px;
-                    }
-
-                    li {
+                    ul {
                         flex-direction: column;
-                        align-items: flex-start;
 
-                        @media #{$media-wide} {
-                            flex-shrink: 0;
+                        &.level2 {
+                            padding-left: 14px;
                         }
 
-                        a {
-                            user-select: none;
-                            cursor: pointer;
-                            align-items: center;
-                            margin-top: 6px;
-                            margin-bottom: 6px;
+                        li {
+                            flex-direction: column;
+                            align-items: flex-start;
 
                             @media #{$media-wide} {
-                                &::before {
-                                    height: 15px;
-                                    content: "";
-                                    margin-right: $bar-margin-right;
-                                    width: $bar-width;
-                                    background-color: $color-primary-text;
-                                    opacity: $opacity-4;
-                                    transform: scaleY(0);
-                                    transition: transform 0.26s $ease-out-quad;
-                                    // When scrollbar appears, if flex-shrink is not 0, bar width can get set to 0
-                                    flex-shrink: 0;
-                                }
-
-                                &.active {
-                                    &::before {
-                                        transform: scaleY(1);
-                                    }
-                                }
+                                flex-shrink: 0;
                             }
 
-                            & > span {
-                                // animated-underline only works if the element whose background is animated is an only child or has a parent that has display block,
-                                // inline-block or inline.
-                                // TODO figure out why
+                            a {
+                                user-select: none;
+                                cursor: pointer;
+                                align-items: center;
+                                margin-top: 6px;
+                                margin-bottom: 7px;
+
                                 & > span {
-                                    @include animated-underline($color-primary-text-link, $animated-underline-13px-ypos, $background-color: $color-primary);
-                                    margin-right: 14px;
+                                    // animated-underline only works if the element whose background is animated is an only child or has a parent that has display block,
+                                    // inline-block or inline.
+                                    // TODO figure out why
+                                    & > span {
+                                        @include animated-underline($color-primary-text-link, $animated-underline-13px-ypos, $background-color: $color-primary);
+                                        margin-right: 14px;
+                                    }
                                 }
                             }
                         }
