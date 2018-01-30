@@ -20,7 +20,7 @@ class RightMenuComponent extends Component {
         this.editArticleElement = document.getElementById('edit-article');
         this.articleElement = document.querySelector('main > article') as HTMLElement;
         this.mainContainer = document.querySelector('body > .container') as HTMLElement;
-        this.articleHeadingElements = this.articleElement.querySelectorAll('h2,h3,h4');
+        this.articleHeadingElements = this.articleElement.querySelectorAll('h2,h3');
 
         this.setupOutline();
         this.outlineUlElement = document.querySelector('#outline > ul') as HTMLUListElement;
@@ -116,7 +116,7 @@ class RightMenuComponent extends Component {
     }
 
     private setupOutline(): void {
-        let headingElements = document.querySelectorAll('main > article > h1,h2,h3,h4');
+        let headingElements = document.querySelectorAll('main > article > h1,h2,h3');
         // Only title exists, nothing to display in outline
         if (headingElements.length === 1) {
             return;
@@ -126,7 +126,7 @@ class RightMenuComponent extends Component {
         let outlineTitle = titleElement ? titleElement.textContent : 'Outline';
 
         let listItemTree: ListItem = listItemService.generateListItemTree(headingElements,
-            ['h2', 'h3', 'h4'],
+            ['h2', 'h3'],
             document.createElement('a'),
             0);
         let ulElement = listItemService.generateMultiLevelList(listItemTree.items, '', 1);
