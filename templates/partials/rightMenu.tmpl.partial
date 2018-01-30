@@ -21,9 +21,7 @@
             <nav id="outline">
                 <div id="outline-indicator">
                     <span></span>
-                </div>
-                <div id="outline-content">
-                </div>           
+                </div>          
             </nav>
         </div>
     </div>

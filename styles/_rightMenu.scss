@@ -1,7 +1,7 @@
 ﻿@import 'constants';
 
 $bar-margin-right: 9px;
-$bar-width: 3px;
+$outline-indicator-width: 2px;
 
 #right-menu {
     font-size: $font-size-2;
@@ -37,15 +37,6 @@ $bar-width: 3px;
                 align-self: stretch;
             }
 
-            @media #{$media-narrow}, #{$media-medium} {
-                &::before {
-                    content: "";
-                    width: $bar-width;
-                    background-color: $color-secondary;
-                    margin-right: $bar-margin-right;
-                }
-            }
-
             > span {
                 @media #{$media-narrow}, #{$media-medium} {
                     display: none;
@@ -53,77 +44,67 @@ $bar-width: 3px;
 
                 @media #{$media-wide} {
                     font-size: $font-size-2;
-                    padding-bottom: 13px;
+                    padding-bottom: 14px;
                 }
             }
 
             #outline {
-                flex-direction: row;
+                @media #{$media-wide} {
+                    overflow-y: auto;
+                }
 
                 #outline-indicator {
-                    min-height: 100%;
-                    width: 3px;
+                    width: $outline-indicator-width;
                     margin-right: 14px;
-                    background-color: $color-primary-background;
-                    position: relative;
+                    background-color: $color-primary-divider;
 
                     span {
-                        position: absolute;
-                        top: 10px;
-                        height: 20px;
-                        transition: top 0.26s $ease-out-quad, height 0.26s $ease-out-quad;
-                        width: 3px;
+                        @media #{$media-narrow}, #{$media-medium} {
+                            display: none;
+                        }
+
+                        transition: margin-top 0.26s $ease-out-quad, height 0.26s $ease-out-quad;
+                        width: $outline-indicator-width;
                         background-color: $color-primary-text;
                         opacity: $opacity-4;
                     }
                 }
 
-                #outline-content {
-                    flex-grow: 1;
+                > ul {
+                    > li:first-child > a {
+                        margin-top: 0;
+                    }
+                }
+
+                ul {
                     flex-direction: column;
-                    // So it doesn't cause its neighbors to shrink
-                    width: 0;
 
-                    > ul {
-                        > li:first-child > a {
-                            margin-top: 0;
-                        }
-
-                        @media #{$media-wide} {
-                            overflow-y: auto;
-                        }
+                    &.level2 {
+                        padding-left: 14px;
                     }
 
-                    ul {
+                    li {
                         flex-direction: column;
+                        align-items: flex-start;
 
-                        &.level2 {
-                            padding-left: 14px;
+                        @media #{$media-wide} {
+                            flex-shrink: 0;
                         }
 
-                        li {
-                            flex-direction: column;
-                            align-items: flex-start;
+                        a {
+                            user-select: none;
+                            cursor: pointer;
+                            align-items: center;
+                            margin-top: 13px;
 
-                            @media #{$media-wide} {
-                                flex-shrink: 0;
-                            }
-
-                            a {
-                                user-select: none;
-                                cursor: pointer;
-                                align-items: center;
-                                margin-top: 6px;
-                                margin-bottom: 7px;
-
+                            & > span {
+                                display: inline;
+                                // animated-underline only works for multiline elements if the element whose background is animated is an only child or has a parent that has display block,
+                                // inline-block or inline.
+                                // TODO figure out why
                                 & > span {
-                                    // animated-underline only works if the element whose background is animated is an only child or has a parent that has display block,
-                                    // inline-block or inline.
-                                    // TODO figure out why
-                                    & > span {
-                                        @include animated-underline($color-primary-text-link, $animated-underline-13px-ypos, $background-color: $color-primary);
-                                        margin-right: 14px;
-                                    }
+                                    @include animated-underline($color-primary-text-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
+                                    margin-right: 14px;
                                 }
                             }
                         }
