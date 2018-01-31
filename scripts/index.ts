@@ -16,6 +16,7 @@ require('../resources/material-design-previous-page.svg');
 require('../resources/material-design-next-page.svg');
 require('../resources/material-design-last-page.svg');
 require('../resources/material-design-mode-edit.svg');
+require('../resources/material-design-copyright.svg');
 require('../resources/ion-icons-logo-github.svg');
 require('../resources/ion-icons-logo-twitter.svg');
 require('../resources/ion-icons-logo-instagram.svg');

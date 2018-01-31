@@ -61,6 +61,9 @@
             </div>
             {{#jtcd_copyrightText}}
             <div id="footer-copyright">
+                <svg>
+                    <use xlink:href="#material-design-copyright" />
+                </svg>
                 <span class="uninteractive">{{jtcd_copyrightText}}</span>
             </div>
             {{/jtcd_copyrightText}}

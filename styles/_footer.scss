@@ -87,6 +87,15 @@ footer {
 
             #footer-copyright {
                 padding-top: 15px;
+                align-items: center;
+
+                svg{
+                    height: 18px;
+                    width: 18px;
+                    fill: $color-secondary-text;
+                    opacity: $opacity-2;
+                    margin-right: 5px;
+                }
             }
 
             #footer-social-media {
