@@ -17,7 +17,7 @@ class ArticleComponent extends Component {
 
     private addLinks(): void {
         let articleElement: HTMLElement = document.querySelector('.jtcd-article') as HTMLElement;
-        let headers: NodeList = articleElement.querySelectorAll('h2, h3, h4');
+        let headersToLink: NodeList = articleElement.querySelectorAll('h2, h3');
         let anchorMaster: HTMLAnchorElement = document.createElement('a');
         let svgElement: SVGElement = svgService.createSvgExternalSpriteElement('material-design-link');
 
@@ -27,8 +27,8 @@ class ArticleComponent extends Component {
         // Clipboard shared attributes
         anchorMaster.setAttribute('data-clipboard-action', 'copy');
 
-        for (let i: number = 0; i < headers.length; i++) {
-            let headerElement: HTMLElement = headers[i] as HTMLElement;
+        for (let i: number = 0; i < headersToLink.length; i++) {
+            let headerElement: HTMLElement = headersToLink[i] as HTMLElement;
             let anchorElement: HTMLAnchorElement = anchorMaster.cloneNode(true) as HTMLAnchorElement;
             let spanElement: HTMLElement = document.createElement('span');
             let href: string = `${location.protocol}//${location.host}${location.pathname}#${headerElement.id}`;
