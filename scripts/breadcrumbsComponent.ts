@@ -48,11 +48,18 @@ class BreadcrumbsComponent extends Component {
 
         if (!this.rootBreadcrumbLoaded) {
             let clone = anchorElement.cloneNode(true) as HTMLElement;
+            let wrapper: HTMLElement;
 
             clone.setAttribute('style', '');
 
+            // Wrap anchors so animated underline works
+            if (clone.tagName === 'A') {
+                wrapper = document.createElement('span');
+                wrapper.appendChild(clone);
+            }
+
             this.breadcrumbs.unshift({
-                element: clone,
+                element: wrapper || clone,
                 items: null
             });
 
@@ -72,12 +79,19 @@ class BreadcrumbsComponent extends Component {
             for (let i = elements.length - 1; i >= 0; i--) {
                 let element = elements[i];
                 let clone = element.cloneNode(true) as HTMLElement;
+                let wrapper: HTMLElement;
 
                 clone.removeChild(clone.querySelector('svg'));
                 clone.setAttribute('style', '');
 
+                // Wrap anchors so animated underline works
+                if (clone.tagName === 'A') {
+                    wrapper = document.createElement('span');
+                    wrapper.appendChild(clone);
+                }
+
                 this.breadcrumbs.push({
-                    element: clone,
+                    element: wrapper || clone,
                     items: null
                 });
             }
