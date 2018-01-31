@@ -141,6 +141,12 @@ article {
                     width: 24px;
                     height: 24px;
                     fill: $color-primary-text-link;
+                    opacity: $opacity-1;
+                    transition: opacity 0.26s $ease-out-quad-delayed;
+
+                    &:hover {
+                        opacity: $opacity-6;
+                    }
                 }
             }
 
