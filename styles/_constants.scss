@@ -16,7 +16,8 @@ $opacity-4: 0.7;
 $opacity-5: 0.80;
 $opacity-6: 1.0;
 
-$font-family: 'Open Sans', sans-serif;
+$base-font-family: 'Open Sans', sans-serif;
+$code-font-family: 'Droid Sans Mono', monospace;
 
 $ease-out-quad: cubic-bezier(0.33, 0.67, 0.67, 1);
 $ease-out-quad-delayed: cubic-bezier(0.33, 0.67, 0.67, 1) 0.050s;
