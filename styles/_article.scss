@@ -27,7 +27,7 @@ article {
     .meta {
         margin-top: 7px;
 
-        & + p, & + div {
+        & + p, & + pre, & + div {
             margin-top: 16px;
         }
 
@@ -172,7 +172,7 @@ article {
         }
 
         h2 {
-            & + p {
+            & + p, & + pre {
                 margin-top: 27px;
             }
 
@@ -194,7 +194,7 @@ article {
         }
 
         h3 {
-            & + p {
+            & + p, & + pre {
                 margin-top: 21px;
             }
 
@@ -208,7 +208,7 @@ article {
         }
 
         h4 {
-            & + p {
+            & + p, & + pre {
                 margin-top: 22px;
             }
 
@@ -230,7 +230,7 @@ article {
                 margin-top: 22px;
             }
 
-            & + p {
+            & + p, & + pre {
                 margin-top: 15px;
             }
 
@@ -252,7 +252,7 @@ article {
                 margin-top: 34px;
             }
 
-            & + p {
+            & + p, & + pre {
                 margin-top: 32px;
             }
         }
