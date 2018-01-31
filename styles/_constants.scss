@@ -4,7 +4,8 @@ $color-primary-text-highlight: #FFD039;
 $color-primary-text-casual: #FFBB00;
 $color-primary-text-link: #1e88e5;
 $color-primary-background: #efefef;
-$color-primary-divider: #ebebeb;
+$color-primary-divider: #212121;
+$color-primary-icon: #646464;
 $color-secondary: #1565c0;
 $color-secondary-text: #fff;
 
@@ -45,10 +46,9 @@ $animated-underline-32px-ypos: 37px;
     svg {
         height: 18px;
         width: 18px;
-        fill: $color-primary-text;
+        fill: $color-primary-icon;
 
         &:first-child {
-            opacity: $opacity-4;
             margin-right: 5px;
         }
 
@@ -60,7 +60,7 @@ $animated-underline-32px-ypos: 37px;
             cursor: pointer;
 
             &.active {
-                opacity: $opacity-4;
+                opacity: $opacity-6;
 
                 &:hover {
                     transform: scale(1.3333);

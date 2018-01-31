@@ -56,7 +56,12 @@ $outline-indicator-width: 2px;
                 #outline-indicator {
                     width: $outline-indicator-width;
                     margin-right: 14px;
-                    background-color: $color-primary-divider;
+                    background-color: #e3e3e3;
+
+                    @media #{$media-narrow}, #{$media-medium} {
+                        width: 1px;
+                        background-color: $color-primary-divider;
+                    }
 
                     span {
                         @media #{$media-narrow}, #{$media-medium} {
@@ -65,8 +70,7 @@ $outline-indicator-width: 2px;
 
                         transition: margin-top 0.26s $ease-out-quad, height 0.26s $ease-out-quad;
                         width: $outline-indicator-width;
-                        background-color: $color-primary-text;
-                        opacity: $opacity-4;
+                        background-color: $color-primary-icon;
                     }
                 }
 
@@ -125,8 +129,7 @@ $outline-indicator-width: 2px;
     svg {
         height: 18px;
         width: 18px;
-        opacity: $opacity-4;
-        fill: $color-primary-text;
+        fill: $color-primary-icon;
         margin-right: 6px;
     }
 
