@@ -108,7 +108,6 @@ $outline-indicator-width: 2px;
                                 // TODO figure out why
                                 & > span {
                                     @include animated-underline($color-primary-text-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
-                                    margin-right: 14px;
                                 }
                             }
                         }

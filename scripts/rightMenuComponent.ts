@@ -17,6 +17,7 @@ class RightMenuComponent extends Component {
     outlineIndicatorElement: HTMLElement;
     outlineIndicatorSpanElement: HTMLElement;
     outlineLastAnchorElement: HTMLElement;
+    outlineRootUlElement: HTMLElement;
 
     activeAnchorIndex: number;
 
@@ -36,6 +37,7 @@ class RightMenuComponent extends Component {
 
         this.setupOutline();
         this.outlineTitleElement = document.querySelector('#right-menu > .wrapper > .wrapper > span') as HTMLElement;
+        this.outlineRootUlElement = this.outlineElement.querySelector('ul');
 
         let outlineAnchorElements = this.outlineElement.querySelectorAll('a');
         this.outlineLastAnchorElement = outlineAnchorElements[outlineAnchorElements.length - 1];
@@ -200,6 +202,7 @@ class RightMenuComponent extends Component {
     }
 
     private setOutlineMaxHeight(): void {
+        let outlineElementHeight = this.outlineElement.getBoundingClientRect().height;
         let footerHeight = window.innerHeight - document.querySelector('footer').getBoundingClientRect().top;
         let maxHeight = window.innerHeight
             - 15 // top gap 
@@ -209,6 +212,12 @@ class RightMenuComponent extends Component {
             - (footerHeight < 0 ? 0 : footerHeight);
 
         this.outlineElement.style.maxHeight = `${maxHeight}px`;
+
+        if (outlineElementHeight > maxHeight) {
+            this.outlineRootUlElement.style.marginRight = '12px';
+        } else {
+            this.outlineRootUlElement.style.marginRight = '0';
+        }
     }
 }
 
