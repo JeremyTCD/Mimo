@@ -186,6 +186,7 @@ class RightMenuComponent extends Component {
 
         for (let i = 0; i < this.articleHeadingElements.length; i++) {
             let headingElement = this.articleHeadingElements[i] as HTMLHeadingElement;
+            // Can't be cached since article may have elements that expand/collapse
             let elementDistanceFromTop = Math.abs(headingElement.getBoundingClientRect().top);
 
             if (minDistance === -1 || elementDistanceFromTop < minDistance) {
