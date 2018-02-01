@@ -38,7 +38,9 @@ class ArticleComponent extends Component {
             headerElement.innerHTML = '';
             headerElement.appendChild(spanElement);
 
+            // Clipboard for button
             buttonElement.setAttribute('data-clipboard-text', href);
+            new Clipboard(buttonElement);
 
             spanElement.appendChild(buttonElement);
 
@@ -48,7 +50,6 @@ class ArticleComponent extends Component {
             buttonElement.setAttribute('title', 'Copy link');
         }
 
-        let clipboard = new Clipboard('.heading-link');
     }
 }
 

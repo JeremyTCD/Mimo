@@ -5,7 +5,7 @@ class TooltipService {
         element.setAttribute('title', text);
         Tippy(element, {
             placement: placement,
-            duration: 400,
+            duration: 500,
             hideOnClick: false,
             trigger: 'manual',
             animateFill: false

@@ -28,15 +28,15 @@ article {
         margin-top: 7px;
 
         & + .content {
-            p:first-child {
+            > p:first-child {
                 margin-top: 16px;
             }
 
-            *:first-child{
-                // todo
+            > *:first-child {
+                margin-top: 27px;
             }
 
-            h2:first-child {
+            > h2:first-child {
                 margin-top: 30px;
             }
         }
@@ -143,18 +143,18 @@ article {
             button {
                 display: flex;
                 align-items: center;
-                opacity: 0;
-                transition: opacity 0.26s $ease-out-quad-delayed;
                 margin-left: 9px;
+                opacity: 0;
+                transition: opacity 0.4s $ease-out-quad-delayed;
 
                 svg {
                     width: 24px;
                     height: 24px;
-                    fill: $color-primary-text-link;
-                    opacity: $opacity-1;
-                    transition: opacity 0.26s $ease-out-quad-delayed;
+                    fill: $color-primary-link-disabled;
+                    transition: fill 0.4s $ease-out-quad-delayed;
 
                     &:hover {
+                        fill: $color-primary-text-link;
                         opacity: $opacity-6;
                     }
                 }

@@ -9,7 +9,7 @@ code {
 
 pre {
     white-space: pre-wrap;
-    border: 1px solid $color-primary-text;
+    background-color: $color-primary-code-background;
     // Display header only if code has title
     /*&:before{
         content:"";
@@ -20,19 +20,17 @@ pre {
         align-self: flex-start;
         margin-top: 12px;
         margin-right: 11px;
-        opacity: $opacity-1;
-        transition: opacity 0.26s $ease-out-quad-delayed;
-        overflow: hidden;
-
-        &:hover {
-            opacity: $opacity-6;
-        }
 
         svg {
-            overflow: hidden;
             height: 24px;
             width: 24px;
-            fill: $color-primary-text-link;
+            fill: $color-primary-link-disabled;
+            transition: fill 0.4s $ease-out-quad-delayed;
+
+            &:hover {
+                opacity: $opacity-6;
+                fill: $color-primary-text-link;
+            }
         }
     }
 
