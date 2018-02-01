@@ -1,6 +1,6 @@
 import Component from './component';
 import ResizeObserver from 'resize-observer-polyfill';
-import DebounceService from './debounceService';
+import debounceService from './debounceService';
 
 class FooterComponent extends Component {
     footerButtonElement: HTMLElement;
@@ -20,10 +20,9 @@ class FooterComponent extends Component {
     }
 
     protected registerListeners(): void {
-        const debounceService = new DebounceService();
         // A selling point of ResizeObserver is that it provides dimensions so layouts can be avoided - https://developers.google.com/web/updates/2016/10/resizeobserver
         // Consider utilizing those values.
-        const resizeObserver = new ResizeObserver(debounceService.createDebounceFunction(this.setBackToTopButtonOpacity, this.debounceTime));
+        const resizeObserver = new ResizeObserver(debounceService.createTimeoutDebounceFunction(this.setBackToTopButtonOpacity, this.debounceTime));
 
         resizeObserver.observe(document.body);
     }
