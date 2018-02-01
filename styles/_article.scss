@@ -135,12 +135,12 @@ article {
             flex-wrap: wrap;
 
             &:hover {
-                .heading-link {
+                button {
                     opacity: $opacity-6;
                 }
             }
 
-            .heading-link {
+            button {
                 display: flex;
                 align-items: center;
                 opacity: 0;

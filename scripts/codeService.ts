@@ -1,6 +1,6 @@
 ﻿import svgService from './svgService';
+import tooltipService from './tooltipService';
 import * as Clipboard from 'clipboard';
-import * as Tippy from 'tippy.js';
 
 class CodeService {
     public setupCodeBlocks() {
@@ -20,25 +20,7 @@ class CodeService {
             codeBlock.parentElement.appendChild(buttonElement);
 
             // Tooltip for copy button
-            buttonElement.setAttribute('title', 'Code copied');
-            Tippy(buttonElement, {
-                placement: 'left',
-                duration: 400,
-                hideOnClick: false,
-                trigger: 'manual',
-                animateFill: false
-            });
-            let tooltip = (buttonElement as any)._tippy;
-            buttonElement.addEventListener('click', (event: Event) => {
-                if (!tooltip.state.visible) {
-                    tooltip.show();
-                }
-            });
-            buttonElement.addEventListener('mouseleave', (event: Event) => {
-                if (tooltip.state.visible) {
-                    tooltip.hide();
-                }
-            });
+            tooltipService.setupElement(buttonElement, 'Code copied', 'left');
 
             buttonElement.setAttribute('title', 'Copy code');
         }
