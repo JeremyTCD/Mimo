@@ -5,6 +5,7 @@ import Component from './component';
 
 class RightMenuComponent extends Component {
     rightMenuElement: HTMLElement = document.getElementById('right-menu');
+    rightMenuWrapperElement: HTMLElement;
     editArticleElement: HTMLElement;
     articleElement: HTMLElement;
     mainContainer: HTMLElement;
@@ -18,6 +19,7 @@ class RightMenuComponent extends Component {
     outlineIndicatorSpanElement: HTMLElement;
     outlineLastAnchorElement: HTMLElement;
     outlineRootUlElement: HTMLElement;
+    footerElement: HTMLElement;
 
     outlineScrollable: boolean;
 
@@ -31,6 +33,7 @@ class RightMenuComponent extends Component {
     }
 
     protected setup(): void {
+        this.rightMenuWrapperElement = this.rightMenuElement.querySelector('.wrapper') as HTMLElement;
         this.editArticleElement = document.getElementById('edit-article');
         this.articleElement = document.querySelector('main > article') as HTMLElement;
         this.mainContainer = document.querySelector('body > .container') as HTMLElement;
@@ -39,6 +42,7 @@ class RightMenuComponent extends Component {
         this.outlineElement = document.getElementById('outline') as HTMLElement;
         this.outlineIndicatorElement = document.getElementById('outline-indicator') as HTMLElement;
         this.outlineIndicatorSpanElement = this.outlineIndicatorElement.querySelector('span') as HTMLElement;
+        this.footerElement = document.getElementsByTagName('footer')[0];
 
         this.setupOutline();
         this.outlineTitleElement = document.querySelector('#right-menu > .wrapper > .wrapper > span') as HTMLElement;
@@ -95,7 +99,7 @@ class RightMenuComponent extends Component {
             let fixed = wrapperElement.classList.contains('fixed');
             // max-height placed only on ul since outline title should still be displayed
 
-            if (top < 15) {
+            if (top < 16) {
                 this.setOutlineMaxHeight();
 
                 if (!fixed) {
@@ -104,14 +108,14 @@ class RightMenuComponent extends Component {
 
                     wrapperElement.classList.add('fixed');
                 }
-                edgeWorkaroundsService.overflowBugWorkaround(this.outlineElement);
+                //edgeWorkaroundsService.overflowBugWorkaround(this.outlineElement);
             } else if (fixed) {
                 wrapperElement.classList.remove('fixed');
                 this.rightMenuElement.style.minHeight = 'initial';
                 if (this.outlineElement) {
                     this.outlineElement.style.maxHeight = 'initial';
                 }
-                edgeWorkaroundsService.overflowBugWorkaround(this.outlineElement);
+                //edgeWorkaroundsService.overflowBugWorkaround(this.outlineElement);
             }
 
             this.updateOutlineIndicator();
@@ -225,7 +229,7 @@ class RightMenuComponent extends Component {
     private setOutlineMaxHeight(): void {
         let footerHeight = window.innerHeight - document.querySelector('footer').getBoundingClientRect().top;
         let maxHeight = window.innerHeight
-            - 15 // top gap 
+            - 16 // top gap 
             - 23 // bottom gap
             - this.outlineTitleElement.offsetHeight
             - (this.editArticleElement ? this.editArticleElement.offsetHeight + parseInt(getComputedStyle(this.editArticleElement).marginBottom) : 0)
