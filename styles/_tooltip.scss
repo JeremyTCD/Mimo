@@ -1,0 +1,10 @@
+@import 'constants';
+
+.tippy-tooltip {
+    padding: 1px 5px;
+    color: $color-primary;
+    background-color: $color-primary-text;
+    font-family: $base-font-family;
+    font-size: $font-size-2;
+    border-radius: 0;
+}

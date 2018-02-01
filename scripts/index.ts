@@ -16,13 +16,13 @@ require('../resources/material-design-previous-page.svg');
 require('../resources/material-design-next-page.svg');
 require('../resources/material-design-last-page.svg');
 require('../resources/material-design-mode-edit.svg');
+require('../resources/material-design-copy.svg');
 require('../resources/material-design-copyright.svg');
 require('../resources/ion-icons-logo-github.svg');
 require('../resources/ion-icons-logo-twitter.svg');
 require('../resources/ion-icons-logo-instagram.svg');
 require('../resources/ion-icons-logo-facebook.svg');
 require('../resources/ion-icons-logo-googleplus.svg');
-
 
 import articleComponent from './articleComponent';
 import headerComponent from './headerComponent';
@@ -35,6 +35,7 @@ import searchResultsComponent from './searchResultsComponent';
 
 import searchService from './searchService';
 import linkService from './linkService';
+import codeService from './codeService';
 
 import * as domready from 'domready';
 import * as $ from 'jquery';
@@ -52,6 +53,7 @@ domready(function () {
     searchService.setupSearch();
     linkService.setupOpenExternalLinksInNewTab();
     linkService.setupSmoothScroll();
+    codeService.setupCodeBlocks();
 });
 
 // These constants are defined by webpack's define plugin (see webpack.config.js)

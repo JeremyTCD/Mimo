@@ -1,6 +1,49 @@
 ﻿@import 'constants';
 
 code {
+    padding: 2px 6px;
+    background-color: $color-primary-code-background;
     font-family: $code-font-family;
     font-size: 14px;
+}
+
+pre {
+    white-space: pre-wrap;
+    border: 1px solid $color-primary-text;
+    // Display header only if code has title
+    /*&:before{
+        content:"";
+        height: 37px;
+        width: 100%;
+    }*/
+    button {
+        align-self: flex-start;
+        margin-top: 12px;
+        margin-right: 11px;
+        opacity: $opacity-1;
+        transition: opacity 0.26s $ease-out-quad-delayed;
+        overflow: hidden;
+
+        &:hover {
+            opacity: $opacity-6;
+        }
+
+        svg {
+            overflow: hidden;
+            height: 24px;
+            width: 24px;
+            fill: $color-primary-text-link;
+        }
+    }
+
+    code {
+        background-color: initial;
+        width: 100%;
+        margin: 20px 27px;
+        padding: 0;
+
+        @media #{$media-narrow} {
+            margin: 16px 23px;
+        }
+    }
 }
