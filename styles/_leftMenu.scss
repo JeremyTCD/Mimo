@@ -42,6 +42,7 @@ $horizontal-bar-ease-timing: 0.6s;
         }
 
         #left-menu-filter {
+            flex-shrink: 0;
             margin-bottom: 9px;
             height: 37px;
             padding-left: 12px;
@@ -91,6 +92,9 @@ $horizontal-bar-ease-timing: 0.6s;
             }
 
             ul {
+                // TODO Somehow or other, this prevents jerking when expanding or collapsing topics. Figure out why.
+                overflow-x: hidden;
+
                 flex-grow: 1;
                 flex-direction: column;
 

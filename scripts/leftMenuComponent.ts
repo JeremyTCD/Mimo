@@ -14,6 +14,7 @@ class LeftMenuComponent extends Component {
     leftMenuFilterInputElement: HTMLInputElement;
     leftMenuFilterElement: HTMLElement;
     leftMenuClearElement: HTMLElement;
+    leftMenuWrapperElement: HTMLElement;
     textInputService: TextInputService;
     tocElement: HTMLElement;
     tocRootLIElements: NodeList;
@@ -32,6 +33,7 @@ class LeftMenuComponent extends Component {
         this.leftMenuTocElement = document.getElementById('left-menu-toc');
         this.tocElement = document.getElementById('left-menu-toc');
         this.footerElement = document.getElementsByTagName('footer')[0];
+        this.leftMenuWrapperElement = this.leftMenuElement.querySelector('.wrapper') as HTMLElement;
 
         this.setupToc();
 
@@ -46,7 +48,7 @@ class LeftMenuComponent extends Component {
     }
 
     protected registerListeners(): void {
-        window.addEventListener('scroll', this.onScrollListener);
+        window.addEventListener('scroll',this.onScrollListener);
         window.addEventListener('resize', this.onResizeListener);
     }
 
@@ -118,18 +120,12 @@ class LeftMenuComponent extends Component {
         }
     }
 
-    private setTocMaxHeight(): void {
+    private setLeftMenuHeight(): void {
         let footerTop = this.footerElement.getBoundingClientRect().top;
         let footerHeight = window.innerHeight - footerTop;
-        let leftMenuFilterStyle = getComputedStyle(this.leftMenuFilterElement);
-        let tocMaxHeight = window.innerHeight
-            - 23 * 2
-            - this.leftMenuFilterElement.offsetHeight
-            - parseFloat(leftMenuFilterStyle.marginTop)
-            - parseFloat(leftMenuFilterStyle.marginBottom)
-            - (footerHeight < 0 ? 0 : footerHeight);
+        let distanceFromBottom = footerHeight + 23;
 
-        this.leftMenuTocElement.style.maxHeight = `${tocMaxHeight}px`;
+        this.leftMenuWrapperElement.style.bottom = `${distanceFromBottom < 23 ? 23 : distanceFromBottom}px`;
     }
 
     private setTocActiveTopic(tocPath: string): void {
@@ -214,14 +210,13 @@ class LeftMenuComponent extends Component {
             return;
         }
 
-        let wrapper = document.querySelector('#left-menu > .wrapper');
         let top = this.leftMenuElement.getBoundingClientRect().top;
-        let fixed = wrapper.classList.contains('fixed'); // why wrapper? why not on left menu
+        let fixed = this.leftMenuWrapperElement.classList.contains('fixed'); // why wrapper? why not on left menu
 
         // toc should only be fixed if left menu is less than 23 px below top of window
         // and screen is not narrow
         if (top < 23 && !mediaService.mediaWidthNarrow()) {
-            this.setTocMaxHeight();
+            this.setLeftMenuHeight();
 
             if (!fixed) {
                 // If a page's article's height is less than its left menu's height, when the toc's position is set to fixed, the footer will shift up.
@@ -231,14 +226,14 @@ class LeftMenuComponent extends Component {
                 // Note: clientHeight is rounded to an integer, but I can't find any evidence that it gets rounded up on all browsers, so add 1.
                 this.leftMenuElement.style.minHeight = `${this.leftMenuElement.clientHeight + 1}px`;
 
-                wrapper.classList.add('fixed');
+                this.leftMenuWrapperElement.classList.add('fixed');
             }
-            edgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
+            //edgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
         } else if (fixed) {
-            wrapper.classList.remove('fixed');
+            this.leftMenuWrapperElement.classList.remove('fixed');
             this.leftMenuElement.style.minHeight = 'initial';
             this.leftMenuTocElement.style.maxHeight = 'initial';
-            edgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
+            //edgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
         }
     }
 
