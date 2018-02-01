@@ -59,7 +59,6 @@ $outline-indicator-width: 2px;
                     background-color: #e3e3e3;
 
                     @media #{$media-narrow}, #{$media-medium} {
-                        width: 1px;
                         background-color: $color-primary-divider;
                     }
 
