@@ -1,8 +1,11 @@
+/*
+ * Example class for DocFx "Writing Articles" tutorials.
+ */
 public class Example
 {
-    public int DoSomething()
+    public string DoSomething()
     {
-        return 0;
+        return "test";
     }
 
     #region Helpers

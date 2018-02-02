@@ -22,22 +22,22 @@ is rendered as
 `[!code-<language>[<name>](<codepath>?start=<start line>&end=<end line> "<title>")]`  
 
 #### Example
-`[!code-csharp[DoSomething](../../resources/Example.cs?start=3&end=6 "Example.DoSomething")]`  
+`[!code-csharp[DoSomething](../../resources/Example.cs?start=6&end=9 "Example.DoSomething")]`  
 
 is rendered as  
 
-[!code-csharp[DoSomething](../../resources/Example.cs?start=3&end=6 "Example.DoSomething")]
+[!code-csharp[DoSomething](../../resources/Example.cs?start=6&end=9 "Example.DoSomething")]
 
 ### Embedding Multiple Ranges of Lines
 #### Syntax
 `[!code-<language>[<name>](<codepath>?range=<start line>-<end line>,<start line>-<end line>,... "<title>")]`  
 
 #### Example
-`[!code-csharp[Methods](../../resources/Example.cs?range=3-6,9-12)]`  
+`[!code-csharp[Methods](../../resources/Example.cs?range=6-10,12-15)]`  
 
 is rendered as  
 
-[!code-csharp[Methods](../../resources/Example.cs?range=3-6,9-12)]
+[!code-csharp[Methods](../../resources/Example.cs?range=6-10,12-15)]
 
 ### Embedding a Range of Lines By Tagname
 #### Syntax
@@ -62,11 +62,11 @@ TODO: does not work
 `[!code-<language>[<name>](<codepath>?highlight=<start line>-<end line>,<start line>-<end line>,... "<title>")]`  
 
 #### Example
-`[!code-csharp[Methods](../../resources/Example.cs?highlight=3-6,9-12)]`  
+`[!code-csharp[Methods](../../resources/Example.cs?highlight=6-9,12-15)]`  
 
 is rendered as  
 
-[!code-csharp[Methods](../../resources/Example.cs?highlight=3-6,9-12)]
+[!code-csharp[Methods](../../resources/Example.cs?highlight=6-9,12-15)]
 
 #### Notes
 Can be appended to the first four query strings.
