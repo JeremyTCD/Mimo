@@ -139,12 +139,13 @@ article {
                 flex-wrap: nowrap;
 
                 &:hover {
-                    button {
+                    div {
                         opacity: $opacity-6;
                     }
                 }
 
-                button {
+                div {
+                    cursor: pointer;
                     display: flex;
                     align-items: center;
                     margin-left: 9px;
@@ -159,7 +160,6 @@ article {
 
                         &:hover {
                             fill: $color-primary-text-link;
-                            opacity: $opacity-6;
                         }
                     }
                 }

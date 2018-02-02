@@ -19,13 +19,15 @@ class ArticleComponent extends Component {
     private addLinks(): void {
         let articleElement: HTMLElement = document.querySelector('.jtcd-article') as HTMLElement;
         let headersToLink: NodeList = articleElement.querySelectorAll('h2, h3');
-        let buttonMaster: HTMLElement = document.createElement('button');
+        // Firefox does not support hover events for svgs within button elements, so use a div and assign 'button' to its role attribute
+        let buttonMaster: HTMLElement = document.createElement('div');
         let svgElement: SVGElement = svgService.createSvgExternalSpriteElement('material-design-link');
 
         buttonMaster.appendChild(svgElement);
 
         // Clipboard shared attributes
         buttonMaster.setAttribute('data-clipboard-action', 'copy');
+        buttonMaster.setAttribute('role', 'button');
 
         for (let i: number = 0; i < headersToLink.length; i++) {
             let headerElement: HTMLElement = headersToLink[i] as HTMLElement;
