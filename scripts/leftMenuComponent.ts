@@ -3,44 +3,52 @@ import pathService from './pathService';
 import transitionsService from './transitionsService';
 import breadcrumbsComponent from './breadcrumbsComponent';
 import Component from './component';
-import edgeWorkaroundsService from './edgeWorkaroundsService';
 import svgService from './svgService';
 import TextInputService from './textInputService';
 
 class LeftMenuComponent extends Component {
     leftMenuElement: HTMLElement = document.getElementById('left-menu');
     bodyContainerElement: HTMLElement;
-    leftMenuTocElement: HTMLElement;
-    leftMenuFilterInputElement: HTMLInputElement;
-    leftMenuFilterElement: HTMLElement;
-    leftMenuClearElement: HTMLElement;
-    leftMenuWrapperElement: HTMLElement;
-    textInputService: TextInputService;
     tocElement: HTMLElement;
+    filterInputElement: HTMLInputElement;
+    filterElement: HTMLElement;
+    inputClearElement: HTMLElement;
+    wrapperElement: HTMLElement;
+    textInputService: TextInputService;
     tocRootLIElements: NodeList;
     tocTopicElements: NodeList;
     footerElement: HTMLElement;
+
+    // Arbitrary gap between menu and footer/header
+    menuGap: number = 23;
+    fixedFilterBottom: number;
+    filterHeight: number;
 
     protected validDomElementExists(): boolean {
         return this.leftMenuElement ? true : false;
     }
 
     protected setup(): void {
-        this.leftMenuFilterElement = document.getElementById('left-menu-filter');
-        this.leftMenuFilterInputElement = this.leftMenuFilterElement.querySelector('input');
-        this.leftMenuClearElement = this.leftMenuFilterElement.querySelector('svg:last-child') as HTMLElement;
+        this.filterElement = document.getElementById('left-menu-filter');
+        let filterComputedStyle = getComputedStyle(this.filterElement);
+        // Does not change
+        this.filterHeight = parseFloat(filterComputedStyle.marginBottom)
+            + parseFloat(filterComputedStyle.height);
+        this.fixedFilterBottom = this.menuGap + this.filterHeight;
+
+        this.filterInputElement = this.filterElement.querySelector('input');
+        this.inputClearElement = this.filterElement.querySelector('svg:last-child') as HTMLElement;
         this.bodyContainerElement = document.querySelector('body > .container') as HTMLElement;
-        this.leftMenuTocElement = document.getElementById('left-menu-toc');
         this.tocElement = document.getElementById('left-menu-toc');
         this.footerElement = document.getElementsByTagName('footer')[0];
-        this.leftMenuWrapperElement = this.leftMenuElement.querySelector('.wrapper') as HTMLElement;
+        this.wrapperElement = this.leftMenuElement.querySelector('.wrapper') as HTMLElement;
 
         this.setupToc();
 
         this.textInputService = new TextInputService(
-            this.leftMenuFilterElement,
-            this.leftMenuFilterInputElement,
-            this.leftMenuClearElement,
+            this.filterElement,
+            this.filterInputElement,
+            this.inputClearElement,
             () => {
                 this.restoreToc();
             });
@@ -48,7 +56,7 @@ class LeftMenuComponent extends Component {
     }
 
     protected registerListeners(): void {
-        window.addEventListener('scroll',this.onScrollListener);
+        window.addEventListener('scroll', this.onScrollListener);
         window.addEventListener('resize', this.onResizeListener);
     }
 
@@ -84,7 +92,7 @@ class LeftMenuComponent extends Component {
                     item.insertBefore(svgElement.cloneNode(true), item.firstChild);
                 }
 
-                this.leftMenuTocElement.appendChild(tocFrag);
+                this.tocElement.appendChild(tocFrag);
 
                 // Can only get root li elements after inserting toc frag
                 this.tocRootLIElements = document.querySelectorAll('#left-menu-toc > ul > li');
@@ -120,12 +128,16 @@ class LeftMenuComponent extends Component {
         }
     }
 
-    private setLeftMenuHeight(): void {
+    private setTocHeight(fixed: boolean): void {
         let footerTop = this.footerElement.getBoundingClientRect().top;
-        let footerHeight = window.innerHeight - footerTop;
-        let distanceFromBottom = footerHeight + 23;
 
-        this.leftMenuWrapperElement.style.bottom = `${distanceFromBottom < 23 ? 23 : distanceFromBottom}px`;
+        let tocHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
+            - this.menuGap
+            - (fixed ? this.fixedFilterBottom : this.leftMenuElement.getBoundingClientRect().top + this.filterHeight);
+
+        // Tried setting bottom, max-height, both don't work on edge - scroll bar doesn't go away even when height is greater than 
+        // menu height. This works.
+        this.tocElement.style.height = `${tocHeight}px`;
     }
 
     private setTocActiveTopic(tocPath: string): void {
@@ -210,13 +222,13 @@ class LeftMenuComponent extends Component {
             return;
         }
 
-        let top = this.leftMenuElement.getBoundingClientRect().top;
-        let fixed = this.leftMenuWrapperElement.classList.contains('fixed'); // why wrapper? why not on left menu
-
         // toc should only be fixed if left menu is less than 23 px below top of window
         // and screen is not narrow
-        if (top < 23 && !mediaService.mediaWidthNarrow()) {
-            this.setLeftMenuHeight();
+        let top = this.leftMenuElement.getBoundingClientRect().top;
+        let fixed = this.wrapperElement.classList.contains('fixed');
+
+        if (top < this.menuGap && !mediaService.mediaWidthNarrow()) {
+            this.setTocHeight(true);
 
             if (!fixed) {
                 // If a page's article's height is less than its left menu's height, when the toc's position is set to fixed, the footer will shift up.
@@ -226,20 +238,25 @@ class LeftMenuComponent extends Component {
                 // Note: clientHeight is rounded to an integer, but I can't find any evidence that it gets rounded up on all browsers, so add 1.
                 this.leftMenuElement.style.minHeight = `${this.leftMenuElement.clientHeight + 1}px`;
 
-                this.leftMenuWrapperElement.classList.add('fixed');
+                this.wrapperElement.classList.add('fixed');
             }
-            //edgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
-        } else if (fixed) {
-            this.leftMenuWrapperElement.classList.remove('fixed');
-            this.leftMenuElement.style.minHeight = 'initial';
-            this.leftMenuTocElement.style.maxHeight = 'initial';
-            //edgeWorkaroundsService.overflowBugWorkaround(this.leftMenuTocElement);
+        } else {
+            if (!mediaService.mediaWidthNarrow()) {
+                this.setTocHeight(false);
+            } else {
+                this.tocElement.style.height = 'auto';
+            }
+
+            if (fixed) {
+                this.wrapperElement.classList.remove('fixed');
+                this.leftMenuElement.style.minHeight = 'initial';
+            }
         }
     }
 
     private setupFilter(): void {
-        this.leftMenuFilterInputElement.addEventListener('input', (event: Event) => {
-            let filterValue: string = this.leftMenuFilterInputElement.value;
+        this.filterInputElement.addEventListener('input', (event: Event) => {
+            let filterValue: string = this.filterInputElement.value;
             if (filterValue === '') {
                 this.restoreToc();
                 return;
