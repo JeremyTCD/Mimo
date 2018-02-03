@@ -28,10 +28,10 @@ pre {
             height: 24px;
             width: 24px;
             fill: $color-primary-link-disabled;
-            transition: fill 0.4s $ease-out-quad-delayed;
+            transition: fill 0.35s $ease-out-quad-delayed;
 
             &:hover {
-                fill: $color-primary-text-link;
+                fill: $color-primary-link;
             }
         }
     }

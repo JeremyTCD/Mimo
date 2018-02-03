@@ -52,7 +52,7 @@
                 font-size: $font-size-6;
                 display: block; // necessary for underlining to work
                 > a {
-                    @include animated-underline($color-primary-text-link, $animated-underline-32px-ypos, 2px, $background-color: $color-primary);
+                    @include animated-underline($color-primary-link, $animated-underline-32px-ypos, 2px, $background-color: $color-primary);
                 }
             }
 

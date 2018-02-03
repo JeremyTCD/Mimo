@@ -16,7 +16,7 @@ $hover-animation-duration: 0.4s;
         svg {
             height: 18px;
             width: 18px;
-            fill: $color-primary-text-link;
+            fill: $color-primary-link;
             transition: fill $hover-animation-duration $ease-out-quad-delayed;
         }
 
@@ -42,7 +42,7 @@ $hover-animation-duration: 0.4s;
         &:not(.disabled) {
             &:not(.active) {
                 a {
-                    background-image: linear-gradient(to right, $color-primary-text-link, $color-primary-text-link);
+                    background-image: linear-gradient(to right, $color-primary-link, $color-primary-link);
                     background-repeat: no-repeat;
                     background-position: 0 100%;
                     background-size: 100% 0;
