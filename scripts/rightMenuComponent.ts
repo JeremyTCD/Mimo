@@ -1,6 +1,7 @@
 ﻿import mediaService from './mediaService';
 import listItemService from './listItemService';
 import Component from './component';
+import debounceService from './debounceService';
 
 class RightMenuComponent extends Component {
     rightMenuElement: HTMLElement = document.getElementById('right-menu');
@@ -20,11 +21,10 @@ class RightMenuComponent extends Component {
     outlineRootUlElement: HTMLElement;
     footerElement: HTMLElement;
 
-    outlineScrollable: boolean;
-
     outlineAnchorDataWithoutScroll: { [index: number]: OutlineAnchorData };
     outlineAnchorDataWithScroll: { [index: number]: OutlineAnchorData };
     outlineHeightWithoutScroll: number;
+    outlineHeightWithoutScrollPX: string;
     outlineHeightWithScrollPX: string;
     topHeight: number;
     fixedTopBottom: number;
@@ -33,6 +33,7 @@ class RightMenuComponent extends Component {
     topMenuGap: number = 16;
     bottomMenuGap: number = 23;
 
+    updateHistoryTimeout: number;
 
     protected validDomElementExists(): boolean {
         return this.rightMenuElement ? true : false;
@@ -72,8 +73,16 @@ class RightMenuComponent extends Component {
     }
 
     public onScrollListener = (): void => {
-        if (mediaService.mediaWidthWide() && this.mainContainer.style.display !== 'none') {
-            this.setHeights();
+        if (this.mainContainer.style.display !== 'none') {
+            let activeHeadingIndex = this.getActiveOutlineIndex();
+
+            // Debounce history update to avoid flashing in url bar and perf overhead
+            window.clearTimeout(this.updateHistoryTimeout);
+            this.updateHistoryTimeout = window.setTimeout(this.updateHistory, 200, activeHeadingIndex);
+
+            if (mediaService.mediaWidthWide()) {
+                this.updateOutline(activeHeadingIndex);
+            }
         }
     }
 
@@ -83,47 +92,69 @@ class RightMenuComponent extends Component {
         }
 
         this.setRightMenuDomLocation();
+
+        let activeHeadingIndex = this.getActiveOutlineIndex();
         // Must be called after dom location is set
-        this.setHeights();
+        this.updateOutline(activeHeadingIndex);
     }
 
-    // TODO could do a better job batching reads and writes
-    private setHeights(): void {
-        let top = this.wrapperElement.parentElement.getBoundingClientRect().top;
+    private updateHistory = (activeHeadingIndex: number): void => {
+        let activeHeadingElement = this.articleHeadingElements[activeHeadingIndex] as HTMLElement;
+        history.replaceState(null, null, `#${activeHeadingElement.getAttribute('id')}`);
+    }
+
+    private updateOutline(activeHeadingIndex: number): void {
         let fixed = this.wrapperElement.classList.contains('fixed');
 
-        if (mediaService.mediaWidthWide() && !this.outlineHeightWithoutScroll) {
-            // The first time media width is wide, initialize outline constants. At this point outline has no fixed height, so its height is accurate.
-            // Cache tops and heights of outline anchors relative to outline
-            this.topHeight = this.outlineTitleElement.getBoundingClientRect().bottom - this.rightMenuElement.getBoundingClientRect().top;
-            this.fixedTopBottom = this.topMenuGap + this.topHeight;
+        if (mediaService.mediaWidthWide()) {
+            if (!this.outlineHeightWithoutScroll) {
+                // The first time media width is wide, initialize outline constants. At this point outline has no fixed height, so its height is accurate.
+                // Cache tops and heights of outline anchors relative to outline
+                this.topHeight = this.outlineTitleElement.getBoundingClientRect().bottom - this.rightMenuElement.getBoundingClientRect().top;
+                this.fixedTopBottom = this.topMenuGap + this.topHeight;
 
-            let indicatorBoundingRect = this.indicatorElement.getBoundingClientRect();
-            // TODO does font affect height? Is height dependent solely on font-size?
-            // Get height of outline without scrollbar
-            this.outlineHeightWithoutScroll = indicatorBoundingRect.height;
-            this.outlineAnchorDataWithoutScroll = this.createAnchorTopsAndHeightsCache();
-        }
+                let indicatorBoundingRect = this.indicatorElement.getBoundingClientRect();
+                // TODO does font affect height? Is height dependent solely on font-size?
+                // Get height of outline without scrollbar
+                this.outlineHeightWithoutScroll = indicatorBoundingRect.height;
+                this.outlineHeightWithoutScrollPX = `${this.outlineHeightWithoutScroll}px`;
+                this.outlineAnchorDataWithoutScroll = this.createAnchorTopsAndHeightsCache();
+            }
 
-        if (top < this.topMenuGap && mediaService.mediaWidthWide()) {
-            this.setOutlineHeight(true);
+            let top = this.wrapperElement.parentElement.getBoundingClientRect().top;
+            let fix = top < this.topMenuGap;
 
-            if (!fixed) {
+            // To prevent layouts, do all reads before writes
+            let outlineHeight: number = this.getOutlineHeight(fix);
+            let outlineScrollable = this.outlineHeightWithoutScroll > outlineHeight;
+
+            this.setOutlineHeight(outlineHeight, outlineScrollable);
+
+            if (outlineScrollable && !this.outlineAnchorDataWithScroll) {
+                // The first time outline is scrollable, after setting height, initialize constants.
+                this.outlineAnchorDataWithScroll = this.createAnchorTopsAndHeightsCache();
+
+                // Set outline indicator height
+                // TODO The outline's ul element and indicator element are siblings with a parent that has display flex row.
+                // The ul element's height is set to the cross axis height of it's parent - https://bugs.chromium.org/p/chromium/issues/detail?id=134729, 
+                // this is what the spec dictates. A work around is to use height: max-content, but it is not supported on edge.
+                this.outlineHeightWithScrollPX = `${this.outlineLastAnchorElement.getBoundingClientRect().bottom - this.indicatorElement.getBoundingClientRect().top}px`;
+            }
+
+            let activeOutlineAnchorData: OutlineAnchorData = this.getActiveOutlineAnchorData(activeHeadingIndex, outlineScrollable);
+            this.updateOutlineIndicator(activeOutlineAnchorData, outlineScrollable);
+
+            if (fix && !fixed) {
                 // See leftMenuComponent.updateLeftMenu
                 this.rightMenuElement.style.minHeight = `${this.rightMenuElement.clientHeight + 1}px`;
-
                 this.wrapperElement.classList.add('fixed');
+            } else if (!fix && fixed) {
+                this.wrapperElement.classList.remove('fixed');
+                this.rightMenuElement.style.minHeight = 'initial';
             }
-
-            this.updateOutlineIndicator();
         } else {
-            if (mediaService.mediaWidthWide()) {
-                this.setOutlineHeight(false);
-                this.updateOutlineIndicator();
-            } else {
-                this.outlineElement.style.height = 'auto';
-                this.indicatorElement.style.height = 'auto';
-            }
+            this.outlineElement.style.height = 'auto';
+            this.indicatorElement.style.height = 'auto';
 
             if (fixed) {
                 this.wrapperElement.classList.remove('fixed');
@@ -183,10 +214,11 @@ class RightMenuComponent extends Component {
         this.outlineAnchors = this.outlineElement.querySelectorAll('a');
     }
 
-    private updateOutlineIndicator(): void {
-        let newActiveAnchorIndex: number;
+    private getActiveOutlineIndex(): number {
+        let activeAnchorIndex: number;
         let minDistance = -1;
 
+        // Search could be made more efficient, but would be a micro optimization
         for (let i = 0; i < this.articleHeadingElements.length; i++) {
             let headingElement = this.articleHeadingElements[i] as HTMLHeadingElement;
             // Can't be cached since article may have elements that expand/collapse
@@ -194,62 +226,52 @@ class RightMenuComponent extends Component {
 
             if (minDistance === -1 || elementDistanceFromTop < minDistance) {
                 minDistance = elementDistanceFromTop;
-                newActiveAnchorIndex = i;
+                activeAnchorIndex = i;
             } else {
                 break;
             }
         }
 
-        let activeAnchorData: OutlineAnchorData;
-        if (!this.outlineScrollable) {
-            this.indicatorElement.style.height = `${this.outlineHeightWithoutScroll}px`;
-            activeAnchorData = this.outlineAnchorDataWithoutScroll[newActiveAnchorIndex];
+        return activeAnchorIndex;
+    }
+
+    private getActiveOutlineAnchorData(activeAnchorIndex: number, outlineScrollable: boolean): OutlineAnchorData {
+        return outlineScrollable ? this.outlineAnchorDataWithScroll[activeAnchorIndex] :
+            this.outlineAnchorDataWithoutScroll[activeAnchorIndex];
+    }
+
+    private updateOutlineIndicator(activeOutlineAnchorData: OutlineAnchorData, outlineScrollable: boolean): void {
+        if (!outlineScrollable) {
+            this.indicatorElement.style.height = this.outlineHeightWithoutScrollPX;
         } else {
-            // Create cache lazily
-            if (!this.outlineAnchorDataWithScroll) {
-                this.outlineAnchorDataWithScroll = this.createAnchorTopsAndHeightsCache();
-
-                // Set outline indicator height
-                // TODO The outline's ul element and indicator element are siblings with a parent that has display flex row.
-                // The ul element's height is set to the cross axis height of it's parent - https://bugs.chromium.org/p/chromium/issues/detail?id=134729, 
-                // this is what the spec dictates. A work around is to use height: max-content, but it is not supported on edge.
-                this.outlineHeightWithScrollPX = `${this.outlineLastAnchorElement.getBoundingClientRect().bottom - this.indicatorElement.getBoundingClientRect().top}px`;
-            }
-
-            let style = this.indicatorElement.style;
-            if (style.height !== this.outlineHeightWithScrollPX) {
-                style.height = this.outlineHeightWithScrollPX;
-            }
-            activeAnchorData = this.outlineAnchorDataWithScroll[newActiveAnchorIndex];
+            this.indicatorElement.style.height = this.outlineHeightWithScrollPX;
         }
 
         // Even if active anchor has not changed, must rewrite since scrollbar may have appeared
         let style = this.outlineIndicatorSpanElement.style;
-        if (style.marginTop !== activeAnchorData.topPX) {
-            style.marginTop = activeAnchorData.topPX;
-        }
-        if (style.height !== activeAnchorData.heightPX) {
-            style.height = activeAnchorData.heightPX;
-        }
+        style.marginTop = activeOutlineAnchorData.topPX;
+        style.height = activeOutlineAnchorData.heightPX;
     }
 
-    private setOutlineHeight(fixed: boolean): void {
+    private getOutlineHeight(fixed: boolean): number {
         let footerTop = this.footerElement.getBoundingClientRect().top;
 
         let outlineHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
             - this.bottomMenuGap
             - (fixed ? this.fixedTopBottom : this.rightMenuElement.getBoundingClientRect().top + this.topHeight);
 
+        return outlineHeight;
+    }
+
+    private setOutlineHeight(outlineHeight: number, outlineScrollable: boolean): void {
         // Tried setting bottom, max-height, both don't work on edge - scroll bar doesn't go away even when height is greater than 
         // menu height. This works.
         this.outlineElement.style.height = `${outlineHeight}px`;
 
-        if (this.outlineHeightWithoutScroll > outlineHeight) {
+        if (outlineScrollable) {
             this.outlineRootUlElement.style.marginRight = '12px';
-            this.outlineScrollable = true;
         } else {
             this.outlineRootUlElement.style.marginRight = '0';
-            this.outlineScrollable = false;
         }
     }
 
@@ -261,7 +283,10 @@ class RightMenuComponent extends Component {
             let outlineAnchor = this.outlineAnchors[i] as HTMLElement;
             let anchorBoundingRect = outlineAnchor.getBoundingClientRect();
 
-            result[i] = { topPX: `${anchorBoundingRect.top - outlineIndicatorBoundingRect.top}px`, heightPX: `${anchorBoundingRect.height}px` };
+            result[i] = {
+                topPX: `${anchorBoundingRect.top - outlineIndicatorBoundingRect.top}px`,
+                heightPX: `${anchorBoundingRect.height}px`
+            };
         }
 
         return result;
