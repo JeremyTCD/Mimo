@@ -1,6 +1,7 @@
 ﻿@import 'constants';
 
 article {
+    display: flex;
     flex-grow: 1;
     flex-direction: column;
     max-width: 994px;
@@ -25,6 +26,7 @@ article {
     }
 
     .meta {
+        @include pure-flex;
         margin-top: 7px;
 
         & + .content {
@@ -128,6 +130,11 @@ article {
     }
 
     .content {
+        // So margin's don't collapse
+        display: flex;
+        flex-direction: column;
+        margin-bottom: -6px;
+
         h2, h3, h4 {
             display: flex;
             align-items: center;
@@ -165,17 +172,6 @@ article {
                 }
             }
         }
-
-        p {
-            display: block;
-        }
-
-        span, em, code, a {
-            display: inline;
-        }
-
-        flex-direction: column;
-        margin-bottom: -6px;
 
         a {
             @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-primary);

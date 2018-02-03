@@ -45,6 +45,13 @@ $animated-underline-15px-ypos: 19px;
 $animated-underline-15px-inline-ypos: 18px;
 $animated-underline-32px-ypos: 37px;
 
+@mixin pure-flex(){
+    display: flex;
+    *{
+        display: flex;
+    }
+}
+
 @mixin text-input-icons() {
     svg {
         height: 18px;

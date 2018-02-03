@@ -9,6 +9,7 @@ code {
 }
 
 pre {
+    @include pure-flex;
     white-space: pre-wrap;
     border: 1px solid $color-primary-text;
     // Display header only if code has title

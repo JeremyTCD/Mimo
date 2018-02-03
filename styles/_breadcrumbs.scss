@@ -1,6 +1,8 @@
 ﻿@import 'constants';
 
 #breadcrumbs {
+    @include pure-flex;
+
     font-size: $font-size-2;
     background-color: $color-secondary;
     justify-content: center;
@@ -50,11 +52,9 @@
                     &.topic {
                         opacity: $opacity-3;
                     }
-
                     // This is so animated-underline works for multiline anchors
                     display: block;
                 }
-
                 // Links
                 a {
                     @include animated-underline($color-secondary-text, $animated-underline-13px-inline-ypos, $background-color: $color-secondary);
