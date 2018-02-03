@@ -1,6 +1,6 @@
 ﻿@import 'constants';
 
-$hover-animation-duration: 0.4s;
+$hover-animation-duration: 0.55s;
 
 .pagination {
     font-size: $font-size-2;
@@ -45,7 +45,7 @@ $hover-animation-duration: 0.4s;
                     background-image: linear-gradient(to right, $color-primary-link, $color-primary-link);
                     background-repeat: no-repeat;
                     background-position: 0 100%;
-                    background-size: 100% 0;
+                    background-size: 0 100%;
                     transition: background-size $hover-animation-duration $ease-out-quad-delayed, color $hover-animation-duration $ease-out-quad-delayed;
 
                     &:hover {
