@@ -21,6 +21,7 @@ class RightMenuComponent extends Component {
     outlineRootUlElement: HTMLElement;
     footerElement: HTMLElement;
 
+    outlineEmpty: boolean;
     outlineAnchorDataWithoutScroll: { [index: number]: OutlineAnchorData };
     outlineAnchorDataWithScroll: { [index: number]: OutlineAnchorData };
     outlineHeightWithoutScroll: number;
@@ -54,6 +55,7 @@ class RightMenuComponent extends Component {
         this.setupOutline();
         this.outlineTitleElement = document.querySelector('#right-menu > .wrapper > .wrapper > span') as HTMLElement;
         this.outlineRootUlElement = this.outlineElement.querySelector('ul');
+
         let outlineAnchorElements = this.outlineElement.querySelectorAll('a');
         this.outlineLastAnchorElement = outlineAnchorElements[outlineAnchorElements.length - 1];
 
@@ -104,6 +106,11 @@ class RightMenuComponent extends Component {
     }
 
     private updateOutline(activeHeadingIndex: number): void {
+        // No outline, typically because article has no headers to generate an outline from
+        if (this.outlineEmpty) {
+            return;
+        }
+
         let fixed = this.wrapperElement.classList.contains('fixed');
 
         if (mediaService.mediaWidthWide()) {
@@ -171,7 +178,7 @@ class RightMenuComponent extends Component {
 
         if (!wide) {
             // Don't bother moving if outline is empty, moving messes up styles for surrounding elements
-            if (this.outlineElement && !outlineInArticle) {
+            if (!this.outlineEmpty && !outlineInArticle) {
                 $('main > article > .meta').after(this.rightMenuElement);
             }
 
@@ -179,7 +186,7 @@ class RightMenuComponent extends Component {
                 document.getElementById('metadata-edit-article').appendChild(this.editArticleElement);
             }
         } else if (wide) {
-            if (this.outlineElement && outlineInArticle) {
+            if (!this.outlineEmpty && outlineInArticle) {
                 $('body > .container').append(this.rightMenuElement);
             }
 
@@ -193,7 +200,10 @@ class RightMenuComponent extends Component {
         let headingElements = document.querySelectorAll('main > article > .content > h1,h2');
 
         if (headingElements.length === 0) {
+            this.outlineEmpty = true;
             return;
+        } else {
+            this.outlineEmpty = false;
         }
 
         let titleElement = document.querySelector('main > article > .title');
