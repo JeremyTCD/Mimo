@@ -53,6 +53,9 @@ class LeftMenuComponent extends Component {
                 this.restoreToc();
             });
         this.textInputService.setupEventListeners();
+
+        // Initial call
+        this.updateLeftMenu();
     }
 
     protected registerListeners(): void {
@@ -106,9 +109,6 @@ class LeftMenuComponent extends Component {
         }
         getTocRequest.open('GET', tocPath)
         getTocRequest.send()
-
-        // Initial call
-        this.updateLeftMenu();
     }
 
     private registerTocTopicListener() {
