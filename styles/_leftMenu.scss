@@ -91,6 +91,7 @@ $horizontal-bar-ease-timing: 0.6s;
         #left-menu-toc {
             @media #{$media-medium}, #{$media-wide} {
                 overflow-y: auto;
+                margin-bottom: 23px;
             }
 
             ul {

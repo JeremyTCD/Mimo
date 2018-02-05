@@ -53,6 +53,7 @@ $outline-indicator-width: 2px;
             #outline {
                 @media #{$media-wide} {
                     overflow-y: auto;
+                    margin-bottom: 23px;
                 }
 
                 #outline-indicator {
