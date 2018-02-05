@@ -44,7 +44,7 @@ class RightMenuComponent extends Component {
         this.editArticleElement = document.getElementById('edit-article');
         this.articleElement = document.querySelector('main > article') as HTMLElement;
         this.mainContainer = document.querySelector('body > .container') as HTMLElement;
-        this.articleHeadingElements = this.articleElement.querySelectorAll('h2,h3');
+        this.articleHeadingElements = this.articleElement.querySelectorAll('h1,h2');
         this.outlineWrapperElement = document.querySelector('#right-menu > .wrapper > .wrapper') as HTMLElement;
         this.outlineElement = document.getElementById('outline') as HTMLElement;
         this.indicatorElement = document.getElementById('outline-indicator') as HTMLElement;
@@ -190,25 +190,23 @@ class RightMenuComponent extends Component {
     }
 
     private setupOutline(): void {
-        let headingElements = document.querySelectorAll('main > article > h1,h2,h3');
+        let headingElements = document.querySelectorAll('main > article > .content > h1,h2');
 
-        // Only h1
-        if (headingElements.length === 1) {
+        if (headingElements.length === 0) {
             return;
         }
 
-        let titleElement = document.querySelector('main > article > h1');
+        let titleElement = document.querySelector('main > article > .title');
         let outlineTitle = titleElement ? titleElement.textContent : 'Outline';
         let spanElement = document.createElement('span');
 
         spanElement.innerHTML = outlineTitle;
         this.outlineWrapperElement.insertBefore(spanElement, this.outlineWrapperElement.children[0]);
 
-        let listItemTree: ListItem = listItemService.generateListItemTree(headingElements,
-            ['h2', 'h3'],
-            document.createElement('a'),
-            0);
-        let ulElement = listItemService.generateMultiLevelList(listItemTree.items, '', 1);
+        let listItemTrees: ListItem[] = listItemService.generateListItemTrees(headingElements,
+            ['h1', 'h2'],
+            document.createElement('a'));
+        let ulElement = listItemService.generateMultiLevelList(listItemTrees, '', 1);
 
         this.outlineElement.appendChild(ulElement);
         this.outlineAnchors = this.outlineElement.querySelectorAll('a');

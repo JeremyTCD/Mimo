@@ -18,7 +18,7 @@ class ArticleComponent extends Component {
 
     private addLinks(): void {
         let articleElement: HTMLElement = document.querySelector('.jtcd-article') as HTMLElement;
-        let headersToLink: NodeList = articleElement.querySelectorAll('h2, h3');
+        let headersToLink: NodeList = articleElement.querySelectorAll('h1, h2');
         // Firefox does not support hover events for svgs within button elements, so use a div and assign 'button' to its role attribute
         let buttonMaster: HTMLElement = document.createElement('div');
         let svgElement: SVGElement = svgService.createSvgExternalSpriteElement('material-design-link');

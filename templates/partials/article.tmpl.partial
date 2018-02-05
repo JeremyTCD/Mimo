@@ -1,5 +1,5 @@
 <article class="jtcd-article">
-    {{{rawTitle}}}
+    {{#jtcd_pageTitle}}<div class="title">{{jtcd_pageTitle}}</div>{{/jtcd_pageTitle}}
 
     {{^jtcd_disableMetadata}}
     <div class="meta">
@@ -35,6 +35,7 @@
     {{/jtcd_disableMetadata}}
 
     <div class="content">
+        {{{rawTitle}}}
         {{{conceptual}}}
     </div>
 </article>

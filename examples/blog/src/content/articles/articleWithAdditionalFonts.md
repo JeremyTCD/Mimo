@@ -8,5 +8,4 @@ jtcd_fontLinks:
   - link: https://fonts.googleapis.com/css?family=Lobster
 ---
 
-# Article with Additional Fonts
 Work in progress.
