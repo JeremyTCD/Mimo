@@ -21,6 +21,7 @@ class RightMenuComponent extends Component {
     outlineRootUlElement: HTMLElement;
     footerElement: HTMLElement;
 
+    // True if there is no outline, can be because article has no headers to generate an outline from or if outline is disabled
     outlineEmpty: boolean;
     outlineAnchorDataWithoutScroll: { [index: number]: OutlineAnchorData };
     outlineAnchorDataWithScroll: { [index: number]: OutlineAnchorData };
@@ -78,9 +79,11 @@ class RightMenuComponent extends Component {
         if (this.mainContainer.style.display !== 'none') {
             let activeHeadingIndex = this.getActiveOutlineIndex();
 
-            // Debounce history update to avoid flashing in url bar and perf overhead
-            window.clearTimeout(this.updateHistoryTimeout);
-            this.updateHistoryTimeout = window.setTimeout(this.updateHistory, 200, activeHeadingIndex);
+            if (activeHeadingIndex > -1) {
+                // Debounce history update to avoid flashing in url bar and perf overhead
+                window.clearTimeout(this.updateHistoryTimeout);
+                this.updateHistoryTimeout = window.setTimeout(this.updateHistory, 200, activeHeadingIndex);
+            }
 
             if (mediaService.mediaWidthWide()) {
                 this.updateOutline(activeHeadingIndex);
@@ -106,7 +109,6 @@ class RightMenuComponent extends Component {
     }
 
     private updateOutline(activeHeadingIndex: number): void {
-        // No outline, typically because article has no headers to generate an outline from
         if (this.outlineEmpty) {
             return;
         }
@@ -223,7 +225,7 @@ class RightMenuComponent extends Component {
     }
 
     private getActiveOutlineIndex(): number {
-        let activeAnchorIndex: number;
+        let activeAnchorIndex = -1;
         let minDistance = -1;
 
         // Search could be made more efficient, but would be a micro optimization
