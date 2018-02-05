@@ -4,6 +4,7 @@ main {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
+    padding-bottom: 59px;
 
     @media #{$media-narrow} {
         padding-top: 59px;

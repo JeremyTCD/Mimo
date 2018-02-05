@@ -44,7 +44,6 @@ body {
     > .container {
         display: flex;
         align-self: center;
-        padding-bottom: 59px;
 
         @media #{$media-narrow} {
             flex-direction: column;
