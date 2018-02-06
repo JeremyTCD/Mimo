@@ -100,22 +100,6 @@ a {
     box-sizing: border-box;
 }
 
-h1 {
-    font-size: $font-size-6;
-}
-
-h2 {
-    font-size: $font-size-5;
-}
-
-h3 {
-    font-size: $font-size-4;
-}
-
-h4, h5, h6 {
-    font-size: $font-size-3;
-}
-
 *::placeholder {
     opacity: $opacity-3;
     color: $color-primary-text;
