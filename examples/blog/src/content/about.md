@@ -16,8 +16,4 @@ jtcd_disableComments: true
 uid: about
 ---
 
-# About
 Description here.
-
-## contact
-Contact information here.

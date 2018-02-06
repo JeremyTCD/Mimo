@@ -13,5 +13,4 @@ jtcd_disableRightMenu: true
 jtcd_disableComments: true
 ---
 
-# Privacy Policy
 Privacy policy here.

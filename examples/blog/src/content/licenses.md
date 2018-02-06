@@ -13,7 +13,6 @@ jtcd_disableRightMenu: true
 jtcd_disableComments: true
 ---
 
-# Licenses
 Licenses here.
 
 

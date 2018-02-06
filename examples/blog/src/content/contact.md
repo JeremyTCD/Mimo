@@ -13,5 +13,4 @@ jtcd_disableRightMenu: true
 jtcd_disableComments: true
 ---
 
-# Contact
 Contact information here.
