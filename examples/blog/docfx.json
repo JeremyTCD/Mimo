@@ -28,7 +28,7 @@
             "jtcd_logoRelPath": "/resources/logo.svg",
             "jtcd_favIconRelPath": "/resources/favicon.ico",
             "jtcd_fontLinks": [
-                { "link": "https://fonts.googleapis.com/css?family=Open+Sans|Droid+Sans+Mono" }
+                { "link": "https://fonts.googleapis.com/css?family=Open+Sans" }
             ]
         },
         "postProcessors": [ "SortedArticleListGenerator", "SearchIndexGenerator" ],

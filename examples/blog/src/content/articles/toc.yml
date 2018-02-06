@@ -22,6 +22,8 @@
     href: articleWithLinksToOtherArticles.md
   - name: Article with Embedded Files
     href: articleWithEmbeddedFiles.md
+  - name: Article with Formatting
+    href: articleWithFormatting.md
 - name: Articles that use Custom Styles
   items:
   - name: Article with Additional Fonts

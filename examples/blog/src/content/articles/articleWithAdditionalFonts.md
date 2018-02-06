@@ -4,8 +4,7 @@ jtcd_pageTitle: Article with Additional Fonts
 jtcd_pageID: additional-fonts
 jtcd_date: 12/01/2015
 jtcd_fontLinks:
-  - link: https://fonts.googleapis.com/css?family=Open+Sans
-  - link: https://fonts.googleapis.com/css?family=Lobster
+  - link: https://fonts.googleapis.com/css?family=Open+Sans|Lobster
 ---
 
 Work in progress.
