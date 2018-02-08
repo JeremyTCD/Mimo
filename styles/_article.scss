@@ -343,37 +343,39 @@ article {
         blockquote {
             background-color: rgba($color-primary-icon, $opacity-blockquote);
             border-left: 3px solid $color-primary-icon;
+            padding: $padding-article-block-wide-medium;
+            padding-left: 26px; // account for border left
+            display: flex;
+            flex-direction: column;
 
-            p {
-                margin: 20px 27px;
-
-                @media #{$media-narrow} {
-                    margin: 16px 23px;
-                }
+            @media #{$media-narrow} {
+                padding: $padding-article-block-narrow;
+                padding-left: 20px;
             }
         }
 
         div {
-            &[class^='alert-'] {
+            &.alert-note, &.alert-warning, &.alert-critical-warning {
                 display: flex;
                 align-items: center;
+                border-left: 3px solid;
+                padding: $padding-article-block-wide-medium;
+                padding-left: 26px; // account for border left
+                
+                @media #{$media-narrow} {
+                    padding: $padding-article-block-narrow;
+                    padding-left: 20px;
+                }
 
                 svg {
                     height: 24px;
                     width: 24px;
-                    margin-left: 9px;
                     flex-shrink: 0;
                 }
 
-                p {
-                    margin: 20px 27px;
-
-                    @media #{$media-narrow} {
-                        margin: 16px 23px;
-                    }
+                .alert-content {
+                    margin-left: 13px;
                 }
-
-                border-left: 3px solid;
             }
 
             &.alert-note {

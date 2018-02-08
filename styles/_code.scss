@@ -14,10 +14,10 @@ code {
 
     pre {
         white-space: pre-wrap;
-        margin: 20px 27px;
+        margin: $padding-article-block-wide-medium;
 
         @media #{$media-narrow} {
-            margin: 16px 23px;
+            margin: $padding-article-block-narrow;
         }
 
         code {
