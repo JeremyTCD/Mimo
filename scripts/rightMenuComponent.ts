@@ -46,7 +46,7 @@ class RightMenuComponent extends Component {
         this.editArticleElement = document.getElementById('edit-article');
         this.articleElement = document.querySelector('main > article') as HTMLElement;
         this.mainContainer = document.querySelector('body > .container') as HTMLElement;
-        this.articleHeadingElements = this.articleElement.querySelectorAll('h1,h2');
+        this.articleHeadingElements = this.articleElement.querySelectorAll('h1:not(.exclude-from-outline),h2:not(.exclude-from-outline)');
         this.outlineWrapperElement = document.querySelector('#right-menu > .wrapper > .wrapper') as HTMLElement;
         this.outlineElement = document.getElementById('outline') as HTMLElement;
         this.indicatorElement = document.getElementById('outline-indicator') as HTMLElement;
@@ -199,9 +199,7 @@ class RightMenuComponent extends Component {
     }
 
     private setupOutline(): void {
-        let headingElements = document.querySelectorAll('main > article > .content > h1,h2');
-
-        if (headingElements.length === 0) {
+        if (this.articleHeadingElements.length === 0) {
             this.outlineEmpty = true;
             return;
         } else {
@@ -215,7 +213,7 @@ class RightMenuComponent extends Component {
         spanElement.innerHTML = outlineTitle;
         this.outlineWrapperElement.insertBefore(spanElement, this.outlineWrapperElement.children[0]);
 
-        let listItemTrees: ListItem[] = listItemService.generateListItemTrees(headingElements,
+        let listItemTrees: ListItem[] = listItemService.generateListItemTrees(this.articleHeadingElements,
             ['h1', 'h2'],
             document.createElement('a'));
         let ulElement = listItemService.generateMultiLevelList(listItemTrees, '', 1);
