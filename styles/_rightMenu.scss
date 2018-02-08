@@ -5,7 +5,6 @@ $outline-indicator-width: 2px;
 
 #right-menu {
     @include pure-flex;
-
     font-size: $font-size-2;
     // Default flex-shrink is 1. When toc contents become fixed, they are taken out of the document flow.
     // Toc's adjacent article element expands fully width-wise. Flexbox thinks main's contents are overflowing width-wise
@@ -62,8 +61,7 @@ $outline-indicator-width: 2px;
                     background-color: #e3e3e3;
 
                     @media #{$media-narrow}, #{$media-medium} {
-                        background-color: $color-primary-divider;
-                        width: 1px;
+                        background-color: $color-primary-icon;
                     }
 
                     span {

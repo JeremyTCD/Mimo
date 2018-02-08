@@ -1,8 +1,11 @@
 import * as Tippy from 'tippy.js';
 
 class TooltipService {
-    public setupElement(element: HTMLElement, text: string, placement: string) {
-        element.setAttribute('title', text);
+    public setupElement(element: HTMLElement, placement: string, text: string = null) {
+        if (text) {
+            element.setAttribute('title', text);
+        }
+
         Tippy(element, {
             placement: placement,
             duration: 500,

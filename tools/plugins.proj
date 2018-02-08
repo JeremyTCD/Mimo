@@ -1,24 +1,25 @@
 ﻿<!-- Note: The Sdk attribute allows for a custom set of targets, properties etc - https://github.com/Microsoft/msbuild/issues/1493 -->
-<Project Sdk="Microsoft.NET.Sdk" 
+<Project Sdk="Microsoft.NET.Sdk"
          DefaultTargets="Restore;ResolveReferences;RemoveDocAsCodeReferences;_CopyFilesMarkedCopyLocal">
-  <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
-    <Configuration>release</Configuration>
-    <OutDir>../plugins</OutDir>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net461</TargetFramework>
+        <Configuration>release</Configuration>
+        <OutDir>../plugins</OutDir>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="JeremyTCD.DocFx.Plugins.SearchIndexGenerator" Version="0.1.0" />
-    <PackageReference Include="JeremyTCD.DocFx.Plugins.SortedArticleListGenerator" Version="0.2.0" />
-    <PackageReference Include="JeremyTCD.DocFx.Plugins.FileMetadataExposer" Version="0.3.0-beta" />
-  </ItemGroup>
-    
-  <!-- Including DocAsCode assemblies will cause errors -->
-  <Target Name="RemoveDocAsCodeReferences">
     <ItemGroup>
-      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" 
-                               Condition="$([System.Text.RegularExpressions.Regex]::IsMatch(%(Filename), '.*(?:DocAsCode).*'))" />
+        <PackageReference Include="JeremyTCD.DocFx.Plugins.SearchIndexGenerator" Version="0.1.0" />
+        <PackageReference Include="JeremyTCD.DocFx.Plugins.SortedArticleListGenerator" Version="0.2.0" />
+        <PackageReference Include="JeremyTCD.DocFx.Plugins.FileMetadataExposer" Version="0.3.0-beta" />
+        <PackageReference Include="JeremyTCD.DocFx.Plugins.MimoMarkdown" Version="0.1.0" />
     </ItemGroup>
-    <Message Text="Included assemblies:%0a @(ReferenceCopyLocalPaths, '%0a')" />
-  </Target>
+
+    <!-- Including DocAsCode assemblies will cause errors -->
+    <Target Name="RemoveDocAsCodeReferences">
+        <ItemGroup>
+            <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)"
+                                     Condition="$([System.Text.RegularExpressions.Regex]::IsMatch(%(Filename), '.*(?:DocAsCode).*'))" />
+        </ItemGroup>
+        <Message Text="Included assemblies:%0a @(ReferenceCopyLocalPaths, '%0a')" />
+    </Target>
 </Project>

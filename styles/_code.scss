@@ -1,24 +1,39 @@
 ﻿@import 'constants';
 
 code {
-    padding: 2px 6px;
-    background-color: $color-primary-block-code;
+    padding: 2px 5px;
     font-family: $code-font-family;
     font-size: 13px;
     line-height: 1.3;
+    border: 1px solid $color-primary-divider;
 }
 
-pre {
-    display: flex;
-    white-space: pre-wrap;
+.code-block {
     border: 1px solid $color-primary-divider;
-    // Display header only if code has title
-    /*&:before{
-        content:"";
-        height: 37px;
-        width: 100%;
-    }*/
-    div {
+    display: flex;
+
+    pre {
+        white-space: pre-wrap;
+        margin: 20px 27px;
+
+        @media #{$media-narrow} {
+            margin: 16px 23px;
+        }
+
+        code {
+            border: 0;
+            // Prevents code from overflowing on narrower screens
+            word-wrap: break-word;
+            background-color: transparent;
+            flex-grow: 1;
+            width: 0;
+            padding: 0;
+        }
+    }
+
+    div[role="button"] {
+        display: flex;
+        margin-left: auto;
         align-self: flex-start;
         margin-top: 12px;
         margin-right: 10px;
@@ -34,21 +49,6 @@ pre {
             &:hover {
                 fill: $color-primary-link;
             }
-        }
-    }
-
-    code {
-        // Prevents code from overflowing on narrower screens
-        word-wrap: break-word;
-
-        background-color: transparent;
-        flex-grow: 1;
-        width: 0;
-        margin: 20px 27px;
-        padding: 0;
-
-        @media #{$media-narrow} {
-            margin: 16px 23px;
         }
     }
 }
