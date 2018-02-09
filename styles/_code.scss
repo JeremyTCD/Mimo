@@ -13,12 +13,17 @@ code {
     display: flex;
 
     pre {
-        white-space: pre-wrap;
-        margin: $padding-article-block-wide-medium;
+        margin: 23px 30px;
+        margin-left: 29px;
 
         @media #{$media-narrow} {
-            margin: $padding-article-block-narrow;
+            margin: 19px 23px;
+            margin-left: 22px;
         }
+
+        white-space: pre-wrap;
+        display: flex;
+        flex-grow: 1;
 
         code {
             border: 0;
@@ -34,9 +39,9 @@ code {
     div[role="button"] {
         display: flex;
         margin-left: auto;
+        margin-top: 19px;
+        margin-right: 17px;
         align-self: flex-start;
-        margin-top: 12px;
-        margin-right: 10px;
         flex-shrink: 0;
         cursor: pointer;
 
