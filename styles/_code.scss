@@ -4,7 +4,7 @@ code {
     padding: 2px 5px;
     font-family: $code-font-family;
     font-size: 13px;
-    line-height: 1.3;
+    line-height: 1.4;
     border: 1px solid $color-primary-divider;
 }
 
@@ -13,12 +13,11 @@ code {
     display: flex;
 
     pre {
-        margin: 23px 30px;
-        margin-left: 29px;
+        margin: 22px 29px;
 
         @media #{$media-narrow} {
-            margin: 19px 23px;
-            margin-left: 22px;
+            // Left margin two more than blockquotes to align text
+            margin: 18px 22px;
         }
 
         white-space: pre-wrap;

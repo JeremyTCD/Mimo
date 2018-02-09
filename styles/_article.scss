@@ -208,7 +208,8 @@ article {
         hr {
             width: 100%;
             height: 1px;
-            color: $color-primary-divider;
+            border: 0;
+            background-color: $color-primary-divider;
         }
 
         .heading-1 {
@@ -320,7 +321,7 @@ article {
         ol, ul {
             display: flex;
             flex-direction: column;
-            padding-left: 48px;
+            padding-left: 44px;
         }
 
         ol {
@@ -346,26 +347,41 @@ article {
             }
         }
 
-        blockquote, .alert-note, .alert-warning, .alert-critical-warning {
+        blockquote {
             display: flex;
             border-left: 3px solid $color-primary-icon;
-            padding: 20px 30px;
-            padding-left: 27px;
+            padding: 20px 27px;
+            background-color: rgba($color-primary-icon, $opacity-blockquote);
+            flex-direction: column;
 
             @media #{$media-narrow} {
-                padding: 16px 23px;
-                padding-left: 20px;
+                padding: 16px 20px;
             }
         }
 
-        blockquote {
-            background-color: rgba($color-primary-icon, $opacity-blockquote);
-            border-color: $color-primary-icon;
-            flex-direction: column;
-        }
-
         .alert-note, .alert-warning, .alert-critical-warning {
+            display: flex;
+            // TODO change mimo markdown when convenient
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            border-left: 3px solid;
+            padding: 20px 27px;
+            // Icons have about 2px empty borders
+            padding-left: 25px;
+
+            @media #{$media-narrow} {
+                padding: 16px 20px;
+                // Icons have about 2px empty borders
+                padding-left: 18px;
+            }
+
             svg {
+                margin-right: 24px;
+
+                @media #{$media-narrow} {
+                    margin-right: 16px;
+                }
+
                 height: 24px;
                 width: 24px;
                 flex-shrink: 0;
@@ -374,7 +390,6 @@ article {
             .alert-content {
                 display: flex;
                 flex-direction: column;
-                margin-right: auto;
             }
         }
 
