@@ -52,10 +52,9 @@ async function serve() {
     // Start watcher for simple files
     // Note: If all of these directories are watched and one of them does not exist, chokidar fails silently - https://github.com/paulmillr/chokidar/issues/346
     var foldersToWatch = [path.join(docfxProjectDir, 'src'),
-    path.join(__dirname, '../templates'),
-    path.join(__dirname, '../plugins'),
-    path.join(__dirname, '../fonts'),
-    path.join(__dirname, '../misc')];
+        path.join(__dirname, '../templates'),
+        path.join(__dirname, '../fonts'),
+        path.join(__dirname, '../misc')];
     for (var i = foldersToWatch.length - 1; i >= 0; i--) {
         if (!fs.existsSync(foldersToWatch[i])) {
             foldersToWatch.splice(i, 1);
@@ -63,7 +62,7 @@ async function serve() {
     }
 
     // If chokidar is set to watch a specific file and the file is written over (this happens when you save changes to the file), 
-    // chokidar will no longer watch the file. Therefore, to watch specific files, a glob must be used - https://github.com/paulmillr/chokidar/issues/601#issuecomment-299198825.
+    // chokidar will no longer watch the file. Therefore, to watch a specific file, a glob must be used - https://github.com/paulmillr/chokidar/issues/601#issuecomment-299198825.
     foldersToWatch.push(path.join(docfxProjectDir, '/[d]ocfx.json'));
 
     const watcher = chokidar.watch(
@@ -95,7 +94,7 @@ async function serve() {
                 // urls in _site's html files at the end of each webpack compilation. This means that after docfx build runs and _site's html files are 
                 // regenerated, they no longer contain the correct bundle links. It is possible to manually replace the urls after each docfx build. This should
                 // be attempted - carefully. Node's asynchronous model could result in the read (reading "current" bundle file names) and the write (overwriting
-                // bundle names in html files) not being atomic.
+                // bundle names in html files) not being atomic, need to figure out how to ensure that this does not happen.
                 if (isProduction) {
                     await triggerWebpackRecompilation();
                 } else {
