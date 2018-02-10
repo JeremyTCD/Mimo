@@ -10,21 +10,13 @@
       href: articleWithAnExtremelyLengthyTitle.md
     - name: Article with Long Headings
       href: articleWithLongHeadings.md
-- name: Articles that use External Resources
+- name: Creating Articles
   items:
-  - name: Article with Images
-    href: articleWithImages.md
-  - name: Article with Text Snippets
-    href: articleWithTextSnippets.md
-  - name: Article with Code Snippets
-    href: articleWithCodeSnippets.md
-  - name: Article with Links to Other Articles
-    href: articleWithLinksToOtherArticles.md
-  - name: Article with Embedded Files
-    href: articleWithEmbeddedFiles.md
-  - name: Article with Formatting
-    href: articleWithFormatting.md
-- name: Articles that use Custom Styles
-  items:
-  - name: Article with Additional Fonts
-    href: articleWithAdditionalFonts.md
+  - name: Formatting Articles
+    href: formattingArticles.md
+  - name: Using External Resources
+    href: usingExternalResources.md
+  - name: Styling Articles
+    href: placeholder.md
+  - name: Writing Logic For Articles
+    href: placeholder.md

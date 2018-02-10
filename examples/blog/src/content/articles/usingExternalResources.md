@@ -1,11 +1,14 @@
----
-jtcd_pageDescription: This is an example of an article with code snippets.
-jtcd_pageTitle: Article with Code Snippets
+﻿---
+jtcd_pageDescription: This is an example of an article with formatting.
+jtcd_pageTitle: Using External Resources
 jtcd_date: 11/02/2014
 jtcd_fontLinks:
-  - link: https://fonts.googleapis.com/css?family=Open+Sans|Droid+Sans+Mono
+  - link: https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i|Droid+Sans+Mono
 ---
-# Embedding Code Snippets
+
+# Using Images
+
+# Embedding Code
 ## Embedding an Entire file
 ### Syntax
 `[!code-<language>[<name>](<codepath>)]`  
@@ -52,3 +55,13 @@ TODO: Works inconsistently
 ### Example
 `[!code-csharp[Methods](../../resources/Example.cs?dedent=2)]` is rendered as:  
 [!code-csharp[Methods](../../resources/Example.cs?dedent=2)]
+
+# Embedding Markdown
+[!include[markdown](./fileToEmbed.md)]  
+
+Note: if used inline, for example, [!include[markdown](./fileToEmbed.md)], the markdown parser will treat the inserted text as inline content.
+
+## Embedded SVG
+[!include[logo](../../resources/logo.svg)]
+
+Note: since markup in markdown is treated as raw markup, markup files (svg or html) can be inserted into an article.
