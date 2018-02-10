@@ -242,15 +242,15 @@ article {
 
         .heading-2 {
             & + p {
-                margin-top: 23px;
+                margin-top: 21px;
             }
 
             & + h3 {
-                margin-top: 24px;
+                margin-top: 22px;
             }
 
             & + * {
-                margin-top: 33px;
+                margin-top: 31px;
             }
         }
 
@@ -270,7 +270,7 @@ article {
             }
 
             & + .heading-2 {
-                margin-top: 38px;
+                margin-top: 39px;
             }
 
             & + h3 {
@@ -292,7 +292,7 @@ article {
             }
 
             & + .heading-2 {
-                margin-top: 47px;
+                margin-top: 48px;
             }
 
             & + h3 {
@@ -339,11 +339,29 @@ article {
             &:first-child {
                 margin-top: 0;
             }
-
-            li {
+            // If a nested list is the first child of a list item, it has no top margin
+            ul, ol {
                 &:first-child {
-                    margin-top: 10px;
+                    li {
+                        &:first-child {
+                            margin-top: 10px;
+                        }
+                    }
                 }
+            }
+        }
+
+        table {
+            //width: 100%;
+            border-collapse: collapse;
+
+            td, th {
+                border: 1px solid $color-primary-divider;
+                padding: 6px 14px;
+            }
+
+            th {
+                font-weight: 600;
             }
         }
 
@@ -418,6 +436,32 @@ article {
             svg {
                 fill: $color-primary-important;
             }
+        }
+
+        .tabGroup {
+            display: flex;
+            flex-direction: column;
+
+            ul[role="tablist"] {
+                padding-left: 0;
+                display: flex;
+                flex-direction: row;
+
+                li {
+                    list-style: none;
+                    margin-top: 0;
+                }
+            }
+
+            > section {
+                border: 1px solid $color-primary-divider;
+                padding: 22px 29px;
+            }
+        }
+
+        // Rare to have text inline with images in blogs/documentation
+        img {
+            display: block; 
         }
     }
 
