@@ -352,7 +352,7 @@ article {
         }
 
         table {
-            //width: 100%;
+            width: 100%;
             border-collapse: collapse;
 
             td, th {
@@ -379,13 +379,10 @@ article {
 
         .alert-note, .alert-warning, .alert-critical-warning {
             display: flex;
-            // TODO change mimo markdown when convenient
-            flex-direction: row-reverse;
-            justify-content: flex-end;
             border-left: 3px solid;
             padding: 20px 27px;
             // Icons have about 2px empty borders
-            padding-left: 25px;
+            padding-left: 12px;
 
             @media #{$media-narrow} {
                 padding: 16px 20px;
@@ -394,7 +391,7 @@ article {
             }
 
             svg {
-                margin-right: 24px;
+                margin-right: 11px;
 
                 @media #{$media-narrow} {
                     margin-right: 16px;
