@@ -9,50 +9,49 @@ code {
 }
 
 .code-block {
-    border: 1px solid $color-primary-divider;
     display: flex;
+    flex-direction: column;
 
-    pre {
-        margin: 22px 29px;
-
-        @media #{$media-narrow} {
-            // Left margin two more than blockquotes to align text
-            margin: 18px 22px;
-        }
-
-        white-space: pre-wrap;
+    header {
+        height: 37px;
         display: flex;
-        flex-grow: 1;
+        border: 1px solid $color-primary-divider;
+        align-items: center;
 
-        code {
-            border: 0;
-            // Prevents code from overflowing on narrower screens
-            word-wrap: break-word;
-            background-color: transparent;
-            flex-grow: 1;
-            width: 0;
-            padding: 0;
+        div[role="button"] {
+            display: flex;
+            margin-left: auto;
+            margin-right: 9px;
+            cursor: pointer;
+
+            svg {
+                height: 24px;
+                width: 24px;
+                fill: $color-primary-link-disabled;
+                transition: fill 0.35s $ease-out-quad-delayed;
+
+                &:hover {
+                    fill: $color-primary-link;
+                }
+            }
         }
     }
 
-    div[role="button"] {
-        display: flex;
-        margin-left: auto;
-        margin-top: 19px;
-        margin-right: 17px;
-        align-self: flex-start;
-        flex-shrink: 0;
-        cursor: pointer;
+    pre {
+        border: 1px solid $color-primary-divider;
+        border-top: 0;
+        overflow: auto;
+        white-space: pre;
+        padding: 22px 29px;
 
-        svg {
-            height: 24px;
-            width: 24px;
-            fill: $color-primary-link-disabled;
-            transition: fill 0.35s $ease-out-quad-delayed;
+        @media #{$media-narrow} {
+            padding: 16px 22px;
+        }
 
-            &:hover {
-                fill: $color-primary-link;
-            }
+        code {
+            background-color: transparent;
+            border: 0;
+            padding: 0;
         }
     }
 }

@@ -1,6 +1,6 @@
 @import 'constants';
 
-header {
+body > header {
     @include pure-flex;
 
     background-color: $color-secondary-text;
