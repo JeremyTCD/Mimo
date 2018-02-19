@@ -51,7 +51,7 @@ class RightMenuComponent extends Component {
         this.outlineElement = document.getElementById('outline') as HTMLElement;
         this.indicatorElement = document.getElementById('outline-indicator') as HTMLElement;
         this.outlineIndicatorSpanElement = this.indicatorElement.querySelector('span') as HTMLElement;
-        this.footerElement = document.getElementsByTagName('footer')[0];
+        this.footerElement = document.querySelector('body > footer') as HTMLElement;
 
         this.setupOutline();
         this.outlineTitleElement = document.querySelector('#right-menu > .wrapper > .wrapper > span') as HTMLElement;

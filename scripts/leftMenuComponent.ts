@@ -40,7 +40,7 @@ class LeftMenuComponent extends Component {
         this.inputClearElement = this.filterElement.querySelector('svg:last-child') as HTMLElement;
         this.bodyContainerElement = document.querySelector('body > .container') as HTMLElement;
         this.tocElement = document.getElementById('left-menu-toc');
-        this.footerElement = document.getElementsByTagName('footer')[0];
+        this.footerElement = document.querySelector('body > footer') as HTMLElement;
         this.wrapperElement = this.leftMenuElement.querySelector('.wrapper') as HTMLElement;
 
         this.setupToc();
