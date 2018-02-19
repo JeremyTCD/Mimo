@@ -359,12 +359,31 @@ article {
             border-collapse: collapse;
 
             td, th {
-                border: 1px solid $color-primary-divider;
-                padding: 6px 14px;
+                padding: 15px 23px;
             }
 
             th {
                 font-weight: 600;
+            }
+
+            tr {
+                border: 1px solid $color-primary-divider;
+                border-left: 0;
+                border-right: 0;
+            }
+
+            tbody {
+                tr {
+                    &:last-child {
+                        border-bottom: 0;
+                    }
+                }
+            }
+
+            thead {
+                tr {
+                    border-top: 0;
+                }
             }
         }
 
