@@ -478,9 +478,30 @@ article {
             }
         }
 
-        // Rare to have text inline with images in blogs/documentation
-        img {
-            display: block;
+        .image-block {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            img {
+                display: block;
+            }
+
+            footer {
+                margin-top: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .image-description {
+                    font-size: $font-size-2;
+                }
+
+                .image-credits {
+                    margin-top: 2px;
+                    font-size: $font-size-1;
+                }
+            }
         }
     }
 
