@@ -148,14 +148,17 @@ article {
     .content {
         h1 {
             font-size: $font-size-6;
+            font-weight: 600;
         }
 
         h2 {
             font-size: $font-size-5;
+            font-weight: 600;
         }
 
         h3 {
             font-size: $font-size-4;
+            font-weight: 600;
         }
 
         h4, h5, h6 {
@@ -228,29 +231,29 @@ article {
 
         .heading-1 {
             & + p {
-                margin-top: 27px;
+                margin-top: 34px;
             }
 
             & + .heading-2 {
-                margin-top: 40px;
+                margin-top: 36px;
             }
 
             & + * {
-                margin-top: 37px;
+                margin-top: 41px;
             }
         }
 
         .heading-2 {
             & + p {
-                margin-top: 21px;
+                margin-top: 20px;
             }
 
             & + h3 {
-                margin-top: 22px;
+                margin-top: 23px;
             }
 
             & + * {
-                margin-top: 31px;
+                margin-top: 34px;
             }
         }
 
@@ -260,51 +263,51 @@ article {
             }
 
             & + * {
-                margin-top: 20px;
+                margin-top: 23px;
             }
         }
 
         p, h4, h5, h6 {
             & + .heading-1 {
-                margin-top: 36px;
+                margin-top: 41px;
             }
 
             & + .heading-2 {
-                margin-top: 39px;
+                margin-top: 43px;
             }
 
             & + h3 {
-                margin-top: 15px;
+                margin-top: 17px;
             }
 
             & + p, & + h4, & + h5, & + h6 {
-                margin-top: 14px;
+                margin-top: 15px;
             }
 
             & + * {
-                margin-top: 23px;
+                margin-top: 24px;
             }
         }
 
         > * {
             & + .heading-1 {
-                margin-top: 44px;
+                margin-top: 50px;
             }
 
             & + .heading-2 {
-                margin-top: 48px;
+                margin-top: 52px;
             }
 
             & + h3 {
-                margin-top: 23px;
+                margin-top: 24px;
             }
 
             & + p, & + h4, & + h5, & + h6 {
-                margin-top: 21px;
+                margin-top: 22px;
             }
 
             & + * {
-                margin-top: 31px;
+                margin-top: 32px;
             }
         }
 
@@ -458,7 +461,7 @@ article {
 
         // Rare to have text inline with images in blogs/documentation
         img {
-            display: block; 
+            display: block;
         }
     }
 
