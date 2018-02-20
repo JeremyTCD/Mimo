@@ -378,10 +378,19 @@ article {
 
                 td {
                     padding: 18px 28px;
+
+                    @media #{$media-narrow} {
+                        padding: 10px 20px;
+                    }
                 }
 
                 th {
                     padding: 6px 28px;
+
+                    @media #{$media-narrow} {
+                        padding: 6px 20px;
+                    }
+
                     font-weight: 600;
                     background-color: $color-section-header-background;
                 }
@@ -415,7 +424,7 @@ article {
             font-style: italic;
 
             @media #{$media-narrow} {
-                padding: 13px 20px;
+                padding: 10px 20px;
             }
 
             p {
@@ -432,11 +441,17 @@ article {
             padding-left: 12px;
 
             @media #{$media-narrow} {
-                padding: 13px 20px;
+                padding: 10px 20px;
+                padding-left: 7px;
             }
 
             svg {
                 margin-right: 11px;
+
+                @media #{$media-narrow} {
+                    margin-right: 6px;
+                }
+
                 height: 24px;
                 width: 24px;
                 flex-shrink: 0;
@@ -521,6 +536,7 @@ article {
 
             img {
                 display: block;
+                max-width: 100%;
             }
 
             footer {
