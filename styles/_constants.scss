@@ -1,17 +1,23 @@
 ﻿$color-primary: #fff;
 $color-primary-text: #212121;
-$color-primary-text-highlight: #FFD039;
-$color-primary-text-casual: #FFBB00;
+$color-primary-highlight: #FFD039;
 $color-primary-link: #1e88e5;
-$color-primary-background: #efefef;
-$color-primary-link-disabled: #b5b5b5;
-$color-primary-inline-code: #f4f4f4;
-$color-primary-divider: #cfcfcf;
+$color-primary-link-disabled: #bebebe;
+$color-primary-inline-code-background: #f4f4f4;
+$color-primary-inline-code-dark-background: #ececec;
 $color-primary-icon: #646464;
+
 $color-secondary: #1565c0;
 $color-secondary-text: #fff;
-$color-primary-warning: #Ffdb08;
-$color-primary-important: #ff2508;
+
+$color-alert-note-background: #f1f6fb;
+$color-alert-warning: #ffdb08;
+$color-alert-warning-background: #fffdf0;
+$color-alert-critical-warning: #ff2508;
+$color-alert-critical-warning-background: #fff2f0 ;
+
+$color-section-body-background: #f9f9f9;
+$color-section-header-background: #f0f0f0;
 
 $opacity-blockquote: 0.06;
 $opacity-1: 0.45;

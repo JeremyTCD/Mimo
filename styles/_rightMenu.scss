@@ -58,7 +58,7 @@ $outline-indicator-width: 2px;
                 #outline-indicator {
                     width: $outline-indicator-width;
                     margin-right: 14px;
-                    background-color: #e3e3e3;
+                    background-color: $color-section-header-background;
 
                     @media #{$media-narrow}, #{$media-medium} {
                         background-color: $color-primary-icon;

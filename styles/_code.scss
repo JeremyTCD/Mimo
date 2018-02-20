@@ -1,11 +1,10 @@
 ﻿@import 'constants';
 
 code {
-    padding: 2px 5px;
+    padding: 3px 5px;
     font-family: $code-font-family;
     font-size: 13px;
-    line-height: 1.4;
-    border: 1px solid $color-primary-divider;
+    background-color: $color-primary-inline-code-background;
 }
 
 .code-block {
@@ -15,8 +14,8 @@ code {
     header {
         height: 37px;
         display: flex;
-        border: 1px solid $color-primary-divider;
         align-items: center;
+        background-color: $color-section-header-background;
 
         div[role="button"] {
             display: flex;
@@ -38,15 +37,17 @@ code {
     }
 
     pre {
-        border: 1px solid $color-primary-divider;
+        background-color: $color-section-body-background;
         border-top: 0;
         overflow: auto;
         white-space: pre;
-        padding: 22px 29px;
+        padding: 18px 28px;
+        line-height: 1.4;
 
         @media #{$media-narrow} {
-            padding: 16px 22px;
+            padding: 12px 22px;
         }
+
 
         code {
             background-color: transparent;
