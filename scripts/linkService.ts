@@ -3,8 +3,11 @@
 class LinkService {
 
     public setupSmoothScroll(): void {
-        // Anchors with hrefs that contain #
-        let scroll = new SmoothScroll('a[href*="#"]');
+        // Smooth-scroll plugin is smoother than this CSS property
+        //if (!CSS.supports('scroll-behavior', 'smooth')) {
+            // Anchors with hrefs that contain #
+            let scroll = new SmoothScroll('a[href*="#"]');
+        //} 
     }
 
     public setupOpenExternalLinksInNewTab(): void {
