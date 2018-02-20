@@ -11,7 +11,7 @@
     private resizeListener = () => {
         if (window.matchMedia('(max-width: 768px)').matches) {
             this.width = Size.narrow;
-        } else if (window.matchMedia('(min-width: 1025px)').matches) {
+        } else if (window.matchMedia('(min-width: 1280px)').matches) {
             this.width = Size.wide;
         } else {
             this.width = Size.medium;
