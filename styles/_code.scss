@@ -38,8 +38,7 @@ code {
 
     pre {
         background-color: $color-section-body-background;
-        border-top: 0;
-        overflow: auto;
+        overflow-x: auto;
         white-space: pre;
         padding: 18px 28px;
         line-height: 1.4;
@@ -47,7 +46,6 @@ code {
         @media #{$media-narrow} {
             padding: 12px 22px;
         }
-
 
         code {
             background-color: transparent;

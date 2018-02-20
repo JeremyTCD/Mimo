@@ -31,6 +31,10 @@ body, body * {
     // By default, if an element is tapped in chrome for android, it flashes blue.
     // This is unecessary since animations are used by mimo to signify successful interation.
     -webkit-tap-highlight-color: transparent;
+
+    // Elements with display flex have min-width set to auto by default (a min-width value unique to flexbox). This causes a host of problems with overflowing content- 
+    // https://weblog.west-wind.com/posts/2016/Feb/15/Flexbox-Containers-PRE-tags-and-managing-Overflow.
+    min-width: 0;
 }
 
 html {
