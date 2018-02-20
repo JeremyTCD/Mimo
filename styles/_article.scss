@@ -369,31 +369,36 @@ article {
             }
         }
 
-        table {
+        .table-block {
             align-self: stretch;
+            overflow-x: auto;
 
-            td {
-                padding: 18px 28px;
-            }
+            table {
+                width: 100%;
 
-            th {
-                padding: 6px 28px;
-                font-weight: 600;
-                background-color: $color-section-header-background;
-            }
+                td {
+                    padding: 18px 28px;
+                }
 
-            tbody {
-                tr {
-                    &:nth-child(even) {
-                        background-color: $color-section-body-background;
+                th {
+                    padding: 6px 28px;
+                    font-weight: 600;
+                    background-color: $color-section-header-background;
+                }
 
-                        a {
-                            @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
-                        }
+                tbody {
+                    tr {
+                        &:nth-child(even) {
+                            background-color: $color-section-body-background;
 
-                        *:not(pre) {
-                            > code {
-                                background-color: $color-primary-inline-code-dark-background;
+                            a {
+                                @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
+                            }
+
+                            *:not(pre) {
+                                > code {
+                                    background-color: $color-primary-inline-code-dark-background;
+                                }
                             }
                         }
                     }
