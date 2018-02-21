@@ -61,13 +61,11 @@
         let element: HTMLElement = elements[0] as HTMLElement;
         let newElement: HTMLElement = wrapper.cloneNode() as HTMLElement;
 
-        // These span elements are necessary for animated underlines, quite a hacky solution tho
-        let spanElement1: HTMLElement = document.createElement('span');
-        let spanElement2: HTMLElement = spanElement1.cloneNode() as HTMLElement;
-        spanElement1.innerHTML = (element).innerHTML; 
-        spanElement2.appendChild(spanElement1);
+        // This span element is necessary for animated underlines, quite a hacky solution tho
+        let spanElement: HTMLElement = document.createElement('span');
+        spanElement.innerHTML = (element).innerHTML; 
 
-        newElement.appendChild(spanElement2);
+        newElement.appendChild(spanElement);
         if (wrapper.tagName === 'A') {
             newElement.setAttribute('href', `#${element.id}`);
         }

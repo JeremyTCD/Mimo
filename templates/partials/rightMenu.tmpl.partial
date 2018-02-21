@@ -18,6 +18,9 @@
         {{/sourceurl}}
         {{/jtcd_disableEditArticle}}
         <div class="wrapper">
+            <a href="#" id="outline-title">
+                <span></span>
+            </a>
             <nav id="outline">
                 <div id="outline-indicator">
                     <span></span>

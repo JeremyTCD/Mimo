@@ -38,14 +38,18 @@ $outline-indicator-width: 2px;
                 align-self: stretch;
             }
 
-            > span {
+            #outline-title {
+                font-size: $font-size-2;
+                font-weight: 600;
+                display: block;
+                padding-bottom: 14px;
+
                 @media #{$media-narrow}, #{$media-medium} {
                     display: none;
                 }
 
-                @media #{$media-wide} {
-                    font-size: $font-size-2;
-                    padding-bottom: 14px;
+                span {
+                    @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
                 }
             }
 
@@ -60,10 +64,6 @@ $outline-indicator-width: 2px;
                     width: $outline-indicator-width;
                     margin-right: 14px;
                     background-color: $color-section-header-background;
-
-                    @media #{$media-narrow}, #{$media-medium} {
-                        background-color: $color-primary-icon;
-                    }
 
                     span {
                         @media #{$media-narrow}, #{$media-medium} {
@@ -102,15 +102,12 @@ $outline-indicator-width: 2px;
                             cursor: pointer;
                             align-items: center;
                             margin-top: 13px;
-
+                            display: inline;
+                            // animated-underline only works for multiline elements if the element whose background is animated is an only child or has a parent that has display block,
+                            // inline-block or inline.
+                            // TODO figure out why
                             & > span {
-                                display: inline;
-                                // animated-underline only works for multiline elements if the element whose background is animated is an only child or has a parent that has display block,
-                                // inline-block or inline.
-                                // TODO figure out why
-                                & > span {
-                                    @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
-                                }
+                                @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
                             }
                         }
                     }

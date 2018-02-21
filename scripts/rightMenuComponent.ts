@@ -54,7 +54,7 @@ class RightMenuComponent extends Component {
         this.footerElement = document.querySelector('body > footer') as HTMLElement;
 
         this.setupOutline();
-        this.outlineTitleElement = document.querySelector('#right-menu > .wrapper > .wrapper > span') as HTMLElement;
+        this.outlineTitleElement = document.getElementById('outline-title');
         this.outlineRootUlElement = this.outlineElement.querySelector('ul');
 
         let outlineAnchorElements = this.outlineElement.querySelectorAll('a');
@@ -208,10 +208,9 @@ class RightMenuComponent extends Component {
 
         let titleElement = document.querySelector('main > article > .title');
         let outlineTitle = titleElement ? titleElement.textContent : 'Outline';
-        let spanElement = document.createElement('span');
+        let outlineTitleSpanElement = document.querySelector('#outline-title > span');
 
-        spanElement.innerHTML = outlineTitle;
-        this.outlineWrapperElement.insertBefore(spanElement, this.outlineWrapperElement.children[0]);
+        outlineTitleSpanElement.innerHTML = outlineTitle;
 
         let listItemTrees: ListItem[] = listItemService.generateListItemTrees(this.articleHeadingElements,
             ['h1', 'h2'],
