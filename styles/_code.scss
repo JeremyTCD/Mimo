@@ -3,7 +3,7 @@
 code {
     padding: 3px 5px;
     font-family: $code-font-family;
-    font-size: 13px;
+    font-size: $font-size-2;
     background-color: $color-primary-inline-code-background;
 }
 
@@ -40,17 +40,36 @@ code {
         background-color: $color-section-body-background;
         overflow-x: auto;
         white-space: pre;
+        line-height: 1.5;
         padding: 19px 28px;
-        line-height: 1.4;
 
         @media #{$media-narrow} {
             padding: 12px 22px;
         }
+    }
+
+    > div {
+        display: flex;
+
+        .line-numbers {
+            user-select: none;
+            padding: 19px 14px;
+            flex-grow: 0;
+            color: #2b91af;
+            font-family: $code-font-family;
+            font-size: $font-size-2;
+            border-right: 2px solid $color-section-header-background;
+        }
+    }
+
+    .code {
+        flex-grow: 1;
 
         code {
             background-color: transparent;
             border: 0;
             padding: 0;
+            display: block;
         }
     }
 }
