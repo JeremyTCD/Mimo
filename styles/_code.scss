@@ -38,7 +38,6 @@ code {
 
     pre {
         background-color: $color-section-body-background;
-        overflow-x: auto;
         white-space: pre;
         line-height: 1.5;
         padding: 19px 28px;
@@ -54,7 +53,13 @@ code {
         .line-numbers {
             user-select: none;
             padding: 19px 14px;
+
+            @media #{$media-narrow} {
+                padding: 12px 9px;
+            }
+
             flex-grow: 0;
+            flex-shrink: 0;
             color: #2b91af;
             font-family: $code-font-family;
             font-size: $font-size-2;
@@ -64,6 +69,7 @@ code {
 
     .code {
         flex-grow: 1;
+        overflow-x: auto;
 
         code {
             background-color: transparent;
