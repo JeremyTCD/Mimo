@@ -41,7 +41,6 @@ import codeService from './codeService';
 
 import * as domready from 'domready';
 import * as $ from 'jquery';
-import * as hljs from 'highlight.js';
 
 domready(function () {
     salComponent.initialize();
@@ -57,8 +56,6 @@ domready(function () {
     linkService.setupOpenExternalLinksInNewTab();
     linkService.setupSmoothScroll();
     codeService.setupCodeBlocks();
-
-    hljs.initHighlighting();
 });
 
 // These constants are defined by webpack's define plugin (see webpack.config.js)

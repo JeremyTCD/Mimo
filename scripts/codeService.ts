@@ -1,6 +1,7 @@
 ﻿import svgService from './svgService';
 import tooltipService from './tooltipService';
 import * as Clipboard from 'clipboard';
+import * as hljs from 'highlight.js';
 
 class CodeService {
     public setupCodeBlocks() {
@@ -16,6 +17,8 @@ class CodeService {
         clipboard.on('success', (event: Clipboard.Event) => {
             event.clearSelection();
         });
+
+        hljs.initHighlighting();
     }
 }
 
