@@ -108,7 +108,7 @@ TODO: display actual html here
 | language | string | false | The [highlight.js](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases) alias for the code block's language. |
 | highlight | boolean | false | If `true`, and `language` is specified and valid, highlights text in the code block according to `language`. |
 | blockID | string | false | If specified, this property's value is assigned to the `.code-block` element's `id` attribute. If unspecified, the `id` attribute of the nth code block is assigned a string of the form `code-block-n`.  |
-| title | string | false | If specified, this property's value is used as the `innerHTML` of the `.code-block-title` element. This property's value can contain two special tokens, `<fileName>` and `<language>`. `<fileName>` is replaced with the name of the file identified by `src` while `language` is replaced with the display name of the code block's language (inferred from `language` or the `src`'s extension). |
+| title | string | false | If specified, this property's value is used as the `innerHTML` of the `.code-block-title` element. This property's value can contain two special tokens, `<fileName>` and `<language>`. `<fileName>` is replaced with the name of the file identified by `src` while `<language>` is replaced with the display name of the code block's language (inferred from `language` or the `src`'s extension). |
 
 `<range>` must be a JSON object with the following properties:
 
