@@ -119,7 +119,7 @@ class RightMenuComponent extends Component {
             if (!this.outlineHeightWithoutScroll) {
                 // The first time media width is wide, initialize outline constants. At this point outline has no fixed height, so its height is accurate.
                 // Cache tops and heights of outline anchors relative to outline
-                this.topHeight = this.outlineTitleElement.getBoundingClientRect().bottom - this.rightMenuElement.getBoundingClientRect().top;
+                this.topHeight = this.outlineElement.getBoundingClientRect().top - this.rightMenuElement.getBoundingClientRect().top;
                 this.fixedTopBottom = this.topMenuGap + this.topHeight;
 
                 let indicatorBoundingRect = this.indicatorElement.getBoundingClientRect();
