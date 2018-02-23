@@ -1,7 +1,16 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.6...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.7...HEAD)
+
+## [1.0.0-alpha.7](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.6...1.0.0-alpha.7) - Feb 23, 2018
+### Added
+- Styles and resources for markdown features such as tables, images, code and the like.
+- Custom markdown through [MimoMarkdown](https://github.com/JeremyTCD/DocFx.Plugins.MimoMarkdown).
+- New right menu indicator that is more consistent with Mimo's style.
+- Draft pages for Mimo's documentation.
+### Changed
+- Styles across the page.
 
 ## [1.0.0-alpha.6](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.5...1.0.0-alpha.6) - Jan 27, 2018
 ### Added
