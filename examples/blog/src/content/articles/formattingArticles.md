@@ -23,26 +23,20 @@ For example, you could inline a function declaration like `public int DoSomethin
 Create a code block by surrounding code with a pair of back-tick trios. You can append a language name from [this list](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases)
 to the opening back-tick trio for language specific syntax highlighting:
 
-<!-- Raw html used to prevent markdown renderer from processing example code blocks -->
-<div class="code-block">
-<pre><code id="code-block-custom" class="lang-no-highlight">```csharp
+[!include-code]{ 
+    "src":"```csharp
 public string CSharpFunction()
 {
-    return "test";
+    return \"test\";
 }
 ```
 
 ```typescript
 public TypescriptFunction(): string {
-    return "test";
+    return \"test\";
 }
-```</code></pre>
-<div data-clipboard-target="#code-block-custom" role="button" title="Code copied">
-<svg>
-<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#material-design-copy"></use>
-</svg>
-</div>
-</div>
+```"
+}
 
 ```csharp
 public string CSharpFunction()
@@ -441,7 +435,9 @@ Tab two content.
 
 TODO should look something like this, requires custom markdown renderer and logic for indicator:
 
-![Unpolished example](../resources/tabs.png)
+[!include-image]{ 
+    "src":"../resources/tabs.png"
+}
 
 # Further Reading
 https://github.github.com/gfm
