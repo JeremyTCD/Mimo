@@ -8,60 +8,168 @@ jtcd_fontLinks:
 
 # Using Images
 
-# Embedding Code
-## Embedding an Entire file
-### Syntax
-`[!code-<language>[<name>](<codepath>)]`  
-### Example
-`[!code-csharp[Example](../../resources/Example.cs)]` is rendered as:
-[!code-csharp[Example](../../resources/Example.cs)]
+## Inline Images
+Display an image inline using a line of the form `![<alt-text>](<image-path> "<title>")`:
+### Markdown
+[!include-code] { 
+    "src": "./usingExternalResources.md",
+    "regions": [{"name": "inline-image-example" }],
+    "highlight": false
+}
+### Result
+<!-- <inline-image-example> -->
+This image is inline: ![JeremyTCD's Logo](../resources/logo.png "JeremyTCD's Logo")
+<!-- </inline-image-example> -->
 
-## Embedding a Range of Lines
-### Syntax
-`[!code-<language>[<name>](<codepath>?start=<startline>&end=<endline>)]`  
-### Example
-`[!code-csharp[DoSomething](../../resources/Example.cs?start=6&end=9)]` is rendered as:
-[!code-csharp[DoSomething](../../resources/Example.cs?start=6&end=9)]
+## Image Blocks
+Use `[!include-image]<include-image-options>` to create an image block:
+### Markdown
+[!include-code] { 
+    "src": "./usingExternalResources.md",
+    "regions": [{"name": "include-image-example" }],
+    "highlight": false
+}
+### Result
+<!-- <include-image-example> -->
+[!include-image]{ 
+    "src":"../resources/logo.png", 
+    "title":"JeremyTCD's Logo", 
+    "alt":"JeremyTCD's Logo", 
+    "description":"JeremyTCD's Logo",
+    "credits":"© 2017-2018 JeremyTCD"
+}
+<!-- </include-image-example> -->
+### Result Markup
+```no-highlight
+TODO: display actual html here
+```
+### Details
+`<include-image-options>` must be a JSON object with the following properties:
 
-## Embedding Multiple Ranges of Lines
-### Syntax
-`[!code-<language>[<name>](<codepath>?range=<startline>-<endline>,<startline>-<endline>,...)]`  
-### Example
-`[!code-csharp[Methods](../../resources/Example.cs?range=6-10,12-15)]` is rendered as:
-[!code-csharp[Methods](../../resources/Example.cs?range=6-10,12-15)]
+| Property | Type | IsRequired | Notes |
+| -------- | :----: | :----------: | ----- |
+| src | string | true | This property's value is assigned to the `img` element's `src` attribute. |
+| blockID | string | false | If specified, this property's value is assigned to the `img` element's `id` attribute. If unspecified, the `id` attribute of the nth image block is assigned a string of the form `image-block-n`.  |
+| title | string | false | If specified, this property's value is assigned to the `img` element's `title` attribute. |
+| alt | string | false | If specified, this property's value is assigned to the `img` element's `alt` attribute. |
+| footerContent | string | false | If specified, this property's value is used as the `innerHTML` of the `footer` element. Also, if specified, the `description` and `credits` properties are ignored. This property's value can contain markup.  |
+| description | string | false | If specified, this property's value is used as the `innerHTML` of the `span` element with class `image-description`. If the `footerContent` property is specified, this property is ignored. This property's value will be encoded as HTML-encoded text. |
+| credits | string | false | If specified, this property's value is used as the `innerHTML` of the `span` element with class `image-credits`. If the `footerContent` property is specified, this property is ignored.  This property's value will be encoded as HTML-encoded text. |
 
-## Embedding a Range of Lines By Tagname
-### Syntax
-`[!code-<language>[<name>](<codepath>?name=<tagname>)]`  
-### Example
-`[!code-csharp[DoSomething](../../resources/Example.cs?name=Helpers)]` is rendered as:  
-[!code-csharp[DoSomething](../../resources/Example.cs?name=Helpers)]
-### Notes
-DocFx matches `name` to different things in different languages, see [here](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html?tabs=tabid-1%2Ctabid-a#tag-name-representation-in-code-snippet-source-file).
 
-# Formatting Code Snippets
-## Highlighting Lines
-TODO: Does not work
-### Syntax
-`[!code-<language>[<name>](<codepath>?highlight=<startline>-<endline>,<startline>-<endline>,...)]`  
-### Example
-`[!code-csharp[Methods](../../resources/Example.cs?highlight=6-9,12-15)]` is rendered as:  
-[!code-csharp[Methods](../../resources/Example.cs?highlight=6-9,12-15)]
+# Including Code
+Use `[!include-code]<include-code-options>` to create a code block:
+ 
+## Markdown
+[!include-code]{
+    "src": "./usingExternalResources.md",
+    "regions": [{"name": "include-code-examples" }],
+    "highlight": false
+}
 
-## Dedenting Lines
-TODO: Works inconsistently
-### Syntax
-`[!code-<language>[<name>](<codepath>?dedent=<dedentlength>)]`  
-### Example
-`[!code-csharp[Methods](../../resources/Example.cs?dedent=2)]` is rendered as:  
-[!code-csharp[Methods](../../resources/Example.cs?dedent=2)]
+## Result
+<!-- <include-code-examples> -->
+<!-- Include entire file -->
+[!include-code]{ 
+    "src":"../../resources/Example.cs",
+    "language": "csharp",
+    "title": "Entire File - Language: <language>, File Name: <fileName>",
+    "showLineNumbers": true
+}
 
-# Embedding Markdown
-[!include[markdown](./fileToEmbed.md)]  
+<!-- Include regions -->
+[!include-code]{ 
+    "src":"../../resources/Example.cs",
+    "regions": [{"name":"Region1", "lineBreak": "after"}, {"name": "Region2"}],
+    "language": "csharp",
+    "title": "Regions"
+}
 
-Note: if used inline, for example, [!include[markdown](./fileToEmbed.md)], the markdown parser will treat the inserted text as inline content.
+<!-- Include ranges -->
+[!include-code]{ 
+    "src":"../../resources/Example.cs",
+    "ranges": [{"start": 4, "end": 5}, {"start": 7, "end": 10, "dedentLength": 0}, {"start": 19, "end": 19}],
+    "language": "csharp",
+    "title": "Ranges"
+}
+<!-- </include-code-examples> -->
+## Result Markup
+```no-highlight
+TODO: display actual html here
+```
+## Details
+`<include-code-options>` must be a JSON object with the following properties:
 
-## Embedded SVG
-[!include[logo](../../resources/logo.svg)]
+| Property | Type | IsRequired | Notes |
+| -------- | :----: | :----------: | ----- |
+| src | string | true | A relative path or URL that identifies a text file. Only the HTTP and HTTPS protocols are supported for URLs. |
+| ranges | `<range>`&nbsp;array | false | If specified, this property's value is used to clip the text file identified by `src`. Also, if specified, the `regions` property is ignored. |
+| regions | `<region>`&nbsp;array | false | If specified, this property's value is used to clip the text file identified by `src`. |
+| language | string | false | The [highlight.js](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases) alias for the code block's language. |
+| highlight | boolean | false | If `true`, and `language` is specified and valid, highlights text in the code block according to `language`. |
+| blockID | string | false | If specified, this property's value is assigned to the `.code-block` element's `id` attribute. If unspecified, the `id` attribute of the nth code block is assigned a string of the form `code-block-n`.  |
+| title | string | false | If specified, this property's value is used as the `innerHTML` of the `.code-block-title` element. This property's value can contain two special tokens, `<fileName>` and `<language>`. `<fileName>` is replaced with the name of the file identified by `src` while `language` is replaced with the display name of the code block's language (inferred from `language` or the `src`'s extension). |
 
-Note: since markup in markdown is treated as raw markup, markup files (svg or html) can be inserted into an article.
+`<range>` must be a JSON object with the following properties:
+
+| Property | Type | IsRequired | Notes |
+| -------- | :----: | :----------: | ----- |
+| start | number | true | First line of the included range of lines, `[start, end]`. |
+| end | number | true | Last line of the included range of lines, `[start, end]`. |
+| dedentLength | number | false | Number of whitespace characters to remove from beggining of each line in the range. By default, removes the maximum common number of white space characters from each line. |
+| lineBreak | string | false | Whether or not to create line breaks before and after a range. Can be one of the following strings: `none`, `before`, `after` or `both`. Has value `none` by default. |
+
+`<region>` must be a JSON object with the following properties:
+
+| Property | Type | IsRequired | Notes |
+| -------- | :----: | :----------: | ----- |
+| name | string| true | Name of the region to include. The syntax for demarcating regions varies by language, full documentation can be found [here](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html?tabs=tabid-1%2Ctabid-a#tag-name-representation-in-code-snippet-source-file). |
+| dedentLength | number | false | Number of whitespace characters to remove from beggining of each line in the range. By default, removes the maximum common number of white space characters from each line. |
+| lineBreak | string | false | Whether or not to create line breaks before and after a range. Can be one of the following strings: `none`, `before`, `after` or `both`. Has value `none` by default. |
+
+# Including Markdown
+Use `[!include-markdown]<include-markdown-options>` to include Markdown:
+ 
+## Markdown
+[!include-code]{
+    "src": "./usingExternalResources.md",
+    "regions": [{"name": "include-markdown-example" }],
+    "highlight": false
+}
+
+## Result
+<!-- <include-markdown-example> -->
+<!-- Include entire file -->
+[!include-markdown]{ 
+    "src":"../../resources/Example.md"
+}
+<!-- </include-markdown-example> -->
+## Result Markup
+```no-highlight
+TODO: display actual html here
+```
+## Details
+`<include-markdown-options>` must be a JSON object with the following properties:
+
+| Property | Type | IsRequired | Notes |
+| -------- | :----: | :----------: | ----- |
+| src | string | true | A relative path or URL that identifies a text file. Only the HTTP and HTTPS protocols are supported for URLs. |
+| ranges | `<range>`&nbsp;array | false | If specified, this property's value is used to clip the text file identified by `src`. Also, if specified, the `regions` property is ignored. |
+| regions | `<region>`&nbsp;array | false | If specified, this property's value is used to clip the text file identified by `src`. |
+
+`<range>` must be a JSON object with the following properties:
+
+| Property | Type | IsRequired | Notes |
+| -------- | :----: | :----------: | ----- |
+| start | number | true | First line of the included range of lines, `[start, end]`. |
+| end | number | true | Last line of the included range of lines, `[start, end]`. |
+| dedentLength | number | false | Number of whitespace characters to remove from beggining of each line in the range. By default, removes the maximum common number of white space characters from each line. |
+| lineBreak | string | false | Whether or not to create line breaks before and after a range. Can be one of the following strings: `none`, `before`, `after` or `both`. Has value `none` by default. |
+
+`<region>` must be a JSON object with the following properties:
+
+| Property | Type | IsRequired | Notes |
+| -------- | :----: | :----------: | ----- |
+| name | string| true | Name of the region to include. The syntax for demarcating regions varies by language, full documentation can be found [here](https://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html?tabs=tabid-1%2Ctabid-a#tag-name-representation-in-code-snippet-source-file). |
+| dedentLength | number | false | Number of whitespace characters to remove from beggining of each line in the range. By default, removes the maximum common number of white space characters from each line. |
+| lineBreak | string | false | Whether or not to create line breaks before and after a range. Can be one of the following strings: `none`, `before`, `after` or `both`. Has value `none` by default. |
