@@ -1,9 +1,13 @@
 ﻿@import 'constants';
 
-code {
-    padding: 3px 5px;
+// User agent sets font-family for these elements (not inherited)
+pre, code {
     font-family: $code-font-family;
     font-size: $font-size-2;
+}
+
+code {
+    padding: 3px 5px;
     background-color: $color-primary-inline-code-background;
 }
 
@@ -12,12 +16,22 @@ code {
     flex-direction: column;
 
     header {
-        height: 37px;
+        min-height: 37px;
         display: flex;
         align-items: center;
         background-color: $color-section-header-background;
 
+        .code-block-title {
+            font-weight: 600;
+            padding: 6px 28px;
+
+            @media #{$media-narrow} {
+                padding: 6px 22px;
+            }
+        }
+
         div[role="button"] {
+            flex-shrink: 0;
             display: flex;
             margin-left: auto;
             margin-right: 9px;
@@ -39,8 +53,7 @@ code {
     pre {
         background-color: $color-section-body-background;
         white-space: pre;
-        line-height: 1.5;
-        padding: 19px 28px;
+        padding: 20px 28px;
 
         @media #{$media-narrow} {
             padding: 12px 22px;
@@ -52,7 +65,7 @@ code {
 
         .line-numbers {
             user-select: none;
-            padding: 19px 14px;
+            padding: 20px 14px;
 
             @media #{$media-narrow} {
                 padding: 12px 9px;
@@ -61,9 +74,15 @@ code {
             flex-grow: 0;
             flex-shrink: 0;
             color: #2b91af;
-            font-family: $code-font-family;
-            font-size: $font-size-2;
             border-right: 2px solid $color-section-header-background;
+        }
+
+        .code {
+            padding-left: 23px;
+
+            @media #{$media-narrow} {
+                padding-left: 14px;
+            }
         }
     }
 
@@ -75,15 +94,12 @@ code {
             background-color: transparent;
             border: 0;
             padding: 0;
-            display: block;
         }
     }
 }
 
 /*
-
 Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name>
-
 */
 .hljs {
     background-color: transparent;
