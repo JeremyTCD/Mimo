@@ -1,13 +1,2 @@
-#additional-fonts {
-    .title {
-        font-family: 'Lobster';
-    }
-}
-
-#all-articles {
-    main {
-        > article {
-            display: none;
-        }
-    }
-}
+@import 'allArticles';
+@import 'additionalFonts';
