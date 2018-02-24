@@ -1,8 +1,8 @@
 ﻿---
-jtcd_pageDescription: This is an example of an article with formatting.
-jtcd_pageTitle: Formatting Articles
-jtcd_date: 11/02/2014
-jtcd_fontLinks:
+mimo_pageDescription: This is an example of an article with formatting.
+mimo_pageTitle: Formatting Articles
+mimo_date: 11/02/2014
+mimo_fontLinks:
   - link: https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i|Droid+Sans+Mono
 ---
 
@@ -221,13 +221,13 @@ By default, links to other sites open in a new tab.
 ```no-highlight
 [Absolute link](https://www.jeremytcd.com)
 
-[Relative link](../index.html)
+[Relative link](../index.md)
 
 [Link with a title](https://www.jeremytcd.com "JeremyTCD")
 ```
 [Absolute link](https://www.jeremytcd.com)
 
-[Relative link](../index.html)
+[Relative link](../index.md)
 
 [Link with a title](https://www.jeremytcd.com "JeremyTCD")
 
@@ -436,7 +436,7 @@ Tab two content.
 TODO should look something like this, requires custom markdown renderer and logic for indicator:
 
 [!include-image]{ 
-    "src":"../resources/tabs.png"
+    "src":"../../resources/tabs.png"
 }
 
 # Further Reading

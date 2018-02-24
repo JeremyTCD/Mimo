@@ -1,8 +1,8 @@
-{{^jtcd_disableComments}}
-{{#jtcd_pageTitle}}
-{{#jtcd_disqusShortname}}
+{{^mimo_disableComments}}
+{{#mimo_pageTitle}}
+{{#mimo_disqusShortname}}
 <div id="comments">
-    <div id="disqus_thread" data-disqus-identifier="{{jtcd_pageTitle}}" data-disqus-shortname="{{jtcd_disqusShortname}}">
+    <div id="disqus_thread" data-disqus-identifier="{{mimo_pageTitle}}" data-disqus-shortname="{{mimo_disqusShortname}}">
     </div>
     <div id="comments-loader">
         <div id="disqus-spinner" class="spinner">
@@ -15,6 +15,6 @@
         <span>Loading comments ...</span>
     </div>
 </div>
-{{/jtcd_disqusShortname}}
-{{/jtcd_pageTitle}}
-{{/jtcd_disableComments}}
+{{/mimo_disqusShortname}}
+{{/mimo_pageTitle}}
+{{/mimo_disableComments}}

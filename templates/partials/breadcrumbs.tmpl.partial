@@ -1,4 +1,4 @@
-{{^jtcd_disableBreadcrumbs}}
+{{^mimo_disableBreadcrumbs}}
 <nav id="breadcrumbs" class="hide-on-search">
   <div class="container">
     <button id="toc-button">
@@ -8,4 +8,4 @@
     </button>
   </div>
 </nav>
-{{/jtcd_disableBreadcrumbs}}
+{{/mimo_disableBreadcrumbs}}

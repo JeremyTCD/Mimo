@@ -18,16 +18,16 @@
             }
         ],
         "globalMetadata": {
-            "jtcd_websiteName": "Website Name",
-            "jtcd_authorName": "Your Name",
-            "jtcd_copyrightText": "2018 Your Name",
+            "mimo_websiteName": "Website Name",
+            "mimo_authorName": "Your Name",
+            "mimo_copyrightText": "2018 Your Name",
 
-            "jtcd_licensesRelPath": "/licenses.html",
-            "jtcd_privacyPolicyRelPath": "/privacypolicy.html",
-            "jtcd_contactRelPath": "/contact.html",
-            "jtcd_logoRelPath": "/resources/logo.svg",
-            "jtcd_favIconRelPath": "/resources/favicon.ico",
-            "jtcd_fontLinks": [
+            "mimo_licensesRelPath": "/licenses.html",
+            "mimo_privacyPolicyRelPath": "/privacypolicy.html",
+            "mimo_contactRelPath": "/contact.html",
+            "mimo_logoRelPath": "/resources/logo.svg",
+            "mimo_favIconRelPath": "/resources/favicon.ico",
+            "mimo_fontLinks": [
                 { "link": "https://fonts.googleapis.com/css?family=Open+Sans:400,600" }
             ]
         },

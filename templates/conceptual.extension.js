@@ -2,8 +2,8 @@
  * This method will be called at the start of exports.transform in conceptual.html.primary.js
  */
 exports.preTransform = function (model) {
-    model.jtcd_displaySocialMediaLinks = model.jtcd_githubLink || model.jtcd_twitterLink ||
-        model.jtcd_instagramLink || model.jtcd_facebookLink || model.jtcd_googleplusLink;
+    model.mimo_displaySocialMediaLinks = model.mimo_githubLink || model.mimo_twitterLink ||
+        model.mimo_instagramLink || model.mimo_facebookLink || model.mimo_googleplusLink;
 
   return model;
 }

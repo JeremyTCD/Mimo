@@ -163,7 +163,7 @@ Note: DocFx has to rebuild the entire static site whenever changes are made. Thi
    ```yaml
    ---
    ...
-   jtcd.pageTitle: My First Article
+   mimo_pageTitle: My First Article
    ...
    ---
 
@@ -202,14 +202,14 @@ Global scope values are specified in *blog/docfx.json*'s `build.globalMetadata` 
 
 ##### Example: Setting article author at the global scope
 1. Ensure that you are serving your blog in watch mode. Navigate to *localhost:8080/articles/exampleArticle1.html*.
-2. Open *blog/docfx.json* in a text editor or IDE of your choice. Change the value assigned to `build.globalMetadata.jtcd.authorName` to your name: 
+2. Open *blog/docfx.json* in a text editor or IDE of your choice. Change the value assigned to `build.globalMetadata.mimo_authorName` to your name: 
 
     ```
     "build": {
         ...
         "globalMetadata": {
             ...
-            "jtcd.authorName": "<your name>",
+            "mimo_authorName": "<your name>",
             ...
         },
         ...
@@ -223,11 +223,11 @@ Page scope values are specified in markdown files.
 
 ##### Example: Setting article author at the page scope
 1. Ensure that you are serving your blog in watch mode. Navigate to *localhost:8080/articles/exampleArticle1.html*. 
-2. Open *blog/src/content/articles/exampleArticle1.md* in a text editor or IDE of your choice. Add the property `jtcd.authorName` and assign it the value `Guest`: 
+2. Open *blog/src/content/articles/exampleArticle1.md* in a text editor or IDE of your choice. Add the property `mimo_authorName` and assign it the value `Guest`: 
 
     ```yaml
     ---
-    jtcd.authorName: Guest,
+    mimo_authorName: Guest,
     ...
     ---
     ...
@@ -236,90 +236,90 @@ Page scope values are specified in markdown files.
     Your browser should reload the page automatically. "Guest" will now be displayed just beneath the article title ("Example Article 1"). Navigate to other pages - "Guest" will not be displayed as the author name by any other page. 
 
 #### Options
-This is the full list of options. Each option is prepended with `jtcd.`. Note that some options, such as `jtcd.date`, are utilized in multiple categories.
+This is the full list of options. Each option is prepended with `mimo_`. Note that some options, such as `mimo_date`, are utilized in multiple categories.
 
 ##### Analytics
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.googleTrackingID | String | null | If defined, [Google Analytics](https://support.google.com/analytics/answer/1008015?hl=en) is added to the page. [Sign up](https://analytics.google.com/analytics/web/provision/?authuser=0#provision/SignUp/) with Google Analytics to get a tracking ID. |
+| mimo_googleTrackingID | String | null | If defined, [Google Analytics](https://support.google.com/analytics/answer/1008015?hl=en) is added to the page. [Sign up](https://analytics.google.com/analytics/web/provision/?authuser=0#provision/SignUp/) with Google Analytics to get a tracking ID. |
 
 ##### Article
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.disableMetadata | Boolean | false |  If true, metadata is removed from the page's article. |
-| jtcd.date | String | null | Value must be in [short date format (invariant culture)](https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings#ShortDate), i.e mm/dd/yyyy. <br/><br/> If defined, the value is displayed as part of the page's article metadata. |
-| jtcd.githubLink | String | null | If defined, the link is linked to in the page's article metadata. |
-| jtcd.authorName | String | null | If defined, the string is displayed as part of the page's article metadata. |
+| mimo_disableMetadata | Boolean | false |  If true, metadata is removed from the page's article. |
+| mimo_date | String | null | Value must be in [short date format (invariant culture)](https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings#ShortDate), i.e mm/dd/yyyy. <br/><br/> If defined, the value is displayed as part of the page's article metadata. |
+| mimo_githubLink | String | null | If defined, the link is linked to in the page's article metadata. |
+| mimo_authorName | String | null | If defined, the string is displayed as part of the page's article metadata. |
 
 ##### Article List
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.includeInSal | Boolean  | true  | If true, the page's article is included in the article list. |
-| jtcd.enableSal  | Boolean | false  | If true, the article list is inserted into the page. |
-| jtcd.salSnippetLength | Integer | 500  | Length of the page's article snippet in the article list. |
-| jtcd.date | String | null | Value must be in [short date format (invariant culture)](https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings#ShortDate), i.e mm/dd/yyyy.<br><br> If defined, the date is used to sort pages in the article list. Note that if a page does not define a valid `jtcd.date` but has `jtcd.includeInSal` set to true, `docfx build` will fail. |
+| mimo_includeInSal | Boolean  | true  | If true, the page's article is included in the article list. |
+| mimo_enableSal  | Boolean | false  | If true, the article list is inserted into the page. |
+| mimo_salSnippetLength | Integer | 500  | Length of the page's article snippet in the article list. |
+| mimo_date | String | null | Value must be in [short date format (invariant culture)](https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-date-and-time-format-strings#ShortDate), i.e mm/dd/yyyy.<br><br> If defined, the date is used to sort pages in the article list. Note that if a page does not define a valid `mimo_date` but has `mimo_includeInSal` set to true, `docfx build` will fail. |
 
 ##### Breadcrumbs
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.disableBreadcrumbs | Boolean | false | If true, breadcrumbs are removed from the page. |
+| mimo_disableBreadcrumbs | Boolean | false | If true, breadcrumbs are removed from the page. |
 
 ##### Comments
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.disableComments | Boolean | false | If true, comments are removed from the page.|
-| jtcd.disqusShortname | String | null | [Disqus Shortname](https://help.disqus.com/customer/portal/articles/472098-javascript-configuration-variables#shortname) for the page's comments. [Sign up](https://disqus.com/profile/signup/) with Disqus to get a shortname.<br/><br/> If undefined or an empty string, comments are removed from the page. |
-| jtcd.pageTitle | String | null | [Disqus Identifier](https://help.disqus.com/customer/portal/articles/472098-javascript-configuration-variables#thispageidentifier) for the page's comments.<br/><br/> If undefined or an empty string, comments are removed from the page. |
+| mimo_disableComments | Boolean | false | If true, comments are removed from the page.|
+| mimo_disqusShortname | String | null | [Disqus Shortname](https://help.disqus.com/customer/portal/articles/472098-javascript-configuration-variables#shortname) for the page's comments. [Sign up](https://disqus.com/profile/signup/) with Disqus to get a shortname.<br/><br/> If undefined or an empty string, comments are removed from the page. |
+| mimo_pageTitle | String | null | [Disqus Identifier](https://help.disqus.com/customer/portal/articles/472098-javascript-configuration-variables#thispageidentifier) for the page's comments.<br/><br/> If undefined or an empty string, comments are removed from the page. |
 
 ##### Footer
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.githubLink | String | null | If defined, the link is linked to in the page's footer. |
-| jtcd.twitterLink | String | null | If defined, the link is linked to in the page's footer. |
-| jtcd.instagramLink | String | null | If defined, the link is linked to in the page's footer. |
-| jtcd.facebookLink | String | null | If defined, the link is linked to in the page's footer. |
-| jtcd.googleplusLink | String | null | If defined, the link is linked to in the page's footer. |
-| jtcd.licensesRelPath | String | null | If defined, the link is linked to in the page's footer. |
-| jtcd.privacyPolicyRelPath | String | null | If defined, the link is linked to in the page's footer. |
-| jtcd.contactRelPath | String | null | If defined, the link is linked to in the page's footer. |
-| jtcd.copyrightText | String | null | If defined, the string is displayed as part of the page's footer. |
+| mimo_githubLink | String | null | If defined, the link is linked to in the page's footer. |
+| mimo_twitterLink | String | null | If defined, the link is linked to in the page's footer. |
+| mimo_instagramLink | String | null | If defined, the link is linked to in the page's footer. |
+| mimo_facebookLink | String | null | If defined, the link is linked to in the page's footer. |
+| mimo_googleplusLink | String | null | If defined, the link is linked to in the page's footer. |
+| mimo_licensesRelPath | String | null | If defined, the link is linked to in the page's footer. |
+| mimo_privacyPolicyRelPath | String | null | If defined, the link is linked to in the page's footer. |
+| mimo_contactRelPath | String | null | If defined, the link is linked to in the page's footer. |
+| mimo_copyrightText | String | null | If defined, the string is displayed as part of the page's footer. |
 
 ##### Head
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.pageTitle | String | null | If defined, the string is added to the [title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title). The string is also added to a [meta element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta) for search engine optimization.<br/><br/> If undefined, an empty string is used in its place.|
-| jtcd.websiteName | String | null | If defined, the string is added to the [title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title). The string is also added to a [meta element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta) for search engine optimization.<br/><br/> If undefined, an empty string is used in its place.|
-| jtcd.pageDescription | String | null | If defined, the string is added to a [meta element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta) for search engine optimization. |
-| jtcd.faviconRelPath | String | ./resources/favicon.ico | Value must be the relative path of the file from the root of the site.<br/><br/> If defined, the file is used as the favicon.
+| mimo_pageTitle | String | null | If defined, the string is added to the [title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title). The string is also added to a [meta element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta) for search engine optimization.<br/><br/> If undefined, an empty string is used in its place.|
+| mimo_websiteName | String | null | If defined, the string is added to the [title element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title). The string is also added to a [meta element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta) for search engine optimization.<br/><br/> If undefined, an empty string is used in its place.|
+| mimo_pageDescription | String | null | If defined, the string is added to a [meta element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta) for search engine optimization. |
+| mimo_faviconRelPath | String | ./resources/favicon.ico | Value must be the relative path of the file from the root of the site.<br/><br/> If defined, the file is used as the favicon.
 
 ##### Header
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.logoRelPath | String | ./resources/logo.svg |  Value must be the relative path of the file from the root of the site.<br/><br/> If defined, the file is used as the logo.
-| jtcd.websiteName | String | null | If defined and `jtcd.logoRelPath` is undefined or invalid, the string is used as the [`alt`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) text for the logo.
-| jtcd.disableSearch | Boolean | false | If true, the search box is removed from the page's header.
+| mimo_logoRelPath | String | ./resources/logo.svg |  Value must be the relative path of the file from the root of the site.<br/><br/> If defined, the file is used as the logo.
+| mimo_websiteName | String | null | If defined and `mimo_logoRelPath` is undefined or invalid, the string is used as the [`alt`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img) text for the logo.
+| mimo_disableSearch | Boolean | false | If true, the search box is removed from the page's header.
 
 ##### Left Menu
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.disableLeftMenu | Boolean | false | If true, the left menu is removed from the page. |
+| mimo_disableLeftMenu | Boolean | false | If true, the left menu is removed from the page. |
 
 ##### Right Menu
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.disableRightMenu | Boolean | false | If true, the right menu is removed from the page. |
-| jtcd.disableEditArticle | Boolean | false | If true, the edit article link is removed from the page's right menu. |
+| mimo_disableRightMenu | Boolean | false | If true, the right menu is removed from the page. |
+| mimo_disableEditArticle | Boolean | false | If true, the edit article link is removed from the page's right menu. |
 
 ##### Search
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.includeInSearchIndex | Boolean | true | If true, the page's article is included in the search index. |
-| jtcd.searchIndexSnippetLength | Integer | 500 | Length of the page's article snippet in the search index. |
+| mimo_includeInSearchIndex | Boolean | true | If true, the page's article is included in the search index. |
+| mimo_searchIndexSnippetLength | Integer | 500 | Length of the page's article snippet in the search index. |
 
 ##### Miscellaneous
 | Option  | Type | Default Value | Notes |
 | --------- | ---- | ------------- | ----- |
-| jtcd.pageID | String | null | If defined, the string is used as the ID of the html element of the page. This facilitates custom page specific styles and scripts. | 
+| mimo_pageID | String | null | If defined, the string is used as the ID of the html element of the page. This facilitates custom page specific styles and scripts. | 
 
 ### Overriding Mimo
 DocFx themes are simply directories containing resources such as [Mustache templates](https://mustache.github.io/mustache.5.html), stylesheets and scripts. If more than one theme is specified when building a DocFx project, resources from all of the themes are combined into a single theme. Resources from latter themes take precedence. For example, your *blog/docfx.json* has the following `template` property (the property should really be named `theme`, however, DocFx themes were referred to as templates initially):

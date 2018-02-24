@@ -2,17 +2,17 @@
 {{!include(/^fonts/.*/)}}
 <!DOCTYPE html>
 
-<html {{#jtcd_pageID}}id={{jtcd_pageID}}{{/jtcd_pageID}}>
+<html {{#mimo_pageID}}id={{mimo_pageID}}{{/mimo_pageID}}>
   {{>partials/head}}
   <body>
       {{>partials/header}}
 	  {{>partials/breadcrumbs}}
       {{>partials/searchResults}}
 
-	  <div class="container hide-on-search {{#jtcd_disableBreadcrumbs}}breadcrumbs-disabled{{/jtcd_disableBreadcrumbs}}">
+	  <div class="container hide-on-search {{#mimo_disableBreadcrumbs}}breadcrumbs-disabled{{/mimo_disableBreadcrumbs}}">
 			{{>partials/leftMenu}}
 
-			<main role="main" class="{{#jtcd_disableBreadcrumbs}}breadcrumbs-disabled{{/jtcd_disableBreadcrumbs}}">
+			<main role="main" class="{{#mimo_disableBreadcrumbs}}breadcrumbs-disabled{{/mimo_disableBreadcrumbs}}">
 				{{>partials/article}}
 				{{>partials/sortedArticleList}}
                 {{>partials/comments}}

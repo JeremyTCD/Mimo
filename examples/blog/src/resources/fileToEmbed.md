@@ -1,6 +1,6 @@
 ---
-jtcd_includeInSal: false
-jtcd_includeInSearchIndex: false
+mimo_includeInSal: false
+mimo_includeInSearchIndex: false
 ---
 
 ## Embedded Title

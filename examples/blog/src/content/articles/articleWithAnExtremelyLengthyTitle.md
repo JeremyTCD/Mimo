@@ -1,7 +1,7 @@
 ---
-jtcd_pageDescription: This is an example of an article with an extremely length title.
-jtcd_pageTitle: Article with an Extremely Lengthy Title
-jtcd_date: 11/07/2017
+mimo_pageDescription: This is an example of an article with an extremely length title.
+mimo_pageTitle: Article with an Extremely Lengthy Title
+mimo_date: 11/07/2017
 ---
 
 This article exists to help verify that long article titles are displayed properly.

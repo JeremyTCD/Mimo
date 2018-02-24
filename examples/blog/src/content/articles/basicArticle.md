@@ -1,7 +1,7 @@
 ---
-jtcd_pageDescription: This is an example of a basic article.
-jtcd_pageTitle: Basic Article
-jtcd_date: Jan 6, 2018
+mimo_pageDescription: This is an example of a basic article.
+mimo_pageTitle: Basic Article
+mimo_date: Jan 6, 2018
 ---
 
 This article is composed purely of plain text. 

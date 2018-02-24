@@ -1,38 +1,38 @@
 <article class="jtcd-article">
-    {{#jtcd_pageTitle}}<div class="title">{{jtcd_pageTitle}}</div>{{/jtcd_pageTitle}}
+    {{#mimo_pageTitle}}<div class="title">{{mimo_pageTitle}}</div>{{/mimo_pageTitle}}
 
-    {{^jtcd_disableMetadata}}
+    {{^mimo_disableMetadata}}
     <div class="meta">
         <ul>
-            {{#jtcd_date}}
+            {{#mimo_date}}
             <li id="metadata-date">
                 <svg>
                     <use xlink:href="#material-design-date" />
                 </svg>
-                <span>{{jtcd_date}}</span>
+                <span>{{mimo_date}}</span>
             </li>
-            {{/jtcd_date}}
-            {{#jtcd_authorName}}
+            {{/mimo_date}}
+            {{#mimo_authorName}}
             <li id="metadata-author">
                 <svg>
                     <use xlink:href="#material-design-person" />
                 </svg>
-                {{#jtcd_githubLink}}
-                <a id="metdata-author-link" href="{{jtcd_githubLink}}" title="{{jtcd_authorName}}">
-                    <span class="author-text">{{jtcd_authorName}}</span>
-                    <img src="{{jtcd_githubLink}}.png?size=16" alt="{{jtcd_authorName}}" />
+                {{#mimo_githubLink}}
+                <a id="metdata-author-link" href="{{mimo_githubLink}}" title="{{mimo_authorName}}">
+                    <span class="author-text">{{mimo_authorName}}</span>
+                    <img src="{{mimo_githubLink}}.png?size=16" alt="{{mimo_authorName}}" />
                 </a>
-                {{/jtcd_githubLink}}
-                {{^jtcd_githubLink}}
-                <span class="author-text">{{jtcd_authorName}}</span>
-                {{/jtcd_githubLink}}
+                {{/mimo_githubLink}}
+                {{^mimo_githubLink}}
+                <span class="author-text">{{mimo_authorName}}</span>
+                {{/mimo_githubLink}}
             </li>
-            {{/jtcd_authorName}}
+            {{/mimo_authorName}}
             <li id="metadata-edit-article">
             </li>
         </ul>
     </div>
-    {{/jtcd_disableMetadata}}
+    {{/mimo_disableMetadata}}
 
     <div class="content">
         {{{rawTitle}}}

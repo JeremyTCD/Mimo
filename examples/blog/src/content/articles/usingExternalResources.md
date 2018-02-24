@@ -1,8 +1,8 @@
 ﻿---
-jtcd_pageDescription: This is an example of an article with formatting.
-jtcd_pageTitle: Using External Resources
-jtcd_date: 11/02/2014
-jtcd_fontLinks:
+mimo_pageDescription: This is an example of an article with formatting.
+mimo_pageTitle: Using External Resources
+mimo_date: 11/02/2014
+mimo_fontLinks:
   - link: https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i|Droid+Sans+Mono
 ---
 
@@ -18,7 +18,7 @@ Display an image inline using a line of the form `![<alt-text>](<image-path> "<t
 }
 ### Result
 <!-- <inline-image-example> -->
-This image is inline: ![JeremyTCD's Logo](../resources/logo.png "JeremyTCD's Logo")
+This image is inline: ![JeremyTCD's Logo](../../resources/logo.png "JeremyTCD's Logo")
 <!-- </inline-image-example> -->
 
 ## Image Blocks
@@ -32,7 +32,7 @@ Use `[!include-image]<include-image-options>` to create an image block:
 ### Result
 <!-- <include-image-example> -->
 [!include-image]{ 
-    "src":"../resources/logo.png", 
+    "src":"../../resources/logo.png", 
     "title":"JeremyTCD's Logo", 
     "alt":"JeremyTCD's Logo", 
     "description":"JeremyTCD's Logo",

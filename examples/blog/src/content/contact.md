@@ -1,16 +1,16 @@
 ---
-jtcd_pageDescription: Contact details.
-jtcd_pageTitle: Contact
+mimo_pageDescription: Contact details.
+mimo_pageTitle: Contact
 
-jtcd_includeInSal: false
-jtcd_includeInSearchIndex: false
+mimo_includeInSal: false
+mimo_includeInSearchIndex: false
 
-jtcd_disableBreadcrumbs: true
-jtcd_disableEditArticle: true
-jtcd_disableMetadata: true
-jtcd_disableLeftMenu: true
-jtcd_disableRightMenu: true
-jtcd_disableComments: true
+mimo_disableBreadcrumbs: true
+mimo_disableEditArticle: true
+mimo_disableMetadata: true
+mimo_disableLeftMenu: true
+mimo_disableRightMenu: true
+mimo_disableComments: true
 ---
 
 Contact information here.

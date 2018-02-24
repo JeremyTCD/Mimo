@@ -2,7 +2,7 @@
     <div class="container">
         <div id="header-logo-and-button">
             <a id="header-logo" href="/index.html">
-                <img class="svg" src="{{#jtcd_logoRelPath}}{{jtcd_logoRelPath}}{{/jtcd_logoRelPath}}{{^jtcd_logoRelPath}}/resources/logo.svg{{/jtcd_logoRelPath}}" alt="{{jtcd_websiteName}}" />
+                <img class="svg" src="{{#mimo_logoRelPath}}{{mimo_logoRelPath}}{{/mimo_logoRelPath}}{{^mimo_logoRelPath}}/resources/logo.svg{{/mimo_logoRelPath}}" alt="{{mimo_websiteName}}" />
             </a>
             <button id="header-button" type="button">
                 <span></span>
@@ -14,8 +14,8 @@
             <div class="wrapper">
                 <nav id="header-navbar">
                 </nav>
-                {{^jtcd_disableSearch}}
-                <form id="header-search" class="flex {{#jtcd_disableBreadcrumbs}}breadcrumbs-disabled{{/jtcd_disableBreadcrumbs}}" role="search">
+                {{^mimo_disableSearch}}
+                <form id="header-search" class="flex {{#mimo_disableBreadcrumbs}}breadcrumbs-disabled{{/mimo_disableBreadcrumbs}}" role="search">
                     <svg>
                         <use xlink:href="#material-design-search" />
                     </svg>
@@ -24,7 +24,7 @@
                         <use xlink:href="#material-design-clear-black" />
                     </svg>
                 </form>
-                {{/jtcd_disableSearch}}
+                {{/mimo_disableSearch}}
             </div>
         </div>
 
