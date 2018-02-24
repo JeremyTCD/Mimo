@@ -1,7 +1,17 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.7...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.8...HEAD)
+
+## [1.0.0-alpha.8](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.7...1.0.0-alpha.8) - Feb 24, 2018
+### Added
+- Page specific style sheets for example blog.
+### Changed
+- Changed article options prefix from `jtcd_` to `mimo_`.
+- Minor changes to article and footer styles.
+### Fixed
+- Text-shadow overlapping underlines.
+- Removed redundant titles from some articles in example blog.
 
 ## [1.0.0-alpha.7](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.6...1.0.0-alpha.7) - Feb 23, 2018
 ### Added
