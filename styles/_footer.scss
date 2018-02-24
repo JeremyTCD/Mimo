@@ -24,10 +24,10 @@ body > footer {
             }
 
             #footer-attribution {
-                margin-bottom: 21px;
+                margin-bottom: 22px;
+                margin-top: 26px;
                 flex-wrap: wrap;
                 font-size: $font-size-1;
-                padding-top: 28px;
 
                 > span {
                     // Since spans and anchors are in different elements, wrapping will break up sentences
@@ -59,7 +59,7 @@ body > footer {
 
             #footer-legal {
                 flex-wrap: wrap;
-                padding-top: 23px;
+                margin-top: 23px;
 
                 span {
                     align-items: center;
@@ -88,7 +88,7 @@ body > footer {
             }
 
             #footer-copyright {
-                padding-top: 15px;
+                margin-top: 17px;
                 align-items: center;
 
                 svg {
@@ -101,12 +101,12 @@ body > footer {
             }
 
             #footer-social-media {
-                margin-top: 27px;
+                margin-top: 28px;
                 flex-wrap: wrap;
-                // TODO every section in footer-information should have something similar for top padding so that if one is removed
+                // TODO every section in footer-information should have something similar for top margin so that if one is removed
                 // footer contents are still properly spaced out
                 & + #footer-legal {
-                    padding-top: 18px;
+                    margin-top: 18px;
                 }
 
                 a {
