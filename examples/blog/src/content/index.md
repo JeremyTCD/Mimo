@@ -14,5 +14,4 @@ jtcd_disableRightMenu: true
 jtcd_disableComments: true
 ---
 
-# hello, welcome to my blog
 Introduction here.
