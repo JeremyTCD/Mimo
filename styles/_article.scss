@@ -15,19 +15,19 @@ article {
         & + .content {
             > .heading-1 {
                 &:first-child {
-                    margin-top: 30px;
+                    margin-top: 35px;
                 }
             }
 
             > p {
                 &:first-child {
-                    margin-top: 19px;
+                    margin-top: 17px;
                 }
             }
 
             > * {
                 &:first-child {
-                    margin-top: 27px;
+                    margin-top: 31px;
                 }
             }
         }
@@ -43,19 +43,19 @@ article {
         & + .content {
             > .heading-1 {
                 &:first-child {
-                    margin-top: 30px;
+                    margin-top: 35px;
                 }
             }
 
             > p {
                 &:first-child {
-                    margin-top: 18px;
+                    margin-top: 17px;
                 }
             }
 
             > * {
                 &:first-child {
-                    margin-top: 27px;
+                    margin-top: 31px;
                 }
             }
         }
@@ -236,7 +236,7 @@ article {
         .heading-1 {
             @each $element in $paragraphLikeElements {
                 & + #{$element} {
-                    margin-top: 34px;
+                    margin-top: 14px;
                 }
             }
 
@@ -245,7 +245,7 @@ article {
             }
 
             & + * {
-                margin-top: 41px;
+                margin-top: 25px;
             }
         }
 
