@@ -12,7 +12,7 @@ mimo_fontLinks:
 Display an image inline using a line of the form `![<alt-text>](<image-path> "<title>")`:
 ### Markdown
 [!include-code] { 
-    "src": "./usingExternalResources.md",
+    "src": "./using-external-resources.md",
     "regions": [{"name": "inline-image-example" }],
     "highlight": false
 }
@@ -25,7 +25,7 @@ This image is inline: ![JeremyTCD's Logo](../../resources/logo.png "JeremyTCD's 
 Use `[!include-image]<include-image-options>` to create an image block:
 ### Markdown
 [!include-code] { 
-    "src": "./usingExternalResources.md",
+    "src": "./using-external-resources.md",
     "regions": [{"name": "include-image-example" }],
     "highlight": false
 }
@@ -62,7 +62,7 @@ Use `[!include-code]<include-code-options>` to create a code block:
  
 ## Markdown
 [!include-code]{
-    "src": "./usingExternalResources.md",
+    "src": "./using-external-resources.md",
     "regions": [{"name": "include-code-examples" }],
     "highlight": false
 }
@@ -132,7 +132,7 @@ Use `[!include-markdown]<include-markdown-options>` to include Markdown:
  
 ## Markdown
 [!include-code]{
-    "src": "./usingExternalResources.md",
+    "src": "./using-external-resources.md",
     "regions": [{"name": "include-markdown-example" }],
     "highlight": false
 }
