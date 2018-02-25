@@ -22,9 +22,9 @@
             "mimo_authorName": "Your Name",
             "mimo_copyrightText": "2018 Your Name",
 
-            "mimo_licensesRelPath": "/licenses.html",
-            "mimo_privacyPolicyRelPath": "/privacypolicy.html",
-            "mimo_contactRelPath": "/contact.html",
+            "mimo_licensesRelPath": "/licenses",
+            "mimo_privacyPolicyRelPath": "/privacypolicy",
+            "mimo_contactRelPath": "/contact",
             "mimo_logoRelPath": "/resources/logo.svg",
             "mimo_favIconRelPath": "/resources/favicon.ico",
             "mimo_fontLinks": [

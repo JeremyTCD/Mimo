@@ -128,7 +128,14 @@ async function serve() {
             contentBase: path.join(docfxProjectDir, './bin/_site'),
             publicPath: '/styles/',
             compress: isProduction,
-            stats: debug ? 'verbose' : 'errors-only'
+            stats: debug ? 'verbose' : 'errors-only',
+            proxy: {
+                // E.g, redirects /contact to /contact.html. This is something most servers do by default to allow for more readable links.
+                "/**/+([^\.])": {
+                    target: "http://localhost:8080",
+                    pathRewrite: function (path, req) { return `${path}.html` }
+                }
+            }
         });
     server.listen(8080, "127.0.0.1", function () {
         console.log("Starting server on http://localhost:8080");

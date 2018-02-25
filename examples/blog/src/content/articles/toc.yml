@@ -1,22 +1,22 @@
 - name: All Articles
-  href: allArticles.md
+  href: allArticles
 - name: Plain Text Articles
   items:
   - name: Basic Article
-    href: basicArticle.md
+    href: basicArticle
   - name: Articles that Cause Wrapping
     items:    
     - name: Article with an Extremely Lengthy Title
-      href: articleWithAnExtremelyLengthyTitle.md
+      href: articleWithAnExtremelyLengthyTitle
     - name: Article with Long Headings
-      href: articleWithLongHeadings.md
+      href: articleWithLongHeadings
 - name: Creating Articles
   items:
   - name: Formatting Articles
-    href: formattingArticles.md
+    href: formattingArticles
   - name: Using External Resources
-    href: usingExternalResources.md
+    href: usingExternalResources
   - name: Styling Articles
-    href: placeholder.md
+    href: placeholder
   - name: Writing Logic For Articles
-    href: placeholder.md
+    href: placeholder

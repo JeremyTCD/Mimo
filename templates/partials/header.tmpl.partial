@@ -1,7 +1,7 @@
 <header role="navigation">
     <div class="container">
         <div id="header-logo-and-button">
-            <a id="header-logo" href="/index.html">
+            <a id="header-logo" href="/">
                 <img class="svg" src="{{#mimo_logoRelPath}}{{mimo_logoRelPath}}{{/mimo_logoRelPath}}{{^mimo_logoRelPath}}/resources/logo.svg{{/mimo_logoRelPath}}" alt="{{mimo_websiteName}}" />
             </a>
             <button id="header-button" type="button">
