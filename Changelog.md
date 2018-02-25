@@ -1,7 +1,14 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.8...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.9...HEAD)
+
+## [1.0.0-alpha.9](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.8...1.0.0-alpha.9) - Feb 25, 2018
+### Added
+- Development server now redirects paths with no extension to the relevant html files. For example, `/index` is now redirected to `/index.html`.
+### Changed
+- Simplified links in example blog articles (removed `.html` where appropriate).
+- Changed example blog article names to hyphenated strings instead of camelCase strings.
 
 ## [1.0.0-alpha.8](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.7...1.0.0-alpha.8) - Feb 24, 2018
 ### Added
