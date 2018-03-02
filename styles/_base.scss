@@ -3,10 +3,15 @@
 .container {
     // Ensures container stretches to max-width when it can
     width: 100%;
-    max-width: 1600px;
     flex-grow: 1;
+
     padding-left: 23px;
     padding-right: 23px;
+
+    @media #{$media-wide} {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
 }
 
 body {
@@ -31,8 +36,7 @@ body, body * {
     // By default, if an element is tapped in chrome for android, it flashes blue.
     // This is unecessary since animations are used by mimo to signify successful interation.
     -webkit-tap-highlight-color: transparent;
-
-    // Elements with display flex have min-width set to auto by default (a min-width value unique to flexbox). This causes a host of problems with overflowing content- 
+    // Elements with display flex have min-width set to auto by default (a min-width value unique to flexbox). This causes a host of problems with overflowing content-
     // https://weblog.west-wind.com/posts/2016/Feb/15/Flexbox-Containers-PRE-tags-and-managing-Overflow.
     min-width: 0;
 }
@@ -62,7 +66,6 @@ body {
                 // When breadcrumbs are disabled, header height remains the same, so padding top must be less
                 padding-top: 38px;
             }
-
             // See leftMenuComponent UpdateLeftMenu - If left and right menu are the same height as the article,
             // the min-height fix does not work properly when resizing.
             align-items: flex-start;
@@ -116,6 +119,6 @@ a {
     color: $color-primary-text;
 }
 
-*::-ms-clear{
+*::-ms-clear {
     display: none;
 }
