@@ -462,6 +462,12 @@ article {
                 display: flex;
                 flex-direction: column;
             }
+
+            *:not(pre) {
+                > code {
+                    background-color: $color-primary-inline-code-dark-background;
+                }
+            }
         }
 
         .alert-note {
