@@ -1,7 +1,7 @@
 {
     "version": "0.0.0",
-    "name": "mimo-theme",
-    "description": "Mimo is a minimalistic, modern, documentation/blog theme.",
+    "name": "mimo-website",
+    "description": "Mimo is a DocFX based tool for generating minimalistic, modern documentation sites/blogs.",
     "keywords": [
         "docfx",
         "theme",
