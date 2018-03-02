@@ -1,7 +1,18 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.9...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.10...HEAD)
+
+## [1.0.0-alpha.10](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.9...1.0.0-alpha.10) - Mar 2, 2018
+### Changed
+- Removed max-width for container and articles.
+- Increased width of side menus.
+- Changed package name to mimo-website.
+- Removed extensions from hrefs in article lists.
+- Default attribution text for exmaple blog.
+### Fixed
+- Comments component.
+- Inline code background not having enough contrast with alert backgrounds.
 
 ## [1.0.0-alpha.9](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.8...1.0.0-alpha.9) - Feb 25, 2018
 ### Added
