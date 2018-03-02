@@ -5,7 +5,7 @@
   <title>{{#mimo_pageTitle}}{{mimo_pageTitle}}{{/mimo_pageTitle}} {{#mimo_websiteName}}- {{mimo_websiteName}} {{/mimo_websiteName}}</title>
   <meta name="viewport" content="width=device-width">
   <meta name="title" content="{{#mimo_pageTitle}}{{mimo_pageTitle}}{{/mimo_pageTitle}} {{#mimo_websiteName}}- {{mimo_websiteName}} {{/mimo_websiteName}}">
-  <meta name="generator" content="docfx {{_docfxVersion}}">
+  <meta name="generator" content="mimo">
   {{#mimo_pageDescription}}
   <meta name="description" content="{{mimo_pageDescription}}">
   {{/mimo_pageDescription}}
