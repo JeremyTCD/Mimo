@@ -5,13 +5,13 @@
     "scripts": {
         "serve-dev": "set NODE_ENV=development && yarn run serve",
         "serve-production": "set NODE_ENV=production && yarn run serve",
-        "serve": "node node_modules/mimo-theme/dist/tools/serve.js -p ../../../../ -n ../../../",
+        "serve": "node node_modules/mimo-website/dist/tools/serve.js -p ../../../../ -n ../../../",
         "build-dev": "set NODE_ENV=development && yarn run build",
         "build-production": "set NODE_ENV=production && yarn run build",
-        "build": "node node_modules/mimo-theme/dist/tools/build.js -p ../../../../ -n ../../../"
+        "build": "node node_modules/mimo-website/dist/tools/build.js -p ../../../../ -n ../../../"
     },
     "dependencies": {},
     "devDependencies": {
-        "mimo-theme": "latest"
+        "mimo-website": "latest"
     }
 }
