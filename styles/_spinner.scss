@@ -9,8 +9,8 @@
 .spinner > div {
     background-color: $color-primary-text;
     opacity: $opacity-4;
-    height: 21px;
-    width: 3px;
+    height: 20px;
+    width: 2px;
     animation: sk-stretchdelay 1s infinite ease-in-out;
 
     & + div {

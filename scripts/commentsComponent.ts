@@ -13,6 +13,8 @@ class CommentsComponent extends Component {
     }
 
     protected setup(): void {
+        this.disqusShortname = this.disqusThreadElement.getAttribute('data-disqus-shortname');
+        this.disqusIdentifier = this.disqusThreadElement.getAttribute('data-disqus-identifier');
     }
 
     protected registerListeners(): void {

@@ -1,7 +1,9 @@
 ﻿@import 'constants';
 
 #comments {
-    margin-top: 40px;
+    @include pure-flex;
+
+    margin-top: 42px;
     margin-bottom: -11px;
     flex-direction: column;
 
