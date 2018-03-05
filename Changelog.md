@@ -1,7 +1,16 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.10...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.11...HEAD)
+
+## [1.0.0-alpha.10](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.10...1.0.0-alpha.11) - Mar 5, 2018
+### Added
+- mimo_headerElements option for adding elements to header (meant for stuff like meta and link elements).
+- Locally hosted fonts for example article.
+### Changed
+- Improved article metadata, can now specify multiple authors, photo and author links no longer fixed to github profile links.
+### Fixed
+- Text in tables being enlarged in chrome because of text-size-adjust.
 
 ## [1.0.0-alpha.10](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.9...1.0.0-alpha.10) - Mar 2, 2018
 ### Changed
