@@ -1,3 +1,4 @@
-<script type="text/javascript" src="/styles/manifest.js"></script>
-<script type="text/javascript" src="/styles/vendor.js"></script>
-<script type="text/javascript" src="/styles/bundle.js"></script>
+<!-- Use defer to avoid blocking parsing https://hacks.mozilla.org/2017/09/building-the-dom-faster-speculative-parsing-async-defer-and-preload/ -->
+<script defer type="text/javascript" src="/styles/manifest.js"></script>
+<script defer type="text/javascript" src="/styles/vendor.js"></script>
+<script defer type="text/javascript" src="/styles/bundle.js"></script>
