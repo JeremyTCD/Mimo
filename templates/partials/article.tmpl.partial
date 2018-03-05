@@ -5,30 +5,31 @@
     <div class="meta">
         <ul>
             {{#mimo_date}}
-            <li id="metadata-date">
+            <li class="metadata-date">
                 <svg>
                     <use xlink:href="#material-design-date" />
                 </svg>
                 <span>{{mimo_date}}</span>
             </li>
             {{/mimo_date}}
-            {{#mimo_authorName}}
-            <li id="metadata-author">
+            {{#mimo_authors}}
+            <li class="metadata-authors">
                 <svg>
                     <use xlink:href="#material-design-person" />
                 </svg>
-                {{#mimo_githubLink}}
-                <a id="metdata-author-link" href="{{mimo_githubLink}}" title="{{mimo_authorName}}">
-                    <span class="author-text">{{mimo_authorName}}</span>
-                    <img src="{{mimo_githubLink}}.png?size=16" alt="{{mimo_authorName}}" />
+                {{#link}}
+                <a class="metadata-author-link" href="{{link}}" title="{{name}}">
+                {{/link}}
+                    <span class="author-text">{{name}}</span>
+                    {{#imgSrc}}
+                    <img src="{{imgSrc}}" alt="{{name}}" />
+                    {{/imgSrc}}
+                {{#link}}
                 </a>
-                {{/mimo_githubLink}}
-                {{^mimo_githubLink}}
-                <span class="author-text">{{mimo_authorName}}</span>
-                {{/mimo_githubLink}}
+                {{/link}}
             </li>
-            {{/mimo_authorName}}
-            <li id="metadata-edit-article">
+            {{/mimo_authors}}
+            <li class="metadata-edit-article">
             </li>
         </ul>
     </div>

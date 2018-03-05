@@ -19,7 +19,14 @@
         ],
         "globalMetadata": {
             "mimo_websiteName": "Website Name",
-            "mimo_authorName": "Your Name",
+            "mimo_authors": [
+
+                {
+                    "name": "Your Name",
+                    "link": "https://github.com/JeremyTCD",
+                    "imgSrc":  "/resources/jeremytcd-logo.svg"
+                }
+            ],
             "mimo_copyrightText": "2018 Your Name",
 
             "mimo_licensesRelPath": "/licenses",

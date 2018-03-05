@@ -11,7 +11,6 @@ class RightMenuComponent extends Component {
     mainContainer: HTMLElement;
     articleHeadingElements: NodeList;
     outlineElement: HTMLElement;
-    metadataElement: HTMLElement;
     outlineWrapperElement: HTMLElement;
     outlineTitleElement: HTMLElement;
     outlineAnchors: NodeList;
@@ -185,7 +184,7 @@ class RightMenuComponent extends Component {
             }
 
             if (this.editArticleElement && !editArticleInMetadata) {
-                document.getElementById('metadata-edit-article').appendChild(this.editArticleElement);
+                document.querySelector('.metadata-edit-article').appendChild(this.editArticleElement);
             }
         } else if (wide) {
             if (!this.outlineEmpty && outlineInArticle) {

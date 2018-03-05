@@ -89,7 +89,7 @@ article {
                     padding-right: 5px;
                 }
 
-                &#metadata-date {
+                &.metadata-date {
                     svg {
                         width: 18px;
                         height: 18px;
@@ -98,7 +98,7 @@ article {
                     }
                 }
 
-                &#metadata-author {
+                &.metadata-authors {
                     svg {
                         width: 18px;
                         height: 18px;
@@ -119,10 +119,12 @@ article {
                     }
                 }
 
-                &#metadata-edit-article {
-                    span:last-child {
-                        opacity: $opacity-4;
-                        background-image: linear-gradient(to right, $color-primary-text, $color-primary-text);
+                &.metadata-edit-article {
+                    #edit-article {
+                        span {
+                            opacity: $opacity-4;
+                            @include animated-underline($color-primary-text, $animated-underline-13px-ypos, $background-color: $color-primary);
+                        }
                     }
                 }
             }
