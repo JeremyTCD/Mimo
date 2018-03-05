@@ -53,7 +53,6 @@ async function serve() {
     // Note: If all of these directories are watched and one of them does not exist, chokidar fails silently - https://github.com/paulmillr/chokidar/issues/346
     var foldersToWatch = [path.join(docfxProjectDir, 'src'),
         path.join(__dirname, '../templates'),
-        path.join(__dirname, '../fonts'),
         path.join(__dirname, '../misc')];
     for (var i = foldersToWatch.length - 1; i >= 0; i--) {
         if (!fs.existsSync(foldersToWatch[i])) {
