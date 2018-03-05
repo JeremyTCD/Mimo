@@ -1,8 +1,6 @@
 ﻿@import 'constants';
 
-// User agent sets font-family for these elements (not inherited)
 pre, code {
-    font-family: $code-font-family;
     font-size: $font-size-2;
 }
 

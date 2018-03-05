@@ -12,9 +12,12 @@
   {{/mimo_pageDescription}}
   <link rel="shortcut icon" href="{{#mimo_faviconRelPath}}{{mimo_faviconRelPath}}{{/mimo_faviconRelPath}}{{^mimo_faviconRelPath}}/resources/favicon.ico{{/mimo_faviconRelPath}}">
   <link rel="stylesheet" href="/styles/bundle.css">
-  {{#mimo_fontLinks}}
+  {{#mimo_googleFontsHrefs}}
   <link href="{{link}}" rel="stylesheet">
-  {{/mimo_fontLinks}}
+  {{/mimo_googleFontsHrefs}}
   <meta property="docfx:navrel" content="{{_navRel}}">
   <meta property="docfx:tocrel" content="{{_tocRel}}">
+  {{#mimo_headElements}}
+  {{{.}}}
+  {{/mimo_headElements}}
 </head>

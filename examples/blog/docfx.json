@@ -15,6 +15,11 @@
             {
                 "src": "src/misc",
                 "files": [ "**" ]
+            },
+            {
+                "src": "src/fonts",
+                "files": [ "**" ],
+                "dest": "fonts"
             }
         ],
         "globalMetadata": {
@@ -34,9 +39,13 @@
             "mimo_contactRelPath": "/contact",
             "mimo_logoRelPath": "/resources/logo.svg",
             "mimo_favIconRelPath": "/resources/favicon.ico",
-            "mimo_fontLinks": [
-                { "link": "https://fonts.googleapis.com/css?family=Open+Sans:400,600" }
+            "mimo_headElements": [
+                "<link rel=\"preload\" href=\"/fonts/open-sans-v15-latin-regular.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>",
+                "<link rel=\"preload\" href=\"/fonts/open-sans-v15-latin-italic.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>",
+                "<link rel=\"preload\" href=\"/fonts/open-sans-v15-latin-600.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>",
+                "<link rel=\"preload\" href=\"/fonts/droid-sans-mono-latin-400.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>"
             ]
+
         },
         "postProcessors": [ "SortedArticleListGenerator", "SearchIndexGenerator" ],
         "sitemap": {
