@@ -4,16 +4,21 @@ import tooltipService from './tooltipService';
 import * as Clipboard from 'clipboard';
 
 class ArticleComponent extends Component {
+    protected setupOnLoad(): void {
+        // Do nothing
+    }
+
     protected validDomElementExists(): boolean {
         // Article always exists
         return true;
     }
 
-    protected setup(): void {
+    protected setupOnDomContentLoaded(): void {
         this.addLinks();
     }
 
     protected registerListeners(): void {
+        // Do nothing
     }
 
     private addLinks(): void {

@@ -40,7 +40,7 @@ class RightMenuComponent extends Component {
         return this.rightMenuElement ? true : false;
     }
 
-    protected setup(): void {
+    protected setupOnDomContentLoaded(): void {
         this.wrapperElement = this.rightMenuElement.querySelector('.wrapper') as HTMLElement;
         this.editArticleElement = document.getElementById('edit-article');
         this.articleElement = document.querySelector('main > article') as HTMLElement;
@@ -59,7 +59,9 @@ class RightMenuComponent extends Component {
         let outlineAnchorElements = this.outlineElement.querySelectorAll('a');
         this.outlineLastAnchorElement = outlineAnchorElements[outlineAnchorElements.length - 1];
 
-        // Initial call
+    }
+
+    protected setupOnLoad(): void {
         this.updateRightMenu();
     }
 

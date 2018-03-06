@@ -42,21 +42,47 @@ import codeService from './codeService';
 import * as domready from 'domready';
 import * as $ from 'jquery';
 
-domready(function () {
-    salComponent.initialize();
-    headerComponent.initialize();
-    leftMenuComponent.initialize();
-    footerComponent.initialize();
-    rightMenuComponent.initialize();
-    articleComponent.initialize();
-    commentsComponent.initialize();
-    searchResultsComponent.initialize();
+// Called when document has been parsed but resources may not have been loaded
+function onDomContentLoaded() {
+    salComponent.onDomContentLoaded();
+    headerComponent.onDomContentLoaded();
+    footerComponent.onDomContentLoaded();
+    articleComponent.onDomContentLoaded();
+    commentsComponent.onDomContentLoaded();
+    searchResultsComponent.onDomContentLoaded();
+    leftMenuComponent.onDomContentLoaded();
+    rightMenuComponent.onDomContentLoaded();
 
     searchService.setupSearch();
     linkService.setupOpenExternalLinksInNewTab();
     linkService.setupSmoothScroll();
     codeService.setupCodeBlocks();
-});
+}
+
+// Called after document has been parsed and all resources have been loaded.
+// Logic that depends on dimensions of elements must be run here.
+function onLoad() {
+    salComponent.onLoad();
+    headerComponent.onLoad();
+    footerComponent.onLoad();
+    articleComponent.onLoad();
+    commentsComponent.onLoad();
+    searchResultsComponent.onLoad();
+    leftMenuComponent.onLoad();
+    rightMenuComponent.onLoad();
+}
+
+if (document.readyState === "interactive" || document.readyState === "loaded") {
+    onDomContentLoaded();
+} else {
+    document.addEventListener('DomContentLoaded', onDomContentLoaded);
+}
+
+if (document.readyState === "complete") {
+    onLoad();
+} else {
+    window.addEventListener('load', onLoad);
+}
 
 // These constants are defined by webpack's define plugin (see webpack.config.js)
 if (SCRIPTS_CUSTOM_INDEX) {

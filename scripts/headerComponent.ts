@@ -20,7 +20,7 @@ class HeaderComponent extends Component {
         return true;
     }
 
-    protected setup(): void {
+    protected setupOnDomContentLoaded(): void {
         this.headerSearchElement = document.getElementById('header-search') as HTMLElement;
         this.headerSearchInputElement = this.headerSearchElement.querySelector('input') as HTMLInputElement;
         this.headerSearchClearElement = this.headerSearchElement.querySelector('svg:last-child') as HTMLElement;
@@ -39,6 +39,10 @@ class HeaderComponent extends Component {
                 searchResultsComponent.setShown(false);
             });
         this.textInputService.setupEventListeners();
+    }
+
+    protected setupOnLoad(): void {
+        // Do nothing
     }
 
     protected registerListeners(): void {

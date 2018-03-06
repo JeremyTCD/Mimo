@@ -12,15 +12,19 @@ class CommentsComponent extends Component {
         return this.disqusThreadElement ? true : false;
     }
 
-    protected setup(): void {
-        this.disqusShortname = this.disqusThreadElement.getAttribute('data-disqus-shortname');
-        this.disqusIdentifier = this.disqusThreadElement.getAttribute('data-disqus-identifier');
-    }
-
     protected registerListeners(): void {
         if (!this.tryLoad()) {
             window.addEventListener('scroll', this.tryLoad);
         }
+    }
+
+    protected setupOnDomContentLoaded(): void {
+        this.disqusShortname = this.disqusThreadElement.getAttribute('data-disqus-shortname');
+        this.disqusIdentifier = this.disqusThreadElement.getAttribute('data-disqus-identifier');
+    }
+
+    protected setupOnLoad(): void {
+        // Do nothing
     }
 
     private tryLoad = (): boolean => {

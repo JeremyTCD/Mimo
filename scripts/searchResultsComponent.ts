@@ -17,13 +17,17 @@ class SearchResultsComponent extends Component {
         return this.searchResultsElement ? true : false;
     }
 
-    protected setup(): void {
+    protected setupOnDomContentLoaded(): void {
         // TODO should init all these lazily
         this.articleListElement = this.searchResultsElement.querySelector('.article-list') as HTMLElement;
         this.searchResultsMessageElement = document.querySelector('#search-results > .container > span') as HTMLSpanElement;
         this.searchStringMessageElement = document.querySelector('#search-string > .container > span') as HTMLSpanElement;
         this.paginationParentElements = this.searchResultsElement.querySelectorAll('.al-pagination');
         this.itemsParentElement = this.searchResultsElement.querySelector('.al-items') as HTMLElement;
+    }
+
+    protected setupOnLoad(): void {
+        // Do nothing
     }
 
     protected registerListeners(): void {

@@ -13,7 +13,7 @@ class SalComponent extends Component {
         return this.salElement ? true : false;
     }
 
-    protected setup(): void {
+    protected setupOnDomContentLoaded(): void {
         this.articleListElement = this.salElement.querySelector('.article-list') as HTMLElement;
         this.paginationParentElements = this.salElement.querySelectorAll('.al-pagination');
         this.itemsParentElement = this.salElement.querySelector('.al-items') as HTMLElement;
@@ -30,6 +30,10 @@ class SalComponent extends Component {
             this.paginationParentElements,
             this.itemsParentElement,
             allAlItems)
+    }
+
+    protected setupOnLoad(): void {
+        // Do nothing
     }
 
     protected registerListeners(): void {

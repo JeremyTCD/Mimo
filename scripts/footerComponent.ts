@@ -11,12 +11,16 @@ class FooterComponent extends Component {
         return true;
     }
 
-    protected setup(): void {
+    protected setupOnDomContentLoaded(): void {
         this.footerButtonElement = document.getElementById('footer-button');
 
         // ResizeObserver typically makes an initial call to setBackToTopButtonOpacity because other js scripts modify dom elements in body when page is loading,
         // not reliable though.
         this.setBackToTopButtonOpacity();
+    }
+
+    protected setupOnLoad(): void {
+        // Do nothing
     }
 
     protected registerListeners(): void {

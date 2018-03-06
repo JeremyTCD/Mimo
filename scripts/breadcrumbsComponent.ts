@@ -13,8 +13,17 @@ class BreadcrumbsComponent extends Component {
         return this.breadcrumbsElement ? true : false;
     }
 
-    protected setup(): void {
-        this.setupBreadcrumbs();
+    protected setupOnDomContentLoaded(): void {
+        let ulElement = listItemService.generateMultiLevelList(this.breadcrumbs,
+            'breadcrumb',
+            1);
+
+        let breadcrumbsContainer = document.querySelector('#breadcrumbs>.container');
+        breadcrumbsContainer.insertBefore(ulElement, breadcrumbsContainer.childNodes[0]);
+    }
+
+    protected setupOnLoad(): void {
+        // Do nothing
     }
 
     protected registerListeners(): void {
@@ -30,15 +39,6 @@ class BreadcrumbsComponent extends Component {
                 transitionsService.contractHeightWithoutTransition(leftMenu, tocButton);
             }
         });
-    }
-
-    private setupBreadcrumbs(): void {
-        let ulElement = listItemService.generateMultiLevelList(this.breadcrumbs,
-            'breadcrumb',
-            1);
-
-        let breadcrumbsContainer = document.querySelector('#breadcrumbs>.container');
-        breadcrumbsContainer.insertBefore(ulElement, breadcrumbsContainer.childNodes[0]);
     }
 
     public loadRootBreadCrumb(anchorElement: HTMLAnchorElement): void {
@@ -65,7 +65,7 @@ class BreadcrumbsComponent extends Component {
 
             this.rootBreadcrumbLoaded = true;
             if (this.childBreadcrumbsLoaded) {
-                this.initialize();
+                this.onDomContentLoaded();
             }
         }
     }
@@ -98,7 +98,7 @@ class BreadcrumbsComponent extends Component {
 
             this.childBreadcrumbsLoaded = true;
             if (this.rootBreadcrumbLoaded) {
-                this.initialize();
+                this.onDomContentLoaded();
             }
         }
     }

@@ -28,13 +28,8 @@ class LeftMenuComponent extends Component {
         return this.leftMenuElement ? true : false;
     }
 
-    protected setup(): void {
+    protected setupOnDomContentLoaded(): void {
         this.filterElement = document.getElementById('left-menu-filter');
-        let filterComputedStyle = getComputedStyle(this.filterElement);
-        // Does not change
-        this.filterHeight = parseFloat(filterComputedStyle.marginBottom)
-            + parseFloat(filterComputedStyle.height);
-        this.fixedFilterBottom = this.menuGap + this.filterHeight;
 
         this.filterInputElement = this.filterElement.querySelector('input');
         this.inputClearElement = this.filterElement.querySelector('svg:last-child') as HTMLElement;
@@ -42,7 +37,6 @@ class LeftMenuComponent extends Component {
         this.tocElement = document.getElementById('left-menu-toc');
         this.footerElement = document.querySelector('body > footer') as HTMLElement;
         this.wrapperElement = this.leftMenuElement.querySelector('.wrapper') as HTMLElement;
-
         this.setupToc();
 
         this.textInputService = new TextInputService(
@@ -54,7 +48,15 @@ class LeftMenuComponent extends Component {
             });
         this.textInputService.setupEventListeners();
 
-        // Initial call
+    }
+
+    protected setupOnLoad(): void {
+        let filterComputedStyle = getComputedStyle(this.filterElement);
+        // Does not change
+        this.filterHeight = parseFloat(filterComputedStyle.marginBottom)
+            + parseFloat(filterComputedStyle.height);
+        this.fixedFilterBottom = this.menuGap + this.filterHeight;
+
         this.updateLeftMenu();
     }
 
