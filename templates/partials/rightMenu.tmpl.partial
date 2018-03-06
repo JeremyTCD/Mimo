@@ -4,19 +4,46 @@
     <div class="wrapper">
         {{^mimo_disableEditArticle}}
         {{#docurl}}
-        <a href="{{docurl}}" id="edit-article"  title="Edit article on Github">
+        <div id="edit-article" class="right-menu-link">
             <svg>
                 <use xlink:href="#material-design-mode-edit" />
             </svg>
-            <span>Edit Article</span>
-        </a>
+            <a href="{{docurl}}" title="Edit article on Github">Edit Article</a>
+        </div>
         {{/docurl}}
-        {{#sourceurl}}
-        <a href="{{sourceurl}}" id="view-source">
-            <span>View Source</span>
-        </a>
-        {{/sourceurl}}
         {{/mimo_disableEditArticle}}
+
+        {{^mimo_disableShareArticle}}
+        <div id="share-article" class="right-menu-link">
+            <svg>
+                <use xlink:href="#material-design-share" />
+            </svg>
+            <span>Share Article</span>          
+            <div id="share-article-links">
+                <div class="wrapper">
+                    <a>
+                        <svg>
+                            <use xlink:href="#ion-icons-logo-facebook" />
+                        </svg>
+                    </a>
+                    <a>
+                        <svg>
+                            <use xlink:href="#ion-icons-logo-twitter" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{/mimo_disableShareArticle}}
+
+        {{#sourceurl}}
+        <div id="view-source" class="right-menu-link" title="View Source on Github">
+            <a href="{{sourceurl}}" id="view-source">
+                <span>View Source</span>
+            </a>
+        </div>
+        {{/sourceurl}}
+
         <div class="wrapper">
             <a href="#" id="outline-title">
                 <span></span>

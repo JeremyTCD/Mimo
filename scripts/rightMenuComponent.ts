@@ -19,6 +19,9 @@ class RightMenuComponent extends Component {
     outlineLastAnchorElement: HTMLElement;
     outlineRootUlElement: HTMLElement;
     footerElement: HTMLElement;
+    shareArticleElement: HTMLElement;
+    shareArticleSpanElement: HTMLElement;
+    shareArticleLinksWrapperElement: HTMLElement;
 
     // True if there is no outline, can be because article has no headers to generate an outline from or if outline is disabled
     outlineEmpty: boolean;
@@ -52,13 +55,16 @@ class RightMenuComponent extends Component {
         this.outlineIndicatorSpanElement = this.indicatorElement.querySelector('span') as HTMLElement;
         this.footerElement = document.querySelector('body > footer') as HTMLElement;
 
+        this.shareArticleElement = document.getElementById('share-article');
+        this.shareArticleSpanElement = document.querySelector('#share-article > span');
+        this.shareArticleLinksWrapperElement = document.querySelector('#share-article-links .wrapper');
+
         this.setupOutline();
         this.outlineTitleElement = document.getElementById('outline-title');
         this.outlineRootUlElement = this.outlineElement.querySelector('ul');
 
         let outlineAnchorElements = this.outlineElement.querySelectorAll('a');
         this.outlineLastAnchorElement = outlineAnchorElements[outlineAnchorElements.length - 1];
-
     }
 
     protected setupOnLoad(): void {
@@ -68,6 +74,9 @@ class RightMenuComponent extends Component {
     protected registerListeners(): void {
         window.addEventListener('scroll', this.onScrollListener);
         window.addEventListener('resize', this.onResizeListener);
+
+        this.shareArticleSpanElement.addEventListener('mouseenter', this.shareArticleSpanOnEnter);
+        this.shareArticleElement.addEventListener('mouseleave', this.shareArticleOnLeave);
     }
 
     private onResizeListener = (): void => {
@@ -90,6 +99,14 @@ class RightMenuComponent extends Component {
                 this.updateOutline(activeHeadingIndex);
             }
         }
+    }
+
+    public shareArticleSpanOnEnter = (): void => {
+        this.shareArticleLinksWrapperElement.classList.add('active');
+    }
+
+    public shareArticleOnLeave = (): void => {
+        this.shareArticleLinksWrapperElement.classList.remove('active');
     }
 
     public updateRightMenu(): void {

@@ -29,9 +29,78 @@ $outline-indicator-width: 2px;
                 position: fixed;
                 top: 16px;
             }
+            // Edit article, share article etc
+            > div {
+                &.right-menu-link {
+                    align-items: center;
+
+                    > svg {
+                        flex-shrink: 0;
+                        height: 18px;
+                        width: 18px;
+                        fill: $color-primary-icon;
+                        margin-right: 6px;
+                    }
+
+                    &#edit-article {
+                        a {
+                            flex-shrink: 0;
+                            @include animated-underline($color-primary-link, $animated-underline-13px-ypos, $background-color: $color-primary);
+                        }
+                    }
+
+                    &#share-article {
+                        height: 20px;
+
+                        span {
+                            flex-shrink: 0;
+                            color: $color-primary-link;
+                            cursor: default;
+                        }
+
+                        #share-article-links {
+                            overflow: hidden;
+                            margin-left: 9px;
+
+                            .wrapper {
+                                transition: transform 0.4s $ease-out-quad-delayed;
+                                transform: translateX(-100%);
+                                background-color: $color-secondary;
+                                padding: 11px;
+                                padding-top: 6px;
+                                padding-bottom: 6px;
+
+                                &.active {
+                                    transform: translateX(0%);
+                                }
+
+                                a {
+                                    &:nth-child(n+2) {
+                                        margin-left: 9px;
+                                    }
+                                }
+
+                                svg {
+                                    fill: $color-secondary-text;
+                                    height: 24px;
+                                    width: 24px;
+                                }
+                            }
+                        }
+                    }
+                }
+                // Element above outline
+                &:nth-last-child(2) {
+                    margin-bottom: 23px;
+                }
+
+                &:nth-last-child(n+3) {
+                    margin-bottom: 13px;
+                }
+            }
         }
 
-        .wrapper {
+        > .wrapper {
             @media #{$media-wide} {
                 flex-direction: column;
                 align-items: stretch;
@@ -114,25 +183,5 @@ $outline-indicator-width: 2px;
                 }
             }
         }
-    }
-}
-
-#edit-article {
-    @media #{$media-wide} {
-        margin-bottom: 23px;
-    }
-
-    align-items: center;
-
-    svg {
-        height: 18px;
-        width: 18px;
-        fill: $color-primary-icon;
-        margin-right: 6px;
-    }
-
-    span {
-        flex-shrink: 0;
-        @include animated-underline($color-primary-link, $animated-underline-13px-ypos, $background-color: $color-primary);
     }
 }
