@@ -29,8 +29,6 @@
                 {{/link}}
             </li>
             {{/mimo_authors}}
-            <li class="metadata-edit-article">
-            </li>
         </ul>
     </div>
     {{/mimo_disableMetadata}}
