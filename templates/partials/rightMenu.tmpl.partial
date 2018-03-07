@@ -13,7 +13,7 @@
         {{/docurl}}
         {{/mimo_disableEditArticle}}
 
-        {{^mimo_disableShareArticle}}
+        {{#mimo_shareArticleEnabled}}
         <div id="share-article" class="right-menu-link">
             <svg>
                 <use xlink:href="#material-design-share" />
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        {{/mimo_disableShareArticle}}
+        {{/mimo_shareArticleEnabled}}
 
         {{#sourceurl}}
         <div id="view-source" class="right-menu-link" title="View Source on Github">
