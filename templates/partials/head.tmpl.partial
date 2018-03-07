@@ -3,9 +3,9 @@
     {{>partials/scripts}}
     <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>{{#mimo_pageTitle}}{{mimo_pageTitle}}{{/mimo_pageTitle}} {{#mimo_websiteName}}- {{mimo_websiteName}} {{/mimo_websiteName}}</title>
+  <title>{{#mimo_pageTitle}}{{{mimo_pageTitle}}}{{/mimo_pageTitle}} {{#mimo_websiteName}}- {{{mimo_websiteName}}}{{/mimo_websiteName}}</title>
   <meta name="viewport" content="width=device-width">
-  <meta name="title" content="{{#mimo_pageTitle}}{{mimo_pageTitle}}{{/mimo_pageTitle}} {{#mimo_websiteName}}- {{mimo_websiteName}} {{/mimo_websiteName}}">
+  <meta name="title" content="{{#mimo_pageTitle}}{{{mimo_pageTitle}}}{{/mimo_pageTitle}} {{#mimo_websiteName}}- {{{mimo_websiteName}}}{{/mimo_websiteName}}">
   <meta name="generator" content="mimo">
   {{#mimo_pageDescription}}
   <meta name="description" content="{{mimo_pageDescription}}">
