@@ -33,19 +33,15 @@ body > footer {
                     flex-wrap: nowrap;
                     align-items: center;
 
-                    &::after {
-                        content: "";
-                        height: 11px;
-                        width: 2px;
-                        background-color: $color-primary;
-                        margin-right: 5px;
-                        margin-left: 5px;
-                        opacity: $opacity-1;
-                    }
-
-                    &:last-child {
+                    &:nth-last-child(n+2) {
                         &::after {
-                            content: none;
+                            content: "";
+                            height: 11px;
+                            width: 2px;
+                            background-color: $color-primary;
+                            margin-right: 5px;
+                            margin-left: 5px;
+                            opacity: $opacity-1;
                         }
                     }
                 }
@@ -63,20 +59,16 @@ body > footer {
                 span {
                     align-items: center;
 
-                    &::after {
-                        content: "";
-                        height: 14px;
-                        width: 2px;
-                        background-color: $color-primary;
-                        margin-right: 8px;
-                        margin-left: 8px;
-                        margin-top: 1px;
-                        opacity: $opacity-1;
-                    }
-
-                    &:last-child {
+                    &:nth-last-child(n+2) {
                         &::after {
-                            content: none;
+                            content: "";
+                            height: 14px;
+                            width: 2px;
+                            background-color: $color-primary;
+                            margin-right: 8px;
+                            margin-left: 8px;
+                            margin-top: 1px;
+                            opacity: $opacity-1;
                         }
                     }
                 }

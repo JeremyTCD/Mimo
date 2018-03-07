@@ -69,12 +69,12 @@ article {
 
             li {
                 align-items: center;
-                padding-right: 19px;
-                padding-bottom: 5px;
 
-                &:last-child {
-                    padding-right: 0;
+                &:nth-last-child(n+2) {
+                    margin-right: 19px;
                 }
+
+                margin-bottom: 5px;
 
                 a, span {
                     align-items: center;

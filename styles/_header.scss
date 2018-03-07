@@ -2,7 +2,6 @@
 
 body > header {
     @include pure-flex;
-
     background-color: $color-secondary-text;
     align-items: stretch;
     justify-content: center;
@@ -43,10 +42,9 @@ body > header {
                     span {
                         height: 3px;
                         width: 23px;
-                        margin-bottom: 3px;
 
-                        &:last-child {
-                            margin-bottom: 0px;
+                        &:nth-last-child(n+2) {
+                            margin-bottom: 3px;
                         }
 
                         background-color: $color-primary-link;
@@ -131,18 +129,14 @@ body > header {
 
                         li {
                             @media #{$media-medium}, #{$media-wide} {
-                                padding-right: 38px;
-
-                                &:last-child {
-                                    padding-right: 0px;
+                                &:nth-last-child(n+2) {
+                                    margin-right: 38px;
                                 }
                             }
 
                             @media #{$media-narrow} {
-                                padding-bottom: 7px;
-
-                                &:last-child {
-                                    padding-bottom: 0px;
+                                &:nth-last-child(n+2) {
+                                    margin-bottom: 7px;
                                 }
                             }
 
