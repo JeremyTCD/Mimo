@@ -2,6 +2,7 @@
 mimo_pageDescription: This is an example of an article with formatting.
 mimo_pageTitle: Formatting Articles
 mimo_date: 11/02/2014
+mimo_socialMediaCard: true
 mimo_shareOnFacebook: true
 mimo_shareOnTwitter:
     hashtags: Mimo
