@@ -4,14 +4,15 @@ $bar-margin-right: 9px;
 $outline-indicator-width: 2px;
 
 #right-menu {
-    @include pure-flex;
     font-size: $font-size-2;
     // Default flex-shrink is 1. When toc contents become fixed, they are taken out of the document flow.
     // Toc's adjacent article element expands fully width-wise. Flexbox thinks main's contents are overflowing width-wise
     // and distributes negative space between toc and article 1:1. To avoid this, flex-shrink must be set to 0.
     flex-shrink: 0;
+    display: none;
 
     @media #{$media-wide} {
+        @include pure-flex;
         overflow-y: hidden;
         margin-top: -4px;
         width: $side-menu-width;

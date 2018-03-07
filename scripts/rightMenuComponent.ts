@@ -6,8 +6,6 @@ import debounceService from './debounceService';
 class RightMenuComponent extends Component {
     rightMenuElement: HTMLElement = document.getElementById('right-menu');
     wrapperElement: HTMLElement;
-    editArticleElement: HTMLElement;
-    articleElement: HTMLElement;
     mainContainer: HTMLElement;
     articleHeadingElements: NodeList;
     outlineElement: HTMLElement;
@@ -45,10 +43,8 @@ class RightMenuComponent extends Component {
 
     protected setupOnDomContentLoaded(): void {
         this.wrapperElement = this.rightMenuElement.querySelector('.wrapper') as HTMLElement;
-        this.editArticleElement = document.getElementById('edit-article');
-        this.articleElement = document.querySelector('main > article') as HTMLElement;
         this.mainContainer = document.querySelector('body > .container') as HTMLElement;
-        this.articleHeadingElements = this.articleElement.querySelectorAll('h1:not(.exclude-from-outline),h2:not(.exclude-from-outline)');
+        this.articleHeadingElements = document.querySelectorAll('main > article h1:not(.exclude-from-outline),h2:not(.exclude-from-outline)');
         this.outlineWrapperElement = document.querySelector('#right-menu > .wrapper > .wrapper') as HTMLElement;
         this.outlineElement = document.getElementById('outline') as HTMLElement;
         this.indicatorElement = document.getElementById('outline-indicator') as HTMLElement;
@@ -117,8 +113,6 @@ class RightMenuComponent extends Component {
         if (!this.validDomElementExists()) {
             return;
         }
-
-        this.setRightMenuDomLocation();
 
         let activeHeadingIndex = this.getActiveOutlineIndex();
         // Must be called after dom location is set
@@ -193,31 +187,6 @@ class RightMenuComponent extends Component {
             }
         }
 
-    }
-
-    private setRightMenuDomLocation(): void {
-        let wide = mediaService.mediaWidthWide();
-        let outlineInArticle = this.articleElement.querySelector('#outline') ? true : false;
-        let editArticleInMetadata = this.articleElement.querySelector('#edit-article') ? true : false;
-
-        if (!wide) {
-            // Don't bother moving if outline is empty, moving messes up styles for surrounding elements
-            if (!this.outlineEmpty && !outlineInArticle) {
-                $('main > article > .meta').after(this.rightMenuElement);
-            }
-
-            if (this.editArticleElement && !editArticleInMetadata) {
-                document.querySelector('.metadata-edit-article').appendChild(this.editArticleElement);
-            }
-        } else if (wide) {
-            if (!this.outlineEmpty && outlineInArticle) {
-                $('body > .container').append(this.rightMenuElement);
-            }
-
-            if (this.editArticleElement && editArticleInMetadata) {
-                $('#right-menu > .wrapper').prepend(this.editArticleElement);
-            }
-        }
     }
 
     private setupOutline(): void {
