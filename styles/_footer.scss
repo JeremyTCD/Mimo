@@ -2,7 +2,6 @@
 
 body > footer {
     @include pure-flex;
-
     font-size: $font-size-2;
     background-color: $color-secondary;
     justify-content: center;
@@ -110,21 +109,20 @@ body > footer {
                 }
 
                 a {
+                    margin-right: 16px;
+                    transition: transform 0.3s $ease-out-quad-delayed;
+
                     &:last-child {
                         margin-right: 0px;
                     }
 
                     &:hover {
-                        svg {
-                            transform: scale(1.3333);
-                        }
+                        transform: scale(1.3333);
                     }
 
                     svg {
-                        transition: transform 0.3s $ease-out-quad-delayed;
                         height: 24px;
                         width: 24px;
-                        margin-right: 16px;
                         fill: $color-secondary-text;
                     }
                 }
@@ -142,14 +140,13 @@ body > footer {
             }
 
             a {
+                transition: transform 0.3s $ease-out-quad-delayed;
+
                 &:hover {
-                    svg {
-                        transform: scale(1.3333);
-                    }
+                    transform: scale(1.3333);
                 }
 
                 svg {
-                    transition: transform 0.3s $ease-out-quad-delayed;
                     height: 24px;
                     width: 24px;
                     fill: $color-secondary-text;
