@@ -75,8 +75,14 @@ $outline-indicator-width: 2px;
                                 }
 
                                 a {
+                                    transition: transform 0.3s $ease-out-quad-delayed;
+
                                     &:nth-child(n+2) {
-                                        margin-left: 9px;
+                                        margin-left: 10px;
+                                    }
+
+                                    &:hover {
+                                        transform: scale(1.3333);
                                     }
                                 }
 

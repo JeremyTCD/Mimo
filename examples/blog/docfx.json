@@ -33,7 +33,7 @@
                 }
             ],
             "mimo_copyrightText": "2018 Your Name",
-
+            "mimo_baseUrl":  "https://yourdomain",
             "mimo_licensesRelPath": "/licenses",
             "mimo_privacyPolicyRelPath": "/privacy-policy",
             "mimo_contactRelPath": "/contact",
@@ -45,7 +45,6 @@
                 "<link rel=\"preload\" href=\"/fonts/open-sans-v15-latin-600.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>",
                 "<link rel=\"preload\" href=\"/fonts/droid-sans-mono-latin-400.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>"
             ]
-
         },
         "postProcessors": [ "SortedArticleListGenerator", "SearchIndexGenerator" ],
         "sitemap": {

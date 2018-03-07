@@ -2,8 +2,10 @@
 mimo_pageDescription: This is an example of an article with formatting.
 mimo_pageTitle: Formatting Articles
 mimo_date: 11/02/2014
-mimo_fontLinks:
-  - link: https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i|Droid+Sans+Mono
+mimo_shareOnFacebook: true
+mimo_shareOnTwitter:
+    hashtags: Mimo
+    via: JeremyTCD
 ---
 
 Formatting can be used to add order, meaning, and utility to your content. For example, headers can be used to categorize content, italicization can be used to emphasize things, and 

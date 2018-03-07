@@ -4,6 +4,8 @@
 exports.preTransform = function (model) {
     model.mimo_displaySocialMediaLinks = model.mimo_githubLink || model.mimo_twitterLink ||
         model.mimo_instagramLink || model.mimo_facebookLink || model.mimo_googleplusLink;
+    
+    model.mimo_disableShareArticle = !model.mimo_shareOnFacebook && !model.mimo_shareOnTwitter;
 
   return model;
 }

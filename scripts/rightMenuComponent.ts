@@ -56,8 +56,10 @@ class RightMenuComponent extends Component {
         this.footerElement = document.querySelector('body > footer') as HTMLElement;
 
         this.shareArticleElement = document.getElementById('share-article');
-        this.shareArticleSpanElement = document.querySelector('#share-article > span');
-        this.shareArticleLinksWrapperElement = document.querySelector('#share-article-links .wrapper');
+        if (this.shareArticleElement) {
+            this.shareArticleSpanElement = document.querySelector('#share-article > span');
+            this.shareArticleLinksWrapperElement = document.querySelector('#share-article-links .wrapper');
+        }
 
         this.setupOutline();
         this.outlineTitleElement = document.getElementById('outline-title');
@@ -75,8 +77,10 @@ class RightMenuComponent extends Component {
         window.addEventListener('scroll', this.onScrollListener);
         window.addEventListener('resize', this.onResizeListener);
 
-        this.shareArticleSpanElement.addEventListener('mouseenter', this.shareArticleSpanOnEnter);
-        this.shareArticleElement.addEventListener('mouseleave', this.shareArticleOnLeave);
+        if (this.shareArticleElement) {
+            this.shareArticleSpanElement.addEventListener('mouseenter', this.shareArticleSpanOnEnter);
+            this.shareArticleElement.addEventListener('mouseleave', this.shareArticleOnLeave);
+        }
     }
 
     private onResizeListener = (): void => {
