@@ -3,15 +3,15 @@
 main {
     display: flex;
     flex-grow: 1;
+    margin-bottom: 59px;
     flex-direction: column;
-    padding-bottom: 59px;
 
     @media #{$media-narrow} {
-        padding-top: 59px;
+        margin-top: 59px;
 
         &.breadcrumbs-disabled {
-            // When breadcrumbs are disabled, header height remains the same, so padding top must be less
-            padding-top: 38px;
+            // When breadcrumbs are disabled, header height remains the same, so margin top must be less
+            margin-top: 38px;
         }
     }
 }
