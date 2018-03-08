@@ -61,7 +61,7 @@
         #toc-button {
             align-items: center;
 
-            @media #{$media-medium}, #{$media-wide} {
+            @media #{$media-wide} {
                 display: none;
             }
 
