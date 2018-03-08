@@ -131,22 +131,6 @@ article {
         }
     }
 
-    #right-menu {
-        & + .content {
-            > .heading-1 {
-                &:first-child {
-                    margin-top: 37px;
-                }
-            }
-
-            > p {
-                &:first-child {
-                    margin-top: 25px;
-                }
-            }
-        }
-    }
-
     .content {
         h1 {
             font-size: $font-size-6;
