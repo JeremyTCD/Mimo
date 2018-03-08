@@ -22,6 +22,7 @@
 
     > .wrapper {
         display: flex;
+        flex-grow: 1;
 
         @media #{$media-medium} {
             margin-top: 59px;
