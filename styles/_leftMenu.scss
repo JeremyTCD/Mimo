@@ -10,14 +10,14 @@ $horizontal-bar-ease-timing: 0.6s;
     // and distributes negative space between toc and article 1:1. To avoid this, flex-shrink must be set to 0.
     flex-shrink: 0;
 
-    @media #{$media-narrow} {
+    @media #{$media-medium}, #{$media-narrow} {
         flex-direction: column;
         overflow-y: hidden;
         transition: height 0.4s $ease-out-quad;
         height: 0;
     }
 
-    @media #{$media-medium}, #{$media-wide} {
+    @media #{$media-wide} {
         width: $side-menu-width;
         margin-right: 66px;
         height: auto !important;
@@ -27,7 +27,7 @@ $horizontal-bar-ease-timing: 0.6s;
         width: inherit;
         flex-direction: column;
 
-        @media #{$media-narrow} {
+        @media #{$media-medium}, #{$media-narrow} {
             flex-shrink: 0;
             flex-grow: 1;
             background-color: $color-section-header-background;
@@ -35,7 +35,7 @@ $horizontal-bar-ease-timing: 0.6s;
             padding-bottom: 8px;
         }
 
-        @media #{$media-medium}, #{$media-wide} {
+        @media #{$media-wide} {
             &.fixed {
                 position: fixed;
                 top: 23px;
@@ -50,7 +50,7 @@ $horizontal-bar-ease-timing: 0.6s;
             padding-right: 10px;
             align-items: center;
 
-            @media #{$media-medium}, #{$media-wide} {
+            @media #{$media-wide} {
                 border: 1px solid $color-section-header-background;
                 background-image: linear-gradient($color-section-header-background, $color-section-header-background);
                 background-repeat: no-repeat;
@@ -64,7 +64,7 @@ $horizontal-bar-ease-timing: 0.6s;
                 }
             }
 
-            @media #{$media-narrow} {
+            @media #{$media-medium}, #{$media-narrow} {
                 border: 1px solid $color-primary;
                 background-color: $color-primary;
                 transition: border-color 0.4s $ease-out-quad;
@@ -88,7 +88,7 @@ $horizontal-bar-ease-timing: 0.6s;
         }
 
         #left-menu-toc {
-            @media #{$media-medium}, #{$media-wide} {
+            @media #{$media-wide} {
                 overflow-y: auto;
                 margin-bottom: 23px;
             }

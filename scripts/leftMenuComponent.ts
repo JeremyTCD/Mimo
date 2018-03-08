@@ -8,7 +8,7 @@ import TextInputService from './textInputService';
 
 class LeftMenuComponent extends Component {
     leftMenuElement: HTMLElement = document.getElementById('left-menu');
-    bodyContainerElement: HTMLElement;
+    coreElement: HTMLElement;
     tocElement: HTMLElement;
     filterInputElement: HTMLInputElement;
     filterElement: HTMLElement;
@@ -30,10 +30,9 @@ class LeftMenuComponent extends Component {
 
     protected setupOnDomContentLoaded(): void {
         this.filterElement = document.getElementById('left-menu-filter');
-
         this.filterInputElement = this.filterElement.querySelector('input');
         this.inputClearElement = this.filterElement.querySelector('svg:last-child') as HTMLElement;
-        this.bodyContainerElement = document.querySelector('body > .container') as HTMLElement;
+        this.coreElement = document.getElementById('core') as HTMLElement;
         this.tocElement = document.getElementById('left-menu-toc');
         this.footerElement = document.querySelector('body > footer') as HTMLElement;
         this.wrapperElement = this.leftMenuElement.querySelector('.wrapper') as HTMLElement;
@@ -66,13 +65,13 @@ class LeftMenuComponent extends Component {
     }
 
     public onScrollListener = (): void => {
-        if (!mediaService.mediaWidthNarrow() && this.bodyContainerElement.style.display !== 'none') {
+        if (mediaService.mediaWidthWide() && this.coreElement.style.display !== 'none') {
             this.updateLeftMenu();
         }
     }
 
     private onResizeListener = (): void => {
-        if (this.bodyContainerElement.style.display !== 'none') {
+        if (this.coreElement.style.display !== 'none') {
             this.updateLeftMenu();
         }
     }
@@ -229,7 +228,7 @@ class LeftMenuComponent extends Component {
         let top = this.leftMenuElement.getBoundingClientRect().top;
         let fixed = this.wrapperElement.classList.contains('fixed');
 
-        if (top < this.menuGap && !mediaService.mediaWidthNarrow()) {
+        if (top < this.menuGap && mediaService.mediaWidthWide()) {
             this.setTocHeight(true);
 
             if (!fixed) {
@@ -243,7 +242,7 @@ class LeftMenuComponent extends Component {
                 this.wrapperElement.classList.add('fixed');
             }
         } else {
-            if (!mediaService.mediaWidthNarrow()) {
+            if (mediaService.mediaWidthWide()) {
                 this.setTocHeight(false);
             } else {
                 this.tocElement.style.height = 'auto';
