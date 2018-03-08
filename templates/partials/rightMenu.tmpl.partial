@@ -1,5 +1,14 @@
 {{^mimo_disableRightMenu}}
 <div id="right-menu">
+    <div id="right-menu-dropdown-header">
+        <span id="right-menu-dropdown-text">
+        </span>
+        <button id="right-menu-dropdown-button">
+            <svg>
+                <use xlink:href="#material-design-drop-down" />
+            </svg>
+        </button>
+    </div>
     <!-- Wrapper is required for adjacent article to maintain its width when filter and toc are fixed -->
     <div class="wrapper">
         {{^mimo_disableEditArticle}}

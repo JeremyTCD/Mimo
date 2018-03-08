@@ -7,6 +7,9 @@ main {
     flex-direction: column;
 
     @media #{$media-narrow} {
+        padding-left: 23px;
+        padding-right: 23px;
+
         margin-top: 59px;
 
         &.breadcrumbs-disabled {

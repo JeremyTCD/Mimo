@@ -8,6 +8,10 @@
         flex-direction: column;
     }
 
+    @media #{$media-narrow}{
+        padding: 0;
+    }
+
     @media #{$media-wide} {
         margin-top: 59px;
 

@@ -23,14 +23,14 @@ $horizontal-bar-ease-timing: 0.6s;
         height: auto !important;
     }
 
-    .wrapper {
+    > .wrapper {
         width: inherit;
         flex-direction: column;
 
         @media #{$media-medium}, #{$media-narrow} {
             flex-shrink: 0;
             flex-grow: 1;
-            background-color: $color-section-header-background;
+            background-color: $color-section-body-background;
             padding: 23px;
             padding-bottom: 8px;
         }

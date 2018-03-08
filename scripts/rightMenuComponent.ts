@@ -3,6 +3,7 @@ import listItemService from './listItemService';
 import Component from './component';
 import debounceService from './debounceService';
 import ResizeObserver from 'resize-observer-polyfill';
+import transitionsService from './transitionsService';
 
 class RightMenuComponent extends Component {
     rightMenuElement: HTMLElement = document.getElementById('right-menu');
@@ -22,6 +23,9 @@ class RightMenuComponent extends Component {
     shareArticleSpanElement: HTMLElement;
     shareArticleLinksWrapperElement: HTMLElement;
     bodyResizeObserver: ResizeObserver;
+    dropdownButton: HTMLElement;
+    dropdownText: HTMLElement;
+    dropdownHeader: HTMLElement;
 
     // True if there is no outline, can be because article has no headers to generate an outline from or if outline is disabled
     outlineEmpty: boolean;
@@ -44,6 +48,9 @@ class RightMenuComponent extends Component {
     }
 
     protected setupOnDomContentLoaded(): void {
+        this.dropdownHeader = document.getElementById('right-menu-dropdown-header');
+        this.dropdownText = document.getElementById('right-menu-dropdown-text');
+        this.dropdownButton = document.getElementById('right-menu-dropdown-button');
         this.wrapperElement = this.rightMenuElement.querySelector('.wrapper') as HTMLElement;
         this.coreElement = document.getElementById('core') as HTMLElement;
         this.articleHeadingElements = document.querySelectorAll('main > article h1:not(.exclude-from-outline),h2:not(.exclude-from-outline)');
@@ -82,6 +89,16 @@ class RightMenuComponent extends Component {
             this.shareArticleSpanElement.addEventListener('mouseenter', this.shareArticleSpanOnEnter);
             this.shareArticleElement.addEventListener('mouseleave', this.shareArticleOnLeave);
         }
+
+        this.dropdownButton.addEventListener('click', (event: Event) => {
+            transitionsService.toggleHeightWithTransition(this.wrapperElement, this.dropdownButton);
+        });
+
+        window.addEventListener('resize', (event: Event) => {
+            if (!mediaService.mediaWidthNarrow()) {
+                transitionsService.contractHeightWithoutTransition(this.wrapperElement, this.dropdownButton);
+            }
+        });
     }
 
     private onResizeListener = (): void => {
@@ -94,14 +111,14 @@ class RightMenuComponent extends Component {
         if (this.coreElement.style.display !== 'none') {
             let activeHeadingIndex = this.getActiveOutlineIndex();
 
-            if (activeHeadingIndex > -1) {
-                // Debounce history update to avoid flashing in url bar and perf overhead
-                window.clearTimeout(this.updateHistoryTimeout);
-                this.updateHistoryTimeout = window.setTimeout(this.updateHistory, 200, activeHeadingIndex);
-            }
+            // Debounce history update to avoid flashing in url bar and perf overhead
+            window.clearTimeout(this.updateHistoryTimeout);
+            this.updateHistoryTimeout = window.setTimeout(this.updateHistory, 200, activeHeadingIndex);
 
             if (!mediaService.mediaWidthNarrow()) {
                 this.updateOutline(activeHeadingIndex);
+            } else {
+                this.updateDropdownHeader(activeHeadingIndex);
             }
         }
     }
@@ -121,11 +138,33 @@ class RightMenuComponent extends Component {
 
         let activeHeadingIndex = this.getActiveOutlineIndex();
         this.updateOutline(activeHeadingIndex);
+        this.updateDropdownHeader(activeHeadingIndex);
+    }
+
+    public updateDropdownHeader(activeHeadingIndex: number): void {
+        let fixed = this.dropdownHeader.classList.contains('fixed');
+        let fix = this.rightMenuElement.getBoundingClientRect().top < 0
+
+        // If top is above top of screen, add class fixed else, remove class fixed
+        if (!fixed && fix) {
+            this.dropdownHeader.classList.add('fixed');
+        } else if (fixed && !fix) {
+            this.dropdownHeader.classList.remove('fixed');
+        }
+
+        // Using active heading index, retrieve text and display, use ellipses if too long
+        // https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow
+        this.dropdownText.innerText = activeHeadingIndex > -1 ? (this.articleHeadingElements[activeHeadingIndex] as HTMLElement).innerText : 'Table of Contents';
     }
 
     private updateHistory = (activeHeadingIndex: number): void => {
-        let activeHeadingElement = this.articleHeadingElements[activeHeadingIndex] as HTMLElement;
-        history.replaceState(null, null, `#${activeHeadingElement.getAttribute('id')}`);
+        let id = null;
+
+        if (activeHeadingIndex > -1) {
+            id = (this.articleHeadingElements[activeHeadingIndex] as HTMLElement).getAttribute('id');
+        }
+
+        history.replaceState(null, null, id ? `#${id}` : location.pathname);
     }
 
     private updateOutline(activeHeadingIndex: number): void {
@@ -170,7 +209,7 @@ class RightMenuComponent extends Component {
                 this.outlineHeightWithScrollPX = `${this.outlineLastAnchorElement.getBoundingClientRect().bottom - this.indicatorElement.getBoundingClientRect().top}px`;
             }
 
-            let activeOutlineAnchorData: OutlineAnchorData = this.getActiveOutlineAnchorData(activeHeadingIndex, outlineScrollable);
+            let activeOutlineAnchorData: OutlineAnchorData = this.getActiveOutlineAnchorData(activeHeadingIndex > -1 ? activeHeadingIndex : 0, outlineScrollable);
             this.updateOutlineIndicator(activeOutlineAnchorData, outlineScrollable);
 
             if (fix && !fixed) {
@@ -218,7 +257,7 @@ class RightMenuComponent extends Component {
 
     private getActiveOutlineIndex(): number {
         let activeAnchorIndex = -1;
-        let minDistance = -1;
+        let minDistance = window.scrollY;
 
         // Search could be made more efficient, but would be a micro optimization
         for (let i = 0; i < this.articleHeadingElements.length; i++) {

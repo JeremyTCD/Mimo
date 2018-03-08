@@ -4,14 +4,58 @@ $bar-margin-right: 9px;
 $outline-indicator-width: 2px;
 
 #right-menu {
+    @include pure-flex;
     font-size: $font-size-2;
     // Default flex-shrink is 1. When toc contents become fixed, they are taken out of the document flow.
     // Toc's adjacent article element expands fully width-wise. Flexbox thinks main's contents are overflowing width-wise
     // and distributes negative space between toc and article 1:1. To avoid this, flex-shrink must be set to 0.
     flex-shrink: 0;
 
+    @media #{$media-narrow} {
+        flex-direction: column;
+        height: 37px;
+    }
+
+    #right-menu-dropdown-header {
+        display: none;
+
+        @media #{$media-narrow} {
+            padding-left: 23px;
+            padding-right: 23px;
+            height: 37px;
+            width: 100%;
+            display: flex;
+            background-color: $color-section-header-background;
+            align-items: center;
+        }
+
+        #right-menu-dropdown-button {
+            align-items: center;
+            padding-left: 20px;
+            margin-left: auto;
+
+            svg {
+                height: 24px;
+                width: 24px;
+                fill: $color-primary-link;
+                transform: rotate(0);
+                transition: transform 0.4s $ease-out-quad;
+            }
+
+            &.expanded {
+                svg {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        &.fixed{
+            position: fixed;
+            top: 0;
+        }
+    }
+
     @media #{$media-medium}, #{$media-wide} {
-        @include pure-flex;
         overflow-y: hidden;
         margin-top: -4px;
         width: $side-menu-width;
@@ -20,108 +64,107 @@ $outline-indicator-width: 2px;
     }
 
     > .wrapper {
+        @media #{$media-narrow} {
+            height: 0px;
+            overflow: hidden;
+        }
+
         width: inherit;
         align-items: flex-start; // Scroll for outline should be adjacent to headers links
         flex-direction: column;
+        // Edit article, share article etc
+        > div {
+            &.right-menu-link {
+                align-items: center;
+
+                > svg {
+                    flex-shrink: 0;
+                    height: 18px;
+                    width: 18px;
+                    fill: $color-primary-icon;
+                    margin-right: 6px;
+                }
+
+                &#edit-article {
+                    a {
+                        flex-shrink: 0;
+                        @include animated-underline($color-primary-link, $animated-underline-13px-ypos, $background-color: $color-primary);
+                    }
+                }
+
+                &#share-article {
+                    height: 20px;
+
+                    span {
+                        flex-shrink: 0;
+                        color: $color-primary-link;
+                        cursor: default;
+                    }
+
+                    #share-article-links {
+                        overflow: hidden;
+                        margin-left: 9px;
+
+                        .wrapper {
+                            transition: transform 0.4s $ease-out-quad-delayed;
+                            transform: translateX(-100%);
+                            background-color: $color-secondary;
+                            padding: 11px;
+                            padding-top: 6px;
+                            padding-bottom: 6px;
+
+                            &.active {
+                                transform: translateX(0%);
+                            }
+
+                            a {
+                                transition: transform 0.3s $ease-out-quad-delayed;
+
+                                &:nth-child(n+2) {
+                                    margin-left: 10px;
+                                }
+
+                                &:hover {
+                                    transform: scale(1.3333);
+                                }
+                            }
+
+                            svg {
+                                fill: $color-secondary-text;
+                                height: 24px;
+                                width: 24px;
+                            }
+                        }
+                    }
+                }
+            }
+            // Element above outline
+            &:nth-last-child(2) {
+                margin-bottom: 23px;
+            }
+
+            &:nth-last-child(n+3) {
+                margin-bottom: 13px;
+            }
+        }
 
         @media #{$media-medium}, #{$media-wide} {
             &.fixed {
                 position: fixed;
                 top: 16px;
             }
-            // Edit article, share article etc
-            > div {
-                &.right-menu-link {
-                    align-items: center;
-
-                    > svg {
-                        flex-shrink: 0;
-                        height: 18px;
-                        width: 18px;
-                        fill: $color-primary-icon;
-                        margin-right: 6px;
-                    }
-
-                    &#edit-article {
-                        a {
-                            flex-shrink: 0;
-                            @include animated-underline($color-primary-link, $animated-underline-13px-ypos, $background-color: $color-primary);
-                        }
-                    }
-
-                    &#share-article {
-                        height: 20px;
-
-                        span {
-                            flex-shrink: 0;
-                            color: $color-primary-link;
-                            cursor: default;
-                        }
-
-                        #share-article-links {
-                            overflow: hidden;
-                            margin-left: 9px;
-
-                            .wrapper {
-                                transition: transform 0.4s $ease-out-quad-delayed;
-                                transform: translateX(-100%);
-                                background-color: $color-secondary;
-                                padding: 11px;
-                                padding-top: 6px;
-                                padding-bottom: 6px;
-
-                                &.active {
-                                    transform: translateX(0%);
-                                }
-
-                                a {
-                                    transition: transform 0.3s $ease-out-quad-delayed;
-
-                                    &:nth-child(n+2) {
-                                        margin-left: 10px;
-                                    }
-
-                                    &:hover {
-                                        transform: scale(1.3333);
-                                    }
-                                }
-
-                                svg {
-                                    fill: $color-secondary-text;
-                                    height: 24px;
-                                    width: 24px;
-                                }
-                            }
-                        }
-                    }
-                }
-                // Element above outline
-                &:nth-last-child(2) {
-                    margin-bottom: 23px;
-                }
-
-                &:nth-last-child(n+3) {
-                    margin-bottom: 13px;
-                }
-            }
         }
 
         > .wrapper {
-            @media #{$media-medium}, #{$media-wide} {
-                flex-direction: column;
-                align-items: stretch;
-                align-self: stretch;
-            }
+            flex-direction: column;
+            align-items: stretch;
+            align-self: stretch;
 
             #outline-title {
                 font-size: $font-size-2;
                 font-weight: 600;
                 display: block;
                 margin-bottom: 14px;
-
-                @media #{$media-narrow} {
-                    display: none;
-                }
 
                 span {
                     @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
@@ -130,9 +173,10 @@ $outline-indicator-width: 2px;
 
             #outline {
                 @media #{$media-medium}, #{$media-wide} {
-                    overflow-y: auto;
                     margin-bottom: 23px;
                 }
+
+                overflow-y: auto;
 
                 #outline-indicator {
                     flex-shrink: 0;
@@ -141,10 +185,6 @@ $outline-indicator-width: 2px;
                     background-color: $color-section-header-background;
 
                     span {
-                        @media #{$media-narrow} {
-                            display: none;
-                        }
-
                         transition: margin-top 0.26s $ease-out-quad, height 0.26s $ease-out-quad;
                         width: $outline-indicator-width;
                         background-color: $color-primary-icon;
@@ -167,10 +207,7 @@ $outline-indicator-width: 2px;
                     li {
                         flex-direction: column;
                         align-items: flex-start;
-
-                        @media #{$media-medium}, #{$media-wide} {
-                            flex-shrink: 0;
-                        }
+                        flex-shrink: 0;
 
                         a {
                             user-select: none;
