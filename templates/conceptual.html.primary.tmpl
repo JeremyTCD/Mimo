@@ -9,16 +9,18 @@
 	  {{>partials/breadcrumbs}}
       {{>partials/searchResults}}
 
-	  <div class="container hide-on-search {{#mimo_disableBreadcrumbs}}breadcrumbs-disabled{{/mimo_disableBreadcrumbs}}">
+	  <div id="core" class="container hide-on-search {{#mimo_disableBreadcrumbs}}breadcrumbs-disabled{{/mimo_disableBreadcrumbs}}">
 			{{>partials/leftMenu}}
+            
+            <div class="wrapper{{#mimo_disableBreadcrumbs}} breadcrumbs-disabled{{/mimo_disableBreadcrumbs}}">
+			    <main role="main" class="{{#mimo_disableBreadcrumbs}}breadcrumbs-disabled{{/mimo_disableBreadcrumbs}}">
+				    {{>partials/article}}
+				    {{>partials/sortedArticleList}}
+                    {{>partials/comments}}
 
-			<main role="main" class="{{#mimo_disableBreadcrumbs}}breadcrumbs-disabled{{/mimo_disableBreadcrumbs}}">
-				{{>partials/article}}
-				{{>partials/sortedArticleList}}
-                {{>partials/comments}}
-
-			</main>
-			{{>partials/rightMenu}}
+			    </main>
+			    {{>partials/rightMenu}}
+            </div>
 
 	  </div>
       {{>partials/footer}}
