@@ -1,12 +1,12 @@
 ﻿abstract class Component {
-    public onDomContentLoaded(): void {
+    public onDomContentLoaded = () => {
         if (this.validDomElementExists()) {
             this.setupOnDomContentLoaded();
             this.registerListeners();
         }
     }
 
-    public onLoad(): void {
+    public onLoad = () => {
         if (this.validDomElementExists()) {
             this.setupOnLoad();
         }
