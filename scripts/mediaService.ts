@@ -9,9 +9,9 @@
     }
 
     private resizeListener = () => {
-        if (window.matchMedia('(max-width: 768px)').matches) {
+        if (window.matchMedia('(max-width: 1023px)').matches) {
             this.width = Size.narrow;
-        } else if (window.matchMedia('(min-width: 1280px)').matches) {
+        } else if (window.matchMedia('(min-width: 1366px)').matches) {
             this.width = Size.wide;
         } else {
             this.width = Size.medium;
