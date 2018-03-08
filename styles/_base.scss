@@ -21,6 +21,9 @@ body {
     // and the page is scrolled down such that the url bar transitions out, and finally the drop down is collapsed, there will be empty whitespace at the bottom of
     // the page.
     min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
 }
 
 html, body {
@@ -47,32 +50,6 @@ html {
     // see footerComponent
     height: 100vh;
     min-width: 320px;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-
-    > .container {
-        display: flex;
-        align-self: center;
-
-        @media #{$media-narrow} {
-            flex-direction: column;
-        }
-        // When screen is narrow, left menu needs to be just beneath breadcrumbs
-        @media #{$media-medium}, #{$media-wide} {
-            padding-top: 59px;
-
-            &.breadcrumbs-disabled {
-                // When breadcrumbs are disabled, header height remains the same, so padding top must be less
-                padding-top: 38px;
-            }
-            // See leftMenuComponent UpdateLeftMenu - If left and right menu are the same height as the article,
-            // the min-height fix does not work properly when resizing.
-            align-items: flex-start;
-        }
-    }
 }
 
 button, a {
