@@ -6,7 +6,7 @@ import debounceService from './debounceService';
 class RightMenuComponent extends Component {
     rightMenuElement: HTMLElement = document.getElementById('right-menu');
     wrapperElement: HTMLElement;
-    mainContainer: HTMLElement;
+    coreElement: HTMLElement;
     articleHeadingElements: NodeList;
     outlineElement: HTMLElement;
     outlineWrapperElement: HTMLElement;
@@ -43,7 +43,7 @@ class RightMenuComponent extends Component {
 
     protected setupOnDomContentLoaded(): void {
         this.wrapperElement = this.rightMenuElement.querySelector('.wrapper') as HTMLElement;
-        this.mainContainer = document.querySelector('body > .container') as HTMLElement;
+        this.coreElement = document.getElementById('core') as HTMLElement;
         this.articleHeadingElements = document.querySelectorAll('main > article h1:not(.exclude-from-outline),h2:not(.exclude-from-outline)');
         this.outlineWrapperElement = document.querySelector('#right-menu > .wrapper > .wrapper') as HTMLElement;
         this.outlineElement = document.getElementById('outline') as HTMLElement;
@@ -80,13 +80,13 @@ class RightMenuComponent extends Component {
     }
 
     private onResizeListener = (): void => {
-        if (this.mainContainer.style.display !== 'none') {
+        if (this.coreElement.style.display !== 'none') {
             this.updateRightMenu();
         }
     }
 
     public onScrollListener = (): void => {
-        if (this.mainContainer.style.display !== 'none') {
+        if (this.coreElement.style.display !== 'none') {
             let activeHeadingIndex = this.getActiveOutlineIndex();
 
             if (activeHeadingIndex > -1) {
@@ -95,7 +95,7 @@ class RightMenuComponent extends Component {
                 this.updateHistoryTimeout = window.setTimeout(this.updateHistory, 200, activeHeadingIndex);
             }
 
-            if (mediaService.mediaWidthWide()) {
+            if (!mediaService.mediaWidthNarrow()) {
                 this.updateOutline(activeHeadingIndex);
             }
         }
@@ -131,7 +131,7 @@ class RightMenuComponent extends Component {
 
         let fixed = this.wrapperElement.classList.contains('fixed');
 
-        if (mediaService.mediaWidthWide()) {
+        if (!mediaService.mediaWidthNarrow()) {
             if (!this.outlineHeightWithoutScroll) {
                 // The first time media width is wide, initialize outline constants. At this point outline has no fixed height, so its height is accurate.
                 // Cache tops and heights of outline anchors relative to outline

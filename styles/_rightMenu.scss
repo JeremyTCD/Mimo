@@ -9,9 +9,8 @@ $outline-indicator-width: 2px;
     // Toc's adjacent article element expands fully width-wise. Flexbox thinks main's contents are overflowing width-wise
     // and distributes negative space between toc and article 1:1. To avoid this, flex-shrink must be set to 0.
     flex-shrink: 0;
-    display: none;
 
-    @media #{$media-wide} {
+    @media #{$media-medium}, #{$media-wide} {
         @include pure-flex;
         overflow-y: hidden;
         margin-top: -4px;
@@ -25,7 +24,7 @@ $outline-indicator-width: 2px;
         align-items: flex-start; // Scroll for outline should be adjacent to headers links
         flex-direction: column;
 
-        @media #{$media-wide} {
+        @media #{$media-medium}, #{$media-wide} {
             &.fixed {
                 position: fixed;
                 top: 16px;
@@ -108,7 +107,7 @@ $outline-indicator-width: 2px;
         }
 
         > .wrapper {
-            @media #{$media-wide} {
+            @media #{$media-medium}, #{$media-wide} {
                 flex-direction: column;
                 align-items: stretch;
                 align-self: stretch;
@@ -120,7 +119,7 @@ $outline-indicator-width: 2px;
                 display: block;
                 margin-bottom: 14px;
 
-                @media #{$media-narrow}, #{$media-medium} {
+                @media #{$media-narrow} {
                     display: none;
                 }
 
@@ -130,7 +129,7 @@ $outline-indicator-width: 2px;
             }
 
             #outline {
-                @media #{$media-wide} {
+                @media #{$media-medium}, #{$media-wide} {
                     overflow-y: auto;
                     margin-bottom: 23px;
                 }
@@ -142,7 +141,7 @@ $outline-indicator-width: 2px;
                     background-color: $color-section-header-background;
 
                     span {
-                        @media #{$media-narrow}, #{$media-medium} {
+                        @media #{$media-narrow} {
                             display: none;
                         }
 
@@ -169,7 +168,7 @@ $outline-indicator-width: 2px;
                         flex-direction: column;
                         align-items: flex-start;
 
-                        @media #{$media-wide} {
+                        @media #{$media-medium}, #{$media-wide} {
                             flex-shrink: 0;
                         }
 
