@@ -2,6 +2,7 @@
 import listItemService from './listItemService';
 import Component from './component';
 import debounceService from './debounceService';
+import ResizeObserver from 'resize-observer-polyfill';
 
 class RightMenuComponent extends Component {
     rightMenuElement: HTMLElement = document.getElementById('right-menu');
@@ -20,6 +21,7 @@ class RightMenuComponent extends Component {
     shareArticleElement: HTMLElement;
     shareArticleSpanElement: HTMLElement;
     shareArticleLinksWrapperElement: HTMLElement;
+    bodyResizeObserver: ResizeObserver;
 
     // True if there is no outline, can be because article has no headers to generate an outline from or if outline is disabled
     outlineEmpty: boolean;
@@ -66,12 +68,15 @@ class RightMenuComponent extends Component {
     }
 
     protected setupOnLoad(): void {
-        this.updateRightMenu();
+        // Makes initial call to updateRightMenu (initial call is defined in the spec) - https://github.com/WICG/ResizeObserver/issues/8
+        this.bodyResizeObserver.observe(document.body);
     }
 
     protected registerListeners(): void {
         window.addEventListener('scroll', this.onScrollListener);
         window.addEventListener('resize', this.onResizeListener);
+
+        this.bodyResizeObserver = new ResizeObserver(this.onResizeListener);
 
         if (this.shareArticleElement) {
             this.shareArticleSpanElement.addEventListener('mouseenter', this.shareArticleSpanOnEnter);
@@ -115,7 +120,6 @@ class RightMenuComponent extends Component {
         }
 
         let activeHeadingIndex = this.getActiveOutlineIndex();
-        // Must be called after dom location is set
         this.updateOutline(activeHeadingIndex);
     }
 
@@ -153,7 +157,7 @@ class RightMenuComponent extends Component {
             let outlineHeight: number = this.getOutlineHeight(fix);
             let outlineScrollable = this.outlineHeightWithoutScroll > outlineHeight;
 
-            this.setOutlineHeight(outlineHeight, outlineScrollable);
+            this.setOutlineStyles(outlineHeight, outlineScrollable);
 
             if (outlineScrollable && !this.outlineAnchorDataWithScroll) {
                 // The first time outline is scrollable, after setting height, initialize constants.
@@ -258,10 +262,10 @@ class RightMenuComponent extends Component {
             - this.bottomMenuGap
             - (fixed ? this.fixedTopBottom : this.rightMenuElement.getBoundingClientRect().top + this.topHeight);
 
-        return outlineHeight;
+        return outlineHeight < 0 ? 0 : outlineHeight;
     }
 
-    private setOutlineHeight(outlineHeight: number, outlineScrollable: boolean): void {
+    private setOutlineStyles(outlineHeight: number, outlineScrollable: boolean): void {
         // Tried setting bottom, max-height, both don't work on edge - scroll bar doesn't go away even when height is greater than 
         // menu height. This works.
         this.outlineElement.style.height = `${outlineHeight}px`;
