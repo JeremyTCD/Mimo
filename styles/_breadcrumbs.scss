@@ -7,10 +7,6 @@
     justify-content: center;
     min-height: 37px;
 
-    @media #{$media-narrow} {
-        z-index: 2;
-    }
-
     .container {
         color: $color-secondary-text;
 
