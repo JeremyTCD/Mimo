@@ -5,8 +5,15 @@
     width: 100%;
     flex-grow: 1;
 
-    padding-left: 23px;
-    padding-right: 23px;
+    @media #{$media-narrow} {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    @media #{$media-medium} {
+        padding-left: 23px;
+        padding-right: 23px;
+    }
 
     @media #{$media-wide} {
         padding-left: 30px;
@@ -21,7 +28,6 @@ body {
     // and the page is scrolled down such that the url bar transitions out, and finally the drop down is collapsed, there will be empty whitespace at the bottom of
     // the page.
     min-height: 100vh;
-
     display: flex;
     flex-direction: column;
 }

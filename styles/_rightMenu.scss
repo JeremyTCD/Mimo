@@ -20,8 +20,8 @@ $outline-indicator-width: 2px;
         display: none;
 
         @media #{$media-narrow} {
-            padding-left: 23px;
-            padding-right: 23px;
+            padding-left: 14px;
+            padding-right: 14px;
             height: 37px;
             width: 100%;
             display: flex;
