@@ -20,19 +20,15 @@
 
         ul {
             list-style: none;
-            flex-wrap: wrap;
             padding-top: 8px;
             padding-bottom: 8px;
-
-            svg {
-                display: none;
-            }
 
             li {
                 align-items: center;
 
                 &:nth-last-child(n+2) {
                     &::after {
+                        flex-shrink: 0;
                         content: "";
                         height: 14px;
                         width: 2px;
@@ -43,13 +39,18 @@
                     }
                 }
 
+                > span, a {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
                 // Non links
                 > span {
+                    display: inline;
                     &.topic {
                         opacity: $opacity-3;
                     }
-                    // This is so animated-underline works for multiline anchors
-                    display: block;
                 }
                 // Links
                 a {
@@ -67,8 +68,11 @@
 
             padding-left: 20px;
             margin-left: auto;
+            flex-shrink: 0;
+            margin-right: -7px;
 
             svg {
+                flex-shrink: 0;
                 height: 24px;
                 width: 24px;
                 fill: $color-secondary-text;
