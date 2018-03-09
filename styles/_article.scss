@@ -14,7 +14,8 @@ article {
         & + .content {
             > .heading-1 {
                 &:first-child {
-                    margin-top: 35px;
+                    padding-top: 35px;
+                    margin-top: 0;
                 }
             }
 
@@ -42,7 +43,8 @@ article {
         & + .content {
             > .heading-1 {
                 &:first-child {
-                    margin-top: 35px;
+                    padding-top: 35px;
+                    margin-top: 0;
                 }
             }
 
@@ -218,6 +220,7 @@ article {
         $paragraphLikeElements: p, ul, ol, h4, h5, h6;
         $headingElements: heading-1, heading-2, h3;
 
+        // Note: heading-1 and heading-2 must have padding top instead of margin top for determining the active section (see rightMenuComponent.getActiveOutlineIndex).
         .heading-1 {
             @each $element in $paragraphLikeElements {
                 & + #{$element} {
@@ -226,7 +229,8 @@ article {
             }
 
             & + .#{nth($headingElements, 2)} {
-                margin-top: 36px;
+                padding-top: 36px;
+                margin-top: 0;
             }
 
             & + * {
@@ -265,11 +269,13 @@ article {
         @each $element in $paragraphLikeElements {
             #{$element} {
                 & + .#{nth($headingElements, 1)} {
-                    margin-top: 41px;
+                    padding-top: 41px;
+                    margin-top: 0;
                 }
 
                 & + .#{nth($headingElements, 2)} {
-                    margin-top: 43px;
+                    padding-top: 43px;
+                    margin-top: 0;
                 }
 
                 & + #{nth($headingElements, 3)} {
@@ -290,11 +296,13 @@ article {
 
         > * {
             & + .#{nth($headingElements, 1)} {
-                margin-top: 50px;
+                padding-top: 50px;
+                margin-top: 0;
             }
 
             & + .#{nth($headingElements, 2)} {
-                margin-top: 53px;
+                padding-top: 53px;
+                margin-top: 0;
             }
 
             & + #{nth($headingElements, 3)} {

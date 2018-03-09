@@ -9,6 +9,7 @@ class RightMenuComponent extends Component {
     rightMenuElement: HTMLElement = document.getElementById('right-menu');
     wrapperElement: HTMLElement;
     coreElement: HTMLElement;
+    articleHeadingWrapperElements: NodeList;
     articleHeadingElements: NodeList;
     outlineElement: HTMLElement;
     outlineWrapperElement: HTMLElement;
@@ -57,7 +58,8 @@ class RightMenuComponent extends Component {
         this.dropdownButton = document.getElementById('right-menu-dropdown-button');
         this.wrapperElement = this.rightMenuElement.querySelector('.wrapper') as HTMLElement;
         this.coreElement = document.getElementById('core') as HTMLElement;
-        this.articleHeadingElements = document.querySelectorAll('main > article h1:not(.exclude-from-outline),h2:not(.exclude-from-outline)');
+        this.articleHeadingWrapperElements = document.querySelectorAll('main > article .heading-1, main > article .heading-2');
+        this.articleHeadingElements = document.querySelectorAll('main > article .heading-1 h1, main > article .heading-2 h2');
         this.outlineWrapperElement = document.querySelector('#right-menu > .wrapper > .wrapper') as HTMLElement;
         this.outlineElement = document.getElementById('outline') as HTMLElement;
         this.indicatorElement = document.getElementById('outline-indicator') as HTMLElement;
@@ -294,13 +296,18 @@ class RightMenuComponent extends Component {
 
     private getActiveOutlineIndex(): number {
         let activeAnchorIndex = -1;
-        let minDistance = window.scrollY;
+        let minDistance = -1;
 
-        // Search could be made more efficient, but would be a micro optimization
-        for (let i = 0; i < this.articleHeadingElements.length; i++) {
-            let headingElement = this.articleHeadingElements[i] as HTMLHeadingElement;
-            // Can't be cached since article may have elements that expand/collapse
-            let elementDistanceFromTop = Math.abs(headingElement.getBoundingClientRect().top);
+        // TODO: try binary search instead (profile, might not be worth the overhead since articles typically don't have many headings)
+        for (let i = 0; i < this.articleHeadingWrapperElements.length; i++) {
+            let headingElement = this.articleHeadingWrapperElements[i] as HTMLHeadingElement;
+            // When screen is narrow, fixed header occupies 37px at top of screen
+            let elementDistanceFromTop = -headingElement.getBoundingClientRect().top + (mediaService.mediaWidthNarrow() ? 37 : 0);
+
+            // Only consider heading wrappers that are above the top of the screen
+            if (elementDistanceFromTop < 0) {
+                return activeAnchorIndex;
+            }
 
             if (minDistance === -1 || elementDistanceFromTop < minDistance) {
                 minDistance = elementDistanceFromTop;
