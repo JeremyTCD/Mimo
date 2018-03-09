@@ -1,8 +1,16 @@
 {{^mimo_disableRightMenu}}
 <div id="right-menu">
     <div id="right-menu-dropdown-header">
-        <span id="right-menu-dropdown-text">
-        </span>
+        <ul>
+            <li>
+                <span id="right-menu-dropdown-text-h1">
+                </span>
+            </li>
+            <li>
+                <span id="right-menu-dropdown-text-h2">
+                </span>
+            </li>
+        </ul>
         <button id="right-menu-dropdown-button">
             <svg>
                 <use xlink:href="#material-design-drop-down" />

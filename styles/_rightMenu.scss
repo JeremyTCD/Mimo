@@ -29,12 +29,39 @@ $outline-indicator-width: 2px;
             align-items: center;
         }
 
+        li {
+            align-items: center;
+
+            span {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: inline;
+            }
+
+            &:nth-child(n+2) {
+                &::before {
+                    flex-shrink: 0;
+                    content: "";
+                    height: 14px;
+                    width: 2px;
+                    background-color: $color-primary-text;
+                    margin-right: 8px;
+                    margin-left: 8px;
+                    opacity: 0.35;
+                }
+            }
+        }
+
         #right-menu-dropdown-button {
             align-items: center;
             padding-left: 20px;
             margin-left: auto;
+            flex-shrink: 0;
+            margin-right: -7px;
 
             svg {
+                flex-shrink: 0;
                 height: 24px;
                 width: 24px;
                 fill: $color-primary-link;
@@ -49,7 +76,7 @@ $outline-indicator-width: 2px;
             }
         }
 
-        &.fixed{
+        &.fixed {
             position: fixed;
             top: 0;
         }

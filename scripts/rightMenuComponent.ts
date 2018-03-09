@@ -24,7 +24,8 @@ class RightMenuComponent extends Component {
     shareArticleLinksWrapperElement: HTMLElement;
     bodyResizeObserver: ResizeObserver;
     dropdownButton: HTMLElement;
-    dropdownText: HTMLElement;
+    dropdownTextH1: HTMLElement;
+    dropdownTextH2: HTMLElement;
     dropdownHeader: HTMLElement;
 
     // True if there is no outline, can be because article has no headers to generate an outline from or if outline is disabled
@@ -36,6 +37,8 @@ class RightMenuComponent extends Component {
     outlineHeightWithScrollPX: string;
     topHeight: number;
     fixedTopBottom: number;
+
+    dropdownHeaderData: DropdownHeaderData[];
 
     // Arbitrary gaps
     topMenuGap: number = 16;
@@ -49,7 +52,8 @@ class RightMenuComponent extends Component {
 
     protected setupOnDomContentLoaded(): void {
         this.dropdownHeader = document.getElementById('right-menu-dropdown-header');
-        this.dropdownText = document.getElementById('right-menu-dropdown-text');
+        this.dropdownTextH1 = document.getElementById('right-menu-dropdown-text-h1');
+        this.dropdownTextH2 = document.getElementById('right-menu-dropdown-text-h2');
         this.dropdownButton = document.getElementById('right-menu-dropdown-button');
         this.wrapperElement = this.rightMenuElement.querySelector('.wrapper') as HTMLElement;
         this.coreElement = document.getElementById('core') as HTMLElement;
@@ -72,6 +76,8 @@ class RightMenuComponent extends Component {
 
         let outlineAnchorElements = this.outlineElement.querySelectorAll('a');
         this.outlineLastAnchorElement = outlineAnchorElements[outlineAnchorElements.length - 1];
+
+        this.setupDropdownHeader(this.articleHeadingElements);
     }
 
     protected setupOnLoad(): void {
@@ -152,9 +158,40 @@ class RightMenuComponent extends Component {
             this.dropdownHeader.classList.remove('fixed');
         }
 
-        // Using active heading index, retrieve text and display, use ellipses if too long
-        // https://developer.mozilla.org/en-US/docs/Web/CSS/text-overflow
-        this.dropdownText.innerText = activeHeadingIndex > -1 ? (this.articleHeadingElements[activeHeadingIndex] as HTMLElement).innerText : 'Table of Contents';
+        if (activeHeadingIndex === -1) {
+            this.dropdownTextH1.innerText = 'Table of Contents';
+            this.dropdownTextH2.parentElement.style.display = 'none';
+            return;
+        }
+
+        let headerData: DropdownHeaderData = this.dropdownHeaderData[activeHeadingIndex];
+
+        this.dropdownTextH1.innerText = headerData.h1Text;
+
+        if (headerData.h2Text) {
+            this.dropdownTextH2.innerText = headerData.h2Text;
+            this.dropdownTextH2.parentElement.style.display = 'flex';
+        } else {
+            this.dropdownTextH2.parentElement.style.display = 'none';
+        }
+    }
+
+    public setupDropdownHeader(articleHeadingElements: NodeList): void {
+        let currentH1Text: string;
+
+        this.dropdownHeaderData = [];
+
+        for (let i = 0; i < articleHeadingElements.length; i++) {
+            let articleHeadingElement = articleHeadingElements[i] as HTMLElement;
+
+            if (articleHeadingElement.nodeName === "H1") {
+                currentH1Text = articleHeadingElement.innerText;
+                this.dropdownHeaderData.push({ h1Text: currentH1Text, h2Text: null });
+            } else {
+                // h2
+                this.dropdownHeaderData.push({ h1Text: currentH1Text, h2Text: articleHeadingElement.innerText });
+            }
+        }
     }
 
     private updateHistory = (activeHeadingIndex: number): void => {
@@ -332,6 +369,11 @@ class RightMenuComponent extends Component {
 
         return result;
     }
+}
+
+interface DropdownHeaderData {
+    h1Text: string;
+    h2Text: string;
 }
 
 interface OutlineAnchorData {
