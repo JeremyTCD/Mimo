@@ -1,5 +1,5 @@
 ﻿class TransitionsService {
-    public toggleHeightWithTransition (toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
+    public toggleHeightWithTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
         toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
 
         if (toggleClassElement.classList.contains('expanded')) {
@@ -23,7 +23,7 @@
         toggleClassElement.classList.toggle('expanded');
     }
 
-    public contractHeightWithoutTransition (toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
+    public contractHeightWithoutTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
         if (toggleClassElement.classList.contains('expanded')) {
             toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
             this.autoHeightToFixedHeightWithoutTransition(toggleHeightElement, 0);
@@ -39,7 +39,7 @@
         }
     }
 
-    public currentHeightToAutoHeightWithTransition (element: HTMLElement): void {
+    public currentHeightToAutoHeightWithTransition(element: HTMLElement): void {
         let initialHeight = element.clientHeight;
 
         // Get auto height
@@ -62,7 +62,7 @@
         element.style.height = 'auto';
     }
 
-    public autoHeightToFixedHeightWithTransition (element: HTMLElement, fixedHeight: number): void {
+    public autoHeightToFixedHeightWithTransition(element: HTMLElement, fixedHeight: number): void {
         let initialHeight = element.clientHeight;
 
         // Set initial height
