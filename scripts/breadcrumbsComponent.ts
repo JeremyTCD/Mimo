@@ -2,6 +2,7 @@
 import transitionsService from './transitionsService';
 import listItemService from './listItemService';
 import Component from './component';
+import * as SmoothScroll from 'smooth-scroll';
 
 class BreadcrumbsComponent extends Component {
     breadcrumbsElement: HTMLElement = document.getElementById('breadcrumbs');
@@ -9,6 +10,9 @@ class BreadcrumbsComponent extends Component {
     breadcrumbs: ListItem[] = [];
     rootBreadcrumbLoaded: boolean = false;
     childBreadcrumbsLoaded: boolean = false;
+    scrollToBreadcrumbs: SmoothScroll;
+    lastScrollY: number;
+    leftMenuWrapperElement: HTMLElement;
 
     protected validDomElementExists(): boolean {
         return this.breadcrumbsElement ? true : false;
@@ -22,6 +26,9 @@ class BreadcrumbsComponent extends Component {
 
         let breadcrumbsContainer = document.querySelector('#breadcrumbs > .container');
         breadcrumbsContainer.insertBefore(ulElement, breadcrumbsContainer.childNodes[0]);
+        this.scrollToBreadcrumbs = new SmoothScroll();
+        this.leftMenuWrapperElement = document.getElementById('left-menu-wrapper');
+        this.updateLeftMenu();
     }
 
     protected setupOnLoad(): void {
@@ -30,25 +37,37 @@ class BreadcrumbsComponent extends Component {
 
     protected registerListeners(): void {
         let tocButtonElement: HTMLElement = document.getElementById('toc-button');
-        let leftMenuWrapperElement: HTMLElement = document.getElementById('left-menu-wrapper');
 
         tocButtonElement.addEventListener('click', (event: Event) => {
-            transitionsService.toggleHeightWithTransition(leftMenuWrapperElement, tocButtonElement);
+            transitionsService.toggleHeightWithTransition(this.leftMenuWrapperElement, tocButtonElement);
 
             if (tocButtonElement.classList.contains('expanded')) {
                 this.mainAndRightMenuOverlayElement.classList.add('active');
+                this.lastScrollY = window.scrollY;
+                this.scrollToBreadcrumbs.animateScroll(this.breadcrumbsElement, null, { speed: 400 });
+                document.body.style.overflow = 'hidden';
             } else {
+                this.scrollToBreadcrumbs.animateScroll(this.lastScrollY, null, { speed: 400 });
                 this.mainAndRightMenuOverlayElement.classList.remove('active');
+                document.body.style.overflow = 'auto';
             }
         });
 
         window.addEventListener('resize', (event: Event) => {
             if (mediaService.mediaWidthWide()) {
-                transitionsService.contractHeightWithoutTransition(leftMenuWrapperElement, tocButtonElement);
+                transitionsService.contractHeightWithoutTransition(this.leftMenuWrapperElement, tocButtonElement);
                 this.mainAndRightMenuOverlayElement.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            } else {
+                this.updateLeftMenu();
             }
         });
     }
+
+    private updateLeftMenu = (): void => {
+        this.leftMenuWrapperElement.style.maxHeight = `${window.innerHeight - 37}px`;
+    }
+
 
     public loadRootBreadCrumb(anchorElement: HTMLAnchorElement): void {
         if (!this.validDomElementExists()) {

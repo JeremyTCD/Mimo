@@ -88,10 +88,13 @@ $horizontal-bar-ease-timing: 0.6s;
                 margin-bottom: 23px;
             }
 
+            @media #{$media-narrow}{
+                overflow-y: auto;
+            }
+
             @media #{$media-medium}, #{$media-narrow} {
-                margin-left: 14px;
-                margin-right: 14px;
-                margin-bottom: 14px;
+                margin: 14px;
+                margin-top: 0;
             }
 
             ul {
