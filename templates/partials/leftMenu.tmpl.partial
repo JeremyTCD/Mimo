@@ -1,7 +1,7 @@
 ﻿{{^mimo_disableLeftMenu}}
 <div id="left-menu">
   <!-- Wrapper is required for adjacent article to maintain its width when filter and toc are fixed -->
-  <div class="wrapper">
+  <div id="left-menu-wrapper">
     <form id="left-menu-filter">
       <svg>
           <use xlink:href="#material-design-filter" />

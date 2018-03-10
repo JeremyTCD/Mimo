@@ -11,10 +11,8 @@ $horizontal-bar-ease-timing: 0.6s;
     flex-shrink: 0;
 
     @media #{$media-medium}, #{$media-narrow} {
+        position: relative;
         flex-direction: column;
-        overflow-y: hidden;
-        transition: height 0.4s $ease-out-quad;
-        height: 0;
     }
 
     @media #{$media-wide} {
@@ -23,16 +21,19 @@ $horizontal-bar-ease-timing: 0.6s;
         height: auto !important;
     }
 
-    > .wrapper {
+    #left-menu-wrapper {
         width: inherit;
         flex-direction: column;
 
         @media #{$media-medium}, #{$media-narrow} {
-            flex-shrink: 0;
-            flex-grow: 1;
-            background-color: $color-section-body-background;
-            padding: 23px;
-            padding-bottom: 8px;
+            height: 0;
+            overflow: hidden;
+            transition: height 0.4s $ease-out-quad;
+            position: absolute;
+            width: 100%;
+            z-index: 2;
+            top: 0;
+            background-color: $color-primary;
         }
 
         @media #{$media-wide} {
@@ -49,29 +50,23 @@ $horizontal-bar-ease-timing: 0.6s;
             padding-left: 12px;
             padding-right: 10px;
             align-items: center;
+            border: 1px solid $color-section-header-background;
+            background-image: linear-gradient($color-section-header-background, $color-section-header-background);
+            background-repeat: no-repeat;
+            background-position: 100% 0;
+            background-size: 100% 100%;
+            transition: background-size $horizontal-bar-ease-timing $ease-out-quad-delayed, border-color 0.4s $ease-out-quad-delayed;
 
-            @media #{$media-wide} {
-                border: 1px solid $color-section-header-background;
-                background-image: linear-gradient($color-section-header-background, $color-section-header-background);
-                background-repeat: no-repeat;
-                background-position: 100% 0;
-                background-size: 100% 100%;
-                transition: background-size $horizontal-bar-ease-timing $ease-out-quad-delayed, border-color 0.4s $ease-out-quad-delayed;
-
-                &:hover, &.active {
-                    background-size: 0% 100%;
-                    border-color: $color-primary-text;
-                }
+            &:hover, &.active {
+                background-size: 0% 100%;
+                border-color: $color-primary-text;
             }
 
-            @media #{$media-medium}, #{$media-narrow} {
-                border: 1px solid $color-primary;
-                background-color: $color-primary;
-                transition: border-color 0.4s $ease-out-quad;
 
-                &.active {
-                    border-color: $color-primary-text;
-                }
+            @media #{$media-medium}, #{$media-narrow} {
+                margin-top: 14px;
+                margin-left: 14px;
+                margin-right: 14px;
             }
 
             @include text-input-icons;
@@ -91,6 +86,12 @@ $horizontal-bar-ease-timing: 0.6s;
             @media #{$media-wide} {
                 overflow-y: auto;
                 margin-bottom: 23px;
+            }
+
+            @media #{$media-medium}, #{$media-narrow} {
+                margin-left: 14px;
+                margin-right: 14px;
+                margin-bottom: 14px;
             }
 
             ul {

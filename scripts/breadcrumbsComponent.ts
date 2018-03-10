@@ -5,6 +5,7 @@ import Component from './component';
 
 class BreadcrumbsComponent extends Component {
     breadcrumbsElement: HTMLElement = document.getElementById('breadcrumbs');
+    mainAndRightMenuOverlayElement: HTMLElement;
     breadcrumbs: ListItem[] = [];
     rootBreadcrumbLoaded: boolean = false;
     childBreadcrumbsLoaded: boolean = false;
@@ -14,11 +15,12 @@ class BreadcrumbsComponent extends Component {
     }
 
     protected setupOnDomContentLoaded(): void {
+        this.mainAndRightMenuOverlayElement = document.getElementById('main-and-right-menu-overlay');
         let ulElement = listItemService.generateMultiLevelList(this.breadcrumbs,
             'breadcrumb',
             1);
 
-        let breadcrumbsContainer = document.querySelector('#breadcrumbs>.container');
+        let breadcrumbsContainer = document.querySelector('#breadcrumbs > .container');
         breadcrumbsContainer.insertBefore(ulElement, breadcrumbsContainer.childNodes[0]);
     }
 
@@ -27,16 +29,23 @@ class BreadcrumbsComponent extends Component {
     }
 
     protected registerListeners(): void {
-        let tocButton: HTMLElement = document.getElementById('toc-button');
-        let leftMenu: HTMLElement = document.getElementById('left-menu');
+        let tocButtonElement: HTMLElement = document.getElementById('toc-button');
+        let leftMenuWrapperElement: HTMLElement = document.getElementById('left-menu-wrapper');
 
-        tocButton.addEventListener('click', (event: Event) => {
-            transitionsService.toggleHeightWithTransition(leftMenu, tocButton);
+        tocButtonElement.addEventListener('click', (event: Event) => {
+            transitionsService.toggleHeightWithTransition(leftMenuWrapperElement, tocButtonElement);
+
+            if (tocButtonElement.classList.contains('expanded')) {
+                this.mainAndRightMenuOverlayElement.classList.add('active');
+            } else {
+                this.mainAndRightMenuOverlayElement.classList.remove('active');
+            }
         });
 
         window.addEventListener('resize', (event: Event) => {
-            if (!mediaService.mediaWidthNarrow()) {
-                transitionsService.contractHeightWithoutTransition(leftMenu, tocButton);
+            if (mediaService.mediaWidthWide()) {
+                transitionsService.contractHeightWithoutTransition(leftMenuWrapperElement, tocButtonElement);
+                this.mainAndRightMenuOverlayElement.classList.remove('active');
             }
         });
     }

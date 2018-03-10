@@ -35,7 +35,7 @@ class LeftMenuComponent extends Component {
         this.coreElement = document.getElementById('core') as HTMLElement;
         this.tocElement = document.getElementById('left-menu-toc');
         this.footerElement = document.querySelector('body > footer') as HTMLElement;
-        this.wrapperElement = this.leftMenuElement.querySelector('.wrapper') as HTMLElement;
+        this.wrapperElement = document.getElementById('left-menu-wrapper') as HTMLElement;
         this.setupToc();
 
         this.textInputService = new TextInputService(
