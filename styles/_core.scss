@@ -8,7 +8,7 @@
         flex-direction: column;
     }
 
-    @media #{$media-narrow}{
+    @media #{$media-narrow} {
         padding: 0;
     }
 
@@ -24,9 +24,10 @@
         align-items: flex-start;
     }
 
-    > .wrapper {
+    #main-and-right-menu-wrapper {
         display: flex;
         flex-grow: 1;
+        position: relative;
 
         @media #{$media-medium} {
             margin-top: 59px;
@@ -41,6 +42,23 @@
 
         @media #{$media-narrow} {
             flex-direction: column-reverse;
+        }
+    }
+
+    #main-and-right-menu-overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        opacity: 0;
+        background-color: black;
+        transition: visibility 0.4s, opacity 0.4s $ease-out-quad;
+        visibility: hidden;
+
+        &.active {
+            visibility: visible;
+            opacity: $opacity-1;
         }
     }
 }
