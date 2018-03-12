@@ -1,4 +1,4 @@
-<header role="navigation">
+<header id="main-header" role="navigation">
     <div class="container">
         <div id="header-logo-and-button">
             <a id="header-logo" href="/">
@@ -27,6 +27,6 @@
                 {{/mimo_disableSearch}}
             </div>
         </div>
-
     </div>
+    <div id="main-header-overlay"></div>
 </header>

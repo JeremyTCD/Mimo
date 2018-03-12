@@ -6,6 +6,10 @@ body > footer {
     background-color: $color-secondary;
     justify-content: center;
 
+    @media #{$media-medium}, #{$media-narrow} {
+        position: relative;
+    }
+
     .container {
         align-items: center;
         color: $color-secondary-text;
@@ -144,6 +148,14 @@ body > footer {
                     fill: $color-secondary-text;
                 }
             }
+        }
+    }
+
+    #footer-overlay {
+        @include overlay;
+
+        @media #{$media-wide} {
+            display: none;
         }
     }
 }

@@ -7,5 +7,6 @@
         </svg>
     </button>
   </div>
+  <div id="breadcrumbs-overlay"></div>
 </nav>
 {{/mimo_disableBreadcrumbs}}

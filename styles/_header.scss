@@ -1,11 +1,15 @@
 @import 'constants';
 
-body > header {
+#main-header {
     @include pure-flex;
     background-color: $color-secondary-text;
     align-items: stretch;
     justify-content: center;
     min-height: 95px;
+
+    @media #{$media-medium}, #{$media-narrow} {
+        position: relative;
+    }
 
     .container {
         @media #{$media-narrow} {
@@ -207,6 +211,14 @@ body > header {
                     }
                 }
             }
+        }
+    }
+
+    #main-header-overlay {
+        @include overlay;
+
+        @media #{$media-wide} {
+            display: none;
         }
     }
 }

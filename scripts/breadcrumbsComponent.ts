@@ -2,32 +2,37 @@
 import transitionsService from './transitionsService';
 import listItemService from './listItemService';
 import Component from './component';
+import OverlayManager from './overlayManager';
+import overlayManagerFactory from './overlayManagerFactory';
 import * as SmoothScroll from 'smooth-scroll';
 
 class BreadcrumbsComponent extends Component {
     breadcrumbsElement: HTMLElement = document.getElementById('breadcrumbs');
+    leftMenuWrapperElement: HTMLElement;
+
+    overlayManager: OverlayManager;
     breadcrumbs: ListItem[] = [];
     rootBreadcrumbLoaded: boolean = false;
     childBreadcrumbsLoaded: boolean = false;
     scrollToBreadcrumbs: SmoothScroll;
     lastScrollY: number;
-    leftMenuWrapperElement: HTMLElement;
-    leftMenuOverlayElement: HTMLElement;
+
 
     protected validDomElementExists(): boolean {
         return this.breadcrumbsElement ? true : false;
     }
 
     protected setupOnDomContentLoaded(): void {
+        this.overlayManager = overlayManagerFactory.build('main-header-overlay', 'main-overlay', 'right-menu-overlay', 'footer-overlay');
+
         let ulElement = listItemService.generateMultiLevelList(this.breadcrumbs,
             'breadcrumb',
             1);
-
+        1
         let breadcrumbsContainer = document.querySelector('#breadcrumbs > .container');
         breadcrumbsContainer.insertBefore(ulElement, breadcrumbsContainer.childNodes[0]);
         this.scrollToBreadcrumbs = new SmoothScroll();
         this.leftMenuWrapperElement = document.getElementById('left-menu-wrapper');
-        this.leftMenuOverlayElement = document.getElementById('left-menu-overlay');
         this.updateLeftMenu();
     }
 
@@ -44,11 +49,11 @@ class BreadcrumbsComponent extends Component {
             if (tocButtonElement.classList.contains('expanded')) {
                 this.lastScrollY = window.scrollY;
                 this.scrollToBreadcrumbs.animateScroll(this.breadcrumbsElement, null, { speed: 400 });
-                this.leftMenuOverlayElement.classList.add('active');
+                this.overlayManager.activateOverlays();
                 document.body.style.overflow = 'hidden';
             } else {
+                this.overlayManager.deactivateOverlays();
                 this.scrollToBreadcrumbs.animateScroll(this.lastScrollY, null, { speed: 400 });
-                this.leftMenuOverlayElement.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
         });
@@ -56,8 +61,8 @@ class BreadcrumbsComponent extends Component {
         window.addEventListener('resize', (event: Event) => {
             if (mediaService.mediaWidthWide()) {
                 transitionsService.contractHeightWithoutTransition(this.leftMenuWrapperElement, tocButtonElement);
-                this.leftMenuOverlayElement.classList.remove('active');
                 document.body.style.overflow = 'auto';
+                this.overlayManager.deactivateOverlays();
             } else {
                 this.updateLeftMenu();
             }

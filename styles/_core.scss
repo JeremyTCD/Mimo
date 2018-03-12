@@ -6,6 +6,9 @@
     // When screen is narrow or medium, left menu needs to be below breadcrumbs
     @media #{$media-medium}, #{$media-narrow} {
         flex-direction: column;
+        position: relative;
+        // Necessary for right menu to be above footer
+        z-index: 1;
     }
 
     @media #{$media-narrow} {

@@ -31,9 +31,9 @@ $horizontal-bar-ease-timing: 0.6s;
             transition: height 0.4s $ease-out-quad;
             position: absolute;
             width: 100%;
-            z-index: 2;
             top: 0;
             background-color: $color-primary;
+            z-index: 1;
         }
 
         @media #{$media-wide} {
@@ -181,10 +181,10 @@ $horizontal-bar-ease-timing: 0.6s;
     }
 
     #left-menu-overlay {
-        @include overlay(0);
+        @include overlay;
 
         @media #{$media-wide} {
-            visibility: hidden;
+            display: none;
         }
     }
 }

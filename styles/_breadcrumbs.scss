@@ -5,7 +5,11 @@
     font-size: $font-size-2;
     background-color: $color-secondary;
     justify-content: center;
-    min-height: 37px;
+    height: 37px;
+
+    @media #{$media-medium}, #{$media-narrow} {
+        position: relative;
+    }
 
     .container {
         color: $color-secondary-text;
@@ -40,10 +44,10 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
-
                 // Non links
                 > span {
                     display: inline;
+
                     &.topic {
                         opacity: $opacity-3;
                     }
@@ -81,6 +85,14 @@
                     transform: rotate(180deg);
                 }
             }
+        }
+    }
+
+    #breadcrumbs-overlay {
+        @include overlay;
+
+        @media #{$media-wide} {
+            display: none;
         }
     }
 }

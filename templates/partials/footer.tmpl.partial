@@ -82,4 +82,5 @@
             </a>
         </div>
     </div>
+    <div id="footer-overlay"></div>
 </footer>

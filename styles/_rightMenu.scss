@@ -254,4 +254,8 @@ $outline-indicator-width: 2px;
             }
         }
     }
+
+    #right-menu-overlay {
+        @include overlay;
+    }
 }
