@@ -4,6 +4,9 @@ import Component from './component';
 import debounceService from './debounceService';
 import ResizeObserver from 'resize-observer-polyfill';
 import transitionsService from './transitionsService';
+import * as SmoothScroll from 'smooth-scroll';
+import overlayManagerFactory from './overlayManagerFactory';
+import OverlayManager from './overlayManager';
 
 class RightMenuComponent extends Component {
     rightMenuElement: HTMLElement = document.getElementById('right-menu');
@@ -25,10 +28,15 @@ class RightMenuComponent extends Component {
     shareArticleLinksWrapperElement: HTMLElement;
     bodyResizeObserver: ResizeObserver;
     dropdownButton: HTMLElement;
-    dropdownTextH1: HTMLElement;
-    dropdownTextH2: HTMLElement;
-    dropdownHeader: HTMLElement;
+    dropdownTextH1Element: HTMLElement;
+    dropdownTextH2Element: HTMLElement;
+    dropdownHeaderElement: HTMLElement;
+    dropdownWrapperElement: HTMLElement;
+    linksAndOutlineWrapperElement: HTMLElement;
 
+    overlayManager: OverlayManager;
+    lastScrollY: number;
+    scrollToDropdownHeader: SmoothScroll;
     // True if there is no outline, can be because article has no headers to generate an outline from or if outline is disabled
     outlineEmpty: boolean;
     outlineAnchorDataWithoutScroll: { [index: number]: OutlineAnchorData };
@@ -52,34 +60,38 @@ class RightMenuComponent extends Component {
     }
 
     protected setupOnDomContentLoaded(): void {
-        this.dropdownHeader = document.getElementById('right-menu-dropdown-header');
-        this.dropdownTextH1 = document.getElementById('right-menu-dropdown-text-h1');
-        this.dropdownTextH2 = document.getElementById('right-menu-dropdown-text-h2');
+        this.dropdownHeaderElement = document.getElementById('right-menu-dropdown-header');
+        this.dropdownWrapperElement = document.getElementById('dropdown-wrapper');
+        this.dropdownTextH1Element = document.getElementById('right-menu-dropdown-text-h1');
+        this.dropdownTextH2Element = document.getElementById('right-menu-dropdown-text-h2');
         this.dropdownButton = document.getElementById('right-menu-dropdown-button');
-        this.wrapperElement = this.rightMenuElement.querySelector('.wrapper') as HTMLElement;
+        this.wrapperElement = document.getElementById('right-menu-wrapper') as HTMLElement;
         this.coreElement = document.getElementById('core') as HTMLElement;
         this.articleHeadingWrapperElements = document.querySelectorAll('main > article .heading-1, main > article .heading-2');
         this.articleHeadingElements = document.querySelectorAll('main > article .heading-1 h1, main > article .heading-2 h2');
-        this.outlineWrapperElement = document.querySelector('#right-menu > .wrapper > .wrapper') as HTMLElement;
+        this.outlineWrapperElement = document.getElementById('outline-wrapper') as HTMLElement;
         this.outlineElement = document.getElementById('outline') as HTMLElement;
         this.indicatorElement = document.getElementById('outline-indicator') as HTMLElement;
         this.outlineIndicatorSpanElement = this.indicatorElement.querySelector('span') as HTMLElement;
         this.footerElement = document.querySelector('body > footer') as HTMLElement;
+        this.linksAndOutlineWrapperElement = document.getElementById('right-menu-links-and-outline-wrapper');
 
         this.shareArticleElement = document.getElementById('share-article');
         if (this.shareArticleElement) {
             this.shareArticleSpanElement = document.querySelector('#share-article > span');
-            this.shareArticleLinksWrapperElement = document.querySelector('#share-article-links .wrapper');
+            this.shareArticleLinksWrapperElement = document.getElementById('share-article-links-wrapper');
         }
 
         this.setupOutline();
         this.outlineTitleElement = document.getElementById('outline-title');
         this.outlineRootUlElement = this.outlineElement.querySelector('ul');
-
         let outlineAnchorElements = this.outlineElement.querySelectorAll('a');
         this.outlineLastAnchorElement = outlineAnchorElements[outlineAnchorElements.length - 1];
 
         this.setupDropdownHeader(this.articleHeadingElements);
+        this.scrollToDropdownHeader = new SmoothScroll();
+
+        this.overlayManager = overlayManagerFactory.build('main-header-overlay', 'main-overlay', 'breadcrumbs-overlay', 'footer-overlay');
     }
 
     protected setupOnLoad(): void {
@@ -99,12 +111,30 @@ class RightMenuComponent extends Component {
         }
 
         this.dropdownButton.addEventListener('click', (event: Event) => {
-            transitionsService.toggleHeightWithTransition(this.wrapperElement, this.dropdownButton);
+            transitionsService.toggleHeightWithTransition(this.linksAndOutlineWrapperElement, this.dropdownButton);
+
+            if (this.dropdownButton.classList.contains('expanded')) {
+                // If fixed, dropdown is already at the top of the screen
+                if (!this.wrapperElement.classList.contains('fixed')) {
+                    this.lastScrollY = window.scrollY;
+                    this.scrollToDropdownHeader.animateScroll(this.dropdownWrapperElement, null, { speed: 400 });
+                }
+                this.overlayManager.activateOverlays();
+                document.body.style.overflow = 'hidden';
+            } else {
+                if (!this.wrapperElement.classList.contains('fixed')) {
+                    this.scrollToDropdownHeader.animateScroll(this.lastScrollY, null, { speed: 400 });
+                }
+                this.overlayManager.deactivateOverlays();
+                document.body.style.overflow = 'auto';
+            }
         });
 
         window.addEventListener('resize', (event: Event) => {
             if (!mediaService.mediaWidthNarrow()) {
-                transitionsService.contractHeightWithoutTransition(this.wrapperElement, this.dropdownButton);
+                transitionsService.contractHeightWithoutTransition(this.linksAndOutlineWrapperElement, this.dropdownButton);
+                this.overlayManager.deactivateOverlays();
+                document.body.style.overflow = 'auto';
             }
         });
     }
@@ -147,34 +177,43 @@ class RightMenuComponent extends Component {
         let activeHeadingIndex = this.getActiveOutlineIndex();
         this.updateOutline(activeHeadingIndex);
         this.updateDropdownHeader(activeHeadingIndex);
+        this.updateDropdown();
+    }
+
+    private updateDropdown = (): void => {
+        if (!mediaService.mediaWidthWide()) {
+            this.linksAndOutlineWrapperElement.style.maxHeight = `${window.innerHeight - 37}px`;
+        } else {
+            this.linksAndOutlineWrapperElement.style.maxHeight = 'initial';
+        }
     }
 
     public updateDropdownHeader(activeHeadingIndex: number): void {
-        let fixed = this.dropdownHeader.classList.contains('fixed');
+        let fixed = this.wrapperElement.classList.contains('fixed');
         let fix = this.rightMenuElement.getBoundingClientRect().top < 0
 
         // If top is above top of screen, add class fixed else, remove class fixed
         if (!fixed && fix) {
-            this.dropdownHeader.classList.add('fixed');
+            this.wrapperElement.classList.add('fixed');
         } else if (fixed && !fix) {
-            this.dropdownHeader.classList.remove('fixed');
+            this.wrapperElement.classList.remove('fixed');
         }
 
         if (activeHeadingIndex === -1) {
-            this.dropdownTextH1.innerText = 'Table of Contents';
-            this.dropdownTextH2.parentElement.style.display = 'none';
+            this.dropdownTextH1Element.innerText = 'Table of Contents';
+            this.dropdownTextH2Element.parentElement.style.display = 'none';
             return;
         }
 
         let headerData: DropdownHeaderData = this.dropdownHeaderData[activeHeadingIndex];
 
-        this.dropdownTextH1.innerText = headerData.h1Text;
+        this.dropdownTextH1Element.innerText = headerData.h1Text;
 
         if (headerData.h2Text) {
-            this.dropdownTextH2.innerText = headerData.h2Text;
-            this.dropdownTextH2.parentElement.style.display = 'flex';
+            this.dropdownTextH2Element.innerText = headerData.h2Text;
+            this.dropdownTextH2Element.parentElement.style.display = 'flex';
         } else {
-            this.dropdownTextH2.parentElement.style.display = 'none';
+            this.dropdownTextH2Element.parentElement.style.display = 'none';
         }
     }
 
@@ -268,7 +307,6 @@ class RightMenuComponent extends Component {
                 this.rightMenuElement.style.minHeight = 'initial';
             }
         }
-
     }
 
     private setupOutline(): void {

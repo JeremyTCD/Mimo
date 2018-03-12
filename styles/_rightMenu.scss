@@ -13,73 +13,8 @@ $outline-indicator-width: 2px;
 
     @media #{$media-narrow} {
         flex-direction: column;
+        position: relative;
         height: 37px;
-    }
-
-    #right-menu-dropdown-header {
-        display: none;
-
-        @media #{$media-narrow} {
-            padding-left: 14px;
-            padding-right: 14px;
-            height: 37px;
-            width: 100%;
-            display: flex;
-            background-color: $color-section-header-background;
-            align-items: center;
-        }
-
-        li {
-            align-items: center;
-
-            span {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: inline;
-            }
-
-            &:nth-child(n+2) {
-                &::before {
-                    flex-shrink: 0;
-                    content: "";
-                    height: 14px;
-                    width: 2px;
-                    background-color: $color-primary-text;
-                    margin-right: 8px;
-                    margin-left: 8px;
-                    opacity: 0.35;
-                }
-            }
-        }
-
-        #right-menu-dropdown-button {
-            align-items: center;
-            padding-left: 20px;
-            margin-left: auto;
-            flex-shrink: 0;
-            margin-right: -7px;
-
-            svg {
-                flex-shrink: 0;
-                height: 24px;
-                width: 24px;
-                fill: $color-primary-link;
-                transform: rotate(0);
-                transition: transform 0.4s $ease-out-quad;
-            }
-
-            &.expanded {
-                svg {
-                    transform: rotate(180deg);
-                }
-            }
-        }
-
-        &.fixed {
-            position: fixed;
-            top: 0;
-        }
     }
 
     @media #{$media-medium}, #{$media-wide} {
@@ -90,163 +25,267 @@ $outline-indicator-width: 2px;
         margin-left: 66px;
     }
 
-    > .wrapper {
+    #right-menu-wrapper {
         @media #{$media-narrow} {
-            height: 0px;
-            overflow: hidden;
+            &.fixed {
+                position: fixed;
+                top: 0;
+                width: 100%;
+            }
         }
 
-        width: inherit;
-        align-items: flex-start; // Scroll for outline should be adjacent to headers links
-        flex-direction: column;
-        // Edit article, share article etc
-        > div {
-            &.right-menu-link {
+        #right-menu-dropdown-header {
+            @media #{$media-medium}, #{$media-wide} {
+                display: none;
+            }
+
+            height: 37px;
+            width: 100%;
+
+            #dropdown-wrapper {
+                padding-left: 14px;
+                padding-right: 14px;
+                height: 37px;
+                width: 100%;
+                background-color: $color-section-header-background;
                 align-items: center;
 
-                > svg {
-                    flex-shrink: 0;
-                    height: 18px;
-                    width: 18px;
-                    fill: $color-primary-icon;
-                    margin-right: 6px;
-                }
-
-                &#edit-article {
-                    a {
-                        flex-shrink: 0;
-                        @include animated-underline($color-primary-link, $animated-underline-13px-ypos, $background-color: $color-primary);
-                    }
-                }
-
-                &#share-article {
-                    height: 20px;
+                li {
+                    align-items: center;
 
                     span {
-                        flex-shrink: 0;
-                        color: $color-primary-link;
-                        cursor: default;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: inline;
                     }
 
-                    #share-article-links {
-                        overflow: hidden;
-                        margin-left: 9px;
+                    &:nth-child(n+2) {
+                        &::before {
+                            flex-shrink: 0;
+                            content: "";
+                            height: 14px;
+                            width: 2px;
+                            background-color: $color-primary-text;
+                            margin-right: 8px;
+                            margin-left: 8px;
+                            opacity: 0.35;
+                        }
+                    }
+                }
 
-                        .wrapper {
-                            transition: transform 0.4s $ease-out-quad-delayed;
-                            transform: translateX(-100%);
-                            background-color: $color-secondary;
-                            padding: 11px;
-                            padding-top: 6px;
-                            padding-bottom: 6px;
+                #right-menu-dropdown-button {
+                    align-items: center;
+                    padding-left: 20px;
+                    margin-left: auto;
+                    flex-shrink: 0;
+                    margin-right: -7px;
 
-                            &.active {
-                                transform: translateX(0%);
-                            }
+                    svg {
+                        flex-shrink: 0;
+                        height: 24px;
+                        width: 24px;
+                        fill: $color-primary-link;
+                        transform: rotate(0);
+                        transition: transform 0.4s $ease-out-quad;
+                    }
 
-                            a {
-                                transition: transform 0.3s $ease-out-quad-delayed;
-
-                                &:nth-child(n+2) {
-                                    margin-left: 10px;
-                                }
-
-                                &:hover {
-                                    transform: scale(1.3333);
-                                }
-                            }
-
-                            svg {
-                                fill: $color-secondary-text;
-                                height: 24px;
-                                width: 24px;
-                            }
+                    &.expanded {
+                        svg {
+                            transform: rotate(180deg);
                         }
                     }
                 }
             }
-            // Element above outline
-            &:nth-last-child(2) {
-                margin-bottom: 23px;
-            }
-
-            &:nth-last-child(n+3) {
-                margin-bottom: 13px;
-            }
         }
 
-        @media #{$media-medium}, #{$media-wide} {
-            &.fixed {
-                position: fixed;
-                top: 16px;
-            }
-        }
+        #right-menu-links-and-outline-wrapper {
 
-        > .wrapper {
+            @media #{$media-narrow} {
+                height: 0px;
+                overflow: auto;
+                transition: height 0.4s $ease-out-quad;
+                position: absolute;
+                top: 37px;
+                background-color: $color-primary;
+                width: 100%;
+                flex-direction: column-reverse;
+                z-index: 1;
+            }
+
+            @media #{$media-medium}, #{$media-wide} {
+                &.fixed {
+                    position: fixed;
+                    top: 16px;
+                }
+            }
+
+            width: inherit;
+            align-items: flex-start; // Scroll for outline should be adjacent to headers links
             flex-direction: column;
-            align-items: stretch;
-            align-self: stretch;
+            // Edit article, share article etc
+            #right-menu-links {
+                flex-shrink: 0;
+                flex-direction: column;
 
-            #outline-title {
-                font-size: $font-size-2;
-                font-weight: 600;
-                display: block;
-                margin-bottom: 14px;
+                > div {
+                    @media #{$media-narrow} {
+                        margin: 0 14px;
+                    }
 
-                span {
-                    @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
+                    &.right-menu-link {
+                        align-items: center;
+
+                        > svg {
+                            flex-shrink: 0;
+                            height: 18px;
+                            width: 18px;
+                            fill: $color-primary-icon;
+                            margin-right: 6px;
+                        }
+
+                        &#edit-article {
+                            flex-shrink: 0;
+
+                            a {
+                                flex-shrink: 0;
+                                @include animated-underline($color-primary-link, $animated-underline-13px-ypos, $background-color: $color-primary);
+                            }
+                        }
+
+                        &#share-article {
+                            flex-shrink: 0;
+                            height: 20px;
+
+                            span {
+                                flex-shrink: 0;
+                                color: $color-primary-link;
+                                cursor: default;
+                            }
+
+                            #share-article-links {
+                                overflow: hidden;
+                                margin-left: 9px;
+
+                                #share-article-links-wrapper {
+                                    transition: transform 0.4s $ease-out-quad-delayed;
+                                    transform: translateX(-100%);
+                                    background-color: $color-secondary;
+                                    padding: 11px;
+                                    padding-top: 6px;
+                                    padding-bottom: 6px;
+
+                                    &.active {
+                                        transform: translateX(0%);
+                                    }
+
+                                    a {
+                                        transition: transform 0.3s $ease-out-quad-delayed;
+
+                                        &:nth-child(n+2) {
+                                            margin-left: 10px;
+                                        }
+
+                                        &:hover {
+                                            transform: scale(1.3333);
+                                        }
+                                    }
+
+                                    svg {
+                                        fill: $color-secondary-text;
+                                        height: 24px;
+                                        width: 24px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // Element above outline
+                    &:nth-last-child(2) {
+                        margin-bottom: 23px;
+                    }
+
+                    &:nth-last-child(n+3) {
+                        margin-bottom: 13px;
+                    }
                 }
             }
 
-            #outline {
-                @media #{$media-medium}, #{$media-wide} {
-                    margin-bottom: 23px;
+            #outline-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+                align-self: stretch;
+
+                @media #{$media-narrow} {
+                    margin: 8px 14px;
+                    margin-bottom: 0;
                 }
 
-                overflow-y: auto;
-
-                #outline-indicator {
-                    flex-shrink: 0;
-                    width: $outline-indicator-width;
-                    margin-right: 14px;
-                    background-color: $color-section-header-background;
+                #outline-title {
+                    font-size: $font-size-2;
+                    font-weight: 600;
+                    display: block;
+                    margin-bottom: 14px;
 
                     span {
-                        transition: margin-top 0.26s $ease-out-quad, height 0.26s $ease-out-quad;
-                        width: $outline-indicator-width;
-                        background-color: $color-primary-icon;
+                        @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
                     }
                 }
 
-                > ul {
-                    > li:first-child > a {
-                        margin-top: 0;
-                    }
-                }
+                #outline {
+                    overflow-y: auto;
 
-                ul {
-                    flex-direction: column;
-
-                    &.level2 {
-                        padding-left: 14px;
+                    @media #{$media-medium}, #{$media-wide} {
+                        margin-bottom: 23px;
                     }
 
-                    li {
-                        flex-direction: column;
-                        align-items: flex-start;
+                    #outline-indicator {
                         flex-shrink: 0;
+                        width: $outline-indicator-width;
+                        margin-right: 14px;
+                        background-color: $color-section-header-background;
 
-                        a {
-                            user-select: none;
-                            cursor: pointer;
-                            align-items: center;
-                            margin-top: 13px;
-                            display: inline;
-                            // animated-underline only works for multiline elements if the element whose background is animated is an only child or has a parent that has display block,
-                            // inline-block or inline.
-                            // TODO figure out why
-                            & > span {
-                                @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
+                        span {
+                            @media #{$media-narrow} {
+                                display: none;
+                            }
+
+                            transition: margin-top 0.26s $ease-out-quad, height 0.26s $ease-out-quad;
+                            width: $outline-indicator-width;
+                            background-color: $color-primary-icon;
+                        }
+                    }
+
+                    > ul {
+                        > li:first-child > a {
+                            margin-top: 0;
+                        }
+                    }
+
+                    ul {
+                        flex-direction: column;
+
+                        &.level2 {
+                            padding-left: 14px;
+                        }
+
+                        li {
+                            flex-direction: column;
+                            align-items: flex-start;
+                            flex-shrink: 0;
+
+                            a {
+                                user-select: none;
+                                cursor: pointer;
+                                align-items: center;
+                                margin-top: 13px;
+                                display: inline;
+                                // animated-underline only works for multiline elements if the element whose background is animated is an only child or has a parent that has display block,
+                                // inline-block or inline.
+                                // TODO figure out why
+                                & > span {
+                                    @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
+                                }
                             }
                         }
                     }
@@ -257,5 +296,9 @@ $outline-indicator-width: 2px;
 
     #right-menu-overlay {
         @include overlay;
+
+        @media #{$media-medium}, #{$media-wide} {
+            display: none;
+        }
     }
 }
