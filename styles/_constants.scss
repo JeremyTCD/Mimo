@@ -122,3 +122,20 @@ $animated-underline-26px-ypos: 30px;
         -2px 0 0 $background-color;*/
     text-shadow: 1px 1px 0 $background-color, 1px -1px 0 $background-color, -1px 1px 0 $background-color, -1px -1px 0 $background-color;
 }
+
+@mixin overlay($top) {
+    height: 100vh;
+    width: 100%;
+    opacity: 0;
+    transition: visibility 0.4s, opacity 0.4s $ease-out-quad;
+    position: absolute;
+    z-index: 1;
+    background-color: black;
+    visibility: hidden;
+    top: $top;
+
+    &.active {
+        visibility: visible;
+        opacity: $opacity-1;
+    }
+}
