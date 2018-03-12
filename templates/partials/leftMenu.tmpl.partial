@@ -14,5 +14,7 @@
     <nav id="left-menu-toc">
     </nav>
   </div>
+  <div id="left-menu-overlay">
+  </div>
 </div>
 {{/mimo_disableLeftMenu}}

@@ -44,21 +44,4 @@
             flex-direction: column-reverse;
         }
     }
-
-    #main-and-right-menu-overlay {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        opacity: 0;
-        background-color: black;
-        transition: visibility 0.4s, opacity 0.4s $ease-out-quad;
-        visibility: hidden;
-
-        &.active {
-            visibility: visible;
-            opacity: $opacity-1;
-        }
-    }
 }

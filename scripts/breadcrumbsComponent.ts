@@ -6,20 +6,19 @@ import * as SmoothScroll from 'smooth-scroll';
 
 class BreadcrumbsComponent extends Component {
     breadcrumbsElement: HTMLElement = document.getElementById('breadcrumbs');
-    mainAndRightMenuOverlayElement: HTMLElement;
     breadcrumbs: ListItem[] = [];
     rootBreadcrumbLoaded: boolean = false;
     childBreadcrumbsLoaded: boolean = false;
     scrollToBreadcrumbs: SmoothScroll;
     lastScrollY: number;
     leftMenuWrapperElement: HTMLElement;
+    leftMenuOverlayElement: HTMLElement;
 
     protected validDomElementExists(): boolean {
         return this.breadcrumbsElement ? true : false;
     }
 
     protected setupOnDomContentLoaded(): void {
-        this.mainAndRightMenuOverlayElement = document.getElementById('main-and-right-menu-overlay');
         let ulElement = listItemService.generateMultiLevelList(this.breadcrumbs,
             'breadcrumb',
             1);
@@ -28,6 +27,7 @@ class BreadcrumbsComponent extends Component {
         breadcrumbsContainer.insertBefore(ulElement, breadcrumbsContainer.childNodes[0]);
         this.scrollToBreadcrumbs = new SmoothScroll();
         this.leftMenuWrapperElement = document.getElementById('left-menu-wrapper');
+        this.leftMenuOverlayElement = document.getElementById('left-menu-overlay');
         this.updateLeftMenu();
     }
 
@@ -42,13 +42,13 @@ class BreadcrumbsComponent extends Component {
             transitionsService.toggleHeightWithTransition(this.leftMenuWrapperElement, tocButtonElement);
 
             if (tocButtonElement.classList.contains('expanded')) {
-                this.mainAndRightMenuOverlayElement.classList.add('active');
                 this.lastScrollY = window.scrollY;
                 this.scrollToBreadcrumbs.animateScroll(this.breadcrumbsElement, null, { speed: 400 });
+                this.leftMenuOverlayElement.classList.add('active');
                 document.body.style.overflow = 'hidden';
             } else {
                 this.scrollToBreadcrumbs.animateScroll(this.lastScrollY, null, { speed: 400 });
-                this.mainAndRightMenuOverlayElement.classList.remove('active');
+                this.leftMenuOverlayElement.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
         });
@@ -56,7 +56,7 @@ class BreadcrumbsComponent extends Component {
         window.addEventListener('resize', (event: Event) => {
             if (mediaService.mediaWidthWide()) {
                 transitionsService.contractHeightWithoutTransition(this.leftMenuWrapperElement, tocButtonElement);
-                this.mainAndRightMenuOverlayElement.classList.remove('active');
+                this.leftMenuOverlayElement.classList.remove('active');
                 document.body.style.overflow = 'auto';
             } else {
                 this.updateLeftMenu();
@@ -65,7 +65,11 @@ class BreadcrumbsComponent extends Component {
     }
 
     private updateLeftMenu = (): void => {
-        this.leftMenuWrapperElement.style.maxHeight = `${window.innerHeight - 37}px`;
+        if (!mediaService.mediaWidthWide()) {
+            this.leftMenuWrapperElement.style.maxHeight = `${window.innerHeight - 37}px`;
+        } else {
+            this.leftMenuWrapperElement.style.maxHeight = 'initial';
+        }
     }
 
 
