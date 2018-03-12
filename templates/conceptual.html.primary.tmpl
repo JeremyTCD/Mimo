@@ -6,23 +6,7 @@
   {{>partials/head}}
   <body>
       {{>partials/header}}
-	  {{>partials/breadcrumbs}}
-      {{>partials/searchResults}}
 
-	  <div id="core" class="container hide-on-search {{#mimo_disableBreadcrumbs}}breadcrumbs-disabled{{/mimo_disableBreadcrumbs}}">
-			{{>partials/leftMenu}}
-            
-            <div id="main-and-right-menu-wrapper" class="{{#mimo_disableBreadcrumbs}} breadcrumbs-disabled{{/mimo_disableBreadcrumbs}}">
-			    <main role="main" class="{{#mimo_disableBreadcrumbs}}breadcrumbs-disabled{{/mimo_disableBreadcrumbs}}">
-				    {{>partials/article}}
-				    {{>partials/sortedArticleList}}
-                    {{>partials/comments}}
-                    <div id="main-overlay"></div>
-			    </main>
-			    {{>partials/rightMenu}}
-            </div>
-
-	  </div>
-      {{>partials/footer}}
+    <div id="overlay"></div>
   </body>
 </html>

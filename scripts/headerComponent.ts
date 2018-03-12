@@ -4,9 +4,11 @@ import transitionsService from './transitionsService';
 import Component from './component';
 import breadcrumbsComponent from './breadcrumbsComponent';
 import searchResultsComponent from './searchResultsComponent';
+import overlayService from './overlayService';
 import TextInputService from './textInputService';
 
 class HeaderComponent extends Component {
+    headerElement: HTMLElement;
     headerNavbarElement: HTMLElement;
     headerButtonElement: HTMLElement;
     navbarAndSearchWrapper: HTMLElement;
@@ -21,12 +23,13 @@ class HeaderComponent extends Component {
     }
 
     protected setupOnDomContentLoaded(): void {
+        this.headerElement = document.getElementById('page-header');
         this.headerSearchElement = document.getElementById('header-search') as HTMLElement;
         this.headerSearchInputElement = this.headerSearchElement.querySelector('input') as HTMLInputElement;
         this.headerSearchClearElement = this.headerSearchElement.querySelector('svg:last-child') as HTMLElement;
         this.headerNavbarElement = document.getElementById('header-navbar');
         this.headerButtonElement = document.getElementById('header-button');
-        this.navbarAndSearchWrapper = document.querySelector('#header-navbar-and-search > .wrapper') as HTMLElement;
+        this.navbarAndSearchWrapper = document.getElementById('header-navbar-and-search-wrapper') as HTMLElement;
 
         this.setupNavbar();
 
@@ -49,7 +52,11 @@ class HeaderComponent extends Component {
         this.headerButtonElement.addEventListener('click', (event: Event) => {
             transitionsService.toggleHeightWithTransition(this.navbarAndSearchWrapper, this.headerButtonElement);
 
-            if (!this.headerButtonElement.classList.contains('expanded')) {
+            if (this.headerButtonElement.classList.contains('expanded')) {
+                this.headerElement.classList.add('above-overlay');
+                overlayService.activateOverlay();
+            } else {
+                overlayService.deactivateOverlay();
                 this.textInputService.resetSearchInput();
             }
         });
@@ -60,6 +67,10 @@ class HeaderComponent extends Component {
                 !this.headerButtonElement.classList.contains('expanded') &&
                 mediaService.mediaWidthNarrow()) {
                 transitionsService.expandHeightWithoutTransition(this.navbarAndSearchWrapper, this.headerButtonElement);
+                overlayService.activateOverlay();
+            } else if (!mediaService.mediaWidthNarrow()) {
+                transitionsService.contractHeightWithoutTransition(this.navbarAndSearchWrapper, this.headerButtonElement);
+                overlayService.deactivateOverlay();
             }
         });
     }

@@ -1,224 +1,192 @@
 @import 'constants';
 
-#main-header {
+#page-header {
     @include pure-flex;
-    background-color: $color-secondary-text;
-    align-items: stretch;
-    justify-content: center;
-    min-height: 95px;
+    @include edge-padding;
+    background-color: $color-primary;
+    height: 95px;
 
-    @media #{$media-medium}, #{$media-narrow} {
-        position: relative;
+    @media #{$media-narrow} {
+        flex-direction: column;
+
+        &.above-overlay {
+            position: relative;
+            z-index: 2;
+        }
     }
 
-    .container {
-        @media #{$media-narrow} {
-            flex-direction: column;
-        }
+    #header-logo-and-button {
+        height: 95px;
+        align-items: center;
 
-        #header-logo-and-button {
-            @media #{$media-narrow} {
-                height: 95px;
-            }
+        #header-logo {
+            margin-right: auto;
 
-            align-items: center;
+            img {
+                transition: transform 0.2s $ease-out-quad-delayed;
+                height: 52px;
 
-            #header-logo {
-                margin-right: auto;
-                transform: scale(1);
-
-                img {
-                    transition: transform 0.2s $ease-out-quad-delayed;
-                    height: 52px;
-
-                    &:hover {
-                        transform: scale(1.15);
-                    }
-                }
-            }
-
-            #header-button {
-                @media #{$media-narrow} {
-                    width: 23px;
-                    border: none;
-                    flex-direction: column;
-                    //justify-content: space-around; // Does not work with firefox
-                    span {
-                        height: 3px;
-                        width: 23px;
-
-                        &:nth-last-child(n+2) {
-                            margin-bottom: 3px;
-                        }
-
-                        background-color: $color-primary-link;
-                        transition: transform 0.26s $ease-out-quad, background-color 0.26s $ease-out-quad;
-                    }
-
-                    &:hover, &:focus {
-                        outline: 0;
-                    }
-
-                    &.expanded {
-                        span {
-                            &:nth-child(1) {
-                                transform: translate(0, 6px) rotate(45deg);
-                            }
-
-                            &:nth-child(2) {
-                                transform: scaleX(0);
-                            }
-
-                            &:nth-child(3) {
-                                transform: translate(0, -6px) rotate(-45deg);
-                            }
-                        }
-                    }
-                    // TODO aria for entire site
-                    /*.sr-only {
-                        position: absolute;
-                        width: 1px;
-                        height: 1px;
-                        padding: 0;
-                        margin: -1px;
-                        overflow: hidden;
-                        clip: rect(0, 0, 0, 0);
-                        border: 0;
-                    }*/
-                }
-
-                @media #{$media-medium}, #{$media-wide} {
-                    display: none
+                &:hover {
+                    transform: scale(1.15);
                 }
             }
         }
 
-        #header-navbar-and-search {
+        #header-button {
             @media #{$media-medium}, #{$media-wide} {
-                flex-grow: 1;
-                padding-left: 36px;
+                display: none
             }
 
-            .wrapper {
-                align-self: center;
+            width: 23px;
+            border: none;
+            flex-direction: column;
+            //justify-content: space-around; // Does not work with firefox
+            span {
+                height: 3px;
+                width: 23px;
 
-                @media #{$media-narrow} {
-                    flex-grow: 1;
-                    overflow: hidden;
-                    transition: height 0.4s $ease-out-quad;
-                    flex-direction: column;
-                    height: 0;
+                &:nth-last-child(n+2) {
+                    margin-bottom: 3px;
                 }
 
-                @media #{$media-medium}, #{$media-wide} {
-                    height: auto !important;
-                    flex-grow: 1;
-                }
+                background-color: $color-primary-link;
+                transition: transform 0.26s $ease-out-quad, background-color 0.26s $ease-out-quad;
+            }
 
-                #header-navbar {
-                    @media #{$media-narrow} {
-                        flex-shrink: 0;
+            &:hover, &:focus {
+                outline: 0;
+            }
+
+            &.expanded {
+                span {
+                    &:nth-child(1) {
+                        transform: translate(0, 6px) rotate(45deg);
                     }
 
-                    ul {
-                        flex-grow: 1;
-                        list-style: none;
-                        align-items: center;
+                    &:nth-child(2) {
+                        transform: scaleX(0);
+                    }
 
-                        @media #{$media-narrow} {
-                            flex-direction: column;
-                            margin-bottom: 14px;
-                            flex-shrink: 0;
-                        }
+                    &:nth-child(3) {
+                        transform: translate(0, -6px) rotate(-45deg);
+                    }
+                }
+            }
+        }
+    }
 
-                        li {
+    #header-navbar-and-search {
+        @media #{$media-medium}, #{$media-wide} {
+            flex-grow: 1;
+            margin-left: 36px;
+        }
+
+        #header-navbar-and-search-wrapper {
+            @media #{$media-medium}, #{$media-wide} {
+                align-self: center;
+                flex-grow: 1;
+            }
+
+            @media #{$media-narrow} {
+                position: absolute;
+                top: 95px;
+                left: 0;
+                right: 0;
+                overflow: hidden;
+                transition: height 0.4s $ease-out-quad;
+                flex-direction: column;
+                height: 0;
+                background-color: $color-primary;
+                @include edge-padding;
+            }
+
+            #header-navbar {
+                ul {
+                    flex-grow: 1;
+                    list-style: none;
+                    align-items: center;
+
+                    @media #{$media-narrow} {
+                        flex-direction: column;
+                        margin-bottom: 14px;
+                    }
+
+                    li {
+                        &:nth-last-child(n+2) {
                             @media #{$media-medium}, #{$media-wide} {
-                                &:nth-last-child(n+2) {
-                                    margin-right: 38px;
-                                }
+                                margin-right: 38px;
                             }
 
                             @media #{$media-narrow} {
-                                &:nth-last-child(n+2) {
-                                    margin-bottom: 7px;
-                                }
-                            }
-
-                            &.active {
-                                // TODO some way to indicate that an anchor is active
-                            }
-
-                            a {
-                                @include animated-underline($color-primary-link, $animated-underline-15px-ypos, $duration: 0.4s, $background-color: $color-primary);
+                                margin-bottom: 7px;
                             }
                         }
-                    }
-                }
 
-                #header-search {
-                    height: 37px;
-                    background-image: linear-gradient($color-primary-text, $color-primary-text);
-                    background-repeat: no-repeat;
-                    background-position: 0 100%;
-                    // Note: Media width is flaky in Edge. Using a medium to wide viewport, navigate between contact.html, privacypolicy.html and licenses.html in the blog example. Notice how the search bar
-                    // sometimes starts out underlined. This is because the contents of this narrow query are somehow being applied initially. No easy fix.
-                    @media #{$media-narrow} {
-                        flex-shrink: 0;
-                        align-self: stretch;
-                        background-size: 100% 2px;
-                        margin-bottom: 37px;
-                        // When breadcrumbs are disabled search is adjacent to main, so its margin is different
-                        &.breadcrumbs-disabled {
-                            margin-bottom: 21px;
-
-                            &.search-results-visible {
-                                margin-bottom: 37px;
-                            }
+                        &.active {
+                            // TODO some way to indicate that an anchor is active
                         }
-                    }
 
-                    @media #{$media-medium}, #{$media-wide} {
-                        margin-left: auto;
-                        width: $side-menu-width;
-                        background-size: 0% 2px;
-                        transition: background-size 0.6s $ease-out-quad-delayed;
-
-                        &:hover, &.active {
-                            background-size: 100% 2px;
+                        a {
+                            @include animated-underline($color-primary-link, $animated-underline-15px-ypos, $duration: 0.4s, $background-color: $color-primary);
                         }
-                    }
-
-                    align-items: center;
-
-                    &::before {
-                        background-color: transparent;
-                        border: none;
-                        padding-right: 5px;
-                        opacity: $opacity-4;
-                    }
-
-                    @include text-input-icons;
-
-                    input {
-                        color: $color-primary-text;
-                        background-color: transparent;
-                        border: none;
-                        outline: none;
-                        flex-grow: 1;
-                        font-size: $font-size-2;
-                        // Input elements have intrinsic widths, set it to 0 and let the input element scale naturally - https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
-                        width: 0;
                     }
                 }
             }
-        }
-    }
 
-    #main-header-overlay {
-        @include overlay;
+            #header-search {
+                @include text-input-icons;
 
-        @media #{$media-wide} {
-            display: none;
+                height: 37px;
+                background-image: linear-gradient($color-primary-text, $color-primary-text);
+                background-repeat: no-repeat;
+                background-position: 0 100%;
+                align-items: center;
+
+                // Note: Media width is flaky in Edge. Using a medium to wide viewport, navigate between contact, privacypolicy and licenses in the blog example. Notice how the search bar
+                // sometimes starts out underlined. This is because the contents of this narrow query are somehow being applied initially. No easy fix.
+                @media #{$media-narrow} {
+                    align-self: stretch;
+                    background-size: 100% 2px;
+                    margin-bottom: 37px;
+                    // When breadcrumbs are disabled search is adjacent to main, so its margin is different
+                    &.breadcrumbs-disabled {
+                        margin-bottom: 21px;
+
+                        &.search-results-visible {
+                            margin-bottom: 37px;
+                        }
+                    }
+                }
+
+                @media #{$media-medium}, #{$media-wide} {
+                    margin-left: auto;
+                    width: $side-menu-width;
+                    background-size: 0% 2px;
+                    transition: background-size 0.6s $ease-out-quad-delayed;
+
+                    &:hover, &.active {
+                        background-size: 100% 2px;
+                    }
+                }
+
+                &::before {
+                    background-color: transparent;
+                    border: none;
+                    padding-right: 5px;
+                    opacity: $opacity-4;
+                }
+
+                input {
+                    color: $color-primary-text;
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    flex-grow: 1;
+                    font-size: $font-size-2;
+                    // Input elements have intrinsic widths, set it to 0 and let the input element scale naturally - https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
+                    width: 0;
+                }
+            }
         }
     }
 }
