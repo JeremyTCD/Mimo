@@ -1,0 +1,36 @@
+@import '../constants';
+
+#page-header-navbar {
+    @include pure-flex;
+
+    ul {
+        flex-grow: 1;
+        list-style: none;
+        align-items: center;
+
+        @media #{$media-narrow} {
+            flex-direction: column;
+            margin-bottom: 18px;
+        }
+
+        li {
+            &:nth-last-child(n+2) {
+                @media #{$media-medium}, #{$media-wide} {
+                    margin-right: 38px;
+                }
+
+                @media #{$media-narrow} {
+                    margin-bottom: 7px;
+                }
+            }
+
+            &.active {
+                // TODO some way to indicate that an anchor is active
+            }
+
+            a {
+                @include animated-underline($color-primary-link, $animated-underline-15px-ypos, $duration: 0.4s, $background-color: $color-primary);
+            }
+        }
+    }
+}

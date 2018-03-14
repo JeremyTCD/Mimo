@@ -1,0 +1,39 @@
+﻿@import '../constants';
+
+#search-results {
+    display: none;
+    margin-bottom: 59px;
+    flex-grow: 1;
+    flex-direction: column;
+    align-self: center;
+
+    #search-string {
+        @include edge-padding;
+        font-size: $font-size-2;
+        background-color: $color-secondary;
+        min-height: 37px;
+        padding: 8px 0;
+        justify-content: center;
+        color: $color-secondary-text;
+        margin-bottom: 59px;
+
+        span {
+            align-items: center;
+        }
+    }
+
+    > span {
+        @include edge-margin;
+        margin: -8px 0;
+    }
+
+    .article-list {
+        mark {
+            background-color: $color-primary-highlight;
+            padding: 0 5px;
+            display: inline;
+            color: inherit;
+            text-shadow: none;
+        }
+    }
+}

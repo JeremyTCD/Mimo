@@ -1,0 +1,28 @@
+<header id="page-header" role="navigation">
+    <div id="page-header-logo-and-button-wrapper">
+        <a id="page-header-logo" href="/">
+            <img class="svg" src="{{#mimo_logoRelPath}}{{mimo_logoRelPath}}{{/mimo_logoRelPath}}{{^mimo_logoRelPath}}/resources/logo.svg{{/mimo_logoRelPath}}" alt="{{mimo_websiteName}}" />
+        </a>
+        <button id="page-header-button" type="button">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+    <div id="page-header-navbar-and-search-wrapper">
+        <nav id="page-header-navbar">
+        </nav>
+        {{^mimo_disableSearch}}
+        <form id="page-header-search" role="search">
+            <svg>
+                <use xlink:href="#material-design-search" />
+            </svg>
+            <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off" />
+            <svg>
+                <use xlink:href="#material-design-clear-black" />
+            </svg>
+        </form>
+        {{>partials/searchResults}}
+        {{/mimo_disableSearch}}
+    </div>
+</header>

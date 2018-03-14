@@ -1,0 +1,99 @@
+@import '../constants';
+
+#page-header {
+    @include edge-padding;
+    background-color: $color-primary;
+    height: 95px;
+    display: flex;
+
+    @media #{$media-narrow} {
+        flex-direction: column;
+
+        &.above-overlay {
+            position: relative;
+            z-index: 2;
+        }
+    }
+
+    #page-header-logo-and-button-wrapper {
+        @include pure-flex;
+        height: 95px;
+        align-items: center;
+
+        #page-header-logo {
+            margin-right: auto;
+
+            img {
+                transition: transform 0.2s $ease-out-quad-delayed;
+                height: 52px;
+
+                &:hover {
+                    transform: scale(1.15);
+                }
+            }
+        }
+
+        #page-header-button {
+            @media #{$media-medium}, #{$media-wide} {
+                display: none
+            }
+
+            width: 23px;
+            border: none;
+            flex-direction: column;
+            //justify-content: space-around; // Does not work with firefox
+            span {
+                height: 3px;
+                width: 23px;
+
+                &:nth-last-child(n+2) {
+                    margin-bottom: 3px;
+                }
+
+                background-color: $color-primary-link;
+                transition: transform 0.26s $ease-out-quad, background-color 0.26s $ease-out-quad;
+            }
+
+            &:hover, &:focus {
+                outline: 0;
+            }
+
+            &.expanded {
+                span {
+                    &:nth-child(1) {
+                        transform: translate(0, 6px) rotate(45deg);
+                    }
+
+                    &:nth-child(2) {
+                        transform: scaleX(0);
+                    }
+
+                    &:nth-child(3) {
+                        transform: translate(0, -6px) rotate(-45deg);
+                    }
+                }
+            }
+        }
+    }
+
+    #page-header-navbar-and-search-wrapper {
+        @media #{$media-medium}, #{$media-wide} {
+            align-self: center;
+            flex-grow: 1;
+            margin-left: 36px;
+        }
+
+        @media #{$media-narrow} {
+            margin-top: -8px;
+            position: absolute;
+            top: 95px;
+            left: 0;
+            right: 0;
+            overflow: hidden;
+            transition: height 0.4s $ease-out-quad;
+            flex-direction: column;
+            height: 0;
+            background-color: $color-primary;
+        }
+    }
+}
