@@ -14,7 +14,7 @@ $color-alert-note-background: #f1f6fb;
 $color-alert-warning: #ffdb08;
 $color-alert-warning-background: #fffdf0;
 $color-alert-critical-warning: #ff2508;
-$color-alert-critical-warning-background: #fff2f0 ;
+$color-alert-critical-warning-background: #fff2f0;
 
 $color-section-body-background: #f9f9f9;
 $color-section-header-background: #f0f0f0;
@@ -51,10 +51,14 @@ $animated-underline-15px-ypos: 20px;
 $animated-underline-15px-inline-ypos: 18px;
 $animated-underline-26px-ypos: 30px;
 
+$horizontal-edge-narrow: 14px;
+$horizontal-edge-medium: 23px;
+$horizontal-edge-wide: 30px;
 
-@mixin pure-flex(){
+@mixin pure-flex() {
     display: flex;
-    *{
+
+    * {
         display: flex;
     }
 }
@@ -123,20 +127,47 @@ $animated-underline-26px-ypos: 30px;
     text-shadow: 1px 1px 0 $background-color, 1px -1px 0 $background-color, -1px 1px 0 $background-color, -1px -1px 0 $background-color;
 }
 
-@mixin overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: black;
-    opacity: 0;
-    visibility: hidden;
-    transition: visibility 0.4s, opacity 0.4s $ease-out-quad;
+@mixin above-overlay {
+    position: relative;
+    z-index: 0;
+    transition: z-index 0s 0.4s;
 
-    &.active {
-        transition: opacity 0.4s $ease-out-quad;
-        visibility: visible;
-        opacity: $opacity-1;
+    &.above-overlay {
+        transition: initial;
+        z-index: 2;
+    }
+}
+
+@mixin edge-padding {
+    @media #{$media-narrow} {
+        padding-left: $horizontal-edge-narrow;
+        padding-right: $horizontal-edge-narrow;
+    }
+
+    @media #{$media-medium} {
+        padding-left: $horizontal-edge-medium;
+        padding-right: $horizontal-edge-medium;
+    }
+
+    @media #{$media-wide} {
+        padding-left: $horizontal-edge-wide;
+        padding-right: $horizontal-edge-wide;
+    }
+}
+
+@mixin edge-margin {
+    @media #{$media-narrow} {
+        margin-left: $horizontal-edge-narrow;
+        margin-right: $horizontal-edge-narrow;
+    }
+
+    @media #{$media-medium} {
+        margin-left: $horizontal-edge-medium;
+        margin-right: $horizontal-edge-medium;
+    }
+
+    @media #{$media-wide} {
+        margin-left: $horizontal-edge-wide;
+        margin-right: $horizontal-edge-wide;
     }
 }

@@ -1,14 +1,8 @@
-{{^mimo_disableSearch}}
 <div id="search-results">
     <div id="search-string">
-      <div class="container">
         <span></span>
-      </div>
     </div>
-  <div class="container">
+
     <span></span>
     {{>partials/articleList}}
-  </div>
 </div>
-{{/mimo_disableSearch}}
-

@@ -6,13 +6,10 @@
     height: 95px;
     display: flex;
 
+    @include above-overlay;
+
     @media #{$media-narrow} {
         flex-direction: column;
-
-        &.above-overlay {
-            position: relative;
-            z-index: 2;
-        }
     }
 
     #page-header-logo-and-button-wrapper {
@@ -77,6 +74,8 @@
     }
 
     #page-header-navbar-and-search-wrapper {
+        display: flex;
+
         @media #{$media-medium}, #{$media-wide} {
             align-self: center;
             flex-grow: 1;
@@ -94,6 +93,7 @@
             flex-direction: column;
             height: 0;
             background-color: $color-primary;
+            align-items: stretch;
         }
     }
 }

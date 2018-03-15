@@ -7,6 +7,7 @@ import TransitionService from '../shared/transitionService';
 import OverlayService from '../shared/overlayService';
 import MediaService from '../shared/mediaService';
 import Component from '../shared/component';
+import { MediaWidth } from '../shared/mediaWidth';
 
 @injectable()
 export default class PageHeaderComponent extends RootComponent {
@@ -69,27 +70,38 @@ export default class PageHeaderComponent extends RootComponent {
     }
 
     private windowResizeListener = () => {
-        // Going from wide/medium to narrow with query in search component
-        if (this._searchComponent.hasQuery() &&
-            !this._buttonElement.classList.contains('expanded') &&
-            this._mediaService.mediaWidthNarrow()) {
-            this._transitionService.expandHeightWithoutTransition(this._navbarAndSearchWrapper, this._buttonElement);
-            this._overlayService.activateOverlay();
-        } else if (!this._mediaService.mediaWidthNarrow()) {
-            this._transitionService.contractHeightWithoutTransition(this._navbarAndSearchWrapper, this._buttonElement);
-            this._overlayService.deactivateOverlay();
+        // Going from wide/medium to narrow
+        if (this._mediaService.mediaWidthNarrow() && this._mediaService.mediaWidthChanged()) {
+
+            // Search component has query
+            if (this._searchComponent.hasQuery()) {
+                this._transitionService.expandHeightWithoutTransition(this._navbarAndSearchWrapper, this._buttonElement);
+            } else {
+                // In wide/medium, height of navbar and search wrapper is auto
+                this._transitionService.contractHeightWithoutTransition(this._navbarAndSearchWrapper, this._buttonElement);
+            }
+
+        } else if (!this._mediaService.mediaWidthNarrow() && this._mediaService.getPreviousMediaWidth() === MediaWidth.narrow) {
+            // Going from narrow to wide/medium
+            this._transitionService.reset(this._navbarAndSearchWrapper, this._buttonElement);
+
+            // Search component has no query
+            if (!this._searchComponent.hasQuery()) {
+                this._overlayService.deactivateOverlay(this._pageHeaderElement, false);
+            }
         }
     }
 
     private buttonClickListener = () => {
-        this._transitionService.toggleHeightWithTransition(this._navbarAndSearchWrapper, this._buttonElement);
-
         if (this._buttonElement.classList.contains('expanded')) {
-            this._pageHeaderElement.classList.add('above-overlay');
-            this._overlayService.activateOverlay();
-        } else {
-            this._overlayService.deactivateOverlay();
             this._searchComponent.reset();
+            this._overlayService.deactivateOverlay(this._pageHeaderElement);
+            this._pageHeaderElement.classList.remove('above-overlay');
+        } else {
+            this._pageHeaderElement.classList.add('above-overlay');
+            this._overlayService.activateOverlay(this._pageHeaderElement, false);
         }
+
+        this._transitionService.toggleHeightWithTransition(this._navbarAndSearchWrapper, this._buttonElement);
     }
 } 

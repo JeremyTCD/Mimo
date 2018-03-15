@@ -8,10 +8,10 @@
     background-repeat: no-repeat;
     background-position: 0 100%;
     align-items: center;
+
     // Note: Media width is flaky in Edge. Using a medium to wide viewport, navigate between contact, privacypolicy and licenses in the blog example. Notice how the search bar
     // sometimes starts out underlined. This is because the contents of this narrow query are somehow being applied initially. No easy fix.
     @media #{$media-narrow} {
-        align-self: stretch;
         background-size: 100% 2px;
         margin-bottom: 37px;
         @include edge-margin;
@@ -26,13 +26,6 @@
         &:hover, &.active {
             background-size: 100% 2px;
         }
-    }
-
-    &::before {
-        background-color: transparent;
-        border: none;
-        padding-right: 5px;
-        opacity: $opacity-4;
     }
 
     input {

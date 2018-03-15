@@ -2,6 +2,8 @@
 import * as Mark from 'mark.js';
 import Component from '../shared/component';
 import PaginationService from '../shared/paginationService';
+import OverlayService from '../shared/overlayService';
+import MediaService from '../shared/mediaService';
 //import SectionMenuComponent from '../sectionMenu/sectionMenuComponent';
 //import ArticleMenuComponent from '../articleMenu/articleMenuComponent';
 
@@ -12,18 +14,25 @@ export default class SearchResultsComponent implements Component {
     private _searchStringMessageElement: HTMLSpanElement;
     private _articleListElement: HTMLElement;
     private _paginationParentElements: NodeList;
+    private _pageHeaderElement: HTMLElement;
     private _articleListItemsParentElement: HTMLElement;
     //private _sectionMenuComponent: SectionMenuComponent;
     //private _articleMenuComponent: ArticleMenuComponent;
     private _paginationService: PaginationService;
+    private _overlayService: OverlayService;
+    private _mediaService: MediaService;
 
     public constructor(
         //sectionMenuComponent: SectionMenuComponent,
         //articleMenuComponent: ArticleMenuComponent,
+        mediaService: MediaService,
+        overlayService: OverlayService,
         paginationService: PaginationService) {
         //this._sectionMenuComponent = sectionMenuComponent;
         //this._articleMenuComponent = articleMenuComponent;
         this._paginationService = paginationService;
+        this._mediaService = mediaService;
+        this._overlayService = overlayService;
     }
 
     public setupImmediate(): void {
@@ -31,6 +40,7 @@ export default class SearchResultsComponent implements Component {
     }
 
     public setupOnDomContentLoaded(): void {
+        this._pageHeaderElement = document.getElementById('page-header');
         this._searchResultsElement = document.getElementById('search-results');
         this._searchStringMessageElement = document.querySelector('#search-string > span') as HTMLSpanElement;
         this._searchResultsMessageElement = document.querySelector('#search-results > span') as HTMLSpanElement;
@@ -48,13 +58,21 @@ export default class SearchResultsComponent implements Component {
 
     public setShown(shown: boolean) {
         if (shown) {
-            document.getElementById('search-results').style.display = 'flex';
+            this._searchResultsElement.style.display = 'flex';
+
+            if (!this._mediaService.mediaWidthNarrow()) {
+                this._overlayService.activateOverlay(this._pageHeaderElement, false, false);
+            }
         } else {
-            document.getElementById('search-results').style.display = 'none';
+            this._searchResultsElement.style.display = 'none';
 
             // Reset
             this._articleListItemsParentElement.innerHTML = '';
             $(this._paginationParentElements).twbsPagination('destroy');
+
+            if (!this._mediaService.mediaWidthNarrow()) {
+                this._overlayService.deactivateOverlay(this._pageHeaderElement, false);
+            }
 
             // While search results are displayed, main container (including left and right menu) have their dispay set to none.
             // This means that left and right menu cannot be updated on resize/scroll since they rely on getBoundingClientRect

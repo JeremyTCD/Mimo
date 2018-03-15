@@ -2,10 +2,18 @@
 
 #search-results {
     display: none;
-    margin-bottom: 59px;
+    padding-bottom: 59px;
     flex-grow: 1;
     flex-direction: column;
-    align-self: center;
+
+    @media #{$media-medium}, #{$media-wide} {
+        position: absolute;
+        top: 95px;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        background-color: $color-primary;
+    }
 
     #search-string {
         @include edge-padding;
