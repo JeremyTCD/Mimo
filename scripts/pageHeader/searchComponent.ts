@@ -38,7 +38,7 @@ export default class SearchComponent implements Component {
                 this._inputElement,
                 this._clearElement,
                 () => {
-                    // This is exactly what search service calls when value is an empty string
+                    // This is what search service calls when value is an empty string
                     this._searchResultsComponent.setShown(false);
                 });
     }

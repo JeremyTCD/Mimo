@@ -96,9 +96,7 @@ export default class PageHeaderComponent extends RootComponent {
         if (this._buttonElement.classList.contains('expanded')) {
             this._searchComponent.reset();
             this._overlayService.deactivateOverlay(this._pageHeaderElement);
-            this._pageHeaderElement.classList.remove('above-overlay');
         } else {
-            this._pageHeaderElement.classList.add('above-overlay');
             this._overlayService.activateOverlay(this._pageHeaderElement, false);
         }
 
