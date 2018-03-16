@@ -1,0 +1,93 @@
+﻿@import '../constants';
+
+#core-2 {
+    #section-menu-header {
+        @media #{$media-medium} {
+            display: flex;
+        }
+    }
+}
+
+#section-menu {
+    #section-menu-header {
+        @include edge-padding;
+
+        @media #{$media-medium}, #{$media-wide} {
+            display: none;
+        }
+
+        font-size: $font-size-2;
+        background-color: $color-secondary;
+        height: 37px;
+        color: $color-secondary-text;
+
+        #section-menu-header-button {
+            align-items: center;
+
+            @media #{$media-wide} {
+                display: none;
+            }
+
+            padding-left: 20px;
+            margin-left: auto;
+            flex-shrink: 0;
+            margin-right: -7px;
+
+            svg {
+                flex-shrink: 0;
+                height: 24px;
+                width: 24px;
+                fill: $color-secondary-text;
+                transform: rotate(0);
+                transition: transform 0.4s $ease-out-quad;
+            }
+
+            &.expanded {
+                svg {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+
+        ul {
+            list-style: none;
+            padding-top: 8px;
+            padding-bottom: 8px;
+
+            li {
+                align-items: center;
+
+                &:nth-last-child(n+2) {
+                    &::after {
+                        flex-shrink: 0;
+                        content: "";
+                        height: 14px;
+                        width: 2px;
+                        background-color: $color-primary;
+                        margin-right: 8px;
+                        margin-left: 8px;
+                        opacity: $opacity-1;
+                    }
+                }
+
+                > span, a {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+                // Non links
+                > span {
+                    display: inline;
+
+                    &.topic {
+                        opacity: $opacity-3;
+                    }
+                }
+                // Links
+                a {
+                    @include animated-underline($color-secondary-text, $animated-underline-13px-inline-ypos, $background-color: $color-secondary);
+                }
+            }
+        }
+    }
+}

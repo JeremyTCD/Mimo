@@ -1,0 +1,89 @@
+﻿@import '../constants';
+
+#section-pages {
+    overflow-y: auto;
+
+    ul {
+        flex-shrink: 1;
+        flex-direction: column;
+
+        li {
+            flex-direction: column;
+            flex-shrink: 0;
+
+            &.filter-hidden {
+                display: none;
+            }
+
+            &.filter-match .filter-hidden {
+                display: flex;
+            }
+
+            &.expandable {
+                > span, > a {
+                    svg {
+                        visibility: visible;
+                        transform: rotate(0deg);
+                        transition: transform 0.4s $ease-out-quad;
+                        fill: $color-primary-icon;
+                    }
+                }
+
+                &.expanded {
+                    > span, > a {
+                        svg {
+                            transform: rotate(90deg);
+                        }
+                    }
+                }
+
+                ul {
+                    height: 0;
+                    overflow: hidden;
+                    transition: height 0.4s $ease-out-quad;
+                }
+            }
+
+            > span, > a {
+                padding: 8px 0;
+                padding-right: 12px;
+                user-select: none;
+                align-items: center;
+                min-height: 37px;
+                // Prefix every span and a with the same svg so that they are all aligned
+                svg {
+                    flex-shrink: 0;
+                    margin-right: 3px;
+                    height: 18px;
+                    width: 18px;
+                    visibility: hidden;
+                }
+            }
+
+            > span {
+                cursor: pointer;
+                color: $color-primary-text;
+            }
+
+            > a {
+                background-image: linear-gradient($color-primary-link, $color-primary-link);
+                background-repeat: no-repeat;
+                background-position: 0 0;
+                background-size: 0% 100%;
+                transition: background-size 0.6s $ease-out-quad-delayed, color 0.4s $ease-out-quad-delayed;
+
+                &.active {
+                    background-color: $color-secondary;
+                }
+
+                &:hover:not(.active) {
+                    background-size: 100% 100%;
+                }
+
+                &.active, &:hover {
+                    color: $color-secondary-text;
+                }
+            }
+        }
+    }
+}

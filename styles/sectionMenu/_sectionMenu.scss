@@ -1,0 +1,52 @@
+﻿@import '../constants';
+@import './sectionMenuHeader';
+@import './sectionPages';
+@import './sectionPagesFilter';
+
+#core-2 {
+    #section-menu {
+        @media #{$media-medium}, #{$media-narrow} {
+            position: relative;
+            flex-direction: column;
+        }
+    }
+}
+
+#section-menu {
+    @include pure-flex;
+    font-size: $font-size-2;
+
+    @media #{$media-narrow} {
+        flex-direction: column;
+        position: relative;
+        height: 37px;
+    }
+
+    @media #{$media-wide} {
+        width: $side-menu-width;
+        margin-right: 66px;
+        height: auto !important;
+    }
+
+    #section-pages-wrapper {
+        width: inherit;
+        flex-direction: column;
+
+        @media #{$media-narrow} {
+            @include edge-padding;
+            height: 0;
+            overflow: hidden;
+            transition: height 0.4s $ease-out-quad;
+            position: absolute;
+            top: 37px;
+            background-color: $color-primary;
+        }
+
+        @media #{$media-wide} {
+            &.fixed {
+                position: fixed;
+                top: 23px;
+            }
+        }
+    }
+}

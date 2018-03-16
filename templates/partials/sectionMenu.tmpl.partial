@@ -1,0 +1,26 @@
+﻿{{^mimo_disableSectionMenu}}
+<div id="section-menu">
+    <nav id="section-menu-header">
+        <button id="section-menu-header-button">
+            <svg>
+                <use xlink:href="#material-design-drop-down" />
+            </svg>
+        </button>
+    </nav>
+
+    <div id="section-pages-wrapper">
+        <form id="section-pages-filter">
+            <svg>
+                <use xlink:href="#material-design-filter" />
+            </svg>
+            <input type="text" autocomplete="off" id="section-menu-filter-input" placeholder="Filter" onkeypress="if(event.keyCode==13) {return false;}"/>
+            <svg>
+                <use xlink:href="#material-design-clear-black" />
+            </svg>
+        </form>
+
+        <nav id="section-pages">
+        </nav>
+    </div>
+</div>
+{{/mimo_disableSectionMenu}}
