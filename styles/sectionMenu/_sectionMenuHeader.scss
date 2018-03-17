@@ -1,92 +1,91 @@
 ﻿@import '../constants';
 
-#core-2 {
-    #section-menu-header {
-        @media #{$media-medium} {
-            display: flex;
+@mixin section-header-side-menu() {
+    display: none;
+}
+
+#core-1 {
+    > #section-menu {
+        #section-menu-header {
+            @media #{$media-medium} {
+                @include section-header-side-menu;
+            }
         }
     }
 }
 
-#section-menu {
-    #section-menu-header {
-        @include edge-padding;
+#section-menu-header {
+    @include pure-flex;
+    @include edge-padding;
+    font-size: $font-size-2;
+    background-color: $color-secondary;
+    height: 37px;
+    color: $color-secondary-text;
 
-        @media #{$media-medium}, #{$media-wide} {
-            display: none;
+    @media #{$media-wide} {
+        @include section-header-side-menu;
+    }
+
+    #section-menu-header-button {
+        align-items: center;
+        padding-left: 20px;
+        margin-left: auto;
+        flex-shrink: 0;
+        margin-right: -7px;
+
+        svg {
+            flex-shrink: 0;
+            height: 24px;
+            width: 24px;
+            fill: $color-secondary-text;
+            transform: rotate(0);
+            transition: transform 0.4s $ease-out-quad;
         }
 
-        font-size: $font-size-2;
-        background-color: $color-secondary;
-        height: 37px;
-        color: $color-secondary-text;
+        &.expanded {
+            svg {
+                transform: rotate(180deg);
+            }
+        }
+    }
 
-        #section-menu-header-button {
+    ul {
+        list-style: none;
+        padding-top: 8px;
+        padding-bottom: 8px;
+
+        li {
             align-items: center;
 
-            @media #{$media-wide} {
-                display: none;
-            }
-
-            padding-left: 20px;
-            margin-left: auto;
-            flex-shrink: 0;
-            margin-right: -7px;
-
-            svg {
-                flex-shrink: 0;
-                height: 24px;
-                width: 24px;
-                fill: $color-secondary-text;
-                transform: rotate(0);
-                transition: transform 0.4s $ease-out-quad;
-            }
-
-            &.expanded {
-                svg {
-                    transform: rotate(180deg);
+            &:nth-last-child(n+2) {
+                &::after {
+                    flex-shrink: 0;
+                    content: "";
+                    height: 14px;
+                    width: 2px;
+                    background-color: $color-primary;
+                    margin-right: 8px;
+                    margin-left: 8px;
+                    opacity: $opacity-1;
                 }
             }
-        }
 
-        ul {
-            list-style: none;
-            padding-top: 8px;
-            padding-bottom: 8px;
+            > span, a {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            // Non links
+            > span {
+                display: inline;
 
-            li {
-                align-items: center;
-
-                &:nth-last-child(n+2) {
-                    &::after {
-                        flex-shrink: 0;
-                        content: "";
-                        height: 14px;
-                        width: 2px;
-                        background-color: $color-primary;
-                        margin-right: 8px;
-                        margin-left: 8px;
-                        opacity: $opacity-1;
-                    }
+                &.topic {
+                    opacity: $opacity-3;
                 }
-
-                > span, a {
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-                // Non links
-                > span {
-                    display: inline;
-
-                    &.topic {
-                        opacity: $opacity-3;
-                    }
-                }
-                // Links
-                a {
-                    @include animated-underline($color-secondary-text, $animated-underline-13px-inline-ypos, $background-color: $color-secondary);
-                }
+            }
+            // Links
+            a {
+                @include animated-underline($color-secondary-text, $animated-underline-13px-inline-ypos, $background-color: $color-secondary);
             }
         }
     }

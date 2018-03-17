@@ -3,50 +3,89 @@
 @import './sectionPages';
 @import './sectionPagesFilter';
 
+@mixin section-menu-dropdown() {
+    position: relative;
+    flex-direction: column;
+    height: 37px;
+}
+
+@mixin section-menu-side-menu() {
+    width: $side-menu-width;
+    margin-right: 66px;
+}
+
+@mixin section-wrapper-dropdown() {
+    @include edge-padding;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s $ease-out-quad;
+    position: absolute;
+    top: 37px;
+    background-color: $color-primary;
+    left: 0;
+    right: 0;
+}
+
+@mixin section-wrapper-side-menu() {
+    &.fixed {
+        position: fixed;
+        top: 23px;
+    }
+}
+
 #core-2 {
-    #section-menu {
-        @media #{$media-medium}, #{$media-narrow} {
-            position: relative;
-            flex-direction: column;
+    > #section-menu {
+        @media #{$media-medium} {
+            @include section-menu-dropdown;
+        }
+
+        #section-pages-wrapper {
+            @media #{$media-medium} {
+                @include section-wrapper-dropdown;
+            }
+        }
+    }
+}
+
+#core-1 {
+    > #section-menu {
+        @media #{$media-medium} {
+            @include section-menu-side-menu;
+        }
+
+        #section-pages-wrapper {
+            @media #{$media-medium} {
+
+                @include section-wrapper-side-menu;
+            }
         }
     }
 }
 
 #section-menu {
-    @include pure-flex;
+    display: flex;
     font-size: $font-size-2;
+    @include above-overlay;
 
     @media #{$media-narrow} {
-        flex-direction: column;
-        position: relative;
-        height: 37px;
+        @include section-menu-dropdown;
     }
 
     @media #{$media-wide} {
-        width: $side-menu-width;
-        margin-right: 66px;
-        height: auto !important;
+        @include section-menu-side-menu;
     }
 
     #section-pages-wrapper {
+        display: flex;
         width: inherit;
         flex-direction: column;
 
         @media #{$media-narrow} {
-            @include edge-padding;
-            height: 0;
-            overflow: hidden;
-            transition: height 0.4s $ease-out-quad;
-            position: absolute;
-            top: 37px;
-            background-color: $color-primary;
+            @include section-wrapper-dropdown;
         }
 
         @media #{$media-wide} {
-            &.fixed {
-                position: fixed;
-                top: 23px;
-            }
+            @include section-wrapper-side-menu;
         }
     }
 }

@@ -1,15 +1,18 @@
 ﻿@import '../constants';
 
 #section-pages {
+    @include pure-flex;
     overflow-y: auto;
+    flex-direction: column;
+    flex-shrink: 1;
 
     ul {
         flex-shrink: 1;
         flex-direction: column;
 
         li {
-            flex-direction: column;
             flex-shrink: 0;
+            flex-direction: column;
 
             &.filter-hidden {
                 display: none;

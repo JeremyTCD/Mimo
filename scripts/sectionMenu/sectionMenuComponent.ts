@@ -98,7 +98,7 @@ export default class SectionMenuComponent extends RootComponent {
             this._overlayService.deactivateOverlay(this._sectionMenuElement);
             this._smoothScroll.animateScroll(this._lastScrollY, null, SectionMenuComponent.SCROLL_OPTIONS);
         } else {
-            this._overlayService.activateOverlay(this._sectionMenuElement, false);
+            this._overlayService.activateOverlay(this._sectionMenuElement);
             this._lastScrollY = window.scrollY;
             this._smoothScroll.animateScroll(this._headerElement, null, SectionMenuComponent.SCROLL_OPTIONS);
         }
@@ -141,8 +141,11 @@ export default class SectionMenuComponent extends RootComponent {
             }
 
 
-        } else if (pagesFixed) {
-            this.unfixPages();
+        } else {
+            if (pagesFixed) {
+                this.unfixPages();
+            }
+            this._sectionPagesElement.style.height = '';
         }
     }
 
