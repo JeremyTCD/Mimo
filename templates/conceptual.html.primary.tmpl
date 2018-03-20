@@ -3,10 +3,26 @@
 <!DOCTYPE html>
 
 <html {{#mimo_pageID}}id={{mimo_pageID}}{{/mimo_pageID}}>
-  {{>partials/head}}
-  <body>
-      {{>partials/header}}
+    {{>partials/head}}
+    <body>
+        {{>partials/pageHeader}}
 
-    <div id="overlay"></div>
-  </body>
+        <div id="core-{{^mimo_disableArticleMenu}}2{{/mimo_disableArticleMenu}}{{#mimo_disableArticleMenu}}1{{/mimo_disableArticleMenu}}">
+            {{>partials/sectionMenu}}
+
+            {{^mimo_disableArticleMenu}}
+            <div id="core-1">
+            {{/mimo_disableArticleMenu}}
+
+                {{>partials/main}}
+		        {{>partials/articleMenu}}
+
+            {{^mimo_disableArticleMenu}}
+            </div>
+            {{/mimo_disableArticleMenu}}          
+        </div>
+
+        {{>partials/footer}}
+        <div id="overlay"></div>
+    </body>
 </html>

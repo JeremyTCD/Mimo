@@ -2,7 +2,9 @@
 
 main {
     display: flex;
+    flex-shrink: 1;
     flex-grow: 1;
+
     // Must be padding so overlay reaches footer (can just be a bottom margin for main's last element instead though)
     padding-bottom: 59px;
     flex-direction: column;
@@ -15,18 +17,5 @@ main {
         padding-left: 14px;
         padding-right: 14px;
         margin-top: 59px;
-
-        &.breadcrumbs-disabled {
-            // When breadcrumbs are disabled, header height remains the same, so margin top must be less
-            margin-top: 38px;
-        }
-    }
-
-    #main-overlay {
-        @include overlay;
-
-        @media #{$media-wide} {
-            display: none;
-        }
     }
 }

@@ -8,22 +8,28 @@ import OverlayService from '../shared/overlayService';
 import MediaService from '../shared/mediaService';
 import Component from '../shared/component';
 import { MediaWidth } from '../shared/mediaWidth';
+import DropdownFactory from '../shared/dropdownFactory';
+import Dropdown from '../shared/dropdown';
 
 @injectable()
 export default class PageHeaderComponent extends RootComponent {
     private _transitionService: TransitionService;
     private _overlayService: OverlayService;
     private _mediaService: MediaService;
+    private _dropdownFactory: DropdownFactory;
 
     private _searchComponent: SearchComponent;
 
     private _pageHeaderElement: HTMLElement;
     private _buttonElement: HTMLElement;
-    private _navbarAndSearchWrapper: HTMLElement;
+    private _navbarAndSearchOuterWrapper: HTMLElement;
+    private _navbarAndSearchInnerWrapper: HTMLElement;
 
     private _childComponents: Component[];
+    private _dropdown: Dropdown;
 
     public constructor(
+        dropdownFactory: DropdownFactory,
         transitionService: TransitionService,
         overlayService: OverlayService,
         mediaService: MediaService,
@@ -32,6 +38,7 @@ export default class PageHeaderComponent extends RootComponent {
         searchResultsComponent: SearchResultsComponent) {
         super();
 
+        this._dropdownFactory = dropdownFactory;
         this._transitionService = transitionService;
         this._overlayService = overlayService;
         this._mediaService = mediaService;
@@ -53,9 +60,11 @@ export default class PageHeaderComponent extends RootComponent {
         this.childComponentsSetupOnDomContentLoaded();
 
         this._buttonElement = document.getElementById('page-header-button');
-        this._navbarAndSearchWrapper = document.getElementById('page-header-navbar-and-search-wrapper');
+        this._navbarAndSearchOuterWrapper = document.getElementById('page-header-navbar-and-search-outer-wrapper');
+        this._navbarAndSearchInnerWrapper = document.getElementById('page-header-navbar-and-search-inner-wrapper');
         this._pageHeaderElement = document.getElementById('page-header');
 
+        this._dropdown = this._dropdownFactory.build(this._navbarAndSearchOuterWrapper, this._navbarAndSearchInnerWrapper, this._buttonElement, undefined);
     }
 
     public setupOnLoad(): void {
@@ -70,36 +79,30 @@ export default class PageHeaderComponent extends RootComponent {
     }
 
     private windowResizeListener = () => {
-        // Going from wide/medium to narrow
-        if (this._mediaService.mediaWidthNarrow() && this._mediaService.mediaWidthChanged()) {
+        // Going from wide/medium to narrow and search component has query
+        if (this._mediaService.mediaWidthNarrow() &&
+            this._mediaService.mediaWidthChanged() &&
+            this._searchComponent.hasQuery()) {
 
-            // Search component has query
-            if (this._searchComponent.hasQuery()) {
-                this._transitionService.expandHeightWithoutTransition(this._navbarAndSearchWrapper, this._buttonElement);
-            } else {
-                // In wide/medium, height of navbar and search wrapper is auto
-                this._transitionService.contractHeightWithoutTransition(this._navbarAndSearchWrapper, this._buttonElement);
-            }
-
+            this._dropdown.expandWithoutAnimation();
         } else if (!this._mediaService.mediaWidthNarrow() && this._mediaService.getPreviousMediaWidth() === MediaWidth.narrow) {
-            // Going from narrow to wide/medium
-            this._transitionService.reset(this._navbarAndSearchWrapper, this._buttonElement);
-
-            // Search component has no query
-            if (!this._searchComponent.hasQuery()) {
-                this._overlayService.deactivateOverlay(this._pageHeaderElement, false);
+            if (this._buttonElement.classList.contains('expanded') && !this._searchComponent.hasQuery()) {
+                this._overlayService.deactivateOverlay(false);
             }
+
+            // Going from narrow to wide/medium
+            this._dropdown.reset()
         }
     }
 
     private buttonClickListener = () => {
-        if (this._buttonElement.classList.contains('expanded')) {
+        if (this._dropdown.isExpanded()) {
             this._searchComponent.reset();
-            this._overlayService.deactivateOverlay(this._pageHeaderElement);
+            this._overlayService.deactivateOverlay();
         } else {
             this._overlayService.activateOverlay(this._pageHeaderElement, false);
         }
 
-        this._transitionService.toggleHeightWithTransition(this._navbarAndSearchWrapper, this._buttonElement);
+        this._dropdown.toggleWithAnimation();
     }
 } 

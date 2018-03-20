@@ -2,141 +2,114 @@
 
 body > footer {
     @include pure-flex;
+    @include edge-padding;
     font-size: $font-size-2;
     background-color: $color-secondary;
     justify-content: center;
+    align-items: center;
+    color: $color-secondary-text;
 
     @media #{$media-medium}, #{$media-narrow} {
         position: relative;
     }
 
-    .container {
-        align-items: center;
-        color: $color-secondary-text;
+    a {
+        color: inherit;
+    }
 
-        a {
-            color: inherit;
+    #footer-information {
+        flex-direction: column;
+
+        .uninteractive {
+            white-space: pre;
+            opacity: $opacity-3;
         }
 
-        #footer-information {
-            flex-direction: column;
+        #footer-attribution {
+            margin-bottom: 22px;
+            margin-top: 26px;
+            flex-wrap: wrap;
+            font-size: $font-size-1;
 
-            .uninteractive {
-                white-space: pre;
-                opacity: $opacity-3;
-            }
-
-            #footer-attribution {
-                margin-bottom: 22px;
-                margin-top: 26px;
-                flex-wrap: wrap;
-                font-size: $font-size-1;
-
-                > span {
-                    // Since spans and anchors are in different elements, wrapping will break up sentences
-                    flex-wrap: nowrap;
-                    align-items: center;
-
-                    &:nth-last-child(n+2) {
-                        &::after {
-                            content: "";
-                            height: 11px;
-                            width: 2px;
-                            background-color: $color-primary;
-                            margin-right: 5px;
-                            margin-left: 5px;
-                            opacity: $opacity-1;
-                        }
-                    }
-                }
-
-                a {
-                    white-space: pre;
-                    @include animated-underline($color-secondary-text, $animated-underline-11px-ypos, $background-color: $color-secondary);
-                }
-            }
-
-            #footer-legal {
-                flex-wrap: wrap;
-                margin-top: 23px;
-
-                span {
-                    align-items: center;
-
-                    &:nth-last-child(n+2) {
-                        &::after {
-                            content: "";
-                            height: 14px;
-                            width: 2px;
-                            background-color: $color-primary;
-                            margin-right: 8px;
-                            margin-left: 8px;
-                            margin-top: 1px;
-                            opacity: $opacity-1;
-                        }
-                    }
-                }
-
-                a {
-                    @include animated-underline($color-secondary-text, $animated-underline-13px-ypos, $background-color: $color-secondary);
-                }
-            }
-
-            #footer-copyright {
-                margin-top: 17px;
+            > span {
+                // Since spans and anchors are in different elements, wrapping will break up sentences
+                flex-wrap: nowrap;
                 align-items: center;
 
-                svg {
-                    height: 18px;
-                    width: 18px;
-                    fill: $color-secondary-text;
-                    opacity: $opacity-2;
-                    margin-right: 5px;
-                }
-            }
-
-            #footer-social-media {
-                margin-top: 28px;
-                flex-wrap: wrap;
-                // TODO every section in footer-information should have something similar for top margin so that if one is removed
-                // footer contents are still properly spaced out
-                & + #footer-legal {
-                    margin-top: 18px;
-                }
-
-                a {
-                    margin-right: 16px;
-                    transition: transform 0.3s $ease-out-quad-delayed;
-
-                    &:last-child {
-                        margin-right: 0px;
-                    }
-
-                    &:hover {
-                        transform: scale(1.3333);
-                    }
-
-                    svg {
-                        height: 24px;
-                        width: 24px;
-                        fill: $color-secondary-text;
+                &:nth-last-child(n+2) {
+                    &::after {
+                        content: "";
+                        height: 11px;
+                        width: 2px;
+                        background-color: $color-primary;
+                        margin-right: 5px;
+                        margin-left: 5px;
+                        opacity: $opacity-1;
                     }
                 }
-            }
-        }
-
-        #footer-button {
-            margin-left: auto;
-            padding-left: 20px;
-            opacity: 0;
-            transition: opacity 0.26s $ease-out-quad;
-
-            &.visible {
-                opacity: $opacity-6;
             }
 
             a {
+                white-space: pre;
+                @include animated-underline($color-secondary-text, $animated-underline-11px-ypos, $background-color: $color-secondary);
+            }
+        }
+
+        #footer-legal {
+            flex-wrap: wrap;
+            margin-top: 23px;
+
+            span {
+                align-items: center;
+
+                &:nth-last-child(n+2) {
+                    &::after {
+                        content: "";
+                        height: 14px;
+                        width: 2px;
+                        background-color: $color-primary;
+                        margin-right: 8px;
+                        margin-left: 8px;
+                        margin-top: 1px;
+                        opacity: $opacity-1;
+                    }
+                }
+            }
+
+            a {
+                @include animated-underline($color-secondary-text, $animated-underline-13px-ypos, $background-color: $color-secondary);
+            }
+        }
+
+        #footer-copyright {
+            margin-top: 17px;
+            align-items: center;
+
+            svg {
+                height: 18px;
+                width: 18px;
+                fill: $color-secondary-text;
+                opacity: $opacity-2;
+                margin-right: 5px;
+            }
+        }
+
+        #footer-social-media {
+            margin-top: 28px;
+            flex-wrap: wrap;
+            // TODO every section in footer-information should have something similar for top margin so that if one is removed
+            // footer contents are still properly spaced out
+            & + #footer-legal {
+                margin-top: 18px;
+            }
+
+            a {
+                margin-right: 16px;
                 transition: transform 0.3s $ease-out-quad-delayed;
+
+                &:last-child {
+                    margin-right: 0px;
+                }
 
                 &:hover {
                     transform: scale(1.3333);
@@ -151,11 +124,28 @@ body > footer {
         }
     }
 
-    #footer-overlay {
-        @include overlay;
+    #footer-button {
+        margin-left: auto;
+        padding-left: 20px;
+        opacity: 0;
+        transition: opacity 0.26s $ease-out-quad;
 
-        @media #{$media-wide} {
-            display: none;
+        &.visible {
+            opacity: $opacity-6;
+        }
+
+        a {
+            transition: transform 0.3s $ease-out-quad-delayed;
+
+            &:hover {
+                transform: scale(1.3333);
+            }
+
+            svg {
+                height: 24px;
+                width: 24px;
+                fill: $color-secondary-text;
+            }
         }
     }
 }

@@ -1,0 +1,336 @@
+@mixin dropdown-outer-wrapper {
+    will-change: transform;
+    transform-origin: top;
+    transform: scaleY(0);
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-duration: 0.3s;
+    overflow: hidden;
+}
+
+@mixin dropdown-inner-wrapper {
+    will-change: transform;
+    transform: scaleY(100);
+    transform-origin: top;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-duration: 0.3s;
+    width: 100%;
+}
+
+@keyframes expandAnimation {
+    0% {
+        // In firefox, if an element is scrolled out of an ancestor and a transform is run on the element, this transform is throttled - https: //bugzilla.mozilla.org/show_bug.cgi?id=1425213.
+        // Also, the transform does not run on the compositor. For example, if scaleY for this animation starts at 0, since outer wrappers have overflow: hidden, inner wrappers are considered 
+        // to be scrolled out of its parent: run this animation and note how the animation is not executed by the compositor in firefox (no lightning bolt in developer tools) and often has 
+        // latency. Also note how collapseAnimation does run on compositor. 
+        // Setting scale to a non 0 value fixes this.
+        transform: scaleY(0.0001);
+    }
+
+    5.555555555555555% {
+        transform: scaleY(0.10802469135802469);
+    }
+
+    11.11111111111111% {
+        transform: scaleY(0.20987654320987653);
+    }
+
+    16.666666666666664% {
+        transform: scaleY(0.3055555555555555);
+    }
+
+    22.22222222222222% {
+        transform: scaleY(0.3950617283950617);
+    }
+
+    27.77777777777778% {
+        transform: scaleY(0.4783950617283951);
+    }
+
+    33.33333333333333% {
+        transform: scaleY(0.5555555555555556);
+    }
+
+    38.88888888888889% {
+        transform: scaleY(0.6265432098765432);
+    }
+
+    44.44444444444444% {
+        transform: scaleY(0.691358024691358);
+    }
+
+    50% {
+        transform: scaleY(0.75);
+    }
+
+    55.55555555555556% {
+        transform: scaleY(0.8024691358024691);
+    }
+
+    61.111111111111114% {
+        transform: scaleY(0.8487654320987654);
+    }
+
+    66.66666666666666% {
+        transform: scaleY(0.8888888888888888);
+    }
+
+    72.22222222222221% {
+        transform: scaleY(0.9228395061728395);
+    }
+
+    77.77777777777779% {
+        transform: scaleY(0.9506172839506173);
+    }
+
+    83.33333333333334% {
+        transform: scaleY(0.9722222222222222);
+    }
+
+    88.88888888888889% {
+        transform: scaleY(0.9876543209876543);
+    }
+
+    94.44444444444444% {
+        transform: scaleY(0.9969135802469136);
+    }
+
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes expandInverseAnimation {
+    0% {
+        transform: scaleY(100);
+    }
+
+    5.555555555555555% {
+        transform: scaleY(9.257142857142858);
+    }
+
+    11.11111111111111% {
+        transform: scaleY(4.764705882352941);
+    }
+
+    16.666666666666664% {
+        transform: scaleY(3.272727272727273);
+    }
+
+    22.22222222222222% {
+        transform: scaleY(2.53125);
+    }
+
+    27.77777777777778% {
+        transform: scaleY(2.0903225806451613);
+    }
+
+    33.33333333333333% {
+        transform: scaleY(1.7999999999999998);
+    }
+
+    38.88888888888889% {
+        transform: scaleY(1.5960591133004927);
+    }
+
+    44.44444444444444% {
+        transform: scaleY(1.4464285714285716);
+    }
+
+    50% {
+        transform: scaleY(1.3333333333333333);
+    }
+
+    55.55555555555556% {
+        transform: scaleY(1.2461538461538462);
+    }
+
+    61.111111111111114% {
+        transform: scaleY(1.1781818181818182);
+    }
+
+    66.66666666666666% {
+        transform: scaleY(1.125);
+    }
+
+    72.22222222222221% {
+        transform: scaleY(1.0836120401337792);
+    }
+
+    77.77777777777779% {
+        transform: scaleY(1.051948051948052);
+    }
+
+    83.33333333333334% {
+        transform: scaleY(1.0285714285714287);
+    }
+
+    88.88888888888889% {
+        transform: scaleY(1.0125);
+    }
+
+    94.44444444444444% {
+        transform: scaleY(1.0030959752321982);
+    }
+
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes collapseAnimation {
+    0% {
+        transform: scaleY(1);
+    }
+
+    5.555555555555555% {
+        transform: scaleY(0.8919753086419753);
+    }
+
+    11.11111111111111% {
+        transform: scaleY(0.7901234567901234);
+    }
+
+    16.666666666666664% {
+        transform: scaleY(0.6944444444444444);
+    }
+
+    22.22222222222222% {
+        transform: scaleY(0.6049382716049383);
+    }
+
+    27.77777777777778% {
+        transform: scaleY(0.5216049382716049);
+    }
+
+    33.33333333333333% {
+        transform: scaleY(0.4444444444444444);
+    }
+
+    38.88888888888889% {
+        transform: scaleY(0.3734567901234568);
+    }
+
+    44.44444444444444% {
+        transform: scaleY(0.308641975308642);
+    }
+
+    50% {
+        transform: scaleY(0.25);
+    }
+
+    55.55555555555556% {
+        transform: scaleY(0.19753086419753085);
+    }
+
+    61.111111111111114% {
+        transform: scaleY(0.15123456790123457);
+    }
+
+    66.66666666666666% {
+        transform: scaleY(0.11111111111111116);
+    }
+
+    72.22222222222221% {
+        transform: scaleY(0.0771604938271605);
+    }
+
+    77.77777777777779% {
+        transform: scaleY(0.04938271604938271);
+    }
+
+    83.33333333333334% {
+        transform: scaleY(0.02777777777777779);
+    }
+
+    88.88888888888889% {
+        transform: scaleY(0.012345679012345734);
+    }
+
+    94.44444444444444% {
+        transform: scaleY(0.0030864197530864335);
+    }
+
+    100% {
+        transform: scaleY(0);
+    }
+}
+
+@keyframes collapseInverseAnimation {
+    0% {
+        transform: scaleY(1);
+    }
+
+    5.555555555555555% {
+        transform: scaleY(1.1211072664359862);
+    }
+
+    11.11111111111111% {
+        transform: scaleY(1.265625);
+    }
+
+    16.666666666666664% {
+        transform: scaleY(1.44);
+    }
+
+    22.22222222222222% {
+        transform: scaleY(1.6530612244897958);
+    }
+
+    27.77777777777778% {
+        transform: scaleY(1.9171597633136095);
+    }
+
+    33.33333333333333% {
+        transform: scaleY(2.25);
+    }
+
+    38.88888888888889% {
+        transform: scaleY(2.677685950413223);
+    }
+
+    44.44444444444444% {
+        transform: scaleY(3.2399999999999998);
+    }
+
+    50% {
+        transform: scaleY(4);
+    }
+
+    55.55555555555556% {
+        transform: scaleY(5.0625);
+    }
+
+    61.111111111111114% {
+        transform: scaleY(6.612244897959183);
+    }
+
+    66.66666666666666% {
+        transform: scaleY(8.999999999999996);
+    }
+
+    72.22222222222221% {
+        transform: scaleY(12.959999999999999);
+    }
+
+    77.77777777777779% {
+        transform: scaleY(20.25);
+    }
+
+    83.33333333333334% {
+        transform: scaleY(35.999999999999986);
+    }
+
+    88.88888888888889% {
+        transform: scaleY(80.99999999999964);
+    }
+
+    94.44444444444444% {
+        transform: scaleY(323.9999999999986);
+    }
+
+    100% {
+        transform: scaleY(100);
+    }
+}

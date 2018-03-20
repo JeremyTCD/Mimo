@@ -9,6 +9,6 @@ mimo_includeInSearchIndex: false
 mimo_enableSal: true
 mimo_disableEditArticle: true
 mimo_disableMetadata: true
-mimo_disableRightMenu: true
+mimo_disableArticleMenu: true
 mimo_disableComments: true
 ---

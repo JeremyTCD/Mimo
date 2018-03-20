@@ -2,11 +2,18 @@
 @import './sectionMenuHeader';
 @import './sectionPages';
 @import './sectionPagesFilter';
+@import './dropdown';
 
 @mixin section-menu-dropdown() {
     position: relative;
+    // Entire page is repainted when wrapper is animated if z-index is 0 or undefined
+    z-index: 1;
     flex-direction: column;
     height: 37px;
+
+    #section-menu-wrapper {
+        @include top-fixable;
+    }
 }
 
 @mixin section-menu-side-menu() {
@@ -14,19 +21,23 @@
     margin-right: 66px;
 }
 
-@mixin section-wrapper-dropdown() {
-    @include edge-padding;
-    height: 0;
-    overflow: hidden;
-    transition: height 0.4s $ease-out-quad;
+@mixin pages-outer-wrapper-dropdown() {
+    @include dropdown-outer-wrapper;
+    display: flex;
     position: absolute;
     top: 37px;
-    background-color: $color-primary;
     left: 0;
     right: 0;
+
 }
 
-@mixin section-wrapper-side-menu() {
+@mixin pages-inner-wrapper-dropdown() {
+    @include dropdown-inner-wrapper;
+    @include edge-padding;
+    background-color: $color-primary;
+}
+
+@mixin pages-wrapper-side-menu() {
     &.fixed {
         position: fixed;
         top: 23px;
@@ -39,9 +50,13 @@
             @include section-menu-dropdown;
         }
 
-        #section-pages-wrapper {
+        #section-pages-outer-wrapper {
             @media #{$media-medium} {
-                @include section-wrapper-dropdown;
+                @include pages-outer-wrapper-dropdown;
+
+                #section-pages-inner-wrapper {
+                    @include pages-inner-wrapper-dropdown;
+                }
             }
         }
     }
@@ -53,19 +68,18 @@
             @include section-menu-side-menu;
         }
 
-        #section-pages-wrapper {
+        #section-pages-outer-wrapper {
             @media #{$media-medium} {
-
-                @include section-wrapper-side-menu;
+                @include pages-wrapper-side-menu;
             }
         }
     }
 }
 
 #section-menu {
+    flex-shrink: 0;
     display: flex;
     font-size: $font-size-2;
-    @include above-overlay;
 
     @media #{$media-narrow} {
         @include section-menu-dropdown;
@@ -75,17 +89,22 @@
         @include section-menu-side-menu;
     }
 
-    #section-pages-wrapper {
-        display: flex;
-        width: inherit;
-        flex-direction: column;
-
+    #section-pages-outer-wrapper {
         @media #{$media-narrow} {
-            @include section-wrapper-dropdown;
+            @include pages-outer-wrapper-dropdown;
+
+            #section-pages-inner-wrapper {
+                @include pages-inner-wrapper-dropdown;
+            }
         }
 
         @media #{$media-wide} {
-            @include section-wrapper-side-menu;
+            @include pages-wrapper-side-menu;
+        }
+
+        #section-pages-inner-wrapper {
+            display: flex;
+            flex-direction: column;
         }
     }
 }

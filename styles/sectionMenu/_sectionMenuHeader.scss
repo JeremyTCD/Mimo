@@ -17,6 +17,7 @@
 #section-menu-header {
     @include pure-flex;
     @include edge-padding;
+    flex-shrink: 0;
     font-size: $font-size-2;
     background-color: $color-secondary;
     height: 37px;
@@ -27,6 +28,7 @@
     }
 
     #section-menu-header-button {
+        flex-shrink: 0;
         align-items: center;
         padding-left: 20px;
         margin-left: auto;
@@ -39,7 +41,7 @@
             width: 24px;
             fill: $color-secondary-text;
             transform: rotate(0);
-            transition: transform 0.4s $ease-out-quad;
+            transition: transform 0.3s $ease-out-quad;
         }
 
         &.expanded {
@@ -50,12 +52,18 @@
     }
 
     ul {
+        flex-shrink: 0;
         list-style: none;
         padding-top: 8px;
         padding-bottom: 8px;
+        flex-shrink: 1;
 
         li {
+            flex-shrink: 0;
             align-items: center;
+            flex-shrink: 1;
+            // Arbitrary
+            min-width: 50px;
 
             &:nth-last-child(n+2) {
                 &::after {
@@ -71,9 +79,11 @@
             }
 
             > span, a {
+                flex-shrink: 1;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                color: $color-secondary-text;
             }
             // Non links
             > span {

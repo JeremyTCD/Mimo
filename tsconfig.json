@@ -3,6 +3,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "target": "es5",
+        "lib": [ "es6", "dom" ],
         "noImplicitAny": false,
         "sourceMap": true,
         "allowJs": true,
@@ -10,10 +11,16 @@
         "typeRoots": [
             "./node_modules/@types"
         ],
-        "types": [ "node" ]
+        "types": [ "node", "reflect-metadata" ],
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
     },
     "include": [
+        "./scripts/shared/*.ts",
         "./scripts/*.ts",
+        "./scripts/pageHeader/*.ts",
+        "./scripts/sectionMenu/*.ts",
         "./typings/*.d.ts"
     ],
     "exclude": [

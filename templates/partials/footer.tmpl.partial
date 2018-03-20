@@ -1,86 +1,84 @@
 <footer>
-    <div class="container">
-        <nav id="footer-information">
-            {{#mimo_displaySocialMediaLinks}}
-            <div id="footer-social-media">
-                {{#mimo_githubLink}}
-                <a class="github-link" href="{{mimo_githubLink}}">
-                 <svg>
-                        <use xlink:href="#ion-icons-logo-github" />
-                    </svg>
-             </a>
-                {{/mimo_githubLink}}
-                {{#mimo_twitterLink}}
-                <a class="twitter-link" href="{{mimo_twitterLink}}">
-                    <svg>
-                        <use xlink:href="#ion-icons-logo-twitter" />
-                    </svg>
-                </a>
-                {{/mimo_twitterLink}}
-                {{#mimo_instagramLink}}
-                <a class="instagram-link" href="{{mimo_instagramLink}}">
-                    <svg>
-                        <use xlink:href="#ion-icons-logo-instagram" />
-                    </svg>
-                </a>
-                {{/mimo_instagramLink}}
-                {{#mimo_facebookLink}}
-                <a class="facebook-link" href="{{mimo_facebookLink}}">
-                    <svg>
-                        <use xlink:href="#ion-icons-logo-facebook" />
-                    </svg>
-                </a>
-                {{/mimo_facebookLink}}
-                {{#mimo_googleplusLink}}
-                <a class="googleplus-link" href="{{mimo_googleplusLink}}">
-                    <svg>
-                        <use xlink:href="#ion-icons-logo-googleplus" />
-                    </svg>
-                </a>
-                {{/mimo_googleplusLink}}
-            </div>
-            {{/mimo_displaySocialMediaLinks}}
-
-            <div id="footer-legal">
-                {{#mimo_licensesRelPath}}
-                <span>
-                    <a href="{{mimo_licensesRelPath}}">Licenses</a>
-                </span>
-                {{/mimo_licensesRelPath}}
-                {{#mimo_privacyPolicyRelPath}}
-                <span>
-                    <a href="{{mimo_privacyPolicyRelPath}}">Privacy Policy</a>
-                </span>
-                {{/mimo_privacyPolicyRelPath}}
-                {{#mimo_contactRelPath}}
-                <span class="footer-item">
-                    <a href="{{mimo_contactRelPath}}">Contact</a>
-                </span>
-                {{/mimo_contactRelPath}}
-
-            </div>
-            {{#mimo_copyrightText}}
-            <div id="footer-copyright">
+    <nav id="footer-information">
+        {{#mimo_displaySocialMediaLinks}}
+        <div id="footer-social-media">
+            {{#mimo_githubLink}}
+            <a class="github-link" href="{{mimo_githubLink}}">
                 <svg>
-                    <use xlink:href="#material-design-copyright" />
-                </svg>
-                <span class="uninteractive">{{mimo_copyrightText}}</span>
-            </div>
-            {{/mimo_copyrightText}}
-            <div id="footer-attribution">
-                <span><!--
-                 --><span class="uninteractive">Site generated using </span><a href="https://github.com/JeremyTCD/DocFx.Themes.Mimo">Mimo</a><span class="uninteractive"> by </span><a href="https://jeremytcd.com">JeremyTCD</a><!--
-             --></span>
-            </div>
-        </nav>
-        <div id="footer-button">
-            <!--smooth-scroll automatically scroll to top if href is #-->
-            <a href="#">
-                <svg>
-                    <use xlink:href="#material-design-arrow-upward" />
+                    <use xlink:href="#ion-icons-logo-github" />
                 </svg>
             </a>
+            {{/mimo_githubLink}}
+            {{#mimo_twitterLink}}
+            <a class="twitter-link" href="{{mimo_twitterLink}}">
+                <svg>
+                    <use xlink:href="#ion-icons-logo-twitter" />
+                </svg>
+            </a>
+            {{/mimo_twitterLink}}
+            {{#mimo_instagramLink}}
+            <a class="instagram-link" href="{{mimo_instagramLink}}">
+                <svg>
+                    <use xlink:href="#ion-icons-logo-instagram" />
+                </svg>
+            </a>
+            {{/mimo_instagramLink}}
+            {{#mimo_facebookLink}}
+            <a class="facebook-link" href="{{mimo_facebookLink}}">
+                <svg>
+                    <use xlink:href="#ion-icons-logo-facebook" />
+                </svg>
+            </a>
+            {{/mimo_facebookLink}}
+            {{#mimo_googleplusLink}}
+            <a class="googleplus-link" href="{{mimo_googleplusLink}}">
+                <svg>
+                    <use xlink:href="#ion-icons-logo-googleplus" />
+                </svg>
+            </a>
+            {{/mimo_googleplusLink}}
         </div>
+        {{/mimo_displaySocialMediaLinks}}
+
+        <div id="footer-legal">
+            {{#mimo_licensesRelPath}}
+            <span>
+                <a href="{{mimo_licensesRelPath}}">Licenses</a>
+            </span>
+            {{/mimo_licensesRelPath}}
+            {{#mimo_privacyPolicyRelPath}}
+            <span>
+                <a href="{{mimo_privacyPolicyRelPath}}">Privacy Policy</a>
+            </span>
+            {{/mimo_privacyPolicyRelPath}}
+            {{#mimo_contactRelPath}}
+            <span class="footer-item">
+                <a href="{{mimo_contactRelPath}}">Contact</a>
+            </span>
+            {{/mimo_contactRelPath}}
+
+        </div>
+        {{#mimo_copyrightText}}
+        <div id="footer-copyright">
+            <svg>
+                <use xlink:href="#material-design-copyright" />
+            </svg>
+            <span class="uninteractive">{{mimo_copyrightText}}</span>
+        </div>
+        {{/mimo_copyrightText}}
+        <div id="footer-attribution">
+            <span><!--
+                --><span class="uninteractive">Site generated using </span><a href="https://github.com/JeremyTCD/DocFx.Themes.Mimo">Mimo</a><span class="uninteractive"> by </span><a href="https://jeremytcd.com">JeremyTCD</a><!--
+            --></span>
+        </div>
+    </nav>
+    <div id="footer-button">
+        <!--smooth-scroll automatically scroll to top if href is #-->
+        <a href="#">
+            <svg>
+                <use xlink:href="#material-design-arrow-upward" />
+            </svg>
+        </a>
     </div>
     <div id="footer-overlay"></div>
 </footer>

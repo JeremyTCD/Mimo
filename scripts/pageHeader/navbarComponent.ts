@@ -1,18 +1,18 @@
 import { injectable, inject } from 'inversify';
 import Component from '../shared/component';
-//import SectionMenuComponent from '../sectionMenu/sectionMenuComponent';
+import SectionMenuHeaderComponent from '../sectionMenu/sectionMenuHeaderComponent';
 import PathService from '../shared/pathService';
 
 @injectable()
 export default class NavbarComponent implements Component {
     private _pathService: PathService;
-    //private _sectionMenuComponent: SectionMenuComponent;
+    private _sectionMenuHeaderComponent: SectionMenuHeaderComponent;
     private _navbarElement: HTMLElement;
 
-    public constructor(pathService: PathService) {
-        //sectionMenuComponent: SectionMenuComponent) {
+    public constructor(pathService: PathService,
+        sectionMenuComponent: SectionMenuHeaderComponent) {
         this._pathService = pathService;
-        //this._sectionMenuComponent = sectionMenuComponent;
+        this._sectionMenuHeaderComponent = sectionMenuComponent;
     }
 
     public setupImmediate(): void {
@@ -90,7 +90,7 @@ export default class NavbarComponent implements Component {
                 }
                 if (isActive) {
                     anchorElement.parentElement.classList.add('active');
-                    //this._sectionMenuComponent.loadRootBreadCrumb(anchorElement);
+                    this._sectionMenuHeaderComponent.loadRootBreadCrumb(anchorElement);
                 } else {
                     anchorElement.parentElement.classList.remove('active')
                 }

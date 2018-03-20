@@ -1,6 +1,8 @@
 import '../styles/index.scss';
+import container from './container';
+import RootComponent from './shared/rootComponent';
 
-// TODO use commonjs style since tsc removes es6 style imports, e.g "import logo from './logo.svg'". This shouldn't 
+// TODO use commonjs style since tsc removes es6 style imports, e.g 'import logo from './logo.svg''. This shouldn't 
 // be the case.
 require('../resources/material-design-clear-black.svg');
 require('../resources/material-design-search.svg');
@@ -27,59 +29,50 @@ require('../resources/ion-icons-logo-instagram.svg');
 require('../resources/ion-icons-logo-facebook.svg');
 require('../resources/ion-icons-logo-googleplus.svg');
 
-import articleComponent from './articleComponent';
-import headerComponent from './headerComponent';
-import salComponent from './salComponent';
-import leftMenuComponent from './leftMenuComponent';
-import footerComponent from './footerComponent';
-import rightMenuComponent from './rightMenuComponent';
-import commentsComponent from './commentsComponent';
-import searchResultsComponent from './searchResultsComponent';
-
-import searchService from './searchService';
-import linkService from './linkService';
-import codeService from './codeService';
-
 import * as domready from 'domready';
 import * as $ from 'jquery';
 
+let rootComponents = container.getAll<RootComponent>('RootComponent');
+
+for (let i = 0; i < rootComponents.length; i++) {
+    let rootComponent = rootComponents[i];
+
+    if (rootComponent.enabled()) {
+        rootComponent.setupImmediate();
+    }
+}
+
 // Called when document has been parsed but resources may not have been loaded
 function onDomContentLoaded() {
-    salComponent.onDomContentLoaded();
-    headerComponent.onDomContentLoaded();
-    footerComponent.onDomContentLoaded();
-    articleComponent.onDomContentLoaded();
-    commentsComponent.onDomContentLoaded();
-    searchResultsComponent.onDomContentLoaded();
-    leftMenuComponent.onDomContentLoaded();
-    rightMenuComponent.onDomContentLoaded();
+    for (let i = 0; i < rootComponents.length; i++) {
+        let rootComponent = rootComponents[i];
 
-    searchService.setupSearch();
-    linkService.setupOpenExternalLinksInNewTab();
-    linkService.setupSmoothScroll();
-    codeService.setupCodeBlocks();
+        if (rootComponent.enabled()) {
+            rootComponent.setupOnDomContentLoaded();
+            rootComponent.registerListeners();
+        }
+    }
 }
 
 // Called after document has been parsed and all resources have been loaded.
 // Logic that depends on dimensions of elements must be run here.
 function onLoad() {
-    salComponent.onLoad();
-    headerComponent.onLoad();
-    footerComponent.onLoad();
-    articleComponent.onLoad();
-    commentsComponent.onLoad();
-    searchResultsComponent.onLoad();
-    leftMenuComponent.onLoad();
-    rightMenuComponent.onLoad();
+    for (let i = 0; i < rootComponents.length; i++) {
+        let rootComponent = rootComponents[i];
+
+        if (rootComponent.enabled()) {
+            rootComponent.setupOnLoad();
+        }
+    }
 }
 
-if (document.readyState === "interactive" || document.readyState === "loaded") {
+if (document.readyState === 'interactive' || document.readyState === 'loaded') {
     onDomContentLoaded();
 } else {
     document.addEventListener('DomContentLoaded', onDomContentLoaded);
 }
 
-if (document.readyState === "complete") {
+if (document.readyState === 'complete') {
     onLoad();
 } else {
     window.addEventListener('load', onLoad);

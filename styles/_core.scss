@@ -1,50 +1,33 @@
 ﻿@import 'constants';
 
-#core {
+#core-2 {
     display: flex;
-    align-self: center;
-    // When screen is narrow or medium, left menu needs to be below breadcrumbs
+    flex-grow: 1;
+    // When screen is narrow or medium, section menu must be above main and article menu
     @media #{$media-medium}, #{$media-narrow} {
         flex-direction: column;
-        position: relative;
-        // Necessary for right menu to be above footer
-        z-index: 1;
-    }
-
-    @media #{$media-narrow} {
-        padding: 0;
     }
 
     @media #{$media-wide} {
-        margin-top: 59px;
-
-        &.breadcrumbs-disabled {
-            // When breadcrumbs are disabled, header height remains the same, so margin top must be less
-            margin-top: 38px;
-        }
-        // See leftMenuComponent UpdateLeftMenu - If left and right menu are the same height as the article,
-        // the min-height fix does not work properly when resizing.
-        align-items: flex-start;
+        @include edge-padding;
     }
 
-    #main-and-right-menu-wrapper {
-        display: flex;
-        flex-grow: 1;
-        position: relative;
-
-        @media #{$media-medium} {
-            margin-top: 59px;
-
-            &.breadcrumbs-disabled {
-                // When breadcrumbs are disabled, header height remains the same, so padding top must be less
-                margin-top: 38px;
-            }
-
-            align-items: flex-start;
-        }
-
+    #core-1 {
         @media #{$media-narrow} {
             flex-direction: column-reverse;
         }
+    }
+}
+
+#core-1 {
+    display: flex;
+    flex-grow: 1;
+
+    @media #{$media-narrow} {
+        flex-direction: column;
+    }
+
+    @media #{$media-medium}, #{$media-wide} {
+        @include edge-padding;
     }
 }

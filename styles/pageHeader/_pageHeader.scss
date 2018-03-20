@@ -1,24 +1,36 @@
 @import '../constants';
+@import '../dropdown';
 
 #page-header {
-    @include edge-padding;
     background-color: $color-primary;
     height: 95px;
     display: flex;
-
-    @include above-overlay;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    will-change: transform;
 
     @media #{$media-narrow} {
         flex-direction: column;
+    }
+
+    @media #{$media-medium}, #{$media-wide} {
+        @include edge-padding;
     }
 
     #page-header-logo-and-button-wrapper {
         @include pure-flex;
         height: 95px;
         align-items: center;
+        flex-shrink: 0;
+
+        @media #{$media-narrow} {
+            @include edge-padding;
+        }
 
         #page-header-logo {
             margin-right: auto;
+            flex-shrink: 0;
 
             img {
                 transition: transform 0.2s $ease-out-quad-delayed;
@@ -35,6 +47,7 @@
                 display: none
             }
 
+            flex-shrink: 0;
             width: 23px;
             border: none;
             flex-direction: column;
@@ -42,13 +55,14 @@
             span {
                 height: 3px;
                 width: 23px;
+                flex-shrink: 0;
 
                 &:nth-last-child(n+2) {
                     margin-bottom: 3px;
                 }
 
                 background-color: $color-primary-link;
-                transition: transform 0.26s $ease-out-quad, background-color 0.26s $ease-out-quad;
+                transition: transform 0.3s $ease-out-quad, background-color 0.3s $ease-out-quad;
             }
 
             &:hover, &:focus {
@@ -73,7 +87,7 @@
         }
     }
 
-    #page-header-navbar-and-search-wrapper {
+    #page-header-navbar-and-search-outer-wrapper {
         display: flex;
 
         @media #{$media-medium}, #{$media-wide} {
@@ -88,12 +102,19 @@
             top: 95px;
             left: 0;
             right: 0;
-            overflow: hidden;
-            transition: height 0.4s $ease-out-quad;
-            flex-direction: column;
-            height: 0;
-            background-color: $color-primary;
-            align-items: stretch;
+            @include dropdown-outer-wrapper;
+        }
+
+        #page-header-navbar-and-search-inner-wrapper {
+            @media #{$media-medium}, #{$media-wide} {
+                display: flex;
+                flex-grow: 1;
+            }
+
+            @media #{$media-narrow} {
+                @include dropdown-inner-wrapper;
+                background-color: $color-primary;
+            }
         }
     }
 }

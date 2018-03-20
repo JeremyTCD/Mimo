@@ -71,7 +71,7 @@ export default class SearchResultsComponent implements Component {
             $(this._paginationParentElements).twbsPagination('destroy');
 
             if (!this._mediaService.mediaWidthNarrow()) {
-                this._overlayService.deactivateOverlay(this._pageHeaderElement, false);
+                this._overlayService.deactivateOverlay(false);
             }
 
             // While search results are displayed, main container (including left and right menu) have their dispay set to none.

@@ -27,6 +27,7 @@ export default class SectionPagesFilterComponent implements Component {
     }
 
     public setupOnDomContentLoaded(): void {
+        this._sectionPagesElement = document.getElementById('section-pages');
         this._filterElement = document.getElementById('section-pages-filter');
         this._inputElement = this._filterElement.querySelector('input');
         this._clearElement = this._filterElement.querySelector('svg:last-child') as HTMLElement;

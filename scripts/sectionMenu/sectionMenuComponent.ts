@@ -8,13 +8,17 @@ import * as SmoothScroll from 'smooth-scroll';
 import SectionPagesComponent from './sectionPagesComponent';
 import SectionMenuHeaderComponent from './sectionMenuHeaderComponent';
 import SectionPagesFilterComponent from './sectionPagesFilterComponent';
+import DropdownFactory from '../shared/dropdownFactory';
+import Dropdown from '../shared/dropdown';
 
 @injectable()
 export default class SectionMenuComponent extends RootComponent {
     private _sectionMenuElement: HTMLElement;
+    private _wrapperElement: HTMLElement;
     private _headerButtonElement: HTMLElement;
     private _headerElement: HTMLElement;
-    private _pagesWrapperElement: HTMLElement;
+    private _pagesOuterWrapperElement: HTMLElement;
+    private _pagesInnerWrapperElement: HTMLElement;
     private _footerElement: HTMLElement;
     private _sectionPagesElement: HTMLElement;
 
@@ -25,14 +29,16 @@ export default class SectionMenuComponent extends RootComponent {
     private _mediaService: MediaService;
     private _transitionService: TransitionService;
     private _overlayService: OverlayService;
+    private _dropdownFactory: DropdownFactory;
 
     public static readonly VERTICAL_GAP: number = 23;
     private static readonly HEADER_HEIGHT: number = 37;
     private static readonly SCROLL_OPTIONS = { speed: 400 };
     private _inCore2: boolean;
     private _smoothScroll: SmoothScroll;
-    private _lastScrollY: number;
+    private _wrapperInitialTop: number;
     private _enabledAttempted: boolean;
+    private _dropdown: Dropdown;
 
     public constructor(
         sectionPagesComponent: SectionPagesComponent,
@@ -40,6 +46,7 @@ export default class SectionMenuComponent extends RootComponent {
         sectionPagesFilterComponent: SectionPagesFilterComponent,
         transitionService: TransitionService,
         overlayService: OverlayService,
+        dropdownFactory: DropdownFactory,
         mediaService: MediaService) {
         super();
 
@@ -49,6 +56,7 @@ export default class SectionMenuComponent extends RootComponent {
         this._transitionService = transitionService;
         this._overlayService = overlayService;
         this._mediaService = mediaService;
+        this._dropdownFactory = dropdownFactory;
 
         this.addChildComponents(sectionMenuHeaderComponent, sectionPagesFilterComponent, sectionPagesComponent);
     }
@@ -70,18 +78,22 @@ export default class SectionMenuComponent extends RootComponent {
         this.childComponentsSetupOnDomContentLoaded();
 
         this._sectionPagesElement = document.getElementById('section-pages');
+        this._wrapperElement = document.getElementById('section-menu-wrapper');
         this._footerElement = document.querySelector('body > footer');
         this._headerElement = document.getElementById('section-menu-header');
         this._headerButtonElement = document.getElementById('section-menu-header-button');
-        this._pagesWrapperElement = document.getElementById('section-pages-wrapper');
+        this._pagesOuterWrapperElement = document.getElementById('section-pages-outer-wrapper');
+        this._pagesInnerWrapperElement = document.getElementById('section-pages-inner-wrapper');
         this._inCore2 = this._sectionMenuElement.parentElement.getAttribute('id') === 'core-2';
+
+        this._dropdown = this._dropdownFactory.build(this._pagesOuterWrapperElement, this._pagesInnerWrapperElement, this._headerButtonElement, this._wrapperElement);
     }
 
     public setupOnLoad(): void {
         this.childComponentsSetupOnLoad();
 
         this.updateFixed();
-        this.updatedDropdown()
+        this.updateDropdown()
     }
 
     public registerListeners(): void {
@@ -94,16 +106,7 @@ export default class SectionMenuComponent extends RootComponent {
     }
 
     private buttonClickListener = (): void => {
-        if (this._headerButtonElement.classList.contains('expanded')) {
-            this._overlayService.deactivateOverlay(this._sectionMenuElement);
-            this._smoothScroll.animateScroll(this._lastScrollY, null, SectionMenuComponent.SCROLL_OPTIONS);
-        } else {
-            this._overlayService.activateOverlay(this._sectionMenuElement);
-            this._lastScrollY = window.scrollY;
-            this._smoothScroll.animateScroll(this._headerElement, null, SectionMenuComponent.SCROLL_OPTIONS);
-        }
-
-        this._transitionService.toggleHeightWithTransition(this._pagesWrapperElement, this._headerButtonElement);
+        this._dropdown.toggleWithAnimation();
     }
 
     private windowScrollListener = (): void => {
@@ -112,11 +115,11 @@ export default class SectionMenuComponent extends RootComponent {
 
     private windowResizeListener = (): void => {
         this.updateFixed();
-        this.updatedDropdown()
+        this.updateDropdown()
     }
 
     private updateFixed(): void {
-        let pagesFixed = this._pagesWrapperElement.classList.contains('fixed');
+        let pagesFixed = this._pagesOuterWrapperElement.classList.contains('fixed');
         let top: number;
 
         if (this._mediaService.mediaWidthWide() || !this._inCore2 && this._mediaService.mediaWidthMedium()) {
@@ -135,7 +138,7 @@ export default class SectionMenuComponent extends RootComponent {
                 // Note: clientHeight is rounded to an integer, but I can't find any evidence that it gets rounded up on all browsers, so add 1.
                 this._sectionMenuElement.style.minHeight = `${this._sectionMenuElement.clientHeight + 1}px`;
 
-                this._pagesWrapperElement.classList.add('fixed');
+                this._pagesOuterWrapperElement.classList.add('fixed');
             } else if (!fix && pagesFixed) {
                 this.unfixPages();
             }
@@ -154,34 +157,37 @@ export default class SectionMenuComponent extends RootComponent {
     // | medium     | y       | y         |
     // | medium     | n       | n         |
     // | wide       | y/n     | n         |
-    private updatedDropdown(): void {
+    private updateDropdown(): void {
         let previousMediaWidth: MediaWidth = this._mediaService.getPreviousMediaWidth();
 
         if (this._mediaService.mediaWidthNarrow() || this._inCore2 && this._mediaService.mediaWidthMedium()) {
             // Update wrapper maxheight so it is scrollable as a dropdown menu
-            this._pagesWrapperElement.style.maxHeight = `${window.innerHeight - SectionMenuComponent.HEADER_HEIGHT}px`;
+            this._pagesOuterWrapperElement.style.maxHeight = `${window.innerHeight - SectionMenuComponent.HEADER_HEIGHT}px`;
 
             if (previousMediaWidth === MediaWidth.wide ||
                 !this._inCore2 && previousMediaWidth === MediaWidth.medium) {
                 // Going from being beside main to being collapsed
-                this._transitionService.contractHeightWithoutTransition(this._pagesWrapperElement, this._headerButtonElement);
+                this._transitionService.contractHeightWithoutTransition(this._pagesOuterWrapperElement, this._headerButtonElement);
             }
         } else if (previousMediaWidth === MediaWidth.narrow ||
             this._inCore2 && previousMediaWidth == MediaWidth.medium) {
 
+            if (this._headerButtonElement.classList.contains('expanded')) {
+                this._overlayService.deactivateOverlay(false);
+            }
+
             // Going from collapsed to being beside main
-            this._transitionService.reset(this._pagesWrapperElement, this._headerButtonElement);
-            this._overlayService.deactivateOverlay(this._sectionMenuElement, false);
+            this._transitionService.reset(this._pagesOuterWrapperElement, this._headerButtonElement);
         }
     }
 
-    private updatePagesHeight (fixed: boolean, sectionMenuElementTop: number): void {
+    private updatePagesHeight(fixed: boolean, sectionMenuElementTop: number): void {
         let footerTop = this._footerElement.getBoundingClientRect().top;
 
         let pagesHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
             - SectionMenuComponent.VERTICAL_GAP
-            - (fixed ? this._sectionPagesFilterComponent.getFixedBottom() : 
-            sectionMenuElementTop + this._sectionPagesFilterComponent.getHeight());
+            - (fixed ? this._sectionPagesFilterComponent.getFixedBottom() :
+                sectionMenuElementTop + this._sectionPagesFilterComponent.getHeight());
 
         // Tried setting bottom, max-height, both don't work on edge - scroll bar doesn't go away even when height is greater than 
         // menu height. This works.
@@ -189,7 +195,7 @@ export default class SectionMenuComponent extends RootComponent {
     }
 
     private unfixPages() {
-        this._pagesWrapperElement.classList.remove('fixed');
+        this._pagesOuterWrapperElement.classList.remove('fixed');
         this._sectionMenuElement.style.minHeight = 'initial';
     }
 }

@@ -1,26 +1,5 @@
 ﻿@import 'constants';
 
-.container {
-    // Ensures container stretches to max-width when it can
-    width: 100%;
-    flex-grow: 1;
-
-    @media #{$media-narrow} {
-        padding-left: 14px;
-        padding-right: 14px;
-    }
-
-    @media #{$media-medium} {
-        padding-left: 23px;
-        padding-right: 23px;
-    }
-
-    @media #{$media-wide} {
-        padding-left: 30px;
-        padding-right: 30px;
-    }
-}
-
 body {
     // Note: The popular mobile browsers fix vh to the entire viewport height (including url bar height) - https: //developers.google.com/web/updates/2016/12/url-bar-resizing.
     // They fix 100% for html height to viewport height - url bar height. This means that there is no reliable way to avoid overflow immediately after page load.
@@ -30,6 +9,20 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    position: relative;
+
+    #overlay {
+        // TODO is this affecting page height?
+        height: 100vh;
+        width: 100%;
+        position: fixed;
+        background-color: black;
+        opacity: 0;
+        z-index: 2;
+        visibility: hidden;
+        transition: opacity 0.3s $ease-out-quad;
+        will-change: opacity;
+    }
 }
 
 html, body {

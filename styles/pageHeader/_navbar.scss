@@ -2,6 +2,11 @@
 
 #page-header-navbar {
     @include pure-flex;
+    flex-shrink: 0;
+
+    @media #{$media-narrow} {
+        @include edge-padding;
+    }
 
     ul {
         flex-grow: 1;
@@ -14,6 +19,8 @@
         }
 
         li {
+            flex-shrink: 0;
+
             &:nth-last-child(n+2) {
                 @media #{$media-medium}, #{$media-wide} {
                     margin-right: 38px;

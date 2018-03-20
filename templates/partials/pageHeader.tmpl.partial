@@ -9,20 +9,22 @@
             <span></span>
         </button>
     </div>
-    <div id="page-header-navbar-and-search-wrapper">
-        <nav id="page-header-navbar">
-        </nav>
-        {{^mimo_disableSearch}}
-        <form id="page-header-search" role="search">
-            <svg>
-                <use xlink:href="#material-design-search" />
-            </svg>
-            <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off" />
-            <svg>
-                <use xlink:href="#material-design-clear-black" />
-            </svg>
-        </form>
-        {{>partials/searchResults}}
-        {{/mimo_disableSearch}}
+    <div id="page-header-navbar-and-search-outer-wrapper">
+        <div id="page-header-navbar-and-search-inner-wrapper">
+            <nav id="page-header-navbar">
+            </nav>
+            {{^mimo_disableSearch}}
+            <form id="page-header-search" role="search">
+                <svg>
+                    <use xlink:href="#material-design-search" />
+                </svg>
+                <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off" />
+                <svg>
+                    <use xlink:href="#material-design-clear-black" />
+                </svg>
+            </form>
+            {{>partials/searchResults}}
+            {{/mimo_disableSearch}}
+        </div>
     </div>
 </header>
