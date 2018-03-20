@@ -8,7 +8,7 @@ import SvgService from '../shared/svgService';
 import PathService from '../shared/pathService';
 import { currentId } from 'async_hooks';
 import SectionMenuHeaderComponent from './sectionMenuHeaderComponent';
-import TransitionService from '../shared/transitionService';
+import HeightService from '../shared/heightService';
 import SectionMenuComponent from './sectionMenuComponent';
 
 @injectable()
@@ -20,7 +20,7 @@ export default class SectionPagesComponent implements Component {
 
     private _collapsibleMenuFactory: CollapsibleMenuFactory;
     private _svgService: SvgService;
-    private _transitionService: TransitionService;
+    private _heightService: HeightService;
     private _pathService: PathService;
     public  collapsibleMenu: CollapsibleMenu;
 
@@ -29,13 +29,13 @@ export default class SectionPagesComponent implements Component {
         collapsibleMenuFactory: CollapsibleMenuFactory,
         svgService: SvgService,
         pathService: PathService,
-        transitionService: TransitionService) {
+        heightService: HeightService) {
 
         this._sectionMenuHeaderComponent = sectionMenuHeaderComponent;
         this._collapsibleMenuFactory = collapsibleMenuFactory;
         this._svgService = svgService;
         this._pathService = pathService;
-        this._transitionService = transitionService;
+        this._heightService = heightService;
     }
 
     public setupImmediate(): void {
@@ -117,10 +117,10 @@ export default class SectionPagesComponent implements Component {
             let listElement = liElements[i];
 
             if (i === liElements.length - 1) {
-                this._transitionService.toggleHeightWithTransition($(listElement).children('ul')[0], listElement);
+                this._heightService.toggleHeightWithTransition($(listElement).children('ul')[0], listElement);
             }
             else {
-                this._transitionService.expandHeightWithoutTransition($(listElement).children('ul')[0], listElement);
+                this._heightService.expandHeightWithoutTransition($(listElement).children('ul')[0], listElement);
             }
 
             // TODO generalize and move to edgeWorkaroundsService

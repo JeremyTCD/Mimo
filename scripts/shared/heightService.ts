@@ -1,8 +1,7 @@
 ﻿import { injectable, inject } from "inversify";
-import EasingService from "./easingService";
 
 @injectable()
-export default class TransitionService {
+export default class HeightService {
     public toggleHeightWithTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
         toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
 

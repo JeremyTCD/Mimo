@@ -1,19 +1,19 @@
 import { injectable, inject } from 'inversify';
 import CollapsibleMenu from './collapsibleMenu';
 import StringService from './stringService';
-import TransitionService from './transitionService';
+import HeightService from './heightService';
 
 @injectable()
 export default class CollapsibleMenuFactory {
     private _stringService: StringService;
-    private _transitionService: TransitionService;
+    private _heightService: HeightService;
 
     public constructor(
         stringService: StringService,
-        transitionService: TransitionService) {
+        heightService: HeightService) {
 
         this._stringService = stringService;
-        this._transitionService = transitionService;
+        this._heightService = heightService;
     }
 
     public build(rootElement: HTMLElement): CollapsibleMenu {
@@ -25,7 +25,7 @@ export default class CollapsibleMenuFactory {
         this.setPadding(topicAndPageElements);
         this.registerTopicListeners(topicElements);
 
-        return new CollapsibleMenu(rootElement, rootLIElements, this._stringService, this._transitionService);
+        return new CollapsibleMenu(rootElement, rootLIElements, this._stringService, this._heightService);
     }
 
     private registerTopicListeners(topicElements: NodeList): void {
@@ -35,7 +35,7 @@ export default class CollapsibleMenuFactory {
             topicElement.addEventListener('click', (event: Event) => {
                 let parentLI = topicElement.parentElement;
                 let childUl = parentLI.querySelector('ul');
-                this._transitionService.toggleHeightWithTransition(childUl, parentLI);
+                this._heightService.toggleHeightWithTransition(childUl, parentLI);
                 event.preventDefault();
                 // If event propogates, every parent li.expandable's click listener will
                 // be called

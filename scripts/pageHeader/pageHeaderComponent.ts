@@ -3,7 +3,7 @@ import RootComponent from '../shared/rootComponent';
 import NavbarComponent from './navbarComponent';
 import SearchComponent from './searchComponent';
 import SearchResultsComponent from './searchResultsComponent';
-import TransitionService from '../shared/transitionService';
+import HeightService from '../shared/heightService';
 import OverlayService from '../shared/overlayService';
 import MediaService from '../shared/mediaService';
 import Component from '../shared/component';
@@ -13,7 +13,7 @@ import Dropdown from '../shared/dropdown';
 
 @injectable()
 export default class PageHeaderComponent extends RootComponent {
-    private _transitionService: TransitionService;
+    private _heightService: HeightService;
     private _overlayService: OverlayService;
     private _mediaService: MediaService;
     private _dropdownFactory: DropdownFactory;
@@ -30,7 +30,7 @@ export default class PageHeaderComponent extends RootComponent {
 
     public constructor(
         dropdownFactory: DropdownFactory,
-        transitionService: TransitionService,
+        heightService: HeightService,
         overlayService: OverlayService,
         mediaService: MediaService,
         searchComponent: SearchComponent,
@@ -39,7 +39,7 @@ export default class PageHeaderComponent extends RootComponent {
         super();
 
         this._dropdownFactory = dropdownFactory;
-        this._transitionService = transitionService;
+        this._heightService = heightService;
         this._overlayService = overlayService;
         this._mediaService = mediaService;
         this._searchComponent = searchComponent;

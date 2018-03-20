@@ -1,10 +1,10 @@
 ﻿import * as SmoothScroll from 'smooth-scroll';
 import StringService from './stringService';
-import TransitionService from './transitionService';
+import HeightService from './heightService';
 
 export default class CollapsibleMenu {
     private _stringService: StringService;
-    private _transitionService: TransitionService;
+    private _heightService: HeightService;
     private _rootElement: HTMLElement;
     private _rootLIElements: NodeList;
 
@@ -12,10 +12,10 @@ export default class CollapsibleMenu {
         rootElement: HTMLElement,
         rootLIElements: NodeList,
         stringService: StringService,
-        transitionService: TransitionService) {
+        heightService: HeightService) {
 
         this._stringService = stringService;
-        this._transitionService = transitionService;
+        this._heightService = heightService;
         this._rootElement = rootElement;
         this._rootLIElements = rootLIElements;
     }
@@ -88,12 +88,12 @@ export default class CollapsibleMenu {
 
             if (toBeExpanded && !alreadyExpanded) {
                 if (allParentsAlreadyExpanded) {
-                    this._transitionService.toggleHeightWithTransition(directChildULElement, liElement);
+                    this._heightService.toggleHeightWithTransition(directChildULElement, liElement);
                 } else {
-                    this._transitionService.toggleHeightWithoutTransition(directChildULElement, liElement);
+                    this._heightService.toggleHeightWithoutTransition(directChildULElement, liElement);
                 }
             } else if (!toBeExpanded && alreadyExpanded) {
-                this._transitionService.toggleHeightWithTransition(directChildULElement, liElement);
+                this._heightService.toggleHeightWithTransition(directChildULElement, liElement);
             }
         }
     }
@@ -130,13 +130,13 @@ export default class CollapsibleMenu {
 
             if (preExpanded && !alreadyExpanded) {
                 if (allParentsAlreadyExpanded) {
-                    this._transitionService.toggleHeightWithTransition(directChildULElement, liElement);
+                    this._heightService.toggleHeightWithTransition(directChildULElement, liElement);
                 } else {
-                    this._transitionService.toggleHeightWithoutTransition(directChildULElement, liElement);
+                    this._heightService.toggleHeightWithoutTransition(directChildULElement, liElement);
                 }
             }
             else if (!preExpanded && alreadyExpanded) {
-                this._transitionService.toggleHeightWithTransition(directChildULElement, liElement);
+                this._heightService.toggleHeightWithTransition(directChildULElement, liElement);
             }
         }
     }

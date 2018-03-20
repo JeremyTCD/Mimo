@@ -1,7 +1,7 @@
 ﻿import { injectable, inject } from 'inversify';
 import RootComponent from '../shared/rootComponent';
 import MediaService from '../shared/mediaService';
-import TransitionService from '../shared/transitionService';
+import HeightService from '../shared/heightService';
 import OverlayService from '../shared/overlayService';
 import { MediaWidth } from '../shared/mediaWidth';
 import * as SmoothScroll from 'smooth-scroll';
@@ -27,7 +27,7 @@ export default class SectionMenuComponent extends RootComponent {
     private _sectionPagesFilterComponent: SectionPagesFilterComponent;
 
     private _mediaService: MediaService;
-    private _transitionService: TransitionService;
+    private _heightService: HeightService;
     private _overlayService: OverlayService;
     private _dropdownFactory: DropdownFactory;
 
@@ -44,7 +44,7 @@ export default class SectionMenuComponent extends RootComponent {
         sectionPagesComponent: SectionPagesComponent,
         sectionMenuHeaderComponent: SectionMenuHeaderComponent,
         sectionPagesFilterComponent: SectionPagesFilterComponent,
-        transitionService: TransitionService,
+        heightService: HeightService,
         overlayService: OverlayService,
         dropdownFactory: DropdownFactory,
         mediaService: MediaService) {
@@ -53,7 +53,7 @@ export default class SectionMenuComponent extends RootComponent {
         this._sectionMenuHeaderComponent = sectionMenuHeaderComponent;
         this._sectionPagesFilterComponent = sectionPagesFilterComponent;
         this._sectionPagesComponent = sectionPagesComponent;
-        this._transitionService = transitionService;
+        this._heightService = heightService;
         this._overlayService = overlayService;
         this._mediaService = mediaService;
         this._dropdownFactory = dropdownFactory;
@@ -167,7 +167,7 @@ export default class SectionMenuComponent extends RootComponent {
             if (previousMediaWidth === MediaWidth.wide ||
                 !this._inCore2 && previousMediaWidth === MediaWidth.medium) {
                 // Going from being beside main to being collapsed
-                this._transitionService.contractHeightWithoutTransition(this._pagesOuterWrapperElement, this._headerButtonElement);
+                this._heightService.contractHeightWithoutTransition(this._pagesOuterWrapperElement, this._headerButtonElement);
             }
         } else if (previousMediaWidth === MediaWidth.narrow ||
             this._inCore2 && previousMediaWidth == MediaWidth.medium) {
@@ -177,7 +177,7 @@ export default class SectionMenuComponent extends RootComponent {
             }
 
             // Going from collapsed to being beside main
-            this._transitionService.reset(this._pagesOuterWrapperElement, this._headerButtonElement);
+            this._heightService.reset(this._pagesOuterWrapperElement, this._headerButtonElement);
         }
     }
 
