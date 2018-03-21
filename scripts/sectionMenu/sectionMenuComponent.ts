@@ -175,9 +175,7 @@ export default class SectionMenuComponent extends RootComponent {
     }
 
     private updatePagesHeight(fixed: boolean, sectionMenuElementTop: number): void {
-
         let footerTop = this._footerElement.getBoundingClientRect().top;
-        console.log(footerTop);
 
         let pagesHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
             - SectionMenuComponent.VERTICAL_GAP

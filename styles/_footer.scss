@@ -8,6 +8,7 @@ body > footer {
     justify-content: center;
     align-items: center;
     color: $color-secondary-text;
+    flex-shrink: 0;
 
     @media #{$media-medium}, #{$media-narrow} {
         position: relative;
