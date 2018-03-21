@@ -1,5 +1,6 @@
 ﻿import { injectable, inject } from "inversify";
 
+// TODO would be much more performant if accordions could be built using just transforms
 @injectable()
 export default class HeightService {
     public toggleHeightWithTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
@@ -77,15 +78,10 @@ export default class HeightService {
 
         // Set fixed height
         element.style.height = `${fixedHeight}px`;
-
-        element.addEventListener('transitionend', this.setHeightFixedListener, true);
     }
 
     public autoHeightToFixedHeightWithoutTransition(element: HTMLElement, fixedHeight: number): void {
         element.style.height = `${fixedHeight}px`;
-    }
-
-    private setHeightFixedListener = (event: Event): void => {
     }
 
     private setHeightAutoListener = (event: Event): void => {
