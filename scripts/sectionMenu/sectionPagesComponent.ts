@@ -77,8 +77,6 @@ export default class SectionPagesComponent implements Component {
     }
 
     public registerListeners(): void {
-        window.addEventListener('scroll', this.onScrollListener);
-        window.addEventListener('resize', this.onResizeListener);
     }
 
     private handleActivePageElement(activePageElement: HTMLElement) {
@@ -156,11 +154,5 @@ export default class SectionPagesComponent implements Component {
                 return pageElement;
             }
         }
-    }
-
-    public onScrollListener = (): void => {
-    }
-
-    private onResizeListener = (): void => {
     }
 }

@@ -16,7 +16,7 @@
 
 #section-menu-header {
     @include pure-flex;
-    @include edge-padding;
+    @include horizontal-edge-padding;
     flex-shrink: 0;
     font-size: $font-size-2;
     background-color: $color-secondary;

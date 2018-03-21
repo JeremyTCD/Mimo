@@ -1,28 +1,10 @@
 ﻿@import '../constants';
 
-@mixin section-pages-filter-dropdown() {
-    margin-top: 14px;
-}
-
-#core-2 {
-    > #section-menu {
-        #section-pages-filter {
-            @media #{$media-medium}{
-                @include section-pages-filter-dropdown;
-            }
-        }
-    }
-}
-
 #section-pages-filter {
-    @media #{$media-narrow} {
-        @include section-pages-filter-dropdown;
-    }
-
     @include pure-flex;
     @include text-input-icons;
     flex-shrink: 0;
-    margin-bottom: 9px;
+    margin-bottom: 13px;
     height: 37px;
     padding-left: 12px;
     padding-right: 10px;

@@ -1,10 +1,29 @@
 ﻿@import '../constants';
 
+@mixin section-pages-side-menu() {
+    // Required to keep footer 23px below pages when section menu is not fixed
+    margin-bottom: 23px;
+}
+
+#core-1 {
+    > #section-menu {
+        @media #{$media-medium} {
+            #section-pages {
+                @include section-pages-side-menu;
+            }
+        }
+    }
+}
+
 #section-pages {
     @include pure-flex;
     overflow-y: auto;
     flex-direction: column;
     flex-shrink: 1;
+
+    @media #{$media-wide} {
+        @include section-pages-side-menu;
+    }
 
     ul {
         flex-direction: column;

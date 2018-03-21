@@ -1,10 +1,8 @@
 ﻿import { injectable, inject } from 'inversify';
 import RootComponent from '../shared/rootComponent';
 import MediaService from '../shared/mediaService';
-import HeightService from '../shared/heightService';
 import OverlayService from '../shared/overlayService';
 import { MediaWidth } from '../shared/mediaWidth';
-import * as SmoothScroll from 'smooth-scroll';
 import SectionPagesComponent from './sectionPagesComponent';
 import SectionMenuHeaderComponent from './sectionMenuHeaderComponent';
 import SectionPagesFilterComponent from './sectionPagesFilterComponent';
@@ -14,9 +12,7 @@ import Dropdown from '../shared/dropdown';
 @injectable()
 export default class SectionMenuComponent extends RootComponent {
     private _sectionMenuElement: HTMLElement;
-    private _wrapperElement: HTMLElement;
     private _headerButtonElement: HTMLElement;
-    private _headerElement: HTMLElement;
     private _pagesOuterWrapperElement: HTMLElement;
     private _pagesInnerWrapperElement: HTMLElement;
     private _footerElement: HTMLElement;
@@ -27,7 +23,6 @@ export default class SectionMenuComponent extends RootComponent {
     private _sectionPagesFilterComponent: SectionPagesFilterComponent;
 
     private _mediaService: MediaService;
-    private _heightService: HeightService;
     private _overlayService: OverlayService;
     private _dropdownFactory: DropdownFactory;
 
@@ -35,8 +30,6 @@ export default class SectionMenuComponent extends RootComponent {
     private static readonly HEADER_HEIGHT: number = 37;
     private static readonly SCROLL_OPTIONS = { speed: 400 };
     private _inCore2: boolean;
-    private _smoothScroll: SmoothScroll;
-    private _wrapperInitialTop: number;
     private _enabledAttempted: boolean;
     private _dropdown: Dropdown;
 
@@ -44,7 +37,6 @@ export default class SectionMenuComponent extends RootComponent {
         sectionPagesComponent: SectionPagesComponent,
         sectionMenuHeaderComponent: SectionMenuHeaderComponent,
         sectionPagesFilterComponent: SectionPagesFilterComponent,
-        heightService: HeightService,
         overlayService: OverlayService,
         dropdownFactory: DropdownFactory,
         mediaService: MediaService) {
@@ -53,7 +45,6 @@ export default class SectionMenuComponent extends RootComponent {
         this._sectionMenuHeaderComponent = sectionMenuHeaderComponent;
         this._sectionPagesFilterComponent = sectionPagesFilterComponent;
         this._sectionPagesComponent = sectionPagesComponent;
-        this._heightService = heightService;
         this._overlayService = overlayService;
         this._mediaService = mediaService;
         this._dropdownFactory = dropdownFactory;
@@ -71,28 +62,26 @@ export default class SectionMenuComponent extends RootComponent {
 
     public setupImmediate(): void {
         this.childComponentsSetupImmediate();
-        this._smoothScroll = new SmoothScroll();
     }
 
     public setupOnDomContentLoaded(): void {
         this.childComponentsSetupOnDomContentLoaded();
 
+        let wrapperElement = document.getElementById('section-menu-wrapper');
+        this._pagesInnerWrapperElement = document.getElementById('section-pages-inner-wrapper');
         this._sectionPagesElement = document.getElementById('section-pages');
-        this._wrapperElement = document.getElementById('section-menu-wrapper');
         this._footerElement = document.querySelector('body > footer');
-        this._headerElement = document.getElementById('section-menu-header');
         this._headerButtonElement = document.getElementById('section-menu-header-button');
         this._pagesOuterWrapperElement = document.getElementById('section-pages-outer-wrapper');
-        this._pagesInnerWrapperElement = document.getElementById('section-pages-inner-wrapper');
         this._inCore2 = this._sectionMenuElement.parentElement.getAttribute('id') === 'core-2';
 
-        this._dropdown = this._dropdownFactory.build(this._pagesOuterWrapperElement, this._pagesInnerWrapperElement, this._headerButtonElement, this._wrapperElement);
+        this._dropdown = this._dropdownFactory.build(this._pagesOuterWrapperElement, this._pagesInnerWrapperElement, this._headerButtonElement, wrapperElement);
     }
 
     public setupOnLoad(): void {
         this.childComponentsSetupOnLoad();
 
-        this.updateFixed();
+        this.updatePages();
         this.updateDropdown()
     }
 
@@ -106,19 +95,25 @@ export default class SectionMenuComponent extends RootComponent {
     }
 
     private buttonClickListener = (): void => {
+        if (this._dropdown.isExpanded()) {
+            this._overlayService.deactivateOverlay();
+        } else {
+            this._overlayService.activateOverlay(this._sectionMenuElement);
+        }
+
         this._dropdown.toggleWithAnimation();
     }
 
     private windowScrollListener = (): void => {
-        this.updateFixed();
+        this.updatePages();
     }
 
     private windowResizeListener = (): void => {
-        this.updateFixed();
+        this.updatePages();
         this.updateDropdown()
     }
 
-    private updateFixed(): void {
+    private updatePages(): void {
         let pagesFixed = this._pagesOuterWrapperElement.classList.contains('fixed');
         let top: number;
 
@@ -142,8 +137,6 @@ export default class SectionMenuComponent extends RootComponent {
             } else if (!fix && pagesFixed) {
                 this.unfixPages();
             }
-
-
         } else {
             if (pagesFixed) {
                 this.unfixPages();
@@ -162,27 +155,29 @@ export default class SectionMenuComponent extends RootComponent {
 
         if (this._mediaService.mediaWidthNarrow() || this._inCore2 && this._mediaService.mediaWidthMedium()) {
             // Update wrapper maxheight so it is scrollable as a dropdown menu
-            this._pagesOuterWrapperElement.style.maxHeight = `${window.innerHeight - SectionMenuComponent.HEADER_HEIGHT}px`;
+            this._pagesInnerWrapperElement.style.maxHeight = `${window.innerHeight - SectionMenuComponent.HEADER_HEIGHT}px`;
 
             if (previousMediaWidth === MediaWidth.wide ||
                 !this._inCore2 && previousMediaWidth === MediaWidth.medium) {
                 // Going from being beside main to being collapsed
-                this._heightService.contractHeightWithoutTransition(this._pagesOuterWrapperElement, this._headerButtonElement);
+                this._dropdown.collapseWithoutAnimation();
             }
-        } else if (previousMediaWidth === MediaWidth.narrow ||
-            this._inCore2 && previousMediaWidth == MediaWidth.medium) {
+        } else if (previousMediaWidth === MediaWidth.narrow || this._inCore2 && previousMediaWidth == MediaWidth.medium) {
+            this._pagesInnerWrapperElement.style.maxHeight = '';
 
-            if (this._headerButtonElement.classList.contains('expanded')) {
+            if (this._dropdown.isExpanded()) {
                 this._overlayService.deactivateOverlay(false);
             }
 
             // Going from collapsed to being beside main
-            this._heightService.reset(this._pagesOuterWrapperElement, this._headerButtonElement);
+            this._dropdown.reset();
         }
     }
 
     private updatePagesHeight(fixed: boolean, sectionMenuElementTop: number): void {
+
         let footerTop = this._footerElement.getBoundingClientRect().top;
+        console.log(footerTop);
 
         let pagesHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
             - SectionMenuComponent.VERTICAL_GAP
