@@ -1,4 +1,7 @@
-﻿@import 'constants';
+﻿@import '../shared/constants';
+@import 'article';
+@import 'articleList';
+@import 'comments';
 
 main {
     display: flex;

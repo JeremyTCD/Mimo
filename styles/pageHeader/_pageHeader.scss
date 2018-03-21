@@ -1,5 +1,8 @@
-@import '../constants';
-@import '../dropdown';
+@import '../shared/constants';
+@import '../shared/dropdown';
+@import 'navbar';
+@import 'search';
+@import 'searchResults';
 
 #page-header {
     background-color: $color-primary;

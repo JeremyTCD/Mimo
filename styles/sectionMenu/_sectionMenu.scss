@@ -1,8 +1,8 @@
-﻿@import '../constants';
-@import './sectionMenuHeader';
-@import './sectionPages';
-@import './sectionPagesFilter';
-@import '../dropdown';
+﻿@import '../shared/constants';
+@import '../shared/dropdown';
+@import 'sectionMenuHeader';
+@import 'sectionPages';
+@import 'sectionPagesFilter';
 
 @mixin section-menu-dropdown() {
     position: relative;
