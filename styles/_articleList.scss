@@ -1,7 +1,7 @@
 @import 'constants';
 
 .article-list {
-    @include edge-margin;
+    @include horizontal-edge-margin;
     display: flex;
     flex-direction: column;
     flex-grow: 1;

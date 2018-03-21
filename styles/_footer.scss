@@ -2,7 +2,7 @@
 
 body > footer {
     @include pure-flex;
-    @include edge-padding;
+    @include horizontal-edge-padding;
     font-size: $font-size-2;
     background-color: $color-secondary;
     justify-content: center;

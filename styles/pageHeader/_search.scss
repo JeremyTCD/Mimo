@@ -12,7 +12,7 @@
     // Note: Media width is flaky in Edge. Using a medium to wide viewport, navigate between contact, privacypolicy and licenses in the blog example. Notice how the search bar
     // sometimes starts out underlined. This is because the contents of this narrow query are somehow being applied initially. No easy fix.
     @media #{$media-narrow} {
-        @include edge-margin;
+        @include horizontal-edge-margin;
         background-size: 100% 2px;
         margin-bottom: 37px;
     }

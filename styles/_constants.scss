@@ -128,7 +128,7 @@ $horizontal-edge-wide: 30px;
     text-shadow: 1px 1px 0 $background-color, 1px -1px 0 $background-color, -1px 1px 0 $background-color, -1px -1px 0 $background-color;
 }
 
-@mixin edge-padding {
+@mixin horizontal-edge-padding {
     @media #{$media-narrow} {
         padding-left: $horizontal-edge-narrow;
         padding-right: $horizontal-edge-narrow;
@@ -145,7 +145,7 @@ $horizontal-edge-wide: 30px;
     }
 }
 
-@mixin edge-margin {
+@mixin horizontal-edge-margin {
     @media #{$media-narrow} {
         margin-left: $horizontal-edge-narrow;
         margin-right: $horizontal-edge-narrow;

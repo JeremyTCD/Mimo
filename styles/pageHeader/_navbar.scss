@@ -5,7 +5,7 @@
     flex-shrink: 0;
 
     @media #{$media-narrow} {
-        @include edge-padding;
+        @include horizontal-edge-padding;
     }
 
     ul {

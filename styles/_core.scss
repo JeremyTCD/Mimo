@@ -9,7 +9,7 @@
     }
 
     @media #{$media-wide} {
-        @include edge-padding;
+        @include horizontal-edge-padding;
     }
 
     #core-1 {
@@ -28,6 +28,6 @@
     }
 
     @media #{$media-medium}, #{$media-wide} {
-        @include edge-padding;
+        @include horizontal-edge-padding;
     }
 }
