@@ -29,7 +29,6 @@ require('../resources/ion-icons-logo-instagram.svg');
 require('../resources/ion-icons-logo-facebook.svg');
 require('../resources/ion-icons-logo-googleplus.svg');
 
-import * as domready from 'domready';
 import * as $ from 'jquery';
 
 let rootComponents = container.getAll<RootComponent>('RootComponent');

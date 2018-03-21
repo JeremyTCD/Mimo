@@ -40,7 +40,6 @@
         "cpy": "^6.0.0",
         "css-loader": "^0.28.7",
         "cssnano": "^3.10.0",
-        "domready": "^1.0.8",
         "extract-text-webpack-plugin": "^3.0.2",
         "file-loader": "^1.1.5",
         "fork-ts-checker-webpack-plugin": "^0.2.9",
