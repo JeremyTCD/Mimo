@@ -20,7 +20,7 @@
 
 @keyframes expandAnimation {
     0% {
-        // In firefox, if an element is scrolled out of an ancestor and a transform is run on the element, this transform is throttled - https: //bugzilla.mozilla.org/show_bug.cgi?id=1425213.
+        // In firefox, if an element is scrolled out of an ancestor and a transform is run on the element, the transform is throttled - https: //bugzilla.mozilla.org/show_bug.cgi?id=1425213.
         // Also, the transform does not run on the compositor. For example, if scaleY for this animation starts at 0, since outer wrappers have overflow: hidden, inner wrappers are considered 
         // to be scrolled out of its parent: run this animation and note how the animation is not executed by the compositor in firefox (no lightning bolt in developer tools) and often has 
         // latency. Also note how collapseAnimation does run on compositor. 
