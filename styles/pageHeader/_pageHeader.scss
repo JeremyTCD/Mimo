@@ -76,7 +76,8 @@
                     }
 
                     &:nth-child(2) {
-                        transform: scaleX(0);
+                        // Can't be 0 - https: //bugzilla.mozilla.org/show_bug.cgi?id=1425213
+                        transform: scaleX(0.0001);
                     }
 
                     &:nth-child(3) {
