@@ -29,11 +29,11 @@
                 {
                     "name": "Your Name",
                     "link": "https://github.com/JeremyTCD",
-                    "imgSrc":  "/resources/jeremytcd-logo.svg"
+                    "imgSrc": "/resources/jeremytcd-logo.svg"
                 }
             ],
             "mimo_copyrightText": "2018 Your Name",
-            "mimo_baseUrl":  "https://yourdomain",
+            "mimo_baseUrl": "https://yourdomain",
             "mimo_licensesRelPath": "/licenses",
             "mimo_privacyPolicyRelPath": "/privacy-policy",
             "mimo_contactRelPath": "/contact",
