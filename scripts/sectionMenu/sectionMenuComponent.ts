@@ -8,6 +8,8 @@ import SectionMenuHeaderComponent from './sectionMenuHeaderComponent';
 import SectionPagesFilterComponent from './sectionPagesFilterComponent';
 import DropdownFactory from '../shared/dropdownFactory';
 import Dropdown from '../shared/dropdown';
+import ResizeObserver from 'resize-observer-polyfill';
+import DebounceService from '../shared/debounceService';
 
 @injectable()
 export default class SectionMenuComponent extends RootComponent {
@@ -24,16 +26,19 @@ export default class SectionMenuComponent extends RootComponent {
 
     private _mediaService: MediaService;
     private _overlayService: OverlayService;
+    private _debounceService: DebounceService;
     private _dropdownFactory: DropdownFactory;
 
     public static readonly VERTICAL_GAP: number = 23;
     private static readonly HEADER_HEIGHT: number = 37;
+    private static readonly DEBOUNCE_TIME: number = 150;
     private static readonly SCROLL_OPTIONS = { speed: 400 };
     private _inCore2: boolean;
-    private _enabledAttempted: boolean;
     private _dropdown: Dropdown;
+    private _bodyResizeObserver: ResizeObserver;
 
     public constructor(
+        debounceService: DebounceService,
         sectionPagesComponent: SectionPagesComponent,
         sectionMenuHeaderComponent: SectionMenuHeaderComponent,
         sectionPagesFilterComponent: SectionPagesFilterComponent,
@@ -47,21 +52,23 @@ export default class SectionMenuComponent extends RootComponent {
         this._sectionPagesComponent = sectionPagesComponent;
         this._overlayService = overlayService;
         this._mediaService = mediaService;
+        this._debounceService = debounceService;
         this._dropdownFactory = dropdownFactory;
 
         this.addChildComponents(sectionMenuHeaderComponent, sectionPagesFilterComponent, sectionPagesComponent);
     }
 
     public enabled(): boolean {
-        if (!this._enabledAttempted) {
-            this._sectionMenuElement = document.getElementById('section-menu');
-        }
-
         return this._sectionMenuElement ? true : false;
     }
 
     public setupImmediate(): void {
-        this.childComponentsSetupImmediate();
+        this._sectionMenuElement = document.getElementById('section-menu');
+
+        if (this.enabled) {
+            this.childComponentsSetupImmediate();
+            this._bodyResizeObserver = new ResizeObserver(this._debounceService.createTimeoutDebounceFunction(this.updatePages, SectionMenuComponent.DEBOUNCE_TIME));
+        }
     }
 
     public setupOnDomContentLoaded(): void {
@@ -81,7 +88,8 @@ export default class SectionMenuComponent extends RootComponent {
     public setupOnLoad(): void {
         this.childComponentsSetupOnLoad();
 
-        this.updatePages();
+        // Makes initial updatePages call
+        this._bodyResizeObserver.observe(document.body);
         this.updateDropdown()
     }
 
@@ -113,7 +121,7 @@ export default class SectionMenuComponent extends RootComponent {
         this.updateDropdown()
     }
 
-    private updatePages(): void {
+    private updatePages = (): void => {
         let pagesFixed = this._pagesOuterWrapperElement.classList.contains('fixed');
         let top: number;
 
