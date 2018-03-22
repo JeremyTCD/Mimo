@@ -133,21 +133,13 @@ export default class SectionMenuComponent extends RootComponent {
             this.updatePagesHeight(fix, top);
 
             if (fix && !pagesFixed) {
-                // If a page's article's height is less than its section menu's height, when pages' position is set to fixed, footer shifts up.
-                // This causes the page to shrink vertically: assuming that a user is scolled all the way down (such that the footer is in the viewport),
-                // this in turn means that element's top values increase. When section menu moves down (and its top value increases), this function
-                // triggers again pages' position is set to initial. This makes it becomes impossible to scroll past the point where pages becomes fixed. 
-                // This simple fix prevents that by preventing footer from shifting up.
-                // Note: clientHeight is rounded to an integer, but I can't find any evidence that it gets rounded up on all browsers, so add 1.
-                this._sectionMenuElement.style.minHeight = `${this._sectionMenuElement.clientHeight + 1}px`;
-
                 this._pagesOuterWrapperElement.classList.add('fixed');
             } else if (!fix && pagesFixed) {
-                this.unfixPages();
+                this._pagesOuterWrapperElement.classList.remove('fixed');
             }
         } else {
             if (pagesFixed) {
-                this.unfixPages();
+                this._pagesOuterWrapperElement.classList.remove('fixed');
             }
             this._sectionPagesElement.style.height = '';
         }
@@ -193,10 +185,5 @@ export default class SectionMenuComponent extends RootComponent {
         // Tried setting bottom, max-height, both don't work on edge - scroll bar doesn't go away even when height is greater than 
         // menu height. This works.
         this._sectionPagesElement.style.height = `${pagesHeight}px`;
-    }
-
-    private unfixPages() {
-        this._pagesOuterWrapperElement.classList.remove('fixed');
-        this._sectionMenuElement.style.minHeight = 'initial';
     }
 }
