@@ -1,0 +1,30 @@
+{{^mimo_disableArticleMenu}}
+<div id="article-menu">
+    <div id="article-menu-wrapper">
+        <div id="article-menu-dropdown-header">
+            <div id="dropdown-wrapper">
+                <ul>
+                    <li>
+                        <span id="article-menu-dropdown-text-h1">
+                        </span>
+                    </li>
+                    <li>
+                        <span id="article-menu-dropdown-text-h2">
+                        </span>
+                    </li>
+                </ul>
+                <button id="article-menu-dropdown-button">
+                    <svg>
+                        <use xlink:href="#material-design-drop-down" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="article-links-and-toc-outer-wrapper">
+            {{>partials/articleLinks}}
+            {{>partials/tableOfContents}}
+        </div>
+    </div>
+</div>
+{{/mimo_disableArticleMenu}}

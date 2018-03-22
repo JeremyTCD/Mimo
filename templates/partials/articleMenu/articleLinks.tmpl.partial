@@ -1,0 +1,48 @@
+<div id="article-menu-links">
+    {{^mimo_disableEditArticle}}
+    {{#docurl}}
+    <div id="edit-article" class="article-menu-link">
+        <svg>
+            <use xlink:href="#material-design-mode-edit" />
+        </svg>
+        <a href="{{docurl}}" title="Edit article on Github">Edit Article</a>
+    </div>
+    {{/docurl}}
+    {{/mimo_disableEditArticle}}
+
+    {{#mimo_shareArticleEnabled}}
+    <div id="share-article" class="article-menu-link">
+        <svg>
+            <use xlink:href="#material-design-share" />
+        </svg>
+        <span>Share Article</span>          
+        <div id="share-article-links">
+            <div id="share-article-links-wrapper">
+                {{#mimo_shareOnFacebook}}
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{mimo_baseUrl}}/{{mimo_pageRelPath}}">
+                    <svg>
+                        <use xlink:href="#ion-icons-logo-facebook" />
+                    </svg>
+                </a>
+                {{/mimo_shareOnFacebook}}
+
+                {{#mimo_shareOnTwitter}}
+                <a href="https://twitter.com/intent/tweet?text={{#text}}{{{text}}}{{/text}}{{^text}}{{{mimo_pageTitle}}}%20%7C%20{{{mimo_websiteName}}}{{/text}}&{{#via}}via={{{via}}}&{{/via}}url={{mimo_baseUrl}}/{{mimo_pageRelPath}}&{{#hashtags}}hashtags={{{hashtags}}}{{/hashtags}}">
+                    <svg>
+                        <use xlink:href="#ion-icons-logo-twitter" />
+                    </svg>
+                </a>
+                {{/mimo_shareOnTwitter}}
+            </div>
+        </div>
+    </div>
+    {{/mimo_shareArticleEnabled}}
+
+    {{#sourceurl}}
+    <div id="view-source" class="article-menu-link" title="View Source on Github">
+        <a href="{{sourceurl}}" id="view-source">
+            <span>View Source</span>
+        </a>
+    </div>
+    {{/sourceurl}}
+</div>
