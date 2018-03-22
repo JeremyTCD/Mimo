@@ -1,15 +1,26 @@
-﻿
-import { injectable, inject } from 'inversify';
-import INTERFACES from './INTERFACES';
-import IComponent from './IComponent';
-import ITooltipService from './ITooltipService';
-// create wrapper
+﻿import { injectable, inject } from 'inversify';
+import RootComponent from '../shared/rootComponent';
+import TooltipService from '../shared/tooltipService';
 import * as Clipboard from 'clipboard';
 
 @injectable()
-export default class ArticleComponent implements IComponent {
-    @inject(INTERFACES.ITooltipService)
-    private _tooltipService: ITooltipService;
+export default class ArticleComponent extends RootComponent {
+    private _tooltipService: TooltipService;
+
+    public constructor(tooltipService: TooltipService) {
+        super();
+
+        this._tooltipService = tooltipService;
+    }
+
+    public enabled(): boolean {
+        // Always exists
+        return true;
+    }
+
+    public setupImmediate(): void {
+        // Do nothing
+    }
 
     public setupOnLoad(): void {
         // Do nothing

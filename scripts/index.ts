@@ -36,9 +36,8 @@ let rootComponents = container.getAll<RootComponent>('RootComponent');
 for (let i = 0; i < rootComponents.length; i++) {
     let rootComponent = rootComponents[i];
 
-    if (rootComponent.enabled()) {
-        rootComponent.setupImmediate();
-    }
+    // Can't call enabled before setupImmediate since setupImmediate is the first oppurtunity to check if an element exists
+    rootComponent.setupImmediate();
 }
 
 // Called when document has been parsed but resources may not have been loaded

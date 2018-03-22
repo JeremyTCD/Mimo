@@ -7,20 +7,26 @@
     <body>
         {{>partials/pageHeader}}
 
-        <div id="core-{{^mimo_disableArticleMenu}}2{{/mimo_disableArticleMenu}}{{#mimo_disableArticleMenu}}1{{/mimo_disableArticleMenu}}">
+        {{#mimo_outerCoreNumber}}
+        <div id="core-{{{mimo_outerCoreNumber}}}">
+        {{/mimo_outerCoreNumber}}
+
             {{>partials/sectionMenu}}
 
-            {{^mimo_disableArticleMenu}}
-            <div id="core-1">
-            {{/mimo_disableArticleMenu}}
+            {{#mimo_innerCoreNumber}}
+            <div id="core-{{{mimo_innerCoreNumber}}}">
+            {{/mimo_innerCoreNumber}}
 
                 {{>partials/main}}
 		        {{>partials/articleMenu}}
 
-            {{^mimo_disableArticleMenu}}
+            {{#mimo_innerCoreNumber}}
             </div>
-            {{/mimo_disableArticleMenu}}          
+            {{/mimo_innerCoreNumber}}          
+
+        {{#mimo_outerCoreNumber}}
         </div>
+        {{/mimo_outerCoreNumber}}
 
         {{>partials/footer}}
         <div id="overlay"></div>

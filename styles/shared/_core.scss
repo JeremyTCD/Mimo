@@ -12,9 +12,25 @@
         @include horizontal-edge-padding;
     }
 
-    #core-1 {
+    > #core-1 {
         @media #{$media-narrow} {
             flex-direction: column-reverse;
+        }
+
+        @media #{$media-medium} {
+            @include horizontal-edge-padding;
+        }
+    }
+}
+
+body {
+    > #core-1 {
+        @media #{$media-narrow} {
+            flex-direction: column;
+        }
+
+        @media #{$media-medium}, #{$media-wide} {
+            @include horizontal-edge-padding;
         }
     }
 }
@@ -22,12 +38,4 @@
 #core-1 {
     display: flex;
     flex-grow: 1;
-
-    @media #{$media-narrow} {
-        flex-direction: column;
-    }
-
-    @media #{$media-medium}, #{$media-wide} {
-        @include horizontal-edge-padding;
-    }
 }

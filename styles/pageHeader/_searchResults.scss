@@ -25,7 +25,7 @@
         padding: 8px 0;
         justify-content: center;
         color: $color-secondary-text;
-        margin-bottom: 59px;
+        margin-bottom: 50px;
 
         span {
             align-items: center;
@@ -39,6 +39,7 @@
     }
 
     .article-list {
+        @include horizontal-edge-margin;
         flex-shrink: 0;
         mark {
             background-color: $color-primary-highlight;

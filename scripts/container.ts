@@ -7,6 +7,17 @@ import PageHeaderComponent from './pageHeader/pageHeaderComponent';
 import SearchComponent from './pageHeader/searchComponent';
 import SearchResultsComponent from './pageHeader/searchResultsComponent';
 
+import SectionMenuComponent from './sectionMenu/sectionMenuComponent';
+import SectionMenuHeaderComponent from './sectionMenu/sectionMenuHeaderComponent';
+import SectionPagesFilterComponent from './sectionMenu/sectionPagesFilterComponent';
+import SectionPagesComponent from './sectionMenu/sectionPagesComponent';
+
+import ArticleComponent from './article/articleComponent';
+
+import CommentsComponent from './comments/commentsComponent';
+
+import SortedArticleListComponent from './sortedArticleList/sortedArticleListComponent';
+
 import CodeService from './shared/codeService';
 import DebounceService from './shared/debounceService';
 import HtmlEncodeService from './shared/htmlEncodeService';
@@ -21,10 +32,6 @@ import TooltipService from './shared/tooltipService';
 import HeightService from './shared/heightService';
 import TreeService from './shared/treeService';
 import TextInputFactory from './shared/textInputFactory';
-import SectionMenuComponent from './sectionMenu/sectionMenuComponent';
-import SectionMenuHeaderComponent from './sectionMenu/sectionMenuHeaderComponent';
-import SectionPagesFilterComponent from './sectionMenu/sectionPagesFilterComponent';
-import SectionPagesComponent from './sectionMenu/sectionPagesComponent';
 import CollapsibleMenuFactory from './shared/collapsibleMenuFactory';
 import StringService from './shared/stringService';
 import EasingService from './shared/easingService';
@@ -43,6 +50,15 @@ container.bind<RootComponent>('RootComponent').to(SectionMenuComponent).inSingle
 container.bind<SectionMenuHeaderComponent>(SectionMenuHeaderComponent).toSelf().inSingletonScope();
 container.bind<SectionPagesComponent>(SectionPagesComponent).toSelf().inSingletonScope();
 container.bind<SectionPagesFilterComponent>(SectionPagesFilterComponent).toSelf().inSingletonScope();
+
+// Article
+container.bind<RootComponent>('RootComponent').to(ArticleComponent).inSingletonScope();
+
+// Comments
+container.bind<RootComponent>('RootComponent').to(CommentsComponent).inSingletonScope();
+
+// Sorted article list
+container.bind<RootComponent>('RootComponent').to(SortedArticleListComponent).inSingletonScope();
 
 // Shared
 container.bind<CodeService>(CodeService).toSelf().inSingletonScope();

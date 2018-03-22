@@ -21,6 +21,10 @@
         "./scripts/*.ts",
         "./scripts/pageHeader/*.ts",
         "./scripts/sectionMenu/*.ts",
+        "./scripts/comments/*.ts",
+        "./scripts/article/*.ts",
+        "./scripts/sortedArticleList/*.ts",
+
         "./typings/*.d.ts"
     ],
     "exclude": [
