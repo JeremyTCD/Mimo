@@ -9,10 +9,10 @@ body > footer {
     align-items: center;
     color: $color-secondary-text;
     flex-shrink: 0;
-
-    @media #{$media-medium}, #{$media-narrow} {
-        position: relative;
-    }
+    
+    // When viewport vertical height is small, footer should be infront of side menus
+    position: relative;
+    z-index: 1;
 
     a {
         color: inherit;
