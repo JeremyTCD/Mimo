@@ -65,7 +65,7 @@ export default class SectionMenuComponent extends RootComponent {
     public setupImmediate(): void {
         this._sectionMenuElement = document.getElementById('section-menu');
 
-        if (this.enabled) {
+        if (this.enabled()) {
             this.childComponentsSetupImmediate();
             this._bodyResizeObserver = new ResizeObserver(this._debounceService.createTimeoutDebounceFunction(this.updatePages, SectionMenuComponent.DEBOUNCE_TIME));
         }
@@ -174,6 +174,7 @@ export default class SectionMenuComponent extends RootComponent {
         }
     }
 
+    // This function cannot be part of pages component because pages filter and section menu element state is required
     private updatePagesHeight(fixed: boolean, sectionMenuElementTop: number): void {
         let footerTop = this._footerElement.getBoundingClientRect().top;
 
