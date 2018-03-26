@@ -91,10 +91,6 @@ export default class SectionMenuComponent extends RootComponent {
         // Makes initial updatePages call
         this._bodyResizeObserver.observe(document.body);
         this.updateDropdown()
-    }
-
-    public registerListeners(): void {
-        this.childComponentsRegisterListeners();
 
         window.addEventListener('scroll', this.windowScrollListener);
         window.addEventListener('resize', this.windowResizeListener);

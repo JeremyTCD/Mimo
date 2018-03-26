@@ -29,19 +29,11 @@ export default abstract class RootComponent implements Component {
         }
     }
 
-    protected childComponentsRegisterListeners(): void {
-        for (let i = 0; i < this.childComponents.length; i++) {
-            this.childComponents[i].registerListeners();
-        }
-    }
-
     abstract setupImmediate(): void;
 
     abstract setupOnDomContentLoaded(): void;
 
     abstract setupOnLoad(): void;
-
-    abstract registerListeners(): void;
 
     abstract enabled(): boolean;
 }

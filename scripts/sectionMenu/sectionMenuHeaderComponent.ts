@@ -26,9 +26,6 @@ export default class SectionMenuHeaderComponent implements Component {
     public setupOnLoad(): void {
     }
 
-    public registerListeners(): void {
-    }
-
     public loadRootBreadCrumb(anchorElement: HTMLAnchorElement): void {
         if (!this._rootBreadcrumbLoaded) {
             let clone = anchorElement.cloneNode(true) as HTMLElement;

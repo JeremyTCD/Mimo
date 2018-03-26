@@ -38,10 +38,6 @@ export default class ArticleComponent extends RootComponent {
         this.addLinks();
     }
 
-    public registerListeners(): void {
-        // Do nothing
-    }
-    
     private addLinks(): void {
         let articleElement: HTMLElement = document.querySelector('.jtcd-article') as HTMLElement;
         let headerElements: NodeList = articleElement.querySelectorAll('.header-1, .header-2');

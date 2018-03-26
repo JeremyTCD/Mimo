@@ -53,9 +53,6 @@ export default class SearchResultsComponent implements Component {
         // Do nothing
     }
 
-    public registerListeners(): void {
-    }
-
     public setShown(shown: boolean) {
         if (shown) {
             this._searchResultsElement.style.display = 'flex';

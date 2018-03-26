@@ -69,11 +69,6 @@ export default class PageHeaderComponent extends RootComponent {
 
     public setupOnLoad(): void {
         this.childComponentsSetupOnLoad();
-    }
-
-    public registerListeners(): void {
-        this.childComponentsRegisterListeners();
-
         this._buttonElement.addEventListener('click', this.buttonClickListener);
         window.addEventListener('resize', this.windowResizeListener);
     }

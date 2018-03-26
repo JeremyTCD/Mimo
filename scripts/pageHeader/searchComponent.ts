@@ -47,9 +47,6 @@ export default class SearchComponent implements Component {
         // Do nothing
     }
 
-    public registerListeners(): void {
-    }
-
     public hasQuery(): boolean {
         return this._inputElement.value.length > 0;
     }

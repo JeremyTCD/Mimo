@@ -28,10 +28,6 @@ export default class NavbarComponent implements Component {
         // Do nothing
     }
 
-    public registerListeners(): void {
-        // Do nothing
-    }
-
     private setupNavbar() {
         let navbarPath = document.querySelector("meta[property='docfx\\:navrel']").getAttribute('content');
 

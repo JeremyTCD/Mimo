@@ -23,10 +23,6 @@ export default class CommentsComponent extends RootComponent {
         return this._disqusThreadElement ? true : false;
     }
 
-    public registerListeners(): void {
-        // Do nothing
-    }
-
     public setupOnDomContentLoaded(): void {
         this._disqusShortname = this._disqusThreadElement.getAttribute('data-disqus-shortname');
         this._disqusIdentifier = this._disqusThreadElement.getAttribute('data-disqus-identifier');

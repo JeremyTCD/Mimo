@@ -76,9 +76,6 @@ export default class SectionPagesComponent implements Component {
     public setupOnLoad(): void {
     }
 
-    public registerListeners(): void {
-    }
-
     private handleActivePageElement(activePageElement: HTMLElement) {
         let initiallyExpandedLIElements: HTMLElement[] = [];
         let parentTopicAndPageElements: HTMLElement[] = [];

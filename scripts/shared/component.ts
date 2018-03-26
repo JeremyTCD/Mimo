@@ -9,6 +9,4 @@
     // Called when document has been parsed and all resources have been downloaded. 
     // Logic that requires dimensions of elements should be run here since all resources have been loaded.
     setupOnLoad(): void;
-
-    registerListeners(): void;
 }

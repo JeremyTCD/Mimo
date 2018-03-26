@@ -50,9 +50,7 @@ export default class SectionPagesFilterComponent implements Component {
         this._height = parseFloat(filterComputedStyle.marginBottom)
             + parseFloat(filterComputedStyle.height);
         this._fixedBottom = SectionMenuComponent.VERTICAL_GAP + this._height;
-    }
 
-    public registerListeners(): void {
         this.
             _inputElement.
             addEventListener('input', this.onInputListener);

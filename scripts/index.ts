@@ -43,7 +43,6 @@ function onDomContentLoaded() {
 
         if (rootComponent.enabled()) {
             rootComponent.setupOnDomContentLoaded();
-            rootComponent.registerListeners();
         }
     }
 
