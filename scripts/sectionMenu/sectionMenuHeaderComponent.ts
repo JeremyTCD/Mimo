@@ -84,7 +84,7 @@ export default class SectionMenuHeaderComponent implements Component {
     }
 
     private insertBreadcrumbs() {
-        let ulElement = this._treeService.generateListFromTree(this._breadcrumbs, 'breadcrumb', 1);
+        let ulElement = this._treeService.generateListFromTrees(this._breadcrumbs, 'breadcrumb', 1);
         this._headerElement.insertBefore(ulElement, this._headerElement.childNodes[0]);
     }
 }
