@@ -39,10 +39,11 @@
 }
 
 @mixin pages-outer-wrapper-side-menu() {
+    width: $side-menu-width;
+
     &.fixed {
         position: fixed;
         top: 23px;
-        width: $side-menu-width;
     }
 }
 
