@@ -51,13 +51,26 @@ code {
     pre {
         background-color: $color-section-body-background;
         white-space: pre;
-        padding: 20px 28px;
-
-        @media #{$media-narrow} {
-            padding: 12px 22px;
-        }
     }
 
+    .code {
+        flex-grow: 1;
+        overflow-x: auto;
+
+        code {
+            // https://stackoverflow.com/questions/10054870/when-a-child-element-overflows-horizontally-why-is-the-right-padding-of-the-par
+            display: inline-block;
+            margin: 20px 28px;
+            background-color: transparent;
+            border: 0;
+            padding: 0;
+
+            @media #{$media-narrow} {
+                margin: 12px 22px;
+            }
+        }
+    }
+    // Code blocks with line numbers
     > div {
         display: flex;
 
@@ -73,25 +86,6 @@ code {
             flex-shrink: 0;
             color: #2b91af;
             border-right: 2px solid $color-section-header-background;
-        }
-
-        .code {
-            padding-left: 23px;
-
-            @media #{$media-narrow} {
-                padding-left: 14px;
-            }
-        }
-    }
-
-    .code {
-        flex-grow: 1;
-        overflow-x: auto;
-
-        code {
-            background-color: transparent;
-            border: 0;
-            padding: 0;
         }
     }
 }
