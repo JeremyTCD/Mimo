@@ -32,12 +32,12 @@
             }
 
             &.active {
-                // TODO some way to indicate that an anchor is active
+                font-weight: 600;
             }
 
             a {
                 @include animated-underline($color-primary-link, $animated-underline-15px-ypos, $duration: 0.4s, $background-color: $color-primary);
             }
         }
-    }
+    } 
 }
