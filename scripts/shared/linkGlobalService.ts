@@ -1,11 +1,25 @@
 ﻿import { injectable, inject } from 'inversify';
 
 import * as SmoothScroll from 'smooth-scroll';
+import GlobalService from './globalService';
 
 @injectable()
-export default class LinkService {
+export default class LinkService implements GlobalService {
 
-    public setupSmoothScroll(): void {
+    public setupImmediate(): void {
+        this.setupSmoothScroll();
+        this.setupOpenExternalLinksInNewTab();
+    }
+
+    public setupOnDomContentLoaded(): void {
+        
+    }
+
+    public setupOnLoad(): void {
+        
+    }
+
+    private setupSmoothScroll(): void {
         // Smooth-scroll plugin is smoother than this CSS property
         //if (!CSS.supports('scroll-behavior', 'smooth')) {
             // Anchors with hrefs that contain #
@@ -13,7 +27,7 @@ export default class LinkService {
         //} 
     }
 
-    public setupOpenExternalLinksInNewTab(): void {
+    private setupOpenExternalLinksInNewTab(): void {
         let anchorElements = document.getElementsByTagName('a');
 
         for (let i = 0; i < anchorElements.length; i++) {

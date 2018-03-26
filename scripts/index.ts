@@ -1,6 +1,7 @@
 import '../styles/index.scss';
 import container from './container';
 import RootComponent from './shared/rootComponent';
+import GlobalService from './shared/globalService';
 
 // TODO use commonjs style since tsc removes es6 style imports, e.g 'import logo from './logo.svg''. This shouldn't 
 // be the case.
@@ -31,14 +32,9 @@ require('../resources/ion-icons-logo-googleplus.svg');
 
 import * as $ from 'jquery';
 
+// TODO convert into a class with an entry method (main)
 let rootComponents = container.getAll<RootComponent>('RootComponent');
-
-for (let i = 0; i < rootComponents.length; i++) {
-    let rootComponent = rootComponents[i];
-
-    // Can't call enabled before setupImmediate since setupImmediate is the first oppurtunity to check if an element exists
-    rootComponent.setupImmediate();
-}
+let globalServices = container.getAll<GlobalService>('GlobalService');
 
 // Called when document has been parsed but resources may not have been loaded
 function onDomContentLoaded() {
@@ -49,6 +45,10 @@ function onDomContentLoaded() {
             rootComponent.setupOnDomContentLoaded();
             rootComponent.registerListeners();
         }
+    }
+
+    for (let i = 0; i < globalServices.length; i++) {
+        globalServices[i].setupOnDomContentLoaded();
     }
 }
 
@@ -62,6 +62,18 @@ function onLoad() {
             rootComponent.setupOnLoad();
         }
     }
+
+    for (let i = 0; i < globalServices.length; i++) {
+        globalServices[i].setupOnLoad();
+    }
+}
+
+for (let i = 0; i < globalServices.length; i++) {
+    globalServices[i].setupImmediate();
+}
+
+for (let i = 0; i < rootComponents.length; i++) {
+    rootComponents[i].setupImmediate();
 }
 
 if (document.readyState === 'interactive' || document.readyState === 'loaded') {

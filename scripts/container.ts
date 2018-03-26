@@ -21,7 +21,6 @@ import SortedArticleListComponent from './sortedArticleList/sortedArticleListCom
 import CodeService from './shared/codeService';
 import DebounceService from './shared/debounceService';
 import HtmlEncodeService from './shared/htmlEncodeService';
-import LinkService from './shared/linkService';
 import MediaService from './shared/mediaService';
 import OverlayService from './shared/overlayService';
 import PaginationService from './shared/paginationService';
@@ -36,6 +35,9 @@ import CollapsibleMenuFactory from './shared/collapsibleMenuFactory';
 import StringService from './shared/stringService';
 import EasingService from './shared/easingService';
 import DropdownFactory from './shared/dropdownFactory';
+import ArticleGlobalService from './shared/articleGlobalService';
+import LinkGlobalService from './shared/linkGlobalService';
+import GlobalService from './shared/globalService';
 
 let container = new Container();
 
@@ -61,10 +63,11 @@ container.bind<RootComponent>('RootComponent').to(CommentsComponent).inSingleton
 container.bind<RootComponent>('RootComponent').to(SortedArticleListComponent).inSingletonScope();
 
 // Shared
+container.bind<GlobalService>('GlobalService').to(ArticleGlobalService).inSingletonScope().whenTargetNamed('ArticleGlobalService');
+container.bind<GlobalService>('GlobalService').to(LinkGlobalService).inSingletonScope().whenTargetNamed('LinkGlobalService');
 container.bind<CodeService>(CodeService).toSelf().inSingletonScope();
 container.bind<DebounceService>(DebounceService).toSelf().inSingletonScope();
 container.bind<HtmlEncodeService>(HtmlEncodeService).toSelf().inSingletonScope();
-container.bind<LinkService>(LinkService).toSelf().inSingletonScope();
 container.bind<MediaService>(MediaService).toSelf().inSingletonScope();
 container.bind<OverlayService>(OverlayService).toSelf().inSingletonScope();
 container.bind<PaginationService>(PaginationService).toSelf().inSingletonScope();

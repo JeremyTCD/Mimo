@@ -2,21 +2,17 @@
 import RootComponent from '../shared/rootComponent';
 import TooltipService from '../shared/tooltipService';
 import * as Clipboard from 'clipboard';
-import ArticleService from '../shared/articleService';
 import CodeService from '../shared/codeService';
 
 @injectable()
 export default class ArticleComponent extends RootComponent {
     private _tooltipService: TooltipService;
-    private _articleService: ArticleService;
     private _codeService: CodeService;
 
     public constructor(tooltipService: TooltipService,
-        articleService: ArticleService,
         codeService: CodeService) {
         super();
 
-        this._articleService = articleService;
         this._tooltipService = tooltipService;
         this._codeService = codeService;
     }
@@ -27,12 +23,10 @@ export default class ArticleComponent extends RootComponent {
     }
 
     public setupImmediate(): void {
-        this._articleService.setup();
         this._codeService.setupCodeBlocks();
     }
 
     public setupOnLoad(): void {
-        this._articleService.update();
     }
 
     public validDomElementExists(): boolean {
