@@ -38,6 +38,10 @@ let globalServices = container.getAll<GlobalService>('GlobalService');
 
 // Called when document has been parsed but resources may not have been loaded
 function onDomContentLoaded() {
+    for (let i = 0; i < globalServices.length; i++) {
+        globalServices[i].setupOnDomContentLoaded();
+    }
+
     for (let i = 0; i < rootComponents.length; i++) {
         let rootComponent = rootComponents[i];
 
@@ -45,25 +49,21 @@ function onDomContentLoaded() {
             rootComponent.setupOnDomContentLoaded();
         }
     }
-
-    for (let i = 0; i < globalServices.length; i++) {
-        globalServices[i].setupOnDomContentLoaded();
-    }
 }
 
 // Called after document has been parsed and all resources have been loaded.
 // Logic that depends on dimensions of elements must be run here.
 function onLoad() {
+    for (let i = 0; i < globalServices.length; i++) {
+        globalServices[i].setupOnLoad();
+    }
+
     for (let i = 0; i < rootComponents.length; i++) {
         let rootComponent = rootComponents[i];
 
         if (rootComponent.enabled()) {
             rootComponent.setupOnLoad();
         }
-    }
-
-    for (let i = 0; i < globalServices.length; i++) {
-        globalServices[i].setupOnLoad();
     }
 }
 

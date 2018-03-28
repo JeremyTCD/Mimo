@@ -18,6 +18,10 @@ import CommentsComponent from './comments/commentsComponent';
 
 import SortedArticleListComponent from './sortedArticleList/sortedArticleListComponent';
 
+import ArticleMenuComponent from './articleMenu/articleMenuComponent';
+import TableOfContentsComponent from './articleMenu/tableOfContentsComponent';
+import ArticleLinksComponent from './articleMenu/articleLinksComponent';
+
 import CodeService from './shared/codeService';
 import DebounceService from './shared/debounceService';
 import HtmlEncodeService from './shared/htmlEncodeService';
@@ -61,6 +65,11 @@ container.bind<RootComponent>('RootComponent').to(CommentsComponent).inSingleton
 
 // Sorted article list
 container.bind<RootComponent>('RootComponent').to(SortedArticleListComponent).inSingletonScope();
+
+// Article menu
+container.bind<RootComponent>('RootComponent').to(ArticleMenuComponent).inSingletonScope();
+container.bind<TableOfContentsComponent>(TableOfContentsComponent).toSelf().inSingletonScope();
+container.bind<ArticleLinksComponent>(ArticleLinksComponent).toSelf().inSingletonScope();
 
 // Shared
 container.bind<GlobalService>('GlobalService').to(ArticleGlobalService).inSingletonScope().whenTargetNamed('ArticleGlobalService');
