@@ -92,7 +92,7 @@ $horizontal-edge-wide: 30px;
     }
 }
 
-@mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: 0.5s, $background-color: null) {
+@mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: 0.3s, $background-color: null) {
     @include animated-underline-core($color, $y-position, $underline-height, $duration);
     transition: background-size $duration $ease-out-quad-delayed, text-shadow 0s linear $duration;
 
