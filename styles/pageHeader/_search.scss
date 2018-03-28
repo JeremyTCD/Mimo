@@ -20,11 +20,11 @@
     @media #{$media-medium}, #{$media-wide} {
         margin-left: auto;
         width: $side-menu-width;
-        background-size: 0% 2px;
+        background-size: 0% 1px;
         transition: background-size 0.6s $ease-out-quad-delayed;
 
         &:hover, &.active {
-            background-size: 100% 2px;
+            background-size: 100% 1px;
         }
     }
 
