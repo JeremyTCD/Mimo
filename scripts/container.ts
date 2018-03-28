@@ -42,6 +42,7 @@ import DropdownFactory from './shared/dropdownFactory';
 import ArticleGlobalService from './shared/articleGlobalService';
 import LinkGlobalService from './shared/linkGlobalService';
 import GlobalService from './shared/globalService';
+import FixesGlobalService from './shared/fixesGlobalService';
 
 let container = new Container();
 
@@ -75,6 +76,7 @@ container.bind<ArticleLinksComponent>(ArticleLinksComponent).toSelf().inSingleto
 container.bind<GlobalService>('GlobalService').to(ArticleGlobalService).inSingletonScope().whenTargetNamed('ArticleGlobalService');
 container.bind<GlobalService>('GlobalService').to(LinkGlobalService).inSingletonScope().whenTargetNamed('LinkGlobalService');
 container.bind<GlobalService>('GlobalService').to(MediaGlobalService).inSingletonScope().whenTargetNamed('MediaGlobalService');
+container.bind<GlobalService>('GlobalService').to(FixesGlobalService).inSingletonScope().whenTargetNamed('FixesGlobalService');
 container.bind<CodeService>(CodeService).toSelf().inSingletonScope();
 container.bind<DebounceService>(DebounceService).toSelf().inSingletonScope();
 container.bind<HtmlEncodeService>(HtmlEncodeService).toSelf().inSingletonScope();
