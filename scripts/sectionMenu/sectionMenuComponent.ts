@@ -1,6 +1,6 @@
-﻿import { injectable, inject } from 'inversify';
+﻿import { named, injectable, inject } from 'inversify';
 import RootComponent from '../shared/rootComponent';
-import MediaService from '../shared/mediaService';
+import MediaGlobalService from '../shared/mediaGlobalService';
 import OverlayService from '../shared/overlayService';
 import { MediaWidth } from '../shared/mediaWidth';
 import SectionPagesComponent from './sectionPagesComponent';
@@ -24,7 +24,7 @@ export default class SectionMenuComponent extends RootComponent {
     private _sectionMenuHeaderComponent: SectionMenuHeaderComponent;
     private _sectionPagesFilterComponent: SectionPagesFilterComponent;
 
-    private _mediaService: MediaService;
+    private _mediaGlobalService: MediaGlobalService;
     private _overlayService: OverlayService;
     private _debounceService: DebounceService;
     private _dropdownFactory: DropdownFactory;
@@ -38,20 +38,20 @@ export default class SectionMenuComponent extends RootComponent {
     private _bodyResizeObserver: ResizeObserver;
 
     public constructor(
+        @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
         debounceService: DebounceService,
         sectionPagesComponent: SectionPagesComponent,
         sectionMenuHeaderComponent: SectionMenuHeaderComponent,
         sectionPagesFilterComponent: SectionPagesFilterComponent,
         overlayService: OverlayService,
-        dropdownFactory: DropdownFactory,
-        mediaService: MediaService) {
+        dropdownFactory: DropdownFactory) {
         super();
 
         this._sectionMenuHeaderComponent = sectionMenuHeaderComponent;
         this._sectionPagesFilterComponent = sectionPagesFilterComponent;
         this._sectionPagesComponent = sectionPagesComponent;
         this._overlayService = overlayService;
-        this._mediaService = mediaService;
+        this._mediaGlobalService = mediaGlobalService;
         this._debounceService = debounceService;
         this._dropdownFactory = dropdownFactory;
 
@@ -121,7 +121,7 @@ export default class SectionMenuComponent extends RootComponent {
         let pagesFixed = this._pagesOuterWrapperElement.classList.contains('fixed');
         let top: number;
 
-        if (this._mediaService.mediaWidthWide() || !this._inCore2 && this._mediaService.mediaWidthMedium()) {
+        if (this._mediaGlobalService.mediaWidthWide() || !this._inCore2 && this._mediaGlobalService.mediaWidthMedium()) {
             let top = this._sectionMenuElement.getBoundingClientRect().top;
             let fix = top < SectionMenuComponent.VERTICAL_GAP;
 
@@ -147,9 +147,9 @@ export default class SectionMenuComponent extends RootComponent {
     // | medium     | n       | n         |
     // | wide       | y/n     | n         |
     private updateDropdown(): void {
-        let previousMediaWidth: MediaWidth = this._mediaService.getPreviousMediaWidth();
+        let previousMediaWidth: MediaWidth = this._mediaGlobalService.getPreviousMediaWidth();
 
-        if (this._mediaService.mediaWidthNarrow() || this._inCore2 && this._mediaService.mediaWidthMedium()) {
+        if (this._mediaGlobalService.mediaWidthNarrow() || this._inCore2 && this._mediaGlobalService.mediaWidthMedium()) {
             // Update wrapper maxheight so it is scrollable as a dropdown menu
             this._pagesInnerWrapperElement.style.maxHeight = `${window.innerHeight - SectionMenuComponent.HEADER_HEIGHT}px`;
 

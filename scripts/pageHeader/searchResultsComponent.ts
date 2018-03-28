@@ -1,11 +1,9 @@
-﻿import { injectable, inject } from 'inversify';
+﻿import { named, injectable, inject } from 'inversify';
 import * as Mark from 'mark.js';
 import Component from '../shared/component';
 import PaginationService from '../shared/paginationService';
 import OverlayService from '../shared/overlayService';
-import MediaService from '../shared/mediaService';
-//import SectionMenuComponent from '../sectionMenu/sectionMenuComponent';
-//import ArticleMenuComponent from '../articleMenu/articleMenuComponent';
+import MediaGlobalService from '../shared/mediaGlobalService';
 
 @injectable()
 export default class SearchResultsComponent implements Component {
@@ -16,22 +14,16 @@ export default class SearchResultsComponent implements Component {
     private _paginationParentElements: NodeList;
     private _pageHeaderElement: HTMLElement;
     private _articleListItemsParentElement: HTMLElement;
-    //private _sectionMenuComponent: SectionMenuComponent;
-    //private _articleMenuComponent: ArticleMenuComponent;
     private _paginationService: PaginationService;
     private _overlayService: OverlayService;
-    private _mediaService: MediaService;
+    private _mediaGlobalService: MediaGlobalService;
 
     public constructor(
-        //sectionMenuComponent: SectionMenuComponent,
-        //articleMenuComponent: ArticleMenuComponent,
-        mediaService: MediaService,
+        @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
         overlayService: OverlayService,
         paginationService: PaginationService) {
-        //this._sectionMenuComponent = sectionMenuComponent;
-        //this._articleMenuComponent = articleMenuComponent;
         this._paginationService = paginationService;
-        this._mediaService = mediaService;
+        this._mediaGlobalService = mediaGlobalService;
         this._overlayService = overlayService;
     }
 
@@ -57,7 +49,7 @@ export default class SearchResultsComponent implements Component {
         if (shown) {
             this._searchResultsElement.style.display = 'flex';
 
-            if (!this._mediaService.mediaWidthNarrow()) {
+            if (!this._mediaGlobalService.mediaWidthNarrow()) {
                 this._overlayService.activateOverlay(this._pageHeaderElement, false, false);
             }
         } else {
@@ -67,16 +59,9 @@ export default class SearchResultsComponent implements Component {
             this._articleListItemsParentElement.innerHTML = '';
             $(this._paginationParentElements).twbsPagination('destroy');
 
-            if (!this._mediaService.mediaWidthNarrow()) {
+            if (!this._mediaGlobalService.mediaWidthNarrow()) {
                 this._overlayService.deactivateOverlay(false);
             }
-
-            // While search results are displayed, main container (including left and right menu) have their dispay set to none.
-            // This means that left and right menu cannot be updated on resize/scroll since they rely on getBoundingClientRect
-            // which is meaningles when they are not displayed. Therefore, just before re-displaying main container, left and 
-            // right menu must be updated. 
-            //this._sectionMenuComponent.updateSectionMenu();
-            //this._articleMenuComponent.updateArticleMenu();
         }
     }
 

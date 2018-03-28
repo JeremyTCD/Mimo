@@ -1,13 +1,13 @@
-﻿import { injectable, inject } from 'inversify';
+﻿import { named, injectable, inject } from 'inversify';
 import ResizeObserver from 'resize-observer-polyfill';
-import MediaService from '../shared/mediaService';
+import MediaGlobalService from '../shared/mediaGlobalService';
 import DebounceService from '../shared/debounceService';
 import GlobalService from './globalService';
 import * as SmoothScroll from 'smooth-scroll';
 
 @injectable()
 export default class ArticleGlobalService implements GlobalService {
-    private _mediaService: MediaService;
+    private _mediaGlobalService: MediaGlobalService;
     private _debounceService: DebounceService;
 
     // TODO should be readonly
@@ -20,9 +20,10 @@ export default class ArticleGlobalService implements GlobalService {
     private _indexChangedListeners: ((newIndex: number) => void)[];
     private _activeHeaderIndex: number;
 
-    public constructor(mediaService: MediaService,
+    public constructor(
+        @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
         debounceService: DebounceService) {
-        this._mediaService = mediaService;
+        this._mediaGlobalService = mediaGlobalService;
         this._debounceService = debounceService;
     }
 
@@ -64,7 +65,7 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     private updateActiveHeaderIndex(): void {
-        let headerHeight = this._mediaService.mediaWidthNarrow() ? 37 : 0;
+        let headerHeight = this._mediaGlobalService.mediaWidthNarrow() ? 37 : 0;
         let activeHeaderIndex: number = this._headerMarginTops.length - 1;
 
         for (let i = 0; i < this._headerElements.length; i++) {

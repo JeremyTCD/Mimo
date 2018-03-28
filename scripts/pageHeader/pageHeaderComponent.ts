@@ -1,11 +1,11 @@
-import { injectable, inject } from 'inversify';
+import { named, injectable, inject } from 'inversify';
 import RootComponent from '../shared/rootComponent';
 import NavbarComponent from './navbarComponent';
 import SearchComponent from './searchComponent';
 import SearchResultsComponent from './searchResultsComponent';
 import HeightService from '../shared/heightService';
 import OverlayService from '../shared/overlayService';
-import MediaService from '../shared/mediaService';
+import MediaGlobalService from '../shared/mediaGlobalService';
 import Component from '../shared/component';
 import { MediaWidth } from '../shared/mediaWidth';
 import DropdownFactory from '../shared/dropdownFactory';
@@ -15,7 +15,7 @@ import Dropdown from '../shared/dropdown';
 export default class PageHeaderComponent extends RootComponent {
     private _heightService: HeightService;
     private _overlayService: OverlayService;
-    private _mediaService: MediaService;
+    private _mediaGlobalService: MediaGlobalService;
     private _dropdownFactory: DropdownFactory;
 
     private _searchComponent: SearchComponent;
@@ -29,10 +29,10 @@ export default class PageHeaderComponent extends RootComponent {
     private _dropdown: Dropdown;
 
     public constructor(
+        @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
         dropdownFactory: DropdownFactory,
         heightService: HeightService,
         overlayService: OverlayService,
-        mediaService: MediaService,
         searchComponent: SearchComponent,
         navbarComponent: NavbarComponent,
         searchResultsComponent: SearchResultsComponent) {
@@ -41,7 +41,7 @@ export default class PageHeaderComponent extends RootComponent {
         this._dropdownFactory = dropdownFactory;
         this._heightService = heightService;
         this._overlayService = overlayService;
-        this._mediaService = mediaService;
+        this._mediaGlobalService = mediaGlobalService;
         this._searchComponent = searchComponent;
 
         this.addChildComponents(searchComponent, navbarComponent, searchResultsComponent);
@@ -75,12 +75,12 @@ export default class PageHeaderComponent extends RootComponent {
 
     private windowResizeListener = () => {
         // Going from wide/medium to narrow and search component has query
-        if (this._mediaService.mediaWidthNarrow() &&
-            this._mediaService.mediaWidthChanged() &&
+        if (this._mediaGlobalService.mediaWidthNarrow() &&
+            this._mediaGlobalService.mediaWidthChanged() &&
             this._searchComponent.hasQuery()) {
 
             this._dropdown.expandWithoutAnimation();
-        } else if (!this._mediaService.mediaWidthNarrow() && this._mediaService.getPreviousMediaWidth() === MediaWidth.narrow) {
+        } else if (!this._mediaGlobalService.mediaWidthNarrow() && this._mediaGlobalService.getPreviousMediaWidth() === MediaWidth.narrow) {
             if (this._buttonElement.classList.contains('expanded') && !this._searchComponent.hasQuery()) {
                 this._overlayService.deactivateOverlay(false);
             }

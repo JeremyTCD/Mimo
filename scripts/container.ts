@@ -25,7 +25,7 @@ import ArticleLinksComponent from './articleMenu/articleLinksComponent';
 import CodeService from './shared/codeService';
 import DebounceService from './shared/debounceService';
 import HtmlEncodeService from './shared/htmlEncodeService';
-import MediaService from './shared/mediaService';
+import MediaGlobalService from './shared/mediaGlobalService';
 import OverlayService from './shared/overlayService';
 import PaginationService from './shared/paginationService';
 import PathService from './shared/pathService';
@@ -74,10 +74,10 @@ container.bind<ArticleLinksComponent>(ArticleLinksComponent).toSelf().inSingleto
 // Shared
 container.bind<GlobalService>('GlobalService').to(ArticleGlobalService).inSingletonScope().whenTargetNamed('ArticleGlobalService');
 container.bind<GlobalService>('GlobalService').to(LinkGlobalService).inSingletonScope().whenTargetNamed('LinkGlobalService');
+container.bind<GlobalService>('GlobalService').to(MediaGlobalService).inSingletonScope().whenTargetNamed('MediaGlobalService');
 container.bind<CodeService>(CodeService).toSelf().inSingletonScope();
 container.bind<DebounceService>(DebounceService).toSelf().inSingletonScope();
 container.bind<HtmlEncodeService>(HtmlEncodeService).toSelf().inSingletonScope();
-container.bind<MediaService>(MediaService).toSelf().inSingletonScope();
 container.bind<OverlayService>(OverlayService).toSelf().inSingletonScope();
 container.bind<PaginationService>(PaginationService).toSelf().inSingletonScope();
 container.bind<PathService>(PathService).toSelf().inSingletonScope();

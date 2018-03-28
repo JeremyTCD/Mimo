@@ -1,16 +1,23 @@
 ﻿import { injectable, inject } from 'inversify';
 import { MediaWidth } from './mediaWidth';
+import GlobalService from '../shared/globalService';
 
 @injectable()
-export default class MediaService {
+export default class MediaGlobalService implements GlobalService {
     private mediaWidth: MediaWidth;
     private previousMediaWidth: MediaWidth;
 
-    public constructor() {
-        // TODO this must be registered before other resize listeners since they use media service to ascertain window width
-        // Figure out a systematic way to ensure that this is the case
+    public setupImmediate(): void {
         window.addEventListener('resize', this.resizeListener);
         this.resizeListener();
+    }
+
+    public setupOnDomContentLoaded(): void {
+
+    }
+
+    public setupOnLoad(): void {
+
     }
 
     private resizeListener = () => {
