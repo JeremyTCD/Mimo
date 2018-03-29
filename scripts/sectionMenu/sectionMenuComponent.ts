@@ -158,7 +158,8 @@ export default class SectionMenuComponent extends RootComponent {
                 // Going from being beside main to being collapsed
                 this._dropdown.collapseWithoutAnimation();
             }
-        } else if (previousMediaWidth === MediaWidth.narrow || this._inCore2 && previousMediaWidth == MediaWidth.medium) {
+        } else if (this._mediaGlobalService.mediaWidthChanged() &&
+            (previousMediaWidth === MediaWidth.narrow || this._inCore2 && previousMediaWidth == MediaWidth.medium)) {
             this._pagesInnerWrapperElement.style.maxHeight = '';
 
             if (this._dropdown.isExpanded()) {
