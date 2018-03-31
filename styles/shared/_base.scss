@@ -45,6 +45,12 @@ body, body * {
     min-width: 0;
 }
 
+body * {
+    // FF uses auto as the default min-height for some elements (such as lis). auto means min-content (minimum space to fit content). Not setting min-height to 0 can thus result in overflow despite
+    // flex-grow being set to 0.
+   min-height: 0;
+}
+
 html {
     // see footerComponent
     height: 100vh;
@@ -67,6 +73,12 @@ button {
 
 *::-moz-focus-inner {
     border: 0;
+}
+
+*::selection {
+    color: $color-secondary-text;
+    background-color: rgba($color-primary-link, 0.99);
+    text-shadow: none;
 }
 
 script {
