@@ -20,16 +20,16 @@ export default class Dropdown {
         this._headerAndContentWrapperElement = headerAndContentWrapperElement;
     }
 
-    public toggleWithAnimation() {
+    public toggleWithAnimation(translateToTop: boolean = true) {
         if (this._toggleElement.classList.contains('expanded')) {
             this.collapseWithAnimation();
         } else {
-            this.expandWithAnimation();
+            this.expandWithAnimation(translateToTop);
         }
     }
 
-    public expandWithAnimation() {
-        if (this._headerAndContentWrapperElement) {
+    public expandWithAnimation(translateToTop: boolean) {
+        if (translateToTop && this._headerAndContentWrapperElement) {
             this._headerAndContentWrapperElement.style.transition = '';
             let headerAndContentWrapperInitialTop = this._headerAndContentWrapperElement.getBoundingClientRect().top;
             this._headerAndContentWrapperElement.style.transform = `translateY(${-headerAndContentWrapperInitialTop}px)`;
@@ -53,16 +53,16 @@ export default class Dropdown {
         this._toggleElement.classList.remove('expanded');
     }
 
-    public toggleWithoutAnimation() {
+    public toggleWithoutAnimation(translateToTop: boolean = true) {
         if (this._toggleElement.classList.contains('expanded')) {
             this.collapseWithoutAnimation();
         } else {
-            this.expandWithoutAnimation();
+            this.expandWithoutAnimation(translateToTop);
         }
     }
 
-    public expandWithoutAnimation() {
-        if (this._headerAndContentWrapperElement) {
+    public expandWithoutAnimation(translateToTop: boolean = true) {
+        if (translateToTop && this._headerAndContentWrapperElement) {
             this._headerAndContentWrapperElement.style.transition = 'initial';
             let headerAndContentWrapperInitialTop = this._headerAndContentWrapperElement.getBoundingClientRect().top;
             this._headerAndContentWrapperElement.style.transform = `translateY(${-headerAndContentWrapperInitialTop}px)`;
