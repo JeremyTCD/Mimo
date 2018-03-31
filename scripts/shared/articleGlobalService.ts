@@ -52,7 +52,21 @@ export default class ArticleGlobalService implements GlobalService {
         this._bodyResizeObserver.observe(document.body);
         window.addEventListener('resize', this.onScrollAndResizeListener);
         window.addEventListener('scroll', this.onScrollAndResizeListener);
+
+        // TODO use IntersectionObserver instead of scroll/resize 
+        //  - IntersectionObserver to work, article must be divided into sections
+        //  - Keep track of all sections that intersect the viewport (using threshold 0), the section closest to the top of the article
+        //    is the active one.
+        // TODO use rootMargin to account for dropdown headers and for common space above headers
+        //this._initialIntersectionCall = true;
+        //let intersectionObserver = new IntersectionObserver(this.onIntersectionListener, { threshold: 1 });
+        //for (let i = 0; i < this._headerElements.length; i++) {
+        //    intersectionObserver.observe(this._headerElements[i] as HTMLElement);
+        //}
     }
+
+    //private onIntersectionListener = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+    //}
 
     public addIndexChangedListener(listener: (newIndex: number) => void) {
         this._indexChangedListeners.push(listener);
@@ -106,7 +120,8 @@ export default class ArticleGlobalService implements GlobalService {
         let scroll = new SmoothScroll('a[href*="#"]', {
             speed: 300,
             before: this.smoothScrollBefore,
-            after: this.smoothScrollAfter
+            after: this.smoothScrollAfter,
+            header: '#article-menu-header'
         });
     }
 
