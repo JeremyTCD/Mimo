@@ -17,9 +17,6 @@ export default class SectionPagesFilterComponent implements Component {
     private _inputElement: HTMLInputElement;
     private _clearElement: HTMLElement;
 
-    private _height: number;
-    private _fixedBottom: number;
-
     public constructor(sectionPagesComponent: SectionPagesComponent,
         textInputFactory: TextInputFactory) {
         this._sectionPagesComponent = sectionPagesComponent;
@@ -45,12 +42,6 @@ export default class SectionPagesFilterComponent implements Component {
     }
 
     public setupOnLoad(): void {
-        let filterComputedStyle = getComputedStyle(this._filterElement);
-        // Does not change
-        this._height = parseFloat(filterComputedStyle.marginBottom)
-            + parseFloat(filterComputedStyle.height);
-        this._fixedBottom = SectionMenuComponent.VERTICAL_GAP + this._height;
-
         this.
             _inputElement.
             addEventListener('input', this.onInputListener);
@@ -76,13 +67,5 @@ export default class SectionPagesFilterComponent implements Component {
 
             this._sectionPagesComponent.collapsibleMenu.filter(filterValue);
         }
-    }
-
-    public getHeight(): number {
-        return this._height;
-    }
-
-    public getFixedBottom(): number {
-        return this._fixedBottom;
     }
 }

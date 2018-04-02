@@ -4,6 +4,7 @@ import Component from '../shared/component';
 import PaginationService from '../shared/paginationService';
 import OverlayService from '../shared/overlayService';
 import MediaGlobalService from '../shared/mediaGlobalService';
+import { MediaWidth } from '../shared/mediaWidth';
 
 @injectable()
 export default class SearchResultsComponent implements Component {
@@ -49,7 +50,7 @@ export default class SearchResultsComponent implements Component {
         if (shown) {
             this._searchResultsElement.style.display = 'flex';
 
-            if (!this._mediaGlobalService.mediaWidthNarrow()) {
+            if (!this._mediaGlobalService.mediaWidthIs(MediaWidth.narrow)) {
                 this._overlayService.activateOverlay(this._pageHeaderElement, false, false);
             }
         } else {
@@ -59,7 +60,7 @@ export default class SearchResultsComponent implements Component {
             this._articleListItemsParentElement.innerHTML = '';
             $(this._paginationParentElements).twbsPagination('destroy');
 
-            if (!this._mediaGlobalService.mediaWidthNarrow()) {
+            if (!this._mediaGlobalService.mediaWidthIs(MediaWidth.narrow)) {
                 this._overlayService.deactivateOverlay(false);
             }
         }

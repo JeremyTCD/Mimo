@@ -4,6 +4,7 @@ import MediaGlobalService from '../shared/mediaGlobalService';
 import DebounceService from '../shared/debounceService';
 import GlobalService from './globalService';
 import * as SmoothScroll from 'smooth-scroll';
+import { MediaWidth } from './mediaWidth';
 
 @injectable()
 export default class ArticleGlobalService implements GlobalService {
@@ -68,8 +69,20 @@ export default class ArticleGlobalService implements GlobalService {
     //private onIntersectionListener = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
     //}
 
-    public addIndexChangedListener(listener: (newIndex: number) => void) {
+    public addIndexChangedListener(listener: (newIndex: number) => void, init: boolean = false) {
         this._indexChangedListeners.push(listener);
+
+        if (init) {
+            listener(this._activeHeaderIndex);
+        }
+    }
+
+    public removeIndexChangedListener(listener: (newIndex: number) => void) {
+        let index = this._indexChangedListeners.indexOf(listener);
+
+        if (index > -1) {
+            this._indexChangedListeners.splice(index, 1);
+        }
     }
 
     private onScrollAndResizeListener = (): void => {
@@ -79,7 +92,7 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     private updateActiveHeaderIndex(): void {
-        let headerHeight = this._mediaGlobalService.mediaWidthNarrow() ? 37 : 0;
+        let headerHeight = this._mediaGlobalService.mediaWidthIs(MediaWidth.narrow) ? 37 : 0;
         let activeHeaderIndex: number = this._headerMarginTops.length - 1;
 
         for (let i = 0; i < this._headerElements.length; i++) {

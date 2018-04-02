@@ -1,29 +1,27 @@
 ﻿{{^mimo_disableSectionMenu}}
 <div id="section-menu">
-    <div id="section-menu-wrapper">
-        <nav id="section-menu-header">
-            <button id="section-menu-header-button">
+    <nav id="section-menu-header">
+        <button id="section-menu-header-button">
+            <svg>
+                <use xlink:href="#material-design-drop-down" />
+            </svg>
+        </button>
+    </nav>
+
+    <div id="section-pages-outer-wrapper">
+        <div id="section-pages-inner-wrapper">
+            <form id="section-pages-filter">
                 <svg>
-                    <use xlink:href="#material-design-drop-down" />
+                    <use xlink:href="#material-design-filter" />
                 </svg>
-            </button>
-        </nav>
+                <input type="text" autocomplete="off" id="section-menu-filter-input" placeholder="Filter" onkeypress="if(event.keyCode==13) {return false;}"/>
+                <svg>
+                    <use xlink:href="#material-design-clear-black" />
+                </svg>
+            </form>
 
-        <div id="section-pages-outer-wrapper">
-            <div id="section-pages-inner-wrapper">
-                <form id="section-pages-filter">
-                    <svg>
-                        <use xlink:href="#material-design-filter" />
-                    </svg>
-                    <input type="text" autocomplete="off" id="section-menu-filter-input" placeholder="Filter" onkeypress="if(event.keyCode==13) {return false;}"/>
-                    <svg>
-                        <use xlink:href="#material-design-clear-black" />
-                    </svg>
-                </form>
-
-                <nav id="section-pages">
-                </nav>
-            </div>
+            <nav id="section-pages">
+            </nav>
         </div>
     </div>
 </div>

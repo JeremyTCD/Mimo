@@ -4,12 +4,29 @@ import GlobalService from '../shared/globalService';
 
 @injectable()
 export default class MediaGlobalService implements GlobalService {
-    private mediaWidth: MediaWidth;
-    private previousMediaWidth: MediaWidth;
+    private _mediaWidth: MediaWidth;
+    private _previousMediaWidth: MediaWidth;
+
+    private _narrowMediaQueryList: MediaQueryList;
+    private _mediumMediaQueryList: MediaQueryList;
+    private _wideMediaQueryList: MediaQueryList;
+
+    private _onMediaWidthChangeListeners: ((init: boolean) => void)[][];
 
     public setupImmediate(): void {
-        window.addEventListener('resize', this.resizeListener);
-        this.resizeListener();
+        this._narrowMediaQueryList = window.matchMedia('(max-width: 855px)');
+        this._mediumMediaQueryList = window.matchMedia('(min-width: 856px) and (max-width: 1183px)');
+        this._wideMediaQueryList = window.matchMedia('(min-width: 1184px)');
+
+        this.updateMediaWidth();
+
+        this._onMediaWidthChangeListeners = [];
+        // TODO cleaner way to get number of listener arrays (in case more media widths are added)
+        for (let i = 0; i <= MediaWidth.wide * 2 + 1; i++) {
+            this._onMediaWidthChangeListeners[i] = [];
+        }
+
+        window.addEventListener('resize', this.onResizeListener);
     }
 
     public setupOnDomContentLoaded(): void {
@@ -20,35 +37,70 @@ export default class MediaGlobalService implements GlobalService {
 
     }
 
-    private resizeListener = () => {
-        this.previousMediaWidth = this.mediaWidth;
+    private updateMediaWidth = (): boolean => {
+        let newMediaWidth = MediaWidth.medium;
 
-        if (window.matchMedia('(max-width: 855px)').matches) {
-            this.mediaWidth = MediaWidth.narrow;
-        } else if (window.matchMedia('(min-width: 1184px)').matches) {
-            this.mediaWidth = MediaWidth.wide;
-        } else {
-            this.mediaWidth = MediaWidth.medium;
+        if (this._narrowMediaQueryList.matches) {
+            newMediaWidth = MediaWidth.narrow;
+        } else if (this._wideMediaQueryList.matches) {
+            newMediaWidth = MediaWidth.wide;
+        }
+
+        if (newMediaWidth !== this._mediaWidth) {
+            this._previousMediaWidth = this._mediaWidth;
+            this._mediaWidth = newMediaWidth;
+
+            return true;
+        }
+
+        return false;
+    }
+
+    // MediaQueryLists fire their listeners when their match status changes. Chrome and firefox both fire the listeners before the corresponding resize event. However, edge fires the listeners after the 
+    // corresponding resize event. Therefore, MediaGlobalService cannot depend on MediaQueryList listeners to update _mediaWidth.
+    private onResizeListener = () => {
+        if (this.updateMediaWidth()) {
+            let changeFromListeners = this._onMediaWidthChangeListeners[this._previousMediaWidth * 2 + 1];
+            for (let i = 0; i < changeFromListeners.length; i++) {
+                changeFromListeners[i](false);
+            }
+
+            let changeToListeners = this._onMediaWidthChangeListeners[this._mediaWidth * 2];
+            for (let i = 0; i < changeToListeners.length; i++) {
+                changeToListeners[i](false);
+            }
         }
     }
 
-    public mediaWidthNarrow(): boolean {
-        return this.mediaWidth === MediaWidth.narrow;
+    public addChangedToListener(listener: (init: boolean) => void, mediaWidth: MediaWidth) {
+        let listeners = this._onMediaWidthChangeListeners[mediaWidth * 2];
+
+        listeners.push(listener);
+
+        if (this._mediaWidth === mediaWidth) {
+            listener(true);
+        }
     }
 
-    public mediaWidthMedium(): boolean {
-        return this.mediaWidth === MediaWidth.medium;
+    public addChangedFromListener(listener: (init: boolean) => void, mediaWidth: MediaWidth) {
+        let listeners = this._onMediaWidthChangeListeners[mediaWidth * 2 + 1];
+
+        listeners.push(listener);
+
+        if (this._mediaWidth !== mediaWidth) {
+            listener(true);
+        }
     }
 
-    public mediaWidthWide(): boolean {
-        return this.mediaWidth === MediaWidth.wide;
+    public mediaWidthIs(mediaWidth: MediaWidth): boolean {
+        return this._mediaWidth === mediaWidth;
     }
 
     public mediaWidthChanged(): boolean {
-        return this.mediaWidth !== this.previousMediaWidth;
+        return this._mediaWidth !== this._previousMediaWidth;
     }
 
     public getPreviousMediaWidth(): MediaWidth {
-        return this.previousMediaWidth;
+        return this._previousMediaWidth;
     }
 }

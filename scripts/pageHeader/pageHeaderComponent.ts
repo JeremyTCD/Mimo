@@ -70,24 +70,23 @@ export default class PageHeaderComponent extends RootComponent {
     public setupOnLoad(): void {
         this.childComponentsSetupOnLoad();
         this._buttonElement.addEventListener('click', this.buttonClickListener);
-        window.addEventListener('resize', this.windowResizeListener);
+
+        this._mediaGlobalService.addChangedFromListener(this.onChangedFromNarrowListener, MediaWidth.narrow);
+        this._mediaGlobalService.addChangedToListener(this.onChangedToNarrowListener, MediaWidth.narrow);
     }
 
-    private windowResizeListener = () => {
-        // Going from wide/medium to narrow and search component has query
-        if (this._mediaGlobalService.mediaWidthNarrow() &&
-            this._mediaGlobalService.mediaWidthChanged() &&
-            this._searchComponent.hasQuery()) {
-
+    private onChangedToNarrowListener = () => {
+        if (this._searchComponent.hasQuery()) {
             this._dropdown.expandWithoutAnimation();
-        } else if (!this._mediaGlobalService.mediaWidthNarrow() && this._mediaGlobalService.getPreviousMediaWidth() === MediaWidth.narrow) {
-            if (this._buttonElement.classList.contains('expanded') && !this._searchComponent.hasQuery()) {
-                this._overlayService.deactivateOverlay(false);
-            }
-
-            // Going from narrow to wide/medium
-            this._dropdown.reset()
         }
+    }
+
+    private onChangedFromNarrowListener = () => {
+        if (this._dropdown.isExpanded() && !this._searchComponent.hasQuery()) {
+            this._overlayService.deactivateOverlay(false);
+        }
+
+        this._dropdown.reset()
     }
 
     private buttonClickListener = () => {
