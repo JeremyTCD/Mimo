@@ -1,27 +1,25 @@
 {{^mimo_disableArticleMenu}}
 <div id="article-menu">
-    <div id="article-menu-wrapper">
-        <div id="article-menu-dropdown-header">
-            <div id="dropdown-wrapper">
-                <ul>
-                    <li>
-                        <span id="article-menu-dropdown-text-h1">
-                        </span>
-                    </li>
-                    <li>
-                        <span id="article-menu-dropdown-text-h2">
-                        </span>
-                    </li>
-                </ul>
-                <button id="article-menu-dropdown-button">
-                    <svg>
-                        <use xlink:href="#material-design-drop-down" />
-                    </svg>
-                </button>
-            </div>
-        </div>
+    <div id="article-menu-header">
+        <ul>
+            <li>
+                <span id="article-menu-header-text-1">
+                </span>
+            </li>
+            <li>
+                <span id="article-menu-header-text-2">
+                </span>
+            </li>
+        </ul>
+        <button id="article-menu-header-button">
+            <svg>
+                <use xlink:href="#material-design-drop-down" />
+            </svg>
+        </button>
+    </div>
 
-        <div id="article-links-and-toc-outer-wrapper">
+    <div id="article-links-and-toc-outer-wrapper">
+        <div id="article-links-and-toc-inner-wrapper">
             {{>partials/articleLinks}}
             {{>partials/tableOfContents}}
         </div>

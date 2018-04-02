@@ -1,385 +1,128 @@
-﻿import mediaService from './mediaService';
-import listItemService from './listItemService';
-import IComponent from './IComponent';
-import debounceService from './debounceService';
-import ResizeObserver from 'resize-observer-polyfill';
-import transitionsService from './transitionsService';
-import * as SmoothScroll from 'smooth-scroll';
+﻿import { injectable, inject, named } from 'inversify';
+import Component from '../shared/component';
+import TreeService from '../shared/treeService';
+import '../shared/treeNode';
+import './tableOfContentsAnchorData';
+import ArticleGlobalService from '../shared/articleGlobalService';
+import MediaGlobalService from '../shared/mediaGlobalService';
+import { MediaWidth } from '../shared/mediaWidth';
 
-export default class TableOfContentsComponent implements IComponent {
-    outlineElement: HTMLElement;
-    outlineWrapperElement: HTMLElement;
-    outlineTitleElement: HTMLElement;
-    outlineAnchors: NodeList;
-    indicatorElement: HTMLElement;
-    outlineIndicatorSpanElement: HTMLElement;
-    outlineLastAnchorElement: HTMLElement;
-    outlineRootUlElement: HTMLElement;
-    footerElement: HTMLElement;
+@injectable()
+export default class TableOfContentsComponent implements Component {
+    private _wrapperElement: HTMLElement;
+    private _tableOfContentsElement: HTMLElement;
+    private _knobElement: HTMLElement;
+    private _rootUnorderedListElement: HTMLElement;
 
+    private _articleGlobalService: ArticleGlobalService;
+    private _mediaGlobalService: MediaGlobalService;
+    private _treeService: TreeService;
 
-    lastScrollY: number;
-    scrollToDropdownHeader: SmoothScroll;
-    // True if there is no outline, can be because article has no headers to generate an outline from or if outline is disabled
-    outlineEmpty: boolean;
-    outlineAnchorDataWithoutScroll: { [index: number]: OutlineAnchorData };
-    outlineAnchorDataWithScroll: { [index: number]: OutlineAnchorData };
-    outlineHeightWithoutScroll: number;
-    outlineHeightWithoutScrollPX: string;
-    outlineHeightWithScrollPX: string;
-    topHeight: number;
-    fixedTopBottom: number;
+    private _anchorElements: NodeList;
+    private _anchorHashes: string[];
+    private _lastDropdownAnchorIndex: number;
+    private _noToc: boolean;
 
-    dropdownHeaderData: DropdownHeaderData[];
+    public constructor(treeService: TreeService,
+        @inject('GlobalService') @named('ArticleGlobalService') articleGlobalService: ArticleGlobalService,
+        @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService) {
 
-    // Arbitrary gaps
-    topMenuGap: number = 16;
-    bottomMenuGap: number = 23;
-
-    updateHistoryTimeout: number;
-
-    protected validDomElementExists(): boolean {
-        return this.articleMenuElement ? true : false;
+        this._treeService = treeService;
+        this._articleGlobalService = articleGlobalService;
+        this._mediaGlobalService = mediaGlobalService;
     }
 
-    protected setupOnDomContentLoaded(): void {
-        this.outlineWrapperElement = document.getElementById('outline-wrapper') as HTMLElement;
-        this.outlineElement = document.getElementById('outline') as HTMLElement;
-        this.indicatorElement = document.getElementById('outline-indicator') as HTMLElement;
-        this.outlineIndicatorSpanElement = this.indicatorElement.querySelector('span') as HTMLElement;
-        this.footerElement = document.querySelector('body > footer') as HTMLElement;
-
-        this.setupOutline();
-        this.outlineTitleElement = document.getElementById('outline-title');
-        this.outlineRootUlElement = this.outlineElement.querySelector('ul');
-        let outlineAnchorElements = this.outlineElement.querySelectorAll('a');
-        this.outlineLastAnchorElement = outlineAnchorElements[outlineAnchorElements.length - 1];
-
-        this.scrollToDropdownHeader = new SmoothScroll();
+    public setupImmediate(): void {
     }
 
-    protected setupOnLoad(): void {
-        // Makes initial call to updateArticleMenu (initial call is defined in the spec) - https://github.com/WICG/ResizeObserver/issues/8
-        this.bodyResizeObserver.observe(document.body);
-    }
+    public setupOnDomContentLoaded(): void {
+        this._wrapperElement = document.getElementById('table-of-contents-wrapper');
+        this._tableOfContentsElement = document.getElementById('table-of-contents');
+        this._knobElement = document.getElementById('table-of-contents-indicator-knob');
 
-    protected registerListeners(): void {
-        window.addEventListener('scroll', this.onScrollListener);
-        window.addEventListener('resize', this.onResizeListener);
-
-        this.bodyResizeObserver = new ResizeObserver(this.onResizeListener);
-
-        if (this.shareArticleElement) {
-            this.shareArticleSpanElement.addEventListener('mouseenter', this.shareArticleSpanOnEnter);
-            this.shareArticleElement.addEventListener('mouseleave', this.shareArticleOnLeave);
-        }
-
-        this.dropdownButton.addEventListener('click', (event: Event) => {
-            transitionsService.toggleHeightWithTransition(this.linksAndOutlineWrapperElement, this.dropdownButton);
-
-            if (this.dropdownButton.classList.contains('expanded')) {
-                // If fixed, dropdown is already at the top of the screen
-                if (!this.wrapperElement.classList.contains('fixed')) {
-                    this.lastScrollY = window.scrollY;
-                    this.scrollToDropdownHeader.animateScroll(this.dropdownWrapperElement, null, { speed: 400 });
-                }
-            } else {
-                if (!this.wrapperElement.classList.contains('fixed')) {
-                    this.scrollToDropdownHeader.animateScroll(this.lastScrollY, null, { speed: 400 });
-                }
-            }
-        });
-
-        window.addEventListener('resize', (event: Event) => {
-            if (!mediaService.mediaWidthNarrow()) {
-                transitionsService.contractHeightWithoutTransition(this.linksAndOutlineWrapperElement, this.dropdownButton);
-            }
-        });
-    }
-
-    private onResizeListener = (): void => {
-        if (this.coreElement.style.display !== 'none') {
-            this.updateArticleMenu();
+        this.insertElements();
+        if (!this._noToc) {
+            this._rootUnorderedListElement = this._tableOfContentsElement.querySelector('ul');
+            this._anchorElements = this._rootUnorderedListElement.querySelectorAll('a');
         }
     }
 
-    public onScrollListener = (): void => {
-        if (this.coreElement.style.display !== 'none') {
-            let activeHeadingIndex = this.getActiveOutlineIndex();
-
-            // Debounce history update to avoid flashing in url bar and perf overhead
-            window.clearTimeout(this.updateHistoryTimeout);
-            this.updateHistoryTimeout = window.setTimeout(this.updateHistory, 200, activeHeadingIndex);
-
-            if (!mediaService.mediaWidthNarrow()) {
-                this.updateOutline(activeHeadingIndex);
-            } else {
-                this.updateDropdownHeader(activeHeadingIndex);
-            }
+    public setupOnLoad(): void {
+        if (!this._noToc) {
+            this._mediaGlobalService.addChangedToListener(this.onChangedToNarrowListener, MediaWidth.narrow);
+            this._mediaGlobalService.addChangedFromListener(this.onChangedFromNarrowListener, MediaWidth.narrow);
         }
     }
 
-    public shareArticleSpanOnEnter = (): void => {
-        this.shareArticleLinksWrapperElement.classList.add('active');
+    private onChangedToNarrowListener = (init: boolean): void => {
+        if (!init) {
+            this._articleGlobalService.removeIndexChangedListener(this.updateSideMenuKnob);
+        }
     }
 
-    public shareArticleOnLeave = (): void => {
-        this.shareArticleLinksWrapperElement.classList.remove('active');
+    private onChangedFromNarrowListener = (init: boolean): void => {
+        this._articleGlobalService.addIndexChangedListener(this.updateSideMenuKnob, true);
     }
 
-    public updateArticleMenu(): void {
-        if (!this.validDomElementExists()) {
+    public updateDropdownKnob = (): void => {
+        let newIndex = this._articleGlobalService.getActiveHeaderIndex();
+
+        if (newIndex === this._lastDropdownAnchorIndex) {
             return;
         }
 
-        let activeHeadingIndex = this.getActiveOutlineIndex();
-        this.updateOutline(activeHeadingIndex);
-        this.updateDropdownHeader(activeHeadingIndex);
-        this.updateDropdown();
-    }
-
-    private updateDropdown = (): void => {
-        if (!mediaService.mediaWidthWide()) {
-            this.linksAndOutlineWrapperElement.style.maxHeight = `${window.innerHeight - 37}px`;
-        } else {
-            this.linksAndOutlineWrapperElement.style.maxHeight = 'initial';
-        }
-    }
-
-    public updateDropdownHeader(activeHeadingIndex: number): void {
-        let fixed = this.wrapperElement.classList.contains('fixed');
-        let fix = this.articleMenuElement.getBoundingClientRect().top < 0
-
-        // If top is above top of screen, add class fixed else, remove class fixed
-        if (!fixed && fix) {
-            this.wrapperElement.classList.add('fixed');
-        } else if (fixed && !fix) {
-            this.wrapperElement.classList.remove('fixed');
+        if (this._lastDropdownAnchorIndex !== null && this._lastDropdownAnchorIndex !== undefined) {
+            (this._anchorElements[this._lastDropdownAnchorIndex] as HTMLElement).classList.remove('active');
         }
 
-        if (activeHeadingIndex === -1) {
-            this.dropdownTextH1Element.innerText = 'Table of Contents';
-            this.dropdownTextH2Element.parentElement.style.display = 'none';
+        let activeAnchorIndex = newIndex === -1 ? 0 : newIndex;
+        (this._anchorElements[activeAnchorIndex] as HTMLElement).classList.add('active');
+        this._lastDropdownAnchorIndex = activeAnchorIndex;
+    }
+
+    private updateSideMenuKnob = (newIndex: number): void => {
+        let activeAnchorIndex = newIndex === -1 ? 0 : newIndex;
+        let activeAnchorElement = this._anchorElements[activeAnchorIndex] as HTMLElement;
+        let anchorBoundingRect = activeAnchorElement.getBoundingClientRect();
+        let translateY = anchorBoundingRect.top - this._tableOfContentsElement.getBoundingClientRect().top + this._tableOfContentsElement.scrollTop;
+
+        this._knobElement.style.transform = `translateY(${translateY}px) scaleY(${anchorBoundingRect.height})`;
+    }
+
+    private insertElements(): void {
+        let articleHeaderElements = this._articleGlobalService.getHeaderElements();
+        let tableOfContentsTitleSpanElement = document.querySelector('#table-of-contents-title span');
+        let articleTitleElement = document.querySelector('.jtcd-article > .title');
+        let tableOfContentsTitle = articleTitleElement ? articleTitleElement.textContent : 'Outline';
+
+        tableOfContentsTitleSpanElement.innerHTML = tableOfContentsTitle;
+
+        if (articleHeaderElements.length === 0) {
+            this._noToc = true;
+            this._tableOfContentsElement.style.display = "none"
+
             return;
         }
+        this._noToc = false;
 
-        let headerData: DropdownHeaderData = this.dropdownHeaderData[activeHeadingIndex];
-
-        this.dropdownTextH1Element.innerText = headerData.h1Text;
-
-        if (headerData.h2Text) {
-            this.dropdownTextH2Element.innerText = headerData.h2Text;
-            this.dropdownTextH2Element.parentElement.style.display = 'flex';
-        } else {
-            this.dropdownTextH2Element.parentElement.style.display = 'none';
-        }
-    }
-
-    public setupDropdownHeader(articleHeadingElements: NodeList): void {
-        let currentH1Text: string;
-
-        this.dropdownHeaderData = [];
-
-        for (let i = 0; i < articleHeadingElements.length; i++) {
-            let articleHeadingElement = articleHeadingElements[i] as HTMLElement;
-
-            if (articleHeadingElement.nodeName === "H1") {
-                currentH1Text = articleHeadingElement.innerText;
-                this.dropdownHeaderData.push({ h1Text: currentH1Text, h2Text: null });
-            } else {
-                // h2
-                this.dropdownHeaderData.push({ h1Text: currentH1Text, h2Text: articleHeadingElement.innerText });
-            }
-        }
-    }
-
-    private updateHistory = (activeHeadingIndex: number): void => {
-        let id = null;
-
-        if (activeHeadingIndex > -1) {
-            id = (this.articleHeadingElements[activeHeadingIndex] as HTMLElement).getAttribute('id');
-        }
-
-        history.replaceState(null, null, id ? `#${id}` : location.pathname);
-    }
-
-    private updateOutline(activeHeadingIndex: number): void {
-        if (this.outlineEmpty) {
-            return;
-        }
-
-        let fixed = this.wrapperElement.classList.contains('fixed');
-
-        if (!mediaService.mediaWidthNarrow()) {
-            if (!this.outlineHeightWithoutScroll) {
-                // The first time media width is wide, initialize outline constants. At this point outline has no fixed height, so its height is accurate.
-                // Cache tops and heights of outline anchors relative to outline
-                this.topHeight = this.outlineElement.getBoundingClientRect().top - this.articleMenuElement.getBoundingClientRect().top;
-                this.fixedTopBottom = this.topMenuGap + this.topHeight;
-
-                let indicatorBoundingRect = this.indicatorElement.getBoundingClientRect();
-                // TODO does font affect height? Is height dependent solely on font-size?
-                // Get height of outline without scrollbar
-                this.outlineHeightWithoutScroll = indicatorBoundingRect.height;
-                this.outlineHeightWithoutScrollPX = `${this.outlineHeightWithoutScroll}px`;
-                this.outlineAnchorDataWithoutScroll = this.createAnchorTopsAndHeightsCache();
-            }
-
-            let top = this.wrapperElement.parentElement.getBoundingClientRect().top;
-            let fix = top < this.topMenuGap;
-
-            // To prevent layouts, do all reads before writes
-            let outlineHeight: number = this.getOutlineHeight(fix);
-            let outlineScrollable = this.outlineHeightWithoutScroll > outlineHeight;
-
-            this.setOutlineStyles(outlineHeight, outlineScrollable);
-
-            if (outlineScrollable && !this.outlineAnchorDataWithScroll) {
-                // The first time outline is scrollable, after setting height, initialize constants.
-                this.outlineAnchorDataWithScroll = this.createAnchorTopsAndHeightsCache();
-
-                // Set outline indicator height
-                // TODO The outline's ul element and indicator element are siblings with a parent that has display flex row.
-                // The ul element's height is set to the cross axis height of it's parent - https://bugs.chromium.org/p/chromium/issues/detail?id=134729, 
-                // this is what the spec dictates. A work around is to use height: max-content, but it is not supported on edge.
-                this.outlineHeightWithScrollPX = `${this.outlineLastAnchorElement.getBoundingClientRect().bottom - this.indicatorElement.getBoundingClientRect().top}px`;
-            }
-
-            let activeOutlineAnchorData: OutlineAnchorData = this.getActiveOutlineAnchorData(activeHeadingIndex > -1 ? activeHeadingIndex : 0, outlineScrollable);
-            this.updateOutlineIndicator(activeOutlineAnchorData, outlineScrollable);
-
-            if (fix && !fixed) {
-                // See sectionMenuComponent.updateSectionMenu
-                this.articleMenuElement.style.minHeight = `${this.articleMenuElement.clientHeight + 1}px`;
-                this.wrapperElement.classList.add('fixed');
-            } else if (!fix && fixed) {
-                this.wrapperElement.classList.remove('fixed');
-                this.articleMenuElement.style.minHeight = 'initial';
-            }
-        } else {
-            this.outlineElement.style.height = 'auto';
-            this.indicatorElement.style.height = 'auto';
-
-            if (fixed) {
-                this.wrapperElement.classList.remove('fixed');
-                this.articleMenuElement.style.minHeight = 'initial';
-            }
-        }
-    }
-
-    private setupOutline(): void {
-        if (this.articleHeadingElements.length === 0) {
-            this.outlineEmpty = true;
-            return;
-        } else {
-            this.outlineEmpty = false;
-        }
-
-        let titleElement = document.querySelector('main > article > .title');
-        let outlineTitle = titleElement ? titleElement.textContent : 'Outline';
-        let outlineTitleSpanElement = document.querySelector('#outline-title > span');
-
-        outlineTitleSpanElement.innerHTML = outlineTitle;
-
-        let listItemTrees: ListItem[] = listItemService.generateListItemTrees(this.articleHeadingElements,
-            ['h1', 'h2'],
+        let listItemTrees: TreeNode[] = this._treeService.generateTrees(
+            articleHeaderElements,
+            ['header-1', 'header-2'],
             document.createElement('a'));
-        let ulElement = listItemService.generateMultiLevelList(listItemTrees, '', 1);
+        let ulElement: HTMLUListElement = this._treeService.generateListFromTrees(listItemTrees, '', 1);
 
-        this.outlineElement.appendChild(ulElement);
-        this.outlineAnchors = this.outlineElement.querySelectorAll('a');
-    }
-
-    private getActiveOutlineIndex(): number {
-        let activeAnchorIndex = -1;
-        let minDistance = -1;
-
-        // TODO: try binary search instead (profile, might not be worth the overhead since articles typically don't have many headings)
-        for (let i = 0; i < this.articleHeadingWrapperElements.length; i++) {
-            let headingElement = this.articleHeadingWrapperElements[i] as HTMLHeadingElement;
-            // When screen is narrow, fixed header occupies 37px at top of screen
-            let elementDistanceFromTop = -headingElement.getBoundingClientRect().top + (mediaService.mediaWidthNarrow() ? 37 : 0);
-
-            // Only consider heading wrappers that are above the top of the screen
-            if (elementDistanceFromTop < 0) {
-                return activeAnchorIndex;
-            }
-
-            if (minDistance === -1 || elementDistanceFromTop < minDistance) {
-                minDistance = elementDistanceFromTop;
-                activeAnchorIndex = i;
-            } else {
-                break;
-            }
+        // Insert divs for use as indicator tracks
+        let indicatorTrackDiv: HTMLElement = document.createElement('div');
+        indicatorTrackDiv.classList.add('indicator-track');
+        for (let i = 0; i < ulElement.children.length; i++) {
+            let level1LIElement = ulElement.children[i];
+            level1LIElement.insertBefore(indicatorTrackDiv.cloneNode(), level1LIElement.firstElementChild);
         }
 
-        return activeAnchorIndex;
+        this._tableOfContentsElement.appendChild(ulElement);
     }
 
-    private getActiveOutlineAnchorData(activeAnchorIndex: number, outlineScrollable: boolean): OutlineAnchorData {
-        return outlineScrollable ? this.outlineAnchorDataWithScroll[activeAnchorIndex] :
-            this.outlineAnchorDataWithoutScroll[activeAnchorIndex];
+    public getAnchorElements(): NodeList {
+        return this._anchorElements;
     }
-
-    private updateOutlineIndicator(activeOutlineAnchorData: OutlineAnchorData, outlineScrollable: boolean): void {
-        if (!outlineScrollable) {
-            this.indicatorElement.style.height = this.outlineHeightWithoutScrollPX;
-        } else {
-            this.indicatorElement.style.height = this.outlineHeightWithScrollPX;
-        }
-
-        // Even if active anchor has not changed, must rewrite since scrollbar may have appeared
-        let style = this.outlineIndicatorSpanElement.style;
-        style.marginTop = activeOutlineAnchorData.topPX;
-        style.height = activeOutlineAnchorData.heightPX;
-    }
-
-    private getOutlineHeight(fixed: boolean): number {
-        let footerTop = this.footerElement.getBoundingClientRect().top;
-
-        let outlineHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
-            - this.bottomMenuGap
-            - (fixed ? this.fixedTopBottom : this.articleMenuElement.getBoundingClientRect().top + this.topHeight);
-
-        return outlineHeight < 0 ? 0 : outlineHeight;
-    }
-
-    private setOutlineStyles(outlineHeight: number, outlineScrollable: boolean): void {
-        // Tried setting bottom, max-height, both don't work on edge - scroll bar doesn't go away even when height is greater than 
-        // menu height. This works.
-        this.outlineElement.style.height = `${outlineHeight}px`;
-
-        if (outlineScrollable) {
-            this.outlineRootUlElement.style.marginRight = '12px';
-        } else {
-            this.outlineRootUlElement.style.marginRight = '0';
-        }
-    }
-
-    private createAnchorTopsAndHeightsCache(): { [index: number]: OutlineAnchorData } {
-        let outlineIndicatorBoundingRect = this.indicatorElement.getBoundingClientRect();
-        let result: { [index: number]: OutlineAnchorData } = {};
-
-        for (let i = 0; i < this.outlineAnchors.length; i++) {
-            let outlineAnchor = this.outlineAnchors[i] as HTMLElement;
-            let anchorBoundingRect = outlineAnchor.getBoundingClientRect();
-
-            result[i] = {
-                topPX: `${anchorBoundingRect.top - outlineIndicatorBoundingRect.top}px`,
-                heightPX: `${anchorBoundingRect.height}px`
-            };
-        }
-
-        return result;
-    }
-}
-
-interface DropdownHeaderData {
-    h1Text: string;
-    h2Text: string;
-}
-
-interface OutlineAnchorData {
-    topPX: string;
-    heightPX: string;
 }

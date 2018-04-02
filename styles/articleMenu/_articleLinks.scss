@@ -1,0 +1,122 @@
+﻿@import '../shared/constants';
+
+@mixin article-links-side-menu {
+    margin-top: -3px;
+}
+
+@mixin article-link-side-menu {
+    // Element above outline
+    &:last-child {
+        margin-bottom: 23px;
+    }
+
+    &:nth-last-child(n+2) {
+        margin-bottom: 13px;
+    }
+}
+
+@mixin article-link-dropdown {
+    // Element above outline
+    &:first-child {
+        margin-top: 23px;
+    }
+
+    &:nth-child(n+2) {
+        margin-top: 13px;
+    }
+}
+
+#article-links {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: flex-start;
+
+    @media #{$media-medium}, #{$media-wide} {
+        @include article-links-side-menu;
+    }
+
+    > div {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+
+        @media #{$media-medium}, #{$media-wide} {
+            @include article-link-side-menu;
+        }
+
+        @media #{$media-narrow}{
+            @include article-link-dropdown;
+        }
+
+        > svg {
+            flex-shrink: 0;
+            height: 18px;
+            width: 18px;
+            fill: $color-primary-icon;
+            margin-right: 6px;
+        }
+
+        &#edit-article {
+            display: flex;
+            flex-shrink: 0;
+
+            a {
+                flex-shrink: 0;
+                @include animated-underline($color-primary-link, $animated-underline-13px-ypos, $background-color: $color-primary);
+            }
+        }
+
+        &#share-article {
+            display: flex;
+            flex-shrink: 0;
+            height: 20px;
+
+            span {
+                flex-shrink: 0;
+                color: $color-primary-link;
+                cursor: default;
+            }
+
+            #share-article-links {
+                overflow: hidden;
+                margin-left: 9px;
+
+                #share-article-links-wrapper {
+                    display: flex;
+                    transition: transform 0.3s $ease-out-quad-delayed;
+                    transform: translateX(-100%);
+                    background-color: $color-secondary;
+                    padding: 11px;
+                    padding-top: 6px;
+                    padding-bottom: 6px;
+
+                    &.active {
+                        transform: translateX(0%);
+                    }
+
+                    a {
+                        display: flex;
+                        flex-shrink: 0;
+                        transition: transform 0.2s $ease-out-quad-delayed;
+
+                        &:nth-child(n+2) {
+                            margin-left: 10px;
+                        }
+
+                        &:hover {
+                            transform: scale(1.3333);
+                        }
+
+                        svg {
+                            flex-shrink: 0;
+                            fill: $color-secondary-text;
+                            height: 24px;
+                            width: 24px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

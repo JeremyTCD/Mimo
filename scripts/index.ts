@@ -1,3 +1,12 @@
+// These constants are defined by webpack's define plugin (see webpack.config.js)
+if (SCRIPTS_CUSTOM_INDEX) {
+    require(SCRIPTS_CUSTOM_INDEX);
+}
+// TODO should import scss constants first, then allow custom scss to customize constants, then import the rest of the scss
+if (STYLES_CUSTOM_INDEX) {
+    require(STYLES_CUSTOM_INDEX);
+}
+
 import '../styles/index.scss';
 import container from './container';
 import RootComponent from './shared/rootComponent';
@@ -85,12 +94,4 @@ if (document.readyState === 'complete') {
     onLoad();
 } else {
     window.addEventListener('load', onLoad);
-}
-
-// These constants are defined by webpack's define plugin (see webpack.config.js)
-if (SCRIPTS_CUSTOM_INDEX) {
-    require(SCRIPTS_CUSTOM_INDEX);
-}
-if (STYLES_CUSTOM_INDEX) {
-    require(STYLES_CUSTOM_INDEX);
 }

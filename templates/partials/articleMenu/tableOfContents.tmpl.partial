@@ -3,8 +3,6 @@
         <span></span>
     </a>
     <nav id="table-of-contents">
-        <div id="table-of-contents-indicator">
-            <span></span>
-        </div>          
+        <div id="table-of-contents-indicator-knob"></div>
     </nav>
 </div>

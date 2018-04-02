@@ -21,6 +21,7 @@ import SortedArticleListComponent from './sortedArticleList/sortedArticleListCom
 import ArticleMenuComponent from './articleMenu/articleMenuComponent';
 import TableOfContentsComponent from './articleMenu/tableOfContentsComponent';
 import ArticleLinksComponent from './articleMenu/articleLinksComponent';
+import ArticleMenuHeaderComponent from './articleMenu/articleMenuHeaderComponent';
 
 import CodeService from './shared/codeService';
 import DebounceService from './shared/debounceService';
@@ -71,6 +72,7 @@ container.bind<RootComponent>('RootComponent').to(SortedArticleListComponent).in
 container.bind<RootComponent>('RootComponent').to(ArticleMenuComponent).inSingletonScope();
 container.bind<TableOfContentsComponent>(TableOfContentsComponent).toSelf().inSingletonScope();
 container.bind<ArticleLinksComponent>(ArticleLinksComponent).toSelf().inSingletonScope();
+container.bind<ArticleMenuHeaderComponent>(ArticleMenuHeaderComponent).toSelf().inSingletonScope();
 
 // Shared
 container.bind<GlobalService>('GlobalService').to(ArticleGlobalService).inSingletonScope().whenTargetNamed('ArticleGlobalService');

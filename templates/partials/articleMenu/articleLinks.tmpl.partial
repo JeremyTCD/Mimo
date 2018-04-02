@@ -1,7 +1,7 @@
-<div id="article-menu-links">
+<div id="article-links">
     {{^mimo_disableEditArticle}}
     {{#docurl}}
-    <div id="edit-article" class="article-menu-link">
+    <div id="edit-article" class="article-link">
         <svg>
             <use xlink:href="#material-design-mode-edit" />
         </svg>
@@ -11,7 +11,7 @@
     {{/mimo_disableEditArticle}}
 
     {{#mimo_shareArticleEnabled}}
-    <div id="share-article" class="article-menu-link">
+    <div id="share-article" class="article-link">
         <svg>
             <use xlink:href="#material-design-share" />
         </svg>
@@ -39,7 +39,7 @@
     {{/mimo_shareArticleEnabled}}
 
     {{#sourceurl}}
-    <div id="view-source" class="article-menu-link" title="View Source on Github">
+    <div id="view-source" class="article-link" title="View Source on Github">
         <a href="{{sourceurl}}" id="view-source">
             <span>View Source</span>
         </a>

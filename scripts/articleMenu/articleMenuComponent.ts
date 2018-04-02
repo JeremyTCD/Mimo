@@ -1,416 +1,219 @@
-﻿import mediaService from './mediaService';
-import listItemService from './listItemService';
-import IComponent from './IComponent';
-import debounceService from './debounceService';
+﻿import { named, injectable, inject } from 'inversify';
+import RootComponent from '../shared/rootComponent';
+import MediaGlobalService from '../shared/mediaGlobalService';
+import OverlayService from '../shared/overlayService';
+import { MediaWidth } from '../shared/mediaWidth';
+import DropdownFactory from '../shared/dropdownFactory';
+import Dropdown from '../shared/dropdown';
 import ResizeObserver from 'resize-observer-polyfill';
-import transitionsService from './transitionsService';
-import * as SmoothScroll from 'smooth-scroll';
+import DebounceService from '../shared/debounceService';
+import TableOfContentsComponent from './tableOfContentsComponent';
+import ArticleLinksComponent from './articleLinksComponent';
+import ArticleMenuHeaderComponent from './articleMenuHeaderComponent';
+import { MenuMode } from '../shared/menuMode';
 
-export default class ArticleMenuComponent implements IComponent {
-    articleMenuElement: HTMLElement = document.getElementById('article-menu');
-    wrapperElement: HTMLElement;
-    coreElement: HTMLElement;
-    articleHeadingWrapperElements: NodeList;
-    articleHeadingElements: NodeList;
-    outlineElement: HTMLElement;
-    outlineWrapperElement: HTMLElement;
-    outlineTitleElement: HTMLElement;
-    outlineAnchors: NodeList;
-    indicatorElement: HTMLElement;
-    outlineIndicatorSpanElement: HTMLElement;
-    outlineLastAnchorElement: HTMLElement;
-    outlineRootUlElement: HTMLElement;
-    footerElement: HTMLElement;
-    shareArticleElement: HTMLElement;
-    shareArticleSpanElement: HTMLElement;
-    shareArticleLinksWrapperElement: HTMLElement;
-    bodyResizeObserver: ResizeObserver;
-    dropdownButton: HTMLElement;
-    dropdownTextH1Element: HTMLElement;
-    dropdownTextH2Element: HTMLElement;
-    dropdownHeaderElement: HTMLElement;
-    dropdownWrapperElement: HTMLElement;
-    linksAndOutlineWrapperElement: HTMLElement;
+@injectable()
+export default class ArticleMenuComponent extends RootComponent {
+    private _articleMenuElement: HTMLElement;
+    private _linksAndTocOuterWrapperElement: HTMLElement;
+    private _linksAndTocInnerWrapperElement: HTMLElement;
+    private _headerButtonElement: HTMLElement;
+    private _footerElement: HTMLElement;
+    private _tableOfContents: HTMLElement;
 
-    lastScrollY: number;
-    scrollToDropdownHeader: SmoothScroll;
-    // True if there is no outline, can be because article has no headers to generate an outline from or if outline is disabled
-    outlineEmpty: boolean;
-    outlineAnchorDataWithoutScroll: { [index: number]: OutlineAnchorData };
-    outlineAnchorDataWithScroll: { [index: number]: OutlineAnchorData };
-    outlineHeightWithoutScroll: number;
-    outlineHeightWithoutScrollPX: string;
-    outlineHeightWithScrollPX: string;
-    topHeight: number;
-    fixedTopBottom: number;
+    private _tableOfContentsComponent: TableOfContentsComponent;
+    private _articleLinksComponent: ArticleLinksComponent;
+    private _articleMenuHeaderComponent: ArticleMenuHeaderComponent;
 
-    dropdownHeaderData: DropdownHeaderData[];
+    private _mediaGlobalService: MediaGlobalService;
+    private _overlayService: OverlayService;
+    private _debounceService: DebounceService;
+    private _dropdownFactory: DropdownFactory;
 
-    // Arbitrary gaps
-    topMenuGap: number = 16;
-    bottomMenuGap: number = 23;
+    private static readonly VERTICAL_GAP: number = 23;
+    private static readonly HEADER_HEIGHT: number = 37;
+    private static readonly DEBOUNCE_TIME: number = 150;
+    private _dropdown: Dropdown;
+    private _bodyResizeObserver: ResizeObserver;
+    private _linksAndTocTitleHeight: number;
+    private _updateSideMenuQueued: boolean;
+    private _menuMode: MenuMode;
 
-    updateHistoryTimeout: number;
+    public constructor(
+        @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
+        tableOfcontentsComponent: TableOfContentsComponent,
+        articleLinksComponent: ArticleLinksComponent,
+        articleMenuHeaderComponent: ArticleMenuHeaderComponent,
+        debounceService: DebounceService,
+        overlayService: OverlayService,
+        dropdownFactory: DropdownFactory) {
+        super();
 
-    protected validDomElementExists(): boolean {
-        return this.articleMenuElement ? true : false;
+        this._overlayService = overlayService;
+        this._mediaGlobalService = mediaGlobalService;
+        this._debounceService = debounceService;
+        this._dropdownFactory = dropdownFactory;
+        this._articleLinksComponent = articleLinksComponent;
+        this._tableOfContentsComponent = tableOfcontentsComponent;
+
+        this.addChildComponents(tableOfcontentsComponent, articleLinksComponent, articleMenuHeaderComponent);
     }
 
-    protected setupOnDomContentLoaded(): void {
-        this.dropdownHeaderElement = document.getElementById('article-menu-dropdown-header');
-        this.dropdownWrapperElement = document.getElementById('dropdown-wrapper');
-        this.dropdownTextH1Element = document.getElementById('article-menu-dropdown-text-h1');
-        this.dropdownTextH2Element = document.getElementById('article-menu-dropdown-text-h2');
-        this.dropdownButton = document.getElementById('article-menu-dropdown-button');
-        this.wrapperElement = document.getElementById('article-menu-wrapper') as HTMLElement;
-        this.coreElement = document.getElementById('core') as HTMLElement;
-        this.articleHeadingWrapperElements = document.querySelectorAll('main > article .heading-1, main > article .heading-2');
-        this.articleHeadingElements = document.querySelectorAll('main > article .heading-1 h1, main > article .heading-2 h2');
-        this.outlineWrapperElement = document.getElementById('outline-wrapper') as HTMLElement;
-        this.outlineElement = document.getElementById('outline') as HTMLElement;
-        this.indicatorElement = document.getElementById('outline-indicator') as HTMLElement;
-        this.outlineIndicatorSpanElement = this.indicatorElement.querySelector('span') as HTMLElement;
-        this.footerElement = document.querySelector('body > footer') as HTMLElement;
-        this.linksAndOutlineWrapperElement = document.getElementById('article-menu-links-and-outline-wrapper');
+    public setupImmediate() {
+        this._articleMenuElement = document.getElementById('article-menu');
 
-        this.shareArticleElement = document.getElementById('share-article');
-        if (this.shareArticleElement) {
-            this.shareArticleSpanElement = document.querySelector('#share-article > span');
-            this.shareArticleLinksWrapperElement = document.getElementById('share-article-links-wrapper');
+        if (this.enabled()) {
+            this.childComponentsSetupImmediate();
+            this._bodyResizeObserver = new ResizeObserver(this._debounceService.createTimeoutDebounceFunction(this.updateSideMenu, ArticleMenuComponent.DEBOUNCE_TIME));
         }
-
-        this.setupOutline();
-        this.outlineTitleElement = document.getElementById('outline-title');
-        this.outlineRootUlElement = this.outlineElement.querySelector('ul');
-        let outlineAnchorElements = this.outlineElement.querySelectorAll('a');
-        this.outlineLastAnchorElement = outlineAnchorElements[outlineAnchorElements.length - 1];
-
-        this.setupDropdownHeader(this.articleHeadingElements);
-        this.scrollToDropdownHeader = new SmoothScroll();
     }
 
-    protected setupOnLoad(): void {
-        // Makes initial call to updateArticleMenu (initial call is defined in the spec) - https://github.com/WICG/ResizeObserver/issues/8
-        this.bodyResizeObserver.observe(document.body);
+    public enabled(): boolean {
+        return this._articleMenuElement ? true : false;
     }
 
-    protected registerListeners(): void {
-        window.addEventListener('scroll', this.onScrollListener);
-        window.addEventListener('resize', this.onResizeListener);
+    public setupOnDomContentLoaded(): void {
+        this.childComponentsSetupOnDomContentLoaded();
 
-        this.bodyResizeObserver = new ResizeObserver(this.onResizeListener);
+        this._linksAndTocOuterWrapperElement = document.getElementById('article-links-and-toc-outer-wrapper');
+        this._linksAndTocInnerWrapperElement = document.getElementById('article-links-and-toc-inner-wrapper');
+        this._footerElement = document.querySelector('body > footer');
+        this._tableOfContents = document.getElementById('table-of-contents');
+        this._headerButtonElement = document.getElementById('article-menu-header-button');
 
-        if (this.shareArticleElement) {
-            this.shareArticleSpanElement.addEventListener('mouseenter', this.shareArticleSpanOnEnter);
-            this.shareArticleElement.addEventListener('mouseleave', this.shareArticleOnLeave);
-        }
+        this._dropdown = this._dropdownFactory.build(this._linksAndTocOuterWrapperElement, this._linksAndTocInnerWrapperElement, this._headerButtonElement, this._articleMenuElement);
+    }
 
-        this.dropdownButton.addEventListener('click', (event: Event) => {
-            transitionsService.toggleHeightWithTransition(this.linksAndOutlineWrapperElement, this.dropdownButton);
+    public setupOnLoad(): void {
+        let tocTitleElement = document.getElementById('table-of-contents-title');
+        let tocTitleComputedStyle = getComputedStyle(tocTitleElement);
+        let articleLinksElement = document.getElementById('article-links');
+        let articleLinksComputedStyle = getComputedStyle(articleLinksElement);
+        let tocComputedStyle = getComputedStyle(this._tableOfContents);
 
-            if (this.dropdownButton.classList.contains('expanded')) {
-                // If fixed, dropdown is already at the top of the screen
-                if (!this.wrapperElement.classList.contains('fixed')) {
-                    this.lastScrollY = window.scrollY;
-                    this.scrollToDropdownHeader.animateScroll(this.dropdownWrapperElement, null, { speed: 400 });
-                }
-            } else {
-                if (!this.wrapperElement.classList.contains('fixed')) {
-                    this.scrollToDropdownHeader.animateScroll(this.lastScrollY, null, { speed: 400 });
-                }
+        this._linksAndTocTitleHeight = parseFloat(articleLinksComputedStyle.marginBottom) +
+            parseFloat(articleLinksComputedStyle.height) +
+            parseFloat(tocTitleComputedStyle.height) +
+            parseFloat(tocComputedStyle.marginTop) +
+            ArticleLinksComponent.TOP_NEGATIVE_MARGIN;
+
+        this._headerButtonElement.addEventListener('click', this.buttonClickListener);
+
+        let tocAnchorElements = this._tableOfContentsComponent.getAnchorElements();
+        if (tocAnchorElements) {
+            for (let i = 0; i < tocAnchorElements.length; i++) {
+                tocAnchorElements[i].addEventListener('click', this.tocAnchorClickListener);
             }
-        });
+            tocTitleElement.addEventListener('click', this.tocAnchorClickListener);
+        }
 
-        window.addEventListener('resize', (event: Event) => {
-            if (!mediaService.mediaWidthNarrow()) {
-                transitionsService.contractHeightWithoutTransition(this.linksAndOutlineWrapperElement, this.dropdownButton);
-            }
-        });
+        this._mediaGlobalService.addChangedToListener(this.onChangedToDropdownListener, MediaWidth.narrow);
+        this._mediaGlobalService.addChangedFromListener(this.onChangedToSideMenuListener, MediaWidth.narrow);
+
+        // tocComponent's update knob methods must run after updateToc (incase updating toc height causes wrapping, in turn causing anchor bounding rects to change)
+        this.childComponentsSetupOnLoad();
     }
 
-    private onResizeListener = (): void => {
-        if (this.coreElement.style.display !== 'none') {
-            this.updateArticleMenu();
+    private buttonClickListener = (): void => {
+        this._dropdown.toggleWithAnimation();
+
+        if (this._dropdown.isExpanded()) {
+            this._overlayService.activateOverlay(this._articleMenuElement);
+            this.updateDropdown();
+            this._tableOfContentsComponent.updateDropdownKnob();
+        } else {
+            this._overlayService.deactivateOverlay();
         }
     }
 
-    public onScrollListener = (): void => {
-        if (this.coreElement.style.display !== 'none') {
-            let activeHeadingIndex = this.getActiveOutlineIndex();
-
-            // Debounce history update to avoid flashing in url bar and perf overhead
-            window.clearTimeout(this.updateHistoryTimeout);
-            this.updateHistoryTimeout = window.setTimeout(this.updateHistory, 200, activeHeadingIndex);
-
-            if (!mediaService.mediaWidthNarrow()) {
-                this.updateOutline(activeHeadingIndex);
-            } else {
-                this.updateDropdownHeader(activeHeadingIndex);
-            }
+    private tocAnchorClickListener = (): void => {
+        if (this._mediaGlobalService.mediaWidthIs(MediaWidth.narrow)) {
+            this._overlayService.deactivateOverlay();
+            this._dropdown.collapseWithAnimation();
         }
     }
 
-    public shareArticleSpanOnEnter = (): void => {
-        this.shareArticleLinksWrapperElement.classList.add('active');
-    }
+    private onChangedToDropdownListener = (init: boolean): void => {
+        this._menuMode = MenuMode.dropdown;
 
-    public shareArticleOnLeave = (): void => {
-        this.shareArticleLinksWrapperElement.classList.remove('active');
-    }
+        if (!init) {
+            this._bodyResizeObserver.unobserve(document.body);
+            window.removeEventListener('resize', this.updateSideMenu);
+            window.removeEventListener('scroll', this.updateSideMenu);
 
-    public updateArticleMenu(): void {
-        if (!this.validDomElementExists()) {
-            return;
+            this.resetSideMenu();
         }
 
-        let activeHeadingIndex = this.getActiveOutlineIndex();
-        this.updateOutline(activeHeadingIndex);
-        this.updateDropdownHeader(activeHeadingIndex);
+        this._dropdown.collapseWithoutAnimation();
+
+        window.addEventListener('resize', this.updateDropdown);
+
+        // Init - some browsers trigger newly registered resize listener after media query list event, others do not
         this.updateDropdown();
     }
 
+    private onChangedToSideMenuListener = (init: boolean): void => {
+        this._menuMode = MenuMode.sideMenu;
+
+        if (!init) {
+            window.removeEventListener('resize', this.updateDropdown);
+        }
+
+        this.resetDropdown();
+
+        window.addEventListener('resize', this.updateSideMenu);
+        window.addEventListener('scroll', this.updateSideMenuDeferred);
+        //Makes initial call to updateToc (initial call is defined in the spec) - https://github.com/WICG/ResizeObserver/issues/8, unfortunately, call is delayed
+        this._bodyResizeObserver.observe(document.body);
+
+        this.updateSideMenu();
+    }
+
     private updateDropdown = (): void => {
-        if (!mediaService.mediaWidthWide()) {
-            this.linksAndOutlineWrapperElement.style.maxHeight = `${window.innerHeight - 37}px`;
-        } else {
-            this.linksAndOutlineWrapperElement.style.maxHeight = 'initial';
+        if (this._menuMode === MenuMode.dropdown && this._dropdown.isExpanded()) { // Edge fires resize listeners even after they have been removed
+            // TODO figure out some way to do this using css - hard to use calc since 100vh is fixed on many mobile browsers > https://developers.google.com/web/updates/2016/12/url-bar-resizing
+            this._linksAndTocInnerWrapperElement.style.maxHeight = `${window.innerHeight - ArticleMenuComponent.HEADER_HEIGHT}px`;
         }
     }
 
-    public updateDropdownHeader(activeHeadingIndex: number): void {
-        let fixed = this.wrapperElement.classList.contains('fixed');
-        let fix = this.articleMenuElement.getBoundingClientRect().top < 0
+    private resetDropdown = (): void => {
+        this._linksAndTocInnerWrapperElement.style.maxHeight = '';
 
-        // If top is above top of screen, add class fixed else, remove class fixed
-        if (!fixed && fix) {
-            this.wrapperElement.classList.add('fixed');
-        } else if (fixed && !fix) {
-            this.wrapperElement.classList.remove('fixed');
+        if (this._dropdown.isExpanded()) {
+            this._overlayService.deactivateOverlay(false);
         }
 
-        if (activeHeadingIndex === -1) {
-            this.dropdownTextH1Element.innerText = 'Table of Contents';
-            this.dropdownTextH2Element.parentElement.style.display = 'none';
-            return;
-        }
-
-        let headerData: DropdownHeaderData = this.dropdownHeaderData[activeHeadingIndex];
-
-        this.dropdownTextH1Element.innerText = headerData.h1Text;
-
-        if (headerData.h2Text) {
-            this.dropdownTextH2Element.innerText = headerData.h2Text;
-            this.dropdownTextH2Element.parentElement.style.display = 'flex';
-        } else {
-            this.dropdownTextH2Element.parentElement.style.display = 'none';
-        }
+        this._dropdown.reset();
     }
 
-    public setupDropdownHeader(articleHeadingElements: NodeList): void {
-        let currentH1Text: string;
+    private updateSideMenu = (): void => {
+        if (this._menuMode === MenuMode.sideMenu) { // Necessary because bodyResizeObserver fires after unobserve
+            let articleMenuTop = this._articleMenuElement.getBoundingClientRect().top;
+            let footerTop = this._footerElement.getBoundingClientRect().top;
 
-        this.dropdownHeaderData = [];
+            let tocHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
+                - ArticleMenuComponent.VERTICAL_GAP
+                - this._linksAndTocTitleHeight
+                - Math.max(ArticleMenuComponent.VERTICAL_GAP, articleMenuTop);
 
-        for (let i = 0; i < articleHeadingElements.length; i++) {
-            let articleHeadingElement = articleHeadingElements[i] as HTMLElement;
-
-            if (articleHeadingElement.nodeName === "H1") {
-                currentH1Text = articleHeadingElement.innerText;
-                this.dropdownHeaderData.push({ h1Text: currentH1Text, h2Text: null });
-            } else {
-                // h2
-                this.dropdownHeaderData.push({ h1Text: currentH1Text, h2Text: articleHeadingElement.innerText });
-            }
-        }
-    }
-
-    private updateHistory = (activeHeadingIndex: number): void => {
-        let id = null;
-
-        if (activeHeadingIndex > -1) {
-            id = (this.articleHeadingElements[activeHeadingIndex] as HTMLElement).getAttribute('id');
+            // Tried setting bottom, max-height, both don't work on edge - scroll bar doesn't go away even when height is greater than 
+            // menu height. This works.
+            this._tableOfContents.style.height = `${tocHeight}px`;
         }
 
-        history.replaceState(null, null, id ? `#${id}` : location.pathname);
+        this._updateSideMenuQueued = false;
     }
 
-    private updateOutline(activeHeadingIndex: number): void {
-        if (this.outlineEmpty) {
-            return;
-        }
+    private resetSideMenu = (): void => {
+        this._tableOfContents.style.height = '';
+    }
 
-        let fixed = this.wrapperElement.classList.contains('fixed');
-
-        if (!mediaService.mediaWidthNarrow()) {
-            if (!this.outlineHeightWithoutScroll) {
-                // The first time media width is wide, initialize outline constants. At this point outline has no fixed height, so its height is accurate.
-                // Cache tops and heights of outline anchors relative to outline
-                this.topHeight = this.outlineElement.getBoundingClientRect().top - this.articleMenuElement.getBoundingClientRect().top;
-                this.fixedTopBottom = this.topMenuGap + this.topHeight;
-
-                let indicatorBoundingRect = this.indicatorElement.getBoundingClientRect();
-                // TODO does font affect height? Is height dependent solely on font-size?
-                // Get height of outline without scrollbar
-                this.outlineHeightWithoutScroll = indicatorBoundingRect.height;
-                this.outlineHeightWithoutScrollPX = `${this.outlineHeightWithoutScroll}px`;
-                this.outlineAnchorDataWithoutScroll = this.createAnchorTopsAndHeightsCache();
-            }
-
-            let top = this.wrapperElement.parentElement.getBoundingClientRect().top;
-            let fix = top < this.topMenuGap;
-
-            // To prevent layouts, do all reads before writes
-            let outlineHeight: number = this.getOutlineHeight(fix);
-            let outlineScrollable = this.outlineHeightWithoutScroll > outlineHeight;
-
-            this.setOutlineStyles(outlineHeight, outlineScrollable);
-
-            if (outlineScrollable && !this.outlineAnchorDataWithScroll) {
-                // The first time outline is scrollable, after setting height, initialize constants.
-                this.outlineAnchorDataWithScroll = this.createAnchorTopsAndHeightsCache();
-
-                // Set outline indicator height
-                // TODO The outline's ul element and indicator element are siblings with a parent that has display flex row.
-                // The ul element's height is set to the cross axis height of it's parent - https://bugs.chromium.org/p/chromium/issues/detail?id=134729, 
-                // this is what the spec dictates. A work around is to use height: max-content, but it is not supported on edge.
-                this.outlineHeightWithScrollPX = `${this.outlineLastAnchorElement.getBoundingClientRect().bottom - this.indicatorElement.getBoundingClientRect().top}px`;
-            }
-
-            let activeOutlineAnchorData: OutlineAnchorData = this.getActiveOutlineAnchorData(activeHeadingIndex > -1 ? activeHeadingIndex : 0, outlineScrollable);
-            this.updateOutlineIndicator(activeOutlineAnchorData, outlineScrollable);
-
-            if (fix && !fixed) {
-                // See sectionMenuComponent.updateSectionMenu
-                this.articleMenuElement.style.minHeight = `${this.articleMenuElement.clientHeight + 1}px`;
-                this.wrapperElement.classList.add('fixed');
-            } else if (!fix && fixed) {
-                this.wrapperElement.classList.remove('fixed');
-                this.articleMenuElement.style.minHeight = 'initial';
-            }
-        } else {
-            this.outlineElement.style.height = 'auto';
-            this.indicatorElement.style.height = 'auto';
-
-            if (fixed) {
-                this.wrapperElement.classList.remove('fixed');
-                this.articleMenuElement.style.minHeight = 'initial';
-            }
+    // Fixes smooth-scroll/chrome issue. Scroll event fires before raf callbacks are called, since smooth-scroll uses raf to scroll, footer top is not accurate until after smooth-scroll's raf callback
+    // fires
+    private updateSideMenuDeferred = (): void => {
+        if (!this._updateSideMenuQueued) {
+            requestAnimationFrame(this.updateSideMenu);
+            this._updateSideMenuQueued = true;
         }
     }
-
-    private setupOutline(): void {
-        if (this.articleHeadingElements.length === 0) {
-            this.outlineEmpty = true;
-            return;
-        } else {
-            this.outlineEmpty = false;
-        }
-
-        let titleElement = document.querySelector('main > article > .title');
-        let outlineTitle = titleElement ? titleElement.textContent : 'Outline';
-        let outlineTitleSpanElement = document.querySelector('#outline-title > span');
-
-        outlineTitleSpanElement.innerHTML = outlineTitle;
-
-        let listItemTrees: ListItem[] = listItemService.generateListItemTrees(this.articleHeadingElements,
-            ['h1', 'h2'],
-            document.createElement('a'));
-        let ulElement = listItemService.generateMultiLevelList(listItemTrees, '', 1);
-
-        this.outlineElement.appendChild(ulElement);
-        this.outlineAnchors = this.outlineElement.querySelectorAll('a');
-    }
-
-    private getActiveOutlineIndex(): number {
-        let activeAnchorIndex = -1;
-        let minDistance = -1;
-
-        // TODO: try binary search instead (profile, might not be worth the overhead since articles typically don't have many headings)
-        for (let i = 0; i < this.articleHeadingWrapperElements.length; i++) {
-            let headingElement = this.articleHeadingWrapperElements[i] as HTMLHeadingElement;
-            // When screen is narrow, fixed header occupies 37px at top of screen
-            let elementDistanceFromTop = -headingElement.getBoundingClientRect().top + (mediaService.mediaWidthNarrow() ? 37 : 0);
-
-            // Only consider heading wrappers that are above the top of the screen
-            if (elementDistanceFromTop < 0) {
-                return activeAnchorIndex;
-            }
-
-            if (minDistance === -1 || elementDistanceFromTop < minDistance) {
-                minDistance = elementDistanceFromTop;
-                activeAnchorIndex = i;
-            } else {
-                break;
-            }
-        }
-
-        return activeAnchorIndex;
-    }
-
-    private getActiveOutlineAnchorData(activeAnchorIndex: number, outlineScrollable: boolean): OutlineAnchorData {
-        return outlineScrollable ? this.outlineAnchorDataWithScroll[activeAnchorIndex] :
-            this.outlineAnchorDataWithoutScroll[activeAnchorIndex];
-    }
-
-    private updateOutlineIndicator(activeOutlineAnchorData: OutlineAnchorData, outlineScrollable: boolean): void {
-        if (!outlineScrollable) {
-            this.indicatorElement.style.height = this.outlineHeightWithoutScrollPX;
-        } else {
-            this.indicatorElement.style.height = this.outlineHeightWithScrollPX;
-        }
-
-        // Even if active anchor has not changed, must rewrite since scrollbar may have appeared
-        let style = this.outlineIndicatorSpanElement.style;
-        style.marginTop = activeOutlineAnchorData.topPX;
-        style.height = activeOutlineAnchorData.heightPX;
-    }
-
-    private getOutlineHeight(fixed: boolean): number {
-        let footerTop = this.footerElement.getBoundingClientRect().top;
-
-        let outlineHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
-            - this.bottomMenuGap
-            - (fixed ? this.fixedTopBottom : this.articleMenuElement.getBoundingClientRect().top + this.topHeight);
-
-        return outlineHeight < 0 ? 0 : outlineHeight;
-    }
-
-    private setOutlineStyles(outlineHeight: number, outlineScrollable: boolean): void {
-        // Tried setting bottom, max-height, both don't work on edge - scroll bar doesn't go away even when height is greater than 
-        // menu height. This works.
-        this.outlineElement.style.height = `${outlineHeight}px`;
-
-        if (outlineScrollable) {
-            this.outlineRootUlElement.style.marginRight = '12px';
-        } else {
-            this.outlineRootUlElement.style.marginRight = '0';
-        }
-    }
-
-    private createAnchorTopsAndHeightsCache(): { [index: number]: OutlineAnchorData } {
-        let outlineIndicatorBoundingRect = this.indicatorElement.getBoundingClientRect();
-        let result: { [index: number]: OutlineAnchorData } = {};
-
-        for (let i = 0; i < this.outlineAnchors.length; i++) {
-            let outlineAnchor = this.outlineAnchors[i] as HTMLElement;
-            let anchorBoundingRect = outlineAnchor.getBoundingClientRect();
-
-            result[i] = {
-                topPX: `${anchorBoundingRect.top - outlineIndicatorBoundingRect.top}px`,
-                heightPX: `${anchorBoundingRect.height}px`
-            };
-        }
-
-        return result;
-    }
-}
-
-interface DropdownHeaderData {
-    h1Text: string;
-    h2Text: string;
-}
-
-interface OutlineAnchorData {
-    topPX: string;
-    heightPX: string;
 }

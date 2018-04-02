@@ -1,0 +1,145 @@
+﻿@import '../shared/constants';
+
+@mixin table-of-contents-side-menu {
+    margin-bottom: 23px;
+}
+
+@mixin anchor-dropdown {
+    &.active {
+        &:before {
+            content: '';
+            width: 2px;
+            position: absolute;
+            left: -16px;
+            top: 0;
+            bottom: 0;
+            background-color: $color-primary-icon;
+        }
+    }
+}
+
+@mixin anchor-level-2-dropdown {
+    a {
+        &.active {
+            &:before {
+                left: -30px;
+            }
+        }
+    }
+}
+
+@mixin knob-dropdown{
+    display: none;
+}
+
+#table-of-contents-wrapper {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: column;
+
+    #table-of-contents-title {
+        font-size: $font-size-2;
+        font-weight: 600;
+        display: block;
+        flex-shrink: 0;
+
+        span {
+            @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
+        }
+    }
+
+    #table-of-contents {
+        display: flex;
+        overflow-y: auto;
+        position: relative;
+        flex-shrink: 1;
+        margin-top: 14px;
+
+        @media #{$media-medium}, #{$media-wide} {
+            @include table-of-contents-side-menu;
+        }
+
+        #table-of-contents-indicator-knob {
+            width: 2px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 1px;
+            background-color: $color-primary-icon;
+            z-index: 1;
+            transform-origin: top;
+            transition: transform 0.3s $ease-out-quad;
+            will-change: transform;
+
+            @media #{$media-narrow} {
+                @include knob-dropdown;
+            }
+        }
+
+        > ul {
+            > li:first-child > a {
+                margin-top: 0;
+            }
+
+            > li {
+                position: relative;
+                padding-left: 16px;
+                padding-right: 14px;
+                // The root ul element's height is set to the cross axis height of it's parent - https://bugs.chromium.org/p/chromium/issues/detail?id=134729,
+                // this is what the dictated by the spec. When table-of-contents has overflow (due to table-of-contents-wrapper having a min-height), the root
+                // ul element's height is considered to be the height of table-of-contents not inclusive of overflow area. Because of this, an indicator track
+                // that is an immediate child or sibling of the root ul element will not extend into the overflow area. A work around is to use
+                // height: max-content, but max-content is not supported on edge.
+                .indicator-track {
+                    width: 2px;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                    background-color: $color-section-header-background;
+                }
+            }
+        }
+
+        ul {
+            display: flex;
+            flex-direction: column;
+
+            &.level2 {
+                margin-left: 14px;
+
+                @media #{$media-narrow} {
+                    @include anchor-level-2-dropdown;
+                }
+            }
+
+            li {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                flex-shrink: 0;
+
+                a {
+                    user-select: none;
+                    cursor: pointer;
+                    align-items: center;
+                    margin-top: 13px;
+                    display: inline;
+                    flex-shrink: 0;
+                    position: relative;
+                    // animated-underline only works for multiline elements if the element whose background is animated is an only child or has a parent that has display block,
+                    // inline-block or inline.
+                    // TODO figure out why
+                    & > span {
+                        @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
+                    }
+
+                    @media #{$media-narrow} {
+                        @include anchor-dropdown;
+                    }
+                }
+            }
+        }
+    }
+}
