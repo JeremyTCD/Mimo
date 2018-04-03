@@ -4,12 +4,10 @@
     display: none;
 }
 
-#core-1 {
-    > #section-menu {
-        #section-menu-header {
-            @media #{$media-medium} {
-                @include section-header-side-menu;
-            }
+#core {
+    #section-menu-header {
+        @media #{$media-medium} {
+            @include section-header-side-menu;
         }
     }
 }

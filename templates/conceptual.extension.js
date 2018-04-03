@@ -9,13 +9,13 @@ exports.preTransform = function (model) {
 
     // Both side menus are active
     if (!model.mimo_disableArticleMenu && !model.mimo_disableSectionMenu) {
-        model.mimo_outerCoreNumber = 2;
-        model.mimo_innerCoreNumber = 1;
-    } else if (!model.mimo_disableArticleMenu || !model.mimo_disableSectionMenu) {
-        // 1 side menu is active
-        model.mimo_outerCoreNumber = 1;
-    } else {
-        // Neither side menu is active
+        model.mimo_innerCore = true;
+    } else if (!model.mimo_disableSectionMenu || !model.mimo_disableArticleMenu){
+        if (model.mimo_disableArticleMenu) {
+            model.mimo_menuBefore = true;
+        } else if (model.mimo_disableSectionMenu) {
+            model.mimo_menuAfter = true;
+        }
     }
 
     return model;

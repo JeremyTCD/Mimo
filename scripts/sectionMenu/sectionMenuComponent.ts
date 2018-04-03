@@ -88,9 +88,9 @@ export default class SectionMenuComponent extends RootComponent {
 
         this._headerButtonElement.addEventListener('click', this.buttonClickListener);
 
-        let inCore2 = this._sectionMenuElement.parentElement.getAttribute('id') === 'core-2';
+        let inCoreOuter = this._sectionMenuElement.parentElement.getAttribute('id') === 'core-outer';
 
-        if (inCore2) {
+        if (inCoreOuter) {
             this._mediaGlobalService.addChangedFromListener(this.onChangedToDropdownListener, MediaWidth.wide);
             this._mediaGlobalService.addChangedToListener(this.onChangedToSideMenuListener, MediaWidth.wide);
         } else {

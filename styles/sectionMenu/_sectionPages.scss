@@ -5,8 +5,8 @@
     margin-bottom: 23px;
 }
 
-#core-1 {
-    > #section-menu {
+#core {
+     #section-menu {
         @media #{$media-medium} {
             #section-pages {
                 @include section-pages-side-menu;

@@ -1,8 +1,6 @@
 ﻿@import 'constants';
 
-#core-2 {
-    display: flex;
-    flex-grow: 1;
+#core-outer {
     // When screen is narrow or medium, section menu must be above main and article menu
     @media #{$media-medium}, #{$media-narrow} {
         flex-direction: column;
@@ -11,31 +9,35 @@
     @media #{$media-wide} {
         @include horizontal-edge-padding;
     }
+}
 
-    > #core-1 {
-        @media #{$media-narrow} {
-            flex-direction: column-reverse;
-        }
+#core-inner {
+    @media #{$media-narrow} {
+        flex-direction: column-reverse;
+    }
 
-        @media #{$media-medium} {
-            @include horizontal-edge-padding;
-        }
+    @media #{$media-medium} {
+        @include horizontal-edge-padding;
     }
 }
 
-body {
-    > #core-1 {
-        @media #{$media-narrow} {
+#core {
+    @media #{$media-narrow} {
+        &.menu-before {
             flex-direction: column;
         }
 
-        @media #{$media-medium}, #{$media-wide} {
-            @include horizontal-edge-padding;
+        &.menu-after {
+            flex-direction: column-reverse;
         }
+    }
+
+    @media #{$media-medium}, #{$media-wide} {
+        @include horizontal-edge-padding;
     }
 }
 
-#core-1 {
+#core, #core-outer, #core-inner {
     display: flex;
     flex-grow: 1;
 }

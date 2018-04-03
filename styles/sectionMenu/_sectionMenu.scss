@@ -45,8 +45,8 @@
     width: $side-menu-width;
 }
 
-#core-2 {
-    > #section-menu {
+#core-outer {
+    #section-menu {
         @media #{$media-medium} {
             @include section-menu-dropdown;
 
@@ -61,8 +61,8 @@
     }
 }
 
-#core-1 {
-    > #section-menu {
+#core {
+    #section-menu {
         @media #{$media-medium} {
             @include section-menu-side-menu;
 
