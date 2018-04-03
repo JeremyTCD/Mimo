@@ -77,7 +77,7 @@ export default class ArticleMenuComponent extends RootComponent {
 
         this._linksAndTocOuterWrapperElement = document.getElementById('article-links-and-toc-outer-wrapper');
         this._linksAndTocInnerWrapperElement = document.getElementById('article-links-and-toc-inner-wrapper');
-        this._footerElement = document.querySelector('body > footer');
+        this._footerElement = document.getElementById('page-footer');
         this._tableOfContents = document.getElementById('table-of-contents');
         this._headerButtonElement = document.getElementById('article-menu-header-button');
 

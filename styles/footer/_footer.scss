@@ -1,6 +1,6 @@
 ﻿@import '../shared/constants';
 
-body > footer {
+#page-footer {
     @include pure-flex;
     @include horizontal-edge-padding;
     font-size: $font-size-2;
@@ -18,7 +18,7 @@ body > footer {
         color: inherit;
     }
 
-    #footer-information {
+    #page-footer-information {
         flex-direction: column;
 
         .uninteractive {
@@ -26,7 +26,7 @@ body > footer {
             opacity: $opacity-3;
         }
 
-        #footer-attribution {
+        #page-footer-attribution {
             margin-bottom: 22px;
             margin-top: 26px;
             flex-wrap: wrap;
@@ -56,7 +56,7 @@ body > footer {
             }
         }
 
-        #footer-legal {
+        #page-footer-legal {
             flex-wrap: wrap;
             margin-top: 23px;
 
@@ -82,7 +82,7 @@ body > footer {
             }
         }
 
-        #footer-copyright {
+        #page-footer-copyright {
             margin-top: 17px;
             align-items: center;
 
@@ -95,12 +95,12 @@ body > footer {
             }
         }
 
-        #footer-social-media {
+        #page-footer-social-media {
             margin-top: 28px;
             flex-wrap: wrap;
-            // TODO every section in footer-information should have something similar for top margin so that if one is removed
+            // TODO every section in page-footer-information should have something similar for top margin so that if one is removed
             // footer contents are still properly spaced out
-            & + #footer-legal {
+            & + #page-footer-legal {
                 margin-top: 18px;
             }
 
@@ -125,7 +125,7 @@ body > footer {
         }
     }
 
-    #footer-button {
+    #page-footer-button {
         margin-left: auto;
         padding-left: 20px;
         opacity: 0;

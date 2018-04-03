@@ -1,7 +1,7 @@
-<footer>
-    <nav id="footer-information">
+<footer id="page-footer">
+    <nav id="page-footer-information">
         {{#mimo_displaySocialMediaLinks}}
-        <div id="footer-social-media">
+        <div id="page-footer-social-media">
             {{#mimo_githubLink}}
             <a class="github-link" href="{{mimo_githubLink}}">
                 <svg>
@@ -40,7 +40,7 @@
         </div>
         {{/mimo_displaySocialMediaLinks}}
 
-        <div id="footer-legal">
+        <div id="page-footer-legal">
             {{#mimo_licensesRelPath}}
             <span>
                 <a href="{{mimo_licensesRelPath}}">Licenses</a>
@@ -52,27 +52,27 @@
             </span>
             {{/mimo_privacyPolicyRelPath}}
             {{#mimo_contactRelPath}}
-            <span class="footer-item">
+            <span class="page-footer-item">
                 <a href="{{mimo_contactRelPath}}">Contact</a>
             </span>
             {{/mimo_contactRelPath}}
 
         </div>
         {{#mimo_copyrightText}}
-        <div id="footer-copyright">
+        <div id="page-footer-copyright">
             <svg>
                 <use xlink:href="#material-design-copyright" />
             </svg>
             <span class="uninteractive">{{mimo_copyrightText}}</span>
         </div>
         {{/mimo_copyrightText}}
-        <div id="footer-attribution">
+        <div id="page-footer-attribution">
             <span><!--
                 --><span class="uninteractive">Site generated using </span><a href="https://github.com/JeremyTCD/DocFx.Themes.Mimo">Mimo</a><span class="uninteractive"> by </span><a href="https://jeremytcd.com">JeremyTCD</a><!--
             --></span>
         </div>
     </nav>
-    <div id="footer-button">
+    <div id="page-footer-button">
         <!--smooth-scroll automatically scroll to top if href is #-->
         <a href="#">
             <svg>
@@ -80,5 +80,5 @@
             </svg>
         </a>
     </div>
-    <div id="footer-overlay"></div>
+    <div id="page-footer-overlay"></div>
 </footer>

@@ -71,7 +71,7 @@ export default class SectionMenuComponent extends RootComponent {
 
         this._pagesInnerWrapperElement = document.getElementById('section-pages-inner-wrapper');
         this._sectionPagesElement = document.getElementById('section-pages');
-        this._footerElement = document.querySelector('body > footer');
+        this._footerElement = document.getElementById('page-footer');
         this._headerButtonElement = document.getElementById('section-menu-header-button');
         this._pagesOuterWrapperElement = document.getElementById('section-pages-outer-wrapper');
 

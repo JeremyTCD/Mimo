@@ -23,6 +23,8 @@ import TableOfContentsComponent from './articleMenu/tableOfContentsComponent';
 import ArticleLinksComponent from './articleMenu/articleLinksComponent';
 import ArticleMenuHeaderComponent from './articleMenu/articleMenuHeaderComponent';
 
+import FooterComponent from './footer/footerComponent';
+
 import CodeService from './shared/codeService';
 import DebounceService from './shared/debounceService';
 import HtmlEncodeService from './shared/htmlEncodeService';
@@ -73,6 +75,9 @@ container.bind<RootComponent>('RootComponent').to(ArticleMenuComponent).inSingle
 container.bind<TableOfContentsComponent>(TableOfContentsComponent).toSelf().inSingletonScope();
 container.bind<ArticleLinksComponent>(ArticleLinksComponent).toSelf().inSingletonScope();
 container.bind<ArticleMenuHeaderComponent>(ArticleMenuHeaderComponent).toSelf().inSingletonScope();
+
+// Footer
+container.bind<RootComponent>('RootComponent').to(FooterComponent).inSingletonScope();
 
 // Shared
 container.bind<GlobalService>('GlobalService').to(ArticleGlobalService).inSingletonScope().whenTargetNamed('ArticleGlobalService');
