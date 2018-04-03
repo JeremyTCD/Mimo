@@ -65,19 +65,21 @@ export default class TableOfContentsComponent implements Component {
     }
 
     public updateDropdownKnob = (): void => {
-        let newIndex = this._articleGlobalService.getActiveHeaderIndex();
+        if (!this._noToc) {
+            let newIndex = this._articleGlobalService.getActiveHeaderIndex();
 
-        if (newIndex === this._lastDropdownAnchorIndex) {
-            return;
+            if (newIndex === this._lastDropdownAnchorIndex) {
+                return;
+            }
+
+            if (this._lastDropdownAnchorIndex !== null && this._lastDropdownAnchorIndex !== undefined) {
+                (this._anchorElements[this._lastDropdownAnchorIndex] as HTMLElement).classList.remove('active');
+            }
+
+            let activeAnchorIndex = newIndex === -1 ? 0 : newIndex;
+            (this._anchorElements[activeAnchorIndex] as HTMLElement).classList.add('active');
+            this._lastDropdownAnchorIndex = activeAnchorIndex;
         }
-
-        if (this._lastDropdownAnchorIndex !== null && this._lastDropdownAnchorIndex !== undefined) {
-            (this._anchorElements[this._lastDropdownAnchorIndex] as HTMLElement).classList.remove('active');
-        }
-
-        let activeAnchorIndex = newIndex === -1 ? 0 : newIndex;
-        (this._anchorElements[activeAnchorIndex] as HTMLElement).classList.add('active');
-        this._lastDropdownAnchorIndex = activeAnchorIndex;
     }
 
     private updateSideMenuKnob = (newIndex: number): void => {
