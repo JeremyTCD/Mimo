@@ -147,9 +147,6 @@ export default class ArticleMenuComponent extends RootComponent {
         this._dropdown.collapseWithoutAnimation();
 
         window.addEventListener('resize', this.updateDropdown);
-
-        // Init - some browsers trigger newly registered resize listener after media query list event, others do not
-        this.updateDropdown();
     }
 
     private onChangedToSideMenuListener = (init: boolean): void => {
