@@ -40,6 +40,7 @@ require('../resources/ion-icons-logo-facebook.svg');
 require('../resources/ion-icons-logo-googleplus.svg');
 
 import * as $ from 'jquery';
+import 'intersection-observer';
 
 // TODO convert into a class with an entry method (main)
 let rootComponents = container.getAll<RootComponent>('RootComponent');

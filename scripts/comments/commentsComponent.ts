@@ -8,6 +8,8 @@ export default class CommentsComponent extends RootComponent {
     private _disqusShortname: string;
     private _disqusIdentifier: string;
     private _heightService: HeightService;
+    private _intersectionObserver: IntersectionObserver;
+    private _initialCallMade: boolean;
 
     public constructor(heightService: HeightService) {
 
@@ -29,45 +31,45 @@ export default class CommentsComponent extends RootComponent {
     }
 
     public setupOnLoad(): void {
-        // tryLoad requires fonts and resources to be loaded
-        if (!this.tryLoad()) {
-            window.addEventListener('scroll', this.tryLoad);
-        }
+        this._intersectionObserver = new IntersectionObserver(this.onIntersect);
+
+        this._initialCallMade = false;
+        this._intersectionObserver.observe(this._disqusThreadElement);
     }
 
-    private tryLoad = (): boolean => {
-        // top is relative to the top of the viewport, so as you scroll down, this number decreases
-        let disqusTop: number = this._disqusThreadElement.getBoundingClientRect().top;
-
-        if (disqusTop < (window.innerHeight || document.documentElement.clientHeight)) {
-            window.removeEventListener('scroll', this.tryLoad);
-
-            let component = this;
-
-            window['disqus_config'] = function () {
-                this.page.url = `https://${location.host}${location.pathname}`;
-                this.page.identifier = component._disqusIdentifier;
-                this.callbacks.onReady.push(component.disqusOnReady);
-            };
-
-            let disqusScript: HTMLScriptElement = document.createElement('script');
-            disqusScript.src = `https://${this._disqusShortname}.disqus.com/embed.js`;
-            disqusScript.setAttribute('data-timestamp', Date.now().toString());
-
-            (document.head || document.body).appendChild(disqusScript);
-
-            console.log('Disqus embed script inserted.');
-
-            return true;
+    private onIntersect = (): void => {
+        if (!this._initialCallMade) {
+            this._initialCallMade = true;
+            return;
         }
 
-        return false;
+
+        this._intersectionObserver.disconnect();
+        this._intersectionObserver = null;
+
+        let component = this;
+
+        window['disqus_config'] = function () {
+            this.page.url = `https://${location.host}${location.pathname}`;
+            this.page.identifier = component._disqusIdentifier;
+            this.callbacks.onReady.push(component.disqusOnReady);
+        };
+
+        let disqusScript: HTMLScriptElement = document.createElement('script');
+        disqusScript.src = `https://${this._disqusShortname}.disqus.com/embed.js`;
+        disqusScript.setAttribute('data-timestamp', Date.now().toString());
+
+        (document.head || document.body).appendChild(disqusScript);
+
+        console.log('Disqus embed script inserted.');
+
     }
 
     private disqusOnReady = (): void => {
         let commentsLoader: HTMLElement = document.getElementById('comments-loader');
 
         commentsLoader.style.opacity = '0';
+        // Can't use transform here, need to trigger layouts so that footer gets pushed down
         this._heightService.autoHeightToFixedHeightWithTransition(commentsLoader, 0);
         commentsLoader.addEventListener('transitionend', this.commentsLoaderOnRemoved, true);
 
