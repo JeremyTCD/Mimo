@@ -1,6 +1,4 @@
-﻿import * as SmoothScroll from 'smooth-scroll';
-
-export default class TextInput {
+﻿export default class TextInput {
     constructor(private _wrapperElement: HTMLElement,
         private _inputElement: HTMLInputElement,
         private _clearElement: HTMLElement,
@@ -36,21 +34,21 @@ export default class TextInput {
         }
     }
 
-    private clearClickEventListener = (event: Event) => {
+    private clearClickEventListener = () => {
         this.reset();
 
         // Keep focus on search input so further searches can be made (no point placing focus on clear button)
         this._inputElement.focus();
     }
 
-    private inputFocusOutEventListener = (event: Event) => {
+    private inputFocusOutEventListener = () => {
         // If there is still text, search input is still "active"
         if (this._inputElement.value.length === 0) {
             this._wrapperElement.classList.remove('active');
         }
     }
 
-    private inputFocusEventListener = (event: Event) => {
+    private inputFocusEventListener = () => {
         this._wrapperElement.classList.add('active');
     }
 

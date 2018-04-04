@@ -22,8 +22,6 @@ export default class ArticleMenuComponent extends RootComponent {
     private _tableOfContents: HTMLElement;
 
     private _tableOfContentsComponent: TableOfContentsComponent;
-    private _articleLinksComponent: ArticleLinksComponent;
-    private _articleMenuHeaderComponent: ArticleMenuHeaderComponent;
 
     private _mediaGlobalService: MediaGlobalService;
     private _overlayService: OverlayService;
@@ -53,7 +51,6 @@ export default class ArticleMenuComponent extends RootComponent {
         this._mediaGlobalService = mediaGlobalService;
         this._debounceService = debounceService;
         this._dropdownFactory = dropdownFactory;
-        this._articleLinksComponent = articleLinksComponent;
         this._tableOfContentsComponent = tableOfcontentsComponent;
 
         this.addChildComponents(tableOfcontentsComponent, articleLinksComponent, articleMenuHeaderComponent);

@@ -9,7 +9,6 @@ import { MediaWidth } from '../shared/mediaWidth';
 
 @injectable()
 export default class TableOfContentsComponent implements Component {
-    private _wrapperElement: HTMLElement;
     private _tableOfContentsElement: HTMLElement;
     private _knobElement: HTMLElement;
     private _rootUnorderedListElement: HTMLElement;
@@ -19,7 +18,6 @@ export default class TableOfContentsComponent implements Component {
     private _treeService: TreeService;
 
     private _anchorElements: NodeList;
-    private _anchorHashes: string[];
     private _lastDropdownAnchorIndex: number;
     private _noToc: boolean;
 
@@ -36,7 +34,6 @@ export default class TableOfContentsComponent implements Component {
     }
 
     public setupOnDomContentLoaded(): void {
-        this._wrapperElement = document.getElementById('table-of-contents-wrapper');
         this._tableOfContentsElement = document.getElementById('table-of-contents');
         this._knobElement = document.getElementById('table-of-contents-indicator-knob');
 
@@ -60,7 +57,7 @@ export default class TableOfContentsComponent implements Component {
         }
     }
 
-    private onChangedFromNarrowListener = (init: boolean): void => {
+    private onChangedFromNarrowListener = (): void => {
         this._articleGlobalService.addIndexChangedListener(this.updateSideMenuKnob, true);
     }
 

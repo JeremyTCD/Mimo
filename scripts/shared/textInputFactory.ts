@@ -1,4 +1,4 @@
-﻿import { injectable, inject } from 'inversify';
+﻿import { injectable } from 'inversify';
 import TextInput from './textInput';
 
 @injectable()

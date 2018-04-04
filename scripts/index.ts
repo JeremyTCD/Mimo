@@ -39,7 +39,7 @@ require('../resources/ion-icons-logo-instagram.svg');
 require('../resources/ion-icons-logo-facebook.svg');
 require('../resources/ion-icons-logo-googleplus.svg');
 
-import * as $ from 'jquery';
+import 'jquery';
 import 'intersection-observer';
 
 // TODO convert into a class with an entry method (main)

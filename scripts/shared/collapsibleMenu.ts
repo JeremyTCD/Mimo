@@ -1,5 +1,4 @@
-﻿import * as SmoothScroll from 'smooth-scroll';
-import StringService from './stringService';
+﻿import StringService from './stringService';
 import HeightService from './heightService';
 
 export default class CollapsibleMenu {

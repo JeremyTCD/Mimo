@@ -35,7 +35,7 @@ export default class ArticleMenuHeaderComponent implements Component {
         this._mediaGlobalService.addChangedFromListener(this.onChangedFromNarrowListener, MediaWidth.narrow);
     }
 
-    private onChangedToNarrowListener = (init: boolean): void => {
+    private onChangedToNarrowListener = (): void => {
         // While article menu is a side menu, text isn't updated. When article menu becomes a dropdown, it must be updated manually
         this._articleGlobalService.addIndexChangedListener(this.updateText, true);
     }

@@ -1,4 +1,4 @@
-import { injectable, inject } from 'inversify';
+import { injectable } from 'inversify';
 import Component from '../shared/component';
 import TextInputFactory from '../shared/textInputFactory';
 import TextInput from '../shared/textInput';

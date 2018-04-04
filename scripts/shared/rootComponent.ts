@@ -1,4 +1,4 @@
-﻿import { injectable, inject } from 'inversify';
+﻿import { injectable } from 'inversify';
 import Component from "./component";
 
 // Root components correspond to the direct children of <body> and <div id="core">. 

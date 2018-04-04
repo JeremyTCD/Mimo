@@ -1,4 +1,4 @@
-import { injectable, inject } from 'inversify';
+import { injectable } from 'inversify';
 import Component from '../shared/component';
 import SectionMenuHeaderComponent from '../sectionMenu/sectionMenuHeaderComponent';
 import PathService from '../shared/pathService';
@@ -36,7 +36,7 @@ export default class NavbarComponent implements Component {
         }
 
         let getNavbarRequest = new XMLHttpRequest()
-        getNavbarRequest.onreadystatechange = (event: Event) => {
+        getNavbarRequest.onreadystatechange = () => {
             // TODO check status too
             if (getNavbarRequest.readyState === XMLHttpRequest.DONE) {
                 let tocFrag = document.createRange().createContextualFragment(getNavbarRequest.responseText);

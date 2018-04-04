@@ -1,4 +1,4 @@
-import { injectable, inject } from 'inversify';
+import { injectable } from 'inversify';
 import RootComponent from '../shared/rootComponent';
 import PaginationService from '../shared/paginationService';
 
@@ -25,7 +25,6 @@ export default class SalComponent extends RootComponent {
         let paginationParentElements = this._sortedArticleListElement.querySelectorAll('.al-pagination');
         let itemsParentElement = this._sortedArticleListElement.querySelector('.al-items') as HTMLElement;
 
-        let numPerPage = 5;
         let allAlItems = this._sortedArticleListElement.querySelectorAll('article');
 
         if (allAlItems.length == 0) {

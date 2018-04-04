@@ -1,4 +1,4 @@
-import { injectable, inject } from 'inversify';
+import { injectable } from 'inversify';
 import CollapsibleMenu from './collapsibleMenu';
 import StringService from './stringService';
 import HeightService from './heightService';

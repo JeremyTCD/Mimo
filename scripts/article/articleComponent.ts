@@ -1,4 +1,4 @@
-﻿import { injectable, inject } from 'inversify';
+﻿import { injectable } from 'inversify';
 import RootComponent from '../shared/rootComponent';
 import TooltipService from '../shared/tooltipService';
 import * as Clipboard from 'clipboard';

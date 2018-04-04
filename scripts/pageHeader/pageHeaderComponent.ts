@@ -3,17 +3,14 @@ import RootComponent from '../shared/rootComponent';
 import NavbarComponent from './navbarComponent';
 import SearchComponent from './searchComponent';
 import SearchResultsComponent from './searchResultsComponent';
-import HeightService from '../shared/heightService';
 import OverlayService from '../shared/overlayService';
 import MediaGlobalService from '../shared/mediaGlobalService';
-import Component from '../shared/component';
 import { MediaWidth } from '../shared/mediaWidth';
 import DropdownFactory from '../shared/dropdownFactory';
 import Dropdown from '../shared/dropdown';
 
 @injectable()
 export default class PageHeaderComponent extends RootComponent {
-    private _heightService: HeightService;
     private _overlayService: OverlayService;
     private _mediaGlobalService: MediaGlobalService;
     private _dropdownFactory: DropdownFactory;
@@ -25,13 +22,11 @@ export default class PageHeaderComponent extends RootComponent {
     private _navbarAndSearchOuterWrapper: HTMLElement;
     private _navbarAndSearchInnerWrapper: HTMLElement;
 
-    private _childComponents: Component[];
     private _dropdown: Dropdown;
 
     public constructor(
         @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
         dropdownFactory: DropdownFactory,
-        heightService: HeightService,
         overlayService: OverlayService,
         searchComponent: SearchComponent,
         navbarComponent: NavbarComponent,
@@ -39,7 +34,6 @@ export default class PageHeaderComponent extends RootComponent {
         super();
 
         this._dropdownFactory = dropdownFactory;
-        this._heightService = heightService;
         this._overlayService = overlayService;
         this._mediaGlobalService = mediaGlobalService;
         this._searchComponent = searchComponent;

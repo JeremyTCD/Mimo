@@ -1,4 +1,4 @@
-﻿import { injectable, inject } from "inversify";
+﻿import { injectable } from "inversify";
 
 // TODO would be much more performant if accordions could be built using just transforms
 @injectable()

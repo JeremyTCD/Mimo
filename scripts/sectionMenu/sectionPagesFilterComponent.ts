@@ -1,14 +1,11 @@
-﻿import { injectable, inject } from 'inversify';
+﻿import { injectable } from 'inversify';
 import Component from '../shared/component';
 import TextInputFactory from '../shared/textInputFactory';
-import TextInput from '../shared/textInput';
 import SectionPagesComponent from './sectionPagesComponent';
-import SectionMenuComponent from './sectionMenuComponent';
 
 @injectable()
 export default class SectionPagesFilterComponent implements Component {
     private _textInputFactory: TextInputFactory;
-    private _textInput: TextInput;
 
     private _sectionPagesComponent: SectionPagesComponent;
 
@@ -29,7 +26,7 @@ export default class SectionPagesFilterComponent implements Component {
         this._inputElement = this._filterElement.querySelector('input');
         this._clearElement = this._filterElement.querySelector('svg:last-child') as HTMLElement;
 
-        this._textInput = this.
+        this.
             _textInputFactory.
             build(this._filterElement,
             this._inputElement,

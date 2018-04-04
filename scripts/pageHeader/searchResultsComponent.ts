@@ -67,8 +67,6 @@ export default class SearchResultsComponent implements Component {
     }
 
     public setSnippets = (snippets: string[], queryString: string): void => {
-        let numPerPage = 5;
-
         $(this._paginationParentElements).twbsPagination('destroy');
 
         if (snippets.length === 0) {

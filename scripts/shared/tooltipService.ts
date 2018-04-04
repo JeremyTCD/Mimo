@@ -1,4 +1,4 @@
-import { injectable, inject } from "inversify";
+import { injectable } from "inversify";
  
 import * as Tippy from 'tippy.js';
 
@@ -17,7 +17,7 @@ export default class TooltipService {
             animateFill: false
         });
         let tooltip = (element as any)._tippy;
-        element.addEventListener('click', (event: Event) => {
+        element.addEventListener('click', () => {
             if (!tooltip.state.visible) {
                 tooltip.show();
             }

@@ -1,20 +1,16 @@
-﻿import { injectable, inject } from 'inversify';
+﻿import { injectable } from 'inversify';
 
 import Component from '../shared/component';
-import * as SmoothScroll from 'smooth-scroll';
 import CollapsibleMenu from '../shared/collapsibleMenu';
 import CollapsibleMenuFactory from '../shared/collapsibleMenuFactory';
 import SvgService from '../shared/svgService';
 import PathService from '../shared/pathService';
-import { currentId } from 'async_hooks';
 import SectionMenuHeaderComponent from './sectionMenuHeaderComponent';
 import HeightService from '../shared/heightService';
-import SectionMenuComponent from './sectionMenuComponent';
 
 @injectable()
 export default class SectionPagesComponent implements Component {
     private _sectionPagesElement: HTMLElement;
-    private _filterInputElement: HTMLInputElement;
 
     private _sectionMenuHeaderComponent: SectionMenuHeaderComponent;
 
@@ -43,7 +39,6 @@ export default class SectionPagesComponent implements Component {
 
     public setupOnDomContentLoaded(): void {
         this._sectionPagesElement = document.getElementById('section-pages');
-        this._filterInputElement = document.getElementById('section-menu-filter-input') as HTMLInputElement;
 
         let sectionPagesPath = document.
             querySelector("meta[property='docfx\\:tocrel']").
@@ -51,7 +46,7 @@ export default class SectionPagesComponent implements Component {
             replace(/\\/g, '/');
 
         let getSectionPagesRequest = new XMLHttpRequest()
-        getSectionPagesRequest.onreadystatechange = (event: Event) => {
+        getSectionPagesRequest.onreadystatechange = () => {
             // TODO check status too
             if (getSectionPagesRequest.readyState === XMLHttpRequest.DONE) {
                 let sectionPagesFragment = document.createRange().createContextualFragment(getSectionPagesRequest.responseText);

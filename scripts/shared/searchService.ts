@@ -1,5 +1,4 @@
-import { injectable, inject } from 'inversify';
-import * as lunr from 'lunr';
+import { injectable } from 'inversify';
 import SearchResultsComponent from '../pageHeader/searchResultsComponent';
 
 @injectable()

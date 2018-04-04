@@ -1,4 +1,4 @@
-﻿import { injectable, inject } from 'inversify';
+﻿import { injectable } from 'inversify';
 import { MediaWidth } from './mediaWidth';
 import GlobalService from '../shared/globalService';
 
@@ -8,14 +8,12 @@ export default class MediaGlobalService implements GlobalService {
     private _previousMediaWidth: MediaWidth;
 
     private _narrowMediaQueryList: MediaQueryList;
-    private _mediumMediaQueryList: MediaQueryList;
     private _wideMediaQueryList: MediaQueryList;
 
     private _onMediaWidthChangeListeners: ((init: boolean) => void)[][];
 
     public setupImmediate(): void {
         this._narrowMediaQueryList = window.matchMedia('(max-width: 855px)');
-        this._mediumMediaQueryList = window.matchMedia('(min-width: 856px) and (max-width: 1183px)');
         this._wideMediaQueryList = window.matchMedia('(min-width: 1184px)');
 
         this.updateMediaWidth();

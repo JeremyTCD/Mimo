@@ -1,5 +1,5 @@
 import ResizeObserver from 'resize-observer-polyfill';
-import { injectable, inject } from 'inversify';
+import { injectable } from 'inversify';
 import RootComponent from '../shared/rootComponent';
 import DebounceService from '../shared/debounceService';
 

@@ -130,7 +130,7 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     private setupSmoothScroll(): void {
-        let scroll = new SmoothScroll('a[href*="#"]', {
+        new SmoothScroll('a[href*="#"]', {
             speed: 300,
             before: this.smoothScrollBefore,
             after: this.smoothScrollAfter,

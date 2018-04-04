@@ -1,4 +1,4 @@
-import { injectable, inject } from 'inversify';
+import { injectable } from 'inversify';
 import SvgService from './svgService';
 
 @injectable()
@@ -31,7 +31,7 @@ export default class PaginationService {
                 last: ' ',
                 totalPages: Math.ceil(items.length / numPerPage),
                 visiblePages: numPageButtons,
-                onPageClick: (event: JQueryEventObject, page) => {
+                onPageClick: (_: JQueryEventObject, page) => {
                     let start = (page - 1) * numPerPage;
                     let currentSnippets = [].slice.call(items, start, start + numPerPage);
 
