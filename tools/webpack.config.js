@@ -173,9 +173,10 @@ module.exports = (docfxProjectDir, nodeModulesDir) => {
                                     plugins: () => {
                                         var result = [AutoPrefixer({ browsers: ['last 3 versions', '> 1%'] })];
                                         if (isProduction) {
-                                            // CssNano is a minifier plugin for postcss. convertValues must be set to false or 0% will be converted to 0, messing up transitions in edge that start or end at 0%.
-                                            // see constants.scss.
-                                            result.push(CssNano({ convertValues: false }));
+                                            // CssNano is a minifier plugin for postcss. 
+                                            // - convertValues must be set to false or 0% will be converted to 0, messing up transitions in edge that start or end at 0%. see constants.scss.
+                                            // - discardUnused must be set to false or keyframes get removed.
+                                            result.push(CssNano({ convertValues: false, discardUnused: false }));
                                         }
 
                                         return result;
