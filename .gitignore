@@ -12,3 +12,4 @@ plugins/
 .vs
 debug.log
 npm-debug.log
+yarn-error.log
