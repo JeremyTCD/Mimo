@@ -20,8 +20,8 @@
 
     <div id="article-links-and-toc-outer-wrapper">
         <div id="article-links-and-toc-inner-wrapper">
-            {{>partials/articleLinks}}
-            {{>partials/tableOfContents}}
+            {{>partials/articleMenu/articleLinks}}
+            {{>partials/articleMenu/tableOfContents}}
         </div>
     </div>
 </div>

@@ -3,26 +3,26 @@
 <!DOCTYPE html>
 
 <html {{#mimo_pageID}}id={{mimo_pageID}}{{/mimo_pageID}}>
-    {{>partials/head}}
+    {{>partials/head/head}}
     <body>
-        {{>partials/pageHeader}}
+        {{>partials/pageHeader/pageHeader}}
 
         <div id="core{{#mimo_innerCore}}-outer{{/mimo_innerCore}}" {{#mimo_menuBefore}}class="menu-before"{{/mimo_menuBefore}} {{#mimo_menuAfter}}class="menu-after"{{/mimo_menuAfter}}>
-            {{>partials/sectionMenu}}
+            {{>partials/sectionMenu/sectionMenu}}
 
             {{#mimo_innerCore}}
             <div id="core-inner">
             {{/mimo_innerCore}}
 
-                {{>partials/main}}
-		        {{>partials/articleMenu}}
+                {{>partials/shared/main}}
+		        {{>partials/articleMenu/articleMenu}}
 
             {{#mimo_innerCore}}
             </div>
             {{/mimo_innerCore}}          
         </div>
 
-        {{>partials/footer}}
+        {{>partials/footer/footer}}
         <div id="overlay"></div>
     </body>
 </html>

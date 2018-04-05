@@ -23,7 +23,7 @@
                     <use xlink:href="#material-design-clear-black" />
                 </svg>
             </form>
-            {{>partials/searchResults}}
+            {{>partials/pageHeader/searchResults}}
             {{/mimo_disableSearch}}
         </div>
     </div>

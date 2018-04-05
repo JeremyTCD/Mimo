@@ -1,5 +1,5 @@
 <main role="main">
-	{{>partials/article}}
-	{{>partials/sortedArticleList}}
-    {{>partials/comments}}
+	{{>partials/article/article}}
+	{{>partials/sortedArticleList/sortedArticleList}}
+    {{>partials/comments/comments}}
 </main>

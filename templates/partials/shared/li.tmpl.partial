@@ -19,7 +19,7 @@
         {{/topicHref}}
             
         {{^leaf}}
-        {{>partials/li}}
+        {{>partials/shared/li}}
         {{/leaf}}
     </li>
     {{/items}}

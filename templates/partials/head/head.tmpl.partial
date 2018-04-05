@@ -1,6 +1,6 @@
 <head>
-    {{>partials/analytics}}
-    {{>partials/scripts}}
+    {{>partials/head/analytics}}
+    {{>partials/head/scripts}}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{{#mimo_pageTitle}}{{{mimo_pageTitle}}}{{/mimo_pageTitle}} {{#mimo_websiteName}}- {{{mimo_websiteName}}}{{/mimo_websiteName}}</title>
