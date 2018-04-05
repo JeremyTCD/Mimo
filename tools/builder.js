@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const exec = require('child_process').exec;
 const rimraf = require('rimraf');
-const cpy = require('cpy');
+const fse = require('fs-extra');
 const webpackConfig = require('./webpack.config.js');
 const webpack = require('webpack');
 
@@ -31,11 +31,11 @@ class Builder {
         console.log(`*** complete - build basic bin ***`);
     }
 
-    // Builds theme,  excluding styles and scripts
+    // Builds theme,excluding styles and scripts
     async buildBasicTheme() {
         console.log(`** start - build basic theme **`);
         await this.restorePlugins();
-        await this.copySimpleFilesToTheme();
+        this.copySimpleFilesToTheme();
         console.log(`** complete - build basic theme **`);
     }
 
@@ -114,26 +114,34 @@ class Builder {
         const themeDir = path.join(this.docfxProjectDir, './bin/theme');
         const siteDir = path.join(this.docfxProjectDir, './bin/_site');
 
-        return Promise.all([cpy(path.join(themeDir, 'styles/*'), path.join(siteDir, 'styles'))]).
+        return Promise.all([fse.copy(path.join(themeDir, 'styles'), path.join(siteDir, 'styles'))]).
             then(_ => {
                 console.log(`complete - copy styles from theme to site`);
             });
     }
 
     // Copies files that do not have to be processed by webpack into theme
-    async copySimpleFilesToTheme() {
+    copySimpleFilesToTheme() {
         console.log(`start - copy simple files`);
 
+        const root = path.join(__dirname, '..');
         const themeDir = path.join(this.docfxProjectDir, './bin/theme');
 
-        return Promise.all([
-            cpy(path.join(__dirname, '../plugins/*'), path.join(themeDir, 'plugins')),
-            cpy(path.join(__dirname, '../templates/*'), themeDir, { nodir: true }), // Attempting to copy a dir causes errors
-            cpy(path.join(__dirname, '../templates/partials/**/*'), path.join(themeDir, 'partials'), { nodir: true }),
-            cpy(path.join(__dirname, '../misc/*'), themeDir)
-        ]).then(_ => {
-            console.log(`complete - copy simple files`);
-        });
+        let include = [['plugins', 'plugins'], ['templates', ''], ['misc', '']];
+
+        for (let i = 0; i < include.length; i++) {
+            let includeOptions = include[i];
+            let src = path.join(root, includeOptions[0]);
+
+            if (fse.existsSync(src)) {
+                let dest = path.join(themeDir, includeOptions[1]);
+                // Both the contents of templates and misc are copied to the same directory, executing them asynchronously
+                // causes file system errors.
+                fse.copySync(src, dest);
+            }
+        }
+
+        console.log(`complete - copy simple files`)
     };
 
     async webpackCompile() {
