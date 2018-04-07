@@ -65,10 +65,11 @@ module.exports = (docfxProjectDir) => {
             minChunks: Infinity
         }),
 
-        // Runs ts type checking in a separate process
-        new ForkTsCheckerWebpackPlugin({
-            tsconfig: tsconfigPath
-        })
+        // TODO Runs ts type checking in a separate process, speeding up webpack rebuilds. However, sometimes outputs errors that aren't reported when simply running tsc or having ts-loader do the static 
+        // type checking.
+        //new ForkTsCheckerWebpackPlugin({
+        //    tsconfig: tsconfigPath
+        //})
     ];
 
     if (isProduction) {
@@ -162,10 +163,10 @@ module.exports = (docfxProjectDir) => {
                     test: /\.ts$/,
                     use: [
                         {
-                            loader: 'ts-loader',
-                            options: {
-                                transpileOnly: true
-                            }
+                            loader: 'ts-loader'//,
+                            //options: {
+                            //    transpileOnly: true
+                            //}
                         }
                     ],
                     exclude: ['node_modules']
