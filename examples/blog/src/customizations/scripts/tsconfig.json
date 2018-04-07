@@ -1,5 +1,0 @@
-{
-    // By default, VS will compile every ts file whenever one is saved. Since Mimo uses webpack,
-    // this behaviour is unecessary.
-    "compileOnSave": false
-}

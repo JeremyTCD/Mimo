@@ -1,0 +1,30 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [ "es6", "dom" ],
+        "noImplicitAny": false,
+        "sourceMap": true,
+        "allowJs": true,
+        "noEmitOnError": true,
+        // Packages in @types are d.ts files for libraries that do not ship with typings of their own.
+        // Packages can contain their own typings, declared using the typings property in package.json.
+        // https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html#including-declarations-in-your-npm-package
+        "typeRoots": [
+            "../node_modules/@types"
+        ],
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "outDir": "../dist"
+    },
+    "include": [
+        "./host.ts"
+    ],
+    "exclude": [
+        "./workers/*"
+    ]
+}

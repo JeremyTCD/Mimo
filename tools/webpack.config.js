@@ -8,13 +8,24 @@ const Fs = require("fs");
 const AutoPrefixer = require('autoprefixer');
 const CssNano = require('cssnano');
 const Glob = require('glob');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
-module.exports = (docfxProjectDir, nodeModulesDir) => {
-    // TODO duplicated logic
+module.exports = (docfxProjectDir) => {
+    const tsconfigPath = Path.join(docfxProjectDir, 'src/scripts/tsconfig.json');
+    if (!Fs.existsSync(tsconfigPath)) {
+        throw new Error(`${tsconfigPath} is missing.`);
+    }
+
+    const entryPath = Path.join(docfxProjectDir, 'src/scripts/index.ts');
+    if (!Fs.existsSync(entryPath)) {
+        throw new Error(`${entryPath} is missing.`);
+    }
+
     const isProduction = process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production';
+    const outputPath = Path.join(docfxProjectDir, './bin/theme/styles');
 
-    const scriptsCustomIndex = Glob.sync(Path.join(docfxProjectDir, 'src/customizations/scripts/customIndex.*'))[0];
-    const stylesCustomIndex = Glob.sync(Path.join(docfxProjectDir, 'src/customizations/styles/customIndex.*'))[0];
+    // TODO remove
+    const stylesCustomIndex = Glob.sync(Path.join(docfxProjectDir, 'src/styles/customIndex.*'))[0];
 
     var plugins = [
         // TODO: This setting extracts the svg sprite sheet so it can be cached. Svg sprites are however, somewhat poorly implemented.
@@ -22,9 +33,9 @@ module.exports = (docfxProjectDir, nodeModulesDir) => {
         //
         // Combines svg files into an svg sprite
         //new SpriteLoaderPlugin({ plainSprite: true }),
+
         // Used to add requires for custom files
         new Webpack.DefinePlugin({
-            SCRIPTS_CUSTOM_INDEX: scriptsCustomIndex ? `"${scriptsCustomIndex}"` : false,
             STYLES_CUSTOM_INDEX: stylesCustomIndex ? `"${stylesCustomIndex}"` : false
         }),
 
@@ -56,7 +67,7 @@ module.exports = (docfxProjectDir, nodeModulesDir) => {
 
         // Runs ts type checking in a separate process
         new ForkTsCheckerWebpackPlugin({
-            tsconfig: Path.join(__dirname, '../tsconfig.json')
+            tsconfig: tsconfigPath
         })
     ];
 
@@ -112,22 +123,23 @@ module.exports = (docfxProjectDir, nodeModulesDir) => {
         },
         entry: {
             // Bundle must be an array so other sources can be added to it (see serve.js)
-            bundle: [Path.join(__dirname, '../scripts/index.ts')],
+            bundle: [entryPath],
             vendor: ['jquery', 'mark.js', 'twbs-pagination', 'smooth-scroll', 'clipboard', 'resize-observer-polyfill', 'domready', 'tippy.js', 'highlight.js',
-                     'intersection-observer', 'inversify']
+                'intersection-observer', 'inversify']
         },
         output: {
             filename: `[name].${isProduction ? '[chunkhash].min.' : ''}js`,
-            path: Path.join(docfxProjectDir, './bin/theme/styles'),
+            path: outputPath,
             publicPath: '/styles/'
         },
         resolve: {
             extensions: ['.ts', '.js'],
-            modules: [nodeModulesDir]
+            plugins: [new TsconfigPathsPlugin({ configFile: tsconfigPath })]
         },
-        resolveLoader: {
-            modules: [nodeModulesDir]
-        },
+        // Settings for resolving webpack loaders (like svgo-loader etc), does not seem necessary (webpack is probably searching for node_modules folders in the current directory and its parents)
+        // resolveLoader: {
+        //     modules: [nodeModulesDir]
+        // },
         module: {
             rules: [
                 {

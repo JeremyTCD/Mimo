@@ -3,6 +3,7 @@ import Component from '../shared/component';
 import ArticleGlobalService from '../shared/articleGlobalService';
 import MediaGlobalService from '../shared/mediaGlobalService';
 import { MediaWidth } from '../shared/mediaWidth';
+import ArticleMenuHeaderTextData from './articleMenuHeaderTextData';
 
 @injectable()
 export default class ArticleMenuHeaderComponent implements Component {

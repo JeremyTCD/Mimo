@@ -1,7 +1,7 @@
 ﻿import { named, injectable, inject } from 'inversify';
 import ResizeObserver from 'resize-observer-polyfill';
-import MediaGlobalService from '../shared/mediaGlobalService';
-import DebounceService from '../shared/debounceService';
+import MediaGlobalService from './mediaGlobalService';
+import DebounceService from './debounceService';
 import GlobalService from './globalService';
 import * as SmoothScroll from 'smooth-scroll';
 import { MediaWidth } from './mediaWidth';

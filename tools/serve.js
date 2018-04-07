@@ -39,11 +39,8 @@ async function serve() {
     // Set docfx project directory
     var docfxProjectDir = parser.getProjectDir();
 
-    // Set node modules directory
-    var nodeModulesDir = parser.getNodeDir();
-
     // Initialize builder
-    var builder = new Builder(docfxProjectDir, nodeModulesDir, debug);
+    var builder = new Builder(docfxProjectDir, debug);
 
     // Initial build
     await builder.cleanBin();
@@ -68,8 +65,8 @@ async function serve() {
         foldersToWatch,
         {
             ignored: [
-                path.join(docfxProjectDir, 'src/customizations/scripts'), // Watched by webpack
-                path.join(docfxProjectDir, 'src/customizations/styles')] // Watched by webpack
+                path.join(docfxProjectDir, 'src/scripts'), // Watched by webpack
+                path.join(docfxProjectDir, 'src/styles')] // Watched by webpack
         });
     var building = false;
     var pendingBuild = true;
@@ -117,9 +114,8 @@ async function serve() {
 
     // Start webpack-dev-server
     console.log(`start - webpack serve`);
-    var config = webpackConfig(docfxProjectDir, nodeModulesDir);
+    var config = webpackConfig(docfxProjectDir);
     config.entry.bundle.unshift("webpack-dev-server/client?http://localhost:8080/");
-    config.resolve.modules.unshift(nodeModulesDir);
     const compiler = webpack(config);
     const server = new webpackDevServer(compiler,
         {

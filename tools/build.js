@@ -16,11 +16,8 @@ async function build() {
     // Set docfx project directory
     var docfxProjectDir = parser.getProjectDir();
 
-    // Set node modules directory
-    var nodeModulesDir = parser.getNodeDir();
-
     // Initialize builder
-    var builder = new Builder(docfxProjectDir, nodeModulesDir, debug);
+    var builder = new Builder(docfxProjectDir, debug);
 
     // Build
     builder.buildFullBin();

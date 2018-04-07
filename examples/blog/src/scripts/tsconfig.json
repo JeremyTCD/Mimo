@@ -9,23 +9,17 @@
         "allowJs": true,
         "noEmitOnError": true,
         "typeRoots": [
-            "./node_modules/@types"
+            "../../../../node_modules/@types"
         ],
-        "types": [ "node", "reflect-metadata" ],
         "moduleResolution": "node",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "noUnusedLocals": true,
-        "noUnusedParameters": true
+        "noUnusedParameters": true,
+        "baseUrl": "../../../.."
     },
     "include": [
-        "./scripts/**/*.ts",
-        "./scripts/*.ts",
-        "./typings/*.d.ts"
-    ],
-    "exclude": [
-        "./scripts/workers/*.ts",
-        "node_modules",
-        "bin"
+        "./index.ts",
+        "../../../../scripts/typings/*"
     ]
 }

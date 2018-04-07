@@ -1,4 +1,8 @@
-﻿import { named, injectable, inject } from 'inversify';
+﻿// Import jquery extensions using reference syntax so that when testing mimo with docfx projects, the external tsconfigs do not need to include
+// scripts/typings
+/// <reference path="../typings/jquery-extensions.d.ts" />
+
+import { named, injectable, inject } from 'inversify';
 import * as Mark from 'mark.js';
 import Component from '../shared/component';
 import PaginationService from '../shared/paginationService';

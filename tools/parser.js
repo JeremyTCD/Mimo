@@ -26,26 +26,6 @@ class Parser {
 
         return docfxProjectDir;
     }
-
-    getNodeDir() {
-        var raw = argv.n;
-
-        if (!raw) {
-            throw "node_modules directory must be specified";
-        }
-        var nodeModulesDir = raw.trim();
-        if (!path.isAbsolute(nodeModulesDir)) {
-            nodeModulesDir = path.join(__dirname, nodeModulesDir);
-        }
-        if (!fs.existsSync(nodeModulesDir)) {
-            throw `node_modules directory ${nodeModulesDir} does not exist`;
-        }
-        if (this.debug) {
-            console.log(`serve: node_modules directory set to ${nodeModulesDir}`);
-        }
-
-        return nodeModulesDir;
-    }
 }
 
 module.exports =  Parser;

@@ -7,8 +7,7 @@ const webpackConfig = require('./webpack.config.js');
 const webpack = require('webpack');
 
 class Builder {
-    constructor(docfxProjectDir, nodeModulesDir, debug) {
-        this.nodeModulesDir = nodeModulesDir;
+    constructor(docfxProjectDir, debug) {
         this.docfxProjectDir = docfxProjectDir;
         this.debug = debug;
     }
@@ -45,7 +44,7 @@ class Builder {
             console.log(`** start - build site **`);
 
             var themeDir = path.join(this.docfxProjectDir, './bin/theme');
-            var overrideThemeDir = path.join(this.docfxProjectDir, './src/customizations/overrideTheme');
+            var overrideThemeDir = path.join(this.docfxProjectDir, './src/overrideTheme');
             var themeOption = `-t "${themeDir},${overrideThemeDir}"`;
             var siteContainingDir = path.join(this.docfxProjectDir, './bin/_site');
             var outputOption = `-o "${siteContainingDir}"`;
@@ -148,7 +147,7 @@ class Builder {
         return new Promise((resolve, reject) => {
             console.log(`start - webpack compile`);
 
-            webpack(webpackConfig(this.docfxProjectDir, this.nodeModulesDir), (err, stats) => {
+            webpack(webpackConfig(this.docfxProjectDir), (err, stats) => {
                 if (err) {
                     console.log(stats);
                     console.log(err);
