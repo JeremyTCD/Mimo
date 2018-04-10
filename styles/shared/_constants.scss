@@ -29,6 +29,8 @@ $opacity-6: 1.0;
 
 $ease-out-quad: cubic-bezier(0.33, 0.67, 0.67, 1);
 $ease-out-quad-delayed: cubic-bezier(0.33, 0.67, 0.67, 1) 0.06s;
+$ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+$ease-out-back-delayed: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.06s;
 
 $font-size-1: 11px;
 $font-size-2: 13px;
