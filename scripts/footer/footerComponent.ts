@@ -41,8 +41,8 @@ export default class FooterComponent extends RootComponent {
     }
 
     private updateViewportPlusMobileUrlBarHeight = (): void => {
-        let documentElementStyle = getComputedStyle(document.documentElement);
-        this._viewportPlusMobileUrlBarHeight = parseFloat(documentElementStyle.height);
+        let overlayElementStyle = getComputedStyle(document.getElementById('overlay'));
+        this._viewportPlusMobileUrlBarHeight = parseFloat(overlayElementStyle.height);
     }
 
     private setBackToTopButtonVisibility = (): void => {
