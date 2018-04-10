@@ -21,9 +21,10 @@
         margin-left: auto;
         width: $side-menu-width;
         background-size: 0% 2px;
-        transition: background-size 0.6s $ease-out-quad-delayed;
+        transition: background-size $medium-animation-duration $ease-out-quad;
 
         &:hover, &.active {
+            transition-delay: $anti-flicker-delay;
             background-size: 100% 2px;
         }
     }

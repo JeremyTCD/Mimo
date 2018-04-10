@@ -14,9 +14,10 @@
     background-repeat: no-repeat;
     background-position: 100% 0;
     background-size: 100% 100%;
-    transition: background-size 0.6s $ease-out-quad-delayed, border-color 0.4s $ease-out-quad-delayed;
+    transition: background-size $medium-animation-duration $ease-out-quad, border-color $short-animation-duration $ease-out-quad;
 
     &:hover, &.active {
+        transition-delay: $anti-flicker-delay;
         background-size: 0% 100%;
         border-color: $color-primary-text;
     }

@@ -45,7 +45,7 @@
             @include article-link-side-menu;
         }
 
-        @media #{$media-narrow}{
+        @media #{$media-narrow} {
             @include article-link-dropdown;
         }
 
@@ -84,7 +84,7 @@
 
                 #share-article-links-wrapper {
                     display: flex;
-                    transition: transform 0.3s $ease-out-quad-delayed;
+                    transition: transform $medium-animation-duration $ease-out-quad;
                     transform: translateX(-100%);
                     background-color: $color-secondary;
                     padding: 11px;
@@ -92,19 +92,22 @@
                     padding-bottom: 6px;
 
                     &.active {
+                        transition-delay: $anti-flicker-delay;
                         transform: translateX(0%);
                     }
 
                     a {
                         display: flex;
                         flex-shrink: 0;
-                        transition: transform 0.2s $ease-out-quad-delayed;
+                        transition: transform $short-animation-duration $ease-out-quad;
+                        transform: scale(1);
 
                         &:nth-child(n+2) {
                             margin-left: 10px;
                         }
 
                         &:hover {
+                            transition-delay: $anti-flicker-delay;
                             transform: scale(1.3333);
                         }
 

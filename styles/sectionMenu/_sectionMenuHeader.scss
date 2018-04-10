@@ -39,7 +39,7 @@
             width: 24px;
             fill: $color-secondary-text;
             transform: rotate(0);
-            transition: transform 0.3s $ease-out-quad;
+            transition: transform $medium-animation-duration $ease-out-quad;
         }
 
         &.expanded {

@@ -1,7 +1,5 @@
 ﻿@import 'constants';
 
-$hover-animation-duration: 0.55s;
-
 .pagination {
     font-size: $font-size-2;
     flex-direction: row;
@@ -17,7 +15,7 @@ $hover-animation-duration: 0.55s;
             height: 18px;
             width: 18px;
             fill: $color-primary-link;
-            transition: fill $hover-animation-duration $ease-out-quad-delayed;
+            transition: fill $short-animation-duration $ease-out-quad;
         }
 
         &.active {
@@ -46,13 +44,15 @@ $hover-animation-duration: 0.55s;
                     background-repeat: no-repeat;
                     background-position: 0 100%;
                     background-size: 0 100%;
-                    transition: background-size $hover-animation-duration $ease-out-quad-delayed, color $hover-animation-duration $ease-out-quad-delayed;
+                    transition: background-size $short-animation-duration $ease-out-quad, color $short-animation-duration $ease-out-quad;
 
                     &:hover {
                         background-size: 100% 100%;
                         color: $color-secondary-text;
+                        transition-delay: $anti-flicker-delay;
 
                         svg {
+                            transition-delay: $anti-flicker-delay;
                             fill: $color-secondary-text;
                         }
                     }

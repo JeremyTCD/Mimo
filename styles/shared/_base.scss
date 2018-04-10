@@ -15,7 +15,7 @@ body {
         opacity: 0;
         z-index: 2;
         visibility: hidden;
-        transition: opacity 0.3s $ease-out-quad;
+        transition: opacity $medium-animation-duration $ease-out-quad;
         will-change: opacity;
     }
 }

@@ -69,7 +69,7 @@
             background-color: $color-primary-icon;
             z-index: 1;
             transform-origin: top;
-            transition: transform 0.3s $ease-out-quad;
+            transition: transform $medium-animation-duration $ease-out-quad;
             will-change: transform;
 
             @media #{$media-narrow} {

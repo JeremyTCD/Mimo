@@ -10,7 +10,7 @@
     #disqus_thread {
         height: 0px;
         overflow: hidden;
-        transition: height 0.3s $ease-out-quad;
+        transition: height $medium-animation-duration $ease-out-quad;
     }
 
     #comments-loader {
@@ -18,7 +18,7 @@
         padding-bottom: 6px;
         flex-direction: column;
         align-items: center;
-        transition: opacity 0.26s $ease-out-quad, height 0.26s $ease-out-quad;
+        transition: opacity $medium-animation-duration $ease-out-quad, height $medium-animation-duration $ease-out-quad;
 
         span {
             margin-top: 6px;

@@ -9,7 +9,6 @@
     align-items: center;
     color: $color-secondary-text;
     flex-shrink: 0;
-    
     // When viewport vertical height is small, footer should be infront of side menus
     position: relative;
     z-index: 1;
@@ -106,13 +105,14 @@
 
             a {
                 margin-right: 16px;
-                transition: transform 0.3s $ease-out-quad-delayed;
+                transition: transform $short-animation-duration $ease-out-quad;
 
                 &:last-child {
                     margin-right: 0px;
                 }
 
                 &:hover {
+                    transition: transform $short-animation-duration $ease-out-back-delayed;
                     transform: scale(1.3333);
                 }
 
@@ -129,16 +129,17 @@
         margin-left: auto;
         padding-left: 20px;
         opacity: 0;
-        transition: opacity 0.26s $ease-out-quad;
+        transition: opacity $short-animation-duration $ease-out-quad;
 
         &.visible {
             opacity: $opacity-6;
         }
 
         a {
-            transition: transform 0.3s $ease-out-quad-delayed;
+            transition: transform $short-animation-duration $ease-out-quad;
 
             &:hover {
+                transition: transform $short-animation-duration $ease-out-back-delayed;
                 transform: scale(1.3333);
             }
 

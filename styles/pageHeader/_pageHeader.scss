@@ -37,10 +37,10 @@
 
             img {
                 height: 52px;
-                transition: transform 0.3s $ease-out-quad;
+                transition: transform $short-animation-duration $ease-out-quad;
 
                 &:hover {
-                    transition: transform 0.3s $ease-out-back-delayed;
+                    transition: transform $short-animation-duration $ease-out-back-delayed;
                     transform: scale(1.307692);
                 }
             }
@@ -66,7 +66,7 @@
                 }
 
                 background-color: $color-primary-link;
-                transition: transform 0.3s $ease-out-quad, background-color 0.3s $ease-out-quad;
+                transition: transform $medium-animation-duration $ease-out-quad;
             }
 
             &:hover, &:focus {
