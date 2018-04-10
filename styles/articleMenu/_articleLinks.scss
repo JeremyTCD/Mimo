@@ -107,7 +107,7 @@
                         }
 
                         &:hover {
-                            transition-delay: $anti-flicker-delay;
+                            transition: transform $short-animation-duration $ease-out-back-delayed;
                             transform: scale(1.3333);
                         }
 
