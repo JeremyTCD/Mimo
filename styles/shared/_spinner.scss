@@ -4,34 +4,39 @@
     flex-direction: row;
     justify-content: center;
     overflow: hidden;
-}
 
-.spinner > div {
-    background-color: $color-primary-text;
-    opacity: $opacity-4;
-    height: 20px;
-    width: 2px;
-    animation: sk-stretchdelay 1s infinite ease-in-out;
-
-    & + div {
-        margin-left: 5px;
+    &.active {
+        > div {
+            animation: sk-stretchdelay 1s infinite ease-in-out;
+        }
     }
-}
 
-.spinner .rect2 {
-    animation-delay: -0.9s;
-}
+    > div {
+        background-color: $color-primary-text;
+        opacity: $opacity-4;
+        height: 20px;
+        width: 2px;
 
-.spinner .rect3 {
-    animation-delay: -0.8s;
-}
+        & + div {
+            margin-left: 5px;
 
-.spinner .rect4 {
-    animation-delay: -0.7s;
-}
+            &.rect2 {
+                animation-delay: -0.9s;
+            }
 
-.spinner .rect5 {
-    animation-delay: -0.6s;
+            &.rect3 {
+                animation-delay: -0.8s;
+            }
+
+            &.rect4 {
+                animation-delay: -0.7s;
+            }
+
+            &.rect5 {
+                animation-delay: -0.6s;
+            }
+        }
+    }
 }
 
 @-webkit-keyframes sk-stretchdelay {

@@ -4,12 +4,14 @@ import HeightService from '../shared/heightService';
 
 @injectable()
 export default class CommentsComponent extends RootComponent {
+    private _commentsElement: HTMLElement;
     private _disqusThreadElement: HTMLElement;
+    private _spinner: HTMLElement;
+
     private _disqusShortname: string;
     private _disqusIdentifier: string;
     private _heightService: HeightService;
     private _intersectionObserver: IntersectionObserver;
-    private _initialCallMade: boolean;
 
     public constructor(heightService: HeightService) {
 
@@ -18,11 +20,16 @@ export default class CommentsComponent extends RootComponent {
     }
 
     public setupImmediate(): void {
-        this._disqusThreadElement = document.getElementById('disqus_thread');
+        this._commentsElement = document.getElementById('comments');
+
+        if (this.enabled()) {
+            this._disqusThreadElement = document.getElementById('disqus_thread');
+            this._spinner = document.getElementById('disqus-spinner');
+        }
     }
 
     public enabled(): boolean {
-        return this._disqusThreadElement ? true : false;
+        return this._commentsElement ? true : false;
     }
 
     public setupOnDomContentLoaded(): void {
@@ -33,16 +40,16 @@ export default class CommentsComponent extends RootComponent {
     public setupOnLoad(): void {
         this._intersectionObserver = new IntersectionObserver(this.onIntersect);
 
-        this._initialCallMade = false;
-        this._intersectionObserver.observe(this._disqusThreadElement);
+        this._intersectionObserver.observe(this._commentsElement);
     }
 
-    private onIntersect = (): void => {
-        if (!this._initialCallMade) {
-            this._initialCallMade = true;
+    private onIntersect = (entries: IntersectionObserverEntry[], _: IntersectionObserver): void => {
+        // Some browsers make an initial call to the callback, regardless of whether there is any intersection
+        if (entries[0].intersectionRatio === 0) {
             return;
         }
 
+        this._spinner.classList.add('active');
 
         this._intersectionObserver.disconnect();
         this._intersectionObserver = null;
