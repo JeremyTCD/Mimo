@@ -32,7 +32,6 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     public setupImmediate(): void {
-        this.setupSmoothScroll();
         this._headerElements = document.querySelectorAll('.jtcd-article .header-1, .jtcd-article .header-2');
 
         this._bodyResizeObserver = new ResizeObserver(this.onScrollAndResizeListener);
@@ -44,6 +43,8 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     public setupOnLoad(): void {
+        // When smooth scroll initializes, it reads header height. Therefore it can only be called after the load event.
+        this.setupSmoothScroll();
         this.setupHeaderMarginTops();
 
         // Simulate scroll to hash
