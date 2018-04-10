@@ -23,8 +23,5 @@
     },
     "include": [
         "./host.ts"
-    ],
-    "exclude": [
-        "./workers/*"
     ]
 }
