@@ -9,9 +9,6 @@ export default class SectionMenuHeaderComponent implements Component {
     private _headerElement: HTMLElement;
     private _breadcrumbs: TreeNode[] = [];
 
-    private _rootBreadcrumbLoaded: boolean = false;
-    private _childBreadcrumbsLoaded: boolean = false;
-
     public constructor(treeService: TreeService) {
         this._treeService = treeService;
     }
@@ -26,11 +23,13 @@ export default class SectionMenuHeaderComponent implements Component {
     public setupOnLoad(): void {
     }
 
-    public loadRootBreadCrumb(anchorElement: HTMLAnchorElement): void {
-        if (!this._rootBreadcrumbLoaded) {
-            let clone = anchorElement.cloneNode(true) as HTMLElement;
+    public loadChildBreadcrumbs(elements: HTMLElement[]): void {
+        for (let i = elements.length - 1; i >= 0; i--) {
+            let element = elements[i];
+            let clone = element.cloneNode(true) as HTMLElement;
             let wrapper: HTMLElement;
 
+            clone.removeChild(clone.querySelector('svg'));
             clone.setAttribute('style', '');
 
             // Wrap anchors so animated underline works
@@ -39,45 +38,13 @@ export default class SectionMenuHeaderComponent implements Component {
                 wrapper.appendChild(clone);
             }
 
-            this._breadcrumbs.unshift({
+            this._breadcrumbs.push({
                 element: wrapper || clone,
                 items: null
             });
-
-            this._rootBreadcrumbLoaded = true;
-            if (this._childBreadcrumbsLoaded) {
-                this.insertBreadcrumbs();
-            }
         }
-    }
 
-    public loadChildBreadcrumbs(elements: HTMLElement[]): void {
-        if (!this._childBreadcrumbsLoaded) {
-            for (let i = elements.length - 1; i >= 0; i--) {
-                let element = elements[i];
-                let clone = element.cloneNode(true) as HTMLElement;
-                let wrapper: HTMLElement;
-
-                clone.removeChild(clone.querySelector('svg'));
-                clone.setAttribute('style', '');
-
-                // Wrap anchors so animated underline works
-                if (clone.tagName === 'A') {
-                    wrapper = document.createElement('span');
-                    wrapper.appendChild(clone);
-                }
-
-                this._breadcrumbs.push({
-                    element: wrapper || clone,
-                    items: null
-                });
-            }
-
-            this._childBreadcrumbsLoaded = true;
-            if (this._rootBreadcrumbLoaded) {
-                this.insertBreadcrumbs();
-            }
-        }
+        this.insertBreadcrumbs();
     }
 
     private insertBreadcrumbs() {
