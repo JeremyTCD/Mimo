@@ -1,65 +1,65 @@
-﻿$color-primary: #fff;
-$color-primary-text: #212121;
-$color-primary-highlight: #FFD039;
-$color-primary-link: #1e88e5;
-$color-primary-link-disabled: #bebebe;
-$color-primary-inline-code-background: #f4f4f4;
-$color-primary-inline-code-dark-background: #ececec;
-$color-primary-icon: #646464;
+﻿$color-primary: #fff !default;
+$color-primary-text: #212121 !default;
+$color-primary-highlight: #FFD039 !default;
+$color-primary-link: #1e88e5 !default;
+$color-primary-link-disabled: #bebebe !default;
+$color-primary-inline-code-background: #f4f4f4 !default;
+$color-primary-inline-code-dark-background: #ececec !default;
+$color-primary-icon: #646464 !default;
 
-$color-secondary: #1565c0;
-$color-secondary-text: #fff;
+$color-secondary: #1565c0 !default;
+$color-secondary-text: #fff !default;
 
-$color-alert-note-background: #f1f6fb;
-$color-alert-warning: #ffdb08;
-$color-alert-warning-background: #fffdf0;
-$color-alert-critical-warning: #ff2508;
-$color-alert-critical-warning-background: #fff2f0;
+$color-alert-note-background: #f1f6fb !default;
+$color-alert-warning: #ffdb08 !default;
+$color-alert-warning-background: #fffdf0 !default;
+$color-alert-critical-warning: #ff2508 !default;
+$color-alert-critical-warning-background: #fff2f0 !default;
 
-$color-section-body-background: #f9f9f9;
-$color-section-header-background: #f0f0f0;
+$color-section-body-background: #f9f9f9 !default;
+$color-section-header-background: #f0f0f0 !default;
 
-$opacity-blockquote: 0.06;
-$opacity-1: 0.45;
-$opacity-2: 0.54;
-$opacity-3: 0.6;
-$opacity-4: 0.7;
-$opacity-5: 0.80;
-$opacity-6: 1.0;
+$opacity-blockquote: 0.06 !default;
+$opacity-1: 0.45 !default;
+$opacity-2: 0.54 !default;
+$opacity-3: 0.6 !default;
+$opacity-4: 0.7 !default;
+$opacity-5: 0.80 !default;
+$opacity-6: 1.0 !default;
 
-$short-animation-duration: 0.2s;
-$medium-animation-duration: 0.3s;
-$long-animation-duration: 0.4s;
-$anti-flicker-delay: 0.06s;
-$ease-out-quad: cubic-bezier(0.33, 0.67, 0.67, 1);
-$ease-out-quad-delayed: $ease-out-quad $anti-flicker-delay;
-$ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-$ease-out-back-delayed: $ease-out-back $anti-flicker-delay;
+$short-animation-duration: 0.2s !default;
+$medium-animation-duration: 0.3s !default;
+$long-animation-duration: 0.4s !default;
+$anti-flicker-delay: 0.06s !default;
+$ease-out-quad: cubic-bezier(0.33, 0.67, 0.67, 1) !default;
+$ease-out-quad-delayed: $ease-out-quad $anti-flicker-delay !default;
+$ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275) !default;
+$ease-out-back-delayed: $ease-out-back $anti-flicker-delay !default;
 
-$font-size-1: 11px;
-$font-size-2: 13px;
-$font-size-3: 15px;
-$font-size-4: 16px;
-$font-size-5: 20px;
-$font-size-6: 26px;
-$font-size-7: 42px;
+$font-size-1: 11px !default;
+$font-size-2: 13px !default;
+$font-size-3: 15px !default;
+$font-size-4: 16px !default;
+$font-size-5: 20px !default;
+$font-size-6: 26px !default;
+$font-size-7: 42px !default;
 
-$side-menu-width: 248px;
+$side-menu-width: 248px !default;
 
-$media-narrow: '(max-width: 855px)';
-$media-medium: '(min-width: 856px) and (max-width: 1183px)';
-$media-wide: '(min-width: 1184px)';
+$media-narrow: '(max-width: 855px)' !default;
+$media-medium: '(min-width: 856px) and (max-width: 1183px)' !default;
+$media-wide: '(min-width: 1184px)' !default;
 
-$animated-underline-11px-ypos: 14px;
-$animated-underline-13px-ypos: 17px;
-$animated-underline-13px-inline-ypos: 15px;
-$animated-underline-15px-ypos: 20px;
-$animated-underline-15px-inline-ypos: 18px;
-$animated-underline-26px-ypos: 30px;
+$animated-underline-11px-ypos: 14px !default;
+$animated-underline-13px-ypos: 17px !default;
+$animated-underline-13px-inline-ypos: 15px !default;
+$animated-underline-15px-ypos: 20px !default;
+$animated-underline-15px-inline-ypos: 18px !default;
+$animated-underline-26px-ypos: 30px !default;
 
-$horizontal-edge-narrow: 14px;
-$horizontal-edge-medium: 23px;
-$horizontal-edge-wide: 30px;
+$horizontal-edge-narrow: 14px !default;
+$horizontal-edge-medium: 23px !default;
+$horizontal-edge-wide: 30px !default;
 
 @mixin pure-flex() {
     display: flex;

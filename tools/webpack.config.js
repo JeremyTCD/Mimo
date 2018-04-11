@@ -10,6 +10,11 @@ const CssNano = require('cssnano');
 const Glob = require('glob');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
+// Known issues
+// - Loaders run twice, this is due to the extract-text-webpack-plugin https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/647
+// - Sprite loader can't be used due to poor support on some browsers
+// - ForkTsCheckerWebpackPlugin reports errors that tsc does not report
+
 module.exports = (docfxProjectDir) => {
     const tsconfigPath = Path.join(docfxProjectDir, 'src/scripts/tsconfig.json');
     if (!Fs.existsSync(tsconfigPath)) {
@@ -23,9 +28,7 @@ module.exports = (docfxProjectDir) => {
 
     const isProduction = process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production';
     const outputPath = Path.join(docfxProjectDir, './bin/theme/styles');
-
-    // TODO remove
-    const stylesCustomIndex = Glob.sync(Path.join(docfxProjectDir, 'src/styles/customIndex.*'))[0];
+    const mimoRootDir = Path.join(__dirname, '..');
 
     var plugins = [
         // TODO: This setting extracts the svg sprite sheet so it can be cached. Svg sprites are however, somewhat poorly implemented.
@@ -33,11 +36,6 @@ module.exports = (docfxProjectDir) => {
         //
         // Combines svg files into an svg sprite
         //new SpriteLoaderPlugin({ plainSprite: true }),
-
-        // Used to add requires for custom files
-        new Webpack.DefinePlugin({
-            STYLES_CUSTOM_INDEX: stylesCustomIndex ? `"${stylesCustomIndex}"` : false
-        }),
 
         new Webpack.ProvidePlugin({
             $: 'jquery',
@@ -197,7 +195,24 @@ module.exports = (docfxProjectDir) => {
                                     }
                                 }
                             },
-                            { loader: 'sass-loader' }
+                            {
+                                loader: 'sass-loader',
+                                options: {
+                                    // When serve.js <project> is run, the intention is always to utilize the styles contained in <serve.js dir>/../styles. This script allows mimo to be tested with
+                                    // any project. Note that intellisense will be compromized for target projects.
+                                    importer: (url, prev, done) => {
+                                        let nodeModuleStylesPath = 'node_modules/mimo-website/dist/styles/';
+                                        let index = url.indexOf(nodeModuleStylesPath);
+                                        if (index > -1) {
+                                            let substringStartIndex = index + nodeModuleStylesPath.length;
+                                            let newPath = Path.join(mimoRootDir, `/styles/${url.substring(substringStartIndex)}`);
+                                            return { file: newPath };
+                                        }
+
+                                        return { file: url };
+                                    }
+                                }
+                            }
                         ]
                     })
                 },

@@ -1,13 +1,4 @@
-﻿declare var STYLES_CUSTOM_INDEX: string;
-
-// TODO should import scss constants first, then allow custom scss to customize constants, then import the rest of the scss
-if (STYLES_CUSTOM_INDEX) {
-    require(STYLES_CUSTOM_INDEX);
-}
-
-import '../styles/index.scss';
-
-// TODO use commonjs style since tsc removes es6 style imports, e.g 'import logo from './logo.svg''. This shouldn't 
+﻿// TODO use commonjs style since tsc removes es6 style imports, e.g 'import logo from './logo.svg''. This shouldn't 
 // be the case.
 require('../resources/material-design-clear-black.svg');
 require('../resources/material-design-search.svg');
