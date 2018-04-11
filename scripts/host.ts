@@ -55,7 +55,7 @@ import TableOfContentsComponent from './articleMenu/tableOfContentsComponent';
 import ArticleLinksComponent from './articleMenu/articleLinksComponent';
 import ArticleMenuHeaderComponent from './articleMenu/articleMenuHeaderComponent';
 
-import FooterComponent from './footer/footerComponent';
+import PageFooterComponent from './pageFooter/pageFooterComponent';
 
 import CodeService from './shared/codeService';
 import DebounceService from './shared/debounceService';
@@ -178,7 +178,7 @@ export default class Host {
         container.bind<ArticleMenuHeaderComponent>(ArticleMenuHeaderComponent).toSelf().inSingletonScope();
 
         // Footer
-        container.bind<RootComponent>('RootComponent').to(FooterComponent).inSingletonScope();
+        container.bind<RootComponent>('RootComponent').to(PageFooterComponent).inSingletonScope();
 
         // Shared
         container.bind<GlobalService>('GlobalService').to(ArticleGlobalService).inSingletonScope().whenTargetNamed('ArticleGlobalService');

@@ -4,7 +4,7 @@ import RootComponent from '../shared/rootComponent';
 import DebounceService from '../shared/debounceService';
 
 @injectable()
-export default class FooterComponent extends RootComponent {
+export default class PageFooterComponent extends RootComponent {
     private _footerButtonElement: HTMLElement;
 
     private _debounceService: DebounceService;
@@ -36,7 +36,7 @@ export default class FooterComponent extends RootComponent {
 
         // TODO one of the main reasons for using ResizeObserver is that it provides dimensions so layouts can be avoided - https://developers.google.com/web/updates/2016/10/resizeobserver
         // Utilize those values.
-        const bodyResizeObserver = new ResizeObserver(this._debounceService.createTimeoutDebounceFunction(this.setBackToTopButtonVisibility, FooterComponent.DEBOUNCE_DURATION));
+        const bodyResizeObserver = new ResizeObserver(this._debounceService.createTimeoutDebounceFunction(this.setBackToTopButtonVisibility, PageFooterComponent.DEBOUNCE_DURATION));
         bodyResizeObserver.observe(document.body);
     }
 
