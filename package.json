@@ -58,7 +58,7 @@
         "reflect-metadata": "^0.1.12",
         "resize-observer-polyfill": "^1.5.0",
         "rimraf": "^2.6.2",
-        "sass-loader": "^6.0.0",
+        "sass-loader": "^6.0.7",
         "smooth-scroll": "^12.1.5",
         "svg-sprite-loader": "^3.6.2",
         "svgo": "^1.0.3",
