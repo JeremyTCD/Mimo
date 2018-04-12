@@ -6,7 +6,6 @@
         "lib": [ "es6", "dom" ],
         "noImplicitAny": false,
         "sourceMap": true,
-        "allowJs": true,
         "noEmitOnError": true,
         // Packages in @types are d.ts files for libraries that do not ship with typings of their own.
         // Packages can contain their own typings, declared using the typings property in package.json.
@@ -19,9 +18,14 @@
         "emitDecoratorMetadata": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "outDir": "../dist"
+        "declaration": true,
+        "outDir": "../dist/scripts"
     },
     "include": [
-        "./host.ts"
+        "./core.ts",
+        "./typings/*.d.ts"
+    ],
+    "exclude": [
+        "./workers/*.worker.ts"
     ]
 }

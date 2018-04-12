@@ -55,6 +55,7 @@ class Builder {
 
             exec(`docfx build ${themeOption} ${outputOption}`, { cwd: this.docfxProjectDir }, (err, stdout, stderr) => {
                 if (err) {
+                    console.log(err);
                     console.log(stdout);
                     reject();
                 } else {
