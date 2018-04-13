@@ -11,7 +11,7 @@ export default class TooltipService {
 
         Tippy(element, {
             placement: placement,
-            duration: 500,
+            duration: 200,
             hideOnClick: false,
             trigger: 'manual',
             animateFill: false
