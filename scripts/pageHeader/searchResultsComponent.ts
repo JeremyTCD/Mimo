@@ -12,12 +12,15 @@ export default class SearchResultsComponent implements Component {
     private _searchResultsMessageElement: HTMLSpanElement;
     private _searchStringMessageElement: HTMLSpanElement;
     private _articleListElement: HTMLElement;
-    private _paginationParentElements: NodeList;
-    private _pageHeaderElement: HTMLElement;
     private _articleListItemsParentElement: HTMLElement;
+    private _pageHeaderElement: HTMLElement;
+
     private _paginationService: PaginationService;
     private _overlayService: OverlayService;
     private _mediaGlobalService: MediaGlobalService;
+
+    private _paginationParentElements: NodeList;
+    private _shown: boolean;
 
     public constructor(
         @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
@@ -47,6 +50,10 @@ export default class SearchResultsComponent implements Component {
     }
 
     public setShown(shown: boolean) {
+        if (this._shown === shown) {
+            return;
+        }
+
         if (shown) {
             this._searchResultsElement.style.display = 'flex';
 
@@ -64,6 +71,8 @@ export default class SearchResultsComponent implements Component {
                 this._overlayService.deactivateOverlay(false);
             }
         }
+
+        this._shown = shown;
     }
 
     public setSnippets = (snippets: string[], queryString: string): void => {

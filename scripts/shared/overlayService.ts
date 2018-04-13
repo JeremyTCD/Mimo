@@ -7,7 +7,6 @@ export default class OverlayService {
     private _overlayActive: boolean;
 
     public activateOverlay(focusedElement: HTMLElement, disableBodyScroll: boolean = true, fadeIn: boolean = true) {
-
         if (!this._overlayActive) {
             if (!this._overlayElement) {
                 this._overlayElement = document.getElementById('overlay');
