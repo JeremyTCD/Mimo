@@ -16,9 +16,13 @@
         "emitDecoratorMetadata": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "baseUrl": "../../../.."
+        "baseUrl": ".",
+        "paths": {
+            "mimo-website/*": ["../../../../scripts/*"]
+        }
     },
     "include": [
-        "./index.ts"
+        "./index.ts",
+        "../../../../scripts/typings/*.d.ts"
     ]
 }

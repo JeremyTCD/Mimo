@@ -3,12 +3,12 @@
     "version": "1.0.0",
     "private":  true,
     "scripts": {
-        "serve-dev": "set NODE_ENV=development && yarn run serve",
-        "serve-production": "set NODE_ENV=production && yarn run serve",
-        "serve": "node node_modules/mimo-website/dist/tools/serve.js -p ../../../../ -n ../../../",
-        "build-dev": "set NODE_ENV=development && yarn run build",
-        "build-production": "set NODE_ENV=production && yarn run build",
-        "build": "node node_modules/mimo-website/dist/tools/build.js -p ../../../../ -n ../../../"
+        "serve-dev": "set NODE_ENV=development && yarn run serve -p ../../../../",
+        "serve-production": "set NODE_ENV=production && yarn run serve -p ../../../../",
+        "serve": "node node_modules/mimo-website/dist/tools/serve.js",
+        "build-dev": "set NODE_ENV=development && yarn run build -p ../../../../",
+        "build-production": "set NODE_ENV=production && yarn run build -p ../../../../",
+        "build": "node node_modules/mimo-website/dist/tools/build.js"
     },
     "dependencies": {},
     "devDependencies": {
