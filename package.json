@@ -1,5 +1,5 @@
 {
-    "version": "123.33.4",
+    "version": "134.12.348",
     "name": "mimo-website",
     "description": "Mimo is a DocFX based tool for generating minimalistic, modern documentation sites/blogs.",
     "keywords": [
@@ -20,9 +20,9 @@
         "dist"
     ],
     "scripts": {
-        "serve-dev": "set NODE_ENV=development && yarn run serve",
-        "serve-production": "set NODE_ENV=production && yarn run serve",
-        "serve": "node tools/serve.js -p ../examples/blog/",
+        "serve-example-dev": "set NODE_ENV=development && yarn run serve -p ../examples/blog/",
+        "serve-example-production": "set NODE_ENV=production && yarn run serve -p ../examples/blog/",
+        "serve": "node tools/serve.js",
         "build-example-dev": "set NODE_ENV=development && yarn run build-example",
         "build-example-production": "set NODE_ENV=production && yarn run build-example",
         "build-example": "node tools/build.js -p ../examples/blog/",
@@ -72,6 +72,6 @@
         "url-loader": "^0.6.2",
         "webpack": "^3.9.1",
         "webpack-dev-server": "^2.9.7",
-        "worker-loader": "^1.1.0"
+        "worker-loader": "^1.1.1"
     }
 }
