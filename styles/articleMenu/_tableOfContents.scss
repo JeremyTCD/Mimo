@@ -92,12 +92,12 @@
                 // that is an immediate child or sibling of the root ul element will not extend into the overflow area. A work around is to use
                 // height: max-content, but max-content is not supported on edge.
                 .indicator-track {
-                    width: 2px;
+                    width: 1px;
                     position: absolute;
                     left: 0;
                     top: 0;
                     bottom: 0;
-                    background-color: $color-section-header-background;
+                    background-color: $color-section-divider-background;
                 }
             }
         }
