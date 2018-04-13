@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
 import SearchResultsComponent from '../pageHeader/searchResultsComponent';
-import SearchWorker from '../workers/searchWorker';
+import SearchWorker = require('worker-loader!../workers/search.worker');
 
 @injectable()
 export default class SearchService {
