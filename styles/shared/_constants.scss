@@ -62,6 +62,38 @@ $horizontal-edge-narrow: 14px !default;
 $horizontal-edge-medium: 23px !default;
 $horizontal-edge-wide: 30px !default;
 
+@mixin section-body-edges($y-correction: 0, $x-correction: 0, $use-margin: false) {
+    $property: if($use-margin, margin, padding);
+
+    @media #{$media-wide} {
+        #{$property}: (18 + $y-correction) * 1px (29 + $x-correction) * 1px;
+    }
+
+    @media #{$media-medium} {
+        #{$property}: (18 + $y-correction) * 1px (22 + $x-correction) * 1px;
+    }
+
+    @media #{$media-narrow} {
+        #{$property}: (7 + $y-correction) * 1px (13 + $x-correction) * 1px;
+    }
+}
+
+@mixin section-header-edges($y-correction: 0, $x-correction: 0, $use-margin: false) {
+    $property: if($use-margin, margin, padding);
+
+    @media #{$media-wide} {
+        #{$property}: (7 + $y-correction) * 1px (29 + $x-correction) * 1px;
+    }
+
+    @media #{$media-medium} {
+        #{$property}: (7 + $y-correction) * 1px (22 + $x-correction) * 1px;
+    }
+
+    @media #{$media-narrow} {
+        #{$property}: (7 + $y-correction) * 1px (13 + $x-correction) * 1px;
+    }
+}
+
 @mixin pure-flex() {
     display: flex;
 

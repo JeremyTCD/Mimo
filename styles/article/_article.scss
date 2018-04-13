@@ -421,20 +421,12 @@ article {
 
                 td {
                     vertical-align: top;
-                    padding: 18px 28px;
 
-                    @media #{$media-narrow} {
-                        padding: 10px 20px;
-                    }
+                    @include section-body-edges();
                 }
 
                 th {
-                    padding: 6px 28px;
-
-                    @media #{$media-narrow} {
-                        padding: 6px 20px;
-                    }
-
+                    @include section-header-edges();
                     font-weight: 600;
                     background-color: $color-section-header-background;
                 }
@@ -462,14 +454,11 @@ article {
         blockquote {
             display: flex;
             border-left: 3px solid $color-primary-icon;
-            padding: 18px 26px;
             background-color: $color-section-body-background;
             flex-direction: column;
             font-style: italic;
-
-            @media #{$media-narrow} {
-                padding: 10px 20px;
-            }
+            // Slanted text appears further from edge
+            @include section-body-edges($x-correction: -1);
 
             p {
                 a {
@@ -481,19 +470,16 @@ article {
         .alert-note, .alert-warning, .alert-critical-warning {
             display: flex;
             border-left: 3px solid;
-            padding: 18px 26px;
-            padding-left: 12px;
-
-            @media #{$media-narrow} {
-                padding: 10px 20px;
-                padding-left: 7px;
-            }
+            // Icons have rounded/sharp left sides
+            @include section-body-edges($x-correction: -3);
 
             svg {
-                margin-right: 11px;
+                @media #{$media-medium}, #{$media-wide} {
+                    margin-right: 16px;
+                }
 
                 @media #{$media-narrow} {
-                    margin-right: 6px;
+                    margin-right: 9px;
                 }
 
                 height: 24px;
