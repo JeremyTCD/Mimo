@@ -133,7 +133,8 @@ module.exports = (docfxProjectDir) => {
         },
         resolve: {
             extensions: ['.ts', '.js'],
-            plugins: [new TsconfigPathsPlugin({ configFile: tsconfigPath })]
+            // When resolving from node_modules, typically importing .js (compiled .ts) files, so must specify extensions.
+            plugins: [new TsconfigPathsPlugin({ configFile: tsconfigPath, extensions: ['.ts', '.js'] })]
         },
         // Settings for resolving webpack loaders (like svgo-loader etc), does not seem necessary (webpack is probably searching for node_modules folders in the current directory and its parents)
         // resolveLoader: {
@@ -151,11 +152,6 @@ module.exports = (docfxProjectDir) => {
                         },
                         { loader: 'svgo-loader' }
                     ]
-                },
-                {
-                    test: /search\.worker\.ts$/,
-                    use: 'worker-loader',
-                    exclude: ['node_modules']
                 },
                 {
                     test: /\.ts$/,
