@@ -12,6 +12,7 @@
 
     public reset() {
         this._inputElement.value = '';
+        this.deactivateWrapper();
         this.hideClearElement();
 
         if (this._onReset) {
@@ -44,12 +45,20 @@
     private inputFocusOutEventListener = () => {
         // If there is still text, search input is still "active"
         if (this._inputElement.value.length === 0) {
-            this._wrapperElement.classList.remove('active');
+            this.deactivateWrapper();
         }
     }
 
     private inputFocusEventListener = () => {
+        this.activateWrapper();
+    }
+
+    private activateWrapper = () => {
         this._wrapperElement.classList.add('active');
+    }
+
+    private deactivateWrapper = () => {
+        this._wrapperElement.classList.remove('active');
     }
 
     private showClearElement() {
