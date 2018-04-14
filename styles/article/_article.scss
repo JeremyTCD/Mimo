@@ -416,38 +416,12 @@ article {
             align-self: stretch;
             overflow-x: auto;
 
-            table {
-                width: 100%;
+            @media #{$media-medium}, #{$media-wide} {
+                @include full-table;                
+            }
 
-                td {
-                    vertical-align: top;
-
-                    @include section-body-edges();
-                }
-
-                th {
-                    @include section-header-edges();
-                    font-weight: 600;
-                    background-color: $color-section-header-background;
-                }
-
-                tbody {
-                    tr {
-                        &:nth-child(even) {
-                            background-color: $color-section-body-background;
-
-                            a {
-                                @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
-                            }
-
-                            *:not(pre) {
-                                > code {
-                                    background-color: $color-primary-inline-code-dark-background;
-                                }
-                            }
-                        }
-                    }
-                }
+            @media #{$media-narrow} {
+                @include split-table;
             }
         }
 

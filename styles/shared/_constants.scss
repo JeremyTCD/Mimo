@@ -210,3 +210,113 @@ $horizontal-edge-wide: 30px !default;
     transition: transform $medium-animation-duration $ease-out-quad;
     will-change: transform;
 }
+
+@mixin full-table {
+    .full-table {
+        width: 100%;
+        display: table;
+
+        .full-table-header-group {
+            display: table-header-group;
+
+            .full-table-cell {
+                @include section-header-edges();
+                font-weight: 600;
+                background-color: $color-section-header-background;
+            }
+        }
+
+        .full-table-row-group {
+            display: table-row-group;
+        }
+
+        .full-table-row {
+            display: table-row;
+
+            &:nth-child(even) {
+                background-color: $color-section-body-background;
+
+                a {
+                    @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
+                }
+
+                *:not(pre) {
+                    > code {
+                        background-color: $color-primary-inline-code-dark-background;
+                    }
+                }
+            }
+        }
+
+        .full-table-cell {
+            @include section-body-edges();
+            display: table-cell;
+
+            .full-none {
+                display: none;
+            }
+        }
+
+        .text-align-center {
+            text-align: center;
+        }
+
+        .text-align-left {
+            text-align: left;
+        }
+
+        .text-align-right {
+            text-align: right;
+        }
+    }
+}
+
+@mixin split-table {
+    .split-block {
+        display: block;
+    }
+
+    .split-none {
+        display: none;
+    }
+
+    .split-table {
+        display: table;
+
+        .split-table-row-group {
+            display: table-row-group;
+
+            &:nth-child(odd) {
+                background-color: $color-section-body-background;
+
+                a {
+                    @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
+                }
+
+                *:not(pre) {
+                    > code {
+                        background-color: $color-primary-inline-code-dark-background;
+                    }
+                }
+            }
+
+            .split-table-row {
+                display: table-row;
+
+                .split-table-cell {
+                    display: table-cell;
+                    text-align: left;
+                    @include section-header-edges();
+
+                    &:first-child {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+
+        .vertical-align-center{
+            vertical-align: middle;
+        }
+    }
+}
