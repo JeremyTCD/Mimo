@@ -1,9 +1,24 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.11...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.12...HEAD)
 
-## [1.0.0-alpha.10](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.10...1.0.0-alpha.11) - Mar 5, 2018
+## [1.0.0-alpha.12](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.11...1.0.0-alpha.12) - Apr 14, 2018
+### Added
+- Responsive tables.
+- Share article button.
+- Support for social media cards (facebook and twitter).
+- Performant dropdown menus (visible when screen is narrow). 
+### Changed
+- Completely re-organized logic and styles for extensibility. Scripts can now be extended through a dependency injection container. 
+Sass variables can now be overriden.
+- Updated tooling to facilitate extensibility.
+- Sped up animations site-wide to make site feel snappier.
+- Comments now use IntersectionObserver to determine when to load.
+### Fixed
+- Inumerable fixes.
+
+## [1.0.0-alpha.11](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.10...1.0.0-alpha.11) - Mar 5, 2018
 ### Added
 - mimo_headerElements option for adding elements to header (meant for stuff like meta and link elements).
 - Locally hosted fonts for example article.
