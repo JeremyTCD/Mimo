@@ -1,6 +1,7 @@
 ﻿---
 mimo_pageDescription: This is an example of an article with formatting.
 mimo_pageTitle: Using External Resources
+mimo_pageID: using-external-resources
 mimo_date: 11/02/2014
 mimo_fontLinks:
   - link: https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i|Droid+Sans+Mono
