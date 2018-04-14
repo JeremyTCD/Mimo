@@ -63,15 +63,28 @@
             flex-shrink: 0;
             height: 24px;
             width: 24px;
-            fill: $color-primary-link-disabled;
             transform: rotate(0);
-            transition: transform $medium-animation-duration $ease-out-quad, fill $medium-animation-duration $ease-out-quad;
+
+            &.fill-change-background {
+                fill: $color-primary-link-disabled;
+                transition: transform $medium-animation-duration $ease-out-quad;
+            }
+
+            &.fill-change-foreground {
+                position: absolute;
+                fill: $color-primary-link;
+                opacity: 0;
+                transition: transform $medium-animation-duration $ease-out-quad, opacity $medium-animation-duration $ease-out-quad;
+            }
         }
 
         &.expanded {
             svg {
-                fill: $color-primary-link;
                 transform: rotate(180deg);
+
+                &.fill-change-foreground {
+                    opacity: 1;
+                }
             }
         }
     }
