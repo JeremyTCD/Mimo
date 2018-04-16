@@ -18,6 +18,18 @@ body {
         transition: opacity $medium-animation-duration $ease-out-quad;
         will-change: opacity;
     }
+
+    * {
+        // FF uses auto as the default min-height for some elements (such as lis). auto means min-content (minimum space to fit content). Not setting min-height to 0 can thus result in overflow despite
+        // flex-grow being set to 0.
+        min-height: 0;
+    }
+
+    &.preload {
+        * {
+            transition: none !important;
+        }
+    }
 }
 
 html, body {
@@ -38,12 +50,6 @@ body, body * {
     // Elements with display flex have min-width set to auto by default (a min-width value unique to flexbox). This causes a host of problems with overflowing content-
     // https://weblog.west-wind.com/posts/2016/Feb/15/Flexbox-Containers-PRE-tags-and-managing-Overflow.
     min-width: 0;
-}
-
-body * {
-    // FF uses auto as the default min-height for some elements (such as lis). auto means min-content (minimum space to fit content). Not setting min-height to 0 can thus result in overflow despite
-    // flex-grow being set to 0.
-   min-height: 0;
 }
 
 html {
