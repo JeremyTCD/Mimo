@@ -1,7 +1,13 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.12...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.13...HEAD)
+
+## [1.0.0-alpha.13](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.12...1.0.0-alpha.13) - Apr 16, 2018
+### Fixed
+- Removed unecessary fix for scroll position issues.
+- Fixed wonky an animations on page reload.
+- Fixed section pages component load bug.
 
 ## [1.0.0-alpha.12](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.11...1.0.0-alpha.12) - Apr 14, 2018
 ### Added
