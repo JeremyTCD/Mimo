@@ -10,9 +10,9 @@
     display: flex;
     flex-direction: column;
     height: 37px;
-    // Chrome bug: If 0, after resizing from narrow to medium/large, scrollY is set to 0. Also, chrome seems to correct scrollY when a page is resized such that the same element is at the top of the page,
+    // Chrome bug (fixed in chrome 65): If 0, after resizing from narrow to medium/large, scrollY is set to 0. Also, chrome seems to correct scrollY when a page is resized such that the same element is at the top of the page,
     // if top is 0, this never works. With top set to 0.1px, it works at times, but not always - as long as an element has position fixed or sticky, scrollY handling is a mess.
-    top: 0.1px;
+    top: 0px;
     // Entire page is repainted on translate if z-index is 0 or undefined
     z-index: 1;
 }
