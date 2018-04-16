@@ -19,6 +19,8 @@ export default class SectionPagesComponent implements Component {
     private _heightService: HeightService;
     private _pathService: PathService;
     public  collapsibleMenu: CollapsibleMenu;
+    private _initiallyExpandedLIElements: HTMLElement[];
+    private _setupOnLoadCalledBeforeXhrDone: boolean;
 
     public constructor(
         sectionMenuHeaderComponent: SectionMenuHeaderComponent,
@@ -60,8 +62,12 @@ export default class SectionPagesComponent implements Component {
 
                 this._sectionPagesElement.appendChild(sectionPagesFragment);
                 let activePageElement = this.cleanHrefsAndGetActivePageElement(sectionPagesPath);
-                this.handleActivePageElement(activePageElement);
                 this.collapsibleMenu = this._collapsibleMenuFactory.build(this._sectionPagesElement);
+                this.handleActivePageElement(activePageElement);
+
+                if (this._setupOnLoadCalledBeforeXhrDone) {
+                    this.expandInitiallyExpandedLIElements(this._initiallyExpandedLIElements);
+                }
             }
         }
         getSectionPagesRequest.open('GET', sectionPagesPath)
@@ -69,13 +75,19 @@ export default class SectionPagesComponent implements Component {
     }
 
     public setupOnLoad(): void {
+        if (this._initiallyExpandedLIElements) {
+            this.expandInitiallyExpandedLIElements(this._initiallyExpandedLIElements);
+        } else {
+            // getSectionPagesRequest isn't done yet
+            this._setupOnLoadCalledBeforeXhrDone = true;
+        }
     }
 
     private handleActivePageElement(activePageElement: HTMLElement) {
-        let initiallyExpandedLIElements: HTMLElement[] = [];
         let parentTopicAndPageElements: HTMLElement[] = [];
         let currentParentElement = activePageElement.parentElement;
 
+        this._initiallyExpandedLIElements = [];
         activePageElement.classList.add('active');
 
         while (currentParentElement.id !== 'section-pages') {
@@ -84,7 +96,7 @@ export default class SectionPagesComponent implements Component {
                     push(currentParentElement.querySelector('a, span'));
 
                 if (currentParentElement.classList.contains('expandable')) {
-                    initiallyExpandedLIElements.push(currentParentElement);
+                    this._initiallyExpandedLIElements.push(currentParentElement);
                 }
             }
 
@@ -94,7 +106,6 @@ export default class SectionPagesComponent implements Component {
         this.
             _sectionMenuHeaderComponent.
             loadChildBreadcrumbs(parentTopicAndPageElements);
-        this.expandInitiallyExpandedLIElements(initiallyExpandedLIElements);
     }
 
     private expandInitiallyExpandedLIElements(liElements: HTMLElement[]): void {
