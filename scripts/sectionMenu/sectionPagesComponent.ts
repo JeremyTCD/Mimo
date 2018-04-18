@@ -14,13 +14,13 @@ export default class SectionPagesComponent implements Component {
 
     private _sectionMenuHeaderComponent: SectionMenuHeaderComponent;
 
+    public  collapsibleMenu: CollapsibleMenu;
     private _collapsibleMenuFactory: CollapsibleMenuFactory;
     private _svgService: SvgService;
     private _heightService: HeightService;
     private _pathService: PathService;
-    public  collapsibleMenu: CollapsibleMenu;
     private _initiallyExpandedLIElements: HTMLElement[];
-    private _setupOnLoadCalledBeforeXhrDone: boolean;
+    private _initialExpandLIElementsPending: boolean;
 
     public constructor(
         sectionMenuHeaderComponent: SectionMenuHeaderComponent,
@@ -65,25 +65,30 @@ export default class SectionPagesComponent implements Component {
                 this.collapsibleMenu = this._collapsibleMenuFactory.build(this._sectionPagesElement);
                 this.handleActivePageElement(activePageElement);
 
-                if (this._setupOnLoadCalledBeforeXhrDone) {
+                // load event has already fired
+                if (document.readyState === 'complete') {
                     this.expandInitiallyExpandedLIElements(this._initiallyExpandedLIElements);
+                } else {
+                    this._initialExpandLIElementsPending = true;
                 }
             }
         }
-        getSectionPagesRequest.open('GET', sectionPagesPath)
-        getSectionPagesRequest.send()
+        getSectionPagesRequest.open('GET', sectionPagesPath);
+        getSectionPagesRequest.send();
     }
 
     public setupOnLoad(): void {
-        if (this._initiallyExpandedLIElements) {
+        if (this._initialExpandLIElementsPending) {
             this.expandInitiallyExpandedLIElements(this._initiallyExpandedLIElements);
-        } else {
-            // getSectionPagesRequest isn't done yet
-            this._setupOnLoadCalledBeforeXhrDone = true;
         }
     }
 
     private handleActivePageElement(activePageElement: HTMLElement) {
+        // Page may not be listed in section menu
+        if (!activePageElement) {
+            return;
+        }
+
         let parentTopicAndPageElements: HTMLElement[] = [];
         let currentParentElement = activePageElement.parentElement;
 
@@ -109,6 +114,11 @@ export default class SectionPagesComponent implements Component {
     }
 
     private expandInitiallyExpandedLIElements(liElements: HTMLElement[]): void {
+        // There may be no LI elements to expand
+        if (!liElements) {
+            return;
+        }
+
         // If an element is nested in another element and a height transition is started for both at the same
         // time, the outer element only transitions to its height. This is because 
         // toggleHeightForTransition has no way to know the final heights of an element's children. Nested children at
