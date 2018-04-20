@@ -1,7 +1,12 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.13...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.14...HEAD)
+
+## [1.0.0-alpha.14](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.13...1.0.0-alpha.14) - Apr 20, 2018
+### Fixed
+- Js error if current page is not listed in section menu.
+- Page snapping to top after resize.
 
 ## [1.0.0-alpha.13](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.12...1.0.0-alpha.13) - Apr 16, 2018
 ### Fixed
