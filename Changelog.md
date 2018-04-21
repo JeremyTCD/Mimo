@@ -1,7 +1,11 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.14...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.15...HEAD)
+
+## [1.0.0-alpha.15](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.14...1.0.0-alpha.15) - Apr 21, 2018
+### Fixed
+- Header navigation bar displaying wrong links in the 404 page.
 
 ## [1.0.0-alpha.14](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.13...1.0.0-alpha.14) - Apr 20, 2018
 ### Fixed
