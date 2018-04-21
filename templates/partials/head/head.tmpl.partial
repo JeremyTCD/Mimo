@@ -15,7 +15,7 @@
     {{#mimo_googleFontsHrefs}}
     <link href="{{link}}" rel="stylesheet">
     {{/mimo_googleFontsHrefs}}
-    <meta property="docfx:navrel" content="{{_navRel}}">
+    <meta property="docfx:navrel" content="/toc.html">
     <meta property="docfx:tocrel" content="{{_tocRel}}">
   
     <!-- Open Graph tags used by several social media sites -->
