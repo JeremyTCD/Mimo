@@ -107,32 +107,18 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 .hljs-built_in,
 .hljs-name,
 .hljs-tag {
-    color: #0000ff;
+    color: #00f;
 }
 
 .hljs-string {
     color: #a31515;
 }
 
-.hljs-title,
-.hljs-section,
-.hljs-attribute,
-.hljs-literal,
-.hljs-template-tag,
-.hljs-template-variable,
-.hljs-type,
-.hljs-addition {
-    color: #000000;
-}
-
+.hljs-doctag,
 .hljs-deletion,
 .hljs-selector-attr,
 .hljs-selector-pseudo,
 .hljs-meta {
-    color: #808080;
-}
-
-.hljs-doctag {
     color: #808080;
 }
 
@@ -153,4 +139,58 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 
 .hljs-strong {
     font-weight: bold;
+}
+
+.lang-html {
+    .hljs-string {
+        color: #00f;
+    }
+
+    .hljs-name {
+        color: #800000;
+    }
+}
+
+.lang-scss {
+    .hljs-keyword,
+    .hljs-variable {
+        color: #800080;
+    }
+
+    .hljs-string {
+        color: #00f;
+    }
+
+    .hljs-selector-tag,
+    .hljs-name {
+        color: #800000;
+    }
+
+    .hljs-attribute {
+        color: #f00;
+    }
+}
+
+.lang-css {
+    .hljs-built_in{
+        color: #000;
+    }
+
+    .hljs-keyword {
+        color: #800080;
+    }
+
+    .hljs-string {
+        color: #00f;
+    }
+
+    .hljs-selector-tag,
+    .hljs-selector-pseudo,
+    .hljs-name {
+        color: #800000;
+    }
+
+    .hljs-attribute {
+        color: #f00;
+    }
 }
