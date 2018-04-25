@@ -84,6 +84,12 @@ code {
             flex-shrink: 0;
             color: #2b91af;
             border-right: 1px solid $color-section-divider-background;
+
+            & + .code {
+                code{
+                    margin-left: 13px;
+                }
+            }
         }
     }
 }
@@ -172,7 +178,7 @@ Visual Studio-like style based on original C# coloring by Jason Diamond <jason@d
 }
 
 .lang-css {
-    .hljs-built_in{
+    .hljs-built_in {
         color: #000;
     }
 
