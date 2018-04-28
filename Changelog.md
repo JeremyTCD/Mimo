@@ -1,7 +1,17 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.15...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.16...HEAD)
+
+## [1.0.0-alpha.16](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.15...1.0.0-alpha.16) - Apr 28, 2018
+### Changed
+- h4, h5 and h6 elements now have font-weight: bold.
+- Bumped MimoMarkdown, changes table structure.
+### Added
+- Highlight.js language specific styles for html, scss and css.
+- Responsive tables styles.
+### Fixed
+- Fixed long strings not wrapping, causing horizontal overflow.
 
 ## [1.0.0-alpha.15](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.14...1.0.0-alpha.15) - Apr 21, 2018
 ### Fixed
