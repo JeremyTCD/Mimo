@@ -418,11 +418,11 @@ article {
             overflow-x: auto;
 
             @media #{$media-medium}, #{$media-wide} {
-                @include full-table;                
+                @include normal-table;                
             }
 
             @media #{$media-narrow} {
-                @include split-table;
+                @include card-table;
             }
         }
 

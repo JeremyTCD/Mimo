@@ -211,112 +211,86 @@ $horizontal-edge-wide: 30px !default;
     will-change: transform;
 }
 
-@mixin full-table {
-    .full-table {
+@mixin normal-table {
+    table {
         width: 100%;
-        display: table;
+    }
 
-        .full-table-header-group {
-            display: table-header-group;
+    th {
+        @include section-header-edges();
+        font-weight: 600;
+    }
 
-            .full-table-cell {
-                @include section-header-edges();
-                font-weight: 600;
-                background-color: $color-section-header-background;
-            }
-        }
+    th,
+    td {
+        border: 1px solid #e8e8e8;
+        text-align: center;
 
-        .full-table-row-group {
-            display: table-row-group;
-        }
-
-        .full-table-row {
-            display: table-row;
-
-            &:nth-child(even) {
-                background-color: $color-section-body-background;
-
-                a {
-                    @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
-                }
-
-                *:not(pre) {
-                    > code {
-                        background-color: $color-primary-inline-code-dark-background;
-                    }
-                }
-            }
-        }
-
-        .full-table-cell {
-            @include section-body-edges();
-            display: table-cell;
-
-            .full-none {
-                display: none;
-            }
-        }
-
-        .text-align-center {
-            text-align: center;
-        }
-
-        .text-align-left {
+        &.align-left {
             text-align: left;
         }
 
-        .text-align-right {
+        &.align-right {
             text-align: right;
         }
     }
+
+    td {
+        @include section-body-edges();
+    }
 }
 
-@mixin split-table {
-    .split-block {
+@mixin card-table {
+    table {
         display: block;
     }
 
-    .split-none {
+    thead {
         display: none;
     }
 
-    .split-table {
+    tbody {
         display: table;
+        width: 100%;
+    }
 
-        .split-table-row-group {
-            display: table-row-group;
+    tr {
+        display: table-row-group;
 
-            &:nth-child(odd) {
-                background-color: $color-section-body-background;
+        &:nth-child(odd) {
+            background-color: $color-section-body-background;
 
-                a {
-                    @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
-                }
-
-                *:not(pre) {
-                    > code {
-                        background-color: $color-primary-inline-code-dark-background;
-                    }
-                }
+            a {
+                @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
             }
 
-            .split-table-row {
-                display: table-row;
-
-                .split-table-cell {
-                    display: table-cell;
-                    text-align: left;
-                    @include section-header-edges();
-
-                    &:first-child {
-                        font-weight: 600;
-                    }
+            *:not(pre) {
+                > code {
+                    background-color: $color-primary-inline-code-dark-background;
                 }
             }
         }
+    }
 
-        .vertical-align-center{
+    td {
+        display: table-row;
+
+        &:before {
+            content: attr(data-label);
+            font-weight: 600;
+        }
+
+        &:before, > span {
             vertical-align: middle;
+            @include section-body-edges();
+            display: table-cell;
+            border: 1px solid #e8e8e8;
+        }
+
+        &.align-left {
+            &:before, > span {
+                vertical-align: top;
+            }
         }
     }
 }
