@@ -1,7 +1,13 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.16...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.17...HEAD)
+
+## [1.0.0-alpha.17](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.16...1.0.0-alpha.17) - Jun 13, 2018
+### Changed
+- Added border under header to demarcate it.
+### Fixed
+- Cleaned up SVG icons, removed redundant stuff added by illustrator.
 
 ## [1.0.0-alpha.16](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.15...1.0.0-alpha.16) - Apr 28, 2018
 ### Changed
