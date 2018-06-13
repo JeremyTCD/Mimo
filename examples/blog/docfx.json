@@ -3,7 +3,8 @@
         "content": [
             {
                 "src": "src/content",
-                "files": [ "**" ]
+                "files": [ "**" ],
+                "exclude": ["**/*-ignore.md"]
             }
         ],
         "resource": [
