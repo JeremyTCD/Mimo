@@ -1,7 +1,15 @@
 # Changelog
-This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html). Refer to 
+[The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
+for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.17...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.18...HEAD)
+
+## [1.0.0-alpha.18](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.17...1.0.0-alpha.18) - Jun 27, 2018
+### Changed
+- Darkened border under header.
+- Simplified Mimo attribution in footer.
+- Active anchor in navbar now gray instead of bold.
 
 ## [1.0.0-alpha.17](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.16...1.0.0-alpha.17) - Jun 13, 2018
 ### Changed
