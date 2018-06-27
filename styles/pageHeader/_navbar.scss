@@ -32,12 +32,16 @@
             }
 
             &.active {
-                font-weight: 600;
+                a {
+                    color: $color-primary-text;
+                    opacity: $opacity-5;
+                    @include animated-underline($color-primary-text, $animated-underline-15px-ypos, $duration: $medium-animation-duration, $background-color: $color-primary);
+                }
             }
 
             a {
-                @include animated-underline($color-primary-link, $animated-underline-15px-ypos, $duration: 0.4s, $background-color: $color-primary);
+                @include animated-underline($color-primary-link, $animated-underline-15px-ypos, $duration: $medium-animation-duration, $background-color: $color-primary);
             }
         }
-    } 
+    }
 }
