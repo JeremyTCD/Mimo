@@ -35,12 +35,13 @@
                 a {
                     color: $color-primary-text;
                     opacity: $opacity-5;
-                    @include animated-underline($color-primary-text, $animated-underline-15px-ypos, $duration: $medium-animation-duration, $background-color: $color-primary);
                 }
             }
 
-            a {
-                @include animated-underline($color-primary-link, $animated-underline-15px-ypos, $duration: $medium-animation-duration, $background-color: $color-primary);
+            &:not(.active) {
+                a {
+                    @include animated-underline($color-primary-link, $animated-underline-15px-ypos, $duration: $medium-animation-duration, $background-color: $color-primary);
+                }
             }
         }
     }
