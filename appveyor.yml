@@ -13,6 +13,7 @@ build_script:
     new-item .npmrc -type file
     add-content .npmrc "//registry.npmjs.org/:_authToken=$($env:npm_token)"
     yarn publish --no-git-tag-version --new-version $env:APPVEYOR_REPO_TAG_NAME
-cache:
-    - node_modules -> package.json
+# If caching fails, the entire build fails - https://github.com/appveyor/ci/issues/1509
+#cache:
+#    - node_modules -> package.json
 test: off
