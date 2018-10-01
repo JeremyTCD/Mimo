@@ -3,7 +3,6 @@
 import TooltipService from './tooltipService';
 
 import * as Clipboard from 'clipboard';
-import * as hljs from 'highlight.js';
 
 @injectable()
 export default class CodeService {
@@ -26,7 +25,5 @@ export default class CodeService {
         clipboard.on('success', (event: Clipboard.Event) => {
             event.clearSelection();
         });
-
-        hljs.initHighlighting();
     }
 }
