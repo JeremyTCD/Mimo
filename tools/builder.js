@@ -1,5 +1,4 @@
 const path = require('path');
-const fs = require('fs');
 const exec = require('child_process').exec;
 const rimraf = require('rimraf');
 const fse = require('fs-extra');
@@ -57,7 +56,7 @@ class Builder {
                 if (err) {
                     console.log(err);
                     console.log(stdout);
-                    reject();
+                    reject(err);
                 } else {
                     if (this.debug) {
                         console.log(stdout);
@@ -76,25 +75,26 @@ class Builder {
 
             rimraf(path.join(this.docfxProjectDir, './bin'), (err) => {
                 if (err) {
-                    console.log(`${err.name}\n${err.message}\n${err.stack}`)
-                    reject();
+                    console.log(`${err.name}\n${err.message}\n${err.stack}`);
+                    reject(err);
                 } else {
                     console.log(`complete - clean bin`);
                     resolve();
                 }
             });
         });
-    };
+    }
 
     // Restores docfx plugins
     async restorePlugins() {
         return new Promise((resolve, reject) => {
             console.log(`start - restore plugins`);
 
-            var childProcess = exec('msbuild', { cwd: __dirname }, (err, stdout, stderr) => {
+            exec('dotnet msbuild', { cwd: __dirname }, (err, stdout, stderr) => {
                 if (err) {
                     console.log(stdout);
-                    reject();
+                    console.log(stderr);
+                    reject(err);
                 } else {
                     if (this.debug) {
                         console.log(stdout);
@@ -105,7 +105,7 @@ class Builder {
                 }
             });
         });
-    };
+    }
 
     // Copies webpack output from theme to site
     async copyStylesFromThemeToSite() {
@@ -141,8 +141,8 @@ class Builder {
             }
         }
 
-        console.log(`complete - copy simple files`)
-    };
+        console.log(`complete - copy simple files`);
+    }
 
     async webpackCompile() {
         return new Promise((resolve, reject) => {
@@ -152,7 +152,7 @@ class Builder {
                 if (err) {
                     console.log(stats);
                     console.log(err);
-                    reject();
+                    reject(err);
                 } else {
                     if (this.debug) {
                         console.log(stats);
@@ -163,7 +163,7 @@ class Builder {
                 }
             });
         });
-    };
+    }
 }
 
 module.exports = Builder;
