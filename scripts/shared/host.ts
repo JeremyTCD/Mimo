@@ -29,7 +29,7 @@ export default class Host {
             this._rootComponents[i].setupImmediate();
         }
 
-        if (document.readyState === 'interactive' || document.readyState === 'loaded') {
+        if (document.readyState === 'interactive' || document.readyState === 'complete') {
             this.onDomContentLoaded();
         } else {
             document.addEventListener('DomContentLoaded', this.onDomContentLoaded);
