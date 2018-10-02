@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
  
-import * as Tippy from 'tippy.js';
+import * as Tippy from 'tippy.js'; // TODO tippy 3+ does not work, tooltips appear but aren't animated
 
 @injectable()
 export default class TooltipService {
