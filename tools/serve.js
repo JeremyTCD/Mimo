@@ -66,39 +66,44 @@ async function serve() {
         {
             ignored: [
                 path.join(docfxProjectDir, 'src/scripts'), // Watched by webpack
-                path.join(docfxProjectDir, 'src/styles')] // Watched by webpack
+                path.join(docfxProjectDir, 'src/styles') // Watched by webpack
+            ],
+            ignoreInitial: true // TODO Chokidar isn't firing a ready event after add/adddir events, this is a workaround that ignores add/adddir events
         });
     var building = false;
     var pendingBuild = true;
-    watcher.on('ready', () => {
-        watcher.on('all', async () => {
-            if (building) {
-                // Regardless of how many build triggering events occur while a build is in progress,
-                // only one more build needs to occur
-                pendingBuild = true;
-            } else {
-                pendingBuild = true;
-                while (pendingBuild) {
-                    pendingBuild = false;
-                    building = true;
-                    await tryBuildBasicBin(builder);
+    watcher.on('all', async () => {
+        if (building) {
+            // Regardless of how many build triggering events occur while a build is in progress,
+            // only one more build needs to occur
+            pendingBuild = true;
+        } else {
+            pendingBuild = true;
+            while (pendingBuild) {
+                pendingBuild = false;
+                building = true;
+                await tryBuildBasicBin(builder);
 
-                    building = false;
-                }
-
-                // TODO In production mode, webpack is configured to append hashes to bundles. This necessitated a webpack plugin that manually replaces bundle 
-                // urls in _site's html files at the end of each webpack compilation. This means that after docfx build runs and _site's html files are 
-                // regenerated, they no longer contain the correct bundle links. It is possible to manually replace the urls after each docfx build. This should
-                // be attempted - carefully. Node's asynchronous model could result in the read (reading "current" bundle file names) and the write (overwriting
-                // bundle names in html files) not being atomic, need to figure out how to ensure that this does not happen.
-                if (isProduction) {
-                    await triggerWebpackRecompilation();
-                } else {
-                    // Manually trigger refresh https://github.com/webpack/webpack-dev-server/issues/166
-                    server.sockWrite(server.sockets, 'ok');
-                }
+                building = false;
             }
-        });
+
+            // TODO In production mode, webpack is configured to append hashes to bundles. This necessitated a webpack plugin that manually replaces bundle 
+            // urls in _site's html files at the end of each webpack compilation. This means that after docfx build runs and _site's html files are 
+            // regenerated, they no longer contain the correct bundle links. It is possible to manually replace the urls after each docfx build. This should
+            // be attempted - carefully. Node's asynchronous model could result in the read (reading "current" bundle file names) and the write (overwriting
+            // bundle names in html files) not being atomic, need to figure out how to ensure that this does not happen.
+            if (isProduction) {
+                await triggerWebpackRecompilation();
+            } else {
+                // Manually trigger refresh https://github.com/webpack/webpack-dev-server/issues/166
+                server.sockWrite(server.sockets, 'ok');
+            }
+        }
+    });
+
+    // TODO doesn't fire
+    watcher.on('ready', () => {
+        console.log("watcher ready");
 
         if (debug) {
             console.log(`*** Watching these simple Files and Directories ***`);
@@ -112,14 +117,14 @@ async function serve() {
         }
     });
 
+
     // Start webpack-dev-server
     console.log(`start - webpack serve`);
     var config = webpackConfig(docfxProjectDir);
-    config.entry.bundle.unshift("webpack-dev-server/client?http://localhost:8080/");
+    config.entry.bundle.unshift("webpack-dev-server/client?http://localhost:8080/"); // https://github.com/webpack/docs/wiki/webpack-dev-server#inline-mode-with-nodejs-api
     const compiler = webpack(config);
     const server = new webpackDevServer(compiler,
         {
-            inline: false, // This doesn't work, as a result, sock.js gets inlined in bundle.js, making it hard to tell how large bundle.js actually is
             contentBase: path.join(docfxProjectDir, './bin/_site'),
             publicPath: '/styles/',
             compress: isProduction,
