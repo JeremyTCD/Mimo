@@ -10,6 +10,9 @@ export default class PaginationService {
         numPerPage: number = 5,
         numPageButtons: number = 5): void {
 
+        // Check if setup before with other items
+        let setupBefore = buttonsParentElement.children.length > 2;
+
         // Calculate number of pages
         let numPages = Math.ceil(items.length / numPerPage);
 
@@ -25,8 +28,17 @@ export default class PaginationService {
         masterPageButton.appendChild(masterAnchorElement);
 
         // Pagination buttons
-        let prevButtonElement: HTMLLIElement = buttonsParentElement.querySelector('.pagination-prev') as HTMLLIElement;
-        let nextButtonElement: HTMLLIElement = buttonsParentElement.querySelector('.pagination-next') as HTMLLIElement;
+        let prevButtonElement: HTMLLIElement = buttonsParentElement.querySelector('.pagination-prev');
+        let nextButtonElement: HTMLLIElement = buttonsParentElement.querySelector('.pagination-next');
+
+        if (setupBefore) {
+            // Reset if setup before
+            prevButtonElement = prevButtonElement.cloneNode(true) as HTMLLIElement; // Clone to get rid of existing listeners
+            nextButtonElement = nextButtonElement.cloneNode(true) as HTMLLIElement; // Clone to get rid of existing listeners
+            buttonsParentElement.innerHTML = ''; // Clear existing buttons
+            buttonsParentElement.appendChild(prevButtonElement);
+            buttonsParentElement.appendChild(nextButtonElement);
+        }
 
         prevButtonElement.
             querySelector('a').
@@ -51,7 +63,6 @@ export default class PaginationService {
             pageButtonElements.push(pageButtonElement);
             buttonsParentElement.insertBefore(pageButtonElement, nextButtonElement);
         }
-
 
         // Initial render
         this.render(currentPageNumber, numPerPage, items, itemsParentElement, pageButtonElements, prevButtonElement, nextButtonElement, onDomReady);

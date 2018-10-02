@@ -4,5 +4,5 @@
     </div>
 
     <span></span>
-    {{>partials/shared/articleList}}
+    {{>partials/articleList/articleList}}
 </div>

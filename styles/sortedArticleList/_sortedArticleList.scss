@@ -52,40 +52,4 @@
     #sal-all-items {
         display: none;
     }
-
-    .article-list {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-
-        .al-items {
-            display: flex;
-            flex-direction: column;
-            flex-shrink: 0;
-            margin-bottom: auto;
-
-            article {
-                flex-shrink: 0;
-
-                + article {
-                    margin-top: 48px;
-                }
-
-                .title {
-                    font-size: $font-size-6;
-                    margin-top: 0;
-
-                    a {
-                        @include animated-underline($color-primary-link, $animated-underline-26px-ypos, 2px, $background-color: $color-primary);
-                    }
-                }
-            }
-        }
-
-        .pagination-buttons {
-            @include pure-flex;
-            flex-shrink: 0;
-            margin-top: 59px;
-        }
-    }
 }

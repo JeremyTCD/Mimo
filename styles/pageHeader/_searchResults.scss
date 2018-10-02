@@ -41,6 +41,7 @@
     .article-list {
         @include horizontal-edge-margin;
         flex-shrink: 0;
+
         mark {
             background-color: $color-primary-highlight;
             padding: 0 5px;

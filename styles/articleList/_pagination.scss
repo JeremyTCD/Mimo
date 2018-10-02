@@ -1,8 +1,10 @@
-﻿@import 'constants';
+﻿@import '../shared/constants';
 
 .pagination-buttons {
+    @include pure-flex;
     font-size: $font-size-2;
     flex-direction: row;
+    flex-shrink: 0;
 
     li {
         height: 37px;

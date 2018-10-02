@@ -1,12 +1,14 @@
 @import './shared/reset';
 @import './shared/base';
-@import './shared/pagination';
 @import './shared/code';
 @import './shared/tooltip';
 @import './shared/core';
 @import './shared/spinner';
 @import './shared/main';
 
+
+@import './articleList/pagination';
+@import './articleList/articleList';
 @import './pageHeader/pageHeader';
 @import './pageFooter/pageFooter';
 @import './sectionMenu/sectionMenu';
