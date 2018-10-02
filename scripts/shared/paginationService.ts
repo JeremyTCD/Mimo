@@ -1,76 +1,129 @@
 import { injectable } from 'inversify';
-import SvgService from './svgService';
 
 @injectable()
 export default class PaginationService {
-    private _svgService: SvgService;
-
-    public constructor(svgService: SvgService) {
-        this._svgService = svgService;
-    }
-
     public setupPagination(
-        rootElement: HTMLElement,
-        paginationParentElements: NodeList | HTMLElement[],
+        buttonsParentElement: HTMLUListElement,
         itemsParentElement: HTMLElement,
         items: NodeList | HTMLElement[] | string[],
         onDomReady: () => void = null,
         numPerPage: number = 5,
         numPageButtons: number = 5): void {
 
-        let firstIcon = this._svgService.createSvgExternalSpriteElement('material-design-first-page');
-        let previousIcon = this._svgService.createSvgExternalSpriteElement('material-design-previous-page');
-        let nextIcon = this._svgService.createSvgExternalSpriteElement('material-design-next-page');
-        let lastIcon = this._svgService.createSvgExternalSpriteElement('material-design-last-page');
+        // Calculate number of pages
+        let numPages = Math.ceil(items.length / numPerPage);
 
-        $(paginationParentElements).
-            twbsPagination({
-                first: ' ',
-                prev: ' ',
-                next: ' ',
-                last: ' ',
-                totalPages: Math.ceil(items.length / numPerPage),
-                visiblePages: numPageButtons,
-                onPageClick: (_: JQueryEventObject, page) => {
-                    let start = (page - 1) * numPerPage;
-                    let currentSnippets = [].slice.call(items, start, start + numPerPage);
+        // Current page number
+        let currentPageNumber = 1;
 
-                    itemsParentElement.innerHTML = '';
-                    for (let i = 0; i < currentSnippets.length; i++) {
-                        let snippet = currentSnippets[i];
+        // Page buttons
+        numPageButtons = Math.min(numPages, numPageButtons);
+        let pageButtonElements: HTMLLIElement[] = [];
+        let masterAnchorElement = document.createElement('a');
+        masterAnchorElement.setAttribute('href', '#'); // Ensures that pages scrolls to top on click
+        let masterPageButton = document.createElement('li');
+        masterPageButton.appendChild(masterAnchorElement);
 
-                        if (typeof snippet === 'string') {
-                            itemsParentElement.appendChild(document.createRange().createContextualFragment(snippet));
-                        }
-                        else {
-                            itemsParentElement.appendChild(snippet);
-                        }
-                    }
+        // Pagination buttons
+        let prevButtonElement: HTMLLIElement = buttonsParentElement.querySelector('.pagination-prev') as HTMLLIElement;
+        let nextButtonElement: HTMLLIElement = buttonsParentElement.querySelector('.pagination-next') as HTMLLIElement;
 
-                    let firstAnchorElements = rootElement.querySelectorAll('.al-pagination > .first > a');
-                    for (let i = 0; i < firstAnchorElements.length; i++) {
-                        firstAnchorElements[i].appendChild(firstIcon.cloneNode(true));
-                    }
-
-                    let prevAnchorElements = rootElement.querySelectorAll('.al-pagination > .prev > a');
-                    for (let i = 0; i < prevAnchorElements.length; i++) {
-                        prevAnchorElements[i].appendChild(previousIcon.cloneNode(true));
-                    }
-
-                    let nextAnchorElements = rootElement.querySelectorAll('.al-pagination > .next > a');
-                    for (let i = 0; i < nextAnchorElements.length; i++) {
-                        nextAnchorElements[i].appendChild(nextIcon.cloneNode(true));
-                    }
-
-                    let lastAnchorElements = rootElement.querySelectorAll('.al-pagination > .last > a');
-                    for (let i = 0; i < lastAnchorElements.length; i++) {
-                        lastAnchorElements[i].appendChild(lastIcon.cloneNode(true));
-                    }
-
-                    if (onDomReady) {
-                        onDomReady();
-                    }
-                }
+        prevButtonElement.
+            querySelector('a').
+            addEventListener('click', () => {
+                currentPageNumber = currentPageNumber > 1 ? currentPageNumber - 1 : 1;
+                this.render(currentPageNumber, numPerPage, items, itemsParentElement, pageButtonElements, prevButtonElement, nextButtonElement, onDomReady);
             });
+
+        nextButtonElement.
+            querySelector('a').
+            addEventListener('click', () => {
+                currentPageNumber = currentPageNumber < numPages ? currentPageNumber + 1 : numPages;
+                this.render(currentPageNumber, numPerPage, items, itemsParentElement, pageButtonElements, prevButtonElement, nextButtonElement, onDomReady);
+            });
+
+        for (let j = 0; j < numPageButtons; j++) {
+            let pageButtonElement = masterPageButton.cloneNode(true) as HTMLLIElement;
+            pageButtonElement.querySelector('a').addEventListener('click', (event: MouseEvent) => {
+                currentPageNumber = parseInt((event.currentTarget as HTMLAnchorElement).textContent);
+                this.render(currentPageNumber, numPerPage, items, itemsParentElement, pageButtonElements, prevButtonElement, nextButtonElement, onDomReady);
+            });
+            pageButtonElements.push(pageButtonElement);
+            buttonsParentElement.insertBefore(pageButtonElement, nextButtonElement);
+        }
+
+
+        // Initial render
+        this.render(currentPageNumber, numPerPage, items, itemsParentElement, pageButtonElements, prevButtonElement, nextButtonElement, onDomReady);
+    }
+
+    private render(
+        pageNum: number,
+        numPerPage: number,
+        items: NodeList | HTMLElement[] | string[],
+        itemsParentElement: HTMLElement,
+        pageButtonElements: HTMLLIElement[],
+        prevButtonElement: HTMLLIElement,
+        nextButtonElement: HTMLLIElement,
+        onDomReady: () => void = null) {
+
+        // Snippets
+        let start = (pageNum - 1) * numPerPage;
+        let currentSnippets = [].slice.call(items, start, start + numPerPage);
+        itemsParentElement.innerHTML = '';
+        for (let i = 0; i < currentSnippets.length; i++) {
+            let snippet = currentSnippets[i];
+
+            if (typeof snippet === 'string') {
+                itemsParentElement.appendChild(document.createRange().createContextualFragment(snippet));
+            }
+            else {
+                itemsParentElement.appendChild(snippet);
+            }
+        }
+
+        // Buttons
+        let numPages = Math.ceil(items.length / numPerPage);
+        let numButtons = pageButtonElements.length;
+        let middleButtonNum = Math.round(numButtons / 2);
+        // First button number
+        let firstButtonNum = 0;
+        if (pageNum < middleButtonNum) {
+            firstButtonNum = 1;
+        } else if (numPages - pageNum < middleButtonNum) {
+            firstButtonNum = numPages - numButtons + 1;
+        } else {
+            firstButtonNum = pageNum - middleButtonNum + 1;
+        }
+        // Prev/next buttons
+        if (pageNum == 1) {
+            prevButtonElement.classList.add('disabled');
+        }
+        else {
+            prevButtonElement.classList.remove('disabled');
+        }
+        if (pageNum == numPages) {
+            nextButtonElement.classList.add('disabled');
+        }
+        else {
+            nextButtonElement.classList.remove('disabled');
+        }
+
+        for (let i = 0; i < numButtons; i++) {
+            let buttonNum = firstButtonNum + i;
+            let pageButtonElement = pageButtonElements[i];
+
+            if (buttonNum == pageNum) {
+                pageButtonElement.classList.add('active');
+            } else {
+                pageButtonElement.classList.remove('active');
+            }
+
+            pageButtonElement.querySelector('a').textContent = buttonNum.toString();
+        }
+
+        if (onDomReady) {
+            onDomReady();
+        }
     }
 }

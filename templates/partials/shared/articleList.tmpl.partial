@@ -1,4 +1,19 @@
 ﻿<div class="article-list">
   <div class="al-items"> </div>
-  <ul class="al-pagination"></ul>
+  <ul class="pagination-buttons">
+      <li class="pagination-prev">
+          <a href="#">
+              <svg>
+                  <use xlink:href="#material-design-previous-page" />
+              </svg>
+          </a>
+      </li>
+      <li class="pagination-next">
+          <a href="#">
+              <svg>
+                  <use xlink:href="#material-design-next-page" />
+              </svg>
+          </a>
+      </li>
+  </ul>
 </div>

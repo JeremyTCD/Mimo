@@ -21,8 +21,7 @@ export default class SalComponent extends RootComponent {
     }
 
     public setupOnDomContentLoaded(): void {
-        let articleListElement = this._sortedArticleListElement.querySelector('.article-list') as HTMLElement;
-        let paginationParentElements = this._sortedArticleListElement.querySelectorAll('.al-pagination');
+        let buttonsParentElement = this._sortedArticleListElement.querySelector('.pagination-buttons') as HTMLUListElement;
         let itemsParentElement = this._sortedArticleListElement.querySelector('.al-items') as HTMLElement;
 
         let allAlItems = this._sortedArticleListElement.querySelectorAll('article');
@@ -32,8 +31,7 @@ export default class SalComponent extends RootComponent {
         }
 
         this._paginationService.setupPagination(
-            articleListElement,
-            paginationParentElements,
+            buttonsParentElement,
             itemsParentElement,
             allAlItems)
     }

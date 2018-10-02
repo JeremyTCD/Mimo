@@ -1,6 +1,6 @@
 ﻿@import 'constants';
 
-.pagination {
+.pagination-buttons {
     font-size: $font-size-2;
     flex-direction: row;
 
@@ -9,7 +9,7 @@
         min-width: 37px;
         list-style: none;
         cursor: pointer;
-        background-color: $color-section-body-background;
+        background-color: $color-section-header-background;
 
         svg {
             height: 18px;
@@ -31,10 +31,11 @@
             justify-content: center;
             align-items: center;
             background-color: transparent;
+            user-select: none;
         }
 
         &.disabled {
-            display: none;
+            opacity: $opacity-1;
         }
 
         &:not(.disabled) {

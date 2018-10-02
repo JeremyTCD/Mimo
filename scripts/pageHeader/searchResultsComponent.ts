@@ -19,7 +19,7 @@ export default class SearchResultsComponent implements Component {
     private _overlayService: OverlayService;
     private _mediaGlobalService: MediaGlobalService;
 
-    private _paginationParentElements: NodeList;
+    private _paginationParentElement: HTMLUListElement;
     private _shown: boolean;
 
     public constructor(
@@ -41,7 +41,7 @@ export default class SearchResultsComponent implements Component {
         this._searchStringMessageElement = document.querySelector('#search-string > span') as HTMLSpanElement;
         this._searchResultsMessageElement = document.querySelector('#search-results > span') as HTMLSpanElement;
         this._articleListElement = this._searchResultsElement.querySelector('.article-list') as HTMLElement;
-        this._paginationParentElements = this._searchResultsElement.querySelectorAll('.al-pagination');
+        this._paginationParentElement = this._searchResultsElement.querySelector('.paginationButtons') as HTMLUListElement;
         this._articleListItemsParentElement = this._searchResultsElement.querySelector('.al-items') as HTMLElement;
     }
 
@@ -65,7 +65,7 @@ export default class SearchResultsComponent implements Component {
 
             // Reset
             this._articleListItemsParentElement.innerHTML = '';
-            $(this._paginationParentElements).twbsPagination('destroy');
+            $(this._paginationParentElement).twbsPagination('destroy');
 
             if (!this._mediaGlobalService.mediaWidthIs(MediaWidth.narrow)) {
                 this._overlayService.deactivateOverlay(false);
@@ -76,7 +76,7 @@ export default class SearchResultsComponent implements Component {
     }
 
     public setSnippets = (snippets: string[], queryString: string): void => {
-        $(this._paginationParentElements).twbsPagination('destroy');
+        $(this._paginationParentElement).twbsPagination('destroy');
 
         if (snippets.length === 0) {
             // Hide article list
@@ -98,8 +98,7 @@ export default class SearchResultsComponent implements Component {
             // Show and update article list
             this._articleListElement.style.display = 'flex';
             this._paginationService.setupPagination(
-                this._articleListElement,
-                this._paginationParentElements,
+                this._paginationParentElement,
                 this._articleListItemsParentElement,
                 snippets,
                 () => {
