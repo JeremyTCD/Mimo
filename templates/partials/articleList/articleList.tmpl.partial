@@ -4,14 +4,14 @@
       <li class="pagination-prev">
           <a href="#">
               <svg>
-                  <use xlink:href="#material-design-previous-page" />
+                  <use xlink:href="#material-design-navigate-before" />
               </svg>
           </a>
       </li>
       <li class="pagination-next">
           <a href="#">
               <svg>
-                  <use xlink:href="#material-design-next-page" />
+                  <use xlink:href="#material-design-navigate-next" />
               </svg>
           </a>
       </li>

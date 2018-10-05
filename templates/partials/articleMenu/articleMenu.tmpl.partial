@@ -13,10 +13,10 @@
         </ul>
         <button id="article-menu-header-button">
             <svg class="fill-change-background">
-                <use xlink:href="#material-design-drop-down" />
+                <use xlink:href="#material-design-arrow-drop-down" />
             </svg>
             <svg class="fill-change-foreground">
-                <use xlink:href="#material-design-drop-down" />
+                <use xlink:href="#material-design-arrow-drop-down" />
             </svg>
         </button>
     </div>

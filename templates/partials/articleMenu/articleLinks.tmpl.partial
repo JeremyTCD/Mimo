@@ -3,7 +3,7 @@
     {{#docurl}}
     <div id="edit-article" class="article-link">
         <svg>
-            <use xlink:href="#material-design-mode-edit" />
+            <use xlink:href="#material-design-edit" />
         </svg>
         <a href="{{docurl}}" title="Edit article on Github">Edit Article</a>
     </div>

@@ -3,7 +3,7 @@
     <nav id="section-menu-header">
         <button id="section-menu-header-button">
             <svg>
-                <use xlink:href="#material-design-drop-down" />
+                <use xlink:href="#material-design-arrow-drop-down" />
             </svg>
         </button>
     </nav>
@@ -16,7 +16,7 @@
                 </svg>
                 <input type="text" autocomplete="off" id="section-menu-filter-input" placeholder="Filter" onkeypress="if(event.keyCode==13) {return false;}"/>
                 <svg>
-                    <use xlink:href="#material-design-clear-black" />
+                    <use xlink:href="#material-design-clear" />
                 </svg>
             </form>
 

@@ -20,7 +20,7 @@
                 </svg>
                 <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off" />
                 <svg>
-                    <use xlink:href="#material-design-clear-black" />
+                    <use xlink:href="#material-design-clear" />
                 </svg>
             </form>
             {{>partials/pageHeader/searchResults}}
