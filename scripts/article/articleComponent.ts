@@ -40,12 +40,18 @@ export default class ArticleComponent extends RootComponent {
 
     private addLinks(): void {
         let articleElement: HTMLElement = document.querySelector('.jtcd-article') as HTMLElement;
-        let headerElements: NodeList = articleElement.querySelectorAll('.header-1, .header-2');
+        let sectionElements: NodeList = articleElement.querySelectorAll('.section-level-2, .section-level-3');
 
-        for (let i: number = 0; i < headerElements.length; i++) {
-            let headerElement = headerElements[i] as HTMLElement;
-            let buttonElement = headerElement.querySelector('div[role="button"]') as HTMLElement;
-            let id = headerElement.getAttribute('id');
+        for (let i: number = 0; i < sectionElements.length; i++) {
+            let sectionElement = sectionElements[i] as HTMLElement;
+            let buttonElement = document.createElement('div');
+
+            // Wrap svg in a div, clipboard does not work with svg elements
+            buttonElement.appendChild(sectionElement.querySelector('svg'));
+            buttonElement.setAttribute('role', 'button');
+            sectionElement.querySelector('header').appendChild(buttonElement);
+
+            let id = sectionElement.getAttribute('id');
 
             let href = `${location.protocol}//${location.host}${location.pathname}#${id}`;
 
@@ -54,6 +60,7 @@ export default class ArticleComponent extends RootComponent {
             new Clipboard(buttonElement);
 
             // 'Popup' for button
+            buttonElement.setAttribute('title', 'Link copied');
             this._tooltipService.setupElement(buttonElement, 'right');
         }
     }
