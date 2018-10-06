@@ -1,31 +1,27 @@
 ﻿import { injectable, inject, named } from 'inversify';
 import Component from '../shared/component';
-import TreeService from '../shared/treeService';
 import '../shared/treeNode';
-import './tableOfContentsAnchorData';
+import './outlineAnchorData';
 import ArticleGlobalService from '../shared/articleGlobalService';
 import MediaGlobalService from '../shared/mediaGlobalService';
 import { MediaWidth } from '../shared/mediaWidth';
 
 @injectable()
-export default class TableOfContentsComponent implements Component {
-    private _tableOfContentsElement: HTMLElement;
+export default class OutlineComponent implements Component {
+    private _outlineElement: HTMLElement;
     private _knobElement: HTMLElement;
     private _rootUnorderedListElement: HTMLElement;
 
     private _articleGlobalService: ArticleGlobalService;
     private _mediaGlobalService: MediaGlobalService;
-    private _treeService: TreeService;
 
     private _anchorElements: NodeList;
     private _lastDropdownAnchorIndex: number;
     private _noToc: boolean;
 
-    public constructor(treeService: TreeService,
-        @inject('GlobalService') @named('ArticleGlobalService') articleGlobalService: ArticleGlobalService,
+    public constructor(@inject('GlobalService') @named('ArticleGlobalService') articleGlobalService: ArticleGlobalService,
         @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService) {
 
-        this._treeService = treeService;
         this._articleGlobalService = articleGlobalService;
         this._mediaGlobalService = mediaGlobalService;
     }
@@ -34,12 +30,11 @@ export default class TableOfContentsComponent implements Component {
     }
 
     public setupOnDomContentLoaded(): void {
-        this._tableOfContentsElement = document.getElementById('table-of-contents');
-        this._knobElement = document.getElementById('table-of-contents-indicator-knob');
+        this._outlineElement = document.getElementById('outline');
+        this._knobElement = document.getElementById('outline-scrollable-knob');
 
-        this.insertElements();
         if (!this._noToc) {
-            this._rootUnorderedListElement = this._tableOfContentsElement.querySelector('ul');
+            this._rootUnorderedListElement = this._outlineElement.querySelector('ul');
             this._anchorElements = this._rootUnorderedListElement.querySelectorAll('a');
         }
     }
@@ -83,42 +78,9 @@ export default class TableOfContentsComponent implements Component {
         let activeAnchorIndex = newIndex === -1 ? 0 : newIndex;
         let activeAnchorElement = this._anchorElements[activeAnchorIndex] as HTMLElement;
         let anchorBoundingRect = activeAnchorElement.getBoundingClientRect();
-        let translateY = anchorBoundingRect.top - this._tableOfContentsElement.getBoundingClientRect().top + this._tableOfContentsElement.scrollTop;
+        let translateY = anchorBoundingRect.top - this._outlineElement.getBoundingClientRect().top + this._outlineElement.scrollTop;
 
         this._knobElement.style.transform = `translateY(${translateY}px) scaleY(${anchorBoundingRect.height})`;
-    }
-
-    private insertElements(): void {
-        let articleHeaderElements = this._articleGlobalService.getHeaderElements();
-        let tableOfContentsTitleSpanElement = document.querySelector('#table-of-contents-title span');
-        let articleTitleElement = document.querySelector('.jtcd-article > .title');
-        let tableOfContentsTitle = articleTitleElement ? articleTitleElement.textContent : 'Outline';
-
-        tableOfContentsTitleSpanElement.innerHTML = tableOfContentsTitle;
-
-        if (articleHeaderElements.length === 0) {
-            this._noToc = true;
-            this._tableOfContentsElement.style.display = "none"
-
-            return;
-        }
-        this._noToc = false;
-
-        let listItemTrees: TreeNode[] = this._treeService.generateTrees(
-            articleHeaderElements,
-            ['header-1', 'header-2'],
-            document.createElement('a'));
-        let ulElement: HTMLUListElement = this._treeService.generateListFromTrees(listItemTrees, '', 1);
-
-        // Insert divs for use as indicator tracks
-        let indicatorTrackDiv: HTMLElement = document.createElement('div');
-        indicatorTrackDiv.classList.add('indicator-track');
-        for (let i = 0; i < ulElement.children.length; i++) {
-            let level1LIElement = ulElement.children[i];
-            level1LIElement.insertBefore(indicatorTrackDiv.cloneNode(), level1LIElement.firstElementChild);
-        }
-
-        this._tableOfContentsElement.appendChild(ulElement);
     }
 
     public getAnchorElements(): NodeList {

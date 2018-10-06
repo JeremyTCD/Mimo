@@ -39,7 +39,7 @@ export default class ArticleComponent extends RootComponent {
     }
 
     private addLinks(): void {
-        let articleElement: HTMLElement = document.querySelector('.jtcd-article') as HTMLElement;
+        let articleElement: HTMLElement = document.querySelector('.main-article') as HTMLElement;
         let sectionElements: NodeList = articleElement.querySelectorAll('.section-level-2, .section-level-3');
 
         for (let i: number = 0; i < sectionElements.length; i++) {

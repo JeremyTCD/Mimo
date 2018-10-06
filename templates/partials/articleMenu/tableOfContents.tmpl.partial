@@ -1,8 +1,0 @@
-<div id="table-of-contents-wrapper">
-    <a href="#" id="table-of-contents-title">
-        <span></span>
-    </a>
-    <nav id="table-of-contents">
-        <div id="table-of-contents-indicator-knob"></div>
-    </nav>
-</div>

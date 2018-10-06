@@ -32,7 +32,7 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     public setupImmediate(): void {
-        this._headerElements = document.querySelectorAll('.jtcd-article .header-1, .jtcd-article .header-2');
+        this._headerElements = document.querySelectorAll('.main-article .header-1, .main-article .header-2');
 
         this._bodyResizeObserver = new ResizeObserver(this.onScrollAndResizeListener);
         this._headerMarginTops = [];

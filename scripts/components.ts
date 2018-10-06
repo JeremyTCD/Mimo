@@ -17,7 +17,7 @@ import CommentsComponent from './comments/commentsComponent';
 import SortedArticleListComponent from './sortedArticleList/sortedArticleListComponent';
 
 import ArticleMenuComponent from './articleMenu/articleMenuComponent';
-import TableOfContentsComponent from './articleMenu/tableOfContentsComponent';
+import OutlineComponent from './articleMenu/outlineComponent';
 import ArticleLinksComponent from './articleMenu/articleLinksComponent';
 import ArticleMenuHeaderComponent from './articleMenu/articleMenuHeaderComponent';
 
@@ -25,6 +25,6 @@ import PageFooterComponent from './pageFooter/pageFooterComponent';
 
 export {
     RootComponent, NavbarComponent, PageHeaderComponent, SearchComponent, SearchResultsComponent, SectionMenuComponent, SectionMenuHeaderComponent, SectionPagesFilterComponent, 
-    SectionPagesComponent, ArticleComponent, CommentsComponent, SortedArticleListComponent, ArticleMenuComponent, TableOfContentsComponent, ArticleLinksComponent, 
+    SectionPagesComponent, ArticleComponent, CommentsComponent, SortedArticleListComponent, ArticleMenuComponent, OutlineComponent, ArticleLinksComponent, 
     ArticleMenuHeaderComponent, PageFooterComponent
 }

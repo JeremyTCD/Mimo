@@ -2,7 +2,7 @@
 @import '../shared/dropdown';
 @import 'articleLinks';
 @import 'articleMenuHeader';
-@import 'tableOfContents';
+@import 'outline';
 
 @mixin article-menu-dropdown() {
     @include top-fixable;
@@ -33,7 +33,7 @@
     margin-top: 59px;
 }
 
-@mixin article-links-and-toc-outer-wrapper-dropdown() {
+@mixin article-links-and-outline-outer-wrapper-dropdown() {
     @include dropdown-outer-wrapper;
     position: absolute;
     top: 37px;
@@ -41,7 +41,7 @@
     right: 0;
 }
 
-@mixin article-links-and-toc-inner-wrapper-dropdown() {
+@mixin article-links-and-outline-inner-wrapper-dropdown() {
     @include dropdown-inner-wrapper;
     @include horizontal-edge-padding;
     padding: 16px 0;
@@ -49,11 +49,11 @@
     flex-direction: column-reverse;
 }
 
-@mixin article-links-and-toc-inner-wrapper-side-menu() {
+@mixin article-links-and-outline-inner-wrapper-side-menu() {
     flex-direction: column;
 }
 
-@mixin article-links-and-toc-outer-wrapper-side-menu() {
+@mixin article-links-and-outline-outer-wrapper-side-menu() {
     width: $side-menu-width;
 }
 
@@ -90,24 +90,24 @@
         @include article-menu-side-menu;
     }
 
-    #article-links-and-toc-outer-wrapper {
+    #article-links-and-outline-outer-wrapper {
         @media #{$media-narrow} {
-            @include article-links-and-toc-outer-wrapper-dropdown;
+            @include article-links-and-outline-outer-wrapper-dropdown;
 
-            #article-links-and-toc-inner-wrapper {
-                @include article-links-and-toc-inner-wrapper-dropdown;
+            #article-links-and-outline-inner-wrapper {
+                @include article-links-and-outline-inner-wrapper-dropdown;
             }
         }
 
         @media #{$media-medium}, #{$media-wide} {
-            @include article-links-and-toc-outer-wrapper-side-menu;
+            @include article-links-and-outline-outer-wrapper-side-menu;
 
-            #article-links-and-toc-inner-wrapper {
-                @include article-links-and-toc-inner-wrapper-side-menu;
+            #article-links-and-outline-inner-wrapper {
+                @include article-links-and-outline-inner-wrapper-side-menu;
             }
         }
 
-        #article-links-and-toc-inner-wrapper {
+        #article-links-and-outline-inner-wrapper {
             display: flex;
             flex-shrink: 1;
         }

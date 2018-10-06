@@ -21,10 +21,10 @@
         </button>
     </div>
 
-    <div id="article-links-and-toc-outer-wrapper">
-        <div id="article-links-and-toc-inner-wrapper">
+    <div id="article-links-and-outline-outer-wrapper">
+        <div id="article-links-and-outline-inner-wrapper">
             {{>partials/articleMenu/articleLinks}}
-            {{>partials/articleMenu/tableOfContents}}
+            {{>partials/articleMenu/outline}}
         </div>
     </div>
 </div>

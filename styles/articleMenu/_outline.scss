@@ -1,6 +1,6 @@
 ﻿@import '../shared/constants';
 
-@mixin table-of-contents-side-menu {
+@mixin outline-side-menu {
     margin-bottom: 23px;
 }
 
@@ -32,13 +32,13 @@
     display: none;
 }
 
-#table-of-contents-wrapper {
+#outline {
     display: flex;
     flex-grow: 1;
     flex-shrink: 1;
     flex-direction: column;
 
-    #table-of-contents-title {
+    .level-1 {
         font-size: $font-size-2;
         font-weight: 600;
         display: block;
@@ -49,7 +49,7 @@
         }
     }
 
-    #table-of-contents {
+    #outline-scrollable {
         display: flex;
         overflow-y: auto;
         position: relative;
@@ -57,10 +57,10 @@
         margin-top: 14px;
 
         @media #{$media-medium}, #{$media-wide} {
-            @include table-of-contents-side-menu;
+            @include outline-side-menu;
         }
 
-        #table-of-contents-indicator-knob {
+        #outline-scrollable-knob {
             width: 2px;
             position: absolute;
             left: 0;
@@ -87,11 +87,11 @@
                 padding-left: 16px;
                 padding-right: 14px;
                 // The root ul element's height is set to the cross axis height of it's parent - https://bugs.chromium.org/p/chromium/issues/detail?id=134729,
-                // this is what the dictated by the spec. When table-of-contents has overflow (due to table-of-contents-wrapper having a min-height), the root
-                // ul element's height is considered to be the height of table-of-contents not inclusive of overflow area. Because of this, an indicator track
+                // this is what the dictated by the spec. When outline has overflow (due to outline-wrapper having a min-height), the root
+                // ul element's height is considered to be the height of outline not inclusive of overflow area. Because of this, an indicator track
                 // that is an immediate child or sibling of the root ul element will not extend into the overflow area. A work around is to use
                 // height: max-content, but max-content is not supported on edge.
-                .indicator-track {
+                .outline-scrollable-track {
                     width: 1px;
                     position: absolute;
                     left: 0;
@@ -106,7 +106,7 @@
             display: flex;
             flex-direction: column;
 
-            &.level2 {
+            &.level-3 {
                 margin-left: 14px;
 
                 @media #{$media-narrow} {

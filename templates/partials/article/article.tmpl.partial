@@ -1,4 +1,4 @@
-<article class="jtcd-article">
+<article class="main-article">
     {{#mimo_pageTitle}}<h1 class="title">{{mimo_pageTitle}}</h1>{{/mimo_pageTitle}}
 
     {{^mimo_disableMetadata}}

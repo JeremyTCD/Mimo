@@ -7,7 +7,7 @@ import DropdownFactory from '../shared/dropdownFactory';
 import Dropdown from '../shared/dropdown';
 import ResizeObserver from 'resize-observer-polyfill';
 import DebounceService from '../shared/debounceService';
-import TableOfContentsComponent from './tableOfContentsComponent';
+import OutlineComponent from './outlineComponent';
 import ArticleLinksComponent from './articleLinksComponent';
 import ArticleMenuHeaderComponent from './articleMenuHeaderComponent';
 import { MenuMode } from '../shared/menuMode';
@@ -19,9 +19,9 @@ export default class ArticleMenuComponent extends RootComponent {
     private _linksAndTocInnerWrapperElement: HTMLElement;
     private _headerButtonElement: HTMLElement;
     private _footerElement: HTMLElement;
-    private _tableOfContents: HTMLElement;
+    private _outlineScrollable: HTMLElement;
 
-    private _tableOfContentsComponent: TableOfContentsComponent;
+    private _outlineComponent: OutlineComponent;
 
     private _mediaGlobalService: MediaGlobalService;
     private _overlayService: OverlayService;
@@ -33,13 +33,13 @@ export default class ArticleMenuComponent extends RootComponent {
     private static readonly DEBOUNCE_TIME: number = 150;
     private _dropdown: Dropdown;
     private _bodyResizeObserver: ResizeObserver;
-    private _linksAndTocTitleHeight: number;
+    private _linksAndOutlineLevel1Height: number;
     private _updateSideMenuQueued: boolean;
     private _menuMode: MenuMode;
 
     public constructor(
         @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
-        tableOfcontentsComponent: TableOfContentsComponent,
+        outlineComponent: OutlineComponent,
         articleLinksComponent: ArticleLinksComponent,
         articleMenuHeaderComponent: ArticleMenuHeaderComponent,
         debounceService: DebounceService,
@@ -51,9 +51,9 @@ export default class ArticleMenuComponent extends RootComponent {
         this._mediaGlobalService = mediaGlobalService;
         this._debounceService = debounceService;
         this._dropdownFactory = dropdownFactory;
-        this._tableOfContentsComponent = tableOfcontentsComponent;
+        this._outlineComponent = outlineComponent;
 
-        this.addChildComponents(tableOfcontentsComponent, articleLinksComponent, articleMenuHeaderComponent);
+        this.addChildComponents(outlineComponent, articleLinksComponent, articleMenuHeaderComponent);
     }
 
     public setupImmediate() {
@@ -72,42 +72,42 @@ export default class ArticleMenuComponent extends RootComponent {
     public setupOnDomContentLoaded(): void {
         this.childComponentsSetupOnDomContentLoaded();
 
-        this._linksAndTocOuterWrapperElement = document.getElementById('article-links-and-toc-outer-wrapper');
-        this._linksAndTocInnerWrapperElement = document.getElementById('article-links-and-toc-inner-wrapper');
+        this._linksAndTocOuterWrapperElement = document.getElementById('article-links-and-outline-outer-wrapper');
+        this._linksAndTocInnerWrapperElement = document.getElementById('article-links-and-outline-inner-wrapper');
         this._footerElement = document.getElementById('page-footer');
-        this._tableOfContents = document.getElementById('table-of-contents');
+        this._outlineScrollable = document.getElementById('outline-scrollable');
         this._headerButtonElement = document.getElementById('article-menu-header-button');
 
         this._dropdown = this._dropdownFactory.build(this._linksAndTocOuterWrapperElement, this._linksAndTocInnerWrapperElement, this._headerButtonElement, this._articleMenuElement);
     }
 
     public setupOnLoad(): void {
-        let tocTitleElement = document.getElementById('table-of-contents-title');
-        let tocTitleComputedStyle = getComputedStyle(tocTitleElement);
+        let outlineTitleElement = document.querySelector('#outline > .level-1');
+        let outlineTitleComputedStyle = getComputedStyle(outlineTitleElement);
         let articleLinksElement = document.getElementById('article-links');
         let articleLinksComputedStyle = getComputedStyle(articleLinksElement);
-        let tocComputedStyle = getComputedStyle(this._tableOfContents);
+        let outlineComputedStyle = getComputedStyle(this._outlineScrollable);
 
-        this._linksAndTocTitleHeight = parseFloat(articleLinksComputedStyle.marginBottom) +
+        this._linksAndOutlineLevel1Height = parseFloat(articleLinksComputedStyle.marginBottom) +
             parseFloat(articleLinksComputedStyle.height) +
-            parseFloat(tocTitleComputedStyle.height) +
-            parseFloat(tocComputedStyle.marginTop) +
+            parseFloat(outlineTitleComputedStyle.height) +
+            parseFloat(outlineComputedStyle.marginTop) +
             ArticleLinksComponent.TOP_NEGATIVE_MARGIN;
 
         this._headerButtonElement.addEventListener('click', this.buttonClickListener);
 
-        let tocAnchorElements = this._tableOfContentsComponent.getAnchorElements();
-        if (tocAnchorElements) {
-            for (let i = 0; i < tocAnchorElements.length; i++) {
-                tocAnchorElements[i].addEventListener('click', this.tocAnchorClickListener);
+        let outlineAnchorElements = this._outlineComponent.getAnchorElements();
+        if (outlineAnchorElements) {
+            for (let i = 0; i < outlineAnchorElements.length; i++) {
+                outlineAnchorElements[i].addEventListener('click', this.outlineAnchorClickListener);
             }
-            tocTitleElement.addEventListener('click', this.tocAnchorClickListener);
+            outlineTitleElement.addEventListener('click', this.outlineAnchorClickListener);
         }
 
         this._mediaGlobalService.addChangedToListener(this.onChangedToDropdownListener, MediaWidth.narrow);
         this._mediaGlobalService.addChangedFromListener(this.onChangedToSideMenuListener, MediaWidth.narrow);
 
-        // tocComponent's update knob methods must run after updateToc (incase updating toc height causes wrapping, in turn causing anchor bounding rects to change)
+        // outlineComponent's update knob methods must run after updateToc (incase updating outline height causes wrapping, in turn causing anchor bounding rects to change)
         this.childComponentsSetupOnLoad();
     }
 
@@ -117,13 +117,13 @@ export default class ArticleMenuComponent extends RootComponent {
         if (this._dropdown.isExpanded()) {
             this._overlayService.activateOverlay(this._articleMenuElement);
             this.updateDropdown();
-            this._tableOfContentsComponent.updateDropdownKnob();
+            this._outlineComponent.updateDropdownKnob();
         } else {
             this._overlayService.deactivateOverlay();
         }
     }
 
-    private tocAnchorClickListener = (): void => {
+    private outlineAnchorClickListener = (): void => {
         if (this._mediaGlobalService.mediaWidthIs(MediaWidth.narrow)) {
             this._overlayService.deactivateOverlay();
             this._dropdown.collapseWithAnimation();
@@ -185,21 +185,21 @@ export default class ArticleMenuComponent extends RootComponent {
             let articleMenuTop = this._articleMenuElement.getBoundingClientRect().top;
             let footerTop = this._footerElement.getBoundingClientRect().top;
 
-            let tocHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
+            let outlineHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
                 - ArticleMenuComponent.VERTICAL_GAP
-                - this._linksAndTocTitleHeight
+                - this._linksAndOutlineLevel1Height
                 - Math.max(ArticleMenuComponent.VERTICAL_GAP, articleMenuTop);
 
             // Tried setting bottom, max-height, both don't work on edge - scroll bar doesn't go away even when height is greater than 
             // menu height. This works.
-            this._tableOfContents.style.height = `${tocHeight}px`;
+            this._outlineScrollable.style.height = `${outlineHeight}px`;
         }
 
         this._updateSideMenuQueued = false;
     }
 
     private resetSideMenu = (): void => {
-        this._tableOfContents.style.height = '';
+        this._outlineScrollable.style.height = '';
     }
 
     // Fixes smooth-scroll/chrome issue. Scroll event fires before raf callbacks are called, since smooth-scroll uses raf to scroll, footer top is not accurate until after smooth-scroll's raf callback
