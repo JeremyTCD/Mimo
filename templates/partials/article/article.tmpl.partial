@@ -1,5 +1,5 @@
 <article class="jtcd-article">
-    {{#mimo_pageTitle}}<div class="title">{{mimo_pageTitle}}</div>{{/mimo_pageTitle}}
+    {{#mimo_pageTitle}}<h1 class="title">{{mimo_pageTitle}}</h1>{{/mimo_pageTitle}}
 
     {{^mimo_disableMetadata}}
     <div class="meta">
@@ -19,12 +19,12 @@
                 </svg>
                 {{#link}}
                 <a class="metadata-author-link" href="{{link}}" title="{{name}}">
-                {{/link}}
+                    {{/link}}
                     <span class="author-text">{{name}}</span>
                     {{#imgSrc}}
                     <img src="{{imgSrc}}" alt="{{name}}" />
                     {{/imgSrc}}
-                {{#link}}
+                    {{#link}}
                 </a>
                 {{/link}}
             </li>
@@ -34,7 +34,6 @@
     {{/mimo_disableMetadata}}
 
     <div class="content">
-        {{{rawTitle}}}
         {{{conceptual}}}
     </div>
 </article>
