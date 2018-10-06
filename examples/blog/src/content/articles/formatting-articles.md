@@ -12,8 +12,8 @@ mimo_shareOnTwitter:
 Formatting can be used to add order, meaning, and utility to your content. For example, headers can be used to categorize content, italicization can be used to emphasize things, and 
 tables can be used to facilitate comparisons. This article covers all of the built-in ways to format your article.
 
-# Code
-## Inline Code
+## Code
+### Inline Code
 Create inline code by surrounding code with a pair of back-ticks:
 
 ```no-highlight
@@ -22,7 +22,7 @@ For example, you could inline a function declaration like `public int DoSomethin
 
 For example, you could inline a function declaration like `public int DoSomething()`.
 
-## Code Blocks
+### Code Blocks
 Create a code block by surrounding code with a pair of back-tick trios. You can append a language name from [this list](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases)
 to the opening back-tick trio for language specific syntax highlighting:
 
@@ -54,8 +54,8 @@ public TypescriptFunction(): string {
 }
 ```
 
-# Blockquotes and Alerts
-## Blockquote
+## Blockquotes and Alerts
+### Blockquote
 Create a blockquote by prepending lines with `>` (optionally followed by a space, for better readability):
 
 ```no-highlight
@@ -64,7 +64,7 @@ Create a blockquote by prepending lines with `>` (optionally followed by a space
 
 > This is a blockquote.
 
-## Note Alert
+### Note Alert
 Create a note alert by beginning a blockquote with the line `> [!alert-note]`:
 
 ```no-highlight
@@ -75,7 +75,7 @@ Create a note alert by beginning a blockquote with the line `> [!alert-note]`:
 > [!alert-note]
 > This is a note alert.
 
-## Warning Alert
+### Warning Alert
 Create a warning alert by beginning a blockquote with the line `> [!alert-warning]`:
 
 ```no-highlight
@@ -86,7 +86,7 @@ Create a warning alert by beginning a blockquote with the line `> [!alert-warnin
 > [!alert-warning]
 > This is a warning alert.
  
-## Critical Warning Alert
+### Critical Warning Alert
 Create a critical warning alert by beginning a blockquote with the line `> [!alert-critical-warning]`:
 
 ```no-highlight
@@ -97,7 +97,7 @@ Create a critical warning alert by beginning a blockquote with the line `> [!ale
 > [!alert-critical-warning]
 > This is a critical warning alert.
 
-## Formatting within Blockquotes and Alerts
+### Formatting within Blockquotes and Alerts
 If a sequence of lines creates `x`, then the same sequence of lines, with `>` appended to each line, creates `x` within a blockquote.
 If an alert creation line, such as `>[!alert-note]` is appended to the blockquote, `x` is created within an alert:
 
@@ -154,21 +154,28 @@ Paragraph two line two.
 > - Item one
 > - Item two
 
-# Headings
+## Headings
 Headings can be created at three levels:
 
 ```no-highlight
 # H1
 ## H2
 ### H3
+#### H4
+##### H5
+###### H6
 ```
 
-<!-- TODO not underlined since h1 and h2 now use heading-1 and heading-2 wrappers, in new article, leave in right menu outline to demonstrate how to add items to it -->
-<h1 class="exclude-from-outline">H1</h1>
-<h2 class="exclude-from-outline">H2</h2>
-<h3 id="h3">H3</h3>
+# H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
 
-# Horizontal Rules
+# H1
+
+## Horizontal Rules
 To create a horizontal rule, use a line containing a sequence of three `*`, `-` or `_` characters:
 
 ```no-highlight
@@ -189,9 +196,9 @@ ___
 
 -*_
 
-# Line Breaks and Paragraphs
+## Line Breaks and Paragraphs
 
-## Line Breaks
+### Line Breaks
 To create a line break, append two spaces to the end of a line:
 
 ```no-highlight
@@ -202,7 +209,7 @@ Line two
 Line one  
 Line two
 
-## Paragraphs
+### Paragraphs
 To create a paragraph, leave an empty line after the last line of the preceding paragraph:
 
 ```no-highlight
@@ -217,10 +224,10 @@ Paragraph one line two
 
 Paragraph two
 
-# Links
+## Links
 By default, links to other sites open in a new tab.
 
-## Basic Links
+### Basic Links
 ```no-highlight
 [Absolute link](https://www.jeremytcd.com)
 
@@ -237,14 +244,14 @@ By default, links to other sites open in a new tab.
 > [!alert-note]
 > Hover over the link to see the title.
 
-## Raw URLs
+### Raw URLs
 ```no-highlight
 https://www.jeremytcd.com
 ```
 
 https://www.jeremytcd.com
 
-## Reference-Style Links
+### Reference-Style Links
 ```no-highlight
 [Reference-style link with a reference string][jeremytcd]
 
@@ -263,7 +270,7 @@ https://www.jeremytcd.com
 [jeremytcd]: https://www.jeremytcd.com "JeremyTCD"  
 [Reference-style link with no reference string]: https://www.jeremytcd.com "JeremyTCD"
 
-## UID Links
+### UID Links
 ```no-highlight
 <xref:about>
 
@@ -274,8 +281,8 @@ TODO xref should use page title instead of first H1
 
 [About](xref:about)
 
-# Lists
-## Ordered Lists
+## Lists
+### Ordered Lists
 An ordered list can be created using a sequence of lines of the form `<number>. <text>`:
 
 ```no-highlight
@@ -290,7 +297,7 @@ An ordered list can be created using a sequence of lines of the form `<number>. 
 3. Item three
 4. Item four
 
-## Unordered Lists
+### Unordered Lists
 An unordered list can be created using a sequence of lines of the form `*|-|+ <text>`:
 
 ```no-highlight
@@ -309,7 +316,7 @@ An unordered list can be created using a sequence of lines of the form `*|-|+ <t
 + Item five
 + Item six
 
-## Formatting within List Items
+### Formatting within List Items
 Say a sequence of lines creates `x`. The same sequence of lines, with the first line in the form of the first line of a list, for example `<number>. <text>`,
 and all other lines prepended with two spaces, creates `x` within a list item.
 
@@ -347,8 +354,8 @@ Paragraph two line two.
   - Nested item one
   - Nested item two
 
-# Text Styles
-## Italicized Text
+## Text Styles
+### Italicized Text
 Text can be italicized using a pair of asterisks or underscores:
 
 ```no-highlight
@@ -361,7 +368,7 @@ _Italicized using underscores._
 
 _Italicized using underscores._  
 
-## Bold Text
+### Bold Text
 Text can be bolded using two pairs of asterisks or underscores:
 
 ```no-highlight
@@ -374,7 +381,7 @@ __Bolded using underscores.__
 
 __Bolded using underscores.__  
 
-## Italicized and Bold Text
+### Italicized and Bold Text
 Text can be italicized and bolded using a combination of asterisks and underscores:
 
 ```no-highlight
@@ -387,7 +394,7 @@ Text can be italicized and bolded using a combination of asterisks and underscor
 
 *__Italicized and bold.__*  
 
-## Struck Through Text
+### Struck Through Text
 Text can be struck through: 
 
 ```no-highlight
@@ -396,7 +403,7 @@ Text can be struck through:
 
 ~~Struck through.~~  
 
-# Tables
+## Tables
 At least 3 dashes must separate each header cell. Use colons to specify alignment. Pipes do not need to line up.
 
 ```no-highlight
@@ -413,24 +420,24 @@ At least 3 dashes must separate each header cell. Use colons to specify alignmen
 | 0, 1 | 1, 1 | 2, 1 |
 | 0, 2 | 1, 2 | 2, 2 |
 
-# Tabs
+## Tabs
 ```no-highlight
-# [Tab One](#tab/tabid-1)
+## [Tab One](#tab/tabid-1)
 
 Tab one content
 
-# [Tab Two](#tab/tabid-2)
+## [Tab Two](#tab/tabid-2)
 
 Tab two content.
 
 ***
 ```
 
-# [Tab One](#tab/tabid-1)
+## [Tab One](#tab/tabid-1)
 
 Tab one content
 
-# [Tab Two](#tab/tabid-2)
+## [Tab Two](#tab/tabid-2)
 
 Tab two content.
 
@@ -442,5 +449,5 @@ TODO should look something like this, requires custom markdown renderer and logi
     "src":"../../resources/tabs.png"
 }
 
-# Further Reading
+## Further Reading
 https://github.github.com/gfm

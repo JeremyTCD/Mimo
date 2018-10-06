@@ -7,30 +7,30 @@ mimo_fontLinks:
   - link: https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i|Droid+Sans+Mono
 ---
 
-# Using Images
+## Using Images
 
-## Inline Images
+### Inline Images
 Display an image inline using a line of the form `![<alt-text>](<image-path> "<title>")`:
-### Markdown
+#### Markdown
 [!include-code] { 
     "src": "./using-external-resources.md",
     "regions": [{"name": "inline-image-example" }],
     "highlight": false
 }
-### Result
+#### Result
 <!-- <inline-image-example> -->
 This image is inline: ![JeremyTCD's Logo](../../resources/logo.png "JeremyTCD's Logo")
 <!-- </inline-image-example> -->
 
-## Image Blocks
+### Image Blocks
 Use `[!include-image]<include-image-options>` to create an image block:
-### Markdown
+#### Markdown
 [!include-code] { 
     "src": "./using-external-resources.md",
     "regions": [{"name": "include-image-example" }],
     "highlight": false
 }
-### Result
+#### Result
 <!-- <include-image-example> -->
 [!include-image]{ 
     "src":"../../resources/logo.png", 
@@ -40,11 +40,11 @@ Use `[!include-image]<include-image-options>` to create an image block:
     "credits":"© 2017-2018 JeremyTCD"
 }
 <!-- </include-image-example> -->
-### Result Markup
+#### Result Markup
 ```no-highlight
 TODO: display actual html here
 ```
-### Details
+#### Details
 `<include-image-options>` must be a JSON object with the following properties:
 
 | Property | Type | IsRequired | Notes |
@@ -58,17 +58,17 @@ TODO: display actual html here
 | credits | string | false | If specified, this property's value is used as the `innerHTML` of the `span` element with class `image-credits`. If the `footerContent` property is specified, this property is ignored.  This property's value will be encoded as HTML-encoded text. |
 
 
-# Including Code
+## Including Code
 Use `[!include-code]<include-code-options>` to create a code block:
  
-## Markdown
+### Markdown
 [!include-code]{
     "src": "./using-external-resources.md",
     "regions": [{"name": "include-code-examples" }],
     "highlight": false
 }
 
-## Result
+### Result
 <!-- <include-code-examples> -->
 <!-- Include entire file -->
 [!include-code]{ 
@@ -94,11 +94,11 @@ Use `[!include-code]<include-code-options>` to create a code block:
     "title": "Ranges"
 }
 <!-- </include-code-examples> -->
-## Result Markup
+### Result Markup
 ```no-highlight
 TODO: display actual html here
 ```
-## Details
+### Details
 `<include-code-options>` must be a JSON object with the following properties:
 
 | Property | Type | IsRequired | Notes |
@@ -128,28 +128,28 @@ TODO: display actual html here
 | dedentLength | number | false | Number of whitespace characters to remove from beggining of each line in the range. By default, removes the maximum common number of white space characters from each line. |
 | lineBreak | string | false | Whether or not to create line breaks before and after a range. Can be one of the following strings: `none`, `before`, `after` or `both`. Has value `none` by default. |
 
-# Including Markdown
+## Including Markdown
 Use `[!include-markdown]<include-markdown-options>` to include Markdown:
  
-## Markdown
+### Markdown
 [!include-code]{
     "src": "./using-external-resources.md",
     "regions": [{"name": "include-markdown-example" }],
     "highlight": false
 }
 
-## Result
+### Result
 <!-- <include-markdown-example> -->
 <!-- Include entire file -->
 [!include-markdown]{ 
     "src":"../../resources/Example.md"
 }
 <!-- </include-markdown-example> -->
-## Result Markup
+### Result Markup
 ```no-highlight
 TODO: display actual html here
 ```
-## Details
+### Details
 `<include-markdown-options>` must be a JSON object with the following properties:
 
 | Property | Type | IsRequired | Notes |
