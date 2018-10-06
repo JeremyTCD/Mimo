@@ -48,6 +48,7 @@
             ]
         },
         "postProcessors": [ "SortedArticleListGenerator", "SearchIndexGenerator" ],
+        "markdownEngineName": "mimo-markdown",
         "sitemap": {
             "baseUrl": "https://yourdomain",
             "priority": 0.1,
