@@ -173,8 +173,6 @@ Headings can be created at three levels:
 ##### H5
 ###### H6
 
-# H1
-
 ## Horizontal Rules
 To create a horizontal rule, use a line containing a sequence of three `*`, `-` or `_` characters:
 
