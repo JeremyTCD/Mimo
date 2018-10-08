@@ -60,17 +60,17 @@
             @include outline-side-menu;
         }
 
-        #outline-scrollable-knob {
-            width: 2px;
+        svg {
+            width: 24px;
+            height: 24px;
             position: absolute;
-            left: 0;
-            top: 0;
-            height: 1px;
-            background-color: $color-primary-icon;
+            left: -9px;
+            top: -2px;
             z-index: 1;
             transform-origin: top;
             transition: transform $medium-animation-duration $ease-out-quad;
             will-change: transform;
+            fill: $color-primary-icon;
 
             @media #{$media-narrow} {
                 @include knob-dropdown;
@@ -97,7 +97,7 @@
                     left: 0;
                     top: 0;
                     bottom: 0;
-                    background-color: $color-section-divider-background;
+                    background-color: $color-header-divider-background;
                 }
             }
         }

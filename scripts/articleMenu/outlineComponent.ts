@@ -1,7 +1,6 @@
 ﻿import { injectable, inject, named } from 'inversify';
 import Component from '../shared/component';
 import '../shared/treeNode';
-import './outlineAnchorData';
 import ArticleGlobalService from '../shared/articleGlobalService';
 import MediaGlobalService from '../shared/mediaGlobalService';
 import { MediaWidth } from '../shared/mediaWidth';
@@ -17,7 +16,6 @@ export default class OutlineComponent implements Component {
 
     private _anchorElements: NodeList;
     private _lastDropdownAnchorIndex: number;
-    private _noToc: boolean;
 
     public constructor(@inject('GlobalService') @named('ArticleGlobalService') articleGlobalService: ArticleGlobalService,
         @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService) {
@@ -32,18 +30,13 @@ export default class OutlineComponent implements Component {
     public setupOnDomContentLoaded(): void {
         this._outlineElement = document.getElementById('outline');
         this._knobElement = document.getElementById('outline-scrollable-knob');
-
-        if (!this._noToc) {
-            this._rootUnorderedListElement = this._outlineElement.querySelector('ul');
-            this._anchorElements = this._rootUnorderedListElement.querySelectorAll('a');
-        }
+        this._rootUnorderedListElement = this._outlineElement.querySelector('ul');
+        this._anchorElements = this._rootUnorderedListElement.querySelectorAll('a');
     }
 
     public setupOnLoad(): void {
-        if (!this._noToc) {
-            this._mediaGlobalService.addChangedToListener(this.onChangedToNarrowListener, MediaWidth.narrow);
-            this._mediaGlobalService.addChangedFromListener(this.onChangedFromNarrowListener, MediaWidth.narrow);
-        }
+        this._mediaGlobalService.addChangedToListener(this.onChangedToNarrowListener, MediaWidth.narrow);
+        this._mediaGlobalService.addChangedFromListener(this.onChangedFromNarrowListener, MediaWidth.narrow);
     }
 
     private onChangedToNarrowListener = (init: boolean): void => {
@@ -57,21 +50,19 @@ export default class OutlineComponent implements Component {
     }
 
     public updateDropdownKnob = (): void => {
-        if (!this._noToc) {
-            let newIndex = this._articleGlobalService.getActiveHeaderIndex();
+        let newIndex = this._articleGlobalService.getActiveHeaderIndex();
 
-            if (newIndex === this._lastDropdownAnchorIndex) {
-                return;
-            }
-
-            if (this._lastDropdownAnchorIndex !== null && this._lastDropdownAnchorIndex !== undefined) {
-                (this._anchorElements[this._lastDropdownAnchorIndex] as HTMLElement).classList.remove('active');
-            }
-
-            let activeAnchorIndex = newIndex === -1 ? 0 : newIndex;
-            (this._anchorElements[activeAnchorIndex] as HTMLElement).classList.add('active');
-            this._lastDropdownAnchorIndex = activeAnchorIndex;
+        if (newIndex === this._lastDropdownAnchorIndex) {
+            return;
         }
+
+        if (this._lastDropdownAnchorIndex !== null && this._lastDropdownAnchorIndex !== undefined) {
+            (this._anchorElements[this._lastDropdownAnchorIndex] as HTMLElement).classList.remove('active');
+        }
+
+        let activeAnchorIndex = newIndex === -1 ? 0 : newIndex;
+        (this._anchorElements[activeAnchorIndex] as HTMLElement).classList.add('active');
+        this._lastDropdownAnchorIndex = activeAnchorIndex;
     }
 
     private updateSideMenuKnob = (newIndex: number): void => {
