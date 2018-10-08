@@ -1,43 +1,15 @@
 @import '../shared/constants';
 
 #page-header-search {
-    @include pure-flex;
-    @include text-input-icons;
-    height: 37px;
-    background-image: linear-gradient($color-primary-text, $color-primary-text);
-    background-repeat: no-repeat;
-    background-position: 0 100%;
-    align-items: center;
-    flex-shrink: 0;
     // Note: Media width is flaky in Edge. Using a medium to wide viewport, navigate between contact, privacypolicy and licenses in the blog example. Notice how the search bar
     // sometimes starts out underlined. This is because the contents of this narrow query are somehow being applied initially. No easy fix.
     @media #{$media-narrow} {
         @include horizontal-edge-margin;
-        background-size: 100% 2px;
-        margin-bottom: 37px;
+        margin-bottom: 22px;
     }
 
     @media #{$media-medium}, #{$media-wide} {
         margin-left: auto;
         width: $side-menu-width;
-        background-size: 0% 1px;
-        transition: background-size $medium-animation-duration $ease-out-quad;
-
-        &:hover, &.active {
-            transition-delay: $anti-flicker-delay;
-            background-size: 100% 1px;
-        }
-    }
-
-    input {
-        flex-shrink: 0;
-        color: $color-primary-text;
-        background-color: transparent;
-        border: none;
-        outline: none;
-        flex-grow: 1;
-        font-size: $font-size-2;
-        // Input elements have intrinsic widths, set it to 0 and let the input element scale naturally - https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
-        width: 0;
     }
 }

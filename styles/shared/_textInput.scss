@@ -1,0 +1,35 @@
+﻿@import '../shared/constants';
+
+form {
+    @include pure-flex;
+    @include text-input-icons;
+    flex-shrink: 0;
+    height: 37px;
+    padding-left: 12px;
+    padding-right: 10px;
+    align-items: center;
+    border: 1px solid $color-section-header-background;
+    background-image: linear-gradient($color-section-header-background, $color-section-header-background);
+    background-repeat: no-repeat;
+    background-position: 100% 0;
+    background-size: 100% 100%;
+    transition: background-size $medium-animation-duration $ease-out-quad, border-color $short-animation-duration $ease-out-quad;
+
+    &:hover, &.active {
+        transition-delay: $anti-flicker-delay;
+        background-size: 0% 100%;
+        border-color: $color-primary-text;
+    }
+
+    input {
+        flex-shrink: 0;
+        color: $color-primary-text;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        flex-grow: 1;
+        font-size: $font-size-2;
+        // Input elements have intrinsic widths, set it to 0 and let the input element scale naturally - https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
+        width: 0;
+    }
+}
