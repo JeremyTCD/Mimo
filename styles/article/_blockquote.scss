@@ -1,0 +1,17 @@
+﻿@import '../shared/constants';
+
+blockquote {
+    display: flex;
+    border-left: 3px solid $color-primary-icon;
+    background-color: $color-section-body-background;
+    flex-direction: column;
+    font-style: italic;
+    // Slanted text appears further from edge
+    @include section-body-edges($x-correction: -1);
+
+    p {
+        a {
+            @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
+        }
+    }
+}

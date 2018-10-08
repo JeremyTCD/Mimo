@@ -1,0 +1,14 @@
+﻿article {
+    .table-block {
+        align-self: stretch;
+        overflow-x: auto;
+
+        @media #{$media-medium}, #{$media-wide} {
+            @include normal-table;
+        }
+
+        @media #{$media-narrow} {
+            @include card-table;
+        }
+    }
+}

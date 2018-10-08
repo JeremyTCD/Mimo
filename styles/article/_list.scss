@@ -1,0 +1,34 @@
+﻿@import '../shared/constants';
+
+ol, ul {
+    display: flex;
+    flex-direction: column;
+    padding-left: 44px;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+ul {
+    list-style-type: square;
+}
+
+li {
+    display: list-item;
+    margin-top: 10px;
+
+    &:first-child {
+        margin-top: 0;
+    }
+    // If a nested list is the first child of a list item, it has no top margin
+    ul, ol {
+        &:first-child {
+            li {
+                &:first-child {
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+}
