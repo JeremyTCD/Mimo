@@ -15,15 +15,18 @@
             flex-shrink: 0;
 
             + article {
-                margin-top: 48px;
+                margin-top: 20px;
+            }
+
+            .meta{
+                margin-bottom: 14px;
             }
 
             .title {
                 font-size: $font-size-6;
-                margin-top: 0;
 
                 a {
-                    @include animated-underline($color-primary-link, $animated-underline-26px-ypos, 2px, $background-color: $color-primary);
+                    @include animated-underline($color-primary-link, $animated-underline-28px-ypos, 2px, $background-color: $color-primary);
                 }
             }
         }
