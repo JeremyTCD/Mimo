@@ -81,10 +81,10 @@ export default class Host {
         container.bind<components.SearchResultsComponent>(components.SearchResultsComponent).toSelf().inSingletonScope();
 
         // Section menu
-        container.bind<components.RootComponent>('RootComponent').to(components.SectionMenuComponent).inSingletonScope();
-        container.bind<components.SectionMenuHeaderComponent>(components.SectionMenuHeaderComponent).toSelf().inSingletonScope();
-        container.bind<components.SectionPagesComponent>(components.SectionPagesComponent).toSelf().inSingletonScope();
-        container.bind<components.SectionPagesFilterComponent>(components.SectionPagesFilterComponent).toSelf().inSingletonScope();
+        container.bind<components.RootComponent>('RootComponent').to(components.CategoryMenuComponent).inSingletonScope();
+        container.bind<components.CategoryMenuHeaderComponent>(components.CategoryMenuHeaderComponent).toSelf().inSingletonScope();
+        container.bind<components.CategoryPagesComponent>(components.CategoryPagesComponent).toSelf().inSingletonScope();
+        container.bind<components.CategoryPagesFilterComponent>(components.CategoryPagesFilterComponent).toSelf().inSingletonScope();
 
         // Article
         container.bind<components.RootComponent>('RootComponent').to(components.ArticleComponent).inSingletonScope();

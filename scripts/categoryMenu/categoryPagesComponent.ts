@@ -5,14 +5,14 @@ import CollapsibleMenu from '../shared/collapsibleMenu';
 import CollapsibleMenuFactory from '../shared/collapsibleMenuFactory';
 import SvgService from '../shared/svgService';
 import PathService from '../shared/pathService';
-import SectionMenuHeaderComponent from './sectionMenuHeaderComponent';
+import CategoryMenuHeaderComponent from './categoryMenuHeaderComponent';
 import HeightService from '../shared/heightService';
 
 @injectable()
-export default class SectionPagesComponent implements Component {
-    private _sectionPagesElement: HTMLElement;
+export default class CategoryPagesComponent implements Component {
+    private _categoryPagesElement: HTMLElement;
 
-    private _sectionMenuHeaderComponent: SectionMenuHeaderComponent;
+    private _categoryMenuHeaderComponent: CategoryMenuHeaderComponent;
 
     public  collapsibleMenu: CollapsibleMenu;
     private _collapsibleMenuFactory: CollapsibleMenuFactory;
@@ -23,13 +23,13 @@ export default class SectionPagesComponent implements Component {
     private _initialExpandLIElementsPending: boolean;
 
     public constructor(
-        sectionMenuHeaderComponent: SectionMenuHeaderComponent,
+        categoryMenuHeaderComponent: CategoryMenuHeaderComponent,
         collapsibleMenuFactory: CollapsibleMenuFactory,
         svgService: SvgService,
         pathService: PathService,
         heightService: HeightService) {
 
-        this._sectionMenuHeaderComponent = sectionMenuHeaderComponent;
+        this._categoryMenuHeaderComponent = categoryMenuHeaderComponent;
         this._collapsibleMenuFactory = collapsibleMenuFactory;
         this._svgService = svgService;
         this._pathService = pathService;
@@ -40,29 +40,29 @@ export default class SectionPagesComponent implements Component {
     }
 
     public setupOnDomContentLoaded(): void {
-        this._sectionPagesElement = document.getElementById('section-pages');
+        this._categoryPagesElement = document.getElementById('category-pages');
 
-        let sectionPagesPath = document.
+        let categoryPagesPath = document.
             querySelector("meta[property='docfx\\:tocrel']").
             getAttribute("content").
             replace(/\\/g, '/');
 
-        let getSectionPagesRequest = new XMLHttpRequest()
-        getSectionPagesRequest.onreadystatechange = () => {
+        let getCategoryPagesRequest = new XMLHttpRequest()
+        getCategoryPagesRequest.onreadystatechange = () => {
             // TODO check status too
-            if (getSectionPagesRequest.readyState === XMLHttpRequest.DONE) {
-                let sectionPagesFragment = document.createRange().createContextualFragment(getSectionPagesRequest.responseText);
+            if (getCategoryPagesRequest.readyState === XMLHttpRequest.DONE) {
+                let categoryPagesFragment = document.createRange().createContextualFragment(getCategoryPagesRequest.responseText);
                 let svgElement: SVGElement = this._svgService.createSvgExternalSpriteElement('material-design-chevron-right');
-                let items = sectionPagesFragment.querySelectorAll('li > a, li > span');
+                let items = categoryPagesFragment.querySelectorAll('li > a, li > span');
 
                 for (let i = 0; i < items.length; i++) {
                     let item = items[i];
                     item.insertBefore(svgElement.cloneNode(true), item.firstChild);
                 }
 
-                this._sectionPagesElement.appendChild(sectionPagesFragment);
-                let activePageElement = this.cleanHrefsAndGetActivePageElement(sectionPagesPath);
-                this.collapsibleMenu = this._collapsibleMenuFactory.build(this._sectionPagesElement);
+                this._categoryPagesElement.appendChild(categoryPagesFragment);
+                let activePageElement = this.cleanHrefsAndGetActivePageElement(categoryPagesPath);
+                this.collapsibleMenu = this._collapsibleMenuFactory.build(this._categoryPagesElement);
                 this.handleActivePageElement(activePageElement);
 
                 // load event has already fired
@@ -73,8 +73,8 @@ export default class SectionPagesComponent implements Component {
                 }
             }
         }
-        getSectionPagesRequest.open('GET', sectionPagesPath);
-        getSectionPagesRequest.send();
+        getCategoryPagesRequest.open('GET', categoryPagesPath);
+        getCategoryPagesRequest.send();
     }
 
     public setupOnLoad(): void {
@@ -84,7 +84,7 @@ export default class SectionPagesComponent implements Component {
     }
 
     private handleActivePageElement(activePageElement: HTMLElement) {
-        // Page may not be listed in section menu
+        // Page may not be listed in category menu
         if (!activePageElement) {
             return;
         }
@@ -95,7 +95,7 @@ export default class SectionPagesComponent implements Component {
         this._initiallyExpandedLIElements = [];
         activePageElement.classList.add('active');
 
-        while (currentParentElement.id !== 'section-pages') {
+        while (currentParentElement.id !== 'category-pages') {
             if (currentParentElement.tagName === 'LI') {
                 parentTopicAndPageElements.
                     push(currentParentElement.querySelector('a, span'));
@@ -109,7 +109,7 @@ export default class SectionPagesComponent implements Component {
         }
 
         this.
-            _sectionMenuHeaderComponent.
+            _categoryMenuHeaderComponent.
             loadChildBreadcrumbs(parentTopicAndPageElements);
     }
 
@@ -144,14 +144,14 @@ export default class SectionPagesComponent implements Component {
         }
     }
 
-    private cleanHrefsAndGetActivePageElement(sectionPagesPath: string): HTMLElement {
-        let indexOfLastSlashBeforeFileName = sectionPagesPath.lastIndexOf('/');
-        let sectionPagesRelativePath = '';
+    private cleanHrefsAndGetActivePageElement(categoryPagesPath: string): HTMLElement {
+        let indexOfLastSlashBeforeFileName = categoryPagesPath.lastIndexOf('/');
+        let categoryPagesRelativePath = '';
         if (indexOfLastSlashBeforeFileName > -1) {
-            sectionPagesRelativePath = sectionPagesPath.substr(0, indexOfLastSlashBeforeFileName + 1);
+            categoryPagesRelativePath = categoryPagesPath.substr(0, indexOfLastSlashBeforeFileName + 1);
         }
         let currentUri = this._pathService.getAbsolutePath(window.location.pathname);
-        let pageElements = this._sectionPagesElement.querySelectorAll('a');
+        let pageElements = this._categoryPagesElement.querySelectorAll('a');
 
         for (let i = 0; i < pageElements.length; i++) {
             let pageElement = pageElements[i];
@@ -159,7 +159,7 @@ export default class SectionPagesComponent implements Component {
             let pageHref = pageElement.getAttribute("href");
             if (this._pathService.isRelativePath(pageHref)) {
                 // Make href relative to current URI
-                pageHref = sectionPagesRelativePath + pageHref;
+                pageHref = categoryPagesRelativePath + pageHref;
                 pageElement.setAttribute("href", pageHref);
             }
 

@@ -1,28 +1,28 @@
 ﻿import { injectable } from 'inversify';
 import Component from '../shared/component';
 import TextInputFactory from '../shared/textInputFactory';
-import SectionPagesComponent from './sectionPagesComponent';
+import CategoryPagesComponent from './categoryPagesComponent';
 
 @injectable()
-export default class SectionPagesFilterComponent implements Component {
+export default class CategoryPagesFilterComponent implements Component {
     private _textInputFactory: TextInputFactory;
 
-    private _sectionPagesComponent: SectionPagesComponent;
+    private _categoryPagesComponent: CategoryPagesComponent;
 
-    private _sectionPagesElement: HTMLElement;
+    private _categoryPagesElement: HTMLElement;
     private _filterElement: HTMLElement;
     private _inputElement: HTMLInputElement;
     private _clearElement: HTMLElement;
 
-    public constructor(sectionPagesComponent: SectionPagesComponent,
+    public constructor(categoryPagesComponent: CategoryPagesComponent,
         textInputFactory: TextInputFactory) {
-        this._sectionPagesComponent = sectionPagesComponent;
+        this._categoryPagesComponent = categoryPagesComponent;
         this._textInputFactory = textInputFactory;
     }
 
     public setupOnDomContentLoaded(): void {
-        this._sectionPagesElement = document.getElementById('section-pages');
-        this._filterElement = document.getElementById('section-pages-filter');
+        this._categoryPagesElement = document.getElementById('category-pages');
+        this._filterElement = document.getElementById('category-pages-filter');
         this._inputElement = this._filterElement.querySelector('input');
         this._clearElement = this._filterElement.querySelector('svg:last-child') as HTMLElement;
 
@@ -32,8 +32,8 @@ export default class SectionPagesFilterComponent implements Component {
             this._inputElement,
             this._clearElement,
             () => {
-                if (this._sectionPagesComponent.collapsibleMenu) {
-                    this._sectionPagesComponent.collapsibleMenu.restorePreFilterState();
+                if (this._categoryPagesComponent.collapsibleMenu) {
+                    this._categoryPagesComponent.collapsibleMenu.restorePreFilterState();
                 }
             });
     }
@@ -49,20 +49,20 @@ export default class SectionPagesFilterComponent implements Component {
     }
 
     private onInputListener = (): void => {
-        // Section pages' collapsible menu is only built after an ajax request returns the elements it contains.
-        if (this._sectionPagesComponent.collapsibleMenu) {
+        // Category pages' collapsible menu is only built after an ajax request returns the elements it contains.
+        if (this._categoryPagesComponent.collapsibleMenu) {
             let filterValue: string = this._inputElement.value;
             if (filterValue === '') {
-                this._sectionPagesComponent.collapsibleMenu.restorePreFilterState();
+                this._categoryPagesComponent.collapsibleMenu.restorePreFilterState();
                 return;
             }
 
-            if (!this._sectionPagesElement.classList.contains('filtered')) {
-                this._sectionPagesComponent.collapsibleMenu.savePreFilterState();
-                this._sectionPagesElement.classList.add('filtered');
+            if (!this._categoryPagesElement.classList.contains('filtered')) {
+                this._categoryPagesComponent.collapsibleMenu.savePreFilterState();
+                this._categoryPagesElement.classList.add('filtered');
             }
 
-            this._sectionPagesComponent.collapsibleMenu.filter(filterValue);
+            this._categoryPagesComponent.collapsibleMenu.filter(filterValue);
         }
     }
 }

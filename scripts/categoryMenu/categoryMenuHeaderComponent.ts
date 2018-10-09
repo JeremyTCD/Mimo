@@ -3,7 +3,7 @@ import Component from '../shared/component';
 import TreeService from '../shared/treeService';
 
 @injectable()
-export default class SectionMenuHeaderComponent implements Component {
+export default class CategoryMenuHeaderComponent implements Component {
     private _treeService: TreeService;
 
     private _headerElement: HTMLElement;
@@ -14,7 +14,7 @@ export default class SectionMenuHeaderComponent implements Component {
     }
 
     public setupOnDomContentLoaded(): void {
-        this._headerElement = document.getElementById('section-menu-header');
+        this._headerElement = document.getElementById('category-menu-header');
     }
 
     public setupImmediate(): void {

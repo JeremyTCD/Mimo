@@ -3,9 +3,9 @@ import RootComponent from '../shared/rootComponent';
 import MediaGlobalService from '../shared/mediaGlobalService';
 import OverlayService from '../shared/overlayService';
 import { MediaWidth } from '../shared/mediaWidth';
-import SectionPagesComponent from './sectionPagesComponent';
-import SectionMenuHeaderComponent from './sectionMenuHeaderComponent';
-import SectionPagesFilterComponent from './sectionPagesFilterComponent';
+import CategoryPagesComponent from './categoryPagesComponent';
+import CategoryMenuHeaderComponent from './categoryMenuHeaderComponent';
+import CategoryPagesFilterComponent from './categoryPagesFilterComponent';
 import DropdownFactory from '../shared/dropdownFactory';
 import Dropdown from '../shared/dropdown';
 import ResizeObserver from 'resize-observer-polyfill';
@@ -13,13 +13,13 @@ import DebounceService from '../shared/debounceService';
 import { MenuMode } from '../shared/menuMode';
 
 @injectable()
-export default class SectionMenuComponent extends RootComponent {
-    private _sectionMenuElement: HTMLElement;
+export default class CategoryMenuComponent extends RootComponent {
+    private _categoryMenuElement: HTMLElement;
     private _headerButtonElement: HTMLElement;
     private _pagesOuterWrapperElement: HTMLElement;
     private _pagesInnerWrapperElement: HTMLElement;
     private _footerElement: HTMLElement;
-    private _sectionPagesElement: HTMLElement;
+    private _categoryPagesElement: HTMLElement;
 
     private _mediaGlobalService: MediaGlobalService;
     private _overlayService: OverlayService;
@@ -38,9 +38,9 @@ export default class SectionMenuComponent extends RootComponent {
     public constructor(
         @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
         debounceService: DebounceService,
-        sectionPagesComponent: SectionPagesComponent,
-        sectionMenuHeaderComponent: SectionMenuHeaderComponent,
-        sectionPagesFilterComponent: SectionPagesFilterComponent,
+        categoryPagesComponent: CategoryPagesComponent,
+        categoryMenuHeaderComponent: CategoryMenuHeaderComponent,
+        categoryPagesFilterComponent: CategoryPagesFilterComponent,
         overlayService: OverlayService,
         dropdownFactory: DropdownFactory) {
         super();
@@ -50,36 +50,36 @@ export default class SectionMenuComponent extends RootComponent {
         this._debounceService = debounceService;
         this._dropdownFactory = dropdownFactory;
 
-        this.addChildComponents(sectionMenuHeaderComponent, sectionPagesFilterComponent, sectionPagesComponent);
+        this.addChildComponents(categoryMenuHeaderComponent, categoryPagesFilterComponent, categoryPagesComponent);
     }
 
     public enabled(): boolean {
-        return this._sectionMenuElement ? true : false;
+        return this._categoryMenuElement ? true : false;
     }
 
     public setupImmediate(): void {
-        this._sectionMenuElement = document.getElementById('section-menu');
+        this._categoryMenuElement = document.getElementById('category-menu');
 
         if (this.enabled()) {
             this.childComponentsSetupImmediate();
-            this._bodyResizeObserver = new ResizeObserver(this._debounceService.createTimeoutDebounceFunction(this.updateSideMenu, SectionMenuComponent.DEBOUNCE_TIME));
+            this._bodyResizeObserver = new ResizeObserver(this._debounceService.createTimeoutDebounceFunction(this.updateSideMenu, CategoryMenuComponent.DEBOUNCE_TIME));
         }
     }
 
     public setupOnDomContentLoaded(): void {
         this.childComponentsSetupOnDomContentLoaded();
 
-        this._pagesInnerWrapperElement = document.getElementById('section-pages-inner-wrapper');
-        this._sectionPagesElement = document.getElementById('section-pages');
+        this._pagesInnerWrapperElement = document.getElementById('category-pages-inner-wrapper');
+        this._categoryPagesElement = document.getElementById('category-pages');
         this._footerElement = document.getElementById('page-footer');
-        this._headerButtonElement = document.getElementById('section-menu-header-button');
-        this._pagesOuterWrapperElement = document.getElementById('section-pages-outer-wrapper');
+        this._headerButtonElement = document.getElementById('category-menu-header-button');
+        this._pagesOuterWrapperElement = document.getElementById('category-pages-outer-wrapper');
 
-        this._dropdown = this._dropdownFactory.build(this._pagesOuterWrapperElement, this._pagesInnerWrapperElement, this._headerButtonElement, this._sectionMenuElement);
+        this._dropdown = this._dropdownFactory.build(this._pagesOuterWrapperElement, this._pagesInnerWrapperElement, this._headerButtonElement, this._categoryMenuElement);
     }
 
     public setupOnLoad(): void {
-        let filterElement = document.getElementById('section-pages-filter');
+        let filterElement = document.getElementById('category-pages-filter');
         let filterComputedStyle = getComputedStyle(filterElement);
         // Does not change
         this._filterHeight = parseFloat(filterComputedStyle.marginBottom) + parseFloat(filterComputedStyle.height);
@@ -88,7 +88,7 @@ export default class SectionMenuComponent extends RootComponent {
 
         this._headerButtonElement.addEventListener('click', this.buttonClickListener);
 
-        let inCoreOuter = this._sectionMenuElement.parentElement.getAttribute('id') === 'core-outer';
+        let inCoreOuter = this._categoryMenuElement.parentElement.getAttribute('id') === 'core-outer';
 
         if (inCoreOuter) {
             this._mediaGlobalService.addChangedFromListener(this.onChangedToDropdownListener, MediaWidth.wide);
@@ -103,7 +103,7 @@ export default class SectionMenuComponent extends RootComponent {
         this._dropdown.toggleWithAnimation();
 
         if (this._dropdown.isExpanded()) {
-            this._overlayService.activateOverlay(this._sectionMenuElement);
+            this._overlayService.activateOverlay(this._categoryMenuElement);
             this.updateDropdown();
         } else {
             this._overlayService.deactivateOverlay();
@@ -153,7 +153,7 @@ export default class SectionMenuComponent extends RootComponent {
     private updateDropdown = (): void => {
         if (this._menuMode === MenuMode.dropdown && this._dropdown.isExpanded()) { // Edge fires resize listeners even after they have been removed
             // Update wrapper maxheight so it is scrollable as a dropdown menu
-            this._pagesInnerWrapperElement.style.maxHeight = `${window.innerHeight - SectionMenuComponent.HEADER_HEIGHT}px`;
+            this._pagesInnerWrapperElement.style.maxHeight = `${window.innerHeight - CategoryMenuComponent.HEADER_HEIGHT}px`;
         }
     }
 
@@ -167,27 +167,27 @@ export default class SectionMenuComponent extends RootComponent {
         this._dropdown.reset();
     }
 
-    // This function cannot be part of pages component because pages filter and section menu element state is required
+    // This function cannot be part of pages component because pages filter and category menu element state is required
     private updateSideMenu = (): void => {
         if (this._menuMode === MenuMode.sideMenu) { // ResizeObserver.Unobserve fires listeners in chrome
-            let sectionMenuTop = this._sectionMenuElement.getBoundingClientRect().top;
+            let categoryMenuTop = this._categoryMenuElement.getBoundingClientRect().top;
             let footerTop = this._footerElement.getBoundingClientRect().top;
 
             let pagesHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
-                - SectionMenuComponent.VERTICAL_GAP
+                - CategoryMenuComponent.VERTICAL_GAP
                 - this._filterHeight
-                - Math.max(SectionMenuComponent.VERTICAL_GAP, sectionMenuTop);
+                - Math.max(CategoryMenuComponent.VERTICAL_GAP, categoryMenuTop);
 
             // Tried setting bottom, max-height, both don't work on edge - scroll bar doesn't go away even when height is greater than 
             // menu height. This works.
-            this._sectionPagesElement.style.height = `${pagesHeight}px`;
+            this._categoryPagesElement.style.height = `${pagesHeight}px`;
         }
 
         this._updateSideMenuQueued = false;
     }
 
     private resetSideMenu = (): void => {
-        this._sectionPagesElement.style.height = '';
+        this._categoryPagesElement.style.height = '';
     }
 
     private updateSideMenuDeferred = (): void => {

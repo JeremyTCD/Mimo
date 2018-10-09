@@ -1,28 +1,28 @@
 ﻿@import '../shared/constants';
 
-@mixin section-pages-side-menu() {
-    // Required to keep footer 23px below pages when section menu is not fixed
+@mixin category-pages-side-menu() {
+    // Required to keep footer 23px below pages when category menu is not fixed
     margin-bottom: 23px;
 }
 
 #core {
-    #section-menu {
+    #category-menu {
         @media #{$media-medium} {
-            #section-pages {
-                @include section-pages-side-menu;
+            #category-pages {
+                @include category-pages-side-menu;
             }
         }
     }
 }
 
-#section-pages {
+#category-pages {
     @include pure-flex;
     overflow-y: auto;
     flex-direction: column;
     flex-shrink: 1;
 
     @media #{$media-wide} {
-        @include section-pages-side-menu;
+        @include category-pages-side-menu;
     }
 
     ul {

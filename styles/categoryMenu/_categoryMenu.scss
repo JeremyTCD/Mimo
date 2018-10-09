@@ -1,10 +1,10 @@
 ﻿@import '../shared/constants';
 @import '../shared/dropdown';
-@import 'sectionMenuHeader';
-@import 'sectionPages';
-@import 'sectionPagesFilter';
+@import 'categoryMenuHeader';
+@import 'categoryPages';
+@import 'categoryPagesFilter';
 
-@mixin section-menu-dropdown() {
+@mixin category-menu-dropdown() {
     @include top-fixable;
     // max-height only works for flex children, pages uses max-height
     display: flex;
@@ -15,7 +15,7 @@
     position: relative;
 }
 
-@mixin section-menu-side-menu() {
+@mixin category-menu-side-menu() {
     width: $side-menu-width;
     margin-top: 59px;
     margin-right: 66px;
@@ -46,14 +46,14 @@
 }
 
 #core-outer {
-    #section-menu {
+    #category-menu {
         @media #{$media-medium} {
-            @include section-menu-dropdown;
+            @include category-menu-dropdown;
 
-            #section-pages-outer-wrapper {
+            #category-pages-outer-wrapper {
                 @include pages-outer-wrapper-dropdown;
 
-                #section-pages-inner-wrapper {
+                #category-pages-inner-wrapper {
                     @include pages-inner-wrapper-dropdown;
                 }
             }
@@ -62,34 +62,34 @@
 }
 
 #core {
-    #section-menu {
+    #category-menu {
         @media #{$media-medium} {
-            @include section-menu-side-menu;
+            @include category-menu-side-menu;
 
-            #section-pages-outer-wrapper {
+            #category-pages-outer-wrapper {
                 @include pages-outer-wrapper-side-menu;
             }
         }
     }
 }
 
-#section-menu {
+#category-menu {
     flex-shrink: 0;
     font-size: $font-size-2;
 
     @media #{$media-narrow} {
-        @include section-menu-dropdown;
+        @include category-menu-dropdown;
     }
 
     @media #{$media-wide} {
-        @include section-menu-side-menu;
+        @include category-menu-side-menu;
     }
 
-    #section-pages-outer-wrapper {
+    #category-pages-outer-wrapper {
         @media #{$media-narrow} {
             @include pages-outer-wrapper-dropdown;
 
-            #section-pages-inner-wrapper {
+            #category-pages-inner-wrapper {
                 @include pages-inner-wrapper-dropdown;
             }
         }
@@ -98,7 +98,7 @@
             @include pages-outer-wrapper-side-menu;
         }
 
-        #section-pages-inner-wrapper {
+        #category-pages-inner-wrapper {
             display: flex;
             flex-direction: column;
         }

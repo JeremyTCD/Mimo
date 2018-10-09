@@ -1,18 +1,18 @@
 ﻿@import '../shared/constants';
 
-@mixin section-header-side-menu() {
+@mixin category-header-side-menu() {
     display: none;
 }
 
 #core {
-    #section-menu-header {
+    #category-menu-header {
         @media #{$media-medium} {
-            @include section-header-side-menu;
+            @include category-header-side-menu;
         }
     }
 }
 
-#section-menu-header {
+#category-menu-header {
     @include pure-flex;
     @include horizontal-edge-padding;
     flex-shrink: 0;
@@ -22,10 +22,10 @@
     color: $color-secondary-text;
 
     @media #{$media-wide} {
-        @include section-header-side-menu;
+        @include category-header-side-menu;
     }
 
-    #section-menu-header-button {
+    #category-menu-header-button {
         flex-shrink: 0;
         align-items: center;
         padding-left: 20px;

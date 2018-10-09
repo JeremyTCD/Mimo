@@ -8,12 +8,12 @@ exports.preTransform = function (model) {
     model.mimo_shareArticleEnabled = model.mimo_shareOnFacebook || model.mimo_shareOnTwitter;
 
     // Both side menus are active
-    if (!model.mimo_disableArticleMenu && !model.mimo_disableSectionMenu) {
+    if (!model.mimo_disableArticleMenu && !model.mimo_disableCategoryMenu) {
         model.mimo_innerCore = true;
-    } else if (!model.mimo_disableSectionMenu || !model.mimo_disableArticleMenu){
+    } else if (!model.mimo_disableCategoryMenu || !model.mimo_disableArticleMenu){
         if (model.mimo_disableArticleMenu) {
             model.mimo_menuBefore = true;
-        } else if (model.mimo_disableSectionMenu) {
+        } else if (model.mimo_disableCategoryMenu) {
             model.mimo_menuAfter = true;
         }
     }
