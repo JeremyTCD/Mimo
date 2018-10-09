@@ -1,7 +1,7 @@
 ﻿@import 'constants';
 
 @mixin border-top {
-    border-top: solid 1px $color-header-divider-background;
+    border-top: solid 1px $color-divider-background;
 }
 
 #core-outer {
