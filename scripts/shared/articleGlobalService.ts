@@ -1,25 +1,34 @@
 ﻿import { named, injectable, inject } from 'inversify';
-import ResizeObserver from 'resize-observer-polyfill';
 import MediaGlobalService from './mediaGlobalService';
 import DebounceService from './debounceService';
 import GlobalService from './globalService';
 import * as SmoothScroll from 'smooth-scroll';
 import { MediaWidth } from './mediaWidth';
 
+interface ObservedSectionData {
+    element: HTMLElement;
+    isVisible: boolean;
+    level: number;
+    prevNonSectionElement: HTMLElement; // We need this so that the active section can be a level n section until its first level n+1 child section is reached
+    prevIsVisible: boolean;
+}
+
 @injectable()
 export default class ArticleGlobalService implements GlobalService {
     private _mediaGlobalService: MediaGlobalService;
     private _debounceService: DebounceService;
 
-    // TODO should be readonly
-    private _headerElements: NodeList;
-    private _bodyResizeObserver: ResizeObserver;
-    private _headerMarginTops: number[];
+    private _noOutline: boolean;
+    private _sectionElements: NodeList;
+    private _observedSectionDatas: ObservedSectionData[];
+    private _sectionMarginTops: number[]; // For checking whether sections can be scrolled to (not too close to end of body)
     private _updateHistoryDebounced: () => void;
-    private _headerHashes: string[];
-    private _activeHeaderIndexFixed: boolean;
+    private _sectionHashes: string[]; // For updating location.hash (updates url in search bar)
+    private _activeSectionIndexFixed: boolean;
     private _indexChangedListeners: ((newIndex: number) => void)[];
     private _activeHeaderIndex: number;
+    private _narrowIntersectionObserver: IntersectionObserver; // There is a permanent header when mode is narrow, so root margin must be set
+    private _mediumWideIntersectionObserver: IntersectionObserver;
 
     public constructor(
         @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
@@ -29,48 +38,153 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     public setupOnDomContentLoaded(): void {
+        // Do nothing
     }
 
     public setupImmediate(): void {
-        this._headerElements = document.querySelectorAll('.main-article .header-1, .main-article .header-2');
+        this._sectionElements = document.querySelectorAll('.main-article, .content > .section-level-2, section > .section-level-3'); // Ignore sections in subtrees
 
-        this._bodyResizeObserver = new ResizeObserver(this.onScrollAndResizeListener);
-        this._headerMarginTops = [];
+        if (this._sectionElements.length == 1) { // Only article
+            this._noOutline = true;
+            return;
+        } else {
+            this._noOutline = false;
+        }
+
+        this._observedSectionDatas = [];
+        this._sectionHashes = [];
+        this._sectionElements.forEach((sectionElement: Element, index: number) => {
+            let level: number = 3;
+            if (sectionElement.classList.contains('main-article')) {
+                level = 1;
+            }
+            else if (sectionElement.classList.contains('section-level-2')) {
+                level = 2;
+            }
+
+            this._observedSectionDatas.push({
+                isVisible: false,
+                element: sectionElement as HTMLElement,
+                level: level,
+                prevNonSectionElement: sectionElement.previousElementSibling && sectionElement.previousElementSibling.tagName != 'SECTION' ? sectionElement.previousElementSibling as HTMLElement : null,
+                prevIsVisible: false
+            });
+
+            // Set section hashes
+            this._sectionHashes[index] = `#${sectionElement.id}`;
+        });
+
+        this._sectionMarginTops = [];
         this._indexChangedListeners = [];
         this._updateHistoryDebounced = this._debounceService.createTimeoutDebounceFunction(this.updateHistory, 100);
-
-        this.setupHeaderHashes();
     }
 
     public setupOnLoad(): void {
         // When smooth scroll initializes, it reads header height. Therefore it can only be called after the load event.
         this.setupSmoothScroll();
-        this.setupHeaderMarginTops();
 
-        // Simulate scroll to hash
+        if (this._noOutline) {
+            return;
+        }
+
+        this.setupSectionMarginTops();
+
+        // Simulate scroll to initial hash
         this.smoothScrollBefore();
         this.smoothScrollAfter();
 
-        this._bodyResizeObserver.observe(document.body);
-        window.addEventListener('resize', this.onScrollAndResizeListener);
-        window.addEventListener('scroll', this.onScrollAndResizeListener);
+        this._mediaGlobalService.addChangedToListener(this.onChangedToNarrowListener, MediaWidth.narrow)
+        this._mediaGlobalService.addChangedFromListener(this.onChangedFromNarrowListener, MediaWidth.narrow);
 
-        // TODO use IntersectionObserver instead of scroll/resize 
-        //  - IntersectionObserver to work, article must be divided into sections
-        //  - Keep track of all sections that intersect the viewport (using threshold 0), the section closest to the top of the article
-        //    is the active one.
-        // TODO use rootMargin to account for dropdown headers and for common space above headers
-        //this._initialIntersectionCall = true;
-        //let intersectionObserver = new IntersectionObserver(this.onIntersectionListener, { threshold: 1 });
-        //for (let i = 0; i < this._headerElements.length; i++) {
-        //    intersectionObserver.observe(this._headerElements[i] as HTMLElement);
-        //}
+        // Custom smooth-scroll events
+        document.addEventListener('scrollStart', this.smoothScrollBefore, false);
+        document.addEventListener('scrollStop', this.smoothScrollAfter, false);
     }
 
-    //private onIntersectionListener = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-    //}
+    private onChangedToNarrowListener = (): void => {
+        if (this._mediumWideIntersectionObserver) {
+            this._mediumWideIntersectionObserver.disconnect();
+        }
+
+        if (!this._narrowIntersectionObserver) {
+            this._narrowIntersectionObserver = new IntersectionObserver(this.onIntersectionListener, { threshold: 0, rootMargin: '-37px 0px 0px 0px' });
+        }
+
+        this.observeSections(this._narrowIntersectionObserver);
+    }
+
+    private onChangedFromNarrowListener = (): void => {
+        if (this._narrowIntersectionObserver) {
+            this._narrowIntersectionObserver.disconnect();
+        }
+
+        if (!this._mediumWideIntersectionObserver) {
+            this._mediumWideIntersectionObserver = new IntersectionObserver(this.onIntersectionListener, { threshold: 0 });
+        }
+
+        this.observeSections(this._mediumWideIntersectionObserver);
+    }
+
+    private observeSections = (intersectionObserver: IntersectionObserver): void => {
+        for (let i = 0; i < this._observedSectionDatas.length; i++) {
+            let observedSectionData = this._observedSectionDatas[i];
+
+            if (observedSectionData.prevNonSectionElement) {
+                intersectionObserver.observe(observedSectionData.prevNonSectionElement);
+            }
+            intersectionObserver.observe(observedSectionData.element);
+        }
+    }
+
+    private onIntersectionListener = (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
+        // Update observed elements isVisible
+        entries.forEach((entry: IntersectionObserverEntry) => {
+            this._observedSectionDatas.some((observedElementData: ObservedSectionData) => {
+                // Since threshold is 0, if callback has fired for element, isIntersecting == isVisible.
+                if (observedElementData.element == entry.target) {
+                    observedElementData.isVisible = entry.isIntersecting;
+                    return true;
+                }
+                else if (observedElementData.prevNonSectionElement == entry.target) {
+                    observedElementData.prevIsVisible = entry.isIntersecting;
+                    return true;
+                }
+
+                return false;
+            });
+        });
+
+        // Don't update active section index if it is fixed
+        if (this._activeSectionIndexFixed) {
+            return;
+        }
+
+        // Get index of first visible section index
+        let activeSectionIndex = this._observedSectionDatas.findIndex((observedSectionData: ObservedSectionData, index: number) => {
+            if (observedSectionData.isVisible) {
+                let nextObservedSectionData: ObservedSectionData;
+
+                if (observedSectionData.level == 3 || // Highest level
+                    index == this._observedSectionDatas.length - 1 || // Section is the last observed section
+                    (nextObservedSectionData = this._observedSectionDatas[index + 1]).level <= observedSectionData.level || // Next observed section has lower or equal level
+                    nextObservedSectionData.prevIsVisible) { // Next observed section isn't the active section yet
+                    return true;
+                }
+            }
+
+            return false;
+        });
+
+        if (this.setActiveSectionIndex(activeSectionIndex)) {
+            this._updateHistoryDebounced();
+        }
+    }
 
     public addIndexChangedListener(listener: (newIndex: number) => void, init: boolean = false) {
+        if (this._noOutline) {
+            return;
+        }
+
         this._indexChangedListeners.push(listener);
 
         if (init) {
@@ -79,6 +193,10 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     public removeIndexChangedListener(listener: (newIndex: number) => void) {
+        if (this._noOutline) {
+            return;
+        }
+
         let index = this._indexChangedListeners.indexOf(listener);
 
         if (index > -1) {
@@ -86,39 +204,9 @@ export default class ArticleGlobalService implements GlobalService {
         }
     }
 
-    private onScrollAndResizeListener = (): void => {
-        if (!this._activeHeaderIndexFixed) {
-            this.updateActiveHeaderIndex();
-        }
-    }
-
-    private updateActiveHeaderIndex(): void {
-        let headerHeight = this._mediaGlobalService.mediaWidthIs(MediaWidth.narrow) ? 37 : 0;
-        let activeHeaderIndex: number = this._headerMarginTops.length - 1;
-
-        for (let i = 0; i < this._headerElements.length; i++) {
-            if ((this._headerElements[i] as HTMLElement).getBoundingClientRect().top - this._headerMarginTops[i] > headerHeight) {
-                activeHeaderIndex = i - 1;
-                break;
-            }
-        }
-
-        if (this.setActiveHeaderIndex(activeHeaderIndex)) {
-            this._updateHistoryDebounced();
-        }
-    }
-
-    private setupHeaderHashes(): void {
-        this._headerHashes = [];
-
-        for (let i = 0; i < this._headerElements.length; i++) {
-            this._headerHashes[i] = `#${(this._headerElements[i] as HTMLElement).id}`;
-        }
-    }
-
-    private setupHeaderMarginTops() {
-        for (let i = 0; i < this._headerElements.length; i++) {
-            this._headerMarginTops.push(parseFloat(getComputedStyle(this._headerElements[i] as HTMLElement).marginTop));
+    private setupSectionMarginTops() {
+        for (let i = 0; i < this._observedSectionDatas.length; i++) {
+            this._sectionMarginTops.push(parseFloat(getComputedStyle(this._observedSectionDatas[i].element).marginTop));
         }
     }
 
@@ -126,15 +214,13 @@ export default class ArticleGlobalService implements GlobalService {
         return this._activeHeaderIndex;
     }
 
-    public getHeaderElements(): NodeList {
-        return this._headerElements;
+    public getSectionElements(): NodeList {
+        return this._sectionElements;
     }
 
     private setupSmoothScroll(): void {
         new SmoothScroll('a[href*="#"]', {
             speed: 300,
-            before: this.smoothScrollBefore,
-            after: this.smoothScrollAfter,
             header: '#article-menu-header'
         });
     }
@@ -144,38 +230,38 @@ export default class ArticleGlobalService implements GlobalService {
     private smoothScrollBefore = (): void => {
         let hash = location.hash;
 
-        this._activeHeaderIndexFixed = true;
+        this._activeSectionIndexFixed = true;
 
         if (!hash || hash === '#smooth-scroll-top') {
-            if (this.setActiveHeaderIndex(-1)) {
+            if (this.setActiveSectionIndex(0)) {
                 this.updateHistory();
             }
             return;
         }
 
-        for (let i = 0; i < this._headerHashes.length; i++) {
-            if (hash === this._headerHashes[i]) {
+        for (let i = 0; i < this._sectionHashes.length; i++) {
+            if (hash === this._sectionHashes[i]) {
                 // Ensure that header can be scrolled to
-                while (document.body.getBoundingClientRect().bottom - (this._headerElements[i] as HTMLElement).getBoundingClientRect().top - this._headerMarginTops[i] < window.innerHeight) {
+                while (document.body.getBoundingClientRect().bottom - this._observedSectionDatas[i].element.getBoundingClientRect().top - this._sectionMarginTops[i] < window.innerHeight) {
                     i--;
                     if (i === -1) {
                         break;
                     }
                 }
 
-                this.setActiveHeaderIndex(i);
-                // Regardless location hash may have changed even if index remains the same
-                this.updateHistory();
+                if (this.setActiveSectionIndex(i)) {
+                    this.updateHistory();
+                }
 
                 return;
             }
         }
 
         // Navigating to element that isn't an article header
-        this._activeHeaderIndexFixed = false;
+        this._activeSectionIndexFixed = false;
     }
 
-    private setActiveHeaderIndex(newIndex: number): boolean {
+    private setActiveSectionIndex(newIndex: number): boolean {
         if (newIndex === this._activeHeaderIndex) {
             return false;
         }
@@ -191,12 +277,11 @@ export default class ArticleGlobalService implements GlobalService {
 
     private smoothScrollAfter = (): void => {
         // Note: scroll listener fires one last time after smoothScrollAfter is called
-        this._activeHeaderIndexFixed = false;
+        this._activeSectionIndexFixed = false;
     }
 
     private updateHistory = (): void => {
-        let id = this._activeHeaderIndex > -1 ? (this._headerElements[this._activeHeaderIndex] as HTMLElement).getAttribute('id') : null;
-        let url = id ? `#${id}` : location.pathname;
+        let url = this._activeHeaderIndex == 0 ? location.pathname : this._sectionHashes[this._activeHeaderIndex];
 
         if (url === location.hash) {
             return;
