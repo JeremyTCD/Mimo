@@ -72,7 +72,7 @@ export default class ArticleMenuHeaderComponent implements Component {
             let sectionElement = sectionElements[i] as HTMLElement;
 
             if (sectionElement.classList.contains('main-article')) {
-                this._textData.push({ part1: 'Outline', part2: null });
+                this._textData.push({ part1: 'Contents', part2: null });
             }
             else if (sectionElement.classList.contains('section-level-2')) {
                 currentPart1 = sectionElement.firstElementChild.firstElementChild.innerHTML;
