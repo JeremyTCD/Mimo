@@ -17,8 +17,7 @@ $materialIcons = @(
 	@{name="share"; style="baseline"},
 	@{name="edit"; style="baseline"},
 	@{name="chevron_right"; style="baseline"},
-	@{name="copyright"; style="baseline"},
-	@{name="arrow_right"; style="baseline"}
+	@{name="copyright"; style="baseline"}
 )
 
 $materialUrlFormat = "https://material.io/tools/icons/static/icons/{0}-{1}-24px.svg"

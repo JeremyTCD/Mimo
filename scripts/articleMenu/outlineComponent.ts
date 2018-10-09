@@ -7,7 +7,7 @@ import { MediaWidth } from '../shared/mediaWidth';
 
 @injectable()
 export default class OutlineComponent implements Component {
-    private _outlineElement: HTMLElement;
+    private _outlineScrollableElement: HTMLElement;
     private _knobElement: HTMLElement;
     private _rootUnorderedListElement: HTMLElement;
 
@@ -28,9 +28,9 @@ export default class OutlineComponent implements Component {
     }
 
     public setupOnDomContentLoaded(): void {
-        this._outlineElement = document.getElementById('outline');
+        this._outlineScrollableElement = document.getElementById('outline-scrollable');
         this._knobElement = document.getElementById('outline-scrollable-knob');
-        this._rootUnorderedListElement = this._outlineElement.querySelector('ul');
+        this._rootUnorderedListElement = document.querySelector('#outline ul');
         this._anchorElements = this._rootUnorderedListElement.querySelectorAll('a');
     }
 
@@ -41,35 +41,36 @@ export default class OutlineComponent implements Component {
 
     private onChangedToNarrowListener = (init: boolean): void => {
         if (!init) {
-            this._articleGlobalService.removeIndexChangedListener(this.updateSideMenuKnob);
+            this._articleGlobalService.removeIndexChangedListener(this.updateActiveSectionAnchor);
         }
     }
 
     private onChangedFromNarrowListener = (): void => {
-        this._articleGlobalService.addIndexChangedListener(this.updateSideMenuKnob, true);
+        this._articleGlobalService.addIndexChangedListener(this.updateActiveSectionAnchor, true);
     }
 
     public updateDropdownKnob = (): void => {
         let newIndex = this._articleGlobalService.getActiveHeaderIndex();
+        let activeDropdownAnchorIndex = newIndex === 0 ? 0 : newIndex - 1; // anchor elements does not include level 1 anchor
 
-        if (newIndex === this._lastDropdownAnchorIndex) {
+        if (activeDropdownAnchorIndex === this._lastDropdownAnchorIndex) {
             return;
         }
 
-        if (this._lastDropdownAnchorIndex !== null && this._lastDropdownAnchorIndex !== undefined) {
+        if (this._lastDropdownAnchorIndex !== undefined) {
             (this._anchorElements[this._lastDropdownAnchorIndex] as HTMLElement).classList.remove('active');
         }
 
-        let activeAnchorIndex = newIndex === -1 ? 0 : newIndex;
-        (this._anchorElements[activeAnchorIndex] as HTMLElement).classList.add('active');
-        this._lastDropdownAnchorIndex = activeAnchorIndex;
+        (this._anchorElements[activeDropdownAnchorIndex] as HTMLElement).classList.add('active');
+        this._lastDropdownAnchorIndex = activeDropdownAnchorIndex;
     }
 
-    private updateSideMenuKnob = (newIndex: number): void => {
-        let activeAnchorIndex = newIndex === -1 ? 0 : newIndex;
+    private updateActiveSectionAnchor = (newIndex: number): void => {
+        let activeAnchorIndex = newIndex === 0 ? 0 : newIndex - 1; // anchor elements does not include level 1 anchor
         let activeAnchorElement = this._anchorElements[activeAnchorIndex] as HTMLElement;
         let anchorBoundingRect = activeAnchorElement.getBoundingClientRect();
-        let translateY = anchorBoundingRect.top - this._outlineElement.getBoundingClientRect().top + this._outlineElement.scrollTop;
+
+        let translateY = anchorBoundingRect.top - this._outlineScrollableElement.getBoundingClientRect().top + this._outlineScrollableElement.scrollTop;
 
         this._knobElement.style.transform = `translateY(${translateY}px) scaleY(${anchorBoundingRect.height})`;
     }

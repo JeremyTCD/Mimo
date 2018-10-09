@@ -1,7 +1,5 @@
 <nav id="outline">
     <div id="outline-scrollable">
-        <svg>
-            <use xlink:href="#material-design-arrow-right" />
-        </svg>
+        <div id="outline-scrollable-knob"></div>
     </div>
 </nav>

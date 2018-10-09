@@ -60,17 +60,20 @@
             @include outline-side-menu;
         }
 
-        svg {
-            width: 24px;
-            height: 24px;
+        #outline-scrollable-knob {
+            width: 2px;
             position: absolute;
-            left: -9px;
-            top: -2px;
+            left: 0;
+            top: 0;
+            height: 1px;
             z-index: 1;
-            transform-origin: top;
-            transition: transform $medium-animation-duration $ease-out-quad;
-            will-change: transform;
-            fill: $color-primary-icon;
+            background-color: $color-primary-icon;
+
+            @media #{$media-medium}, #{$media-wide} {
+                will-change: transform;
+                transform-origin: top;
+                transition: transform $medium-animation-duration $ease-out-quad;
+            }
 
             @media #{$media-narrow} {
                 @include knob-dropdown;
@@ -94,6 +97,7 @@
                 .outline-scrollable-track {
                     width: 1px;
                     position: absolute;
+                    z-index: -1; // Must be behind knob
                     left: 0;
                     top: 0;
                     bottom: 0;
