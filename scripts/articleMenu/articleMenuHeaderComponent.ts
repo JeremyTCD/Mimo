@@ -3,7 +3,11 @@ import Component from '../shared/component';
 import ArticleGlobalService from '../shared/articleGlobalService';
 import MediaGlobalService from '../shared/mediaGlobalService';
 import { MediaWidth } from '../shared/mediaWidth';
-import ArticleMenuHeaderTextData from './articleMenuHeaderTextData';
+
+interface TextData {
+    part1: string;
+    part2: string;
+}
 
 @injectable()
 export default class ArticleMenuHeaderComponent implements Component {
@@ -12,9 +16,9 @@ export default class ArticleMenuHeaderComponent implements Component {
 
     private _text1Element: HTMLElement;
     private _text2Element: HTMLElement;
-    private _textData: ArticleMenuHeaderTextData[];
+    private _textData: TextData[];
 
-    public constructor( @inject('GlobalService') @named('ArticleGlobalService') articleGlobalService: ArticleGlobalService,
+    public constructor(@inject('GlobalService') @named('ArticleGlobalService') articleGlobalService: ArticleGlobalService,
         @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService) {
 
         this._mediaGlobalService = mediaGlobalService;
@@ -47,19 +51,13 @@ export default class ArticleMenuHeaderComponent implements Component {
         }
     }
 
-    private updateText = (activeHeaderIndex: number): void => {
-        if (activeHeaderIndex === -1) {
-            this._text1Element.innerText = 'Table of Contents';
-            this._text2Element.parentElement.style.display = 'none';
-            return;
-        }
+    private updateText = (activeSectionIndex: number): void => {
+        let textData: TextData = this._textData[activeSectionIndex];
 
-        let headerData: ArticleMenuHeaderTextData = this._textData[activeHeaderIndex];
+        this._text1Element.innerText = textData.part1;
 
-        this._text1Element.innerText = headerData.text1;
-
-        if (headerData.text2) {
-            this._text2Element.innerText = headerData.text2;
+        if (textData.part2) {
+            this._text2Element.innerText = textData.part2;
             this._text2Element.parentElement.style.display = 'flex';
         } else {
             this._text2Element.parentElement.style.display = 'none';
@@ -67,18 +65,21 @@ export default class ArticleMenuHeaderComponent implements Component {
     }
 
     private setupText(): void {
-        let currentH1Text: string;
-        let headerElements: NodeList = this._articleGlobalService.getHeaderElements();
+        let currentPart1: string;
+        let sectionElements: NodeList = this._articleGlobalService.getSectionElements();
 
-        for (let i = 0; i < headerElements.length; i++) {
-            let headerElement = headerElements[i] as HTMLElement;
+        for (let i = 0; i < sectionElements.length; i++) {
+            let sectionElement = sectionElements[i] as HTMLElement;
 
-            if (headerElement.classList.contains('header-1')) {
-                currentH1Text = headerElement.innerText;
-                this._textData.push({ text1: currentH1Text, text2: null });
+            if (sectionElement.classList.contains('main-article')) {
+                this._textData.push({ part1: 'Outline', part2: null });
+            }
+            else if (sectionElement.classList.contains('section-level-2')) {
+                currentPart1 = sectionElement.firstElementChild.firstElementChild.innerHTML;
+                this._textData.push({ part1: currentPart1, part2: null });
             } else {
-                // h2
-                this._textData.push({ text1: currentH1Text, text2: headerElement.innerText });
+                // level 3
+                this._textData.push({ part1: currentPart1, part2: sectionElement.firstElementChild.firstElementChild.innerHTML });
             }
         }
     }

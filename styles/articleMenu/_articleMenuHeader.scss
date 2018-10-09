@@ -39,6 +39,7 @@
             }
 
             &:nth-child(n+2) {
+                display: none;
                 &::before {
                     flex-shrink: 0;
                     content: "";
