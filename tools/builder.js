@@ -87,9 +87,9 @@ class Builder {
 
     // Restores docfx plugins
     async restorePlugins() {
-        return new Promise((resolve, reject) => {
-            console.log(`start - restore plugins`);
+        console.log(`start - restore plugins`);
 
+        let msbuildPromise = new Promise((resolve, reject) => {
             exec('dotnet msbuild', { cwd: __dirname }, (err, stdout, stderr) => {
                 if (err) {
                     console.log(stdout);
@@ -99,12 +99,20 @@ class Builder {
                     if (this.debug) {
                         console.log(stdout);
                     }
-                    console.log(`complete - restore plugins`);
 
                     resolve();
                 }
             });
         });
+
+        // Plugins require docfx.plugins.config to work
+        const themeDir = path.join(this.docfxProjectDir, './bin/theme');
+        let configPromise = fse.copy(path.join(__dirname, 'docfx.plugins.config'), path.join(themeDir, 'plugins', 'docfx.plugins.config'));
+
+        return Promise.all([msbuildPromise, configPromise]).
+            then(_ => {
+                    console.log(`complete - restore plugins`);
+            });
     }
 
     // Copies webpack output from theme to site
