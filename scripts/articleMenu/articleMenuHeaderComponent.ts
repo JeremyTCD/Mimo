@@ -74,7 +74,7 @@ export default class ArticleMenuHeaderComponent implements Component {
             if (sectionElement.classList.contains('main-article')) {
                 this._textData.push({ part1: 'Contents', part2: null });
             }
-            else if (sectionElement.classList.contains('section-level-2')) {
+            else if (sectionElement.classList.contains('flexi-section-block-2')) {
                 currentPart1 = sectionElement.firstElementChild.firstElementChild.innerHTML;
                 this._textData.push({ part1: currentPart1, part2: null });
             } else {
