@@ -44,15 +44,8 @@ export default class ArticleComponent extends RootComponent {
 
         for (let i: number = 0; i < sectionElements.length; i++) {
             let sectionElement = sectionElements[i] as HTMLElement;
-            let buttonElement = document.createElement('div');
-
-            // Wrap svg in a div, clipboard does not work with svg elements
-            buttonElement.appendChild(sectionElement.querySelector('svg'));
-            buttonElement.setAttribute('role', 'button');
-            sectionElement.querySelector('header').appendChild(buttonElement);
-
+            let buttonElement = sectionElement.querySelector('button');
             let id = sectionElement.getAttribute('id');
-
             let href = `${location.protocol}//${location.host}${location.pathname}#${id}`;
 
             // Clipboard for button

@@ -16,7 +16,6 @@
 
     > header {
         margin-top: 0px; // No longer collapses with section margin-top since section now has padding top
-
     }
 }
 
@@ -66,36 +65,41 @@ h6 {
     font-weight: 600;
 }
 
-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    div {
+section {
+    > header {
         display: flex;
-        flex-shrink: 0;
-    }
+        flex-direction: row;
+        align-items: center;
 
-    &:hover {
-        svg {
-            transition-delay: $anti-flicker-delay;
-            opacity: $opacity-6;
+        button {
+            display: flex;
+            flex-shrink: 0;
+            cursor: pointer;
+
+            // :hover as a child of svg doesn't work in firefox
+            &:hover {
+                svg {
+                    transition-delay: $anti-flicker-delay;
+                    fill: $color-primary-link;
+                }
+            }
+
+            svg {
+                margin-left: 9px;
+                opacity: 0;
+                width: 24px;
+                height: 24px;
+                fill: $color-primary-link-disabled;
+                transition: fill $short-animation-duration $ease-out-quad, opacity $short-animation-duration $ease-out-quad;
+                flex-shrink: 0;
+            }
         }
-    }
-
-    svg {
-        margin-left: 9px;
-        cursor: pointer;
-        opacity: 0;
-        width: 24px;
-        height: 24px;
-        fill: $color-primary-link-disabled;
-        transition: fill $short-animation-duration $ease-out-quad, opacity $short-animation-duration $ease-out-quad;
-        flex-shrink: 0;
 
         &:hover {
-            transition-delay: $anti-flicker-delay;
-            fill: $color-primary-link;
+            svg {
+                transition-delay: $anti-flicker-delay;
+                opacity: $opacity-6;
+            }
         }
     }
 }
