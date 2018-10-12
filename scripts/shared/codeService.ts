@@ -13,15 +13,26 @@ export default class CodeService {
     }
 
     public setupCodeBlocks() {
-        let copyButtonElements = document.querySelectorAll('.code-block div[role="button"]');
+        let codeBlockElements = document.querySelectorAll(".flexi-code-block");
 
         // On click "popups"
-        for (let i = 0; i < copyButtonElements.length; i++) {
-            this._tooltipService.setupElement(copyButtonElements[i] as HTMLElement, 'left');
+        for (let i = 0; i < codeBlockElements.length; i++) {
+            let codeBlockElement = codeBlockElements[i];
+
+            // Add id to code element so we can copy its contents using clipboard
+            let codeElementID = `code-${i}`;
+            let codeElement = codeBlockElement.querySelector("code") as HTMLElement;
+            codeElement.setAttribute("id", codeElementID);
+
+            // Setup tippy for copy button
+            let copyButtonElement = codeBlockElement.querySelector("button") as HTMLElement;
+            copyButtonElement.setAttribute('title', 'Code copied');
+            copyButtonElement.setAttribute('data-clipboard-target', `#${codeElementID}`);
+            this._tooltipService.setupElement(copyButtonElement, 'left');
         }
 
         // Copy to clipboard
-        let clipboard = new Clipboard(copyButtonElements);
+        let clipboard = new Clipboard(document.querySelectorAll(".flexi-code-block button")); // re-query for button elements since the constructor expects a NodeList
         clipboard.on('success', (event: Clipboard.Event) => {
             event.clearSelection();
         });
