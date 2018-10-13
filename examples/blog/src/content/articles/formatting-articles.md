@@ -26,31 +26,82 @@ For example, you could inline a function declaration like `public int DoSomethin
 Create a code block by surrounding code with a pair of back-tick trios. You can append a language name from [this list](http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html#language-names-and-aliases)
 to the opening back-tick trio for language specific syntax highlighting:
 
-[!include-code]{ 
-    "src":"```csharp
-public string CSharpFunction()
-{
-    return \"test\";
-}
+@{ "language": "csharp", "title": "C#" }
 ```
-
-```typescript
-public TypescriptFunction(): string {
-    return \"test\";
-}
-```"
-}
-
-```csharp
 public string CSharpFunction()
 {
     return "test";
 }
 ```
 
-```typescript
+@{ "language": "typescript", "title": "Typescript" }
+```
 public TypescriptFunction(): string {
     return "test";
+}
+```
+
+@{ 
+    "language": "html", 
+    "title": "HTML with Line Numbers",
+    "lineNumberRanges": [{}]
+}
+```
+<nav id="category-menu-header">
+    <button id="category-menu-header-button">
+        <svg>
+            <use xlink:href="#material-design-arrow-drop-down"></use>
+        </svg>
+    </button>
+</nav>
+```
+
+@{ 
+    "language": "css", 
+    "title": "CSS with Highlighted Lines",
+    "highlightLineRanges": [{"startLineNumber": 2, "endLineNumber": 2}, 
+        {"startLineNumber":5, "endLineNumber": 6}]
+}
+```
+.tippy-tooltip {
+    padding: 1px 5px;
+    color: #fff;
+    background-color: #212121;
+    font-size: 13px;
+    border-radius: 0;
+}
+```
+
+@{ 
+    "language": "scss",
+    "title": "SCSS with Line Numbers and Highlighted Lines",
+    "lineNumberRanges": [{}],
+    "highlightLineRanges": [{"startLineNumber": 2, "endLineNumber": 2}]
+}
+```
+.line-text {
+    // If line-text isn't the first child, there is a line number column on its left
+    &:not(:first-child) {
+        padding-left: 20px;
+    }
+}
+```
+
+@{ 
+    "language": "json",
+    "title": "JSON with non-contiguous Line Numbers",
+    "lineNumberRanges": [{"startLineNumber": 1, "endLineNumber":5, "firstLineNumber": 1},
+        {"startLineNumber":7, "firstLineNumber":12}]
+}
+```
+{
+    "**/src/content/articles/*.md": {
+        "baseUrl": "https://yourdomain/",
+        "priority": 1.0
+    },
+    // Omitted for brevity...
+    "baseUrl": "https://yourdomain/",
+    "priority": 0.1
 }
 ```
 
