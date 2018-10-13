@@ -9,7 +9,7 @@ code {
     background-color: $color-primary-inline-code-background;
 }
 
-.code-block {
+.flexi-code-block {
     display: flex;
     flex-direction: column;
 
@@ -19,184 +19,274 @@ code {
         align-items: center;
         background-color: $color-section-header-background;
 
-        .code-block-title {
+        span {
+            padding: 6px 13px;
             font-weight: 600;
-
-            @include section-header-edges();
         }
 
-        div[role="button"] {
+        button {
             flex-shrink: 0;
             display: flex;
             margin-left: auto;
             margin-right: 9px;
             cursor: pointer;
 
-            svg {
-                height: 24px;
-                width: 24px;
-                fill: $color-primary-link-disabled;
-                transition: fill $short-animation-duration $ease-out-quad;
-
-                &:hover {
+            &:hover {
+                svg {
                     transition-delay: $anti-flicker-delay;
                     fill: $color-primary-link;
                 }
+            }
+
+            svg {
+                height: 18px;
+                width: 18px;
+                fill: $color-primary-link-disabled;
+                transition: fill $short-animation-duration $ease-out-quad;
+                flex-shrink: 0;
             }
         }
     }
 
     pre {
         background-color: $color-section-body-background;
-        white-space: pre;
-    }
-
-    .code {
+        white-space: pre-wrap;
         flex-grow: 1;
-        overflow-x: auto;
-
+        overflow: auto; // If spans can no longer wrap, allow scrolling
         code {
+            width: 100%; // We want each row to stretch so that highlighting is consistent
+            display: table;
             // https://stackoverflow.com/questions/10054870/when-a-child-element-overflows-horizontally-why-is-the-right-padding-of-the-par
-            display: inline-block;
             background-color: transparent;
             border: 0;
-            padding: 0;
-            // Smaller font used for code, increase y
-            @include section-body-edges($y-correction: 2, $use-margin: true);
-        }
-    }
-    // Code blocks with line numbers
-    > div {
-        display: flex;
+            padding: 20px 20px;
 
-        .line-numbers {
-            user-select: none;
+            .line {
+                display: table-row;
 
-            @media #{$media-wide}, #{$media-medium} {
-                padding: 20px 11px;
-            }
+                &.highlight {
+                    background-color: $color-code-highlight;
+                }
 
-            @media #{$media-narrow} {
-                padding: 9px 11px;
-            }
+                .line-number, .line-text {
+                    display: table-cell;
+                }
 
-            flex-grow: 0;
-            flex-shrink: 0;
-            color: #2b91af;
-            border-right: 1px solid $color-divider-background;
+                .line-text {
+                    width: 100%; // We want line-text to stretch for consistent highlighting
+                    // If line-text isn't the first child, there is a line number column on its left
+                    &:not(:first-child) {
+                        padding-left: 14px;
+                    }
+                }
 
-            & + .code {
-                code{
-                    margin-left: 13px;
+                .line-number {
+                    text-align: right;
+                    padding-right: 14px;
+                    user-select: none;
+                    color: #2b91af;
+                    border-right: 1px solid $color-code-divider-background;
                 }
             }
         }
     }
 }
 
-/*
-Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name>
-*/
-.hljs {
-    background-color: transparent;
-    color: black;
-}
+code {
+    /*
+        TODO incomplete
+        Styles for Prism.js
+    */
+    &.language-csharp,
+    &.language-typescript {
+        .builtin,
+        .keyword {
+            color: #00f;
+        }
 
-.hljs-comment,
-.hljs-quote,
-.hljs-variable {
-    color: #008000;
-}
+        .function {
+            color: black;
+        }
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-built_in,
-.hljs-name,
-.hljs-tag {
-    color: #00f;
-}
+        .string {
+            color: #a31515;
+        }
+    }
 
-.hljs-string {
-    color: #a31515;
-}
+    &.language-html {
+        color: #a31515;
 
-.hljs-doctag,
-.hljs-deletion,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-meta {
-    color: #808080;
-}
+        .punctuation {
+            color: #00f;
+        }
 
-.hljs-attr {
-    color: #f00;
-}
+        .attr-name {
+            color: #f00;
+        }
 
-.hljs-symbol,
-.hljs-bullet,
-.hljs-link {
-    color: #00b0e8;
-}
+        .attr-value {
+            color: #00f;
+        }
+    }
 
-
-.hljs-emphasis {
-    font-style: italic;
-}
-
-.hljs-strong {
-    font-weight: bold;
-}
-
-.lang-html {
-    .hljs-string {
+    &.language-css {
         color: #00f;
+
+        .punctuation {
+            color: black;
+        }
+
+        .class {
+            color: #a31515;
+        }
+
+        .property {
+            color: #f00;
+        }
     }
 
-    .hljs-name {
-        color: #800000;
-    }
-}
+    &.language-scss {
+        color: #a31515;
 
-.lang-scss {
-    .hljs-keyword,
+        .punctuation {
+            color: black;
+        }
+
+        .comment {
+            color: #008000;
+        }
+
+        .property {
+            color: #f00;
+        }
+
+        .number {
+            color: #00f;
+        }
+    }
+
+    &.language-json {
+        color: #008000;
+
+        .operator,
+        .punctuation {
+            color: black;
+        }
+
+        .property {
+            color: #2e75b6;
+        }
+
+        .number,
+        .string {
+            color: #a31515;
+        }
+    }
+    /*
+        Styles for Highlight.js
+        - Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name>
+    */
+    .hljs {
+        background-color: transparent;
+        color: black;
+    }
+
+    .hljs-comment,
+    .hljs-quote,
     .hljs-variable {
-        color: #800080;
+        color: #008000;
     }
 
-    .hljs-string {
+    .hljs-keyword,
+    .hljs-selector-tag,
+    .hljs-built_in,
+    .hljs-name,
+    .hljs-tag {
         color: #00f;
     }
 
-    .hljs-selector-tag,
-    .hljs-name {
-        color: #800000;
-    }
-
-    .hljs-attribute {
-        color: #f00;
-    }
-}
-
-.lang-css {
-    .hljs-built_in {
-        color: #000;
-    }
-
-    .hljs-keyword {
-        color: #800080;
-    }
-
     .hljs-string {
-        color: #00f;
+        color: #a31515;
     }
 
-    .hljs-selector-tag,
+    .hljs-doctag,
+    .hljs-deletion,
+    .hljs-selector-attr,
     .hljs-selector-pseudo,
-    .hljs-name {
-        color: #800000;
+    .hljs-meta {
+        color: #808080;
     }
 
-    .hljs-attribute {
+    .hljs-attr {
         color: #f00;
+    }
+
+    .hljs-symbol,
+    .hljs-bullet,
+    .hljs-link {
+        color: #00b0e8;
+    }
+
+
+    .hljs-emphasis {
+        font-style: italic;
+    }
+
+    .hljs-strong {
+        font-weight: bold;
+    }
+
+    .language-html {
+        .hljs-string {
+            color: #00f;
+        }
+
+        .hljs-name {
+            color: #800000;
+        }
+    }
+
+    .language-scss {
+        .hljs-keyword,
+        .hljs-variable {
+            color: #800080;
+        }
+
+        .hljs-string {
+            color: #00f;
+        }
+
+        .hljs-selector-tag,
+        .hljs-name {
+            color: #800000;
+        }
+
+        .hljs-attribute {
+            color: #f00;
+        }
+    }
+
+    .language-css {
+        .hljs-built_in {
+            color: #000;
+        }
+
+        .hljs-keyword {
+            color: #800080;
+        }
+
+        .hljs-string {
+            color: #00f;
+        }
+
+        .hljs-selector-tag,
+        .hljs-selector-pseudo,
+        .hljs-name {
+            color: #800000;
+        }
+
+        .hljs-attribute {
+            color: #f00;
+        }
     }
 }
