@@ -99,7 +99,7 @@ public TypescriptFunction(): string {
         "baseUrl": "https://yourdomain/",
         "priority": 1.0
     },
-    // Omitted for brevity...
+ 
     "baseUrl": "https://yourdomain/",
     "priority": 0.1
 }

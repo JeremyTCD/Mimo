@@ -22,6 +22,7 @@ require('../../resources/material-design-navigate-before.svg')
 require('../../resources/material-design-search.svg')
 require('../../resources/material-design-share.svg')
 require('../../resources/material-design-warning.svg')
+require('../../resources/material-design-more-vert.svg')
 require('../../resources/ion-icons-logo-github.svg');
 require('../../resources/ion-icons-logo-twitter.svg');
 require('../../resources/ion-icons-logo-instagram.svg');

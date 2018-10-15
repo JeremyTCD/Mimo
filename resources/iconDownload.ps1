@@ -3,7 +3,6 @@
 $materialIcons = @(
 	@{name="arrow_upward"; style="baseline"},
 	@{name="arrow_drop_down"; style="baseline"},
-	@{name="file_copy"; style="sharp"},
 	@{name="link"; style="baseline"},
 	@{name="info"; style="baseline"},
 	@{name="warning"; style="baseline"},

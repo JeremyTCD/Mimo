@@ -84,8 +84,15 @@ code {
                     text-align: right;
                     padding-right: 14px;
                     user-select: none;
-                    color: #2b91af;
+                    color: $color-code-line-numbers;
                     border-right: 1px solid $color-code-divider-background;
+
+                    svg {
+                        margin-right: 3px;
+                        height: 10px;
+                        width: 2px;
+                        fill: $color-code-line-numbers;
+                    }
                 }
             }
         }
