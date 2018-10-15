@@ -1,80 +1,70 @@
 ﻿@import '../shared/constants';
 
-article {
-    .alert-note, .alert-warning, .alert-critical-warning {
+.flexi-alert-block-info, .flexi-alert-block-warning, .flexi-alert-block-critical-warning {
+    display: flex;
+    border-left: 3px solid;
+    padding: 20px 20px;
+
+    svg {
+        margin-right: 14px;
+        height: 24px;
+        width: 24px;
+        flex-shrink: 0;
+    }
+
+    .flexi-alert-block-content {
         display: flex;
-        border-left: 3px solid;
-        // Icons have rounded/sharp left sides
-        @include section-body-edges($x-correction: -3);
+        flex-direction: column;
+    }
 
-        svg {
-            @media #{$media-medium}, #{$media-wide} {
-                margin-right: 16px;
-            }
-
-            @media #{$media-narrow} {
-                margin-right: 9px;
-            }
-
-            height: 24px;
-            width: 24px;
-            flex-shrink: 0;
+    *:not(pre) {
+        > code {
+            background-color: $color-primary-inline-code-dark-background;
         }
+    }
+}
 
-        .alert-content {
-            display: flex;
-            flex-direction: column;
-        }
+.flexi-alert-block-info {
+    background-color: $color-alert-note-background;
+    border-color: $color-secondary;
 
-        *:not(pre) {
-            > code {
-                background-color: $color-primary-inline-code-dark-background;
-            }
+    .flexi-alert-block-content {
+        a {
+            @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-alert-note-background);
         }
     }
 
-    .alert-note {
-        background-color: $color-alert-note-background;
-        border-color: $color-secondary;
+    svg {
+        fill: $color-secondary;
+    }
+}
 
-        .alert-content {
-            a {
-                @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-alert-note-background);
-            }
-        }
+.flexi-alert-block-warning {
+    background-color: $color-alert-warning-background;
+    border-color: $color-alert-warning;
 
-        svg {
-            fill: $color-secondary;
+    .flexi-alert-block-content {
+        a {
+            @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-alert-warning-background);
         }
     }
 
-    .alert-warning {
-        background-color: $color-alert-warning-background;
-        border-color: $color-alert-warning;
+    svg {
+        fill: $color-alert-warning;
+    }
+}
 
-        .alert-content {
-            a {
-                @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-alert-warning-background);
-            }
-        }
+.flexi-alert-block-critical-warning {
+    background-color: $color-alert-critical-warning-background;
+    border-color: $color-alert-critical-warning;
 
-        svg {
-            fill: $color-alert-warning;
+    .flexi-alert-block-content {
+        a {
+            @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-alert-critical-warning-background);
         }
     }
 
-    .alert-critical-warning {
-        background-color: $color-alert-critical-warning-background;
-        border-color: $color-alert-critical-warning;
-
-        .alert-content {
-            a {
-                @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-alert-critical-warning-background);
-            }
-        }
-
-        svg {
-            fill: $color-alert-critical-warning;
-        }
+    svg {
+        fill: $color-alert-critical-warning;
     }
 }

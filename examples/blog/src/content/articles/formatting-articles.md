@@ -44,7 +44,7 @@ public TypescriptFunction(): string {
 @{ 
     "language": "html", 
     "title": "HTML with Line Numbers",
-    "lineNumberRanges": [{}]
+    "lineNumberLineRanges": [{}]
 }
 ```
 <nav id="category-menu-header">
@@ -75,7 +75,7 @@ public TypescriptFunction(): string {
 @{ 
     "language": "scss",
     "title": "SCSS with Line Numbers and Highlighted Lines",
-    "lineNumberRanges": [{}],
+    "lineNumberLineRanges": [{}],
     "highlightLineRanges": [{"startLineNumber": 2, "endLineNumber": 2}]
 }
 ```
@@ -89,8 +89,8 @@ public TypescriptFunction(): string {
 
 @{ 
     "language": "json",
-    "title": "JSON with non-contiguous Line Numbers",
-    "lineNumberRanges": [{"startLineNumber": 1, "endLineNumber":5, "firstLineNumber": 1},
+    "title": "JSON with Non-Contiguous Line Numbers",
+    "lineNumberLineRanges": [{"startLineNumber": 1, "endLineNumber":5, "firstLineNumber": 1},
         {"startLineNumber":7, "firstLineNumber":12}]
 }
 ```
@@ -115,38 +115,36 @@ Create a blockquote by prepending lines with `>` (optionally followed by a space
 
 > This is a blockquote.
 
-### Note Alert
-Create a note alert by beginning a blockquote with the line `> [!alert-note]`:
+### Info Alert
+Create a info alert by beginning a blockquote with the line `> [!alert-note]`:
 
 ```no-highlight
-> [!alert-note]
-> This is a note alert.
+! This is an info alert.
 ```
 
-> [!alert-note]
-> This is a note alert.
+! This is an info alert.
 
 ### Warning Alert
 Create a warning alert by beginning a blockquote with the line `> [!alert-warning]`:
 
 ```no-highlight
-> [!alert-warning]
-> This is a warning alert.
+@{"type": "warning"}
+! This is a warning alert.
 ```
 
-> [!alert-warning]
-> This is a warning alert.
+@{"type": "warning"}
+! This is a warning alert.
  
 ### Critical Warning Alert
 Create a critical warning alert by beginning a blockquote with the line `> [!alert-critical-warning]`:
 
 ```no-highlight
-> [!alert-critical-warning]
-> This is a critical warning alert.
+@{"type": "critical-warning"}
+! This is a critical warning alert.
 ```
 
-> [!alert-critical-warning]
-> This is a critical warning alert.
+@{"type": "critical-warning"}
+! This is a critical warning alert.
 
 ### Formatting within Blockquotes and Alerts
 If a sequence of lines creates `x`, then the same sequence of lines, with `>` appended to each line, creates `x` within a blockquote.
