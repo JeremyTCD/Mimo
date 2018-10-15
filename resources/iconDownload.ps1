@@ -6,6 +6,7 @@ $materialIcons = @(
 	@{name="link"; style="baseline"},
 	@{name="info"; style="baseline"},
 	@{name="warning"; style="baseline"},
+	@{name="error"; style="baseline"},
 	@{name="navigate_next"; style="baseline"},
 	@{name="navigate_before"; style="baseline"},
 	@{name="date_range"; style="sharp"},
