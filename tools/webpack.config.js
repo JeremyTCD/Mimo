@@ -27,12 +27,6 @@ module.exports = (docfxProjectDir) => {
     const mimoRootDir = Path.join(__dirname, '..');
 
     var plugins = [
-        new Webpack.ProvidePlugin({
-            $: 'jquery',
-            'window.jQuery': 'jquery',
-            jQuery: 'jquery'
-        }),
-
         // Css files are referenced in ts files. They must be extracted into a css bundle.
         new MiniCssExtractPlugin({ filename: `[name].${isProduction ? '[contenthash].min.' : ''}css` }),
 

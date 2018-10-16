@@ -1,5 +1,4 @@
 ﻿// Global imports
-import 'jquery';
 import 'intersection-observer';
 import 'reflect-metadata';
 

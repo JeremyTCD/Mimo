@@ -137,7 +137,7 @@ $horizontal-edge-wide: 30px !default;
 }
 
 @mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: $medium-animation-duration, $background-color: null) {
-    @include animated-underline-core($color, $y-position, $underline-height, $duration);
+    @include animated-underline-core($color, $y-position, $underline-height);
     // Text shadow must remain until underline has transitioned out
     transition: background-size $duration $ease-out-quad, text-shadow 0s linear $duration;
 
@@ -159,7 +159,7 @@ $horizontal-edge-wide: 30px !default;
 }
 
 
-@mixin animated-underline-core($color, $y-position, $underline-height, $duration) {
+@mixin animated-underline-core($color, $y-position, $underline-height) {
     background-image: linear-gradient(to top, $color 0, $color $underline-height, transparent $underline-height);
     background-repeat: no-repeat;
     background-position: 0 $y-position;

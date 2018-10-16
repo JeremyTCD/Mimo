@@ -20,7 +20,6 @@ export default class SearchService {
 
     private setupWebWorkerSearch(searchWorker: Worker): void {
         console.log("using Web Worker");
-        let indexReady = $.Deferred();
 
         searchWorker.onmessage = (event: MessageEvent) => {
             switch (event.data.e) {
@@ -39,15 +38,16 @@ export default class SearchService {
 
                         searchInputElement.
                             addEventListener('keyup', (event: KeyboardEvent) => {
-                                this._queryString = $(event.currentTarget).val().toString();
+                                this._queryString = (event.currentTarget as HTMLInputElement).value;
                                 if (this._queryString.length < 1) {
                                     this._searchResultsComponent.setShown(false);
                                 } else {
-                                    $("body").trigger("queryReady");
+                                    // By the time we add this event listener to the search input element,
+                                    // the search worker is already ready to receive messages.
+                                    searchWorker.postMessage({ q: this._queryString });
                                 }
                             });
 
-                        indexReady.resolve();
                         break;
                     }
                 case 'query-ready':
@@ -56,11 +56,5 @@ export default class SearchService {
                     break;
             }
         }
-
-        indexReady.promise().done(() => {
-            $("body").bind("queryReady", () => {
-                searchWorker.postMessage({ q: this._queryString });
-            });
-        });
     }
 }

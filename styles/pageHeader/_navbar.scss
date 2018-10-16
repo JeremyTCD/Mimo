@@ -40,13 +40,20 @@
                     padding: 1px 0; // Add padding so underline can be lower
                     // Padding must be symetrical vertically so that text is centered vertically
                 }
-
-                @include animated-underline($color-secondary, 100%, 2px, $medium-animation-duration, $color-primary);
             }
 
             &.active {
                 a {
+                    @include animated-underline-core($color-secondary, 100%, 2px); // No need hover listener
+                    @include decenders-gap($color-primary);
+                    color: $color-secondary;
                     background-size: 100% 2px;
+                }
+            }
+
+            &:not(.active) {
+                a {
+                    @include animated-underline($color-primary-link, 100%, 2px, $medium-animation-duration, $color-primary);
                 }
             }
         }

@@ -4,9 +4,11 @@
 export default class PathService {
     public getAbsolutePath(href: string): string {
         // Use anchor to normalize href
-        let anchor = $('<a href="' + href + '"></a>')[0] as HTMLAnchorElement;
+        let anchorElement = document.createElement('a');
+        anchorElement.setAttribute('href', href);
+
         // Ignore protocol, remove search and query
-        return anchor.host + anchor.pathname;
+        return anchorElement.host + anchorElement.pathname;
     }
 
     public isRelativePath(href: string): boolean {

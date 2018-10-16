@@ -128,10 +128,10 @@ export default class CategoryPagesComponent implements Component {
             let listElement = liElements[i];
 
             if (i === liElements.length - 1) {
-                this._heightService.toggleHeightWithTransition($(listElement).children('ul')[0], listElement);
+                this._heightService.toggleHeightWithTransition(listElement.querySelector('ul'), listElement);
             }
             else {
-                this._heightService.expandHeightWithoutTransition($(listElement).children('ul')[0], listElement);
+                this._heightService.expandHeightWithoutTransition(listElement.querySelector('ul'), listElement);
             }
 
             // TODO generalize and move to edgeWorkaroundsService
