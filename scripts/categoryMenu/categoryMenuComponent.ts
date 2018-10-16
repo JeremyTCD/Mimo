@@ -99,6 +99,13 @@ export default class CategoryMenuComponent extends RootComponent {
         }
     }
 
+    private overlayClickListener = (): void => {
+        if (this._dropdown.isExpanded()) {
+            this._dropdown.collapseWithAnimation();
+            this._overlayService.deactivateOverlay();
+        }
+    }
+
     private buttonClickListener = (): void => {
         this._dropdown.toggleWithAnimation();
 
@@ -124,6 +131,7 @@ export default class CategoryMenuComponent extends RootComponent {
         this._dropdown.collapseWithoutAnimation();
 
         window.addEventListener('resize', this.updateDropdown);
+        this._overlayService.addClickListener(this.overlayClickListener);
 
         this.updateDropdown();
     }
@@ -133,6 +141,7 @@ export default class CategoryMenuComponent extends RootComponent {
 
         if (!init) {
             window.removeEventListener('resize', this.updateDropdown);
+            this._overlayService.removeClickListener(this.overlayClickListener);
         }
 
         this.resetDropdown();

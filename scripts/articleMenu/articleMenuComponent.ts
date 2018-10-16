@@ -111,6 +111,13 @@ export default class ArticleMenuComponent extends RootComponent {
         this.childComponentsSetupOnLoad();
     }
 
+    private overlayClickListener = (): void => {
+        if (this._dropdown.isExpanded()) {
+            this._dropdown.collapseWithAnimation();
+            this._overlayService.deactivateOverlay();
+        }
+    }
+
     private buttonClickListener = (): void => {
         this._dropdown.toggleWithAnimation();
 
@@ -143,6 +150,7 @@ export default class ArticleMenuComponent extends RootComponent {
 
         this._dropdown.collapseWithoutAnimation();
 
+        this._overlayService.addClickListener(this.overlayClickListener);
         window.addEventListener('resize', this.updateDropdown);
     }
 
@@ -151,6 +159,7 @@ export default class ArticleMenuComponent extends RootComponent {
 
         if (!init) {
             window.removeEventListener('resize', this.updateDropdown);
+            this._overlayService.removeClickListener(this.overlayClickListener);
         }
 
         this.resetDropdown();

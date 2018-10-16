@@ -64,6 +64,7 @@ export default class PageHeaderComponent extends RootComponent {
     public setupOnLoad(): void {
         this.childComponentsSetupOnLoad();
         this._buttonElement.addEventListener('click', this.buttonClickListener);
+        this._overlayService.addClickListener(this.overlayClickListener);
 
         this._mediaGlobalService.addChangedFromListener(this.onChangedFromNarrowListener, MediaWidth.narrow);
         this._mediaGlobalService.addChangedToListener(this.onChangedToNarrowListener, MediaWidth.narrow);
@@ -81,6 +82,17 @@ export default class PageHeaderComponent extends RootComponent {
         }
 
         this._dropdown.reset()
+    }
+
+    private overlayClickListener = (): void => {
+        if (this._searchComponent.hasQuery()) {
+            this._searchComponent.reset();
+        } 
+
+        if (this._dropdown.isExpanded()) {
+            this._overlayService.deactivateOverlay();
+            this._dropdown.collapseWithAnimation();
+        }
     }
 
     private buttonClickListener = () => {

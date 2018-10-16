@@ -58,6 +58,22 @@ export default class OverlayService {
         }
     }
 
+    public addClickListener(listener: (event: Event) => void) {
+        if (!this._overlayElement) {
+            this._overlayElement = document.getElementById('overlay');
+        }
+
+        this._overlayElement.addEventListener('click', listener);
+    }
+
+    public removeClickListener(listener: (event: Event) => void) {
+        if (!this._overlayElement) {
+            return;
+        }
+
+        this._overlayElement.removeEventListener('click', listener);
+    }
+
     private onFadedOutListener = (event: Event): void => {
         if (event.target === event.currentTarget) {
             event.target.removeEventListener('transitionend', this.onFadedOutListener, true);
