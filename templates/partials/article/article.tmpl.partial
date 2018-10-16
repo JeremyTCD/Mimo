@@ -7,7 +7,7 @@
             {{#mimo_date}}
             <li class="metadata-date">
                 <svg>
-                    <use xlink:href="#material-design-date-range" />
+                    <use xlink:href="#custom-date-range" />
                 </svg>
                 <span>{{mimo_date}}</span>
             </li>

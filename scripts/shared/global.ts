@@ -7,6 +7,7 @@ import 'reflect-metadata';
 require('../../resources/custom-file-copy.svg');
 require('../../resources/custom-more-vert.svg');
 require('../../resources/custom-filter-list.svg');
+require('../../resources/custom-date-range.svg');
 
 require('../../resources/material-design-arrow-upward.svg');
 require('../../resources/material-design-arrow-drop-down.svg');
@@ -16,7 +17,6 @@ require('../../resources/material-design-warning.svg');
 require('../../resources/material-design-error.svg');
 require('../../resources/material-design-navigate-next.svg');
 require('../../resources/material-design-navigate-before.svg');
-require('../../resources/material-design-date-range.svg');
 require('../../resources/material-design-person.svg');
 require('../../resources/material-design-clear.svg');
 require('../../resources/material-design-search.svg');
