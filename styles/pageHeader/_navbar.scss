@@ -27,20 +27,26 @@
                 }
 
                 @media #{$media-narrow} {
-                    margin-bottom: 14px;
+                    margin-bottom: 13px;
+
+                    a {
+                        padding-bottom: 1px; // Add padding so underline can be lower
+                    }
                 }
+            }
+
+            a {
+                @media #{$media-medium}, #{$media-wide} {
+                    padding: 1px 0; // Add padding so underline can be lower
+                    // Padding must be symetrical vertically so that text is centered vertically
+                }
+
+                @include animated-underline($color-secondary, 100%, 2px, $medium-animation-duration, $color-primary);
             }
 
             &.active {
                 a {
-                    color: $color-primary-text;
-                    opacity: $opacity-5;
-                }
-            }
-
-            &:not(.active) {
-                a {
-                    @include animated-underline($color-primary-link, $animated-underline-15px-ypos, $duration: $medium-animation-duration, $background-color: $color-primary);
+                    background-size: 100% 2px;
                 }
             }
         }
