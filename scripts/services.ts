@@ -9,7 +9,6 @@ import SearchService from './shared/searchService';
 import SvgService from './shared/svgService';
 import TooltipService from './shared/tooltipService';
 import HeightService from './shared/heightService';
-import TreeService from './shared/treeService';
 import StringService from './shared/stringService';
 import EasingService from './shared/easingService';
 import ArticleGlobalService from './shared/articleGlobalService';
@@ -18,6 +17,6 @@ import GlobalService from './shared/globalService';
 import FixesGlobalService from './shared/fixesGlobalService';
 
 export {
-    CodeService, DebounceService, HtmlEncodeService, MediaGlobalService, OverlayService, PaginationService, PathService, SearchService, SvgService, TooltipService, HeightService, TreeService,
+    CodeService, DebounceService, HtmlEncodeService, MediaGlobalService, OverlayService, PaginationService, PathService, SearchService, SvgService, TooltipService, HeightService,
     StringService, EasingService, ArticleGlobalService, LinkGlobalService, GlobalService, FixesGlobalService
 }

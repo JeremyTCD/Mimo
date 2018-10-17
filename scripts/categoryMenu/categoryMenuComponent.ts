@@ -4,7 +4,6 @@ import MediaGlobalService from '../shared/mediaGlobalService';
 import OverlayService from '../shared/overlayService';
 import { MediaWidth } from '../shared/mediaWidth';
 import CategoryPagesComponent from './categoryPagesComponent';
-import CategoryMenuHeaderComponent from './categoryMenuHeaderComponent';
 import CategoryPagesFilterComponent from './categoryPagesFilterComponent';
 import DropdownFactory from '../shared/dropdownFactory';
 import Dropdown from '../shared/dropdown';
@@ -39,7 +38,6 @@ export default class CategoryMenuComponent extends RootComponent {
         @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
         debounceService: DebounceService,
         categoryPagesComponent: CategoryPagesComponent,
-        categoryMenuHeaderComponent: CategoryMenuHeaderComponent,
         categoryPagesFilterComponent: CategoryPagesFilterComponent,
         overlayService: OverlayService,
         dropdownFactory: DropdownFactory) {
@@ -50,7 +48,7 @@ export default class CategoryMenuComponent extends RootComponent {
         this._debounceService = debounceService;
         this._dropdownFactory = dropdownFactory;
 
-        this.addChildComponents(categoryMenuHeaderComponent, categoryPagesFilterComponent, categoryPagesComponent);
+        this.addChildComponents(categoryPagesFilterComponent, categoryPagesComponent);
     }
 
     public enabled(): boolean {

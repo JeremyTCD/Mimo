@@ -42,17 +42,15 @@
                 }
             }
 
-            &.active {
-                a {
+            a {
+                &.active {
                     @include animated-underline-core($color-secondary, 100%, 2px); // No need hover listener
                     @include decenders-gap($color-primary);
                     color: $color-secondary;
                     background-size: 100% 2px;
                 }
-            }
 
-            &:not(.active) {
-                a {
+                &:not(.active) {
                     @include animated-underline($color-primary-link, 100%, 2px, $medium-animation-duration, $color-primary);
                 }
             }

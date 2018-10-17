@@ -1,12 +1,10 @@
 ﻿import RootComponent from './shared/rootComponent';
 
-import NavbarComponent from './pageHeader/navbarComponent';
 import PageHeaderComponent from './pageHeader/pageHeaderComponent';
 import SearchComponent from './pageHeader/searchComponent';
 import SearchResultsComponent from './pageHeader/searchResultsComponent';
 
 import CategoryMenuComponent from './categoryMenu/categoryMenuComponent';
-import CategoryMenuHeaderComponent from './categoryMenu/categoryMenuHeaderComponent';
 import CategoryPagesFilterComponent from './categoryMenu/categoryPagesFilterComponent';
 import CategoryPagesComponent from './categoryMenu/categoryPagesComponent';
 
@@ -24,7 +22,7 @@ import ArticleMenuHeaderComponent from './articleMenu/articleMenuHeaderComponent
 import PageFooterComponent from './pageFooter/pageFooterComponent';
 
 export {
-    RootComponent, NavbarComponent, PageHeaderComponent, SearchComponent, SearchResultsComponent, CategoryMenuComponent, CategoryMenuHeaderComponent, CategoryPagesFilterComponent, 
+    RootComponent, PageHeaderComponent, SearchComponent, SearchResultsComponent, CategoryMenuComponent, CategoryPagesFilterComponent, 
     CategoryPagesComponent, ArticleComponent, CommentsComponent, SortedArticleListComponent, ArticleMenuComponent, OutlineComponent, ArticleLinksComponent, 
     ArticleMenuHeaderComponent, PageFooterComponent
 }

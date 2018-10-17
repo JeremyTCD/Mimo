@@ -4,7 +4,7 @@
             {
                 "src": "src/content",
                 "files": [ "**" ],
-                "exclude": ["**/*-ignore.md"]
+                "exclude": [ "**/*-ignore.md" ]
             }
         ],
         "resource": [
@@ -47,7 +47,7 @@
                 "<link rel=\"preload\" href=\"/fonts/droid-sans-mono-latin-400.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>"
             ]
         },
-        "postProcessors": [ "SortedArticleListGenerator", "SearchIndexGenerator", "OutlineGenerator" ],
+        "postProcessors": [ "SortedArticleListGenerator", "SearchIndexGenerator", "OutlineGenerator", "TocEmbedder" ],
         "markdownEngineName": "mimo-markdown",
         "sitemap": {
             "baseUrl": "https://yourdomain",

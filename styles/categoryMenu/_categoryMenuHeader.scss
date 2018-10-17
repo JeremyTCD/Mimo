@@ -76,24 +76,21 @@
                 }
             }
 
-            > span, a {
+            span, a {
+                color: $color-secondary-text;
                 flex-shrink: 1;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                color: $color-secondary-text;
             }
-            // Non links
-            > span {
-                display: inline;
 
-                &.topic {
-                    opacity: $opacity-3;
-                }
+            span {
+                display: inline;
+                opacity: $opacity-3;
             }
-            // Links
+
             a {
-                @include animated-underline($color-secondary-text, $animated-underline-13px-inline-ypos, $background-color: $color-secondary);
+                @include animated-underline($color-secondary-text, $animated-underline-13px-ypos, $background-color: $color-secondary);
             }
         }
     }

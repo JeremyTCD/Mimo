@@ -76,13 +76,11 @@ export default class Host {
     private addDefault(container: Container): void {
         // Page header
         container.bind<components.RootComponent>('RootComponent').to(components.PageHeaderComponent).inSingletonScope();
-        container.bind<components.NavbarComponent>(components.NavbarComponent).toSelf().inSingletonScope();
         container.bind<components.SearchComponent>(components.SearchComponent).toSelf().inSingletonScope();
         container.bind<components.SearchResultsComponent>(components.SearchResultsComponent).toSelf().inSingletonScope();
 
-        // Section menu
+        // Category menu
         container.bind<components.RootComponent>('RootComponent').to(components.CategoryMenuComponent).inSingletonScope();
-        container.bind<components.CategoryMenuHeaderComponent>(components.CategoryMenuHeaderComponent).toSelf().inSingletonScope();
         container.bind<components.CategoryPagesComponent>(components.CategoryPagesComponent).toSelf().inSingletonScope();
         container.bind<components.CategoryPagesFilterComponent>(components.CategoryPagesFilterComponent).toSelf().inSingletonScope();
 
@@ -119,7 +117,6 @@ export default class Host {
         container.bind<services.SvgService>(services.SvgService).toSelf().inSingletonScope();
         container.bind<services.TooltipService>(services.TooltipService).toSelf().inSingletonScope();
         container.bind<services.HeightService>(services.HeightService).toSelf().inSingletonScope();
-        container.bind<services.TreeService>(services.TreeService).toSelf().inSingletonScope();
         container.bind<services.StringService>(services.StringService).toSelf().inSingletonScope();
         container.bind<services.EasingService>(services.EasingService).toSelf().inSingletonScope();
         container.bind<factories.TextInputFactory>(factories.TextInputFactory).toSelf().inSingletonScope();

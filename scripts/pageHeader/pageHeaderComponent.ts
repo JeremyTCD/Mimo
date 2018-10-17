@@ -1,6 +1,5 @@
 import { named, injectable, inject } from 'inversify';
 import RootComponent from '../shared/rootComponent';
-import NavbarComponent from './navbarComponent';
 import SearchComponent from './searchComponent';
 import SearchResultsComponent from './searchResultsComponent';
 import OverlayService from '../shared/overlayService';
@@ -29,7 +28,6 @@ export default class PageHeaderComponent extends RootComponent {
         dropdownFactory: DropdownFactory,
         overlayService: OverlayService,
         searchComponent: SearchComponent,
-        navbarComponent: NavbarComponent,
         searchResultsComponent: SearchResultsComponent) {
         super();
 
@@ -38,7 +36,7 @@ export default class PageHeaderComponent extends RootComponent {
         this._mediaGlobalService = mediaGlobalService;
         this._searchComponent = searchComponent;
 
-        this.addChildComponents(searchComponent, navbarComponent, searchResultsComponent);
+        this.addChildComponents(searchComponent, searchResultsComponent);
     }
 
     public enabled(): boolean {
