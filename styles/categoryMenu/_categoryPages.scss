@@ -40,18 +40,16 @@
                 display: flex;
             }
 
+
             &.expandable {
-                > span, > a {
-                    svg {
-                        visibility: visible;
-                        transform: rotate(0deg);
-                        transition: transform $medium-animation-duration $ease-out-quad;
-                        fill: $color-primary-icon;
-                    }
+                svg {
+                    transform: rotate(0deg);
+                    transition: transform $medium-animation-duration $ease-out-quad;
+                    fill: $color-primary-icon;
                 }
 
                 &.expanded {
-                    > span, > a {
+                    > span, > a { // Apply only to direct child's SVG
                         svg {
                             transform: rotate(90deg);
                         }
@@ -65,7 +63,7 @@
                 }
             }
 
-            > span, > a {
+            span, a {
                 padding: 8px 0;
                 padding-right: 12px;
                 user-select: none;
@@ -77,16 +75,15 @@
                     margin-right: 3px;
                     height: 18px;
                     width: 18px;
-                    visibility: hidden;
                 }
             }
 
-            > span {
+            span {
                 cursor: pointer;
                 color: $color-primary-text;
             }
 
-            > a {
+            a {
                 background-image: linear-gradient($color-primary-link, $color-primary-link);
                 background-repeat: no-repeat;
                 background-position: 0 0;
@@ -102,7 +99,7 @@
                 }
 
                 &.active, &:hover {
-                    transition-delay: $anti-flicker-delay;
+                    transition-delay: $long-anti-flicker-delay;
                     color: $color-secondary-text;
                 }
             }

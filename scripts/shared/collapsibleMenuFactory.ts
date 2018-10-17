@@ -19,11 +19,12 @@ export default class CollapsibleMenuFactory {
     public build(rootElement: HTMLElement): CollapsibleMenu {
         let rootElementID = rootElement.getAttribute('id');
         let rootLIElements = document.querySelectorAll(`#${rootElementID} > ul > li`);
-        let topicElements = document.querySelectorAll(`#${rootElementID} ul > li.expandable > span`);
-        let topicAndPageElements = document.querySelectorAll(`#${rootElementID} li > a, #${rootElementID} li > span`);
+        let expandableTextElements = document.querySelectorAll(`#${rootElementID} li.expandable > span, #${rootElementID} li.expandable > a`);
+        let leafTextElements = document.querySelectorAll(`#${rootElementID} li > span, #${rootElementID} li > a`);
 
-        this.setPadding(topicAndPageElements);
-        this.registerTopicListeners(topicElements);
+        this.setTextElementsPadding(leafTextElements, 21); // Leaf text elements have no icon, so we need extra padding to align them with expandable text elements
+        this.setTextElementsPadding(expandableTextElements);
+        this.registerTopicListeners(expandableTextElements);
 
         return new CollapsibleMenu(rootElement, rootLIElements, this._stringService, this._heightService);
     }
@@ -44,16 +45,12 @@ export default class CollapsibleMenuFactory {
         }
     }
 
-    private setPadding(topicAndPageElements: NodeList): void {
-        for (let i = 0; i < topicAndPageElements.length; i++) {
-            let element = topicAndPageElements[i] as HTMLElement;
+    private setTextElementsPadding(textElements: NodeList, extraPaddingLeft: number = 0): void {
+        for (let i = 0; i < textElements.length; i++) {
+            let element = textElements[i] as HTMLElement;
             let level = parseInt(element.getAttribute('data-level'));
 
-            if (level === 1) {
-                continue;
-            }
-
-            element.style.paddingLeft = `${(level - 1) * 14}px`;
+            element.style.paddingLeft = `${extraPaddingLeft + (level - 1) * 14}px`;
         }
     }
 }

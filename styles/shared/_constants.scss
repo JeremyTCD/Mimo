@@ -36,6 +36,7 @@ $short-animation-duration: 0.2s !default;
 $medium-animation-duration: 0.3s !default;
 $long-animation-duration: 0.4s !default;
 $anti-flicker-delay: 0.06s !default;
+$long-anti-flicker-delay: 0.12s !default;
 $ease-out-quad: cubic-bezier(0.33, 0.67, 0.67, 1) !default;
 $ease-out-quad-delayed: $ease-out-quad $anti-flicker-delay !default;
 $ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275) !default;

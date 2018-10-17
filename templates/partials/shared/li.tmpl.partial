@@ -6,21 +6,21 @@
     {{#leaf}}
     <li data-level="{{level}}">
     {{/leaf}}
-        {{#topicHref}}
-        <a class="topic" data-level="{{level}}" href="{{topicHref}}" name="{{tocHref}}" title="{{name}}">
-            {{name}}
-        </a>
-        {{/topicHref}}
+            {{#topicHref}}
+            <a data-level="{{level}}" href="{{topicHref}}" name="{{tocHref}}" title="{{name}}">
+                {{name}}
+            </a>
+            {{/topicHref}}
 
-        {{^topicHref}}
-        <span class="topic" data-level="{{level}}">
-            {{name}}
-        </span>
-        {{/topicHref}}
-            
-        {{^leaf}}
-        {{>partials/shared/li}}
-        {{/leaf}}
+            {{^topicHref}}
+            <span data-level="{{level}}">
+                {{name}}
+            </span>
+            {{/topicHref}}
+
+            {{^leaf}}
+            {{>partials/shared/li}}
+            {{/leaf}}
     </li>
     {{/items}}
     </ul>
