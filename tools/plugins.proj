@@ -8,14 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="JeremyTCD.DocFx.Plugins.SearchIndexGenerator" Version="0.5.0" />
-        <PackageReference Include="JeremyTCD.DocFx.Plugins.SortedArticleListGenerator" Version="0.7.0" />
-        <PackageReference Include="JeremyTCD.DocFx.Plugins.OutlineGenerator" Version="0.1.0" />
-        <PackageReference Include="JeremyTCD.DocFx.Plugins.FileMetadataExposer" Version="0.4.0" />
-        <PackageReference Include="JeremyTCD.DocFx.Plugins.TocEmbedder" Version="0.1.0" />
-
-        <!--<PackageReference Include="JeremyTCD.DocFx.Plugins.MimoMarkdown" Version="0.8.0" />-->
-        <ProjectReference Include="..\..\JeremyTCD.DocFx.Plugins.MimoMarkdown\src\MimoMarkdown\JeremyTCD.DocFx.Plugins.MimoMarkdown.csproj" />
+        <PackageReference Include="JeremyTCD.DocFx.Plugins" Version="0.1.0"/>
     </ItemGroup>
 
     <!-- Including DocAsCode assemblies will cause errors -->
