@@ -1,32 +1,26 @@
 {
     "version": "0.0.0",
     "name": "mimo-website",
-    "description": "Mimo is a DocFX based tool for generating minimalistic, modern documentation sites/blogs.",
-    "keywords": [
-        "docfx",
-        "theme",
-        "documentation",
-        "blog"
-    ],
+    "description": "An static content generator",
     "repository": {
         "type": "git",
         "url": "https://github.com/JeremyTCD/Mimo"
     },
     "homepage": "https://github.com/JeremyTCD/Mimo",
     "bugs": "https://github.com/JeremyTCD/Mimo/issues",
-    "license": "CC-BY-4.0",
+    "license": "MIT",
     "author": "JeremyTCD",
     "files": [
         "dist"
     ],
     "scripts": {
-        "serve-example-dev": "set NODE_ENV=development && yarn run serve -p ../examples/blog/",
-        "serve-example-production": "set NODE_ENV=production && yarn run serve -p ../examples/blog/",
+        "serve-example-dev": "set NODE_ENV=development && npm run serve -- -p ../examples/blog/",
+        "serve-example-production": "set NODE_ENV=production && npm run serve -- -p ../examples/blog/",
         "serve": "node tools/serve.js",
-        "build-example-dev": "set NODE_ENV=development && yarn run build-example",
-        "build-example-production": "set NODE_ENV=production && yarn run build-example",
+        "build-example-dev": "set NODE_ENV=development && npm run build-example",
+        "build-example-production": "set NODE_ENV=production && npm run build-example",
         "build-example": "node tools/build.js -p ../examples/blog/",
-        "build-dist": "node tools/distTools/buildDist.js"
+        "build": "node tools/distTools/buildDist.js"
     },
     "dependencies": {
         "@types/clipboard": "^2.0.1",
