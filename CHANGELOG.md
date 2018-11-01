@@ -3,7 +3,15 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.18...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.19...HEAD)
+
+## [1.0.0-alpha.19](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.18...1.0.0-alpha.19) - Nov 1, 2018
+### Changed
+- Removed jQuery.
+- Updated icons.
+- Updated scripts and styles for FlexiBlocks.
+- Clicking on overlay now closes dropdowns and search results.
+- Added TocEmbedder.
 
 ## [1.0.0-alpha.18](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.17...1.0.0-alpha.18) - Jun 27, 2018
 ### Changed
@@ -149,5 +157,5 @@ Sass variables can now be overriden.
 - Dealt with some serve mode issues.
 - Back to top button now fades in and out correctly.
 
-## 1.0.0-alpha.1 - Jan 16, 2018
+## [1.0.0-alpha.1](https://github.com/JeremyTCD/Mimo/tree/1.0.0-alpha.1) - Jan 16, 2018
 Initial release.
