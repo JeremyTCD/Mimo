@@ -45,7 +45,7 @@ class DistBuilder {
         return Promise.
             all([mainPromise, workersPromise]).
             then(_ => {
-                console.log(`** complete - compile typescript**`)
+                console.log(`** complete - compile typescript**`);
             },
             _ => {
                 console.log(`** incomplete - failed to compile typescript**`)
@@ -71,7 +71,7 @@ class DistBuilder {
                 return false;
             }
             return true;
-        }
+        };
         let options = { filter: filter };
 
         for (let i = 0; i < include.length; i++) {
@@ -84,7 +84,7 @@ class DistBuilder {
         }
 
         return Promise.all(promises).then(_ => { console.log(`complete - copy simple files`); });
-    };
+    }
 
     async cleanDist() {
         return new Promise((resolve, reject) => {
@@ -100,7 +100,7 @@ class DistBuilder {
                 }
             });
         });
-    };
+    }
 }
 
 module.exports = DistBuilder;
