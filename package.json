@@ -1,7 +1,7 @@
 {
     "version": "0.0.0",
     "name": "mimo-website",
-    "description": "An static content generator",
+    "description": "A static content generator",
     "repository": {
         "type": "git",
         "url": "https://github.com/JeremyTCD/Mimo"
