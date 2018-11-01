@@ -1,0 +1,17 @@
+trigger:
+- master
+
+resources:
+  repositories:
+  - repository: templates
+    type: github
+    name: JeremyTCD/DevOps.AzurePipelines.Npm
+    endpoint: JeremyTCD
+
+jobs:
+- template: main.yml@templates
+  parameters:
+    nugetRestoreEndPoint: "https://pkgs.dev.azure.com/JeremyTCD/_packaging/Main/nuget/v2"
+    nugetPushEndpoint: "https://pkgs.dev.azure.com/JeremyTCD/_packaging/Main/nuget/v2"
+    runInheritDoc: false
+    runTests: false
