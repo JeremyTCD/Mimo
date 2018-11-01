@@ -11,5 +11,5 @@ resources:
 jobs:
 - template: templates/npm/main.yml@templates
   parameters:
-    installRegistryEndpoint: "https://pkgs.dev.azure.com/JeremyTCD/_packaging/Main/npm/registry/"
-    publishRegistryEndpoint: "https://pkgs.dev.azure.com/JeremyTCD/_packaging/Main/npm/registry/"
+    npmInstallEndpoint: "https://pkgs.dev.azure.com/JeremyTCD/_packaging/Main/npm/registry/"
+    npmPublishEndpoint: "https://pkgs.dev.azure.com/JeremyTCD/_packaging/Main/npm/registry/"
