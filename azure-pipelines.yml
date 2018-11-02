@@ -10,5 +10,3 @@ resources:
 
 jobs:
 - template: templates/npm/main.yml@templates
-  parameters:
-    npmPublishEndpoint: "https://pkgs.dev.azure.com/JeremyTCD/_packaging/Main/npm/registry/"
