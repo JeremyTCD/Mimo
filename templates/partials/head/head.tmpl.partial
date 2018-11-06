@@ -10,7 +10,9 @@
     {{#mimo_pageDescription}}
     <meta name="description" content="{{mimo_pageDescription}}">
     {{/mimo_pageDescription}}
-    <link rel="shortcut icon" href="{{#mimo_faviconRelPath}}{{mimo_faviconRelPath}}{{/mimo_faviconRelPath}}{{^mimo_faviconRelPath}}/resources/favicon.ico{{/mimo_faviconRelPath}}">
+    {{#mimo_faviconRelPath}}
+    <link rel="shortcut icon" href="{{mimo_faviconRelPath}}">
+    {{/mimo_faviconRelPath}}
     <link rel="stylesheet" href="/styles/bundle.css">
     {{#mimo_googleFontsHrefs}}
     <link href="{{link}}" rel="stylesheet">
