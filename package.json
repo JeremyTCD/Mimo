@@ -14,11 +14,11 @@
         "dist"
     ],
     "scripts": {
-        "serve-example-dev": "set NODE_ENV=development && npm run serve -- -p ../examples/blog/",
-        "serve-example-production": "set NODE_ENV=production && npm run serve -- -p ../examples/blog/",
+        "serve-example-dev": "set NODE_ENV=development && yarn run serve -- -p ../examples/blog/",
+        "serve-example-production": "set NODE_ENV=production && yarn run serve -- -p ../examples/blog/",
         "serve": "node tools/serve.js",
-        "build-example-dev": "set NODE_ENV=development && npm run build-example",
-        "build-example-production": "set NODE_ENV=production && npm run build-example",
+        "build-example-dev": "set NODE_ENV=development && yarn run build-example",
+        "build-example-production": "set NODE_ENV=production && yarn run build-example",
         "build-example": "node tools/build.js -p ../examples/blog/",
         "build": "node tools/distTools/buildDist.js"
     },
