@@ -124,7 +124,12 @@ module.exports = (docfxProjectDir) => {
                     test: /\.scss$/,
                     use: [
                         MiniCssExtractPlugin.loader,
-                        'css-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                url: false
+                            }
+                        },
                         {
                             // Set of tools for processing css: https://github.com/postcss
                             loader: 'postcss-loader',
@@ -163,14 +168,6 @@ module.exports = (docfxProjectDir) => {
                             }
                         }
                     ]
-                },
-                {
-                    test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/,
-                    use: "url-loader?limit=10000&mimetype=application/font-woff"
-                },
-                {
-                    test: /\.(ttf|eot)(\?v=[0-9].[0-9].[0-9])?$/,
-                    use: "file-loader"
                 }
             ]
         },
