@@ -3,7 +3,12 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.20...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.21...HEAD)
+
+## [1.0.0-alpha.21](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.20...1.0.0-alpha.21) - Nov 8, 2018
+### Fixes
+- Css-loader no longer processes url() statements.
+- Fixed regex used to identify URIs in HTML that need to have hashes appended.
 
 ## [1.0.0-alpha.20](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.19...1.0.0-alpha.20) - Nov 7, 2018
 ### Changed
