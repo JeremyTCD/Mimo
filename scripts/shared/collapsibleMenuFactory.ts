@@ -32,8 +32,16 @@ export default class CollapsibleMenuFactory {
     private registerTopicListeners(topicElements: NodeList): void {
         for (let i = 0; i < topicElements.length; i++) {
             let topicElement = topicElements[i] as HTMLElement;
+            let clickableElement: HTMLElement;
 
-            topicElement.addEventListener('click', (event: Event) => {
+            // If topic element is span, a click anywhere within the element should expand it
+            if (topicElement.tagName.toLowerCase() == "a") {
+                clickableElement = topicElement.querySelector('button');
+            } else {
+                clickableElement = topicElement;
+            }
+
+            clickableElement.addEventListener('click', (event: Event) => {
                 let parentLI = topicElement.parentElement;
                 let childUl = parentLI.querySelector('ul');
                 this._heightService.toggleHeightWithTransition(childUl, parentLI);
