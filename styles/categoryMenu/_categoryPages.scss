@@ -44,7 +44,7 @@
             &.expandable {
                 svg {
                     transform: rotate(0deg);
-                    transition: transform $medium-animation-duration $ease-out-quad;
+                    transition: transform $medium-animation-duration $ease-out-quad, fill $medium-animation-duration $ease-out-quad $long-anti-flicker-delay;
                     fill: $color-primary-icon;
                 }
 
@@ -88,7 +88,7 @@
                 background-repeat: no-repeat;
                 background-position: 0 0;
                 background-size: 0% 100%;
-                transition: background-size $medium-animation-duration $ease-out-quad, color $short-animation-duration $ease-out-quad;
+                transition: background-size $medium-animation-duration $ease-out-quad $long-anti-flicker-delay, color $short-animation-duration $ease-out-quad $long-anti-flicker-delay;
 
                 &.active {
                     background-color: $color-secondary;
@@ -99,8 +99,11 @@
                 }
 
                 &.active, &:hover {
-                    transition-delay: $long-anti-flicker-delay;
                     color: $color-secondary-text;
+
+                    svg {
+                        fill: $color-secondary-text;
+                    }
                 }
             }
         }
