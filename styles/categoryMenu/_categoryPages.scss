@@ -69,12 +69,15 @@
                 user-select: none;
                 align-items: center;
                 min-height: 37px;
-                // Prefix every span and a with the same svg so that they are all aligned
-                svg {
-                    flex-shrink: 0;
-                    margin-right: 3px;
-                    height: 18px;
-                    width: 18px;
+
+                button {
+                    margin-right: 1px;
+                    margin-left: 2px;
+                    svg {
+                        flex-shrink: 0;
+                        height: 18px;
+                        width: 18px;
+                    }
                 }
             }
 
