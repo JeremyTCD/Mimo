@@ -17,9 +17,9 @@
         "serve-example-dev": "set NODE_ENV=development && yarn run serve -- -p ../examples/blog/",
         "serve-example-production": "set NODE_ENV=production && yarn run serve -- -p ../examples/blog/",
         "serve": "node tools/serve.js",
-        "build-example-dev": "set NODE_ENV=development && yarn run build-example",
-        "build-example-production": "set NODE_ENV=production && yarn run build-example",
-        "build-example": "node tools/build.js -p ../examples/blog/",
+        "build-example-dev": "set NODE_ENV=development && yarn run build-site -- -p ../examples/blog",
+        "build-example-production": "set NODE_ENV=production && yarn run build-site -- -p ../examples/blog/",
+        "build-site": "node tools/build.js",
         "build": "node tools/distTools/buildDist.js"
     },
     "dependencies": {
