@@ -3,9 +3,9 @@
     {{>partials/head/scripts}}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>{{#mimo_pageTitle}}{{{mimo_pageTitle}}}{{/mimo_pageTitle}} {{#mimo_websiteName}}- {{{mimo_websiteName}}}{{/mimo_websiteName}}</title>
+    <title>{{#mimo_pageTitle}}{{{mimo_pageTitle}}}{{/mimo_pageTitle}}{{#mimo_websiteName}} - {{{mimo_websiteName}}}{{/mimo_websiteName}}</title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="{{#mimo_pageTitle}}{{{mimo_pageTitle}}}{{/mimo_pageTitle}} {{#mimo_websiteName}}- {{{mimo_websiteName}}}{{/mimo_websiteName}}">
+    <meta name="title" content="{{#mimo_pageTitle}}{{{mimo_pageTitle}}}{{/mimo_pageTitle}}{{#mimo_websiteName}} - {{{mimo_websiteName}}}{{/mimo_websiteName}}">
     <meta name="generator" content="mimo">
     {{#mimo_pageDescription}}
     <meta name="description" content="{{mimo_pageDescription}}">
@@ -20,27 +20,31 @@
     <meta property="docfx:navrel" content="/toc.html">
     <meta property="docfx:tocrel" content="{{_tocRel}}">
   
-    <!-- Open Graph tags used by several social media sites -->
-    {{#mimo_socialMediaCard}}
+    {{#mimo_socialMediaCards}}
+    <!-- Open Graph tags and assorted metadata used by social media sites -->
+    <!-- Shared -->
     <meta property="og:url" content="{{mimo_baseUrl}}/{{mimo_pageRelPath}}" />
-    <meta property="og:title" content="{{#cardTitle}}{{cardTitle}}{{/cardTitle}}{{^cardTitle}}{{mimo_pageTitle}}{{/cardTitle}}" />
-    <meta property="og:description" content="{{#description}}{{description}}{{/description}}{{^description}}{{mimo_pageDescription}}{{/description}}" />
-    <meta property="og:type" content="{{#cardType}}{{cardType}}{{/cardType}}{{^cardType}}article{{/cardType}}" />
-    {{#image}}
-    <meta property="og:image" content="{{image}}" />
-    {{/image}}
-    {{#twitterSite}}
-    <meta name="twitter:site" content="{{twitterSite}}" />
-    {{/twitterSite}}
-    {{#twitterCreator}}
-    <meta name="twitter:creator" content="{{twitterCreator}}" />
-    {{/twitterCreator}}  
-    {{#twitterImageAlt}}
-    <meta name="twitter:image:alt" content="{{twitterImageAlt}}" />
-    {{/twitterImageAlt}}  
-    {{/mimo_socialMediaCard}}
+    <meta property="og:title" content="{{#mimo_cardTitle}}{{mimo_cardTitle}}{{/mimo_cardTitle}}{{^mimo_cardTitle}}{{{mimo_websiteName}}} - {{{mimo_pageTitle}}}{{/mimo_cardTitle}}" />
+    <meta property="og:description" content="{{#mimo_cardDescription}}{{mimo_cardDescription}}{{/mimo_cardDescription}}{{^mimo_cardDescription}}{{mimo_pageDescription}}{{/mimo_cardDescription}}" />
+    <!-- Facebook - https://developers.facebook.com/docs/sharing/webmasters#markup, validator https://developers.facebook.com/tools/debug/sharing (note specify mimo_cardFbCardType as website for home page) -->
+    <meta property="og:type" content="{{#mimo_fbCardType}}{{mimo_fbCardType}}{{/mimo_fbCardType}}{{^mimo_fbCardType}}article{{/mimo_fbCardType}}" />
+    <meta property="og:image" content="{{mimo_baseUrl}}{{#mimo_fbCardImageRelPath}}{{mimo_fbCardImageRelPath}}{{/mimo_fbCardImageRelPath}}{{^mimo_fbCardImageRelPath}}/resources/logo.png{{/mimo_fbCardImageRelPath}}" />
+    <meta property="og:image:width" content="{{#mimo_fbImageWidth}}{{mimo_fbImageWidth}}{{/mimo_fbImageWidth}}{{^mimo_fbImageWidth}}4096{{/mimo_fbImageWidth}}" />
+    <meta property="og:image:height" content="{{#mimo_fbImageHeight}}{{mimo_fbImageHeight}}{{/mimo_fbImageHeight}}{{^mimo_fbImageHeight}}2048{{/mimo_fbImageHeight}}" />
+    <!-- Twitter - https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/summary, validator https://cards-dev.twitter.com/validator -->
+    <meta name="twitter:card" content="{{#mimo_twitterCardType}}{{mimo_twitterCardType}}{{/mimo_twitterCardType}}{{^mimo_twitterCardType}}summary_large_image{{/mimo_twitterCardType}}" />
+    <meta name="twitter:image" content="{{mimo_baseUrl}}{{#mimo_twitterCardImageRelPath}}{{mimo_twitterCardImageRelPath}}{{/mimo_twitterCardImageRelPath}}{{^mimo_twitterCardImageRelPath}}/resources/logo.png{{/mimo_twitterCardImageRelPath}}" />
+    <meta name="twitter:image:alt" content="{{#mimo_twitterCardImageAlt}}{{mimo_twitterCardImageAlt}}{{/mimo_twitterCardImageAlt}}{{^mimo_twitterCardImageAlt}}Logo{{/mimo_twitterCardImageAlt}} " />
+    {{#mimo_twitterCardSite}}
+    <meta name="twitter:site" content="{{mimo_twitterCardSite}}" />
+    {{/mimo_twitterCardSite}}
+    {{#mimo_twitterCardCreator}}
+    <meta name="twitter:creator" content="{{mimo_twitterCardCreator}}" />
+    {{/mimo_twitterCardCreator}}
+    {{/mimo_socialMediaCards}}
   
     {{#mimo_headElements}}
     {{{.}}}
     {{/mimo_headElements}}
   </head>
+
