@@ -27,7 +27,7 @@
                 {{/mimo_shareOnFacebook}}
 
                 {{#mimo_shareOnTwitter}}
-                <a href="https://twitter.com/intent/tweet?text={{#text}}{{{text}}}{{/text}}{{^text}}{{{mimo_pageTitle}}}%20%7C%20{{{mimo_websiteName}}}{{/text}}&{{#via}}via={{{via}}}&{{/via}}url={{mimo_baseUrl}}/{{mimo_pageRelPath}}&{{#hashtags}}hashtags={{{hashtags}}}{{/hashtags}}">
+                <a href="https://twitter.com/intent/tweet?{{#text}}text={{{text}}}&{{/text}}{{#via}}via={{{via}}}&{{/via}}url={{mimo_baseUrl}}/{{mimo_pageRelPath}}{{#hashtags}}&hashtags={{{hashtags}}}{{/hashtags}}">
                     <svg>
                         <use xlink:href="#ion-icons-logo-twitter" />
                     </svg>
