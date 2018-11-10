@@ -23,7 +23,7 @@
     {{#mimo_socialMediaCards}}
     <!-- Open Graph tags and assorted metadata used by social media sites -->
     <!-- Shared -->
-    <meta property="og:url" content="{{mimo_baseUrl}}/{{mimo_pageRelPath}}" />
+    <meta property="og:url" content="{{mimo_baseUrl}}{{mimo_pageRelPath}}" />
     <meta property="og:title" content="{{#mimo_cardTitle}}{{mimo_cardTitle}}{{/mimo_cardTitle}}{{^mimo_cardTitle}}{{{mimo_websiteName}}} - {{{mimo_pageTitle}}}{{/mimo_cardTitle}}" />
     <meta property="og:description" content="{{#mimo_cardDescription}}{{mimo_cardDescription}}{{/mimo_cardDescription}}{{^mimo_cardDescription}}{{mimo_pageDescription}}{{/mimo_cardDescription}}" />
     <!-- Facebook - https://developers.facebook.com/docs/sharing/webmasters#markup, validator https://developers.facebook.com/tools/debug/sharing (note specify mimo_cardFbCardType as website for home page) -->
