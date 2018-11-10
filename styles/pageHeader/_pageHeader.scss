@@ -35,13 +35,13 @@
             margin-right: auto;
             flex-shrink: 0;
 
-            img {
+            svg {
                 height: 59px;
                 transition: transform $short-animation-duration $ease-out-quad;
 
                 &:hover {
                     transition: transform $short-animation-duration $ease-out-back-delayed;
-                    transform: scale(1.23076923077);
+                    transform: scale(1.2);
                 }
             }
         }
