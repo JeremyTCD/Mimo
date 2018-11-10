@@ -6,6 +6,9 @@ const AutoPrefixer = require('autoprefixer');
 const CssNano = require('cssnano');
 const Glob = require('glob');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+const cheerio = require('cheerio');
+const minify = require('html-minifier').minify;
 
 module.exports = (docfxProjectDir) => {
     const tsconfigPath = Path.join(docfxProjectDir, 'src/scripts/tsconfig.json');
@@ -18,13 +21,93 @@ module.exports = (docfxProjectDir) => {
         throw new Error(`${entryPath} is missing.`);
     }
 
-    const outputPath = Path.join(docfxProjectDir, './bin/theme/styles');
+    const outputPath = Path.join(docfxProjectDir, './bin/_site/resources');
     if (!Fs.existsSync(outputPath)) {
         Fs.mkdirSync(outputPath);
     }
 
     const isProduction = process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production';
     const mimoRootDir = Path.join(__dirname, '..');
+
+    function PostProcessingPlugin() { }
+    PostProcessingPlugin.prototype.apply = function (compiler) {
+        compiler.plugin("after-emit", function (compilation, callback) {
+            // Get sprite sheet
+            var symbolsRaw = compilation.assets["sprite.svg"].source();
+            var $symbols = cheerio.load(symbolsRaw);
+
+            // Get all pages
+            var searchGlob = Path.join(docfxProjectDir, './bin/_site/**/*.html');
+            var files = Glob.sync(searchGlob);
+
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                var html = Fs.readFileSync(file, "utf8");
+
+                // Parse html using cheerio
+                const $ = cheerio.load(html);
+
+                // Ignore html snippets, like tocs
+                if ($('html').length === 0) {
+                    continue;
+                }
+
+                // Find all use elements
+                $('use').each((index, element) => {
+                    // Replace elements 
+                    var id = element.attribs['xlink:href'];
+                    var symbol = $symbols(id);
+                    var parent = $(element.parent);
+                    parent.attr('viewBox', symbol[0].attribs['viewbox']);
+
+                    parent.append(symbol.children().clone());
+                    parent.children().remove('use');
+                });
+
+                var result;
+
+                if (isProduction) {
+                    // Insert hashes into bundle names
+                    var jsBundleScriptElement = $('head > script[src*="/resources/bundle.js"]');
+                    var jsBundleSrc = jsBundleScriptElement.attr('src');
+                    var jsBundleSrcWithHash = jsBundleSrc.replace('bundle.js', 'bundle.' + compilation.namedChunks.get("bundle").contentHash["javascript"] + '.min.js');
+                    jsBundleScriptElement.attr('src', jsBundleSrcWithHash);
+
+                    var cssBundleScriptElement = $('head > link[href*="/resources/bundle.css"]');
+                    var cssBundleHref = cssBundleScriptElement.attr('href');
+                    var cssBundleHrefWithHash = cssBundleHref.replace('bundle.css', 'bundle.' + compilation.namedChunks.get("bundle").contentHash["css/mini-extract"] + '.min.css');
+                    cssBundleScriptElement.attr('href', cssBundleHrefWithHash);
+
+                    // Minify html
+                    result = minify($.html(), {
+                        collapseBooleanAttributes: true,
+                        collapseWhitespace: true,
+                        decodeEntities: true,
+                        html5: true,
+                        minifyCSS: true,
+                        minifyJS: true,
+                        processConditionalComments: true,
+                        removeAttributeQuotes: true,
+                        removeComments: true,
+                        removeEmptyAttributes: true,
+                        removeOptionalTags: true,
+                        removeRedundantAttributes: true,
+                        removeScriptTypeAttributes: true,
+                        removeStyleLinkTypeAttributes: true,
+                        trimCustomFragments: true,
+                        useShortDoctype: true
+                    });
+                } else {
+                    result = $.html();
+                }
+
+                // Write file
+                Fs.writeFileSync(file, result);
+            }
+
+            callback();
+        });
+    };
 
     var plugins = [
         // Css files are referenced in ts files. They must be extracted into a css bundle.
@@ -36,49 +119,12 @@ module.exports = (docfxProjectDir) => {
 
         // TODO make sure not affected by minification
         // Add banner after minifying
-        new Webpack.BannerPlugin({ banner: 'JeremyTCD.DocFx.Themes.Mimo, Copyright 2017 JeremyTCD', include: /^bundle\..*$/ })
+        new Webpack.BannerPlugin({ banner: 'JeremyTCD.DocFx.Themes.Mimo, Copyright 2017 Jering', include: /^bundle\..*$/ }),
+
+        new SpriteLoaderPlugin(),
+
+        new PostProcessingPlugin()
     ];
-
-    if (isProduction) {
-        // Replace script files with hash-appended names 
-        plugins.push(function () {
-            this.plugin("done", function (statsData) {
-                var stats = statsData.toJson();
-
-                if (!stats.errors.length) {
-                    var searchGlob = Path.join(docfxProjectDir, './bin/_site/**/*.html');
-                    var files = Glob.sync(searchGlob);
-
-                    for (var i = 0; i < files.length; i++) {
-                        var file = files[i];
-
-                        var html = Fs.readFileSync(file, "utf8");
-                        // TODO can combine replace calls to avoid repeating logic
-                        htmlOutput = html.
-                            replace(
-                                /<(?:script|link).*?(?:src|href)\s*=\s*".*?\/(([^\/]*?)(\.[a-zA-Z]+))"\s*>/g, // script tags cannot be self closing
-                                (match, s1, s2, s3) => {
-                                    var assets = stats.assetsByChunkName[s2];
-
-                                    if (assets) {
-
-                                        var newFile = assets;
-                                        if (typeof assets !== 'string') {
-                                            newFile = assets.filter(name => name.endsWith(s3))[0];
-                                        }
-
-                                        return match.replace(s1, newFile);
-                                    } else {
-                                        return match;
-                                    }
-
-                                });
-                        Fs.writeFileSync(file, htmlOutput);
-                    }
-                }
-            });
-        });
-    }
 
     var result = {
         mode: isProduction ? 'production' : 'development', // Minification is enabled automatically for production
@@ -89,21 +135,7 @@ module.exports = (docfxProjectDir) => {
         output: {
             filename: `[name].${isProduction ? '[contenthash].min.' : ''}js`, // TODO ensure that this works after the bug fix is released - https://github.com/webpack/webpack/pull/8029
             path: outputPath,
-            publicPath: '/styles/'
-        },
-        optimization: {
-            // Creates runtime~bundle.js. Necessary for consistent hashes for caching
-            // https://webpack.js.org/guides/caching/
-            runtimeChunk: 'single',
-            splitChunks: {
-                cacheGroups: {
-                    vendor: {
-                        test: /[\\/]node_modules[\\/]/,
-                        name: 'vendors',
-                        chunks: 'all'
-                    }
-                }
-            }
+            publicPath: '/resources/'
         },
         resolve: {
             extensions: ['.ts', '.js'],
@@ -114,7 +146,14 @@ module.exports = (docfxProjectDir) => {
             rules: [
                 {
                     test: /\.svg$/,
-                    use: ['svg-sprite-loader', 'svgo-loader']
+                    use: [{
+                        loader: 'svg-sprite-loader',
+                        options: {
+                            extract: true,
+                            spriteFilename: 'sprite.svg'
+                        }
+                    },
+                        'svgo-loader']
                 },
                 {
                     test: /\.ts$/,

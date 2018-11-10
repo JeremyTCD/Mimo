@@ -17,7 +17,6 @@ class Builder {
         await this.cleanBin();
         await this.buildBasicBin();
         await this.webpackCompile();
-        await this.copyStylesFromThemeToSite();
         console.log(`*** complete - build full bin ***`);
     }
 
@@ -112,19 +111,6 @@ class Builder {
         return Promise.all([msbuildPromise, configPromise]).
             then(_ => {
                     console.log(`complete - restore plugins`);
-            });
-    }
-
-    // Copies webpack output from theme to site
-    async copyStylesFromThemeToSite() {
-        console.log(`start - copy styles from theme to site`);
-
-        const themeDir = path.join(this.docfxProjectDir, './bin/theme');
-        const siteDir = path.join(this.docfxProjectDir, './bin/_site');
-
-        return Promise.all([fse.copy(path.join(themeDir, 'styles'), path.join(siteDir, 'styles'))]).
-            then(_ => {
-                console.log(`complete - copy styles from theme to site`);
             });
     }
 
