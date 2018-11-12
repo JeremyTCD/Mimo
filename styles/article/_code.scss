@@ -65,7 +65,7 @@ code {
                 display: table-row;
 
                 &.highlight {
-                    background-color: $color-code-highlight;
+                    background-color: $color-primary-highlight;
                 }
 
                 .line-number, .line-text {
