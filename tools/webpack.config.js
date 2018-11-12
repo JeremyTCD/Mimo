@@ -33,6 +33,26 @@ module.exports = (docfxProjectDir) => {
     function PostProcessingPlugin() { }
     PostProcessingPlugin.prototype.apply = function (compiler) {
         compiler.plugin("after-emit", function (compilation, callback) {
+            // Html minification options
+            var minificationOptions = {
+                collapseBooleanAttributes: true,
+                collapseWhitespace: true,
+                decodeEntities: true,
+                html5: true,
+                minifyCSS: true,
+                minifyJS: true,
+                processConditionalComments: true,
+                removeAttributeQuotes: true,
+                removeComments: true,
+                removeEmptyAttributes: true,
+                removeOptionalTags: true,
+                removeRedundantAttributes: true,
+                removeScriptTypeAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                trimCustomFragments: true,
+                useShortDoctype: true
+            };
+
             // Get sprite sheet
             var symbolsRaw = compilation.assets["sprite.svg"].source();
             var $symbols = cheerio.load(symbolsRaw);
@@ -58,7 +78,7 @@ module.exports = (docfxProjectDir) => {
                         parent.children().remove('use');
                     });
 
-                    searchItem.snippetHtml = snippet.html();
+                    searchItem.snippetHtml = isProduction ? minify(snippet.html(), minificationOptions) : snippet.html();
                 }
             }
             var resultSearchIndexJson = JSON.stringify(searchIndexJson);
@@ -119,24 +139,7 @@ module.exports = (docfxProjectDir) => {
                     searchIndexLinkElement.attr('href', searchIndexHref.replace('index.json', searchIndexFileName));
 
                     // Minify html
-                    result = minify($.html(), {
-                        collapseBooleanAttributes: true,
-                        collapseWhitespace: true,
-                        decodeEntities: true,
-                        html5: true,
-                        minifyCSS: true,
-                        minifyJS: true,
-                        processConditionalComments: true,
-                        removeAttributeQuotes: true,
-                        removeComments: true,
-                        removeEmptyAttributes: true,
-                        removeOptionalTags: true,
-                        removeRedundantAttributes: true,
-                        removeScriptTypeAttributes: true,
-                        removeStyleLinkTypeAttributes: true,
-                        trimCustomFragments: true,
-                        useShortDoctype: true
-                    });
+                    result = minify($.html(), minificationOptions);
                 } else {
                     result = $.html();
                 }
