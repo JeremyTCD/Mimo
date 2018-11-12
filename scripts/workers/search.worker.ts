@@ -16,15 +16,21 @@ onmessage = function (event: MessageEvent) {
     switch (event.data.eventType) {
         case 'search-data-received':
             {
+                // Build builder
                 searchData = JSON.parse(event.data.payload);
                 for (let prop in searchData) {
                     lunrBuilder.add(searchData[prop]);
                 }
-                lunrIndex = lunrBuilder.build();
+
                 break;
             }
         case 'query':
             {
+                // Generate the index on demand
+                if (!lunrIndex) {
+                    lunrIndex = lunrBuilder.build();
+                }
+
                 let queryString = event.data.payload;
                 // Multi-word, partial-word, fuzzy search
                 let hits = lunrIndex.query(q => {
@@ -47,7 +53,7 @@ onmessage = function (event: MessageEvent) {
                 let results = [];
                 hits.forEach(function (hit) {
                     let item = searchData[hit.ref];
-                    results.push(item.snippetHtml);
+                    results.push(item);
                 });
                 postMessage({ payload: results });
             }

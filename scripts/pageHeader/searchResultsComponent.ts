@@ -74,8 +74,8 @@ export default class SearchResultsComponent implements Component {
         this._shown = shown;
     }
 
-    public setSnippets = (snippets: string[], queryString: string): void => {
-        if (snippets.length === 0) {
+    public setDocumentFragments = (documentFragments: DocumentFragment[], queryString: string): void => {
+        if (documentFragments.length === 0) {
             // Hide article list
             this._articleListElement.style.display = 'none';
 
@@ -97,7 +97,7 @@ export default class SearchResultsComponent implements Component {
             this._paginationService.setupPagination(
                 this._paginationButtonsElement,
                 this._articleListItemsParentElement,
-                snippets,
+                documentFragments,
                 () => {
                     let marked: string[] = [];
 

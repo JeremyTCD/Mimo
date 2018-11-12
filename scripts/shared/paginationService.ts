@@ -5,7 +5,7 @@ export default class PaginationService {
     public setupPagination(
         buttonsParentElement: HTMLUListElement,
         itemsParentElement: HTMLElement,
-        items: NodeList | HTMLElement[] | string[],
+        items: NodeList | DocumentFragment[],
         onDomReady: () => void = null,
         numPerPage: number = 5,
         numPageButtons: number = 5): void {
@@ -71,7 +71,7 @@ export default class PaginationService {
     private render(
         pageNum: number,
         numPerPage: number,
-        items: NodeList | HTMLElement[] | string[],
+        items: NodeList | DocumentFragment[],
         itemsParentElement: HTMLElement,
         pageButtonElements: HTMLLIElement[],
         prevButtonElement: HTMLLIElement,
@@ -80,17 +80,11 @@ export default class PaginationService {
 
         // Snippets
         let start = (pageNum - 1) * numPerPage;
-        let currentSnippets = [].slice.call(items, start, start + numPerPage);
+        let currentItems = [].slice.call(items, start, start + numPerPage);
         itemsParentElement.innerHTML = '';
-        for (let i = 0; i < currentSnippets.length; i++) {
-            let snippet = currentSnippets[i];
-
-            if (typeof snippet === 'string') {
-                itemsParentElement.appendChild(document.createRange().createContextualFragment(snippet));
-            }
-            else {
-                itemsParentElement.appendChild(snippet);
-            }
+        for (let i = 0; i < currentItems.length; i++) {
+            let item = currentItems[i];
+            itemsParentElement.appendChild(item);
         }
 
         // Buttons

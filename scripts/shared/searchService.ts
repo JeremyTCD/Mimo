@@ -1,6 +1,7 @@
 import { injectable } from 'inversify';
 import SearchResultsComponent from '../pageHeader/searchResultsComponent';
 import SearchWorker = require('worker-loader?inline=true&fallback=false!../workers/search.worker');
+import SearchData from './searchData';
 
 @injectable()
 export default class SearchService {
@@ -31,8 +32,10 @@ export default class SearchService {
         searchDataRequest.onload = () => {
             // If no index.json is found, just leave the index empty
             if (searchDataRequest.status === 200) {
-                // TODO move json parsing to worker
-                searchWorker.postMessage({ eventType: 'search-data-received', payload: searchDataRequest.responseText });
+                searchWorker.postMessage({
+                    eventType: 'search-data-received',
+                    payload: searchDataRequest.responseText
+                });
 
                 // TODO allow query string to perform search on page load
                 let searchInputElement = document.getElementById('search-query');
@@ -60,10 +63,39 @@ export default class SearchService {
         }
         searchDataRequest.send();
 
+        // Generate base URL
+        var tempA = document.createElement('a');
+        tempA.setAttribute('href', indexRelPath + '/../..'); // Index file is located in <base URL>/resources folder, go two levels up to get to base URL
+        let baseUrl = tempA.href;
+        baseUrl = baseUrl.substring(0, baseUrl.length - 1); // Drop trailing /
+
         // Setup listener for query results
+        let documentFragments: { [ref: string]: DocumentFragment } = {};
         searchWorker.onmessage = (event: MessageEvent) => {
-            let snippets = event.data.payload;
-            this._searchResultsComponent.setSnippets(snippets, this._queryString);
+            let items: SearchData[] = event.data.payload;
+            let result: DocumentFragment[] = [];
+
+            for (let i = 0; i < items.length; i++) {
+                let item: SearchData = items[i];
+                let documentFragment = documentFragments[item.relPath];
+
+                if (!documentFragment) {
+                    documentFragment = document.createRange().createContextualFragment(item.snippetHtml);
+
+                    // Since index.json is shared by all pages, urls within it are specified as absolute paths (e.g /resources/image.svg).
+                    // We need to make these urls absolute for them to work even when the website is published to a path, e.g jering.tech/utilities/<project name>.
+                    documentFragment.querySelectorAll('*[href^="/"]').forEach((element: Element) => {
+                        element.setAttribute('href', baseUrl + element.getAttribute('href'));
+                    })
+                    documentFragment.querySelectorAll('*[src^="/"]').forEach((element: Element) => {
+                        element.setAttribute('src', baseUrl + element.getAttribute('src'));
+                    })
+                }
+
+                result.push(documentFragment);
+            }
+
+            this._searchResultsComponent.setDocumentFragments(result, this._queryString);
         }
     }
 }
