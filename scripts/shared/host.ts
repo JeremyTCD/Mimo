@@ -104,7 +104,6 @@ export default class Host {
 
         // Shared
         container.bind<services.GlobalService>('GlobalService').to(services.ArticleGlobalService).inSingletonScope().whenTargetNamed('ArticleGlobalService');
-        container.bind<services.GlobalService>('GlobalService').to(services.LinkGlobalService).inSingletonScope().whenTargetNamed('LinkGlobalService');
         container.bind<services.GlobalService>('GlobalService').to(services.MediaGlobalService).inSingletonScope().whenTargetNamed('MediaGlobalService');
         container.bind<services.GlobalService>('GlobalService').to(services.FixesGlobalService).inSingletonScope().whenTargetNamed('FixesGlobalService');
         container.bind<services.CodeService>(services.CodeService).toSelf().inSingletonScope();
@@ -112,9 +111,7 @@ export default class Host {
         container.bind<services.HtmlEncodeService>(services.HtmlEncodeService).toSelf().inSingletonScope();
         container.bind<services.OverlayService>(services.OverlayService).toSelf().inSingletonScope();
         container.bind<services.PaginationService>(services.PaginationService).toSelf().inSingletonScope();
-        container.bind<services.PathService>(services.PathService).toSelf().inSingletonScope();
         container.bind<services.SearchService>(services.SearchService).toSelf().inSingletonScope();
-        container.bind<services.SvgService>(services.SvgService).toSelf().inSingletonScope();
         container.bind<services.TooltipService>(services.TooltipService).toSelf().inSingletonScope();
         container.bind<services.HeightService>(services.HeightService).toSelf().inSingletonScope();
         container.bind<services.StringService>(services.StringService).toSelf().inSingletonScope();
