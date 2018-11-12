@@ -9,6 +9,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const cheerio = require('cheerio');
 const minify = require('html-minifier').minify;
+const md5 = require('md5');
 
 module.exports = (docfxProjectDir) => {
     const tsconfigPath = Path.join(docfxProjectDir, 'src/scripts/tsconfig.json');
@@ -36,7 +37,41 @@ module.exports = (docfxProjectDir) => {
             var symbolsRaw = compilation.assets["sprite.svg"].source();
             var $symbols = cheerio.load(symbolsRaw);
 
-            // Get all pages
+            // Update search index - Inline svgs. Rename if in production mode.
+            var searchIndexFileName = "index.json";
+            var searchIndexFile = Path.join(docfxProjectDir, `./bin/_site/resources/${searchIndexFileName}`);
+            var searchIndexJson = JSON.parse(Fs.readFileSync(searchIndexFile, "utf8"));
+            for (var property in searchIndexJson) {
+                if (searchIndexJson.hasOwnProperty(property)) {
+                    var searchItem = searchIndexJson[property];
+                    var snippetHtml = searchItem.snippetHtml;
+                    var snippet = cheerio.load(snippetHtml);
+
+                    snippet('use').each((index, element) => {
+                        // Replace elements 
+                        var id = element.attribs['xlink:href'];
+                        var symbol = $symbols(id);
+                        var parent = snippet(element.parent);
+                        parent.attr('viewBox', symbol[0].attribs['viewbox']);
+
+                        parent.append(symbol.children().clone());
+                        parent.children().remove('use');
+                    });
+
+                    searchItem.snippetHtml = snippet.html();
+                }
+            }
+            var resultSearchIndexJson = JSON.stringify(searchIndexJson);
+            Fs.writeFileSync(searchIndexFile, resultSearchIndexJson);
+            if (isProduction) {
+                searchIndexFileName = 'index.' + md5(resultSearchIndexJson) + '.js';
+
+                // Add hash to index.json file name
+                newFile = Path.join(docfxProjectDir, `./bin/_site/resources/${searchIndexFileName}`);
+                Fs.renameSync(searchIndexFile, newFile);
+            }
+
+            // Update all pages - Inline svgs. Add hashes to srcs and hrefs and minify html if in production mode.
             var searchGlob = Path.join(docfxProjectDir, './bin/_site/**/*.html');
             var files = Glob.sync(searchGlob);
 
@@ -77,6 +112,11 @@ module.exports = (docfxProjectDir) => {
                     var cssBundleHref = cssBundleScriptElement.attr('href');
                     var cssBundleHrefWithHash = cssBundleHref.replace('bundle.css', 'bundle.' + compilation.namedChunks.get("bundle").contentHash["css/mini-extract"] + '.min.css');
                     cssBundleScriptElement.attr('href', cssBundleHrefWithHash);
+
+                    // Insert hash into search index name
+                    var searchIndexLinkElement = $('head > link[href*="/resources/index.json"]');
+                    var searchIndexHref = searchIndexLinkElement.attr('href');
+                    searchIndexLinkElement.attr('href', searchIndexHref.replace('index.json', searchIndexFileName));
 
                     // Minify html
                     result = minify($.html(), {
