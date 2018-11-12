@@ -58,8 +58,9 @@ module.exports = (docfxProjectDir) => {
             var $symbols = cheerio.load(symbolsRaw);
 
             // Update search index - Inline svgs. Rename if in production mode.
-            var searchIndexFileName = "index.json";
-            var searchIndexFile = Path.join(docfxProjectDir, `./bin/_site/resources/${searchIndexFileName}`);
+            // Might be index.json, might be index.<hash>.json if DocFx didn't run between previous and current webpack builds.
+            var searchIndexGlob = Path.join(docfxProjectDir, './bin/_site/resources/index*.json');
+            var searchIndexFile = Glob.sync(searchIndexGlob)[0];
             var searchIndexJson = JSON.parse(Fs.readFileSync(searchIndexFile, "utf8"));
             for (var property in searchIndexJson) {
                 if (searchIndexJson.hasOwnProperty(property)) {
@@ -84,19 +85,19 @@ module.exports = (docfxProjectDir) => {
             var resultSearchIndexJson = JSON.stringify(searchIndexJson);
             Fs.writeFileSync(searchIndexFile, resultSearchIndexJson);
             if (isProduction) {
-                searchIndexFileName = 'index.' + md5(resultSearchIndexJson) + '.js';
+                var newFileName = 'index.' + md5(resultSearchIndexJson) + '.json';
 
                 // Add hash to index.json file name
-                newFile = Path.join(docfxProjectDir, `./bin/_site/resources/${searchIndexFileName}`);
+                newFile = Path.join(docfxProjectDir, `./bin/_site/resources/${newFileName}`);
                 Fs.renameSync(searchIndexFile, newFile);
             }
 
             // Update all pages - Inline svgs. Add hashes to srcs and hrefs and minify html if in production mode.
-            var searchGlob = Path.join(docfxProjectDir, './bin/_site/**/*.html');
-            var files = Glob.sync(searchGlob);
+            var htmlFilesGlob = Path.join(docfxProjectDir, './bin/_site/**/*.html');
+            var htmlFiles = Glob.sync(htmlFilesGlob);
 
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
+            for (var i = 0; i < htmlFiles.length; i++) {
+                var file = htmlFiles[i];
                 var html = Fs.readFileSync(file, "utf8");
 
                 // Parse html using cheerio
@@ -123,20 +124,23 @@ module.exports = (docfxProjectDir) => {
 
                 if (isProduction) {
                     // Insert hashes into bundle names
-                    var jsBundleScriptElement = $('head > script[src*="/resources/bundle.js"]');
+                    var jsBundleScriptElement = $('script[src*="/resources/bundle"][src$=".js"]');
                     var jsBundleSrc = jsBundleScriptElement.attr('src');
-                    var jsBundleSrcWithHash = jsBundleSrc.replace('bundle.js', 'bundle.' + compilation.namedChunks.get("bundle").contentHash["javascript"] + '.min.js');
+                    var jsBundleDir = jsBundleSrc.substring(0, jsBundleSrc.lastIndexOf('/') + 1);
+                    var jsBundleSrcWithHash = jsBundleDir + 'bundle.' + compilation.namedChunks.get("bundle").contentHash["javascript"] + '.min.js';
                     jsBundleScriptElement.attr('src', jsBundleSrcWithHash);
 
-                    var cssBundleScriptElement = $('head > link[href*="/resources/bundle.css"]');
+                    var cssBundleScriptElement = $('link[href*="/resources/bundle"][href$=".css"]');
                     var cssBundleHref = cssBundleScriptElement.attr('href');
-                    var cssBundleHrefWithHash = cssBundleHref.replace('bundle.css', 'bundle.' + compilation.namedChunks.get("bundle").contentHash["css/mini-extract"] + '.min.css');
+                    var cssBundleDir = cssBundleHref.substring(0, cssBundleHref.lastIndexOf('/') + 1);
+                    var cssBundleHrefWithHash = cssBundleDir + 'bundle.' + compilation.namedChunks.get("bundle").contentHash["css/mini-extract"] + '.min.css';
                     cssBundleScriptElement.attr('href', cssBundleHrefWithHash);
 
                     // Insert hash into search index name
-                    var searchIndexLinkElement = $('head > link[href*="/resources/index.json"]');
+                    var searchIndexLinkElement = $('link[href*="/resources/index"][href$=".json"]');
                     var searchIndexHref = searchIndexLinkElement.attr('href');
-                    searchIndexLinkElement.attr('href', searchIndexHref.replace('index.json', searchIndexFileName));
+                    var searchIndexDir = searchIndexHref.substring(0, searchIndexHref.lastIndexOf('/') + 1);
+                    searchIndexLinkElement.attr('href', searchIndexDir + newFileName);
 
                     // Minify html
                     result = minify($.html(), minificationOptions);
