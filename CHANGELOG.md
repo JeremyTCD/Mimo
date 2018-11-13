@@ -3,7 +3,20 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.21...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.22...HEAD)
+
+## [1.0.0-alpha.22](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.21...1.0.0-alpha.22) - Nov 13, 2018
+### Changes
+- Improved support for social media cards.
+- Inlined search worker.
+- Removed runtime and vendor js bundles.
+- Added post processing plugin to webpack.config:
+  - Inlines SVGs.
+  - Updates URLs with hashes.
+  - Minifies HTML.
+- Minor improvements to search.
+  - DocumentFragments now cached.
+- Removed unused services.
 
 ## [1.0.0-alpha.21](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.20...1.0.0-alpha.21) - Nov 8, 2018
 ### Fixes
