@@ -33,21 +33,24 @@
                     "imgSrc": "/resources/jeremytcd-logo.svg"
                 }
             ],
+
+            "mimo_baseUrl": "https://yourdomain/",
+
             "mimo_copyrightText": "2018 Your Name",
-            "mimo_baseUrl": "https://yourdomain",
+
             "mimo_licensesRelPath": "/licenses",
             "mimo_privacyPolicyRelPath": "/privacy-policy",
             "mimo_contactRelPath": "/contact",
             "mimo_logoRelPath": "/resources/logo.svg",
-            "mimo_favIconRelPath": "/resources/favicon.ico",
+            "mimo_favIconRelPath": "/favicon.ico",
             "mimo_headElements": [
-                "<link rel=\"preload\" href=\"/fonts/open-sans-v15-latin-regular.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>",
-                "<link rel=\"preload\" href=\"/fonts/open-sans-v15-latin-italic.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>",
-                "<link rel=\"preload\" href=\"/fonts/open-sans-v15-latin-600.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>",
-                "<link rel=\"preload\" href=\"/fonts/droid-sans-mono-latin-400.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>"
+                "<link rel=\"preload\" href=\"/resources/open-sans-v15-latin-regular.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>",
+                "<link rel=\"preload\" href=\"/resources/open-sans-v15-latin-italic.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>",
+                "<link rel=\"preload\" href=\"/resources/open-sans-v15-latin-600.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>",
+                "<link rel=\"preload\" href=\"/resources/droid-sans-mono-latin-400.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>"
             ]
         },
-        "postProcessors": [ "SortedArticleListGenerator", "SearchIndexGenerator", "OutlineGenerator", "TocEmbedder" ],
+        "postProcessors": [ "SortedArticleListGenerator", "ExternalAnchorFixer", "SearchIndexGenerator", "OutlineGenerator", "TocEmbedder", "AbsolutePathResolver" ],
         "markdownEngineName": "mimo-markdown",
         "sitemap": {
             "baseUrl": "https://yourdomain",
