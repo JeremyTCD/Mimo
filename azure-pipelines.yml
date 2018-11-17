@@ -5,7 +5,7 @@ resources:
   repositories:
   - repository: templates
     type: github
-    name: JeremyTCD/DevOps.AzurePipelines
+    name: JeringTech/DevOps.AzurePipelines
     endpoint: JeremyTCD
 
 jobs:
