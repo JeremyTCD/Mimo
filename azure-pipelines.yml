@@ -10,3 +10,5 @@ resources:
 
 jobs:
 - template: templates/npm/main.yml@templates
+  parameters:
+    npmCiPublishEndpoint: "https://www.myget.org/F/jering/npm/"
