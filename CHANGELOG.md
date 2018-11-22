@@ -3,7 +3,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.23...HEAD)
+## [Unreleased (1.0.0-alpha.24)](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.23...HEAD)
 
 ## [1.0.0-alpha.23](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.22...1.0.0-alpha.23) - Nov 17, 2018
 ## Changes
