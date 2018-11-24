@@ -14,13 +14,13 @@
                 "dest": "resources"
             },
             {
-                "src": "src/misc",
+                "src": "src/rootResources",
                 "files": [ "**" ]
             },
             {
                 "src": "src/fonts",
                 "files": [ "**" ],
-                "dest": "fonts"
+                "dest": "resources"
             }
         ],
         "globalMetadata": {
