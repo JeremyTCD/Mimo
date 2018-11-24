@@ -3,7 +3,14 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased (1.0.0-alpha.24)](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.23...HEAD)
+## [Unreleased (1.0.0-alpha.25)](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.24...HEAD)
+
+## [1.0.0-alpha.24](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.23...1.0.0-alpha.24) - Nov 24, 2018
+## Additions
+- Mobile browser address bar color now specifyable using mimo_addressBarColor.
+
+## Fixes
+- Fixed empty area beneath footer by setting body min-height to 100vh instead of 100%. 
 
 ## [1.0.0-alpha.23](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.22...1.0.0-alpha.23) - Nov 17, 2018
 ## Changes
