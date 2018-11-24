@@ -46,9 +46,19 @@
     <meta name="twitter:creator" content="{{mimo_twitterCardCreator}}" />
     {{/mimo_twitterCardCreator}}
     {{/mimo_socialMediaCards}}
-  
+
+    {{#mimo_addressBarColor}}
+    <!-- chrome, opera and firefox -->
+    <meta name="theme-color" content="{{mimo_addressBarColor}}" />
+    <!-- windows phone -->
+    <meta name="msapplication-navbutton-color" content="{{mimo_addressBarColor}}">
+    <!-- safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="{{mimo_addressBarColor}}">
+    {{/mimo_addressBarColor}}
+    
     {{#mimo_headElements}}
     {{{.}}}
     {{/mimo_headElements}}
-  </head>
+    </head>
 
