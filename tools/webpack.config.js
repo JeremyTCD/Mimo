@@ -57,6 +57,20 @@ module.exports = (docfxProjectDir) => {
             var symbolsRaw = compilation.assets["sprite.svg"].source();
             var $symbols = cheerio.load(symbolsRaw);
 
+            // Function for replacing use elements
+            function replaceUseElements(cheerioStatic) {
+                cheerioStatic('svg > use').each((_, element) => {
+                    // Replace elements 
+                    var id = element.attribs['xlink:href'];
+                    var symbol = $symbols(id);
+                    var parent = cheerioStatic(element.parent);
+                    parent.attr('viewBox', symbol[0].attribs['viewbox']);
+
+                    parent.append(symbol.children().clone());
+                    parent.children().remove('use');
+                });
+            }
+
             // Update search index - Inline svgs. Rename if in production mode.
             // Might be index.json, might be index.<hash>.json if DocFx didn't run between previous and current webpack builds.
             var searchIndexGlob = Path.join(docfxProjectDir, './bin/_site/resources/index*.json');
@@ -68,17 +82,7 @@ module.exports = (docfxProjectDir) => {
                     var snippetHtml = searchItem.snippetHtml;
                     var snippet = cheerio.load(snippetHtml);
 
-                    snippet('use').each((index, element) => {
-                        // Replace elements 
-                        var id = element.attribs['xlink:href'];
-                        var symbol = $symbols(id);
-                        var parent = snippet(element.parent);
-                        parent.attr('viewBox', symbol[0].attribs['viewbox']);
-
-                        parent.append(symbol.children().clone());
-                        parent.children().remove('use');
-                    });
-
+                    replaceUseElements(snippet);
                     searchItem.snippetHtml = isProduction ? minify(snippet.html(), minificationOptions) : snippet.html();
                 }
             }
@@ -108,17 +112,8 @@ module.exports = (docfxProjectDir) => {
                     continue;
                 }
 
-                // Find all use elements
-                $('use').each((index, element) => {
-                    // Replace elements 
-                    var id = element.attribs['xlink:href'];
-                    var symbol = $symbols(id);
-                    var parent = $(element.parent);
-                    parent.attr('viewBox', symbol[0].attribs['viewbox']);
-
-                    parent.append(symbol.children().clone());
-                    parent.children().remove('use');
-                });
+                // Replace use elements
+                replaceUseElements($);
 
                 var result;
 
