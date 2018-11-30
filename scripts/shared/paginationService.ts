@@ -5,7 +5,7 @@ export default class PaginationService {
     public setupPagination(
         buttonsParentElement: HTMLUListElement,
         itemsParentElement: HTMLElement,
-        items: NodeList | DocumentFragment[],
+        items: NodeList | HTMLElement[],
         onDomReady: () => void = null,
         numPerPage: number = 5,
         numPageButtons: number = 5): void {
@@ -71,7 +71,7 @@ export default class PaginationService {
     private render(
         pageNum: number,
         numPerPage: number,
-        items: NodeList | DocumentFragment[],
+        items: NodeList | HTMLElement[],
         itemsParentElement: HTMLElement,
         pageButtonElements: HTMLLIElement[],
         prevButtonElement: HTMLLIElement,
@@ -81,7 +81,9 @@ export default class PaginationService {
         // Snippets
         let start = (pageNum - 1) * numPerPage;
         let currentItems = [].slice.call(items, start, start + numPerPage);
-        itemsParentElement.innerHTML = '';
+        while (itemsParentElement.firstChild) {
+            itemsParentElement.removeChild(itemsParentElement.firstChild);
+        }
         for (let i = 0; i < currentItems.length; i++) {
             let item = currentItems[i];
             itemsParentElement.appendChild(item);
