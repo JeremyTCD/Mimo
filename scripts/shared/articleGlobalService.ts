@@ -241,9 +241,7 @@ export default class ArticleGlobalService implements GlobalService {
         // Smooth-scroll used to add a #smooth-scroll-top id to body to scroll to the top, it no longer does that, instead
         // it just scrolls to # or #top - https://github.com/cferdinandi/smooth-scroll/commit/37f579b05f6173bba300777867f6b8b613339662#diff-2fa6e0fecc1866964986277037867a1cR468.
         if (!hash || hash === '#top' || hash === '#') {
-            if (this.setActiveSectionIndex(0)) {
-                this.updateHistory();
-            }
+            this.setActiveSectionIndex(0);
             return;
         }
 
@@ -257,10 +255,7 @@ export default class ArticleGlobalService implements GlobalService {
                     }
                 }
 
-                if (this.setActiveSectionIndex(i)) {
-                    this.updateHistory();
-                }
-
+                this.setActiveSectionIndex(i);
                 return;
             }
         }
