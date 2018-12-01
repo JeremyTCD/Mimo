@@ -10,12 +10,29 @@ exports.preTransform = function (model) {
     // Both side menus are active
     if (!model.mimo_disableArticleMenu && !model.mimo_disableCategoryMenu) {
         model.mimo_innerCore = true;
-    } else if (!model.mimo_disableCategoryMenu || !model.mimo_disableArticleMenu){
+    } else if (!model.mimo_disableCategoryMenu || !model.mimo_disableArticleMenu) {
         if (model.mimo_disableArticleMenu) {
             model.mimo_menuBefore = true;
         } else if (model.mimo_disableCategoryMenu) {
             model.mimo_menuAfter = true;
         }
+    }
+
+    // Include website name in logo
+    if (!model.mimo_disableWebsiteNameInLogo) {
+        var logoWebsiteNameMarkup = '';
+        var segments = model.mimo_websiteName.split('.');
+
+        for (var i = 0; i < segments.length; i++) {
+            var segment = segments[i];
+            logoWebsiteNameMarkup += segment.toUpperCase();
+
+            if (i !== segments.length - 1) {
+                logoWebsiteNameMarkup += '.<br>';
+            }
+        }
+
+        model.mimo_logoWebsiteNameMarkup = logoWebsiteNameMarkup;
     }
 
     return model;
