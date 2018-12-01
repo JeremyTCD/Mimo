@@ -91,6 +91,10 @@ export default class ArticleGlobalService implements GlobalService {
 
         // Simulate scroll to initial hash
         this.smoothScrollBefore();
+        if (this._activeSectionIndex === undefined) {
+            // Should never be undefined (equivalent to top of page).
+            this._activeSectionIndex = 0;
+        }
         this.smoothScrollAfter();
 
         this._mediaGlobalService.addChangedToListener(this.onChangedToNarrowListener, MediaWidth.narrow)
@@ -261,7 +265,7 @@ export default class ArticleGlobalService implements GlobalService {
             }
         }
 
-        // Navigating to element that isn't an article header
+        // Not navigating to top or an article section (could be a link in the article to another element in the article)
         this._activeSectionIndexFixed = false;
     }
 
