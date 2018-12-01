@@ -70,32 +70,32 @@ export default class SearchService {
         baseUrl = baseUrl.substring(0, baseUrl.length - 1); // Drop trailing /
 
         // Setup listener for query results
-        let documentFragments: { [ref: string]: DocumentFragment } = {};
+        let articleElements: { [ref: string]: HTMLElement } = {};
         searchWorker.onmessage = (event: MessageEvent) => {
             let items: SearchData[] = event.data.payload;
-            let result: DocumentFragment[] = [];
+            let result: HTMLElement[] = [];
 
             for (let i = 0; i < items.length; i++) {
                 let item: SearchData = items[i];
-                let documentFragment = documentFragments[item.relPath];
+                let articleElement = articleElements[item.relPath];
 
-                if (!documentFragment) {
-                    documentFragment = document.createRange().createContextualFragment(item.snippetHtml);
+                if (!articleElement) {
+                    articleElement = document.createRange().createContextualFragment(item.snippetHtml).firstChild as HTMLElement;
 
                     // Since index.json is shared by all pages, urls within it are specified as absolute paths (e.g /resources/image.svg).
                     // We need to make these urls absolute for them to work even when the website is published to a path, e.g jering.tech/utilities/<project name>.
-                    documentFragment.querySelectorAll('*[href^="/"]').forEach((element: Element) => {
+                    articleElement.querySelectorAll('*[href^="/"]').forEach((element: Element) => {
                         element.setAttribute('href', baseUrl + element.getAttribute('href'));
                     })
-                    documentFragment.querySelectorAll('*[src^="/"]').forEach((element: Element) => {
+                    articleElement.querySelectorAll('*[src^="/"]').forEach((element: Element) => {
                         element.setAttribute('src', baseUrl + element.getAttribute('src'));
                     })
                 }
 
-                result.push(documentFragment);
+                result.push(articleElement);
             }
 
-            this._searchResultsComponent.setDocumentFragments(result, this._queryString);
+            this._searchResultsComponent.setArticleElements(result, this._queryString);
         }
     }
 }

@@ -26,7 +26,7 @@ export default class ArticleGlobalService implements GlobalService {
     private _sectionHashes: string[]; // For updating location.hash (updates url in search bar)
     private _activeSectionIndexFixed: boolean;
     private _indexChangedListeners: ((newIndex: number) => void)[];
-    private _activeHeaderIndex: number;
+    private _activeSectionIndex: number;
     private _narrowIntersectionObserver: IntersectionObserver; // There is a permanent header when mode is narrow, so root margin must be set
     private _mediumWideIntersectionObserver: IntersectionObserver;
 
@@ -91,6 +91,10 @@ export default class ArticleGlobalService implements GlobalService {
 
         // Simulate scroll to initial hash
         this.smoothScrollBefore();
+        if (this._activeSectionIndex === undefined) {
+            // Should never be undefined (equivalent to top of page).
+            this._activeSectionIndex = 0;
+        }
         this.smoothScrollAfter();
 
         this._mediaGlobalService.addChangedToListener(this.onChangedToNarrowListener, MediaWidth.narrow)
@@ -188,7 +192,7 @@ export default class ArticleGlobalService implements GlobalService {
         this._indexChangedListeners.push(listener);
 
         if (init) {
-            listener(this._activeHeaderIndex);
+            listener(this._activeSectionIndex);
         }
     }
 
@@ -211,7 +215,7 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     public getActiveHeaderIndex(): number {
-        return this._activeHeaderIndex;
+        return this._activeSectionIndex;
     }
 
     public getSectionElements(): NodeList {
@@ -220,6 +224,7 @@ export default class ArticleGlobalService implements GlobalService {
 
     private setupSmoothScroll(): void {
         new SmoothScroll('a[href*="#"]', {
+
             speed: 300,
             header: '#article-menu-header'
         });
@@ -232,7 +237,10 @@ export default class ArticleGlobalService implements GlobalService {
 
         this._activeSectionIndexFixed = true;
 
-        if (!hash || hash === '#smooth-scroll-top') {
+        // # or #top navigate to the top of the page - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-href.
+        // Smooth-scroll used to add a #smooth-scroll-top id to body to scroll to the top, it no longer does that, instead
+        // it just scrolls to # or #top - https://github.com/cferdinandi/smooth-scroll/commit/37f579b05f6173bba300777867f6b8b613339662#diff-2fa6e0fecc1866964986277037867a1cR468.
+        if (!hash || hash === '#top' || hash === '#') {
             if (this.setActiveSectionIndex(0)) {
                 this.updateHistory();
             }
@@ -257,16 +265,16 @@ export default class ArticleGlobalService implements GlobalService {
             }
         }
 
-        // Navigating to element that isn't an article header
+        // Not navigating to top or an article section (could be a link in the article to another element in the article)
         this._activeSectionIndexFixed = false;
     }
 
     private setActiveSectionIndex(newIndex: number): boolean {
-        if (newIndex === this._activeHeaderIndex) {
+        if (newIndex === this._activeSectionIndex) {
             return false;
         }
 
-        this._activeHeaderIndex = newIndex;
+        this._activeSectionIndex = newIndex;
 
         for (let i = 0; i < this._indexChangedListeners.length; i++) {
             this._indexChangedListeners[i](newIndex);
@@ -281,7 +289,7 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     private updateHistory = (): void => {
-        let url = this._activeHeaderIndex == 0 ? location.pathname : this._sectionHashes[this._activeHeaderIndex];
+        let url = this._activeSectionIndex == 0 ? location.pathname : this._sectionHashes[this._activeSectionIndex];
 
         if (url === location.hash) {
             return;
