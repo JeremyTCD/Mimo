@@ -11,16 +11,19 @@
     ul {
         flex-grow: 1;
         list-style: none;
-        align-items: flex-start;
 
         @media #{$media-narrow} {
+            align-items: flex-start;
             flex-direction: column;
             margin-bottom: 26px;
         }
 
+        @media #{$media-medium}, #{$media-wide} {
+            align-items: center;
+        }
+
         li {
             flex-shrink: 0;
-
 
             @media #{$media-medium}, #{$media-wide} {
                 &:nth-last-child(n+2) {
