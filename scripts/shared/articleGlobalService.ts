@@ -25,7 +25,7 @@ export default class ArticleGlobalService implements GlobalService {
     private _updateHistoryDebounced: () => void;
     private _sectionHashes: string[]; // For updating location.hash (updates url in search bar)
     private _activeSectionIndexFixed: boolean;
-    private _indexChangedListeners: ((newIndex: number) => void)[];
+    private _activeSectionChangedListeners: ((newIndex: number) => void)[];
     private _activeSectionIndex: number;
     private _narrowIntersectionObserver: IntersectionObserver; // There is a permanent header when mode is narrow, so root margin must be set
     private _mediumWideIntersectionObserver: IntersectionObserver;
@@ -75,7 +75,7 @@ export default class ArticleGlobalService implements GlobalService {
         });
 
         this._sectionMarginTops = [];
-        this._indexChangedListeners = [];
+        this._activeSectionChangedListeners = [];
         this._updateHistoryDebounced = this._debounceService.createTimeoutDebounceFunction(this.updateHistory, 100);
     }
 
@@ -184,27 +184,27 @@ export default class ArticleGlobalService implements GlobalService {
         }
     }
 
-    public addIndexChangedListener(listener: (newIndex: number) => void, init: boolean = false) {
+    public addActiveSectionChangedListener(listener: (newIndex: number) => void, init: boolean = false) {
         if (this._noOutline) {
             return;
         }
 
-        this._indexChangedListeners.push(listener);
+        this._activeSectionChangedListeners.push(listener);
 
         if (init) {
             listener(this._activeSectionIndex);
         }
     }
 
-    public removeIndexChangedListener(listener: (newIndex: number) => void) {
+    public removeActiveSectionChangedListener(listener: (newIndex: number) => void) {
         if (this._noOutline) {
             return;
         }
 
-        let index = this._indexChangedListeners.indexOf(listener);
+        let index = this._activeSectionChangedListeners.indexOf(listener);
 
         if (index > -1) {
-            this._indexChangedListeners.splice(index, 1);
+            this._activeSectionChangedListeners.splice(index, 1);
         }
     }
 
@@ -241,26 +241,21 @@ export default class ArticleGlobalService implements GlobalService {
         // Smooth-scroll used to add a #smooth-scroll-top id to body to scroll to the top, it no longer does that, instead
         // it just scrolls to # or #top - https://github.com/cferdinandi/smooth-scroll/commit/37f579b05f6173bba300777867f6b8b613339662#diff-2fa6e0fecc1866964986277037867a1cR468.
         if (!hash || hash === '#top' || hash === '#') {
-            if (this.setActiveSectionIndex(0)) {
-                this.updateHistory();
-            }
+            this.setActiveSectionIndex(0);
             return;
         }
 
         for (let i = 0; i < this._sectionHashes.length; i++) {
             if (hash === this._sectionHashes[i]) {
-                // Ensure that header can be scrolled to
+                // Ensure that section can be scrolled to
                 while (document.body.getBoundingClientRect().bottom - this._observedSectionDatas[i].element.getBoundingClientRect().top - this._sectionMarginTops[i] < window.innerHeight) {
-                    i--;
-                    if (i === -1) {
+                    if (i === 0) { // If we get to 0, it means that even the first section can't be scrolled to
                         break;
                     }
+                    i--;
                 }
 
-                if (this.setActiveSectionIndex(i)) {
-                    this.updateHistory();
-                }
-
+                this.setActiveSectionIndex(i);
                 return;
             }
         }
@@ -276,8 +271,8 @@ export default class ArticleGlobalService implements GlobalService {
 
         this._activeSectionIndex = newIndex;
 
-        for (let i = 0; i < this._indexChangedListeners.length; i++) {
-            this._indexChangedListeners[i](newIndex);
+        for (let i = 0; i < this._activeSectionChangedListeners.length; i++) {
+            this._activeSectionChangedListeners[i](newIndex);
         }
 
         return true;

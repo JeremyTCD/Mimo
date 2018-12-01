@@ -3,7 +3,15 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased (1.0.0-alpha.27)](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.26...HEAD)
+## [Unreleased (1.0.0-alpha.28)](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.27...HEAD)
+
+## [1.0.0-alpha.27](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.26...1.0.0-alpha.27) - Dec 1, 2018
+### Fixes
+- Fixed ArticleGlobalService.smoothSrollBefore setting section index to -1 bug.
+- Fixed page header navbar not being vertically centered.
+### Changes
+- Minor style changes to logo website name.
+- Improved updating of page hash.
 
 ## [1.0.0-alpha.26](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.25...1.0.0-alpha.26) - Dec 1, 2018
 ### Fixes

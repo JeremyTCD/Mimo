@@ -42,12 +42,12 @@ export default class ArticleMenuHeaderComponent implements Component {
 
     private onChangedToNarrowListener = (): void => {
         // While article menu is a side menu, text isn't updated. When article menu becomes a dropdown, it must be updated manually
-        this._articleGlobalService.addIndexChangedListener(this.updateText, true);
+        this._articleGlobalService.addActiveSectionChangedListener(this.updateText, true);
     }
 
     private onChangedFromNarrowListener = (init: boolean): void => {
         if (!init) {
-            this._articleGlobalService.removeIndexChangedListener(this.updateText);
+            this._articleGlobalService.removeActiveSectionChangedListener(this.updateText);
         }
     }
 
