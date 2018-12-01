@@ -247,12 +247,12 @@ export default class ArticleGlobalService implements GlobalService {
 
         for (let i = 0; i < this._sectionHashes.length; i++) {
             if (hash === this._sectionHashes[i]) {
-                // Ensure that header can be scrolled to
+                // Ensure that section can be scrolled to
                 while (document.body.getBoundingClientRect().bottom - this._observedSectionDatas[i].element.getBoundingClientRect().top - this._sectionMarginTops[i] < window.innerHeight) {
-                    i--;
-                    if (i === -1) {
+                    if (i === 0) { // If we get to 0, it means that even the first section can't be scrolled to
                         break;
                     }
+                    i--;
                 }
 
                 this.setActiveSectionIndex(i);
