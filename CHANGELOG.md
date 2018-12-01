@@ -3,7 +3,14 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased (1.0.0-alpha.26)](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.25...HEAD)
+## [Unreleased (1.0.0-alpha.27)](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.26...HEAD)
+
+## [1.0.0-alpha.26](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.25...1.0.0-alpha.26) - Dec 1, 2018
+### Fixes
+- Fixed search result items disappearing because of pagination service.
+- Fixed bumping of smooth-scroll causing errors when page is reloaded and url has hash `#` or `#top`.
+### Additions
+- Website name now included in logo by default.
 
 ## [1.0.0-alpha.25](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.24...1.0.0-alpha.25) - Nov 27, 2018
 ### Fixes

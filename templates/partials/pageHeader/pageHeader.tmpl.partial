@@ -4,6 +4,11 @@
             <svg>
                 <use xlink:href="#logo" />
             </svg>
+            {{#mimo_logoWebsiteNameMarkup}}
+            <span id="page-header-logo-website-name">
+                {{{mimo_logoWebsiteNameMarkup}}}
+            </span>
+            {{/mimo_logoWebsiteNameMarkup}}
         </a>
         <button id="page-header-button" type="button">
             <span></span>

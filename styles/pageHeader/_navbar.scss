@@ -11,7 +11,7 @@
     ul {
         flex-grow: 1;
         list-style: none;
-        align-items: center;
+        align-items: flex-start;
 
         @media #{$media-narrow} {
             flex-direction: column;
@@ -21,17 +21,18 @@
         li {
             flex-shrink: 0;
 
-            &:nth-last-child(n+2) {
-                @media #{$media-medium}, #{$media-wide} {
+
+            @media #{$media-medium}, #{$media-wide} {
+                &:nth-last-child(n+2) {
                     margin-right: 38px;
                 }
+            }
 
-                @media #{$media-narrow} {
-                    margin-bottom: 13px;
+            @media #{$media-narrow} {
+                margin-top: 16px;
 
-                    a {
-                        padding-bottom: 1px; // Add padding so underline can be lower
-                    }
+                a {
+                    padding-bottom: 1px; // Add padding so underline can be lower
                 }
             }
 
