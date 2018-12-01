@@ -25,7 +25,7 @@ export default class ArticleGlobalService implements GlobalService {
     private _updateHistoryDebounced: () => void;
     private _sectionHashes: string[]; // For updating location.hash (updates url in search bar)
     private _activeSectionIndexFixed: boolean;
-    private _indexChangedListeners: ((newIndex: number) => void)[];
+    private _activeSectionChangedListeners: ((newIndex: number) => void)[];
     private _activeSectionIndex: number;
     private _narrowIntersectionObserver: IntersectionObserver; // There is a permanent header when mode is narrow, so root margin must be set
     private _mediumWideIntersectionObserver: IntersectionObserver;
@@ -75,7 +75,7 @@ export default class ArticleGlobalService implements GlobalService {
         });
 
         this._sectionMarginTops = [];
-        this._indexChangedListeners = [];
+        this._activeSectionChangedListeners = [];
         this._updateHistoryDebounced = this._debounceService.createTimeoutDebounceFunction(this.updateHistory, 100);
     }
 
@@ -184,27 +184,27 @@ export default class ArticleGlobalService implements GlobalService {
         }
     }
 
-    public addIndexChangedListener(listener: (newIndex: number) => void, init: boolean = false) {
+    public addActiveSectionChangedListener(listener: (newIndex: number) => void, init: boolean = false) {
         if (this._noOutline) {
             return;
         }
 
-        this._indexChangedListeners.push(listener);
+        this._activeSectionChangedListeners.push(listener);
 
         if (init) {
             listener(this._activeSectionIndex);
         }
     }
 
-    public removeIndexChangedListener(listener: (newIndex: number) => void) {
+    public removeActiveSectionChangedListener(listener: (newIndex: number) => void) {
         if (this._noOutline) {
             return;
         }
 
-        let index = this._indexChangedListeners.indexOf(listener);
+        let index = this._activeSectionChangedListeners.indexOf(listener);
 
         if (index > -1) {
-            this._indexChangedListeners.splice(index, 1);
+            this._activeSectionChangedListeners.splice(index, 1);
         }
     }
 
@@ -276,8 +276,8 @@ export default class ArticleGlobalService implements GlobalService {
 
         this._activeSectionIndex = newIndex;
 
-        for (let i = 0; i < this._indexChangedListeners.length; i++) {
-            this._indexChangedListeners[i](newIndex);
+        for (let i = 0; i < this._activeSectionChangedListeners.length; i++) {
+            this._activeSectionChangedListeners[i](newIndex);
         }
 
         return true;

@@ -41,12 +41,12 @@ export default class OutlineComponent implements Component {
 
     private onChangedToNarrowListener = (init: boolean): void => {
         if (!init) {
-            this._articleGlobalService.removeIndexChangedListener(this.updateActiveSectionAnchor);
+            this._articleGlobalService.removeActiveSectionChangedListener(this.updateActiveSectionAnchor);
         }
     }
 
     private onChangedFromNarrowListener = (): void => {
-        this._articleGlobalService.addIndexChangedListener(this.updateActiveSectionAnchor, true);
+        this._articleGlobalService.addActiveSectionChangedListener(this.updateActiveSectionAnchor, true);
     }
 
     public updateDropdownKnob = (): void => {
