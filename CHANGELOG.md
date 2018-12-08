@@ -3,7 +3,11 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased (1.0.0-alpha.28)](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.27...HEAD)
+## [Unreleased (1.0.0-alpha.28)](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.28...HEAD)
+
+## [1.0.0-alpha.28](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.27...1.0.0-alpha.28) - Dec 8, 2018
+### Changes
+- Bumped `JeremyTCD.DocFx.Plugins` to 1.0.0-alpha.28.
 
 ## [1.0.0-alpha.27](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.26...1.0.0-alpha.27) - Dec 1, 2018
 ### Fixes
