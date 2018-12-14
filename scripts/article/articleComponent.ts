@@ -35,12 +35,12 @@ export default class ArticleComponent extends RootComponent {
     }
 
     public setupOnDomContentLoaded(): void {
-        this.addLinks();
+        this.setupSectionHeaderLinks();
     }
 
-    private addLinks(): void {
+    private setupSectionHeaderLinks(): void {
         let articleElement: HTMLElement = document.querySelector('.main-article') as HTMLElement;
-        let sectionElements: NodeList = articleElement.querySelectorAll('section');
+        let sectionElements: NodeList = articleElement.querySelectorAll('section[class*="flexi-section-block-"]');
 
         for (let i: number = 0; i < sectionElements.length; i++) {
             let sectionElement = sectionElements[i] as HTMLElement;
