@@ -9,15 +9,16 @@ $materialIcons = @(
 	@{name="error"; style="baseline"},
 	@{name="navigate_next"; style="baseline"},
 	@{name="navigate_before"; style="baseline"},
-	@{name="date_range"; style="sharp"},
 	@{name="person"; style="baseline"},
-	@{name="filter_list"; style="baseline"},
 	@{name="clear"; style="baseline"},
 	@{name="search"; style="baseline"},
 	@{name="share"; style="baseline"},
 	@{name="edit"; style="baseline"},
 	@{name="chevron_right"; style="baseline"},
-	@{name="copyright"; style="baseline"}
+	@{name="copyright"; style="baseline"},
+    @{name="library_books"; style="sharp"},
+    @{name="change_history"; style="sharp"},
+    @{name="gavel"; style="sharp"}
 )
 
 $materialUrlFormat = "https://material.io/tools/icons/static/icons/{0}-{1}-24px.svg"
