@@ -68,7 +68,7 @@ article {
             background-color: $color-section-header-background;
         }
 
-        a {
+        a:not(.no-animated-underline) {
             @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-primary);
         }
 
