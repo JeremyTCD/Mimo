@@ -1,0 +1,73 @@
+﻿@import '../shared/constants';
+
+$card-height: 249px;
+$card-width: 184px;
+$card-padding: 40px;
+
+.card-set {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, $card-width);
+    grid-column-gap: 59px;
+    grid-row-gap: 59px;
+
+    .card {
+        background-color: $color-secondary;
+        transition: transform $short-animation-duration $ease-out-quad;
+        position: relative;
+        height: $card-height;
+
+        &:hover {
+            transition: transform $short-animation-duration $ease-out-back-delayed;
+            transform: scale(1.2);
+        }
+
+        .card-background {
+            position: absolute;
+            margin-top: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 0;
+            display: flex;
+            align-items: center;
+
+            svg {
+                width: 100%;
+                fill: $color-primary;
+                opacity: 0.06;
+            }
+        }
+
+        a {
+            position: relative; // So background can be placed behind
+            z-index: 1;
+            margin-top: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: $color-secondary-text;
+
+            header {
+                margin: $card-padding;
+                margin-bottom: 0;
+                line-height: 1.2;
+                flex-shrink: 0;
+            }
+
+            span {
+                margin: 20px $card-padding;
+                flex-grow: 1;
+            }
+
+            footer {
+                margin: $card-padding;
+                margin-top: 0;
+                flex-shrink: 0;
+                background-color: $color-primary;
+                opacity: $opacity-4;
+                height: 2px;
+            }
+        }
+    }
+}
