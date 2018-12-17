@@ -75,11 +75,11 @@ export default class ArticleMenuHeaderComponent implements Component {
                 this._textData.push({ part1: 'Contents', part2: null });
             }
             else if (sectionElement.classList.contains('flexi-section-block-2')) {
-                currentPart1 = sectionElement.firstElementChild.firstElementChild.innerHTML;
+                currentPart1 = sectionElement.firstElementChild.firstElementChild.textContent;
                 this._textData.push({ part1: currentPart1, part2: null });
             } else {
                 // level 3
-                this._textData.push({ part1: currentPart1, part2: sectionElement.firstElementChild.firstElementChild.innerHTML });
+                this._textData.push({ part1: currentPart1, part2: sectionElement.firstElementChild.firstElementChild.textContent });
             }
         }
     }
