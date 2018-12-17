@@ -1,6 +1,5 @@
 ﻿@import '../shared/constants';
 
-// h1 appears outside of content
 h1 {
     font-size: $font-size-7;
     font-weight: 600;
@@ -8,8 +7,8 @@ h1 {
     flex-shrink: 0;
 }
 
-.content {
-    .flexi-section-block-2 {
+section {
+    &.flexi-section-block-2 {
         padding-top: 12px; // When smooth-scrolling to a section wanna stop with some space between header and top of screen
         margin-top: 28px;
 
@@ -19,7 +18,7 @@ h1 {
         }
     }
 
-    .flexi-section-block-3 {
+    &.flexi-section-block-3 {
         padding-top: 16px; // When smooth-scrolling to a section wanna stop with some space between header and top of screen
         margin-top: 4px;
 
@@ -28,9 +27,9 @@ h1 {
         }
     }
 
-    .flexi-section-block-4,
-    .flexi-section-block-5,
-    .flexi-section-block-6 {
+    &.flexi-section-block-4,
+    &.flexi-section-block-5,
+    &.flexi-section-block-6 {
         padding-top: 17px; // When smooth-scrolling to a section wanna stop with some space between header and top of screen
         margin-top: 3px;
 
@@ -71,40 +70,38 @@ h1 {
         font-weight: 600;
     }
 
-    section {
-        > header {
+    > header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        button {
             display: flex;
-            flex-direction: row;
-            align-items: center;
-
-            button {
-                display: flex;
-                flex-shrink: 0;
-                cursor: pointer;
-                // :hover as a child of svg doesn't work in firefox
-                &:hover {
-                    svg {
-                        transition-delay: $anti-flicker-delay;
-                        fill: $color-primary-link;
-                    }
-                }
-
-                svg {
-                    margin-left: 9px;
-                    opacity: 0;
-                    width: 24px;
-                    height: 24px;
-                    fill: $color-primary-link-disabled;
-                    transition: fill $short-animation-duration $ease-out-quad, opacity $short-animation-duration $ease-out-quad;
-                    flex-shrink: 0;
-                }
-            }
-
+            flex-shrink: 0;
+            cursor: pointer;
+            // :hover as a child of svg doesn't work in firefox
             &:hover {
                 svg {
                     transition-delay: $anti-flicker-delay;
-                    opacity: $opacity-6;
+                    fill: $color-primary-link;
                 }
+            }
+
+            svg {
+                margin-left: 9px;
+                opacity: 0;
+                width: 24px;
+                height: 24px;
+                fill: $color-primary-link-disabled;
+                transition: fill $short-animation-duration $ease-out-quad, opacity $short-animation-duration $ease-out-quad;
+                flex-shrink: 0;
+            }
+        }
+
+        &:hover {
+            svg {
+                transition-delay: $anti-flicker-delay;
+                opacity: $opacity-6;
             }
         }
     }

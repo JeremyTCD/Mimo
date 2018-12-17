@@ -32,8 +32,6 @@
         </ul>
     </div>
     {{/mimo_disableMetadata}}
-
-    <div class="content">
-        {{{conceptual}}}
-    </div>
+    
+    {{{conceptual}}}
 </article>

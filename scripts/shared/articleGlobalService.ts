@@ -42,7 +42,7 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     public setupImmediate(): void {
-        this._sectionElements = document.querySelectorAll('.main-article, .content > .flexi-section-block-2, section > .flexi-section-block-3'); // Ignore sections in subtrees
+        this._sectionElements = document.querySelectorAll('.main-article, .main-article > .flexi-section-block-2, .main-article > .flexi-section-block-2 > .flexi-section-block-3'); // Ignore sections in subtrees
 
         if (this._sectionElements.length == 1) { // Only article
             this._noOutline = true;

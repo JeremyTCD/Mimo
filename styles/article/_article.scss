@@ -44,23 +44,26 @@
     }
 }
 
-.content, section {
-    > * {
+article {
+    // h1 and metadata are direct children of article and so aren't within any section
+    @import './metadata';
+    @import './header';
+    @import './cards';
+
+    > *:not(.meta):not(h1):not(section) {
         margin-top: 20px;
     }
-}
 
-article {
-    @import './metadata';
-    @import './header'; // H1 appears outside of content
-
-    .content {
+    section {
         @import './alert';
         @import './code';
         @import './table';
         @import './list';
         @import './blockquote';
-        @import './cards';
+
+        > * {
+            margin-top: 20px;
+        }
 
         hr {
             width: 100%;
