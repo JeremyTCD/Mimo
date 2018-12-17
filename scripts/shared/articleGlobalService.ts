@@ -29,12 +29,14 @@ export default class ArticleGlobalService implements GlobalService {
     private _activeSectionIndex: number;
     private _narrowIntersectionObserver: IntersectionObserver; // There is a permanent header when mode is narrow, so root margin must be set
     private _mediumWideIntersectionObserver: IntersectionObserver;
+    private _smoothScroll: SmoothScroll;
 
     public constructor(
         @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
         debounceService: DebounceService) {
         this._mediaGlobalService = mediaGlobalService;
         this._debounceService = debounceService;
+        this._activeSectionIndex = 0; // Should never be undefined
     }
 
     public setupOnDomContentLoaded(): void {
@@ -42,6 +44,7 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     public setupImmediate(): void {
+        this.setupSmoothScroll();
         this._sectionElements = document.querySelectorAll('.main-article, .main-article > .flexi-section-block-2, .main-article > .flexi-section-block-2 > .flexi-section-block-3'); // Ignore sections in subtrees
 
         if (this._sectionElements.length == 1) { // Only article
@@ -80,22 +83,11 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     public setupOnLoad(): void {
-        // When smooth scroll initializes, it reads header height. Therefore it can only be called after the load event.
-        this.setupSmoothScroll();
-
         if (this._noOutline) {
             return;
         }
 
         this.setupSectionMarginTops();
-
-        // Simulate scroll to initial hash
-        this.smoothScrollBefore();
-        if (this._activeSectionIndex === undefined) {
-            // Should never be undefined (equivalent to top of page).
-            this._activeSectionIndex = 0;
-        }
-        this.smoothScrollAfter();
 
         this._mediaGlobalService.addChangedToListener(this.onChangedToNarrowListener, MediaWidth.narrow)
         this._mediaGlobalService.addChangedFromListener(this.onChangedFromNarrowListener, MediaWidth.narrow);
@@ -103,6 +95,17 @@ export default class ArticleGlobalService implements GlobalService {
         // Custom smooth-scroll events
         document.addEventListener('scrollStart', this.smoothScrollBefore, false);
         document.addEventListener('scrollStop', this.smoothScrollAfter, false);
+
+        // Set initial _activeSectionIndex
+        let hash = location.hash;
+        let section;
+
+        if (!hash || hash === '#top' || hash === '#' || !(section = document.querySelector(hash))) {
+            this.setActiveSectionIndex(0); // Call even though _activeSectionIndex is 0 by default so that listeners get called
+        }
+        else {
+            this._smoothScroll.animateScroll(section); // When article menu header is visible (narrow), if user navigated to #<some element>, the initial page load does not account for header height.
+        }
     }
 
     private onChangedToNarrowListener = (): void => {
@@ -223,8 +226,7 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     private setupSmoothScroll(): void {
-        new SmoothScroll('a[href*="#"]', {
-
+        this._smoothScroll = new SmoothScroll('a[href*="#"]', {
             speed: 300,
             header: '#article-menu-header'
         });
