@@ -54,6 +54,10 @@ article {
         margin-top: 20px;
     }
 
+    *:not(section):not(header){
+        max-width: 800px;
+    }
+
     section {
         @import './alert';
         @import './code';
