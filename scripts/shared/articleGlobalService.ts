@@ -30,6 +30,8 @@ export default class ArticleGlobalService implements GlobalService {
     private _narrowIntersectionObserver: IntersectionObserver; // There is a permanent header when mode is narrow, so root margin must be set
     private _mediumWideIntersectionObserver: IntersectionObserver;
     private _smoothScroll: SmoothScroll;
+    private _headerHeight: number;
+    private _headerEnabled: boolean;
 
     public constructor(
         @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
@@ -44,7 +46,13 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     public setupImmediate(): void {
+        // Setup smooth scroll
         this.setupSmoothScroll();
+
+        // Check if header is enabled
+        this._headerEnabled = !!document.getElementById('article-menu-header');
+
+        // Setup section datas for observation
         this._sectionElements = document.querySelectorAll('.main-article, .main-article > .flexi-section-block-2, .main-article > .flexi-section-block-2 > .flexi-section-block-3'); // Ignore sections in subtrees
 
         if (this._sectionElements.length == 1) { // Only article
@@ -77,6 +85,7 @@ export default class ArticleGlobalService implements GlobalService {
             this._sectionHashes[index] = `#${sectionElement.id}`;
         });
 
+        // Misc setup
         this._sectionMarginTops = [];
         this._activeSectionChangedListeners = [];
         this._updateHistoryDebounced = this._debounceService.createTimeoutDebounceFunction(this.updateHistory, 100);
@@ -113,10 +122,18 @@ export default class ArticleGlobalService implements GlobalService {
             this._mediumWideIntersectionObserver.disconnect();
         }
 
-        if (!this._narrowIntersectionObserver) {
-            this._narrowIntersectionObserver = new IntersectionObserver(this.onIntersectionListener, { threshold: 0, rootMargin: '-37px 0px 0px 0px' });
+        // Set header height
+        if (this._headerEnabled) {
+            this._headerHeight = 37;
+        }
+        else {
+            this._headerHeight = 0;
         }
 
+        // Create and register intersection observer
+        if (!this._narrowIntersectionObserver) {
+            this._narrowIntersectionObserver = new IntersectionObserver(this.onIntersectionListener, { threshold: 0, rootMargin: (this._headerHeight ? '-' : '') + `${this._headerHeight}px 0px 0px 0px` });
+        }
         this.observeSections(this._narrowIntersectionObserver);
     }
 
@@ -125,10 +142,13 @@ export default class ArticleGlobalService implements GlobalService {
             this._narrowIntersectionObserver.disconnect();
         }
 
+        // Set header height
+        this._headerHeight = 0;
+
+        // Create and register intersection observer
         if (!this._mediumWideIntersectionObserver) {
             this._mediumWideIntersectionObserver = new IntersectionObserver(this.onIntersectionListener, { threshold: 0 });
         }
-
         this.observeSections(this._mediumWideIntersectionObserver);
     }
 
@@ -146,14 +166,16 @@ export default class ArticleGlobalService implements GlobalService {
     private onIntersectionListener = (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
         // Update observed elements isVisible
         entries.forEach((entry: IntersectionObserverEntry) => {
-            this._observedSectionDatas.some((observedElementData: ObservedSectionData) => {
+            this._observedSectionDatas.some((observedSectionData: ObservedSectionData) => {
                 // Since threshold is 0, if callback has fired for element, isIntersecting == isVisible.
-                if (observedElementData.element == entry.target) {
-                    observedElementData.isVisible = entry.isIntersecting;
+                if (observedSectionData.element == entry.target) {
+                    observedSectionData.isVisible = entry.isIntersecting;
+
                     return true;
                 }
-                else if (observedElementData.prevNonSectionElement == entry.target) {
-                    observedElementData.prevIsVisible = entry.isIntersecting;
+                else if (observedSectionData.prevNonSectionElement == entry.target) {
+                    observedSectionData.prevIsVisible = entry.isIntersecting;
+
                     return true;
                 }
 
@@ -228,7 +250,7 @@ export default class ArticleGlobalService implements GlobalService {
     private setupSmoothScroll(): void {
         this._smoothScroll = new SmoothScroll('a[href*="#"]', {
             speed: 300,
-            header: '#article-menu-header'
+            header: '#article-menu-header' // Smooth-scroll updates header height when page is resized (this was removed in later versions of smooth-scroll, be careful when updating)
         });
     }
 
@@ -247,10 +269,12 @@ export default class ArticleGlobalService implements GlobalService {
             return;
         }
 
+        let bodyBottom = document.body.getBoundingClientRect().bottom;
         for (let i = 0; i < this._sectionHashes.length; i++) {
             if (hash === this._sectionHashes[i]) {
                 // Ensure that section can be scrolled to
-                while (document.body.getBoundingClientRect().bottom - this._observedSectionDatas[i].element.getBoundingClientRect().top - this._sectionMarginTops[i] < window.innerHeight) {
+                // Note that BoundingClientRect.top does not include top margin.
+                while (bodyBottom - this._observedSectionDatas[i].element.getBoundingClientRect().top + this._sectionMarginTops[i] < window.innerHeight - this._headerHeight) {
                     if (i === 0) { // If we get to 0, it means that even the first section can't be scrolled to
                         break;
                     }
