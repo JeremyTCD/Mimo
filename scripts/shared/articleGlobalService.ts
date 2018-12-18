@@ -19,7 +19,7 @@ export default class ArticleGlobalService implements GlobalService {
     private _debounceService: DebounceService;
 
     private _noOutline: boolean;
-    private _sectionElements: NodeList;
+    private _sectionElements: HTMLElement[];
     private _observedSectionDatas: ObservedSectionData[];
     private _sectionMarginTops: number[]; // For checking whether sections can be scrolled to (not too close to end of body)
     private _updateHistoryDebounced: () => void;
@@ -53,7 +53,7 @@ export default class ArticleGlobalService implements GlobalService {
         this._headerEnabled = !!document.getElementById('article-menu-header');
 
         // Setup section datas for observation
-        this._sectionElements = document.querySelectorAll('.main-article, .main-article > .flexi-section-block-2, .main-article > .flexi-section-block-2 > .flexi-section-block-3'); // Ignore sections in subtrees
+        this._sectionElements = Array.from<HTMLElement>(document.querySelectorAll('.main-article, .main-article > .flexi-section-block-2, .main-article > .flexi-section-block-2 > .flexi-section-block-3')); // Ignore sections in subtrees
 
         if (this._sectionElements.length == 1) { // Only article
             this._noOutline = true;
@@ -107,14 +107,18 @@ export default class ArticleGlobalService implements GlobalService {
 
         // Set initial _activeSectionIndex
         let hash = location.hash;
-        let section;
 
-        if (!hash || hash === '#top' || hash === '#' || !(section = document.querySelector(hash))) {
-            this.setActiveSectionIndex(0); // Call even though _activeSectionIndex is 0 by default so that listeners get called
+        if (hash && hash !== '#top' && hash !== '#') {
+            let hashContent = hash.substring(1);
+            let section = this._sectionElements.find(element => element.id === hashContent);
+
+            if (section) {
+                this._smoothScroll.animateScroll(section); // When article menu header is visible (narrow), if user navigated to #<some element>, the initial page load does not account for header height.
+                return;
+            }
         }
-        else {
-            this._smoothScroll.animateScroll(section); // When article menu header is visible (narrow), if user navigated to #<some element>, the initial page load does not account for header height.
-        }
+
+        this.setActiveSectionIndex(0); // Call even though _activeSectionIndex is 0 by default so that listeners get called
     }
 
     private onChangedToNarrowListener = (): void => {
@@ -243,7 +247,7 @@ export default class ArticleGlobalService implements GlobalService {
         return this._activeSectionIndex;
     }
 
-    public getSectionElements(): NodeList {
+    public getSectionElements(): HTMLElement[] {
         return this._sectionElements;
     }
 

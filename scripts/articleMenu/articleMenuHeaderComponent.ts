@@ -66,10 +66,10 @@ export default class ArticleMenuHeaderComponent implements Component {
 
     private setupText(): void {
         let currentPart1: string;
-        let sectionElements: NodeList = this._articleGlobalService.getSectionElements();
+        let sectionElements: HTMLElement[] = this._articleGlobalService.getSectionElements();
 
         for (let i = 0; i < sectionElements.length; i++) {
-            let sectionElement = sectionElements[i] as HTMLElement;
+            let sectionElement = sectionElements[i];
 
             if (sectionElement.classList.contains('main-article')) {
                 this._textData.push({ part1: 'Contents', part2: null });
