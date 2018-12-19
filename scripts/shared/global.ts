@@ -4,32 +4,32 @@ import 'reflect-metadata';
 
 // Mimo uses webpack to compile and bundle ts. Webpack is also used to bundle svgs (into a sprite sheet), for webpack to do its job, svgs to be included must be required in
 // a ts file.
-require('../../resources/custom-file-copy.svg');
-require('../../resources/custom-more-vert.svg');
-require('../../resources/custom-filter-list.svg');
-require('../../resources/custom-date-range.svg');
+require('../../webpackResources/custom-file-copy.svg');
+require('../../webpackResources/custom-more-vert.svg');
+require('../../webpackResources/custom-filter-list.svg');
+require('../../webpackResources/custom-date-range.svg');
 
-require('../../resources/material-design-arrow-upward.svg')
-require('../../resources/material-design-arrow-drop-down.svg')
-require('../../resources/material-design-link.svg')
-require('../../resources/material-design-info.svg')
-require('../../resources/material-design-warning.svg')
-require('../../resources/material-design-error.svg')
-require('../../resources/material-design-navigate-next.svg')
-require('../../resources/material-design-navigate-before.svg')
-require('../../resources/material-design-person.svg')
-require('../../resources/material-design-clear.svg')
-require('../../resources/material-design-search.svg')
-require('../../resources/material-design-share.svg')
-require('../../resources/material-design-edit.svg')
-require('../../resources/material-design-chevron-right.svg')
-require('../../resources/material-design-copyright.svg')
-require('../../resources/material-design-library-books.svg')
-require('../../resources/material-design-change-history.svg')
-require('../../resources/material-design-gavel.svg')
+require('../../webpackResources/material-design-arrow-upward.svg')
+require('../../webpackResources/material-design-arrow-drop-down.svg')
+require('../../webpackResources/material-design-link.svg')
+require('../../webpackResources/material-design-info.svg')
+require('../../webpackResources/material-design-warning.svg')
+require('../../webpackResources/material-design-error.svg')
+require('../../webpackResources/material-design-navigate-next.svg')
+require('../../webpackResources/material-design-navigate-before.svg')
+require('../../webpackResources/material-design-person.svg')
+require('../../webpackResources/material-design-clear.svg')
+require('../../webpackResources/material-design-search.svg')
+require('../../webpackResources/material-design-share.svg')
+require('../../webpackResources/material-design-edit.svg')
+require('../../webpackResources/material-design-chevron-right.svg')
+require('../../webpackResources/material-design-copyright.svg')
+require('../../webpackResources/material-design-library-books.svg')
+require('../../webpackResources/material-design-change-history.svg')
+require('../../webpackResources/material-design-gavel.svg')
 
-require('../../resources/ion-icons-logo-github.svg');;
-require('../../resources/ion-icons-logo-twitter.svg');;
-require('../../resources/ion-icons-logo-instagram.svg');;
-require('../../resources/ion-icons-logo-facebook.svg');;
-require('../../resources/ion-icons-logo-googleplus.svg');;
+require('../../webpackResources/ion-icons-logo-github.svg');;
+require('../../webpackResources/ion-icons-logo-twitter.svg');;
+require('../../webpackResources/ion-icons-logo-instagram.svg');;
+require('../../webpackResources/ion-icons-logo-facebook.svg');;
+require('../../webpackResources/ion-icons-logo-googleplus.svg');;
