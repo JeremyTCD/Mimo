@@ -35,6 +35,22 @@ exports.preTransform = function (model) {
         model.mimo_logoWebsiteNameMarkup = logoWebsiteNameMarkup;
     }
 
+    // Resolve font preloads
+    var fontPreloads = Array.isArray(model.mimo_defaultFontPreloads) ? model.mimo_defaultFontPreloads : [];
+    if (Array.isArray(model.mimo_additionalFontPreloads)) {
+        for (i = 0; i < model.mimo_additionalFontPreloads.length; i++) {
+            fontPreloads.push(model.mimo_additionalFontPreloads[i]);
+        }
+    }
+    if (Array.isArray(model.mimo_unneededFontPreloads)) {
+        for (i = fontPreloads.length; i > -1; i--) {
+            if (model.mimo_unneededFontPreloads.indexOf(fontPreloads[i]) !== -1) {
+                fontPreloads.splice(i, 1);
+            }
+        }
+    }
+    model.mimo_fontPreloads = fontPreloads;
+
     return model;
 }
 

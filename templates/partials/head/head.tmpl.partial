@@ -56,9 +56,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="{{mimo_addressBarColor}}">
     {{/mimo_addressBarColor}}
-    
-    {{#mimo_headElements}}
-    {{{.}}}
-    {{/mimo_headElements}}
-    </head>
+
+    {{#mimo_fontPreloads}}
+    <link rel="preload" href="{{.}}" as="font" type="font/woff2" crossorigin="">
+    {{/mimo_fontPreloads}}
+</head>
 
