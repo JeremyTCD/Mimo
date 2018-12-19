@@ -25,6 +25,7 @@ class Builder {
         console.log(`*** start - build basic bin ***`);
         await this.buildBasicTheme();
         await this.buildSite();
+        await this.copyResourcesToSite();
         console.log(`*** complete - build basic bin ***`);
     }
 
@@ -65,6 +66,16 @@ class Builder {
                 }
             });
         });
+    }
+
+    // Copies resources to site
+    async copyResourcesToSite() {
+        console.log(`start - copy resources`);
+
+        const src = path.join(__dirname, '../resources');
+        const dest = path.join(this.docfxProjectDir, './bin/_site/resources');
+
+        return fse.copy(src, dest).then(() => console.log(`complete - copy resources`));
     }
 
     // Deletes bin
@@ -110,7 +121,7 @@ class Builder {
 
         return Promise.all([msbuildPromise, configPromise]).
             then(_ => {
-                    console.log(`complete - restore plugins`);
+                console.log(`complete - restore plugins`);
             });
     }
 
