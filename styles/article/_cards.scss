@@ -1,9 +1,5 @@
 ﻿@import '../shared/constants';
 
-$card-height: 249px;
-$card-width: 184px;
-$card-padding: 40px;
-
 .card-set {
     width: 100%;
     display: grid;
@@ -39,7 +35,7 @@ $card-padding: 40px;
             }
         }
 
-        a {
+        .card-body {
             position: relative; // So background can be placed behind
             z-index: 1;
             margin-top: 0;
@@ -49,24 +45,26 @@ $card-padding: 40px;
             color: $color-secondary-text;
 
             header {
-                margin: $card-padding;
+                margin: $card-vertical-edge $card-horizontal-edge;
                 margin-bottom: 0;
                 line-height: 1.2;
                 flex-shrink: 0;
             }
 
-            span {
-                margin: 20px $card-padding;
+            .card-content {
+                margin: 20px $card-horizontal-edge;
                 flex-grow: 1;
+                overflow: hidden; // So it is obvious
             }
 
             footer {
-                margin: $card-padding;
-                margin-top: 0;
+                margin: 0 $card-horizontal-edge;
+                margin-bottom: 40px;
                 flex-shrink: 0;
-                background-color: $color-primary;
                 opacity: $opacity-4;
-                height: 2px;
+                border-bottom: 2px solid;
+                padding-bottom: 9px;
+                font-size: $font-size-1;
             }
         }
     }
