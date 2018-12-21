@@ -1,53 +1,10 @@
 @import '../shared/constants';
 
-@mixin sorted-article-list-no-preceding-dropdowns() {
-    margin-top: 52px;
-}
-
-@mixin sorted-article-list-with-preceding-dropdowns() {
-    margin-top: 50px;
-}
-
-#core-inner {
-    main {
-        > #sorted-article-list {
-            @media #{$media-medium}, #{$media-narrow} {
-                @include sorted-article-list-with-preceding-dropdowns;
-            }
-
-            @media #{$media-wide} {
-                @include sorted-article-list-no-preceding-dropdowns;
-            }
-        }
-    }
-}
-
-#core {
-    &.menu-before, &.menu-after {
-        main {
-            > #sorted-article-list {
-                @media #{$media-narrow} {
-                    @include sorted-article-list-with-preceding-dropdowns;
-                }
-
-                @media #{$media-medium}, #{$media-wide} {
-                    @include sorted-article-list-no-preceding-dropdowns;
-                }
-            }
-        }
-    }
-
-    main {
-        > #sorted-article-list {
-            @include sorted-article-list-no-preceding-dropdowns;
-        }
-    }
-}
-
 #sorted-article-list {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    margin-top: 40px;
 
     #sal-all-items {
         display: none;
