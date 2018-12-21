@@ -30,13 +30,13 @@
                 </svg>
             </a>
             {{/mimo_facebookLink}}
-            {{#mimo_googleplusLink}}
-            <a class="googleplus-link" href="{{mimo_googleplusLink}}">
+            {{#mimo_linkedinLink}}
+            <a class="linkedin-link" href="{{mimo_linkedinLink}}">
                 <svg>
-                    <use xlink:href="#ion-icons-logo-googleplus" />
+                    <use xlink:href="#ion-icons-logo-linkedin" />
                 </svg>
             </a>
-            {{/mimo_googleplusLink}}
+            {{/mimo_linkedinLink}}
         </div>
         {{/mimo_displaySocialMediaLinks}}
 
