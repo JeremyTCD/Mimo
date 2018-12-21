@@ -1,10 +1,25 @@
 ﻿@import '../shared/constants';
 
 .card-set {
+    &.card-medium {
+        grid-template-columns: repeat(auto-fit, $card-medium-width);
+
+        .card {
+            height: $card-medium-height;
+        }
+    }
+
+    &.card-small {
+        grid-template-columns: repeat(auto-fit, $card-small-width);
+
+        .card {
+            height: $card-small-height;
+        }
+    }
+
     width: 100%;
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(auto-fit, $card-width);
     grid-column-gap: 59px;
     grid-row-gap: 59px;
 
@@ -12,7 +27,6 @@
         background-color: $color-secondary;
         transition: transform $short-animation-duration $ease-out-quad;
         position: relative;
-        height: $card-height;
 
         &:hover {
             transition: transform $short-animation-duration $ease-out-back-delayed;
@@ -21,22 +35,21 @@
 
         .card-background {
             position: absolute;
-            margin-top: 0;
-            height: 100%;
-            width: 100%;
             z-index: 0;
             display: flex;
-            align-items: center;
+            margin-top: 0;
+            top: 0;
+            bottom: 0;
 
             svg {
                 width: 100%;
                 fill: $color-primary;
-                opacity: 0.06;
+                opacity: 0.09;
             }
         }
 
         .card-body {
-            position: relative; // So background can be placed behind
+            position: relative;
             z-index: 1;
             margin-top: 0;
             height: 100%;
