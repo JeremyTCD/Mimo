@@ -1,4 +1,5 @@
 # Simple script for downloading material design icons
+# TODO add logic for downloading ion icons
 
 $materialIcons = @(
 	@{name="arrow_upward"; style="baseline"},
@@ -18,12 +19,14 @@ $materialIcons = @(
 	@{name="copyright"; style="baseline"},
     @{name="library_books"; style="sharp"},
     @{name="change_history"; style="sharp"},
-    @{name="gavel"; style="sharp"}
+    @{name="gavel"; style="sharp"},
+    @{name="build"; style="sharp"},
+    @{name="description"; style="sharp"}
 )
 
 $materialUrlFormat = "https://material.io/tools/icons/static/icons/{0}-{1}-24px.svg"
 $outfileFormat = "material-design-{0}.svg"
-$requireFormat = "require('../../resources/{0}')"
+$requireFormat = "require('../../webpackResources/{0}');"
 
 $requires = ""
 
