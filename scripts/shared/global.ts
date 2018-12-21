@@ -10,6 +10,7 @@ require('../../webpackResources/custom-filter-list.svg');
 require('../../webpackResources/custom-date-range.svg');
 require('../../webpackResources/custom-cube.svg');
 require('../../webpackResources/custom-logo-nuget.svg');
+require('../../webpackResources/custom-logo-psgallery.svg');
 
 require('../../webpackResources/material-design-arrow-upward.svg');
 require('../../webpackResources/material-design-arrow-drop-down.svg');
