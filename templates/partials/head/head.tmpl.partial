@@ -15,14 +15,19 @@
     {{#mimo_pageDescription}}
     <meta name="description" content="{{mimo_pageDescription}}">
     {{/mimo_pageDescription}}
-    {{#mimo_faviconRelPath}}
-    <link rel="shortcut icon" href="{{mimo_faviconRelPath}}">
-    {{/mimo_faviconRelPath}}
     {{#mimo_googleFontsHrefs}}
     <link href="{{link}}" rel="stylesheet">
     {{/mimo_googleFontsHrefs}}
     <meta property="docfx:navrel" content="/toc.html">
     <meta property="docfx:tocrel" content="{{_tocRel}}">
+  
+    <!-- icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png{{#mimo_faviconVersion}}?v={{mimo_faviconVersion}}{{/mimo_faviconVersion}}">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png{{#mimo_faviconVersion}}?v={{mimo_faviconVersion}}{{/mimo_faviconVersion}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png{{#mimo_faviconVersion}}?v={{mimo_faviconVersion}}{{/mimo_faviconVersion}}">
+    <link rel="manifest" href="/site.webmanifest{{#mimo_faviconVersion}}?v={{mimo_faviconVersion}}{{/mimo_faviconVersion}}">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg{{#mimo_faviconVersion}}?v={{mimo_faviconVersion}}{{/mimo_faviconVersion}}" {{#mimo_safariPinnedTabColor}}color="{{mimo_safariPinnedTabColor}}"{{/mimo_safariPinnedTabColor}}>
+    <link rel="shortcut icon" href="/favicon.ico{{#mimo_faviconVersion}}?v={{mimo_faviconVersion}}{{/mimo_faviconVersion}}">
   
     {{#mimo_socialMediaCards}}
     <!-- Open Graph tags and assorted metadata used by social media sites -->
@@ -47,11 +52,13 @@
     {{/mimo_twitterCardCreator}}
     {{/mimo_socialMediaCards}}
 
+    <!-- colors -->
     {{#mimo_addressBarColor}}
     <!-- chrome, opera and firefox -->
     <meta name="theme-color" content="{{mimo_addressBarColor}}" />
     <!-- windows phone -->
     <meta name="msapplication-navbutton-color" content="{{mimo_addressBarColor}}">
+    <meta name="msapplication-TileColor" content="{{mimo_addressBarColor}}">
     <!-- safari -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="{{mimo_addressBarColor}}">
