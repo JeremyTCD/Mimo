@@ -32,6 +32,7 @@ export default class ArticleGlobalService implements GlobalService {
     private _smoothScroll: SmoothScroll;
     private _headerHeight: number;
     private _headerEnabled: boolean;
+    private _narrowInterSectionListenerCorrected: boolean;
 
     public constructor(
         @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
@@ -136,9 +137,19 @@ export default class ArticleGlobalService implements GlobalService {
 
         // Create and register intersection observer
         if (!this._narrowIntersectionObserver) {
-            this._narrowIntersectionObserver = new IntersectionObserver(this.onIntersectionListener, { threshold: 0, rootMargin: (this._headerHeight ? '-' : '') + `${this._headerHeight}px 0px 0px 0px` });
+            this._narrowIntersectionObserver = this.createNarrowIntersectionObserver();
+            this._narrowInterSectionListenerCorrected = false;
         }
         this.observeSections(this._narrowIntersectionObserver);
+    }
+
+    private createNarrowIntersectionObserver = (multiplyByDevicePixelRatio: boolean = false): IntersectionObserver => {
+        let topMargin = -this._headerHeight;
+        if (multiplyByDevicePixelRatio) {
+            topMargin *= window.devicePixelRatio;
+        }
+
+        return new IntersectionObserver(this.onIntersectionListener, { threshold: 0, rootMargin: `${topMargin}px 0px 0px 0px` });
     }
 
     private onChangedFromNarrowListener = (): void => {
@@ -168,8 +179,27 @@ export default class ArticleGlobalService implements GlobalService {
     }
 
     private onIntersectionListener = (entries: IntersectionObserverEntry[], _: IntersectionObserver) => {
+
+        // On Chrome for Android, rootMargins are read as device pixels (as opposed to CSS pixels > window.devicePixelRatio = devicePixels/cssPixels). 
+        // To verify whether or not we are dealing with Chrome for Android, we check whether the computed rootBounds.top is equal to what we requested, _headerHeight.
+        // If it isn't, we ditch the initial _narrowIntersectionObserver and create a new one with rootMargins multiplied by window.devicePixelRatio.
+        if (this._headerHeight != 0 && // We don't use rootMargins when headerHeight is 0
+            !this._narrowInterSectionListenerCorrected && // Only correct once. Chrome for Anrdoid computes rootBounds.top as ourSpecifiedRootMarginTop/window.devicePixelRatio. Even
+                                                          // if we specify outSpecifiedRootMarginTop as _headerHeight * window.devicePixelRatio, rootBounds.top may not === _headerHeight
+                                                          // due to the accuracy limitations of floating point calculations.
+            entries[0].rootBounds.top !== this._headerHeight) {
+            this._narrowInterSectionListenerCorrected = true;
+            this._narrowIntersectionObserver.disconnect();
+            this._narrowIntersectionObserver = this.createNarrowIntersectionObserver(true);
+            this.observeSections(this._narrowIntersectionObserver);
+
+            return;
+        }
+
         // Update observed elements isVisible
-        entries.forEach((entry: IntersectionObserverEntry) => {
+        for (let i = 0; i < entries.length; i++) {
+            let entry = entries[i];
+
             this._observedSectionDatas.some((observedSectionData: ObservedSectionData) => {
                 // Since threshold is 0, if callback has fired for element, isIntersecting == isVisible.
                 if (observedSectionData.element == entry.target) {
@@ -185,7 +215,7 @@ export default class ArticleGlobalService implements GlobalService {
 
                 return false;
             });
-        });
+        }
 
         // Don't update active section index if it is fixed
         if (this._activeSectionIndexFixed) {
