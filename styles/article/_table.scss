@@ -2,82 +2,84 @@
 
 .flexi-table-block {
     width: 100%;
+    overflow: auto;
 
-    @media #{$media-medium}, #{$media-wide} {
-        th {
-            padding: 7px 13px;
-            font-weight: 600;
-        }
-
-        th,
-        td {
-            border: 1px solid $color-divider-background;
-            text-align: center;
-
-            &.align-left {
-                text-align: left;
+    table {
+        @media #{$media-medium}, #{$media-wide} {
+            th {
+                padding: 7px 13px;
+                font-weight: 600;
             }
 
-            &.align-right {
-                text-align: right;
-            }
-        }
+            th,
+            td {
+                border: 1px solid $color-divider-background;
+                text-align: center;
 
-        td {
-            padding: 7px 14px;
-        }
-    }
-
-    // Card style
-    @media #{$media-narrow} {
-        display: block;
-
-        thead {
-            display: none;
-        }
-
-        tbody {
-            display: table;
-            width: 100%;
-        }
-
-        tr {
-            display: table-row-group;
-
-            &:nth-child(odd) {
-                background-color: $color-section-body-background;
-
-                a {
-                    @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
+                &.align-left {
+                    text-align: left;
                 }
 
-                *:not(pre) {
-                    > code {
-                        background-color: $color-primary-inline-code-dark-background;
+                &.align-right {
+                    text-align: right;
+                }
+            }
+
+            td {
+                padding: 7px 14px;
+            }
+        }
+        // Card style
+        @media #{$media-narrow} {
+            display: block;
+
+            thead {
+                display: none;
+            }
+
+            tbody {
+                display: table;
+                width: 100%;
+            }
+
+            tr {
+                display: table-row-group;
+
+                &:nth-child(odd) {
+                    background-color: $color-section-body-background;
+
+                    a {
+                        @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
+                    }
+
+                    *:not(pre) {
+                        > code {
+                            background-color: $color-primary-inline-code-dark-background;
+                        }
                     }
                 }
             }
-        }
 
-        td {
-            display: table-row;
+            td {
+                display: table-row;
 
-            &:before {
-                content: attr(data-label);
-                font-weight: 600;
-                text-align: left;
-            }
+                &:before {
+                    content: attr(data-label);
+                    font-weight: 600;
+                    text-align: left;
+                }
 
-            &:before, > span {
-                vertical-align: middle;
-                padding: 7px 14px;
-                display: table-cell;
-                border: 1px solid $color-divider-background;
-            }
-
-            &.align-left {
                 &:before, > span {
-                    vertical-align: top;
+                    vertical-align: middle;
+                    padding: 7px 14px;
+                    display: table-cell;
+                    border: 1px solid $color-divider-background;
+                }
+
+                &.align-left {
+                    &:before, > span {
+                        vertical-align: top;
+                    }
                 }
             }
         }
