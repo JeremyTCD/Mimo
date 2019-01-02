@@ -3,7 +3,27 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.29...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.30...HEAD)
+
+## [1.0.0-alpha.30](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.29...1.0.0-alpha.30) - Jan 2, 2019
+### Fixes
+- Fixed several `ArticleGlobalService` bugs.
+  - Fixed issues with rootMargin top.
+  - Added a workaround for active section detection on Chrome for Android.
+- Fixed margin tops for direct children of alert content and blockquotes.
+
+### Additions
+- Added styles for cards.
+- Added several general use icons.
+- Added default fonts.
+- Added metadata for icons on different platforms.
+- Added styles for Prism syntax highlighting elements.
+
+### Changes
+- Fixed the max-width of long-form text boxes for better readability.
+- Simplified markup.
+- Changed table styles so tables can scroll if they overflow.
+
 
 ## [1.0.0-alpha.29](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.28...1.0.0-alpha.29) - Dec 8, 2018
 ### Fixes
