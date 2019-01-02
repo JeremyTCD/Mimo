@@ -95,7 +95,6 @@ code {
     font-size: $font-size-2;
     padding: 3px 5px;
     background-color: $color-primary-inline-code-background;
-
     /*
         TODO incomplete
         Styles for Prism.js
@@ -117,7 +116,11 @@ code {
     }
 
     &.language-html {
-        color: #a31515;
+        color: #000;
+
+        .tag {
+            color: #a31515;
+        }
 
         .punctuation {
             color: #00f;
@@ -130,10 +133,18 @@ code {
         .attr-value {
             color: #00f;
         }
+
+        .comment {
+            color: #008000;
+        }
     }
 
     &.language-css {
         color: #00f;
+
+        .comment {
+            color: #008000;
+        }
 
         .punctuation {
             color: black;
@@ -141,6 +152,14 @@ code {
 
         .class {
             color: #a31515;
+        }
+
+        .rule {
+            color: #800080;
+        }
+
+        .selector {
+            color: #800000;
         }
 
         .property {
