@@ -67,91 +67,87 @@ module.exports = (docfxProjectDir) => {
                 });
             }
 
-            try {
-                // Get sprite sheet
-                var symbolsRaw = compilation.assets["sprite.svg"].source();
-                var $symbols = cheerio.load(symbolsRaw);
+            // Get sprite sheet
+            var symbolsRaw = compilation.assets["sprite.svg"].source();
+            var $symbols = cheerio.load(symbolsRaw);
 
-                // Update search index - Inline svgs. Rename if in production mode.
-                // Might be index.json, might be index.<hash>.json if DocFx didn't run between previous and current webpack builds.
-                var searchIndexGlob = Path.join(docfxProjectDir, './bin/_site/resources/index*.json');
-                var searchIndexFile = Glob.sync(searchIndexGlob)[0];
-                var searchIndexJson = JSON.parse(Fs.readFileSync(searchIndexFile, "utf8"));
-                for (var property in searchIndexJson) {
-                    if (searchIndexJson.hasOwnProperty(property)) {
-                        var searchItem = searchIndexJson[property];
-                        var snippetHtml = searchItem.snippetHtml;
-                        var snippet = cheerio.load(snippetHtml);
+            // Update search index - Inline svgs. Rename if in production mode.
+            // Might be index.json, might be index.<hash>.json if DocFx didn't run between previous and current webpack builds.
+            var searchIndexGlob = Path.join(docfxProjectDir, './bin/_site/resources/index*.json');
+            var searchIndexFile = Glob.sync(searchIndexGlob)[0];
+            var searchIndexJson = JSON.parse(Fs.readFileSync(searchIndexFile, "utf8"));
+            for (var property in searchIndexJson) {
+                if (searchIndexJson.hasOwnProperty(property)) {
+                    var searchItem = searchIndexJson[property];
+                    var snippetHtml = searchItem.snippetHtml;
+                    var snippet = cheerio.load(snippetHtml);
 
-                        replaceUseElements(snippet);
-                        searchItem.snippetHtml = isProduction ? minify(snippet.html(), minificationOptions) : snippet.html();
-                    }
+                    replaceUseElements(snippet);
+                    searchItem.snippetHtml = isProduction ? minify(snippet.html(), minificationOptions) : snippet.html();
                 }
-                var resultSearchIndexJson = JSON.stringify(searchIndexJson);
-                Fs.writeFileSync(searchIndexFile, resultSearchIndexJson);
-                if (isProduction) {
-                    var newFileName = 'index.' + md5(resultSearchIndexJson) + '.json';
+            }
+            var resultSearchIndexJson = JSON.stringify(searchIndexJson);
+            Fs.writeFileSync(searchIndexFile, resultSearchIndexJson);
+            if (isProduction) {
+                var newFileName = 'index.' + md5(resultSearchIndexJson) + '.json';
 
-                    // Add hash to index.json file name
-                    newFile = Path.join(docfxProjectDir, `./bin/_site/resources/${newFileName}`);
-                    Fs.renameSync(searchIndexFile, newFile);
-                }
-
-                // Update all pages - Inline svgs. Add hashes to srcs and hrefs and minify html if in production mode.
-                var htmlFilesGlob = Path.join(docfxProjectDir, './bin/_site/**/*.html');
-                var htmlFiles = Glob.sync(htmlFilesGlob);
-
-                for (var i = 0; i < htmlFiles.length; i++) {
-                    var file = htmlFiles[i];
-                    var html = Fs.readFileSync(file, "utf8");
-
-                    // Parse html using cheerio
-                    const $ = cheerio.load(html);
-
-                    // Ignore html snippets, like tocs
-                    if ($('html').length === 0) {
-                        continue;
-                    }
-
-                    // Replace use elements
-                    replaceUseElements($);
-
-                    var result;
-
-                    if (isProduction) {
-                        // Insert hashes into bundle names
-                        var jsBundleScriptElement = $('script[src*="/resources/bundle"][src$=".js"]');
-                        var jsBundleSrc = jsBundleScriptElement.attr('src');
-                        var jsBundleDir = jsBundleSrc.substring(0, jsBundleSrc.lastIndexOf('/') + 1);
-                        var jsBundleSrcWithHash = jsBundleDir + 'bundle.' + compilation.namedChunks.get("bundle").contentHash["javascript"] + '.min.js';
-                        jsBundleScriptElement.attr('src', jsBundleSrcWithHash);
-
-                        var cssBundleScriptElement = $('link[href*="/resources/bundle"][href$=".css"]');
-                        var cssBundleHref = cssBundleScriptElement.attr('href');
-                        var cssBundleDir = cssBundleHref.substring(0, cssBundleHref.lastIndexOf('/') + 1);
-                        var cssBundleHrefWithHash = cssBundleDir + 'bundle.' + compilation.namedChunks.get("bundle").contentHash["css/mini-extract"] + '.min.css';
-                        cssBundleScriptElement.attr('href', cssBundleHrefWithHash);
-
-                        // Insert hash into search index name
-                        var searchIndexLinkElement = $('link[href*="/resources/index"][href$=".json"]');
-                        var searchIndexHref = searchIndexLinkElement.attr('href');
-                        var searchIndexDir = searchIndexHref.substring(0, searchIndexHref.lastIndexOf('/') + 1);
-                        searchIndexLinkElement.attr('href', searchIndexDir + newFileName);
-
-                        // Minify html
-                        result = minify($.html(), minificationOptions);
-                    } else {
-                        result = $.html();
-                    }
-
-                    // Write file
-                    Fs.writeFileSync(file, result);
-                }
-            } catch (error) {
-                callback(error); // Doesn't seem to work, webpack 4 documentation doesn't mention error handling.
+                // Add hash to index.json file name
+                newFile = Path.join(docfxProjectDir, `./bin/_site/resources/${newFileName}`);
+                Fs.renameSync(searchIndexFile, newFile);
             }
 
-            callback();            
+            // Update all pages - Inline svgs. Add hashes to srcs and hrefs and minify html if in production mode.
+            var htmlFilesGlob = Path.join(docfxProjectDir, './bin/_site/**/*.html');
+            var htmlFiles = Glob.sync(htmlFilesGlob);
+
+            for (var i = 0; i < htmlFiles.length; i++) {
+                var file = htmlFiles[i];
+                var html = Fs.readFileSync(file, "utf8");
+
+                // Parse html using cheerio
+                const $ = cheerio.load(html);
+
+                // Ignore html snippets, like tocs
+                if ($('html').length === 0) {
+                    continue;
+                }
+
+                // Replace use elements
+                replaceUseElements($);
+
+                var result;
+
+                if (isProduction) {
+                    // Insert hashes into bundle names
+                    var jsBundleScriptElement = $('script[src*="/resources/bundle"][src$=".js"]');
+                    var jsBundleSrc = jsBundleScriptElement.attr('src');
+                    var jsBundleDir = jsBundleSrc.substring(0, jsBundleSrc.lastIndexOf('/') + 1);
+                    var jsBundleSrcWithHash = jsBundleDir + 'bundle.' + compilation.namedChunks.get("bundle").contentHash["javascript"] + '.min.js';
+                    jsBundleScriptElement.attr('src', jsBundleSrcWithHash);
+
+                    var cssBundleScriptElement = $('link[href*="/resources/bundle"][href$=".css"]');
+                    var cssBundleHref = cssBundleScriptElement.attr('href');
+                    var cssBundleDir = cssBundleHref.substring(0, cssBundleHref.lastIndexOf('/') + 1);
+                    var cssBundleHrefWithHash = cssBundleDir + 'bundle.' + compilation.namedChunks.get("bundle").contentHash["css/mini-extract"] + '.min.css';
+                    cssBundleScriptElement.attr('href', cssBundleHrefWithHash);
+
+                    // Insert hash into search index name
+                    var searchIndexLinkElement = $('link[href*="/resources/index"][href$=".json"]');
+                    var searchIndexHref = searchIndexLinkElement.attr('href');
+                    var searchIndexDir = searchIndexHref.substring(0, searchIndexHref.lastIndexOf('/') + 1);
+                    searchIndexLinkElement.attr('href', searchIndexDir + newFileName);
+
+                    // Minify html
+                    result = minify($.html(), minificationOptions);
+                } else {
+                    result = $.html();
+                }
+
+                // Write file
+                Fs.writeFileSync(file, result);
+            }
+
+            callback();
         });
     };
 
