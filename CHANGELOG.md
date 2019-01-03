@@ -3,7 +3,11 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.30...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.31...HEAD)
+
+## [1.0.0-alpha.31](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.30...1.0.0-alpha.31) - Jan 3, 2019
+### Fixes
+- Fixed `distBuilder.js` not copying webpackResources folder to dist.
 
 ## [1.0.0-alpha.30](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.29...1.0.0-alpha.30) - Jan 2, 2019
 ### Fixes
