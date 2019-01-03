@@ -62,7 +62,7 @@ class DistBuilder {
             console.log(`distDir: ${distDir}`);
         }
 
-        let include = ['fonts', 'resources', 'styles', 'templates', 'tools', 'typings', 'misc'];
+        let include = ['fonts', 'resources', 'styles', 'templates', 'tools', 'typings', 'misc', 'webpackResources'];
         // TODO ignore sass cache folder
         let ignore = ['obj', 'distTools'];
         let promises = [];
