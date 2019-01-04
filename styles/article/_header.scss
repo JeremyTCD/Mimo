@@ -42,7 +42,7 @@ section {
         font-size: $font-size-6;
         font-weight: 600;
 
-        a:not(.no-animated-underline) {
+        a {
             @include animated-underline($color-primary-link, $animated-underline-28px-ypos, 3px, $background-color: $color-primary);
         }
     }

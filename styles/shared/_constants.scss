@@ -143,6 +143,22 @@ $horizontal-edge-wide: 30px !default;
     }
 }
 
+@mixin disable-animated-underline {
+    background-image: initial;
+    background-repeat: initial;
+    background-position: initial;
+    background-size: initial;
+    display: initial;
+    transition: initial;
+    text-shadow: initial;
+
+    &:hover{
+        background-size: initial;
+        transition-delay: initial;
+        text-shadow: initial;
+    }
+}
+
 @mixin animated-underline($color, $y-position, $underline-height: 1px, $duration: $medium-animation-duration, $background-color: null) {
     @include animated-underline-core($color, $y-position, $underline-height);
     // Text shadow must remain until underline has transitioned out

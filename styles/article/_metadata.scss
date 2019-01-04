@@ -6,6 +6,11 @@
     margin-top: 10px;
     margin-bottom: 20px;
 
+    a{
+        @include disable-animated-underline;
+        display: flex;
+    }
+
     & + #article-menu {
         margin-top: 22px;
     }

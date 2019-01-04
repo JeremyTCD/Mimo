@@ -53,10 +53,13 @@ article {
     > *:not(.meta):not(h1):not(section) {
         margin-top: 20px;
     }
-
     // Try to make long-form text as readable as possible
     p {
         max-width: 800px;
+    }
+
+    a {
+        @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-primary);
     }
 
     section {
@@ -75,10 +78,6 @@ article {
             height: 1px;
             border: 0;
             background-color: $color-section-header-background;
-        }
-
-        a:not(.no-animated-underline) {
-            @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-primary);
         }
 
         em {

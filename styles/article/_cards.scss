@@ -28,6 +28,10 @@
         transition: transform $short-animation-duration $ease-out-quad;
         position: relative;
 
+        a{
+            @include disable-animated-underline;
+        }
+
         &:hover {
             transition: transform $short-animation-duration $ease-out-back-delayed;
             transform: scale(1.2);
