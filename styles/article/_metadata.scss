@@ -22,6 +22,7 @@
         flex-wrap: wrap;
 
         li {
+            margin-top: 0;
             align-items: center;
 
             &:nth-last-child(n+2) {

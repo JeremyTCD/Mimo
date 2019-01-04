@@ -49,6 +49,11 @@ article {
     @import './metadata';
     @import './header';
     @import './cards';
+    @import './alert';
+    @import './code';
+    @import './table';
+    @import './list';
+    @import './blockquote';
 
     > *:not(.meta):not(h1):not(section) {
         margin-top: 20px;
@@ -63,11 +68,6 @@ article {
     }
 
     section {
-        @import './alert';
-        @import './code';
-        @import './table';
-        @import './list';
-        @import './blockquote';
 
         > * {
             margin-top: 20px;
