@@ -16,6 +16,20 @@
                 </svg>
             </a>
             {{/mimo_twitterLink}}
+            {{#mimo_linkedinLink}}
+            <a class="linkedin-link" href="{{mimo_linkedinLink}}">
+                <svg>
+                    <use xlink:href="#ion-icons-logo-linkedin" />
+                </svg>
+            </a>
+            {{/mimo_linkedinLink}}
+            {{#mimo_redditLink}}
+            <a class="reddit-link" href="{{mimo_redditLink}}">
+                <svg>
+                    <use xlink:href="#custom-logo-reddit" />
+                </svg>
+            </a>
+            {{/mimo_redditLink}}
             {{#mimo_instagramLink}}
             <a class="instagram-link" href="{{mimo_instagramLink}}">
                 <svg>
@@ -30,13 +44,6 @@
                 </svg>
             </a>
             {{/mimo_facebookLink}}
-            {{#mimo_linkedinLink}}
-            <a class="linkedin-link" href="{{mimo_linkedinLink}}">
-                <svg>
-                    <use xlink:href="#ion-icons-logo-linkedin" />
-                </svg>
-            </a>
-            {{/mimo_linkedinLink}}
         </div>
         {{/mimo_displaySocialMediaLinks}}
 
