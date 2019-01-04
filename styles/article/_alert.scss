@@ -5,7 +5,7 @@
     border-left: 3px solid;
     padding: 20px 20px;
 
-    svg {
+    > svg {
         margin-right: 14px;
         height: 24px;
         width: 24px;
@@ -43,7 +43,7 @@
         }
     }
 
-    svg {
+    > svg {
         fill: $color-secondary;
     }
 }
@@ -58,7 +58,7 @@
         }
     }
 
-    svg {
+    > svg {
         fill: $color-alert-warning;
     }
 }
@@ -73,7 +73,7 @@
         }
     }
 
-    svg {
+    > svg {
         fill: $color-alert-critical-warning;
     }
 }
