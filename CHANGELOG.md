@@ -3,7 +3,16 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.31...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.32...HEAD)
+
+## [1.0.0-alpha.32](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.31...1.0.0-alpha.32) - Jan 5, 2019
+### Fixes
+- Fixed styling for SVGs in alert blocks.
+- Fixed padding and margin top for first element in alert block content.
+- Fixed styling for alerts, code blocks, tables, lists and blockquotes that aren't children of a section.
+- Fixed animated underlining not working for some anchors in articles.
+### Additions
+- Added reddit logo.
 
 ## [1.0.0-alpha.31](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.30...1.0.0-alpha.31) - Jan 3, 2019
 ### Fixes
@@ -15,19 +24,16 @@ for an overview of semantic versioning.
   - Fixed issues with rootMargin top.
   - Added a workaround for active section detection on Chrome for Android.
 - Fixed margin tops for direct children of alert content and blockquotes.
-
 ### Additions
 - Added styles for cards.
 - Added several general use icons.
 - Added default fonts.
 - Added metadata for icons on different platforms.
 - Added styles for Prism syntax highlighting elements.
-
 ### Changes
 - Fixed the max-width of long-form text boxes for better readability.
 - Simplified markup.
 - Changed table styles so tables can scroll if they overflow.
-
 
 ## [1.0.0-alpha.29](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.28...1.0.0-alpha.29) - Dec 8, 2018
 ### Fixes
