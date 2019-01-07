@@ -25,12 +25,14 @@ $color-divider-background: #ddd !default;
 $color-code-divider-background: #a5a5a5 !default;
 $color-code-line-numbers: #2b91af !default;
 
-$card-small-height: 249px;
-$card-small-width: 184px;
-$card-medium-height: 329px;
-$card-medium-width: 243px;
-$card-horizontal-edge: 36px;
-$card-vertical-edge: 36px;
+$card-small-height: 249px !default;
+$card-small-width: 184px !default;
+$card-medium-height: 329px !default;
+$card-medium-width: 243px !default;
+$card-horizontal-edge: 36px !default;
+$card-vertical-edge: 36px !default;
+$card-content-icon-grid-icon-size: 28px !default;
+$card-content-icon-grid-gap-width: 14px !default;
 
 $opacity-blockquote: 0.06 !default;
 $opacity-1: 0.45 !default;
@@ -154,7 +156,7 @@ $horizontal-edge-wide: 30px !default;
     transition: initial;
     text-shadow: initial;
 
-    &:hover{
+    &:hover {
         background-size: initial;
         transition-delay: initial;
         text-shadow: initial;
@@ -238,4 +240,34 @@ $horizontal-edge-wide: 30px !default;
     transform: translateY(0);
     transition: transform $medium-animation-duration $ease-out-quad;
     will-change: transform;
+}
+
+// Styles for article elements in display pages, like indexes and landing pages
+@mixin display-page {
+    #core {
+        border-top: none;
+        padding: 0;
+
+        main {
+            padding: 0;
+
+            article {
+                margin-top: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+
+                > h1.title {
+                    display: none;
+                }
+
+                .content {
+                    @include horizontal-edge-margin;
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 59px;
+                }
+            }
+        }
+    }
 }
