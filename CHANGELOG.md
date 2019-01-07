@@ -3,7 +3,11 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jering.tech/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.33...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.34...HEAD)
+
+## [1.0.0-alpha.34](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.33...1.0.0-alpha.34) - Jan 7, 2019
+### Changes
+- Made vertical padding the same for small and medium banners.
 
 ## [1.0.0-alpha.33](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.32...1.0.0-alpha.33) - Jan 7, 2019
 ### Changes
