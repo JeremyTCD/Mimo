@@ -56,7 +56,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 0;
-    padding: 46px 0;
+    padding: 59px 0;
     background-color: $color-brand;
     align-items: center;
     @include horizontal-edge-padding;
@@ -78,13 +78,13 @@
     }
 
     h1 {
-        margin-top: 0px;
         color: $color-secondary-text;
         text-align: center;
+        line-height: 1;
     }
 
     p {
-        margin-top: 14px;
+        margin-top: 23px;
         color: $color-secondary-text;
         text-align: center;
     }
