@@ -44,6 +44,12 @@
     }
 }
 
+article, section {
+    > * {
+        margin-top: 20px;
+    }
+}
+
 article {
     // h1 and metadata are direct children of article and so aren't within any section
     @import './metadata';
@@ -54,12 +60,8 @@ article {
     @import './table';
     @import './list';
     @import './blockquote';
-
-    > *:not(.meta):not(h1):not(section) {
-        margin-top: 20px;
-    }
-    // Try to make long-form text as readable as possible
     @import './banner';
+    // Make long-form text as readable as possible
     p {
         max-width: 800px;
     }
@@ -69,11 +71,6 @@ article {
     }
 
     section {
-
-        > * {
-            margin-top: 20px;
-        }
-
         hr {
             width: 100%;
             height: 1px;
