@@ -59,6 +59,7 @@ article {
         margin-top: 20px;
     }
     // Try to make long-form text as readable as possible
+    @import './banner';
     p {
         max-width: 800px;
     }

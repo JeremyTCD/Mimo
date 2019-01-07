@@ -1,0 +1,91 @@
+﻿@import '../shared/constants';
+
+.banner-medium {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 59px 0;
+    background-color: $color-brand;
+    @include horizontal-edge-padding;
+
+    div {
+        margin-top: 0;
+        max-width: initial;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        div {
+            height: 329px;
+            width: 243px;
+            background-color: $color-primary;
+            display: flex;
+            align-items: center;
+
+            svg {
+                height: 249px;
+                width: 184px;
+                margin-top: 0px;
+            }
+        }
+    }
+
+    h2 {
+        font-size: $font-size-7;
+        text-align: center;
+        margin-top: 23px;
+        color: $color-secondary-text;
+        line-height: 1;
+        font-weight: 700;
+    }
+
+    span {
+        color: $color-secondary-text;
+        font-size: $font-size-5;
+        margin-top: 23px;
+        text-align: center;
+        font-weight: 600;
+        line-height: 1;
+    }
+}
+
+.banner-small {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    padding: 46px 0;
+    background-color: $color-brand;
+    align-items: center;
+    @include horizontal-edge-padding;
+
+    div {
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+
+        svg {
+            width: 140px;
+            fill: $color-primary;
+            opacity: 0.2;
+        }
+    }
+
+    h1 {
+        margin-top: 0px;
+        color: $color-secondary-text;
+        text-align: center;
+    }
+
+    p {
+        margin-top: 14px;
+        color: $color-secondary-text;
+        text-align: center;
+    }
+}
