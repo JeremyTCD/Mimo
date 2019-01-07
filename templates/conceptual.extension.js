@@ -52,11 +52,11 @@ exports.preTransform = function (model) {
     model.mimo_fontPreloads = fontPreloads;
 
     return model;
-}
+};
 
 /**
  * This method will be called at the end of exports.transform in conceptual.html.primary.js
  */
 exports.postTransform = function (model) {
     return model;
-}
+};
