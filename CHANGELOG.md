@@ -1,9 +1,17 @@
 # Changelog
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html). Refer to 
-[The Semantic Versioning Lifecycle](https://www.jeremytcd.com/articles/the-semantic-versioning-lifecycle)
+[The Semantic Versioning Lifecycle](https://www.jering.tech/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.32...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.33...HEAD)
+
+## [1.0.0-alpha.33](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.32...1.0.0-alpha.33) - Jan 7, 2019
+### Changes
+- Bumped `JeremyTCD.DocFx.Plugins` to 0.8.0.
+### Additions
+- Added css classes `banner-medium` and `banner-small` for banners.
+- Added css class `card-content-icon-grid` for cards that contain grids of icons.
+- Added `display-page` SCSS mixin for landing pages etc.
 
 ## [1.0.0-alpha.32](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.31...1.0.0-alpha.32) - Jan 5, 2019
 ### Fixes
