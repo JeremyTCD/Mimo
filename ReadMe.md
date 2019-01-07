@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/JeremyTCD/Mimo/_apis/build/status/Mimo-CI)](https://dev.azure.com/JeremyTCD/Mimo/_build/latest?definitionId=8)
+[![Build Status](https://dev.azure.com/JeremyTCD/Mimo/_apis/build/status/Mimo-CI?branchName=master)](https://dev.azure.com/JeremyTCD/Mimo/_build/latest?definitionId=8?branchName=master)
 
 Mimo is a tool that dynamically generates DocFX themes and websites from said themes.  
 
