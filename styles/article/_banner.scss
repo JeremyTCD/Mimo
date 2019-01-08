@@ -1,5 +1,6 @@
 ﻿@import '../shared/constants';
 
+/* TODO needs cleaning up. These styles were plucked out of jering.tech's styles, many are situational. */
 .banner-medium {
     margin-top: 0;
     display: flex;
@@ -48,6 +49,10 @@
         text-align: center;
         font-weight: 600;
         line-height: 1;
+
+        a {
+            @include animated-underline($color-secondary-link, $animated-underline-15px-inline-ypos, $background-color: $color-brand);
+        }
     }
 }
 
@@ -78,14 +83,22 @@
     }
 
     h1 {
+        position: relative;
+        z-index: 2;
         color: $color-secondary-text;
         text-align: center;
         line-height: 1;
     }
 
     p {
+        position: relative;
+        z-index: 2;
         margin-top: 23px;
         color: $color-secondary-text;
         text-align: center;
+
+        a {
+            @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: transparent);
+        }
     }
 }
