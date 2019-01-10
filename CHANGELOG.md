@@ -3,7 +3,13 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 [The Semantic Versioning Lifecycle](https://www.jering.tech/articles/the-semantic-versioning-lifecycle)
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.36...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.37...HEAD)
+
+## [1.0.0-alpha.37](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.36...1.0.0-alpha.37) - Jan 10, 2019
+### Additions
+- Added SCSS variable `$color-brand-link`.
+### Changes
+- Added `will-change: transform` to more elements to avoid unecessary paints.
 
 ## [1.0.0-alpha.36](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.35...1.0.0-alpha.36) - Jan 9, 2019
 ### Changes
