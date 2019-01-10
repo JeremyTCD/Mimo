@@ -85,6 +85,7 @@
                 #share-article-links-wrapper {
                     display: flex;
                     transition: transform $medium-animation-duration $ease-out-quad;
+                    will-change: transform;
                     transform: translateX(-100%);
                     background-color: $color-secondary;
                     padding: 11px;
@@ -101,6 +102,7 @@
                         flex-shrink: 0;
                         transition: transform $short-animation-duration $ease-out-quad;
                         transform: scale(1);
+                        will-change: transform;
 
                         &:nth-child(n+2) {
                             margin-left: 10px;

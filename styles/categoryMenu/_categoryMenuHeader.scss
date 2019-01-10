@@ -40,6 +40,7 @@
             fill: $color-secondary-text;
             transform: rotate(0);
             transition: transform $medium-animation-duration $ease-out-quad;
+            will-change: transform;
         }
 
         &.expanded {

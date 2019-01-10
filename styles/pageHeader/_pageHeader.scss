@@ -35,6 +35,7 @@
             margin-right: auto;
             flex-shrink: 0;
             transition: transform $short-animation-duration $ease-out-quad;
+            will-change: transform;
 
             svg {
                 height: 59px;
@@ -53,6 +54,7 @@
 
             &:hover {
                 transition: transform $short-animation-duration $ease-out-back-delayed;
+                will-change: initial; // This is necessary to ensure that contents get re-rastered
                 transform: scale(1.2);
             }
         }
@@ -78,6 +80,7 @@
 
                 background-color: $color-primary-link;
                 transition: transform $medium-animation-duration $ease-out-quad;
+                will-change: transform;
             }
 
             &:hover, &:focus {

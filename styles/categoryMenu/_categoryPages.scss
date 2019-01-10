@@ -45,6 +45,7 @@
                 svg {
                     transform: rotate(0deg);
                     transition: transform $medium-animation-duration $ease-out-quad, fill $medium-animation-duration $ease-out-quad $long-anti-flicker-delay;
+                    will-change: transform;
                     fill: $color-primary-icon;
                 }
 
@@ -73,6 +74,7 @@
                 button {
                     margin-right: 1px;
                     margin-left: 2px;
+
                     svg {
                         flex-shrink: 0;
                         height: 18px;

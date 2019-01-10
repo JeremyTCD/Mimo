@@ -12,6 +12,7 @@
     // When viewport vertical height is small, footer should be infront of side menus
     position: relative;
     z-index: 1;
+    will-change: transform; // TODO If this isn't specified, the element gets repainted everytime an element anywhere on the page transitions. Why?
 
     a {
         color: inherit;
@@ -61,7 +62,7 @@
 
             span {
                 align-items: center;
-                 
+
                 &:nth-last-child(n+2) {
                     &::after {
                         content: "";
@@ -106,6 +107,7 @@
             a {
                 margin-right: 16px;
                 transition: transform $short-animation-duration $ease-out-quad;
+                will-change: transform;
 
                 &:last-child {
                     margin-right: 0px;
@@ -137,6 +139,7 @@
 
         a {
             transition: transform $short-animation-duration $ease-out-quad;
+            will-change: transform;
 
             &:hover {
                 transition: transform $short-animation-duration $ease-out-back-delayed;

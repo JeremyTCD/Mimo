@@ -28,6 +28,7 @@
     .card {
         background-color: $color-secondary;
         transition: transform $short-animation-duration $ease-out-quad;
+        will-change: transform;
         position: relative;
 
         a {
@@ -36,6 +37,7 @@
 
         &:hover {
             transition: transform $short-animation-duration $ease-out-back-delayed;
+            will-change: initial; // This is necessary to ensure that the card gets re-rastered while avoiding repaints of all other cards - https://googlechrome.github.io/samples/css-will-change-transform-rasterization/
             transform: scale(1.2);
         }
 
