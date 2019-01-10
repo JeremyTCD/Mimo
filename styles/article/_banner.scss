@@ -100,7 +100,8 @@
         text-align: center;
 
         a {
-            @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: transparent);
+            color: $color-brand-link;
+            @include animated-underline($color-brand-link, $animated-underline-15px-inline-ypos, $background-color: transparent);
         }
     }
 }
