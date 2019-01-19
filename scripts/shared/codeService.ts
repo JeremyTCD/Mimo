@@ -27,7 +27,6 @@ export default class CodeService {
             // Setup tippy for copy button
             let copyButtonElement = codeBlockElement.querySelector("button") as HTMLElement;
             copyButtonElement.setAttribute('title', 'Code copied');
-            copyButtonElement.setAttribute('data-clipboard-target', `.line-text`);
             this._tooltipService.setupElement(copyButtonElement, 'left');
 
             // Setup copying to clipboard
@@ -35,7 +34,7 @@ export default class CodeService {
             let lineTextElements = codeElement.querySelectorAll('.line-text');
             let lineTextElementsLastIndex = lineTextElements.length - 1;
             lineTextElements.forEach((value: Element, index: number) => {
-                code += (value as HTMLSpanElement).innerText + (index ==  lineTextElementsLastIndex ? '' : '\n');
+                code += (value as HTMLSpanElement).innerText + (index ==  lineTextElementsLastIndex ? '' : '\n'); // innerText does not include pseudo element content
             });
             new Clipboard(copyButtonElement, {
                 text: function () {

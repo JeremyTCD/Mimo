@@ -69,6 +69,10 @@
                     &:not(:first-child) {
                         padding-left: 14px;
                     }
+
+                    &:empty:after{
+                        content: "\00a0";
+                    }
                 }
 
                 .line-number {
