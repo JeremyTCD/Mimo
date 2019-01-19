@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="JeremyTCD.DocFx.Plugins" Version="0.8.0"/>
+        <PackageReference Include="JeremyTCD.DocFx.Plugins" Version="0.9.0"/>
     </ItemGroup>
 
     <!-- Including DocAsCode assemblies will cause errors -->
