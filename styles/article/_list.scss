@@ -16,19 +16,12 @@ ul {
 
 li {
     display: list-item;
-    margin-top: 10px;
 
-    &:first-child {
-        margin-top: 0;
+    &:not(:first-child) {
+        margin-top: 20px;
     }
-    // If a nested list is the first child of a list item, it has no top margin
-    ul, ol {
-        &:first-child {
-            li {
-                &:first-child {
-                    margin-top: 10px;
-                }
-            }
-        }
+
+    > *:not(:first-child) {
+        margin-top: 20px;
     }
 }

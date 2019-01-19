@@ -8,13 +8,13 @@ blockquote {
     font-style: italic;
     padding: 20px 20px;
 
+    > *:not(:first-child) {
+        margin-top: 20px;
+    }
+
     p {
         a {
             @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
         }
-    }
-
-    > *:not(:first-child){
-        margin-top: 20px;
     }
 }
