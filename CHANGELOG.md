@@ -1,9 +1,18 @@
 # Changelog
-This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html). Refer to 
-[The Semantic Versioning Lifecycle](https://www.jering.tech/articles/the-semantic-versioning-lifecycle)
+This project uses [semantic versioning](http://semver.org/spec/v2.0.0.html). Refer to 
+*[Semantic Versioning in Practice](https://www.jering.tech/articles/semantic-versioning-in-practice)*
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.37...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.38...HEAD)
+
+## [1.0.0-alpha.38](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.37...1.0.0-alpha.38) - Jan 19, 2019
+### Changes
+- Bumped `JeremyTCD.DocFx.Plugins` to 0.9.0.
+- Improved handling of empty lines in code blocks.
+- Tweaked top margins of elements in articles.
+### Fixes
+- Fixed emphasis and strong styles not applying outside of section elements.
+- Fixed mistake in table card mode styles.
 
 ## [1.0.0-alpha.37](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.36...1.0.0-alpha.37) - Jan 10, 2019
 ### Additions
