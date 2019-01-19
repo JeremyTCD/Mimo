@@ -70,24 +70,24 @@ article {
         @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-primary);
     }
 
+    hr {
+        width: 100%;
+        height: 1px;
+        border: 0;
+        background-color: $color-section-header-background;
+    }
+
+    em {
+        font-style: italic;
+        font-weight: inherit;
+    }
+
+    strong {
+        font-weight: 600;
+        font-style: inherit;
+    }
+
     section {
-        hr {
-            width: 100%;
-            height: 1px;
-            border: 0;
-            background-color: $color-section-header-background;
-        }
-
-        em {
-            font-style: italic;
-            font-weight: inherit;
-        }
-
-        strong {
-            font-weight: 600;
-            font-style: inherit;
-        }
-
         .tabGroup {
             display: flex;
             flex-direction: column;
