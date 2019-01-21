@@ -1,4 +1,4 @@
-<main role="main">
+<main>
 	{{>partials/article/article}}
 	{{>partials/sortedArticleList/sortedArticleList}}
     {{>partials/comments/comments}}
