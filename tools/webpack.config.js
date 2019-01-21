@@ -45,7 +45,7 @@ module.exports = (docfxProjectDir) => {
                 removeAttributeQuotes: true,
                 removeComments: true,
                 removeEmptyAttributes: true,
-                removeOptionalTags: true,
+                removeOptionalTags: false,
                 removeRedundantAttributes: true,
                 removeScriptTypeAttributes: true,
                 removeStyleLinkTypeAttributes: true,
