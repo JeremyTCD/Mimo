@@ -31,31 +31,32 @@
   
     {{#mimo_socialMediaCards}}
     <!-- Open Graph tags and assorted metadata used by social media sites -->
-    <!-- Shared -->
-    <meta property="og:url" content="{{mimo_baseUrl}}{{mimo_pageRelPath}}" />
-    <meta property="og:title" content="{{#mimo_cardTitle}}{{mimo_cardTitle}}{{/mimo_cardTitle}}{{^mimo_cardTitle}}{{{mimo_websiteName}}} - {{{mimo_pageTitle}}}{{/mimo_cardTitle}}" />
-    <meta property="og:description" content="{{#mimo_cardDescription}}{{mimo_cardDescription}}{{/mimo_cardDescription}}{{^mimo_cardDescription}}{{mimo_pageDescription}}{{/mimo_cardDescription}}" />
-    <!-- Facebook - https://developers.facebook.com/docs/sharing/webmasters#markup, validator https://developers.facebook.com/tools/debug/sharing (note specify mimo_cardFbCardType as website for home page) -->
-    <meta property="og:type" content="{{#mimo_fbCardType}}{{mimo_fbCardType}}{{/mimo_fbCardType}}{{^mimo_fbCardType}}article{{/mimo_fbCardType}}" />
-    <meta property="og:image" content="{{mimo_baseUrl}}{{#mimo_fbCardImageRelPath}}{{mimo_fbCardImageRelPath}}{{/mimo_fbCardImageRelPath}}{{^mimo_fbCardImageRelPath}}/resources/logo.png{{/mimo_fbCardImageRelPath}}" />
-    <meta property="og:image:width" content="{{#mimo_fbImageWidth}}{{mimo_fbImageWidth}}{{/mimo_fbImageWidth}}{{^mimo_fbImageWidth}}4096{{/mimo_fbImageWidth}}" />
-    <meta property="og:image:height" content="{{#mimo_fbImageHeight}}{{mimo_fbImageHeight}}{{/mimo_fbImageHeight}}{{^mimo_fbImageHeight}}2048{{/mimo_fbImageHeight}}" />
+    <!-- Facebook - https://developers.facebook.com/docs/sharing/webmasters#markup, validator https://developers.facebook.com/tools/debug/sharing (note specify mimo_ogType as website for home page) -->
+    <!-- LinkedIn validator - https://www.linkedin.com/post-inspector/ -->
+    <meta property="og:url" content="{{mimo_baseUrl}}/{{mimo_pageRelPath}}">
+    <meta property="og:title" content="{{#mimo_cardTitle}}{{mimo_cardTitle}}{{/mimo_cardTitle}}{{^mimo_cardTitle}}{{{mimo_pageTitle}}}{{/mimo_cardTitle}}">
+    <meta property="og:description" content="{{#mimo_cardDescription}}{{mimo_cardDescription}}{{/mimo_cardDescription}}{{^mimo_cardDescription}}{{mimo_pageDescription}}{{/mimo_cardDescription}}">
+    <meta property="og:type" content="{{#mimo_ogType}}{{mimo_ogType}}{{/mimo_ogType}}{{^mimo_ogType}}article{{/mimo_ogType}}">
+    <meta property="og:image:width" content="{{#mimo_ogImageWidth}}{{mimo_ogImageWidth}}{{/mimo_ogImageWidth}}{{^mimo_ogImageWidth}}4096{{/mimo_ogImageWidth}}">
+    <meta property="og:image:height" content="{{#mimo_ogImageHeight}}{{mimo_ogImageHeight}}{{/mimo_ogImageHeight}}{{^mimo_ogImageHeight}}2926{{/mimo_ogImageHeight}}">
+    <meta property="og:image:alt" content="Logo">
+    <meta property="og:image" content="{{mimo_baseUrl}}{{#mimo_ogImageRelPath}}{{mimo_ogImageRelPath}}{{/mimo_ogImageRelPath}}{{^mimo_ogImageRelPath}}/resources/logo_wide.png{{/mimo_ogImageRelPath}}">
     <!-- Twitter - https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/summary, validator https://cards-dev.twitter.com/validator -->
-    <meta name="twitter:card" content="{{#mimo_twitterCardType}}{{mimo_twitterCardType}}{{/mimo_twitterCardType}}{{^mimo_twitterCardType}}summary_large_image{{/mimo_twitterCardType}}" />
-    <meta name="twitter:image" content="{{mimo_baseUrl}}{{#mimo_twitterCardImageRelPath}}{{mimo_twitterCardImageRelPath}}{{/mimo_twitterCardImageRelPath}}{{^mimo_twitterCardImageRelPath}}/resources/logo.png{{/mimo_twitterCardImageRelPath}}" />
-    <meta name="twitter:image:alt" content="{{#mimo_twitterCardImageAlt}}{{mimo_twitterCardImageAlt}}{{/mimo_twitterCardImageAlt}}{{^mimo_twitterCardImageAlt}}Logo{{/mimo_twitterCardImageAlt}} " />
+    <meta name="twitter:card" content="{{#mimo_twitterCardType}}{{mimo_twitterCardType}}{{/mimo_twitterCardType}}{{^mimo_twitterCardType}}summary{{/mimo_twitterCardType}}">
+    <meta name="twitter:image" content="{{mimo_baseUrl}}{{#mimo_twitterCardImageRelPath}}{{mimo_twitterCardImageRelPath}}{{/mimo_twitterCardImageRelPath}}{{^mimo_twitterCardImageRelPath}}/resources/logo_square.png{{/mimo_twitterCardImageRelPath}}">
+    <meta name="twitter:image:alt" content="{{#mimo_twitterCardImageAlt}}{{mimo_twitterCardImageAlt}}{{/mimo_twitterCardImageAlt}}{{^mimo_twitterCardImageAlt}}Logo{{/mimo_twitterCardImageAlt}}">
     {{#mimo_twitterCardSite}}
-    <meta name="twitter:site" content="{{mimo_twitterCardSite}}" />
+    <meta name="twitter:site" content="{{mimo_twitterCardSite}}">
     {{/mimo_twitterCardSite}}
     {{#mimo_twitterCardCreator}}
-    <meta name="twitter:creator" content="{{mimo_twitterCardCreator}}" />
+    <meta name="twitter:creator" content="{{mimo_twitterCardCreator}}">
     {{/mimo_twitterCardCreator}}
     {{/mimo_socialMediaCards}}
 
     <!-- colors -->
     {{#mimo_addressBarColor}}
     <!-- chrome, opera and firefox -->
-    <meta name="theme-color" content="{{mimo_addressBarColor}}" />
+    <meta name="theme-color" content="{{mimo_addressBarColor}}">
     <!-- windows phone -->
     <meta name="msapplication-navbutton-color" content="{{mimo_addressBarColor}}">
     <meta name="msapplication-TileColor" content="{{mimo_addressBarColor}}">
