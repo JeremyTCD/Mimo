@@ -3,7 +3,15 @@ This project uses [semantic versioning](http://semver.org/spec/v2.0.0.html). Ref
 *[Semantic Versioning in Practice](https://www.jering.tech/articles/semantic-versioning-in-practice)*
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.38...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.39...HEAD)
+
+## [1.0.0-alpha.39](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.38...1.0.0-alpha.39) - Jan 21, 2019
+### Changes
+- Bumped JeremyTCD.DocFx.Plugins to 0.10.0.
+- Disabled removal of optional tags by HtmlMinifier in webpack.config.js.
+### Fixes
+- Cleaned up og and twitter meta tags.
+- Minor markup fixes.
 
 ## [1.0.0-alpha.38](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.37...1.0.0-alpha.38) - Jan 19, 2019
 ### Changes
