@@ -3,7 +3,13 @@ This project uses [semantic versioning](http://semver.org/spec/v2.0.0.html). Ref
 *[Semantic Versioning in Practice](https://www.jering.tech/articles/semantic-versioning-in-practice)*
 for an overview of semantic versioning.
 
-## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.39...HEAD)
+## [Unreleased](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.40...HEAD)
+
+## [1.0.0-alpha.40](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.39...1.0.0-alpha.40) - Jan 22, 2019
+### Changes
+- Improved formatting of share on twitter intent text.
+### Fixes
+- Bumped JeremyTCD.DocFx.Plugins to 0.11.0. Fixes mishandling of absolute URLs that point to internal pages.
 
 ## [1.0.0-alpha.39](https://github.com/JeremyTCD/Mimo/compare/1.0.0-alpha.38...1.0.0-alpha.39) - Jan 21, 2019
 ### Changes
