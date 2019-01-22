@@ -7,6 +7,43 @@ exports.preTransform = function (model) {
 
     model.mimo_shareArticleEnabled = model.mimo_shareOnFacebook || model.mimo_shareOnTwitter;
 
+    // Construct text for twitter intent
+    if (model.mimo_shareOnTwitter) {
+        var generatedText;
+
+        // Text
+        if (model.mimo_shareOnTwitter.text) {
+            generatedText = model.mimo_shareOnTwitter.text;
+        } else {
+            generatedText = model.mimo_pageTitle;
+        }
+
+        // Via
+        if (model.mimo_shareOnTwitter.via) {
+            generatedText += '\n\n';
+            generatedText += 'via @' + model.mimo_shareOnTwitter.via;
+        }
+
+        // Hashtags
+        if (model.mimo_shareOnTwitter.hashtags) {
+            generatedText += '\n\n';
+            var hashtags = model.mimo_shareOnTwitter.hashtags.split(',');
+            for (var i = 0; i < hashtags.length; i++) {
+                generatedText += '#' + hashtags[i];
+
+                if (i < hashtags.length - 1) {
+                    generatedText += ' ';
+                }
+            }
+        }
+
+        // Url
+        generatedText += '\n\n';
+        generatedText += model.mimo_baseUrl + '/' + model.mimo_pageRelPath;
+
+        model.mimo_shareOnTwitterText = encodeURIComponent(generatedText);
+    }
+
     // Both side menus are active
     if (!model.mimo_disableArticleMenu && !model.mimo_disableCategoryMenu) {
         model.mimo_innerCore = true;
@@ -23,7 +60,7 @@ exports.preTransform = function (model) {
         var logoWebsiteNameMarkup = '';
         var segments = model.mimo_websiteName.split('.');
 
-        for (var i = 0; i < segments.length; i++) {
+        for (i = 0; i < segments.length; i++) {
             var segment = segments[i];
             logoWebsiteNameMarkup += segment.toUpperCase();
 

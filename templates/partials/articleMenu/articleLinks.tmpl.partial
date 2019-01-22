@@ -26,13 +26,13 @@
                 </a>
                 {{/mimo_shareOnFacebook}}
 
-                {{#mimo_shareOnTwitter}}
-                <a href="https://twitter.com/intent/tweet?{{#text}}text={{{text}}}&{{/text}}{{#via}}via={{{via}}}&{{/via}}url={{mimo_baseUrl}}/{{mimo_pageRelPath}}{{#hashtags}}&hashtags={{{hashtags}}}{{/hashtags}}">
+                {{#mimo_shareOnTwitterText}}
+                <a href="https://twitter.com/intent/tweet?text={{mimo_shareOnTwitterText}}">
                     <svg>
                         <use xlink:href="#ion-icons-logo-twitter" />
                     </svg>
                 </a>
-                {{/mimo_shareOnTwitter}}
+                {{/mimo_shareOnTwitterText}}
             </div>
         </div>
     </div>
