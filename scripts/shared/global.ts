@@ -33,6 +33,8 @@ require('../../webpackResources/material-design-change-history.svg');
 require('../../webpackResources/material-design-gavel.svg');
 require('../../webpackResources/material-design-build.svg');
 require('../../webpackResources/material-design-description.svg');
+require('../../webpackResources/material-design-pause.svg');
+require('../../webpackResources/material-design-play-arrow.svg');
 
 require('../../webpackResources/ion-icons-logo-github.svg');
 require('../../webpackResources/ion-icons-logo-twitter.svg');

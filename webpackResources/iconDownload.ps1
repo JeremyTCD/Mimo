@@ -21,7 +21,9 @@ $materialIcons = @(
     @{name="change_history"; style="sharp"},
     @{name="gavel"; style="sharp"},
     @{name="build"; style="sharp"},
-    @{name="description"; style="sharp"}
+    @{name="description"; style="sharp"},
+    @{name="play_arrow"; style="sharp"},
+    @{name="pause"; style="sharp"}
 )
 
 $materialUrlFormat = "https://material.io/tools/icons/static/icons/{0}-{1}-24px.svg"

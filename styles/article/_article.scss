@@ -61,6 +61,7 @@ article {
     @import './list';
     @import './blockquote';
     @import './banner';
+    @import './figure';
     // Make long-form text as readable as possible
     p {
         max-width: 800px;
