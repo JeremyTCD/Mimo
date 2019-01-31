@@ -3,7 +3,6 @@
 .figure-block {
     display: flex;
     align-items: flex-start;
-
     // Figure blocks typically follow ":" lead ups like "For example: <a figure>". For this reason, a slight indentation is helpful for establishing that the figure block
     // is a child of the previous statement.
     @media #{$media-wide}, #{$media-medium} {
@@ -13,9 +12,8 @@
     @media #{$media-narrow} {
         margin-left: 0px;
     }
-
     // TODO is there some method we can use to limit the width of figcaption to the content above it?
-    // Currently, we're setting explicit max-widths for each figure block. Might have to read through the css grid 
+    // Currently, we're setting explicit max-widths for each figure block. Might have to read through the css grid
     // and flex specs to figure this out.
     figure {
         margin-left: 0;
@@ -30,6 +28,10 @@
             font-size: $font-size-2;
             display: flex;
             align-items: center;
+
+            a {
+                @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
+            }
         }
     }
 
@@ -37,6 +39,7 @@
         figure {
             display: grid;
             grid-template-columns: auto;
+            overflow: hidden;
 
             video {
                 max-width: 100%;
@@ -52,33 +55,10 @@
             }
 
             &.hover {
-                .button-background {
-                    div {
-                        transition-delay: $anti-flicker-delay;
-                        transform: translateX(0);
-                    }
+                &:before {
+                    transform: translateX(0);
                 }
-            }
 
-            .button-background {
-                grid-row: 2;
-                grid-column: 1;
-                z-index: 0;
-                overflow: hidden;
-                display: flex;
-                align-items: stretch;
-                border: 1px solid $color-divider-background;
-                border-top: none;
-
-                div {
-                    flex-grow: 1;
-                    background-color: $color-primary-link;
-                    transition: transform $medium-animation-duration $ease-out-quad;
-                    transform: translateX(-100%);
-                }
-            }
-
-            &.hover {
                 button {
                     svg {
                         fill: $color-secondary-link;
@@ -87,29 +67,44 @@
                 }
             }
 
+            &:before,
             button {
-                height: 37px;
                 grid-row: 2;
                 grid-column: 1;
                 z-index: 0;
-                opacity: 0;
-                transform: scale(0);
-                transition: opacity $medium-animation-duration $ease-out-quad, transform $medium-animation-duration $ease-out-quad;
+            }
+
+            &:before {
+                content: "";
+                background-color: $color-primary-link;
+                transition: transform $medium-animation-duration $ease-out-quad;
+                transform: translateX(-100%);
+            }
+
+            button {
+                height: 37px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                border: 1px solid $color-divider-background;
+                border-top: none;
 
                 &.enabled {
                     z-index: 1;
-                    opacity: 1;
-                    transform: scale(1);
+
+                    svg {
+                        opacity: 1;
+                        transform: scale(1);
+                    }
                 }
 
                 svg {
                     height: 24px;
                     width: 24px;
                     fill: $color-primary-link;
-                    transition: fill $medium-animation-duration $ease-out-quad;
+                    transform: scale(0);
+                    opacity: 0;
+                    transition: fill $medium-animation-duration $ease-out-quad, opacity $short-animation-duration $ease-out-quad, transform $short-animation-duration $ease-out-quad;
                 }
             }
         }

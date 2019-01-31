@@ -78,12 +78,6 @@ export default class ArticleComponent extends RootComponent {
                 continue;
             }
 
-            let buttonbackground = figureElement.querySelector('.button-background');
-
-            if (!buttonbackground) {
-                continue;
-            }
-
             figureElement.addEventListener('mouseenter', () => {
                 figureElement.classList.add('hover');
             });
