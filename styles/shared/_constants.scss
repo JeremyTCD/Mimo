@@ -3,8 +3,7 @@ $color-primary-text: #212121 !default;
 $color-primary-highlight: #ffff7f !default;
 $color-primary-link: #1e88e5 !default;
 $color-primary-link-disabled: #bebebe !default;
-$color-primary-inline-code-background: #f4f4f4 !default;
-$color-primary-inline-code-dark-background: #ececec !default;
+$color-primary-inline-code-background: #f0f0f0 !default;
 $color-primary-icon: #646464 !default;
 
 $color-secondary: #1565c0 !default;
@@ -19,6 +18,7 @@ $color-alert-warning: #ffdb08 !default;
 $color-alert-warning-background: #fffdf0 !default;
 $color-alert-critical-warning: #ff2508 !default;
 $color-alert-critical-warning-background: #fff2f0 !default;
+$color-alert-inline-code-background: #e8e8e8 !default;
 
 $color-section-body-background: #f9f9f9 !default;
 $color-section-header-background: #f0f0f0 !default;
@@ -26,6 +26,9 @@ $color-divider-background: #ddd !default;
 
 $color-code-divider-background: #a5a5a5 !default;
 $color-code-line-numbers: #2b91af !default;
+
+$color-table-alternate-card: #f0f0f0 !default;
+$color-table-inline-code-background: #e1e1e1 !default;
 
 $card-small-height: 249px !default;
 $card-small-width: 184px !default;
@@ -44,9 +47,9 @@ $opacity-4: 0.7 !default;
 $opacity-5: 0.80 !default;
 $opacity-6: 1.0 !default;
 
-$short-animation-duration: 0.2s !default;
-$medium-animation-duration: 0.3s !default;
-$long-animation-duration: 0.4s !default;
+$short-animation-duration: 0.15s !default;
+$medium-animation-duration: 0.2s !default;
+$long-animation-duration: 0.3s !default;
 $anti-flicker-delay: 0.06s !default;
 $long-anti-flicker-delay: 0.12s !default;
 $ease-out-quad: cubic-bezier(0.33, 0.67, 0.67, 1) !default;
@@ -189,7 +192,7 @@ $horizontal-edge-wide: 30px !default;
 
 
 @mixin animated-underline-core($color, $y-position, $underline-height) {
-    background-image: linear-gradient(to top, $color 0, $color $underline-height, transparent $underline-height);
+    background-image: linear-gradient(to top, $color 0, $color $underline-height);
     background-repeat: no-repeat;
     background-position: 0 $y-position;
     background-size: 0% $underline-height; // Note: Edge is unable to handle the background-size transition if width is specified as 0 instead of 0%
@@ -271,5 +274,112 @@ $horizontal-edge-wide: 30px !default;
                 }
             }
         }
+    }
+}
+
+@mixin table-style {
+    th {
+        font-weight: 600;
+    }
+
+    td {
+        > :first-child {
+            display: none;
+        }
+    }
+
+    th,
+    td {
+        padding: 7px 14px;
+        border: 1px solid $color-divider-background;
+        text-align: center;
+
+        &.align-left {
+            text-align: left;
+        }
+
+        &.align-right {
+            text-align: right;
+        }
+
+        &:last-child {
+            border-right: none;
+        }
+
+        &:first-child {
+            border-left: none;
+        }
+    }
+}
+
+@mixin card-style {
+    table {
+        display: block;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody {
+        display: table;
+        width: 100%;
+    }
+
+    tr {
+        display: table-row-group;
+
+        &:nth-child(odd) {
+            background-color: $color-table-alternate-card;
+
+            a {
+                @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-table-alternate-card);
+            }
+
+            *:not(pre) {
+                > code {
+                    background-color: $color-table-inline-code-background;
+                }
+            }
+        }
+    }
+
+    td {
+        display: table-row;
+
+        > span {
+            vertical-align: middle;
+            padding: 7px 14px;
+            display: table-cell;
+            border: 1px solid $color-divider-background;
+        }
+
+        > :first-child {
+            font-weight: 600;
+            border-left: none;
+        }
+
+        > :last-child {
+            border-right: none;
+        }
+
+        &.align-left {
+            > span {
+                vertical-align: top;
+            }
+        }
+    }
+}
+
+@mixin table-wrapper {
+    width: 100%;
+    overflow: auto;
+    border: 1px solid $color-divider-background;
+    border-top: none;
+    border-bottom: none;
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
     }
 }

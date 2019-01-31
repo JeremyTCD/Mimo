@@ -1,103 +1,13 @@
 ﻿@import '../shared/constants';
 
 .flexi-table-block {
-    width: 100%;
-    overflow: auto;
-    border: 1px solid #ddd;
-    border-top: none;
-    border-bottom: none;
+    @include table-wrapper;
 
-    table {
-        @media #{$media-medium}, #{$media-wide} {
-            th {
-                padding: 7px 13px;
-                font-weight: 600;
-            }
+    @media #{$media-medium}, #{$media-wide} {
+        @include table-style;
+    }
 
-            th,
-            td {
-                border: 1px solid $color-divider-background;
-                text-align: center;
-
-                &.align-left {
-                    text-align: left;
-                }
-
-                &.align-right {
-                    text-align: right;
-                }
-
-                &:last-child {
-                    border-right: none;
-                }
-
-                &:first-child {
-                    border-left: none;
-                }
-            }
-
-            td {
-                padding: 7px 14px;
-            }
-        }
-        // Card style
-        @media #{$media-narrow} {
-            display: block;
-
-            thead {
-                display: none;
-            }
-
-            tbody {
-                display: table;
-                width: 100%;
-            }
-
-            tr {
-                display: table-row-group;
-
-                &:nth-child(odd) {
-                    background-color: $color-section-body-background;
-
-                    a {
-                        @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-section-body-background);
-                    }
-
-                    *:not(pre) {
-                        > code {
-                            background-color: $color-primary-inline-code-dark-background;
-                        }
-                    }
-                }
-            }
-
-            td {
-                display: table-row;
-
-                &:before, > div {
-                    vertical-align: middle;
-                    padding: 7px 14px;
-                    display: table-cell;
-                    border: 1px solid $color-divider-background;
-                }
-
-                &:before {
-                    content: attr(data-label);
-                    font-weight: 600;
-                    text-align: left;
-                    border-left: none;
-                }
-
-                > span {
-                    border-right: none;
-                }
-
-                &.align-left {
-                    &:before, > div {
-                        vertical-align: top;
-                    }
-                }
-            }
-        }
+    @media #{$media-narrow} {
+        @include card-style;
     }
 }
