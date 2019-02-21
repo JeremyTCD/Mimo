@@ -3,11 +3,10 @@ import TextInput from './textInput';
 
 @injectable()
 export default class TextInputFactory {
-    public build(wrapperElement: HTMLElement,
-        inputElement: HTMLInputElement,
-        clearElement: HTMLElement,
-        onResetInput: () => void): TextInput {
+    public build(textInputElement: HTMLFormElement,
+        onInput: (value: string) => void,
+        onReset?: () => void): TextInput {
 
-        return new TextInput(wrapperElement, inputElement, clearElement, onResetInput);
+        return new TextInput(textInputElement, onInput, onReset);
     }
 }
