@@ -5,8 +5,6 @@ import SearchComponent from './pageHeader/searchComponent';
 import SearchResultsComponent from './pageHeader/searchResultsComponent';
 
 import CategoryMenuComponent from './categoryMenu/categoryMenuComponent';
-import CategoryPagesFilterComponent from './categoryMenu/categoryPagesFilterComponent';
-import CategoryPagesComponent from './categoryMenu/categoryPagesComponent';
 
 import ArticleComponent from './article/articleComponent';
 
@@ -22,7 +20,7 @@ import ArticleMenuHeaderComponent from './articleMenu/articleMenuHeaderComponent
 import PageFooterComponent from './pageFooter/pageFooterComponent';
 
 export {
-    RootComponent, PageHeaderComponent, SearchComponent, SearchResultsComponent, CategoryMenuComponent, CategoryPagesFilterComponent, 
-    CategoryPagesComponent, ArticleComponent, CommentsComponent, SortedArticleListComponent, ArticleMenuComponent, OutlineComponent, ArticleLinksComponent, 
+    RootComponent, PageHeaderComponent, SearchComponent, SearchResultsComponent, CategoryMenuComponent, 
+    ArticleComponent, CommentsComponent, SortedArticleListComponent, ArticleMenuComponent, OutlineComponent, ArticleLinksComponent, 
     ArticleMenuHeaderComponent, PageFooterComponent
 }

@@ -85,8 +85,6 @@ export default class Host {
 
         // Category menu
         container.bind<components.RootComponent>('RootComponent').to(components.CategoryMenuComponent).inSingletonScope();
-        container.bind<components.CategoryPagesComponent>(components.CategoryPagesComponent).toSelf().inSingletonScope();
-        container.bind<components.CategoryPagesFilterComponent>(components.CategoryPagesFilterComponent).toSelf().inSingletonScope();
 
         // Article
         container.bind<components.RootComponent>('RootComponent').to(components.ArticleComponent).inSingletonScope();

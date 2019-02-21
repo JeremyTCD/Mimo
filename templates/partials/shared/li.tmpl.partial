@@ -1,19 +1,19 @@
 <ul>
     {{#items}}
     {{^leaf}}
-    <li data-level="{{level}}" class="expandable">
+    <li style="--level: {{level}}">
     {{/leaf}}
     {{#leaf}}
-    <li data-level="{{level}}">
+    <li style="--level: {{level}}">
     {{/leaf}}
             {{#topicHref}}
-            <a data-level="{{level}}" href="{{topicHref}}" title="{{name}}">
+            <a href="{{topicHref}}" title="{{name}}">
                 {{name}}
             </a>
             {{/topicHref}}
 
             {{^topicHref}}
-            <span data-level="{{level}}">
+            <span>
                 {{name}}
             </span>
             {{/topicHref}}
@@ -23,4 +23,4 @@
             {{/leaf}}
     </li>
     {{/items}}
-    </ul>
+</ul>

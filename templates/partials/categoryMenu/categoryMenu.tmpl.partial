@@ -1,28 +1,28 @@
 ﻿{{^mimo_disableCategoryMenu}}
-<div id="category-menu">
-    <nav id="category-menu-header">
-        <button id="category-menu-header-button">
+<nav class="category-menu">
+    <header class="dropdown__header">
+        <button aria-label="Expand category menu" class="dropdown__button">
             <svg>
                 <use xlink:href="#material-design-arrow-drop-down" />
             </svg>
         </button>
-    </nav>
-
-    <div id="category-pages-outer-wrapper">
-        <div id="category-pages-inner-wrapper">
-            <form id="category-pages-filter">
-                <svg>
+    </header>
+    
+    <div class="category-menu__content-wrapper dropdown__body-wrapper">
+        <div class="category-menu__content dropdown__body">
+            <form class="text-input category-menu__filter-box">
+                <div class="text-input__background"></div>
+                <svg class="text-input__icon">
                     <use xlink:href="#custom-filter-list" />
                 </svg>
-                <input type="text" autocomplete="off" id="category-menu-filter-input" placeholder="Filter" onkeypress="if(event.keyCode==13) {return false;}"/>
-                <svg>
-                    <use xlink:href="#material-design-clear" />
-                </svg>
+                <input type="text" autocomplete="off" class="text-input__input" placeholder="Filter"/>
+                <button aria-label="Clear filter" type="button" class="text-input__button">
+                    <svg class="text-input__button-icon">
+                        <use xlink:href="#material-design-clear" />
+                    </svg>
+                </button>
             </form>
-
-            <nav id="category-pages">
-            </nav>
         </div>
     </div>
-</div>
+</nav>
 {{/mimo_disableCategoryMenu}}

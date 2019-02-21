@@ -1,106 +1,89 @@
 ﻿@import '../shared/constants';
 @import '../shared/dropdown';
-@import 'categoryMenuHeader';
-@import 'categoryPages';
-@import 'categoryPagesFilter';
-
-@mixin category-menu-dropdown() {
-    @include top-fixable;
-    // max-height only works for flex children, pages uses max-height
-    display: flex;
-    flex-direction: column;
-    height: 37px;
-    // Entire page is repainted when wrapper is animated if z-index is 0 or undefined
-    z-index: 1;
-    position: relative;
-}
 
 @mixin category-menu-side-menu() {
-    width: $side-menu-width;
-    margin-top: 59px;
-    margin-right: 66px;
-    top: 23px;
-    position: sticky;
-    // Necessary for position: sticky to work
-    align-self: flex-start;
-}
+    align-self: stretch;
+    background-color: $color-section-body-background;
 
-@mixin pages-outer-wrapper-dropdown() {
-    @include dropdown-outer-wrapper;
-    position: absolute;
-    top: 37px;
-    left: 0;
-    right: 0;
-}
+    &__content-wrapper {
+        height: 100%; // pages only remains sticky while its parent block provides enough vertical space for it
+    }
 
-@mixin pages-inner-wrapper-dropdown() {
-    @include dropdown-inner-wrapper;
-    @include horizontal-edge-padding;
-    padding-top: 23px;
-    padding-bottom: 15px;
-    background-color: $color-primary;
-}
+    &__content {
+        position: sticky;
+        padding: 59px 59px 23px 0;
+        top: 0;
+    }
 
-@mixin pages-outer-wrapper-side-menu() {
-    width: $side-menu-width;
-}
+    .dropdown__header {
+        display: none;
+    }
 
-#core-outer {
-    #category-menu {
-        @media #{$media-medium} {
-            @include category-menu-dropdown;
-
-            #category-pages-outer-wrapper {
-                @include pages-outer-wrapper-dropdown;
-
-                #category-pages-inner-wrapper {
-                    @include pages-inner-wrapper-dropdown;
-                }
-            }
+    .text-input__background {
+        &:before {
+            background-color: $color-section-header-dark-background;
         }
     }
 }
 
-#core {
-    #category-menu {
-        @media #{$media-medium} {
-            @include category-menu-side-menu;
+@mixin category-menu-dropdown() {
+    @include dropdown;
+    @include menu-dropdown;
 
-            #category-pages-outer-wrapper {
-                @include pages-outer-wrapper-side-menu;
-            }
+    .dropdown__header {
+        background-color: $color-secondary;
+        color: $color-secondary-text;
+    }
+
+    .dropdown__button {
+        svg {
+            fill: $color-secondary-text;
         }
+    }
+
+    &__collapsible-menu {
+        flex-shrink: 1;
+        padding: 14px;
+        background-color: $color-section-body-background;
+    }
+
+    &__filter-box {
+        flex-shrink: 0;
     }
 }
 
-#category-menu {
-    flex-shrink: 0;
+.category-menu {
+    grid-area: category-menu;
     font-size: $font-size-2;
-
-    @media #{$media-narrow} {
-        @include category-menu-dropdown;
-    }
-
+    z-index: 2;
+    position: relative; // Edge workaround: z-index doesn't work for grid area elements unless position is relative
     @media #{$media-wide} {
         @include category-menu-side-menu;
+        padding-left: $horizontal-edge-wide;
     }
 
-    #category-pages-outer-wrapper {
+    &__collapsible-menu {
+        margin-top: 20px;
+    }
+}
+
+.body--all-menus {
+    .category-menu {
+        @media #{$media-narrow}, #{$media-medium} {
+            @include category-menu-dropdown;
+        }
+    }
+}
+
+.body--category-menu-only {
+    .category-menu {
         @media #{$media-narrow} {
-            @include pages-outer-wrapper-dropdown;
-
-            #category-pages-inner-wrapper {
-                @include pages-inner-wrapper-dropdown;
-            }
+            @include category-menu-dropdown;
         }
 
-        @media #{$media-wide} {
-            @include pages-outer-wrapper-side-menu;
-        }
-
-        #category-pages-inner-wrapper {
-            display: flex;
-            flex-direction: column;
+        @media #{$media-medium} {
+            @include category-menu-side-menu;
+            padding-left: $horizontal-edge-medium
         }
     }
 }
