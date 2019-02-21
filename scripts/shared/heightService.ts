@@ -1,47 +1,47 @@
 ﻿import { injectable } from "inversify";
 
-// TODO would be much more performant if accordions could be built using just transforms
+// TODO would be much more performant if it only uses transforms (FLIP)
 @injectable()
 export default class HeightService {
-    public toggleHeightWithTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
+    public toggleHeightWithTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement, expandedClass: string): void {
         toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
 
-        if (toggleClassElement.classList.contains('expanded')) {
+        if (toggleClassElement.classList.contains(expandedClass)) {
             this.autoHeightToFixedHeightWithTransition(toggleHeightElement, 0);
         } else {
             this.currentHeightToAutoHeightWithTransition(toggleHeightElement);
         }
 
-        toggleClassElement.classList.toggle('expanded');
+        toggleClassElement.classList.toggle(expandedClass);
     }
 
-    public toggleHeightWithoutTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
+    public toggleHeightWithoutTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement, expandedClass: string): void {
         toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
 
-        if (toggleClassElement.classList.contains('expanded')) {
+        if (toggleClassElement.classList.contains(expandedClass)) {
             this.autoHeightToFixedHeightWithoutTransition(toggleHeightElement, 0);
         } else {
             this.currentHeightToAutoHeightWithoutTransition(toggleHeightElement);
         }
 
-        toggleClassElement.classList.toggle('expanded');
+        toggleClassElement.classList.toggle(expandedClass);
     }
 
-    public contractHeightWithoutTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
+    public contractHeightWithoutTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement, expandedClass: string): void {
         toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
         this.autoHeightToFixedHeightWithoutTransition(toggleHeightElement, 0);
-        toggleClassElement.classList.remove('expanded');
+        toggleClassElement.classList.remove(expandedClass);
     }
 
-    public expandHeightWithoutTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
+    public expandHeightWithoutTransition(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement, expandedClass: string): void {
         toggleHeightElement.removeEventListener('transitionend', this.setHeightAutoListener, true);
         this.currentHeightToAutoHeightWithoutTransition(toggleHeightElement);
-        toggleClassElement.classList.add('expanded');
+        toggleClassElement.classList.add(expandedClass);
     }
 
-    public reset(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement): void {
+    public reset(toggleHeightElement: HTMLElement, toggleClassElement: HTMLElement, expandedClass: string): void {
         toggleHeightElement.style.height = 'auto';
-        toggleClassElement.classList.remove('expanded');
+        toggleClassElement.classList.remove(expandedClass);
     }
 
     public currentHeightToAutoHeightWithTransition(element: HTMLElement): void {
@@ -88,7 +88,7 @@ export default class HeightService {
         if (event.target === event.currentTarget) {
             event.target.removeEventListener('transitionend', this.setHeightAutoListener, true);
             (event.target as HTMLElement).style.height = 'auto';
+            event.stopPropagation();
         }
-        event.stopPropagation();
     }
 }
