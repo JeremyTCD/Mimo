@@ -108,6 +108,7 @@ export default class Host {
         container.bind<services.GlobalService>('GlobalService').to(services.FixesGlobalService).inSingletonScope().whenTargetNamed('FixesGlobalService');
         container.bind<services.CodeService>(services.CodeService).toSelf().inSingletonScope();
         container.bind<services.DebounceService>(services.DebounceService).toSelf().inSingletonScope();
+        container.bind<services.ThrottleService>(services.ThrottleService).toSelf().inSingletonScope();
         container.bind<services.HtmlEncodeService>(services.HtmlEncodeService).toSelf().inSingletonScope();
         container.bind<services.OverlayService>(services.OverlayService).toSelf().inSingletonScope();
         container.bind<services.PaginationService>(services.PaginationService).toSelf().inSingletonScope();
@@ -120,4 +121,4 @@ export default class Host {
         container.bind<factories.CollapsibleMenuFactory>(factories.CollapsibleMenuFactory).toSelf().inSingletonScope();
         container.bind<factories.DropdownFactory>(factories.DropdownFactory).toSelf().inSingletonScope();
     }
-}
+} 

@@ -1,5 +1,6 @@
 ﻿import CodeService from './shared/codeService';
 import DebounceService from './shared/debounceService';
+import ThrottleService from './shared/throttleService';
 import HtmlEncodeService from './shared/htmlEncodeService';
 import MediaGlobalService from './shared/mediaGlobalService';
 import OverlayService from './shared/overlayService';
@@ -15,5 +16,5 @@ import FixesGlobalService from './shared/fixesGlobalService';
 
 export {
     CodeService, DebounceService, HtmlEncodeService, MediaGlobalService, OverlayService, PaginationService, SearchService, TooltipService, HeightService,
-    StringService, EasingService, ArticleGlobalService, GlobalService, FixesGlobalService
+    StringService, EasingService, ArticleGlobalService, GlobalService, FixesGlobalService, ThrottleService
 }

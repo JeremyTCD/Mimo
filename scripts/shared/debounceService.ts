@@ -10,13 +10,4 @@ export default class DebounceService {
             timeoutID = window.setTimeout(debouncee, debounceTime);
         };
     }
-
-    public createRafDebounceFunction = (debouncee: () => void): () => void => {
-        let timeoutID: number;
-
-        return (): void => {
-            cancelAnimationFrame(timeoutID);
-            timeoutID = requestAnimationFrame(debouncee);
-        };
-    }
 }
