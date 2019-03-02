@@ -97,9 +97,6 @@ export default class Host {
 
         // Article menu
         container.bind<components.RootComponent>('RootComponent').to(components.ArticleMenuComponent).inSingletonScope();
-        container.bind<components.OutlineComponent>(components.OutlineComponent).toSelf().inSingletonScope();
-        container.bind<components.ArticleLinksComponent>(components.ArticleLinksComponent).toSelf().inSingletonScope();
-        container.bind<components.ArticleMenuHeaderComponent>(components.ArticleMenuHeaderComponent).toSelf().inSingletonScope();
 
         // Footer
         container.bind<components.RootComponent>('RootComponent').to(components.PageFooterComponent).inSingletonScope();

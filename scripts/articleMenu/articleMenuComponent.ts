@@ -1,222 +1,167 @@
 ﻿import { named, injectable, inject } from 'inversify';
 import RootComponent from '../shared/rootComponent';
 import MediaGlobalService from '../shared/mediaGlobalService';
-import OverlayService from '../shared/overlayService';
 import { MediaWidth } from '../shared/mediaWidth';
 import DropdownFactory from '../shared/dropdownFactory';
 import Dropdown from '../shared/dropdown';
 import ResizeObserver from 'resize-observer-polyfill';
-import DebounceService from '../shared/debounceService';
-import OutlineComponent from './outlineComponent';
-import ArticleLinksComponent from './articleLinksComponent';
-import ArticleMenuHeaderComponent from './articleMenuHeaderComponent';
 import { MenuMode } from '../shared/menuMode';
+import ThrottleService from '../shared/throttleService';
+import OutlineFactory from '../shared/outlineFactory';
+import Outline from '../shared/outline';
+import ArticleGlobalService from '../shared/articleGlobalService';
+
+interface TextData {
+    part1: string;
+    part2: string;
+}
 
 @injectable()
 export default class ArticleMenuComponent extends RootComponent {
-    private _articleMenuElement: HTMLElement;
-    private _linksAndTocOuterWrapperElement: HTMLElement;
-    private _linksAndTocInnerWrapperElement: HTMLElement;
-    private _headerButtonElement: HTMLElement;
-    private _footerElement: HTMLElement;
-    private _outlineScrollable: HTMLElement;
-
-    private _outlineComponent: OutlineComponent;
-
-    private _mediaGlobalService: MediaGlobalService;
-    private _overlayService: OverlayService;
-    private _debounceService: DebounceService;
-    private _dropdownFactory: DropdownFactory;
-
     private static readonly VERTICAL_GAP: number = 23;
-    private static readonly HEADER_HEIGHT: number = 37;
-    private static readonly DEBOUNCE_TIME: number = 150;
+
+    private _articleMenuElement: HTMLElement;
+    private _outlineLevel1ULElement: HTMLUListElement;
+    private _pageFooterElement: HTMLElement;
+    private _headerText1Element: HTMLElement;
+    private _headerText2Element: HTMLElement;
+
+    private _headerTextData: TextData[] = [];
+    private _outline: Outline;
     private _dropdown: Dropdown;
     private _bodyResizeObserver: ResizeObserver;
-    private _linksAndOutlineLevel1Height: number;
-    private _updateSideMenuQueued: boolean;
     private _menuMode: MenuMode;
+    private _updateOutlineHeightThrottled: () => void;
 
     public constructor(
-        @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
-        outlineComponent: OutlineComponent,
-        articleLinksComponent: ArticleLinksComponent,
-        articleMenuHeaderComponent: ArticleMenuHeaderComponent,
-        debounceService: DebounceService,
-        overlayService: OverlayService,
-        dropdownFactory: DropdownFactory) {
+        @inject('GlobalService') @named('MediaGlobalService') private _mediaGlobalService: MediaGlobalService,
+        @inject('GlobalService') @named('ArticleGlobalService') private _articleGlobalService: ArticleGlobalService,
+        private _throttleService: ThrottleService,
+        private _dropdownFactory: DropdownFactory,
+        private _outlineFactory: OutlineFactory) {
         super();
-
-        this._overlayService = overlayService;
-        this._mediaGlobalService = mediaGlobalService;
-        this._debounceService = debounceService;
-        this._dropdownFactory = dropdownFactory;
-        this._outlineComponent = outlineComponent;
-
-        this.addChildComponents(outlineComponent, articleLinksComponent, articleMenuHeaderComponent);
-    }
-
-    public setupImmediate() {
-        this._articleMenuElement = document.getElementById('article-menu');
-
-        if (this.enabled()) {
-            this.childComponentsSetupImmediate();
-            this._bodyResizeObserver = new ResizeObserver(this._debounceService.createTimeoutDebounceFunction(this.updateSideMenu, ArticleMenuComponent.DEBOUNCE_TIME));
-        }
     }
 
     public enabled(): boolean {
+        if (this._articleMenuElement === undefined) {
+            this._articleMenuElement = document.querySelector('.article-menu');
+        }
+
         return this._articleMenuElement ? true : false;
     }
 
+    public setupImmediate() {
+        this._headerText1Element = this._articleMenuElement.querySelector('.article-menu__header-text-1');
+        this._headerText2Element = this._articleMenuElement.querySelector('.article-menu__header-text-2');
+        this._outlineLevel1ULElement = this._articleMenuElement.querySelector('.article-menu__outline ul');
+        this._pageFooterElement = document.getElementById('page-footer');
+
+        this._updateOutlineHeightThrottled = this._throttleService.createThrottledFunction(this.updateOutlineHeight);
+
+        this._bodyResizeObserver = new ResizeObserver(this._updateOutlineHeightThrottled);
+        this.setupText();
+    }
+
     public setupOnDomContentLoaded(): void {
-        this.childComponentsSetupOnDomContentLoaded();
+        // Dropdown
+        this._dropdown = this._dropdownFactory.build(this._articleMenuElement, () => this._outline.updateKnob(this._articleGlobalService.getActiveSectionIndex()));
 
-        this._linksAndTocOuterWrapperElement = document.getElementById('article-links-and-outline-outer-wrapper');
-        this._linksAndTocInnerWrapperElement = document.getElementById('article-links-and-outline-inner-wrapper');
-        this._footerElement = document.getElementById('page-footer');
-        this._outlineScrollable = document.getElementById('outline-scrollable');
-        this._headerButtonElement = document.getElementById('article-menu-header-button');
-
-        this._dropdown = this._dropdownFactory.build(this._linksAndTocOuterWrapperElement, this._linksAndTocInnerWrapperElement, this._headerButtonElement, this._articleMenuElement);
+        // Outline
+        this._outline = this._outlineFactory.build(this._articleMenuElement.querySelector('.article-menu__outline'), () => this._dropdown.collapse());
     }
 
     public setupOnLoad(): void {
-        let outlineTitleElement = document.querySelector('#outline > .level-1');
-        let outlineTitleComputedStyle = getComputedStyle(outlineTitleElement);
-        let articleLinksElement = document.getElementById('article-links');
-        let articleLinksComputedStyle = getComputedStyle(articleLinksElement);
-        let outlineComputedStyle = getComputedStyle(this._outlineScrollable);
-
-        this._linksAndOutlineLevel1Height = parseFloat(articleLinksComputedStyle.marginBottom) +
-            parseFloat(articleLinksComputedStyle.height) +
-            parseFloat(outlineTitleComputedStyle.height) +
-            parseFloat(outlineComputedStyle.marginTop) +
-            ArticleLinksComponent.TOP_NEGATIVE_MARGIN;
-
-        this._headerButtonElement.addEventListener('click', this.buttonClickListener);
-
-        let outlineAnchorElements = this._outlineComponent.getAnchorElements();
-        if (outlineAnchorElements) {
-            for (let i = 0; i < outlineAnchorElements.length; i++) {
-                outlineAnchorElements[i].addEventListener('click', this.outlineAnchorClickListener);
-            }
-            outlineTitleElement.addEventListener('click', this.outlineAnchorClickListener);
-        }
-
         this._mediaGlobalService.addChangedToListener(this.onChangedToDropdownListener, MediaWidth.narrow);
         this._mediaGlobalService.addChangedFromListener(this.onChangedToSideMenuListener, MediaWidth.narrow);
-
-        // outlineComponent's update knob methods must run after updateToc (incase updating outline height causes wrapping, in turn causing anchor bounding rects to change)
-        this.childComponentsSetupOnLoad();
-    }
-
-    private overlayClickListener = (): void => {
-        if (this._dropdown.isExpanded()) {
-            this._dropdown.collapseWithAnimation();
-            this._overlayService.deactivateOverlay();
-        }
-    }
-
-    private buttonClickListener = (): void => {
-        this._dropdown.toggleWithAnimation();
-
-        if (this._dropdown.isExpanded()) {
-            this._overlayService.activateOverlay(this._articleMenuElement);
-            this.updateDropdown();
-            this._outlineComponent.updateDropdownKnob();
-        } else {
-            this._overlayService.deactivateOverlay();
-        }
-    }
-
-    private outlineAnchorClickListener = (): void => {
-        if (this._mediaGlobalService.mediaWidthIs(MediaWidth.narrow)) {
-            this._overlayService.deactivateOverlay();
-            this._dropdown.collapseWithAnimation();
-        }
     }
 
     private onChangedToDropdownListener = (init: boolean): void => {
         this._menuMode = MenuMode.dropdown;
 
+        this._outline.enableAnchorClickListener();
+        this._articleGlobalService.addActiveSectionChangedListener(this.updateHeaderText, true);
+
         if (!init) {
             this._bodyResizeObserver.unobserve(document.body);
-            window.removeEventListener('resize', this.updateSideMenu);
-            window.removeEventListener('scroll', this.updateSideMenu);
+            window.removeEventListener('resize', this._updateOutlineHeightThrottled);
+            window.removeEventListener('scroll', this.updateOutlineHeight);
+            this._articleGlobalService.removeActiveSectionChangedListener(this.outlineSetActiveAnchorWrapper);
 
-            this.resetSideMenu();
+            if (this._outlineLevel1ULElement) {
+                this._outlineLevel1ULElement.style.maxHeight = '';
+            }
         }
-
-        this._dropdown.collapseWithoutAnimation();
-
-        this._overlayService.addClickListener(this.overlayClickListener);
-        window.addEventListener('resize', this.updateDropdown);
     }
 
     private onChangedToSideMenuListener = (init: boolean): void => {
         this._menuMode = MenuMode.sideMenu;
 
-        if (!init) {
-            window.removeEventListener('resize', this.updateDropdown);
-            this._overlayService.removeClickListener(this.overlayClickListener);
-        }
+        this._dropdown.reset();
 
-        this.resetDropdown();
-
-        window.addEventListener('resize', this.updateSideMenu);
-        window.addEventListener('scroll', this.updateSideMenuDeferred);
+        window.addEventListener('resize', this._updateOutlineHeightThrottled);
+        window.addEventListener('scroll', this.updateOutlineHeight);
         //Makes initial call to updateToc (initial call is defined in the spec) - https://github.com/WICG/ResizeObserver/issues/8, unfortunately, call is delayed
         this._bodyResizeObserver.observe(document.body);
 
-        this.updateSideMenu();
-    }
+        this._updateOutlineHeightThrottled();
 
-    private updateDropdown = (): void => {
-        if (this._menuMode === MenuMode.dropdown && this._dropdown.isExpanded()) { // Edge fires resize listeners even after they have been removed
-            // TODO figure out some way to do this using css - hard to use calc since 100vh is fixed on many mobile browsers > https://developers.google.com/web/updates/2016/12/url-bar-resizing
-            this._linksAndTocInnerWrapperElement.style.maxHeight = `${window.innerHeight - ArticleMenuComponent.HEADER_HEIGHT}px`;
+        this._articleGlobalService.addActiveSectionChangedListener(this.outlineSetActiveAnchorWrapper, true);
+
+        if (!init) {
+            this._outline.disableAnchorClickListener();
+            this._articleGlobalService.removeActiveSectionChangedListener(this.updateHeaderText);
         }
     }
 
-    private resetDropdown = (): void => {
-        this._linksAndTocInnerWrapperElement.style.maxHeight = '';
+    private outlineSetActiveAnchorWrapper = (newIndex: number): void => {
+        this._outline.updateKnob(newIndex);
+    }
 
-        if (this._dropdown.isExpanded()) {
-            this._overlayService.deactivateOverlay(false);
+    private updateOutlineHeight = (): void => {
+        if (!this._outlineLevel1ULElement || this._menuMode !== MenuMode.sideMenu) { // Necessary because bodyResizeObserver fires after unobserve
+            return;
         }
 
-        this._dropdown.reset();
+        let level1ULElementTop = this._outlineLevel1ULElement.getBoundingClientRect().top;
+        let footerTop = this._pageFooterElement.getBoundingClientRect().top;
+
+        let level1ULElementHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
+            - ArticleMenuComponent.VERTICAL_GAP
+            - level1ULElementTop;
+
+        this._outlineLevel1ULElement.style.maxHeight = `${level1ULElementHeight}px`;
     }
 
-    private updateSideMenu = (): void => {
-        if (this._menuMode === MenuMode.sideMenu) { // Necessary because bodyResizeObserver fires after unobserve
-            let articleMenuTop = this._articleMenuElement.getBoundingClientRect().top;
-            let footerTop = this._footerElement.getBoundingClientRect().top;
+    private updateHeaderText = (newIndex: number): void => {
+        let textData: TextData = this._headerTextData[newIndex];
 
-            let outlineHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
-                - ArticleMenuComponent.VERTICAL_GAP
-                - this._linksAndOutlineLevel1Height
-                - Math.max(ArticleMenuComponent.VERTICAL_GAP, articleMenuTop);
+        this._headerText1Element.innerText = textData.part1;
 
-            // Tried setting bottom, max-height, both don't work on edge - scroll bar doesn't go away even when height is greater than 
-            // menu height. This works.
-            this._outlineScrollable.style.height = `${outlineHeight}px`;
+        if (textData.part2) {
+            this._headerText2Element.innerText = textData.part2;
+            this._headerText2Element.parentElement.classList.remove('bar-separated-list__item--hidden');
+        } else {
+            this._headerText2Element.parentElement.classList.add('bar-separated-list__item--hidden');
         }
-
-        this._updateSideMenuQueued = false;
     }
 
-    private resetSideMenu = (): void => {
-        this._outlineScrollable.style.height = '';
-    }
+    private setupText(): void {
+        let currentPart1: string;
+        let sectionElements: HTMLElement[] = this._articleGlobalService.getSectionElements();
 
-    // Fixes smooth-scroll/chrome issue. Scroll event fires before raf callbacks are called, since smooth-scroll uses raf to scroll, footer top is not accurate until after smooth-scroll's raf callback
-    // fires
-    private updateSideMenuDeferred = (): void => {
-        if (!this._updateSideMenuQueued) {
-            requestAnimationFrame(this.updateSideMenu);
-            this._updateSideMenuQueued = true;
+        for (let i = 0; i < sectionElements.length; i++) {
+            let sectionElement = sectionElements[i];
+
+            if (sectionElement.classList.contains('main-article')) {
+                this._headerTextData.push({ part1: 'Contents', part2: null });
+            }
+            else if (sectionElement.classList.contains('flexi-section-block-2')) {
+                currentPart1 = sectionElement.firstElementChild.firstElementChild.textContent;
+                this._headerTextData.push({ part1: currentPart1, part2: null });
+            } else {
+                // level 3
+                this._headerTextData.push({ part1: currentPart1, part2: sectionElement.firstElementChild.firstElementChild.textContent });
+            }
         }
     }
 }

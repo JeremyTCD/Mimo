@@ -13,14 +13,11 @@ import CommentsComponent from './comments/commentsComponent';
 import SortedArticleListComponent from './sortedArticleList/sortedArticleListComponent';
 
 import ArticleMenuComponent from './articleMenu/articleMenuComponent';
-import OutlineComponent from './articleMenu/outlineComponent';
-import ArticleLinksComponent from './articleMenu/articleLinksComponent';
-import ArticleMenuHeaderComponent from './articleMenu/articleMenuHeaderComponent';
 
 import PageFooterComponent from './pageFooter/pageFooterComponent';
 
 export {
-    RootComponent, PageHeaderComponent, SearchComponent, SearchResultsComponent, CategoryMenuComponent, 
-    ArticleComponent, CommentsComponent, SortedArticleListComponent, ArticleMenuComponent, OutlineComponent, ArticleLinksComponent, 
-    ArticleMenuHeaderComponent, PageFooterComponent
+    RootComponent, PageHeaderComponent, SearchComponent, SearchResultsComponent, CategoryMenuComponent,
+    ArticleComponent, CommentsComponent, SortedArticleListComponent, ArticleMenuComponent,
+    PageFooterComponent
 }
