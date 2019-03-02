@@ -1,10 +1,10 @@
-<ul>
+<ul style="--level: {{level}}">
     {{#items}}
     {{^leaf}}
-    <li style="--level: {{level}}">
+    <li>
     {{/leaf}}
     {{#leaf}}
-    <li style="--level: {{level}}">
+    <li>
     {{/leaf}}
             {{#topicHref}}
             <a href="{{topicHref}}" title="{{name}}">
