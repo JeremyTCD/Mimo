@@ -20,7 +20,7 @@ $color-alert-critical-warning: #ff2508 !default;
 $color-alert-critical-warning-background: #fff2f0 !default;
 $color-alert-inline-code-background: #e8e8e8 !default;
 
-$color-section-body-background: #f9f9f9 !default;
+$color-section-body-background: #f8f8f8 !default;
 $color-section-header-background: #f0f0f0 !default;
 $color-section-header-dark-background: #ebebeb !default;
 $color-divider-background: #ddd !default;
@@ -82,8 +82,8 @@ $horizontal-edge-medium: 23px !default;
 $horizontal-edge-wide: 30px !default;
 
 $side-menu-width: 248px !default;
-$side-menu-column-width-wide: $side-menu-width + $horizontal-edge-wide + 59px;
-$side-menu-column-width-medium: $side-menu-width + $horizontal-edge-medium + 59px;
+$side-menu-column-width-wide: $horizontal-edge-wide + $side-menu-width + 59px + 1px;
+$side-menu-column-width-medium: $horizontal-edge-medium + $side-menu-width + 59px + 1px;
 
 @mixin section-body-edges($y-correction: 0, $x-correction: 0, $use-margin: false) {
     $property: if($use-margin, margin, padding);
