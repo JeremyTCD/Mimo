@@ -107,7 +107,6 @@ export default class Host {
         // Shared
         container.bind<services.GlobalService>('GlobalService').to(services.ArticleGlobalService).inSingletonScope().whenTargetNamed('ArticleGlobalService');
         container.bind<services.GlobalService>('GlobalService').to(services.MediaGlobalService).inSingletonScope().whenTargetNamed('MediaGlobalService');
-        container.bind<services.GlobalService>('GlobalService').to(services.FixesGlobalService).inSingletonScope().whenTargetNamed('FixesGlobalService');
         container.bind<services.CodeService>(services.CodeService).toSelf().inSingletonScope();
         container.bind<services.DebounceService>(services.DebounceService).toSelf().inSingletonScope();
         container.bind<services.ThrottleService>(services.ThrottleService).toSelf().inSingletonScope();

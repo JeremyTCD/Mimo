@@ -12,9 +12,8 @@ import StringService from './shared/stringService';
 import EasingService from './shared/easingService';
 import ArticleGlobalService from './shared/articleGlobalService';
 import GlobalService from './shared/globalService';
-import FixesGlobalService from './shared/fixesGlobalService';
 
 export {
     CodeService, DebounceService, HtmlEncodeService, MediaGlobalService, OverlayService, PaginationService, SearchService, TooltipService, HeightService,
-    StringService, EasingService, ArticleGlobalService, GlobalService, FixesGlobalService, ThrottleService
+    StringService, EasingService, ArticleGlobalService, GlobalService, ThrottleService
 }

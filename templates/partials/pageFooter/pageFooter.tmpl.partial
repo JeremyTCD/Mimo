@@ -87,5 +87,6 @@
             </svg>
         </a>
     </div>
-    <div id="page-footer-overlay"></div>
+    <!-- https://stackoverflow.com/questions/14389566/stop-css3-transition-from-firing-on-page-load -->
+    <script> </script>
 </footer>
