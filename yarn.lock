@@ -5213,11 +5213,6 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
-smooth-scroll@^14.2.1:
-  version "14.2.1"
-  resolved "https://registry.npmjs.org/smooth-scroll/-/smooth-scroll-14.2.1.tgz#2883128569d0eb32fc63ef34d91a4290f43c7515"
-  integrity sha512-6ZVYgMglZImuFglzeRM+j8zY+0vahfxBr3zznTddqExqGewrUHsCc+XF0VcbiwWXwTqtn0IL+KFT89/dxhKVfw==
-
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
