@@ -124,7 +124,12 @@ async function serve() {
                 // E.g, redirects /contact to /contact.html. This is something most servers do by default to allow for more readable links.
                 "**/+([^\.])": {
                     target: "http://localhost:8080",
-                    pathRewrite: function (path, req) { return `${path}.html`; }
+                    pathRewrite: function (path, req) {
+                        if (!path.endsWith('.html')) {
+                            return `${path}.html`;
+                        }
+                        return path;
+                    }
                 }
             }
         });
