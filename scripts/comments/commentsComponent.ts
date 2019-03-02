@@ -90,7 +90,7 @@ export default class CommentsComponent extends RootComponent {
         if (event.target === event.currentTarget) {
             event.target.removeEventListener('transitionend', this.commentsLoaderOnRemoved, true);
             (event.target as HTMLElement).style.display = 'none';
+            event.stopPropagation();
         }
-        event.stopPropagation();
     }
 }
