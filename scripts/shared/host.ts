@@ -121,5 +121,6 @@ export default class Host {
         container.bind<factories.TextInputFactory>(factories.TextInputFactory).toSelf().inSingletonScope();
         container.bind<factories.CollapsibleMenuFactory>(factories.CollapsibleMenuFactory).toSelf().inSingletonScope();
         container.bind<factories.DropdownFactory>(factories.DropdownFactory).toSelf().inSingletonScope();
+        container.bind<factories.OutlineFactory>(factories.OutlineFactory).toSelf().inSingletonScope();
     }
 } 
