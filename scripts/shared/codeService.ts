@@ -30,14 +30,13 @@ export default class CodeService {
             this._tooltipService.setupElement(copyButtonElement, 'left');
 
             // Setup copying to clipboard
-            let code = "";
-            let lineTextElements = codeElement.querySelectorAll('.line-text');
-            let lineTextElementsLastIndex = lineTextElements.length - 1;
-            lineTextElements.forEach((value: Element, index: number) => {
-                code += (value as HTMLSpanElement).innerText + (index ==  lineTextElementsLastIndex ? '' : '\n'); // innerText does not include pseudo element content
-            });
+            let code = null;
             new Clipboard(copyButtonElement, {
                 text: function () {
+                    // Do this lazily - not likely that all code blocks will be copied.
+                    if (code === null) {
+                        code = codeElement.innerText;
+                    }
                     return code;
                 },
             });
