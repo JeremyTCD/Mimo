@@ -109,7 +109,6 @@ export default class Host {
         container.bind<services.ThrottleService>(services.ThrottleService).toSelf().inSingletonScope();
         container.bind<services.HtmlEncodeService>(services.HtmlEncodeService).toSelf().inSingletonScope();
         container.bind<services.OverlayService>(services.OverlayService).toSelf().inSingletonScope();
-        container.bind<services.PaginationService>(services.PaginationService).toSelf().inSingletonScope();
         container.bind<services.SearchService>(services.SearchService).toSelf().inSingletonScope();
         container.bind<services.TooltipService>(services.TooltipService).toSelf().inSingletonScope();
         container.bind<services.HeightService>(services.HeightService).toSelf().inSingletonScope();
@@ -119,5 +118,6 @@ export default class Host {
         container.bind<factories.CollapsibleMenuFactory>(factories.CollapsibleMenuFactory).toSelf().inSingletonScope();
         container.bind<factories.DropdownFactory>(factories.DropdownFactory).toSelf().inSingletonScope();
         container.bind<factories.OutlineFactory>(factories.OutlineFactory).toSelf().inSingletonScope();
+        container.bind<factories.PaginationFactory>(factories.PaginationFactory).toSelf().inSingletonScope();
     }
 } 
