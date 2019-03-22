@@ -1,0 +1,26 @@
+﻿@import '../shared/constants';
+
+.breadcrumbs {
+    display: flex;
+    grid-area: breadcrumbs;
+    height: 37px;
+    background-color: $color-secondary;
+    font-size: $font-size-2;
+    @include horizontal-edge-padding;
+}
+
+.body--category-menu-only {
+    @media #{$media-narrow} {
+        .breadcrumbs {
+            display: none;
+        }
+    }
+}
+
+.body--all-menus {
+    @media #{$media-medium},#{$media-narrow} {
+        .breadcrumbs {
+            display: none;
+        }
+    }
+}
