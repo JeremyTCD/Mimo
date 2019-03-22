@@ -1,42 +1,21 @@
 import { named, injectable, inject } from 'inversify';
 import RootComponent from '../shared/rootComponent';
-import SearchComponent from './searchComponent';
-import SearchResultsComponent from './searchResultsComponent';
-import OverlayService from '../shared/overlayService';
 import MediaGlobalService from '../shared/mediaGlobalService';
 import { MediaWidth } from '../shared/mediaWidth';
 import DropdownFactory from '../shared/dropdownFactory';
 import Dropdown from '../shared/dropdown';
+import SearchComponent from './searchComponent';
 
 @injectable()
 export default class PageHeaderComponent extends RootComponent {
-    private _overlayService: OverlayService;
-    private _mediaGlobalService: MediaGlobalService;
-    private _dropdownFactory: DropdownFactory;
-
-    private _searchComponent: SearchComponent;
-
-    private _pageHeaderElement: HTMLElement;
-    private _buttonElement: HTMLElement;
-    private _navbarAndSearchOuterWrapper: HTMLElement;
-    private _navbarAndSearchInnerWrapper: HTMLElement;
-
     private _dropdown: Dropdown;
 
     public constructor(
-        @inject('GlobalService') @named('MediaGlobalService') mediaGlobalService: MediaGlobalService,
-        dropdownFactory: DropdownFactory,
-        overlayService: OverlayService,
-        searchComponent: SearchComponent,
-        searchResultsComponent: SearchResultsComponent) {
+        @inject('GlobalService') @named('MediaGlobalService') private _mediaGlobalService: MediaGlobalService,
+        private _dropdownFactory: DropdownFactory,
+        private _searchComponent: SearchComponent) {
         super();
-
-        this._dropdownFactory = dropdownFactory;
-        this._overlayService = overlayService;
-        this._mediaGlobalService = mediaGlobalService;
-        this._searchComponent = searchComponent;
-
-        this.addChildComponents(searchComponent, searchResultsComponent);
+        this.addChildComponents(_searchComponent);
     }
 
     public enabled(): boolean {
@@ -45,62 +24,41 @@ export default class PageHeaderComponent extends RootComponent {
     }
 
     public setupImmediate(): void {
-        this.childComponentsSetupImmediate();
+        // Do nothing
     }
 
     public setupOnDomContentLoaded(): void {
-        this.childComponentsSetupOnDomContentLoaded();
-
-        this._buttonElement = document.getElementById('page-header-button');
-        this._navbarAndSearchOuterWrapper = document.getElementById('page-header-navbar-and-search-outer-wrapper');
-        this._navbarAndSearchInnerWrapper = document.getElementById('page-header-navbar-and-search-inner-wrapper');
-        this._pageHeaderElement = document.getElementById('page-header');
-
-        this._dropdown = this._dropdownFactory.build(this._navbarAndSearchOuterWrapper, this._navbarAndSearchInnerWrapper, this._buttonElement, undefined);
+        // Dropdown
+        this._dropdown = this._dropdownFactory.build(document.querySelector('.page-header'),
+            null, null,
+            () => {
+                if (this._dropdown.isExpanded) {
+                    this._searchComponent.collapseResults();
+                }
+            },
+            false, true, false, false);
     }
 
     public setupOnLoad(): void {
-        this.childComponentsSetupOnLoad();
-        this._buttonElement.addEventListener('click', this.buttonClickListener);
-        this._overlayService.addClickListener(this.overlayClickListener);
-
-        this._mediaGlobalService.addChangedFromListener(this.onChangedFromNarrowListener, MediaWidth.narrow);
-        this._mediaGlobalService.addChangedToListener(this.onChangedToNarrowListener, MediaWidth.narrow);
+        this._mediaGlobalService.addChangedFromListener(this.onChangedToBarListener, MediaWidth.narrow);
+        this._mediaGlobalService.addChangedToListener(this.onChangedToDropdownListener, MediaWidth.narrow);
     }
 
-    private onChangedToNarrowListener = () => {
-        if (this._searchComponent.hasQuery()) {
-            this._dropdown.expandWithoutAnimation();
+    private onChangedToDropdownListener = () => {
+        if (this._searchComponent.isExpanded()) {
+            this._dropdown.expand(false, false, false, false);
         }
     }
 
-    private onChangedFromNarrowListener = () => {
-        if (this._dropdown.isExpanded() && !this._searchComponent.hasQuery()) {
-            this._overlayService.deactivateOverlay(false);
+    private onChangedToBarListener = () => {
+        if (!this._dropdown.isCollapsed()) {
+            // If dropdown isn't collapsed but search is collapsed, reset overlay
+            // If dropdown and search results are expanded, deactivate overlay (still visible because of activation by search service)
+            this._dropdown.reset(this._searchComponent.isCollapsed(),
+                this._searchComponent.isExpanded());
         }
-
-        this._dropdown.reset()
-    }
-
-    private overlayClickListener = (): void => {
-        if (this._searchComponent.hasQuery()) {
-            this._searchComponent.reset();
-        } 
-
-        if (this._dropdown.isExpanded()) {
-            this._overlayService.deactivateOverlay();
-            this._dropdown.collapseWithAnimation();
+        else {
+            this._dropdown.reset();
         }
-    }
-
-    private buttonClickListener = () => {
-        if (this._dropdown.isExpanded()) {
-            this._searchComponent.reset();
-            this._overlayService.deactivateOverlay();
-        } else {
-            this._overlayService.activateOverlay(this._pageHeaderElement, false);
-        }
-
-        this._dropdown.toggleWithAnimation();
     }
 } 

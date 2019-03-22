@@ -1,15 +1,16 @@
 import { injectable } from 'inversify';
+import Component from '../shared/component';
 import SearchWorker = require('worker-loader?inline=true&fallback=false!../workers/search.worker');
-import SearchData from './searchData';
+import SearchData from '../shared/searchData';
 import TextInputFactory from '../shared/textInputFactory';
-import OverlayService from './overlayService';
-import PaginationFactory from './paginationFactory';
-import Pagination from './pagination';
+import OverlayService from '../shared/overlayService';
+import PaginationFactory from '../shared/paginationFactory';
+import Pagination from '../shared/pagination';
 import * as Mark from 'mark.js';
-import TextInput from './textInput';
+import TextInput from '../shared/textInput';
 
 @injectable()
-export default class SearchService {
+export default class SearchComponent implements Component {
     private static readonly PAGE_HEADER_SEARCH_RESULTS_EXPANDED_CLASS: string = 'page-header--search-results-expanded';
     private static readonly PAGE_HEADER_SEARCH_RESULTS_COLLAPSING_CLASS: string = 'page-header--search-results-collapsing';
     private static readonly SEARCH_RESULTS_EXPANDED_CLASS: string = 'search__results--expanded';
@@ -29,9 +30,18 @@ export default class SearchService {
     public constructor(private _textInputFactory: TextInputFactory,
         private _paginationFactory: PaginationFactory,
         private _overlayService: OverlayService) {
+    }
 
+    public enabled(): boolean {
+        if (this._searchResultsElement === undefined) {
+            this._searchResultsElement = document.querySelector('.search__results');
+        }
+
+        return this._searchResultsElement ? true : false;
+    }
+
+    public setupImmediate(): void {
         this._pageHeaderElementClassList = document.querySelector('.page-header').classList; // Need to change page header's z-index when search is expanded
-        this._searchResultsElement = document.querySelector('.search__results');
         this._searchResultsElementClassList = this._searchResultsElement.classList;
         this._paginationElement = this._searchResultsElement.querySelector('.pagination');
         this._searchStringTextElement = this._searchResultsElement.querySelector('.search__query-string');
@@ -39,9 +49,8 @@ export default class SearchService {
         this._searchResultsExpanded = false;
 
         this._pagination = this._paginationFactory.build(this._paginationElement, 5, 5, this.paginationOnRenderPage);
-    }
 
-    public setupSearchWorker(): void {
+        // Setup search worker
         let searchWorker = new SearchWorker() as Worker;
 
         // Get index.json url
@@ -109,6 +118,14 @@ export default class SearchService {
             () => this.collapseSearchResults());
     }
 
+    public setupOnDomContentLoaded(): void {
+        // Do nothing
+    }
+
+    public setupOnLoad(): void {
+        // Do nothing
+    }
+
     public collapseResults(): void {
         this._textInput.reset();
     }
@@ -118,9 +135,9 @@ export default class SearchService {
             return;
         }
 
-        this._pageHeaderElementClassList.remove(SearchService.PAGE_HEADER_SEARCH_RESULTS_EXPANDED_CLASS);
-        this._searchResultsElementClassList.remove(SearchService.SEARCH_RESULTS_EXPANDED_CLASS);
-        this._pageHeaderElementClassList.add(SearchService.PAGE_HEADER_SEARCH_RESULTS_COLLAPSING_CLASS);
+        this._pageHeaderElementClassList.remove(SearchComponent.PAGE_HEADER_SEARCH_RESULTS_EXPANDED_CLASS);
+        this._searchResultsElementClassList.remove(SearchComponent.SEARCH_RESULTS_EXPANDED_CLASS);
+        this._pageHeaderElementClassList.add(SearchComponent.PAGE_HEADER_SEARCH_RESULTS_COLLAPSING_CLASS);
         this._searchResultsElement.addEventListener('transitionend', this.onHiddenListener, true);
 
         this._overlayService.deactivateOverlay(this._overlayActivationID);
@@ -134,8 +151,8 @@ export default class SearchService {
         }
 
         // Expand search results
-        this._pageHeaderElementClassList.add(SearchService.PAGE_HEADER_SEARCH_RESULTS_EXPANDED_CLASS);
-        this._searchResultsElementClassList.add(SearchService.SEARCH_RESULTS_EXPANDED_CLASS);
+        this._pageHeaderElementClassList.add(SearchComponent.PAGE_HEADER_SEARCH_RESULTS_EXPANDED_CLASS);
+        this._searchResultsElementClassList.add(SearchComponent.SEARCH_RESULTS_EXPANDED_CLASS);
 
         this._overlayActivationID = this._overlayService.activateOverlay(this.overlayOnClick, true, false);
 
@@ -186,7 +203,7 @@ export default class SearchService {
     private onHiddenListener = (event: Event): void => {
         if (event.target === event.currentTarget) {
             this._searchResultsElement.removeEventListener('transitionend', this.onHiddenListener, true);
-            this._pageHeaderElementClassList.remove(SearchService.PAGE_HEADER_SEARCH_RESULTS_COLLAPSING_CLASS);
+            this._pageHeaderElementClassList.remove(SearchComponent.PAGE_HEADER_SEARCH_RESULTS_COLLAPSING_CLASS);
             event.stopPropagation();
         }
     }
@@ -196,11 +213,11 @@ export default class SearchService {
     }
 
     public isExpanded() {
-        return this._pageHeaderElementClassList.contains(SearchService.PAGE_HEADER_SEARCH_RESULTS_EXPANDED_CLASS);
+        return this._pageHeaderElementClassList.contains(SearchComponent.PAGE_HEADER_SEARCH_RESULTS_EXPANDED_CLASS);
     }
 
     public isCollapsing() {
-        return this._pageHeaderElementClassList.contains(SearchService.PAGE_HEADER_SEARCH_RESULTS_COLLAPSING_CLASS);
+        return this._pageHeaderElementClassList.contains(SearchComponent.PAGE_HEADER_SEARCH_RESULTS_COLLAPSING_CLASS);
     }
 
     public isCollapsed() {

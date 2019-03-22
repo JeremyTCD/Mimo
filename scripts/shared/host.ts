@@ -80,6 +80,7 @@ export default class Host {
     private addDefault(container: Container): void {
         // Page header
         container.bind<components.RootComponent>('RootComponent').to(components.PageHeaderComponent).inSingletonScope();
+        container.bind<components.SearchComponent>(components.SearchComponent).toSelf().inSingletonScope();
 
         // Category menu
         container.bind<components.RootComponent>('RootComponent').to(components.CategoryMenuComponent).inSingletonScope();
@@ -107,7 +108,6 @@ export default class Host {
         container.bind<services.ThrottleService>(services.ThrottleService).toSelf().inSingletonScope();
         container.bind<services.HtmlEncodeService>(services.HtmlEncodeService).toSelf().inSingletonScope();
         container.bind<services.OverlayService>(services.OverlayService).toSelf().inSingletonScope();
-        container.bind<services.SearchService>(services.SearchService).toSelf().inSingletonScope();
         container.bind<services.TooltipService>(services.TooltipService).toSelf().inSingletonScope();
         container.bind<services.HeightService>(services.HeightService).toSelf().inSingletonScope();
         container.bind<services.StringService>(services.StringService).toSelf().inSingletonScope();

@@ -1,139 +1,165 @@
 @import '../shared/constants';
 @import '../shared/dropdown';
-@import 'navbar';
 @import 'search';
-@import 'searchResults';
 
-#page-header {
-    background-color: $color-primary;
-    height: 95px;
+@mixin page-header-dropdown() {
+    @include dropdown;
+    @include header-dropdown;
+    @include search-dropdown;
+
+    &__navbar {
+        @include horizontal-edge-padding;
+
+        ul {
+            flex-direction: column;
+            margin-bottom: 26px;
+            align-items: center;
+
+            li {
+
+                &:nth-child(n+2) {
+                    margin-top: 16px;
+                }
+
+                a {
+                    padding-bottom: 1px; // Add padding so underline can be lower
+                }
+            }
+        }
+    }
+
+    &__header {
+        height: 95px;
+        z-index: 2;
+        position: relative;
+    }
+
+    &__logo {
+        margin-right: auto;
+        flex-shrink: 0;
+    }
+}
+
+@mixin page-header-bar() {
+    @include search-bar;
     display: flex;
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
-    will-change: transform;
 
+    .dropdown__button {
+        display: none;
+    }
+
+    &__content {
+        flex-shrink: 0;
+        flex-grow: 1;
+        display: flex;
+    }
+
+    &__header {
+        @include horizontal-edge-padding('left');
+        flex-shrink: 0;
+    }
+
+    &__navbar {
+        padding-left: 36px;
+        height: 95px;
+        flex-shrink: 0;
+
+        ul {
+            align-items: center;
+
+            li {
+                &:nth-last-child(n+2) {
+                    margin-right: 38px;
+                }
+
+                a {
+                    padding: 1px 0; // Add padding so underline can be lower
+                    // Padding must be symetrical vertically so that text is centered vertically
+                }
+            }
+        }
+    }
+}
+
+.page-header {
+    grid-area: header;
+    z-index: 1;
+    position: relative; // Edge workaround: z-index doesn't work for grid area elements unless position is relative
     @media #{$media-narrow} {
-        flex-direction: column;
+        @include page-header-dropdown;
     }
 
     @media #{$media-medium}, #{$media-wide} {
-        @include horizontal-edge-padding;
+        @include page-header-bar;
     }
 
-    #page-header-logo-and-button-wrapper {
-        @include pure-flex;
-        height: 95px;
+    &__header, &__content, &__navbar {
+        background-color: $color-primary;
+    }
+
+    &__header {
+        display: flex;
         align-items: center;
-        flex-shrink: 0;
+    }
 
-        @media #{$media-narrow} {
-            @include horizontal-edge-padding;
+    &__logo {
+        display: flex;
+        transition: transform $short-animation-duration $ease-out-quad;
+
+        svg {
+            height: 59px;
         }
 
-        #page-header-logo {
-            margin-right: auto;
-            flex-shrink: 0;
-            transition: transform $short-animation-duration $ease-out-quad;
-            will-change: transform;
-
-            svg {
-                height: 59px;
-            }
-
-            #page-header-logo-website-name {
-                color: #FE3D00;
-                font-size: 10px;
-                line-height: 1;
-                border: 2px solid #FE3D00;
-                padding: 0 9px;
-                font-weight: 600;
-                justify-content: center;
-                align-items: center;
-            }
-
-            &:hover {
-                transition: transform $short-animation-duration $ease-out-back-delayed;
-                will-change: initial; // This is necessary to ensure that contents get re-rastered
-                transform: scale(1.2);
-            }
-        }
-
-        #page-header-button {
-            @media #{$media-medium}, #{$media-wide} {
-                display: none
-            }
-
-            flex-shrink: 0;
-            width: 23px;
-            border: none;
-            flex-direction: column;
-            //justify-content: space-around; // Does not work with firefox
-            span {
-                height: 3px;
-                width: 23px;
-                flex-shrink: 0;
-
-                &:nth-last-child(n+2) {
-                    margin-bottom: 3px;
-                }
-
-                background-color: $color-primary-link;
-                transition: transform $medium-animation-duration $ease-out-quad;
-                will-change: transform;
-            }
-
-            &:hover, &:focus {
-                outline: 0;
-            }
-
-            &.expanded {
-                span {
-                    &:nth-child(1) {
-                        transform: translate(0, 6px) rotate(45deg);
-                    }
-
-                    &:nth-child(2) {
-                        // Can't be 0 - https: //bugzilla.mozilla.org/show_bug.cgi?id=1425213
-                        transform: scaleX(0.0001);
-                    }
-
-                    &:nth-child(3) {
-                        transform: translate(0, -6px) rotate(-45deg);
-                    }
-                }
-            }
+        &:hover {
+            transition: transform $short-animation-duration $ease-out-back-delayed;
+            transform: scale(1.2);
         }
     }
 
-    #page-header-navbar-and-search-outer-wrapper {
+    &__website-name {
+        display: flex;
+        color: $color-brand;
+        font-size: 10px;
+        line-height: 1;
+        border: 2px solid $color-brand;
+        padding: 0 9px;
+        font-weight: 600;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__navbar {
         display: flex;
 
-        @media #{$media-medium}, #{$media-wide} {
-            align-self: center;
+        ul {
+            display: flex;
             flex-grow: 1;
-            margin-left: 36px;
-        }
 
-        @media #{$media-narrow} {
-            margin-top: -8px;
-            position: absolute;
-            top: 95px;
-            left: 0;
-            right: 0;
-            @include dropdown-outer-wrapper;
-        }
-
-        #page-header-navbar-and-search-inner-wrapper {
-            @media #{$media-medium}, #{$media-wide} {
+            li {
                 display: flex;
-                flex-grow: 1;
-            }
+                flex-shrink: 0;
 
-            @media #{$media-narrow} {
-                @include dropdown-inner-wrapper;
-                background-color: $color-primary;
+                a {
+                    &.active {
+                        @include animated-underline-core($color-secondary, 100%, 2px); // No need hover listener
+                        @include decenders-gap($color-primary);
+                        color: $color-secondary;
+                        background-size: 100% 2px;
+                    }
+
+                    &:not(.active) {
+                        @include animated-underline($color-primary-link, 100%, 2px, $medium-animation-duration, $color-primary);
+                    }
+                }
             }
         }
+    }
+
+    &--search-results-expanded {
+        z-index: 5;
+    }
+
+    &--search-results-collapsing {
+        z-index: 5;
     }
 }
