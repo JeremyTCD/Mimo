@@ -1,26 +1,48 @@
 import { injectable } from 'inversify';
-import SearchResultsComponent from '../pageHeader/searchResultsComponent';
 import SearchWorker = require('worker-loader?inline=true&fallback=false!../workers/search.worker');
 import SearchData from './searchData';
+import TextInputFactory from '../shared/textInputFactory';
+import OverlayService from './overlayService';
+import PaginationFactory from './paginationFactory';
+import Pagination from './pagination';
+import * as Mark from 'mark.js';
+import TextInput from './textInput';
 
 @injectable()
 export default class SearchService {
-    private _searchResultsComponent: SearchResultsComponent;
+    private static readonly PAGE_HEADER_SEARCH_RESULTS_EXPANDED_CLASS: string = 'page-header--search-results-expanded';
+    private static readonly PAGE_HEADER_SEARCH_RESULTS_COLLAPSING_CLASS: string = 'page-header--search-results-collapsing';
+    private static readonly SEARCH_RESULTS_EXPANDED_CLASS: string = 'search__results--expanded';
 
-    private _queryString: string;
+    private _searchResultsElement: HTMLElement;
+    private _searchStringTextElement: HTMLElement;
+    private _noMatchesTextElement: HTMLElement;
+    private _paginationElement: HTMLElement;
 
-    public constructor(searchResultsComponent: SearchResultsComponent) {
-        this._searchResultsComponent = searchResultsComponent;
+    private _overlayActivationID: number;
+    private _searchResultsExpanded: boolean;
+    private _pagination: Pagination;
+    private _textInput: TextInput;
+    private _pageHeaderElementClassList: DOMTokenList;
+    private _searchResultsElementClassList: DOMTokenList;
+
+    public constructor(private _textInputFactory: TextInputFactory,
+        private _paginationFactory: PaginationFactory,
+        private _overlayService: OverlayService) {
+
+        this._pageHeaderElementClassList = document.querySelector('.page-header').classList; // Need to change page header's z-index when search is expanded
+        this._searchResultsElement = document.querySelector('.search__results');
+        this._searchResultsElementClassList = this._searchResultsElement.classList;
+        this._paginationElement = this._searchResultsElement.querySelector('.pagination');
+        this._searchStringTextElement = this._searchResultsElement.querySelector('.search__query-string');
+        this._noMatchesTextElement = this._searchResultsElement.querySelector('.search__no-matches');
+        this._searchResultsExpanded = false;
+
+        this._pagination = this._paginationFactory.build(this._paginationElement, 5, 5, this.paginationOnRenderPage);
     }
 
-    public setupSearch(): void {
+    public setupSearchWorker(): void {
         let searchWorker = new SearchWorker() as Worker;
-
-        this.setupWebWorkerSearch(searchWorker);
-    };
-
-    private setupWebWorkerSearch(searchWorker: Worker): void {
-        console.log("using Web Worker");
 
         // Get index.json url
         let linkElement = document.querySelector('head > link[href*="/index."]');
@@ -36,44 +58,21 @@ export default class SearchService {
                     eventType: 'search-data-received',
                     payload: searchDataRequest.responseText
                 });
-
-                // TODO allow query string to perform search on page load
-                let searchInputElement = document.getElementById('search-query');
-
-                searchInputElement.
-                    addEventListener('keypress', (event: KeyboardEvent) => {
-                        // By default, browsers attempt to submit form if enter is pressed
-                        if (event.key === 'Enter') {
-                            event.preventDefault();
-                        }
-                    });
-
-                searchInputElement.
-                    addEventListener('keyup', (event: KeyboardEvent) => {
-                        this._queryString = (event.currentTarget as HTMLInputElement).value;
-                        if (this._queryString.length < 1) {
-                            this._searchResultsComponent.setShown(false);
-                        } else {
-                            // By the time we add this event listener to the search input element,
-                            // the search worker is already ready to receive messages.
-                            searchWorker.postMessage({ eventType: 'query', payload: this._queryString });
-                        }
-                    });
             }
         }
         searchDataRequest.send();
 
         // Generate base URL
-        var tempA = document.createElement('a');
-        tempA.setAttribute('href', indexRelPath + '/../..'); // Index file is located in <base URL>/resources folder, go two levels up to get to base URL
-        let baseUrl = tempA.href;
+        var tempAElement = document.createElement('a');
+        tempAElement.setAttribute('href', indexRelPath + '/../..'); // Index file is located in <base URL>/resources folder, go two levels up to get to base URL
+        let baseUrl = tempAElement.href;
         baseUrl = baseUrl.substring(0, baseUrl.length - 1); // Drop trailing /
 
         // Setup listener for query results
         let articleElements: { [ref: string]: HTMLElement } = {};
         searchWorker.onmessage = (event: MessageEvent) => {
-            let items: SearchData[] = event.data.payload;
-            let result: HTMLElement[] = [];
+            let items: SearchData[] = event.data.results;
+            let resultsElements: HTMLElement[] = [];
 
             for (let i = 0; i < items.length; i++) {
                 let item: SearchData = items[i];
@@ -92,10 +91,119 @@ export default class SearchService {
                     })
                 }
 
-                result.push(articleElement);
+                resultsElements.push(articleElement);
             }
 
-            this._searchResultsComponent.setArticleElements(result, this._queryString);
+            this.showSearchResults(resultsElements);
         }
+
+        // Create text input
+        this._textInput = this._textInputFactory.build(document.querySelector('.search__box'),
+            (value: string) => {
+                if (value.length < 1) {
+                    this.collapseSearchResults();
+                } else {
+                    searchWorker.postMessage({ eventType: 'query', queryString: value });
+                }
+            },
+            () => this.collapseSearchResults());
+    }
+
+    public collapseResults(): void {
+        this._textInput.reset();
+    }
+
+    private collapseSearchResults() {
+        if (!this._searchResultsExpanded) {
+            return;
+        }
+
+        this._pageHeaderElementClassList.remove(SearchService.PAGE_HEADER_SEARCH_RESULTS_EXPANDED_CLASS);
+        this._searchResultsElementClassList.remove(SearchService.SEARCH_RESULTS_EXPANDED_CLASS);
+        this._pageHeaderElementClassList.add(SearchService.PAGE_HEADER_SEARCH_RESULTS_COLLAPSING_CLASS);
+        this._searchResultsElement.addEventListener('transitionend', this.onHiddenListener, true);
+
+        this._overlayService.deactivateOverlay(this._overlayActivationID);
+
+        this._searchResultsExpanded = false;
+    }
+
+    private expandSearchResults() {
+        if (this._searchResultsExpanded) {
+            return;
+        }
+
+        // Expand search results
+        this._pageHeaderElementClassList.add(SearchService.PAGE_HEADER_SEARCH_RESULTS_EXPANDED_CLASS);
+        this._searchResultsElementClassList.add(SearchService.SEARCH_RESULTS_EXPANDED_CLASS);
+
+        this._overlayActivationID = this._overlayService.activateOverlay(this.overlayOnClick, true, false);
+
+        this._searchResultsExpanded = true;
+    }
+
+    private paginationOnRenderPage = (rootElement: HTMLElement) => {
+        let marked: string[] = [];
+
+        this._textInput.value().
+            split(/\s+/).
+            forEach((word: string) => {
+                if (word !== '' && marked.indexOf(word) === -1) {
+                    var target = new Mark(rootElement);
+                    target.mark(word);
+                    marked.push(word);
+                }
+            });
+    }
+
+    private showSearchResults(resultElements: HTMLElement[]) {
+        if (resultElements.length === 0) {
+            // Hide pagination
+            this._paginationElement.style.display = 'none';
+
+            // Update search string message
+            this._searchStringTextElement.textContent = `No results found for "${this._textInput.value()}" ...`;
+
+            // Show and update results message
+            this._noMatchesTextElement.style.display = '';
+            this._noMatchesTextElement.textContent = `Your query - "${this._textInput.value()}" - has no matches`;
+        } else {
+            // Update search string message
+            this._searchStringTextElement.textContent = `Search results for "${this._textInput.value()}" ...`;
+
+            // Hide results message
+            this._noMatchesTextElement.style.display = 'none';
+
+            // Show and update pagination
+            this._paginationElement.style.display = '';
+
+            this._pagination.setItems(resultElements);
+        }
+
+        this.expandSearchResults();
+    }
+
+    private onHiddenListener = (event: Event): void => {
+        if (event.target === event.currentTarget) {
+            this._searchResultsElement.removeEventListener('transitionend', this.onHiddenListener, true);
+            this._pageHeaderElementClassList.remove(SearchService.PAGE_HEADER_SEARCH_RESULTS_COLLAPSING_CLASS);
+            event.stopPropagation();
+        }
+    }
+
+    private overlayOnClick = (): void => {
+        this._textInput.reset();
+    }
+
+    public isExpanded() {
+        return this._pageHeaderElementClassList.contains(SearchService.PAGE_HEADER_SEARCH_RESULTS_EXPANDED_CLASS);
+    }
+
+    public isCollapsing() {
+        return this._pageHeaderElementClassList.contains(SearchService.PAGE_HEADER_SEARCH_RESULTS_COLLAPSING_CLASS);
+    }
+
+    public isCollapsed() {
+        return !this.isExpanded() && !this.isCollapsing();
     }
 }

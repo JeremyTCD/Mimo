@@ -1,0 +1,68 @@
+@import '../shared/constants';
+
+@mixin search-dropdown() {
+    .search__box {
+        @include horizontal-edge-padding;
+        padding-bottom: 23px;
+    }
+}
+
+@mixin search-bar() {
+    .search__box {
+        flex-shrink: 0;
+        @include horizontal-edge-padding('right');
+        margin-left: auto;
+        box-sizing: content-box;
+        align-content: center;
+        width: $side-menu-width;
+    }
+}
+
+.search {
+    &__box {
+        background-color: $color-primary;
+    }
+
+    &__results {
+        background-color: $color-primary;
+        transition: transform $medium-animation-duration $ease-out-quad;
+        transform: translateY(0);
+        z-index: -1;
+        position: absolute; // This is relative to the entire page header
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        &--expanded {
+            transform: translateY(100%);
+        }
+
+        .pagination {
+            @include horizontal-edge-padding;
+            padding-bottom: 59px;
+        }
+
+        mark{
+            background-color: $color-primary-highlight;
+            color: inherit;
+        }
+    }
+
+    &__query-string {
+        background-color: $color-secondary;
+        @include horizontal-edge-padding;
+        font-size: $font-size-2;
+        min-height: 37px;
+        padding: 8px 0;
+        color: $color-secondary-text;
+        margin-bottom: 50px;
+        display: flex;
+        align-items: center;
+    }
+
+    &__no-matches {
+        display: block;
+        @include horizontal-edge-padding;
+        margin-bottom: 50px;
+    }
+}

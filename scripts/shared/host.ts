@@ -80,8 +80,6 @@ export default class Host {
     private addDefault(container: Container): void {
         // Page header
         container.bind<components.RootComponent>('RootComponent').to(components.PageHeaderComponent).inSingletonScope();
-        container.bind<components.SearchComponent>(components.SearchComponent).toSelf().inSingletonScope();
-        container.bind<components.SearchResultsComponent>(components.SearchResultsComponent).toSelf().inSingletonScope();
 
         // Category menu
         container.bind<components.RootComponent>('RootComponent').to(components.CategoryMenuComponent).inSingletonScope();
