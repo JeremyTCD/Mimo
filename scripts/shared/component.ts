@@ -1,4 +1,6 @@
 ﻿export default interface Component {
+    enabled(): boolean;
+
     // Called when script bundle first executes
     setupImmediate(): void;
 

@@ -26,7 +26,11 @@ export default class Host {
         }
 
         for (let i = 0; i < this._rootComponents.length; i++) {
-            this._rootComponents[i].setupImmediate();
+            let rootComponent = this._rootComponents[i];
+
+            if (rootComponent.enabled()) {
+                this._rootComponents[i].setupRootImmediate();
+            }
         }
 
         if (document.readyState === 'interactive' || document.readyState === 'complete') {
@@ -52,7 +56,7 @@ export default class Host {
             let rootComponent = this._rootComponents[i];
 
             if (rootComponent.enabled()) {
-                rootComponent.setupOnDomContentLoaded();
+                rootComponent.setupRootOnDomContentLoaded();
             }
         }
     }
@@ -68,7 +72,7 @@ export default class Host {
             let rootComponent = this._rootComponents[i];
 
             if (rootComponent.enabled()) {
-                rootComponent.setupOnLoad();
+                rootComponent.setupRootOnLoad();
             }
         }
     }
