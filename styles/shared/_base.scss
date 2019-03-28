@@ -103,3 +103,24 @@ a {
 *::-ms-clear {
     display: none;
 }
+
+@media (pointer:fine) {
+    * {
+        // FF
+        scrollbar-width: thin;
+        scrollbar-color: $color-scrollbar-thumb $color-scrollbar-track
+    }
+
+    &::-webkit-scrollbar, &::-webkit-scrollbar-thumb {
+        width: 5px;
+        height: 5px;
+    }
+
+    &::-webkit-scrollbar {
+        background: $color-scrollbar-track;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $color-scrollbar-thumb;
+    }
+}
