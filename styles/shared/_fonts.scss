@@ -70,10 +70,10 @@
     url('ibm-plex-mono-v3-latin-600.ttf') format('truetype'); /* Safari, Android, iOS */
 }
 
-html {
+html * {
     font-family: 'Open Sans', sans-serif;
 }
 
-code {
+code, code * {
     font-family: 'IBM Plex Mono', monospace;
 }
