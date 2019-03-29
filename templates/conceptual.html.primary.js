@@ -1,5 +1,5 @@
 var common = require('./common.js');
-var extension = require('./conceptual.extension.js')
+var extension = require('./conceptual.extension.js');
 
 exports.transform = function (model) {
   if (extension && extension.preTransform) {
