@@ -1,28 +1,14 @@
-{{!include(/^styles/.*/)}}
-{{!include(/^fonts/.*/)}}
 <!DOCTYPE html>
 
 <html lang="en" prefix="og: http://ogp.me/ns#" {{#mimo_pageID}}id={{mimo_pageID}}{{/mimo_pageID}}>
     {{>partials/head/head}}
-    <body class="preload">
+    <body class="{{#mimo_menusClass}}{{mimo_menusClass}}{{/mimo_menusClass}} {{#mimo_isDisplay}}body--is-display{{/mimo_isDisplay}} {{#mimo_isSearchableDisplay}}body--is-searchable-display{{/mimo_isSearchableDisplay}}" >
         {{>partials/pageHeader/pageHeader}}
-
-        <div id="core{{#mimo_innerCore}}-outer{{/mimo_innerCore}}" {{#mimo_menuBefore}}class="menu-before"{{/mimo_menuBefore}} {{#mimo_menuAfter}}class="menu-after"{{/mimo_menuAfter}}>
-            {{>partials/categoryMenu/categoryMenu}}
-
-            {{#mimo_innerCore}}
-            <div id="core-inner">
-            {{/mimo_innerCore}}
-
-                {{>partials/shared/main}}
-		        {{>partials/articleMenu/articleMenu}}
-
-            {{#mimo_innerCore}}
-            </div>
-            {{/mimo_innerCore}}          
-        </div>
-
+        {{>partials/breadcrumbs/breadcrumbs}}
+        {{>partials/categoryMenu/categoryMenu}}
+		{{>partials/articleMenu/articleMenu}}
+        {{>partials/main/main}}
         {{>partials/pageFooter/pageFooter}}
-        <div id="overlay"></div>
+        <div class="overlay"></div>
     </body>
 </html>

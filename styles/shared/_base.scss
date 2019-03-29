@@ -1,12 +1,74 @@
 ﻿@import 'constants';
 
 body {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    min-height: 100vh;
+    display: grid;
 
+    &.body--article-menu-only {
+        @media #{$media-wide}, #{$media-medium} {
+            grid-template-rows: [header-start] 95px [header-end breadcrumbs-start] auto [breadcrumbs-end article-menu-start main-start] 1fr [main-end footer-start ] auto [article-menu-end footer-end];
+        }
+
+        @media #{$media-wide} {
+            grid-template-columns: [header-start breadcrumbs-start footer-start main-start] 1fr [main-end article-menu-start] $side-menu-column-width-wide [article-menu-end footer-end breadcrumbs-end header-end];
+        }
+
+        @media #{$media-medium} {
+            grid-template-columns: [header-start breadcrumbs-start footer-start main-start] 1fr [main-end article-menu-start] $side-menu-column-width-medium [article-menu-end footer-end breadcrumbs-end header-end];
+        }
+
+        @media #{$media-narrow} {
+            grid-template-rows: 95px auto 37px 1fr auto;
+            grid-template-columns: 1fr;
+            grid-template-areas: "header" "breadcrumbs" "article-menu" "main" "footer";
+        }
     }
+
+    &.body--category-menu-only {
+        @media #{$media-wide}, #{$media-medium} {
+            grid-template-rows: [header-start] 95px [header-end breadcrumbs-start] auto [breadcrumbs-end category-menu-start main-start] 1fr [main-end footer-start ] auto [category-menu-end footer-end];
+        }
+
+        @media #{$media-wide} {
+            grid-template-columns: [header-start breadcrumbs-start footer-start category-menu-start] $side-menu-column-width-wide [category-menu-end main-start] 1fr [main-end footer-end breadcrumbs-end header-end];
+        }
+
+        @media #{$media-medium} {
+            grid-template-columns: [header-start breadcrumbs-start footer-start category-menu-start] $side-menu-column-width-medium [category-menu-end main-start] 1fr [main-end footer-end breadcrumbs-end header-end];
+        }
+
+        @media #{$media-narrow} {
+            grid-template-rows: 95px 37px 1fr auto;
+            grid-template-columns: 1fr;
+            grid-template-areas: "header" "category-menu" "main" "footer";
+        }
+    }
+
+    &.body--no-menus {
+        grid-template-rows: 95px auto 1fr auto;
+        grid-template-columns: 1fr;
+        grid-template-areas: "header" "breadcrumbs" "main" "footer";
+    }
+
+    &.body--all-menus {
+        @media #{$media-wide} {
+            grid-template-rows: [header-start] 95px [header-end breadcrumbs-start] auto [breadcrumbs-end category-menu-start main-start article-menu-start] 1fr [main-end footer-start ] auto [category-menu-end article-menu-end footer-end];
+            grid-template-columns: [header-start breadcrumbs-start category-menu-start footer-start] $side-menu-column-width-wide [category-menu-end main-start] 1fr [main-end article-menu-start] $side-menu-column-width-wide [footer-end article-menu-end breadcrumbs-end header-end];
+        }
+
+        @media #{$media-medium} {
+            grid-template-rows: [header-start] 95px [header-end category-menu-start] 37px [category-menu-end main-start article-menu-start] 1fr [main-end footer-start ] auto [article-menu-end footer-end];
+            grid-template-columns: [header-start footer-start main-start category-menu-start] 1fr [main-end article-menu-start] $side-menu-column-width-medium [footer-end article-menu-end header-end category-menu-end];
+        }
+
+        @media #{$media-narrow} {
+            grid-template-rows: 95px 37px 37px 1fr auto;
+            grid-template-columns: 1fr;
+            grid-template-areas: "header" "category-menu" "article-menu" "main" "footer";
+        }
+    }
+
+    min-height: 100vh;
+    position: relative;
 
     * {
         // FF uses auto as the default min-height for some elements (such as lis). auto means min-content (minimum space to fit content). Not setting min-height to 0 can thus result in overflow despite

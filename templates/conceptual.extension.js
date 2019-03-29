@@ -44,15 +44,15 @@ exports.preTransform = function (model) {
         model.mimo_shareOnTwitterText = encodeURIComponent(generatedText);
     }
 
-    // Both side menus are active
-    if (!model.mimo_disableArticleMenu && !model.mimo_disableCategoryMenu) {
-        model.mimo_innerCore = true;
-    } else if (!model.mimo_disableCategoryMenu || !model.mimo_disableArticleMenu) {
-        if (model.mimo_disableArticleMenu) {
-            model.mimo_menuBefore = true;
-        } else if (model.mimo_disableCategoryMenu) {
-            model.mimo_menuAfter = true;
-        }
+    // Side menu state
+    if (model.mimo_disableArticleMenu && model.mimo_disableCategoryMenu) {
+        model.mimo_menusClass = 'body--no-menus';
+    } else if (model.mimo_disableCategoryMenu) {
+        model.mimo_menusClass = 'body--article-menu-only';
+    } else if (model.mimo_disableArticleMenu) {
+        model.mimo_menusClass = 'body--category-menu-only';
+    } else {
+        model.mimo_menusClass = 'body--all-menus';
     }
 
     // Include website name in logo
