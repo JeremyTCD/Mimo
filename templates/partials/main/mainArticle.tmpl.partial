@@ -1,11 +1,15 @@
-<article class="main-article">
-    {{#mimo_pageTitle}}<h1 class="title">{{mimo_pageTitle}}</h1>{{/mimo_pageTitle}}
+<article class="main-article article">
+    {{#mimo_pageTitle}}
+    <header>
+        <h1 class="article__title">{{mimo_pageTitle}}</h1>
+    </header>
+    {{/mimo_pageTitle}}
 
     {{^mimo_disableMetadata}}
-    <div class="meta">
+    <div class="article__metadata">
         <ul>
             {{#mimo_date}}
-            <li class="metadata-date">
+            <li class="article__metadata-date">
                 <svg>
                     <use xlink:href="#custom-date-range" />
                 </svg>
@@ -13,12 +17,12 @@
             </li>
             {{/mimo_date}}
             {{#mimo_authors}}
-            <li class="metadata-authors">
+            <li class="article__metadata-authors">
                 <svg>
                     <use xlink:href="#material-design-person" />
                 </svg>
                 {{#link}}
-                <a class="metadata-author-link" href="{{link}}" title="{{name}}">
+                <a href="{{link}}" title="{{name}}">
                     {{/link}}
                     <span class="author-text">{{name}}</span>
                     {{#imgSrc}}

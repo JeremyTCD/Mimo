@@ -28,7 +28,6 @@
     .card {
         background-color: $color-secondary;
         transition: transform $short-animation-duration $ease-out-quad;
-        will-change: transform;
         position: relative;
 
         a {
@@ -37,7 +36,6 @@
 
         &:hover {
             transition: transform $short-animation-duration $ease-out-back-delayed;
-            will-change: initial; // This is necessary to ensure that the card gets re-rastered while avoiding repaints of all other cards - https://googlechrome.github.io/samples/css-will-change-transform-rasterization/
             transform: scale(1.2);
         }
 
@@ -80,25 +78,25 @@
                 &.card-content-icon-grid {
                     display: grid;
                     grid-template-columns: repeat(auto-fit, $card-content-icon-grid-icon-size);
-                    justify-content: flex-start;
                     grid-column-gap: $card-content-icon-grid-gap-width;
                     grid-row-gap: $card-content-icon-grid-gap-width;
                     overflow: visible;
 
                     a {
+                        height: $card-content-icon-grid-icon-size;
                         display: flex;
-                        will-change: transform; // Place icons in separate layers so that when they transform, the rest of the card doesn't get repainted (causes header and footer to get blurry)
-                        transition: transform $short-animation-duration $ease-out-quad;
-
-                        &:hover {
-                            transition: transform $short-animation-duration $ease-out-back-delayed;
-                            transform: scale(1.3333);
-                        }
+                        align-items: center;
 
                         svg {
                             height: $card-content-icon-grid-icon-size;
                             width: $card-content-icon-grid-icon-size;
                             fill: $color-secondary-text;
+                            transition: transform $short-animation-duration $ease-out-quad;
+
+                            &:hover {
+                                transition: transform $short-animation-duration $ease-out-back-delayed;
+                                transform: scale(1.3333);
+                            }
                         }
                     }
                 }

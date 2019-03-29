@@ -1,3 +1,4 @@
+<!-- TODO BEM -->
 {{^mimo_disableComments}}
 {{#mimo_pageTitle}}
 {{#mimo_disqusShortname}}

@@ -1,35 +1,31 @@
 import { injectable } from 'inversify';
-import RootComponent from '../shared/rootComponent';
+import Component from '../shared/component';
 import HeightService from '../shared/heightService';
 
 @injectable()
-export default class CommentsComponent extends RootComponent {
+export default class CommentsComponent implements Component {
     private _commentsElement: HTMLElement;
     private _disqusThreadElement: HTMLElement;
     private _spinner: HTMLElement;
 
     private _disqusShortname: string;
     private _disqusIdentifier: string;
-    private _heightService: HeightService;
     private _intersectionObserver: IntersectionObserver;
 
-    public constructor(heightService: HeightService) {
-
-        super();
-        this._heightService = heightService;
-    }
-
-    public setupImmediate(): void {
-        this._commentsElement = document.getElementById('comments');
-
-        if (this.enabled()) {
-            this._disqusThreadElement = document.getElementById('disqus_thread');
-            this._spinner = document.getElementById('disqus-spinner');
-        }
+    public constructor(private _heightService: HeightService) {
     }
 
     public enabled(): boolean {
+        if (this._commentsElement === undefined) {
+            this._commentsElement = document.getElementById('comments');
+        }
+
         return this._commentsElement ? true : false;
+    }
+
+    public setupImmediate(): void {
+        this._disqusThreadElement = document.getElementById('disqus_thread');
+        this._spinner = document.getElementById('disqus-spinner');
     }
 
     public setupOnDomContentLoaded(): void {

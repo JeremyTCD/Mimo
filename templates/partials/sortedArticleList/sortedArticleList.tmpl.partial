@@ -1,6 +1,0 @@
-{{#mimo_enableSal}}
-<div id="sorted-article-list">
-  <div id="sal-all-items"></div>
-  {{>partials/articleList/articleList}}
-</div>
-{{/mimo_enableSal}}

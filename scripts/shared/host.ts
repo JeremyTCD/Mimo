@@ -85,14 +85,10 @@ export default class Host {
         // Category menu
         container.bind<components.RootComponent>('RootComponent').to(components.CategoryMenuComponent).inSingletonScope();
 
-        // Article
-        container.bind<components.RootComponent>('RootComponent').to(components.ArticleComponent).inSingletonScope();
-
-        // Comments
-        container.bind<components.RootComponent>('RootComponent').to(components.CommentsComponent).inSingletonScope();
-
-        // Sorted article list
-        container.bind<components.RootComponent>('RootComponent').to(components.SortedArticleListComponent).inSingletonScope();
+        // Main
+        container.bind<components.RootComponent>('RootComponent').to(components.MainComponent).inSingletonScope();
+        container.bind<components.MainArticleComponent>(components.MainArticleComponent).toSelf().inSingletonScope();
+        container.bind<components.CommentsComponent>(components.CommentsComponent).toSelf().inSingletonScope();
 
         // Article menu
         container.bind<components.RootComponent>('RootComponent').to(components.ArticleMenuComponent).inSingletonScope();

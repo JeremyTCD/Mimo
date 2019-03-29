@@ -4,7 +4,7 @@ blockquote {
     // Blockquotes typically follow ":" lead ups like "For example: <a figure>". For this reason, a slight indentation is helpful for establishing that the
     // blockquote is a child of the previous statement.
     @media #{$media-wide}, #{$media-medium} {
-        margin-left: 20px;
+        //margin-left: 20px;
     }
 
     @media #{$media-narrow} {

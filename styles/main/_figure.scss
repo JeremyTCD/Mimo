@@ -3,15 +3,7 @@
 .figure-block {
     display: flex;
     align-items: flex-start;
-    // Figure blocks typically follow ":" lead ups like "For example: <a figure>". For this reason, a slight indentation is helpful for establishing that the figure block
-    // is a child of the previous statement.
-    @media #{$media-wide}, #{$media-medium} {
-        margin-left: 20px;
-    }
-
-    @media #{$media-narrow} {
-        margin-left: 0px;
-    }
+    margin: 37px 0;
     // TODO is there some method we can use to limit the width of figcaption to the content above it?
     // Currently, we're setting explicit max-widths for each figure block. Might have to read through the css grid
     // and flex specs to figure this out.

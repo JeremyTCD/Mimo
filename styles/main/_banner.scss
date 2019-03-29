@@ -83,7 +83,6 @@
     }
 
     h1 {
-        will-change: transform; // TODO If this isn't specified, the element gets repainted everytime an element anywhere on the page transitions. Why?
         position: relative;
         z-index: 2;
         color: $color-secondary-text;
@@ -92,7 +91,6 @@
     }
 
     p {
-        will-change: transform; // TODO If this isn't specified, the element gets repainted everytime an element anywhere on the page transitions. Why?
         position: relative;
         z-index: 2;
         margin-top: 23px;

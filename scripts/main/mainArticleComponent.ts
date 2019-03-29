@@ -1,18 +1,17 @@
 ﻿import { injectable } from 'inversify';
-import RootComponent from '../shared/rootComponent';
+import Component from '../shared/component';
 import TooltipService from '../shared/tooltipService';
 import * as Clipboard from 'clipboard';
 import CodeService from '../shared/codeService';
 
 @injectable()
-export default class ArticleComponent extends RootComponent {
+export default class MainArticleComponent implements Component {
     private _tooltipService: TooltipService;
     private _codeService: CodeService;
     private _mainArticleElement: HTMLElement;
 
     public constructor(tooltipService: TooltipService,
         codeService: CodeService) {
-        super();
 
         this._tooltipService = tooltipService;
         this._codeService = codeService;

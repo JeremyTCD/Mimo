@@ -1,57 +1,12 @@
 ﻿@import '../shared/constants';
 
-@mixin main-article-no-preceding-dropdowns() {
-    margin-top: 46px;
-}
-
-@mixin main-article-with-preceding-dropdowns() {
-    margin-top: 44px;
-}
-
-#core-inner {
-    main {
-        > article {
-            @media #{$media-medium}, #{$media-narrow} {
-                @include main-article-with-preceding-dropdowns;
-            }
-
-            @media #{$media-wide} {
-                @include main-article-no-preceding-dropdowns;
-            }
-        }
-    }
-}
-
-#core {
-    &.menu-before, &.menu-after {
-        main {
-            > article {
-                @media #{$media-narrow} {
-                    @include main-article-with-preceding-dropdowns;
-                }
-
-                @media #{$media-medium}, #{$media-wide} {
-                    @include main-article-no-preceding-dropdowns;
-                }
-            }
-        }
-    }
-
-    main {
-        > article {
-            @include main-article-no-preceding-dropdowns;
-        }
-    }
-}
-
-article, section {
+.article, .article section {
     > *:not(:first-child) {
         margin-top: 20px;
     }
 }
 
-article {
-    // h1 and metadata are direct children of article and so aren't within any section
+.article {
     @import './metadata';
     @import './header';
     @import './cards';
@@ -62,10 +17,8 @@ article {
     @import './blockquote';
     @import './banner';
     @import './figure';
-    // Make long-form text as readable as possible
-    p {
-        max-width: 800px;
-    }
+    width: 100%;
+    max-width: 800px;
 
     a {
         @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-primary);
