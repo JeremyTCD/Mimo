@@ -1,16 +1,15 @@
 @import './shared/fonts';
 @import './shared/reset';
-@import './shared/base';
+@import './shared/body';
+@import './shared/misc';
 @import './shared/tooltip';
 @import './shared/overlay';
 @import './shared/spinner';
-@import './shared/main';
 @import './shared/textInput';
 @import './shared/collapsibleMenu';
 @import './shared/outline';
 @import './shared/pagination';
 @import './shared/barSeparatedList';
-@import './shared/search';
 
 @import './pageHeader/pageHeader';
 @import './breadcrumbs/breadcrumbs';
