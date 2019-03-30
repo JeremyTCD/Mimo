@@ -41,7 +41,7 @@ export default class CategoryMenuComponent extends RootComponent {
     }
 
     public setupImmediate(): void {
-        this._pageFooterElement = document.getElementById('page-footer');
+        this._pageFooterElement = document.querySelector('.page-footer');
         this._collapsibleMenuRootULElement = this._categoryMenuElement.querySelector('.category-menu__collapsible-menu > ul');
 
         this._updateCollapsibleMenuHeightThrottled = this._throttleService.createThrottledFunction(this.updateCollapsibleMenuHeight);

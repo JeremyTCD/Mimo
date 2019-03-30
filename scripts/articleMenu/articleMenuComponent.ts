@@ -54,7 +54,7 @@ export default class ArticleMenuComponent extends RootComponent {
         this._headerText1Element = this._articleMenuElement.querySelector('.article-menu__header-text-1');
         this._headerText2Element = this._articleMenuElement.querySelector('.article-menu__header-text-2');
         this._outlineLevel1ULElement = this._articleMenuElement.querySelector('.article-menu__outline ul');
-        this._pageFooterElement = document.getElementById('page-footer');
+        this._pageFooterElement = document.querySelector('.page-footer');
 
         this._updateOutlineHeightThrottled = this._throttleService.createThrottledFunction(this.updateOutlineHeight);
 
