@@ -84,7 +84,6 @@
     font-size: $font-size-2;
     z-index: 2;
     position: relative; // Edge workaround: z-index doesn't work for grid area elements unless position is relative
-
     &__edit-link, &__share-links {
         display: flex;
         align-items: center;
@@ -128,7 +127,7 @@
             }
 
             &:hover {
-                transition: transform $short-animation-duration $ease-out-back-delayed;
+                transition-delay: $anti-flicker-delay;
                 transform: scale(1.3333);
             }
 
