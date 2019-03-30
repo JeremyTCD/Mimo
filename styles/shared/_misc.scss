@@ -61,7 +61,7 @@ a {
     display: none;
 }
 
-@media (pointer:fine) {
+@media (pointer: fine) {
     * {
         // FF
         scrollbar-width: thin;
@@ -69,8 +69,8 @@ a {
     }
 
     &::-webkit-scrollbar, &::-webkit-scrollbar-thumb {
-        width: 5px;
-        height: 5px;
+        width: 6px;
+        height: 6px;
     }
 
     &::-webkit-scrollbar {
