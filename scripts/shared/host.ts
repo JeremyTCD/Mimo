@@ -81,12 +81,10 @@ export default class Host {
         container.bind<services.CodeService>(services.CodeService).toSelf().inSingletonScope();
         container.bind<services.DebounceService>(services.DebounceService).toSelf().inSingletonScope();
         container.bind<services.ThrottleService>(services.ThrottleService).toSelf().inSingletonScope();
-        container.bind<services.HtmlEncodeService>(services.HtmlEncodeService).toSelf().inSingletonScope();
         container.bind<services.OverlayService>(services.OverlayService).toSelf().inSingletonScope();
         container.bind<services.TooltipService>(services.TooltipService).toSelf().inSingletonScope();
         container.bind<services.HeightService>(services.HeightService).toSelf().inSingletonScope();
         container.bind<services.StringService>(services.StringService).toSelf().inSingletonScope();
-        container.bind<services.EasingService>(services.EasingService).toSelf().inSingletonScope();
         container.bind<factories.TextInputFactory>(factories.TextInputFactory).toSelf().inSingletonScope();
         container.bind<factories.CollapsibleMenuFactory>(factories.CollapsibleMenuFactory).toSelf().inSingletonScope();
         container.bind<factories.DropdownFactory>(factories.DropdownFactory).toSelf().inSingletonScope();
