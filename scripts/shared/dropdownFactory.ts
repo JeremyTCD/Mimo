@@ -3,7 +3,7 @@ import Dropdown from './dropdown';
 import OverlayService from "./overlayService";
 
 @injectable()
-export default class DropdownService {
+export default class DropdownFactory {
     public constructor(private _overlayService: OverlayService) {
     }
 
@@ -14,7 +14,7 @@ export default class DropdownService {
         defaultTranslateToTop = true,
         defaultAnimate = true,
         defaultDisableBodyScroll = true,
-        defaultLimitDropdownBodyMaxHeight = true) {
+        defaultLimitDropdownBodyMaxHeight = true) : Dropdown {
         return new Dropdown(rootElement,
             this._overlayService,
             onExpand,
