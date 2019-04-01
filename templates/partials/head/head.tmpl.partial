@@ -1,6 +1,10 @@
 <head>
     {{>partials/head/analytics}}
-    
+ 
+    {{#mimo_fontPreloads}}
+    <link rel="preload" href="{{.}}" as="font" type="font/woff2" crossorigin="">
+    {{/mimo_fontPreloads}}
+
     <!-- Scripts - Use defer to avoid blocking parsing https://hacks.mozilla.org/2017/09/building-the-dom-faster-speculative-parsing-async-defer-and-preload/ -->
     <script defer="" type="text/javascript" src="/resources/bundle.js"></script>
     <!-- Styles -->
@@ -64,9 +68,5 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="{{mimo_addressBarColor}}">
     {{/mimo_addressBarColor}}
-
-    {{#mimo_fontPreloads}}
-    <link rel="preload" href="{{.}}" as="font" type="font/woff2" crossorigin="">
-    {{/mimo_fontPreloads}}
 </head>
 
