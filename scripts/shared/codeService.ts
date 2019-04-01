@@ -6,10 +6,8 @@ import * as Clipboard from 'clipboard';
 
 @injectable()
 export default class CodeService {
-    private _tooltipService: TooltipService;
 
-    public constructor(tooltipService: TooltipService) {
-        this._tooltipService = tooltipService;
+    public constructor(private _tooltipService: TooltipService) {
     }
 
     public setupCodeBlocks() {
