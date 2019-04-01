@@ -16,7 +16,7 @@ export default class PageFooterComponent extends RootComponent {
         return true;
     }
 
-    public setupImmediate(): void {
+    public setupOnDomInteractive(): void {
         this._footerButtonElementClassList = document.querySelector('.page-footer__back-to-top-button').classList;
 
         let pageHeaderElement = document.querySelector('.page-header');

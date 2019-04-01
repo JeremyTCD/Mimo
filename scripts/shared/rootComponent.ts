@@ -10,8 +10,8 @@ export default abstract class RootComponent implements Component {
         this._childComponents = components;
     }
 
-    public setupRootImmediate(): void {
-        this.setupImmediate();
+    public setupRootOnDomInteractive(): void {
+        this.setupOnDomInteractive();
 
         if (!this._childComponents) {
             return;
@@ -21,23 +21,7 @@ export default abstract class RootComponent implements Component {
             let childComponent = this._childComponents[i];
 
             if (childComponent.enabled()) {
-                this._childComponents[i].setupImmediate();
-            }
-        }
-    }
-
-    public setupRootOnDomContentLoaded(): void {
-        this.setupOnDomContentLoaded();
-
-        if (!this._childComponents) {
-            return;
-        }
-
-        for (let i = 0; i < this._childComponents.length; i++) {
-            let childComponent = this._childComponents[i];
-
-            if (childComponent.enabled()) {
-                this._childComponents[i].setupOnDomContentLoaded();
+                this._childComponents[i].setupOnDomInteractive();
             }
         }
     }
@@ -60,10 +44,7 @@ export default abstract class RootComponent implements Component {
 
     abstract enabled(): boolean;
 
-    // Called after domInteractive
-    abstract setupImmediate(): void;
-
-    abstract setupOnDomContentLoaded(): void;
+    abstract setupOnDomInteractive(): void;
 
     abstract setupOnLoad(): void;
 }

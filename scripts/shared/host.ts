@@ -22,42 +22,21 @@ export default class Host {
         this._rootComponents = this._container.getAll<components.RootComponent>('RootComponent');
 
         for (let i = 0; i < this._globalServices.length; i++) {
-            this._globalServices[i].setupImmediate();
+            this._globalServices[i].setupOnDomInteractive();
         }
 
         for (let i = 0; i < this._rootComponents.length; i++) {
             let rootComponent = this._rootComponents[i];
 
             if (rootComponent.enabled()) {
-                this._rootComponents[i].setupRootImmediate();
+                this._rootComponents[i].setupRootOnDomInteractive();
             }
-        }
-
-        if (document.readyState === 'interactive' || document.readyState === 'complete') {
-            this.onDomContentLoaded();
-        } else {
-            document.addEventListener('DomContentLoaded', this.onDomContentLoaded);
         }
 
         if (document.readyState === 'complete') {
             this.onLoad();
         } else {
             window.addEventListener('load', this.onLoad);
-        }
-    }
-
-    // Called when document has been parsed but resources may not have been loaded
-    private onDomContentLoaded = (): void => {
-        for (let i = 0; i < this._globalServices.length; i++) {
-            this._globalServices[i].setupOnDomContentLoaded();
-        }
-
-        for (let i = 0; i < this._rootComponents.length; i++) {
-            let rootComponent = this._rootComponents[i];
-
-            if (rootComponent.enabled()) {
-                rootComponent.setupRootOnDomContentLoaded();
-            }
         }
     }
 

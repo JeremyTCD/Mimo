@@ -50,7 +50,7 @@ export default class ArticleMenuComponent extends RootComponent {
         return this._articleMenuElement ? true : false;
     }
 
-    public setupImmediate() {
+    public setupOnDomInteractive() {
         this._headerText1Element = this._articleMenuElement.querySelector('.article-menu__header-text-1');
         this._headerText2Element = this._articleMenuElement.querySelector('.article-menu__header-text-2');
         this._outlineLevel1ULElement = this._articleMenuElement.querySelector('.article-menu__outline ul');
@@ -60,9 +60,7 @@ export default class ArticleMenuComponent extends RootComponent {
 
         this._bodyResizeObserver = new ResizeObserver(this._updateOutlineHeightThrottled);
         this.setupText();
-    }
 
-    public setupOnDomContentLoaded(): void {
         // Dropdown
         this._dropdown = this._dropdownFactory.build(this._articleMenuElement, () => this._outline.updateKnob(this._articleGlobalService.getActiveSectionIndex()));
 

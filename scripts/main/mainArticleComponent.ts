@@ -6,15 +6,10 @@ import CodeService from '../shared/codeService';
 
 @injectable()
 export default class MainArticleComponent implements Component {
-    private _tooltipService: TooltipService;
-    private _codeService: CodeService;
     private _mainArticleElement: HTMLElement;
 
-    public constructor(tooltipService: TooltipService,
-        codeService: CodeService) {
-
-        this._tooltipService = tooltipService;
-        this._codeService = codeService;
+    public constructor(private _tooltipService: TooltipService,
+        private _codeService: CodeService) {
     }
 
     public enabled(): boolean {
@@ -22,22 +17,16 @@ export default class MainArticleComponent implements Component {
         return true;
     }
 
-    public setupImmediate(): void {
+    public setupOnDomInteractive(): void {
         this._codeService.setupCodeBlocks();
         this._mainArticleElement = document.querySelector('.main-article') as HTMLElement;
+
+        this.setupSectionHeaderLinks();
+        this.setupVideoPlayButtons();
     }
 
     public setupOnLoad(): void {
-    }
-
-    public validDomElementExists(): boolean {
-        // Article always exists
-        return true;
-    }
-
-    public setupOnDomContentLoaded(): void {
-        this.setupSectionHeaderLinks();
-        this.setupVideoPlayButtons();
+        // Do nothing
     }
 
     private setupSectionHeaderLinks(): void {

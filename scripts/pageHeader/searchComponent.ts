@@ -40,7 +40,7 @@ export default class SearchComponent implements Component {
         return this._searchResultsElement ? true : false;
     }
 
-    public setupImmediate(): void {
+    public setupOnDomInteractive(): void {
         this._pageHeaderElementClassList = document.querySelector('.page-header').classList; // Need to change page header's z-index when search is expanded
         this._searchResultsElementClassList = this._searchResultsElement.classList;
         this._paginationElement = this._searchResultsElement.querySelector('.pagination');
@@ -116,10 +116,6 @@ export default class SearchComponent implements Component {
                 }
             },
             () => this.collapseSearchResults());
-    }
-
-    public setupOnDomContentLoaded(): void {
-        // Do nothing
     }
 
     public setupOnLoad(): void {

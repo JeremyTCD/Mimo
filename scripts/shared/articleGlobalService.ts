@@ -36,7 +36,7 @@ export default class ArticleGlobalService implements GlobalService {
         // Do nothing
     }
 
-    public setupImmediate(): void {
+    public setupOnDomInteractive(): void {
         // Check if article menu header is enabled
         this._headerEnabled = !!document.querySelector('.article-menu');
 

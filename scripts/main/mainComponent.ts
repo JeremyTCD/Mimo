@@ -18,7 +18,7 @@ export default class MainComponent extends RootComponent {
         return true;
     }
 
-    public setupImmediate(): void {
+    public setupOnDomInteractive(): void {
         // Sorted article list
         let sortedArticleListElement = document.querySelector('.sorted-article-list');
         if (sortedArticleListElement) {

@@ -23,12 +23,9 @@ export default class CommentsComponent implements Component {
         return this._commentsElement ? true : false;
     }
 
-    public setupImmediate(): void {
+    public setupOnDomInteractive(): void {
         this._disqusThreadElement = document.getElementById('disqus_thread');
         this._spinner = document.getElementById('disqus-spinner');
-    }
-
-    public setupOnDomContentLoaded(): void {
         this._disqusShortname = this._disqusThreadElement.getAttribute('data-disqus-shortname');
         this._disqusIdentifier = this._disqusThreadElement.getAttribute('data-disqus-identifier');
     }

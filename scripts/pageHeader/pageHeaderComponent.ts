@@ -23,11 +23,7 @@ export default class PageHeaderComponent extends RootComponent {
         return true;
     }
 
-    public setupImmediate(): void {
-        // Do nothing
-    }
-
-    public setupOnDomContentLoaded(): void {
+    public setupOnDomInteractive(): void {
         // Dropdown
         this._dropdown = this._dropdownFactory.build(document.querySelector('.page-header'),
             null, null,

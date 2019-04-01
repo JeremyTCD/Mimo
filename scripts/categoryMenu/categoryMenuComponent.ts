@@ -40,16 +40,14 @@ export default class CategoryMenuComponent extends RootComponent {
         return this._categoryMenuElement ? true : false;
     }
 
-    public setupImmediate(): void {
+    public setupOnDomInteractive(): void {
         this._pageFooterElement = document.querySelector('.page-footer');
         this._collapsibleMenuRootULElement = this._categoryMenuElement.querySelector('.category-menu__collapsible-menu > ul');
 
         this._updateCollapsibleMenuHeightThrottled = this._throttleService.createThrottledFunction(this.updateCollapsibleMenuHeight);
 
         this._bodyResizeObserver = new ResizeObserver(this._updateCollapsibleMenuHeightThrottled);
-    }
 
-    public setupOnDomContentLoaded(): void {
         // Dropdown
         this._dropdown = this._dropdownFactory.build(this._categoryMenuElement);
 
