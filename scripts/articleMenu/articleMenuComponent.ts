@@ -16,12 +16,13 @@ interface TextData {
     part2: string;
 }
 
+// TOOD articleMenu header doesn't have scroll indicators yet because its contents are dynamic.
 @injectable()
 export default class ArticleMenuComponent extends RootComponent {
     private static readonly VERTICAL_GAP: number = 23;
 
     private _articleMenuElement: HTMLElement;
-    private _outlineLevel1ULElement: HTMLUListElement;
+    private _outlineElement: HTMLElement;
     private _pageFooterElement: HTMLElement;
     private _headerText1Element: HTMLElement;
     private _headerText2Element: HTMLElement;
@@ -53,7 +54,7 @@ export default class ArticleMenuComponent extends RootComponent {
     public setupOnDomInteractive() {
         this._headerText1Element = this._articleMenuElement.querySelector('.article-menu__header-text-1');
         this._headerText2Element = this._articleMenuElement.querySelector('.article-menu__header-text-2');
-        this._outlineLevel1ULElement = this._articleMenuElement.querySelector('.article-menu__outline ul');
+        this._outlineElement = this._articleMenuElement.querySelector('.article-menu__outline') as HTMLElement;
         this._pageFooterElement = document.querySelector('.page-footer');
 
         this._updateOutlineHeightThrottled = this._throttleService.createThrottledFunction(this.updateOutlineHeight);
@@ -65,7 +66,7 @@ export default class ArticleMenuComponent extends RootComponent {
         this._dropdown = this._dropdownFactory.build(this._articleMenuElement, () => this._outline.updateKnob(this._articleGlobalService.getActiveSectionIndex()));
 
         // Outline
-        this._outline = this._outlineFactory.build(this._articleMenuElement.querySelector('.article-menu__outline'), () => this._dropdown.collapse());
+        this._outline = this._outlineFactory.build(this._outlineElement.querySelector('ul'), () => this._dropdown.collapse());
     }
 
     public setupOnLoad(): void {
@@ -85,9 +86,7 @@ export default class ArticleMenuComponent extends RootComponent {
             window.removeEventListener('scroll', this.updateOutlineHeight);
             this._articleGlobalService.removeActiveSectionChangedListener(this.outlineSetActiveAnchorWrapper);
 
-            if (this._outlineLevel1ULElement) {
-                this._outlineLevel1ULElement.style.maxHeight = '';
-            }
+            this._outlineElement.style.maxHeight = '';
         }
     }
 
@@ -116,18 +115,18 @@ export default class ArticleMenuComponent extends RootComponent {
     }
 
     private updateOutlineHeight = (): void => {
-        if (!this._outlineLevel1ULElement || this._menuMode !== MenuMode.sideMenu) { // Necessary because bodyResizeObserver fires after unobserve
+        if (this._menuMode !== MenuMode.sideMenu) { // Necessary because bodyResizeObserver fires after unobserve
             return;
         }
 
-        let level1ULElementTop = this._outlineLevel1ULElement.getBoundingClientRect().top;
+        let outlinElementTop = this._outlineElement.getBoundingClientRect().top;
         let footerTop = this._pageFooterElement.getBoundingClientRect().top;
 
-        let level1ULElementHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
+        let outlineHeight = (footerTop > window.innerHeight ? window.innerHeight : footerTop)
             - ArticleMenuComponent.VERTICAL_GAP
-            - level1ULElementTop;
+            - outlinElementTop;
 
-        this._outlineLevel1ULElement.style.maxHeight = `${level1ULElementHeight}px`;
+        this._outlineElement.style.maxHeight = `${outlineHeight}px`;
     }
 
     private updateHeaderText = (newIndex: number): void => {
