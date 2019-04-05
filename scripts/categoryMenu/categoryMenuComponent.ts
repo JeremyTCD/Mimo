@@ -15,7 +15,7 @@ export default class CategoryMenuComponent extends RootComponent {
     public static readonly VERTICAL_GAP: number = 23;
 
     private _categoryMenuElement: HTMLElement;
-    private _collapsibleMenuRootULElement: HTMLUListElement;
+    private _collapsibleMenuElement: HTMLElement;
     private _pageFooterElement: HTMLElement;
 
     private _dropdown: Dropdown;
@@ -42,7 +42,7 @@ export default class CategoryMenuComponent extends RootComponent {
 
     public setupOnDomInteractive(): void {
         this._pageFooterElement = document.querySelector('.page-footer');
-        this._collapsibleMenuRootULElement = this._categoryMenuElement.querySelector('.category-menu__collapsible-menu > ul');
+        this._collapsibleMenuElement = this._categoryMenuElement.querySelector('.collapsible-menu') as HTMLElement;
 
         this._updateCollapsibleMenuHeightThrottled = this._throttleService.createThrottledFunction(this.updateCollapsibleMenuHeight);
 
@@ -52,7 +52,7 @@ export default class CategoryMenuComponent extends RootComponent {
         this._dropdown = this._dropdownFactory.build(this._categoryMenuElement);
 
         // Collapsible menu
-        let collapsibleMenu = this._collapsibleMenuFactory.build(this._collapsibleMenuRootULElement.parentElement);
+        let collapsibleMenu = this._collapsibleMenuFactory.build(this._collapsibleMenuElement);
 
         // Collapsible menu filter - text input
         this._textInputFactory.
@@ -80,7 +80,7 @@ export default class CategoryMenuComponent extends RootComponent {
             window.removeEventListener('resize', this._updateCollapsibleMenuHeightThrottled);
             window.removeEventListener('scroll', this.updateCollapsibleMenuHeight);
 
-            this._collapsibleMenuRootULElement.style.height = '';
+            this._collapsibleMenuElement.style.height = '';
         }
     }
 
@@ -102,7 +102,7 @@ export default class CategoryMenuComponent extends RootComponent {
             return;
         }
 
-        let collapsibleMenuTop = this._collapsibleMenuRootULElement.getBoundingClientRect().top;
+        let collapsibleMenuTop = this._collapsibleMenuElement.getBoundingClientRect().top;
         let footerTop = this._pageFooterElement.getBoundingClientRect().top;
 
         // Account for top padding
@@ -111,6 +111,6 @@ export default class CategoryMenuComponent extends RootComponent {
             - collapsibleMenuTop;
 
         // Setting style.bottom doesn't work on Edge
-        this._collapsibleMenuRootULElement.style.height = `${collapsibleMenuHeight}px`;
+        this._collapsibleMenuElement.style.height = `${collapsibleMenuHeight}px`;
     }
 }
