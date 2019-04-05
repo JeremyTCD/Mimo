@@ -9,6 +9,8 @@ import { MenuMode } from '../shared/menuMode';
 import CollapsibleMenuFactory from '../shared/collapsibleMenuFactory';
 import TextInputFactory from '../shared/textInputFactory';
 import ThrottleService from '../shared/throttleService';
+import ScrollableIndicatorsFactory from '../shared/scrollableIndicatorsFactory';
+import { ScrollableIndicatorsAxis } from '../shared/scrollableIndicatorsAxis';
 
 @injectable()
 export default class CategoryMenuComponent extends RootComponent {
@@ -27,6 +29,7 @@ export default class CategoryMenuComponent extends RootComponent {
         @inject('GlobalService') @named('MediaGlobalService') private _mediaGlobalService: MediaGlobalService,
         private _dropdownFactory: DropdownFactory,
         private _collapsibleMenuFactory: CollapsibleMenuFactory,
+        private _scrollableIndicatorsFactory: ScrollableIndicatorsFactory,
         private _textInputFactory: TextInputFactory,
         private _throttleService: ThrottleService) {
         super();
@@ -59,6 +62,10 @@ export default class CategoryMenuComponent extends RootComponent {
             build(this._categoryMenuElement.querySelector('.category-menu__filter-box'),
                 (value: string) => { collapsibleMenu.filter(value); },
                 () => { collapsibleMenu.restorePreFilterState(); });
+
+        // Scrollable indicators
+        let barSeparatedList = this._categoryMenuElement.querySelector('.scrollable-indicators') as HTMLElement;
+        this._scrollableIndicatorsFactory.build(barSeparatedList, ScrollableIndicatorsAxis.horizontal);
     }
 
     public setupOnLoad(): void {

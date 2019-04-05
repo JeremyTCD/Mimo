@@ -1,117 +1,100 @@
 @import '../shared/constants';
 
 .outline {
-    @media #{$media-narrow} {
-        display: flex;
+    display: flex;
+    flex-direction: column;
+
+    .scrollable-indicators {
+        --indicator-color: #{$color-section-body-background};
+        --indicator-width: 23px;
+        --indicator-color-mid-stop: 50%;
         flex-direction: column;
-        flex-shrink: 1;
-        order: 1;
+    }
 
-        > li {
-            display: flex;
-            flex-direction: column;
-            flex-shrink: 1;
-            padding: 14px 14px 0 14px;
+    @media #{$media-narrow} {
+        &__root-node {
+            padding: 14px;
             background-color: $color-section-body-background;
+        }
 
-            > a {
-                flex-shrink: 0;
-            }
-
-            > ul {
-                flex-shrink: 1;
-
-                > li:first-child {
-                    margin-top: 13px;
-
-                    > a {
-                        :before {
-                            transition: none;
-                        }
+        &__scrollable {
+            > li:first-child {
+                > a {
+                    :before {
+                        transition: none;
                     }
-                }
-
-                > li:last-child {
-                    margin-bottom: 14px;
                 }
             }
         }
     }
 
     @media #{$media-medium}, #{$media-wide} {
-        > li {
-            > ul {
-                margin-top: 13px;
-
-                > li:first-child {
-                    > a {
-                        :before {
-                            transition: transform $short-animation-duration $ease-out-quad;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    > li {
-        > a {
-            margin-top: 0;
-            font-weight: 600;
-        }
-
-        > ul {
-            align-self: stretch;
-            position: relative;
-            z-index: 1; // stacking context root
-            overflow-y: auto;
-
-            > li {
-                border-left: 2px solid $color-primary-icon;
-            }
-
+        &__scrollable {
             > li:first-child {
                 > a {
-                    margin-top: 0;
-                    --scaleY: 1;
-                    --translateY: 0;
-                    position: relative;
-                    // Use :after of first anchor so when page loads, bar
-                    // is immediately in correct initial position
                     :before {
-                        content: '';
-                        position: absolute;
-                        left: -2px;
-                        top: 0;
-                        bottom: 0;
-                        width: 4px;
-                        background-color: $color-secondary;
-                        transform: translateY(var(--translateY)) scaleY(var(--scaleY));
-                        z-index: 2;
+                        transition: transform $short-animation-duration $ease-out-quad;
                     }
                 }
             }
         }
     }
 
-    li {
+    ul, li {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
     }
 
-    ul {
-        flex-shrink: 0;
+    span {
+        @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
     }
 
-    a {
-        flex-shrink: 0;
-        display: block;
-        margin: 13px 14px 0 0;
-        padding-left: calc(1px + (var(--level) - 1) * 14px);
+    &__root-node {
+        > a {
+            flex-shrink: 0;
+            font-weight: 600;
+            margin-bottom: 13px;
+        }
+    }
 
-        > span {
-            @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
+    &__scrollable {
+        $outline-track-width: 2px;
+        overflow-y: auto;
+
+        > li {
+            border-left: $outline-track-width solid $color-primary-icon;
+        }
+
+        > li:first-child {
+            > a {
+                margin-top: 0;
+                --scaleY: 1;
+                --translateY: 0;
+                position: relative;
+                // Use :after of first anchor so when page loads, bar
+                // is immediately in correct initial position
+                :before {
+                    content: '';
+                    position: absolute;
+                    left: -$outline-track-width;
+                    top: 0;
+                    bottom: 0;
+                    width: 4px;
+                    background-color: $color-secondary;
+                    transform: translateY(var(--translateY)) scaleY(var(--scaleY));
+                    z-index: 2;
+                }
+            }
+        }
+
+        a {
+            display: block;
+            margin: 13px 14px 0 0;
+            padding-left: calc((var(--level) - 1) * 14px);
+        }
+
+        ul, li, a {
+            flex-shrink: 0;
         }
     }
 }

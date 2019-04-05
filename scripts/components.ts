@@ -13,8 +13,10 @@ import MainComponent from './main/mainComponent';
 import MainArticleComponent from './main/mainArticleComponent';
 import CommentsComponent from './main/commentsComponent';
 
+import BreadcrumbsComponent from './breadcrumbs/breadcrumbsComponent';
+
 export {
     RootComponent, PageHeaderComponent, SearchComponent, CategoryMenuComponent,
     MainArticleComponent, CommentsComponent, ArticleMenuComponent,
-    PageFooterComponent, MainComponent
+    PageFooterComponent, MainComponent, BreadcrumbsComponent
 }

@@ -4,8 +4,15 @@
     display: flex;
     flex-direction: column;
 
-    > ul {
-        overflow-y: auto;
+    .scrollable-indicators {
+        --indicator-color: #{$color-section-body-background};
+        --indicator-width: 49px;
+        --indicator-color-mid-stop: 65%;
+        flex-direction: column;
+
+        > ul {
+            overflow-y: auto;
+        }
     }
 
     &__inner-list {

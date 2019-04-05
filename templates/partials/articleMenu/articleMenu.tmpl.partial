@@ -2,14 +2,18 @@
 <nav class="article-menu">
     <header class="dropdown__header">
         <div class="bar-separated-list bar-separated-list--updatable">
-            <ul>
-                <li>
-                    <span class="article-menu__header-text-1">Contents</span>
-                </li>
-                <li class="bar-separated-list__item--hidden">
-                    <span class="article-menu__header-text-2"></span>
-                </li>
-            </ul>
+            <div class="scrollable-indicators">
+                <ul class="scrollable-indicators__scrollable">
+                    <li>
+                        <span class="article-menu__header-text-1">Contents</span>
+                    </li>
+                    <li class="bar-separated-list__item--hidden">
+                        <span class="article-menu__header-text-2"></span>
+                    </li>
+                </ul>
+                <div class="scrollable-indicators__indicator scrollable-indicators__indicator--horizontal-start"></div>
+                <div class="scrollable-indicators__indicator scrollable-indicators__indicator--horizontal-end"></div>
+            </div>
         </div>
         <button aria-label="Expand article menu" class="dropdown__button">
             <svg>

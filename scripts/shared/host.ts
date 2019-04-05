@@ -75,6 +75,9 @@ export default class Host {
         // Footer
         container.bind<components.RootComponent>('RootComponent').to(components.PageFooterComponent).inSingletonScope();
 
+        // Breadcrumbs
+        container.bind<components.RootComponent>('RootComponent').to(components.BreadcrumbsComponent).inSingletonScope();
+
         // Shared
         container.bind<services.GlobalService>('GlobalService').to(services.ArticleGlobalService).inSingletonScope().whenTargetNamed('ArticleGlobalService');
         container.bind<services.GlobalService>('GlobalService').to(services.MediaGlobalService).inSingletonScope().whenTargetNamed('MediaGlobalService');
@@ -90,5 +93,6 @@ export default class Host {
         container.bind<factories.DropdownFactory>(factories.DropdownFactory).toSelf().inSingletonScope();
         container.bind<factories.OutlineFactory>(factories.OutlineFactory).toSelf().inSingletonScope();
         container.bind<factories.PaginationFactory>(factories.PaginationFactory).toSelf().inSingletonScope();
+        container.bind<factories.ScrollableIndicatorsFactory>(factories.ScrollableIndicatorsFactory).toSelf().inSingletonScope();
     }
 } 
