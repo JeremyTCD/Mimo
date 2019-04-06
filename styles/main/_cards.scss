@@ -3,20 +3,12 @@
 .card-set {
     max-width: 1200px;
 
-    &.card-medium {
+    &--medium {
         grid-template-columns: repeat(auto-fit, $card-medium-width);
-
-        .card {
-            height: $card-medium-height;
-        }
     }
 
-    &.card-small {
+    &--small {
         grid-template-columns: repeat(auto-fit, $card-small-width);
-
-        .card {
-            height: $card-small-height;
-        }
     }
 
     width: 100%;
@@ -29,19 +21,25 @@
         background-color: $color-secondary;
         transition: transform $short-animation-duration $ease-out-quad;
         position: relative;
-
-        a {
-            @include disable-animated-underline;
-        }
+        z-index: 1;
+        will-change: transform;
 
         &:hover {
             transition-delay: $anti-flicker-delay;
             transform: scale(1.2);
+            will-change: auto;
         }
 
-        .card-background {
+        &--medium {
+            height: $card-medium-height;
+        }
+
+        &--small {
+            height: $card-small-height;
+        }
+
+        &__background {
             position: absolute;
-            z-index: 0;
             display: flex;
             margin-top: 0;
             top: 0;
@@ -50,67 +48,75 @@
             svg {
                 width: 100%;
                 fill: $color-primary;
-                opacity: 0.09;
+                opacity: 0.07;
             }
         }
 
-        .card-body {
+        &__body {
+            @include disable-animated-underline;
             position: relative;
-            z-index: 1;
+            z-index: 2;
             margin-top: 0;
             height: 100%;
             display: flex;
             flex-direction: column;
             color: $color-secondary-text;
+        }
 
-            header {
-                margin: $card-vertical-edge $card-horizontal-edge;
-                margin-bottom: 0;
-                line-height: 1.2;
-                flex-shrink: 0;
-            }
+        &__content {
+            margin: 20px $card-horizontal-edge;
+            flex-grow: 1;
+            overflow: hidden; // So it is obvious
+            // Special kind of card that displays a grid of icons
+            &--icon-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, $card-content-icon-grid-icon-size);
+                grid-column-gap: $card-content-icon-grid-gap-width;
+                grid-row-gap: $card-content-icon-grid-gap-width;
+                overflow: visible;
 
-            .card-content {
-                margin: 20px $card-horizontal-edge;
-                flex-grow: 1;
-                overflow: hidden; // So it is obvious
-                // Special kind of card that displays a grid of icons
-                &.card-content-icon-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, $card-content-icon-grid-icon-size);
-                    grid-column-gap: $card-content-icon-grid-gap-width;
-                    grid-row-gap: $card-content-icon-grid-gap-width;
-                    overflow: visible;
+                a {
+                    @include disable-animated-underline;
+                    height: $card-content-icon-grid-icon-size;
+                    display: flex;
+                    align-items: center;
 
-                    a {
+                    svg {
                         height: $card-content-icon-grid-icon-size;
-                        display: flex;
-                        align-items: center;
+                        width: $card-content-icon-grid-icon-size;
+                        fill: $color-secondary-text;
+                        transition: transform $short-animation-duration $ease-out-quad;
+                        will-change: transform;
 
-                        svg {
-                            height: $card-content-icon-grid-icon-size;
-                            width: $card-content-icon-grid-icon-size;
-                            fill: $color-secondary-text;
-                            transition: transform $short-animation-duration $ease-out-quad;
-
-                            &:hover {
-                                transition-delay: $anti-flicker-delay;
-                                transform: scale(1.3333);
-                            }
+                        &:hover {
+                            will-change: auto;
+                            transition-delay: $anti-flicker-delay;
+                            transform: scale(1.3333);
                         }
                     }
                 }
             }
+        }
 
-            footer {
-                margin: 0 $card-horizontal-edge;
-                margin-bottom: 40px;
-                flex-shrink: 0;
-                opacity: $opacity-4;
-                border-bottom: 2px solid;
-                padding-bottom: 9px;
-                font-size: $font-size-1;
+        &__header {
+            margin: $card-vertical-edge $card-horizontal-edge;
+            margin-bottom: 0;
+            line-height: 1.2;
+            flex-shrink: 0;
+
+            h2 {
+                font-size: $font-size-5;
             }
+        }
+
+        &__footer {
+            margin: 0 $card-horizontal-edge;
+            margin-bottom: 40px;
+            flex-shrink: 0;
+            opacity: $opacity-4;
+            border-bottom: 2px solid;
+            padding-bottom: 9px;
+            font-size: $font-size-1;
         }
     }
 }
