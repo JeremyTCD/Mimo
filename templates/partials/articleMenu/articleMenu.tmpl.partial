@@ -15,7 +15,7 @@
                 <div class="scrollable-indicators__indicator scrollable-indicators__indicator--horizontal-end"></div>
             </div>
         </div>
-        <button aria-label="Expand article menu" class="dropdown__button">
+        <button title="Expand article menu" aria-label="Expand article menu" class="dropdown__button">
             <svg>
                 <use xlink:href="#material-design-arrow-drop-down" />
             </svg>
@@ -48,7 +48,7 @@
                     <use xlink:href="#material-design-share" />
                 </svg>    
                 {{#mimo_shareOnFacebook}}
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{mimo_baseUrl}}/{{mimo_pageRelPath}}">
+                <a title="Share on Facebook" aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u={{mimo_baseUrl}}/{{mimo_pageRelPath}}">
                     <svg>
                         <use xlink:href="#ion-icons-logo-facebook" />
                     </svg>
@@ -56,7 +56,7 @@
                 {{/mimo_shareOnFacebook}}
 
                 {{#mimo_shareOnTwitterText}}
-                <a href="https://twitter.com/intent/tweet?text={{mimo_shareOnTwitterText}}">
+                <a title="Share on Twitter" aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text={{mimo_shareOnTwitterText}}">
                     <svg>
                         <use xlink:href="#ion-icons-logo-twitter" />
                     </svg>

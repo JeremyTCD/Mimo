@@ -2,48 +2,48 @@
     <nav class="page-footer__page-info">
         {{#mimo_displaySocialMediaLinks}}
         <div class="page-footer__social-media-links">
-            {{#mimo_githubLink}}
-            <a class="github-link" href="{{mimo_githubLink}}">
+            {{#mimo_githubInfo}}
+            <a title="{{entity}} on Github" aria-label="{{entity}} on Github" href="{{link}}">
                 <svg>
                     <use xlink:href="#ion-icons-logo-github" />
                 </svg>
             </a>
-            {{/mimo_githubLink}}
-            {{#mimo_twitterLink}}
-            <a class="twitter-link" href="{{mimo_twitterLink}}">
+            {{/mimo_githubInfo}}
+            {{#mimo_twitterInfo}}
+            <a title="{{entity}} on Twitter" aria-label="{{entity}} on Twitter"  href="{{link}}">
                 <svg>
                     <use xlink:href="#ion-icons-logo-twitter" />
                 </svg>
             </a>
-            {{/mimo_twitterLink}}
-            {{#mimo_linkedinLink}}
-            <a class="linkedin-link" href="{{mimo_linkedinLink}}">
+            {{/mimo_twitterInfo}}
+            {{#mimo_linkedinInfo}}
+            <a title="{{entity}} on LinkedIn" aria-label="{{entity}} on LinkedIn"  href="{{link}}">
                 <svg>
                     <use xlink:href="#ion-icons-logo-linkedin" />
                 </svg>
             </a>
-            {{/mimo_linkedinLink}}
-            {{#mimo_redditLink}}
-            <a class="reddit-link" href="{{mimo_redditLink}}">
+            {{/mimo_linkedinInfo}}
+            {{#mimo_redditInfo}}
+            <a title="{{entity}} on Reddit" aria-label="{{entity}} on Reddit"  href="{{link}}">
                 <svg>
                     <use xlink:href="#custom-logo-reddit" />
                 </svg>
             </a>
-            {{/mimo_redditLink}}
-            {{#mimo_instagramLink}}
-            <a class="instagram-link" href="{{mimo_instagramLink}}">
+            {{/mimo_redditInfo}}
+            {{#mimo_instagramInfo}}
+            <a title="{{entity}} on Instagram" aria-label="{{entity}} on Instagram"  href="{{link}}">
                 <svg>
                     <use xlink:href="#ion-icons-logo-instagram" />
                 </svg>
             </a>
-            {{/mimo_instagramLink}}
-            {{#mimo_facebookLink}}
-            <a class="facebook-link" href="{{mimo_facebookLink}}">
+            {{/mimo_instagramInfo}}
+            {{#mimo_facebookInfo}}
+            <a title="{{entity}} on Facebook" aria-label="{{entity}} on Facebook" href="{{link}}">
                 <svg>
                     <use xlink:href="#ion-icons-logo-facebook" />
                 </svg>
             </a>
-            {{/mimo_facebookLink}}
+            {{/mimo_facebookInfo}}
         </div>
         {{/mimo_displaySocialMediaLinks}}
 
@@ -80,7 +80,7 @@
             <a href="https://github.com/JeremyTCD/Mimo">Mimo</a>
         </div>
     </nav>
-    <a class="page-footer__back-to-top-button" href="#">
+    <a title="Back to top" aria-label="Back to top" class="page-footer__back-to-top-button" href="#">
         <svg>
             <use xlink:href="#material-design-arrow-upward" />
         </svg>

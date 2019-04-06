@@ -64,6 +64,9 @@ export default class Pagination {
             }
             else {
                 pageButtonElement.classList.add(Pagination.BUTTON_HIDDEN_CLASS);
+                pageButtonElement.setAttribute('aria-label', 'disabled');
+                pageButtonElement.setAttribute('title', 'disabled');
+                pageButtonElement.setAttribute('disabled', '');
             }
         }
 
@@ -123,12 +126,14 @@ export default class Pagination {
 
         if (this._currentPageNum == 1) {
             this._previousButtonElement.classList.add(Pagination.BUTTON_DISABLED_CLASS);
+            this._previousButtonElement.setAttribute('disabled', '');
         }
         else {
             this._previousButtonElement.classList.remove(Pagination.BUTTON_DISABLED_CLASS);
         }
         if (this._currentPageNum == this._currentNumPages) {
             this._nextButtonElement.classList.add(Pagination.BUTTON_DISABLED_CLASS);
+            this._nextButtonElement.setAttribute('disabled', '');
         }
         else {
             this._nextButtonElement.classList.remove(Pagination.BUTTON_DISABLED_CLASS);
@@ -144,7 +149,10 @@ export default class Pagination {
                 pageButtonElement.classList.remove(Pagination.BUTTON_ACTIVE_CLASS);
             }
 
+            let buttonNumAsString = buttonNum.toString();
             pageButtonElement.textContent = buttonNum.toString();
+            pageButtonElement.setAttribute('aria-label', `Page ${buttonNumAsString}`);
+            pageButtonElement.setAttribute('title', `Page ${buttonNumAsString}`);
         }
 
         if (this._onRenderPage) {

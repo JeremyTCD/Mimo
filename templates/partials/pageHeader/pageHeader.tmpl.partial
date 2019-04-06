@@ -1,6 +1,6 @@
 <header class="page-header">
     <div class="page-header__header dropdown__header">
-        <a class="page-header__logo" href="/index">
+        <a title="Home" aria-label="Home" class="page-header__logo" href="/home">
             <svg>
                 <use xlink:href="#logo" />
             </svg>
@@ -10,7 +10,7 @@
             </span>
             {{/mimo_logoWebsiteNameMarkup}}
         </a>
-        <button class="dropdown__button">
+        <button title="Expand navbar" aria-label="Expand navbar" class="dropdown__button">
             <span></span>
             <span></span>
             <span></span>

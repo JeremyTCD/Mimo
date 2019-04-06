@@ -1,7 +1,7 @@
 ﻿{{^mimo_disableCategoryMenu}}
 <nav class="category-menu">
     <header class="dropdown__header">
-        <button aria-label="Expand category menu" class="dropdown__button">
+        <button title="Expand category menu" aria-label="Expand category menu" class="dropdown__button">
             <svg>
                 <use xlink:href="#material-design-arrow-drop-down" />
             </svg>
@@ -15,8 +15,8 @@
                 <svg class="text-input__icon">
                     <use xlink:href="#custom-filter-list" />
                 </svg>
-                <input type="text" autocomplete="off" class="text-input__input" placeholder="Filter"/>
-                <button aria-label="Clear filter" type="button" class="text-input__button">
+                <input title="Filter category menu" type="text" autocomplete="off" class="text-input__input" placeholder="Filter"/>
+                <button title="Clear filter" aria-label="Clear filter" type="button" class="text-input__button">
                     <svg class="text-input__button-icon">
                         <use xlink:href="#material-design-clear" />
                     </svg>
