@@ -1,9 +1,11 @@
 <article class="main-article article">
+    {{^mimo_disableArticleTitle}}
     {{#mimo_pageTitle}}
     <header>
         <h1 class="article__title">{{mimo_pageTitle}}</h1>
     </header>
     {{/mimo_pageTitle}}
+    {{/mimo_disableArticleTitle}}
 
     {{^mimo_disableMetadata}}
     <div class="article__metadata">

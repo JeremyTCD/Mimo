@@ -34,10 +34,6 @@
             align-items: stretch;
             max-width: none;
 
-            .article__title {
-                display: none;
-            }
-
             .content {
                 @include horizontal-edge-margin;
                 display: flex;
