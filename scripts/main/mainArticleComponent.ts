@@ -31,12 +31,19 @@ export default class MainArticleComponent implements Component {
 
     private setupSectionHeaderLinks(): void {
         let sectionElements: NodeList = this._mainArticleElement.querySelectorAll('section[class*="flexi-section-block-"]');
+        let numSectionElements = sectionElements.length;
+
+        if (numSectionElements === 0) {
+            return;
+        }
+
+        let url = `${location.protocol}//${location.host}${location.pathname}`;
 
         for (let i: number = 0; i < sectionElements.length; i++) {
             let sectionElement = sectionElements[i] as HTMLElement;
             let buttonElement = sectionElement.querySelector('button');
             let id = sectionElement.getAttribute('id');
-            let href = `${location.protocol}//${location.host}${location.pathname}#${id}`;
+            let href = `${url}#${id}`;
 
             // Clipboard for button
             buttonElement.setAttribute('data-clipboard-text', href);
