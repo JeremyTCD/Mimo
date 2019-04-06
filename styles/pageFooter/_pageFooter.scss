@@ -26,7 +26,7 @@
 
     &__uninteractive-text {
         white-space: pre;
-        opacity: $opacity-3;
+        opacity: $opacity-4;
     }
 
     &__attribution {
@@ -69,13 +69,13 @@
     &__copyright-text {
         display: flex;
         align-items: center;
-        margin-top: 17px;
+        margin-top: 18px;
 
         svg {
             height: 18px;
             width: 18px;
             fill: $color-secondary-text;
-            opacity: $opacity-2;
+            opacity: $opacity-3;
             margin-right: 5px;
         }
     }
