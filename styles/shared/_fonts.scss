@@ -5,6 +5,7 @@
     font-family: 'Open Sans';
     font-style: normal;
     font-weight: 400;
+    font-display: swap;
     src: local('Open Sans Regular'), local('OpenSans-Regular'), url('open-sans-v15-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
     url('open-sans-v15-latin-regular.woff') format('woff'), /* Modern Browsers */
     url('open-sans-v15-latin-regular.ttf') format('truetype'); /* Safari, Android, iOS */
@@ -15,6 +16,7 @@
     font-family: 'Open Sans';
     font-style: italic;
     font-weight: 400;
+    font-display: swap;
     src: local('Open Sans Italic'), local('OpenSans-Italic'), url('open-sans-v15-latin-italic.woff2') format('woff2'), /* Super Modern Browsers */
     url('open-sans-v15-latin-italic.woff') format('woff'), /* Modern Browsers */
     url('open-sans-v15-latin-italic.ttf') format('truetype'); /* Safari, Android, iOS */
@@ -25,6 +27,7 @@
     font-family: 'Open Sans';
     font-style: normal;
     font-weight: 600;
+    font-display: swap;
     src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'), url('open-sans-v15-latin-600.woff2') format('woff2'), /* Super Modern Browsers */
     url('open-sans-v15-latin-600.woff') format('woff'), /* Modern Browsers */
     url('open-sans-v15-latin-600.ttf') format('truetype'); /* Safari, Android, iOS */
@@ -35,6 +38,7 @@
     font-family: 'Open Sans';
     font-style: italic;
     font-weight: 600;
+    font-display: swap;
     src: local('Open Sans SemiBold Italic'), local('OpenSans-SemiBoldItalic'), url('open-sans-v15-latin-600italic.woff2') format('woff2'), /* Super Modern Browsers */
     url('open-sans-v15-latin-600italic.woff') format('woff'), /* Modern Browsers */
     url('open-sans-v15-latin-600italic.ttf') format('truetype'); /* Safari, Android, iOS */
@@ -45,6 +49,7 @@
     font-family: 'Open Sans';
     font-style: normal;
     font-weight: 700;
+    font-display: swap;
     src: local('Open Sans Bold'), local('OpenSans-Bold'), url('open-sans-v15-latin-700.woff2') format('woff2'), /* Super Modern Browsers */
     url('open-sans-v15-latin-700.woff') format('woff'), /* Modern Browsers */
     url('open-sans-v15-latin-700.ttf') format('truetype'); /* Safari, Android, iOS */
@@ -55,6 +60,7 @@
     font-family: 'IBM Plex Mono';
     font-style: normal;
     font-weight: 400;
+    font-display: swap;
     src: local('IBM Plex Mono'), local('IBMPlexMono'), url('ibm-plex-mono-v3-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
     url('ibm-plex-mono-v3-latin-regular.woff') format('woff'), /* Modern Browsers */
     url('ibm-plex-mono-v3-latin-regular.ttf') format('truetype'); /* Safari, Android, iOS */
@@ -65,6 +71,7 @@
     font-family: 'IBM Plex Mono';
     font-style: normal;
     font-weight: 600;
+    font-display: swap;
     src: local('IBM Plex Mono SemiBold'), local('IBMPlexMono-SemiBold'), url('ibm-plex-mono-v3-latin-600.woff2') format('woff2'), /* Super Modern Browsers */
     url('ibm-plex-mono-v3-latin-600.woff') format('woff'), /* Modern Browsers */
     url('ibm-plex-mono-v3-latin-600.ttf') format('truetype'); /* Safari, Android, iOS */
