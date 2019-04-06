@@ -1,24 +1,21 @@
-import { injectable } from "inversify";
+import { injectable } from 'inversify';
  
-import * as Tippy from 'tippy.js'; // TODO tippy 3+ does not work, tooltips appear but aren't animated
+import Tippy, { Instance } from 'tippy.js';
+import Popper from 'popper.js';
 
 @injectable()
 export default class TooltipService {
-    public setupElement(element: HTMLElement, placement: string, text: string = null) {
-        if (text) {
-            element.setAttribute('title', text);
-        }
-
-        Tippy(element, {
-            placement: placement,
-            duration: 200,
-            hideOnClick: false,
-            trigger: 'manual',
-            animateFill: false
-        });
-        let tooltip = (element as any)._tippy;
+    public setupElement(element: HTMLElement, placement: Popper.Placement, content: string = null) {
+        let tooltip = Tippy(element, {
+                placement: placement,
+                duration: 200,
+                hideOnClick: false,
+                trigger: 'manual',
+                animateFill: false,
+                content: content
+            }) as Instance;
         element.addEventListener('click', () => {
-            if (!tooltip.state.visible) {
+            if (!tooltip.state.isVisible) {
                 tooltip.show();
             }
         });
@@ -29,7 +26,7 @@ export default class TooltipService {
                 return;
             }
 
-            if (tooltip.state.visible) {
+            if (tooltip.state.isVisible) {
                 tooltip.hide();
             }
         });

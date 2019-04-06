@@ -43,8 +43,7 @@ export default class MainArticleComponent implements Component {
             new Clipboard(buttonElement);
 
             // 'Popup' for button
-            buttonElement.setAttribute('title', 'Link copied');
-            this._tooltipService.setupElement(buttonElement, 'right');
+            this._tooltipService.setupElement(buttonElement, 'right', 'Link copied');
         }
     }
 

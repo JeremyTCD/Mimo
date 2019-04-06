@@ -24,8 +24,7 @@ export default class CodeService {
 
             // Setup tippy for copy button
             let copyButtonElement = codeBlockElement.querySelector("button") as HTMLElement;
-            copyButtonElement.setAttribute('title', 'Code copied');
-            this._tooltipService.setupElement(copyButtonElement, 'left');
+            this._tooltipService.setupElement(copyButtonElement, 'left', 'Code copied');
 
             // Setup copying to clipboard
             let code = null;
