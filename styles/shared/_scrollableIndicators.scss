@@ -21,7 +21,7 @@
                 top: 0;
                 left: 0;
                 right: 0;
-                height: var(--indicator-width);
+                height: var(--indicator-size);
                 background: linear-gradient(to bottom, var(--indicator-color), var(--indicator-color-mid-stop), transparent);
             }
 
@@ -30,7 +30,7 @@
                 bottom: 0;
                 left: 0;
                 right: 0;
-                height: var(--indicator-width);
+                height: var(--indicator-size);
                 background: linear-gradient(to top, var(--indicator-color), var(--indicator-color-mid-stop), transparent);
             }
 
@@ -39,7 +39,7 @@
                 top: 0;
                 bottom: 0;
                 left: 0;
-                width: var(--indicator-width);
+                width: var(--indicator-size);
                 background: linear-gradient(to right, var(--indicator-color), var(--indicator-color-mid-stop), transparent);
             }
 
@@ -48,7 +48,7 @@
                 top: 0;
                 bottom: 0;
                 right: 0;
-                width: var(--indicator-width);
+                width: var(--indicator-size);
                 background: linear-gradient(to left, var(--indicator-color), var(--indicator-color-mid-stop), transparent);
             }
 

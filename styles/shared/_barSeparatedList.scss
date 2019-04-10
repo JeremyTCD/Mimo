@@ -31,11 +31,11 @@
                 flex-shrink: 0;
             }
         }
+    }
 
-        .scrollable-indicators {
-            --indicator-width: 16px;
-            --indicator-color-mid-stop: 50%;
-        }
+    .scrollable-indicators {
+        --indicator-size: 16px;
+        --indicator-color-mid-stop: 50%;
     }
 
     &--interactive {

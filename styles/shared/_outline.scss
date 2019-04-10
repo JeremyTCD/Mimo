@@ -6,7 +6,7 @@
 
     .scrollable-indicators {
         --indicator-color: #{$color-section-body-background};
-        --indicator-width: 23px;
+        --indicator-size: 23px;
         --indicator-color-mid-stop: 50%;
         flex-direction: column;
     }
