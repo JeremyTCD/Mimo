@@ -1,0 +1,74 @@
+﻿@import '../shared/constants';
+
+.flexi-alert {
+    display: flex;
+    border-left: 3px solid;
+    padding: 20px;
+    align-items: center;
+
+    &__icon {
+        margin-right: 20px;
+        height: 24px;
+        width: 24px;
+        flex-shrink: 0;
+    }
+
+    &__content {
+        > * {
+            margin-top: 20px;
+        }
+        > *:first-child {
+            padding-top: 0;
+            margin-top: 0;
+        }
+        // Inline code
+        code:not(.flexi-code-block__code) {
+            background-color: $color-alert-inline-code-background;
+        }
+    }
+
+    &_type_info {
+        background-color: $color-alert-note-background;
+        border-color: $color-secondary;
+
+        .flexi-alert__content {
+            a {
+                @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-alert-note-background);
+            }
+        }
+
+        .flexi-alert__icon {
+            fill: $color-secondary;
+        }
+    }
+
+    &_type_warning {
+        background-color: $color-alert-warning-background;
+        border-color: $color-alert-warning;
+
+        .flexi-alert__content {
+            a {
+                @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-alert-warning-background);
+            }
+        }
+
+        .flexi-alert__icon {
+            fill: $color-alert-warning;
+        }
+    }
+
+    &_type_critical-warning {
+        background-color: $color-alert-critical-warning-background;
+        border-color: $color-alert-critical-warning;
+
+        .flexi-alert__content {
+            a {
+                @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-alert-critical-warning-background);
+            }
+        }
+
+        .flexi-alert__icon {
+            fill: $color-alert-critical-warning;
+        }
+    }
+}

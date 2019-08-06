@@ -1,124 +1,137 @@
 ﻿@import '../shared/constants';
 
-.flexi-code-block {
-    display: flex;
-    flex-direction: column;
+.flexi-code {
+    &_has-line-numbers {
+        .flexi-code__code {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            white-space: normal; // Edge renders extra empty lines if we don't do this
+        }
 
-    header {
+        .flexi-code__line {
+            white-space: pre; // Edge renders extra empty lines if we don't do this
+        }
+    }
+
+    &__header {
         min-height: 37px;
         display: flex;
         align-items: center;
         background-color: $color-section-header-background;
+    }
 
-        span {
-            padding: 6px 13px;
-            font-weight: 600;
-        }
+    &__title {
+        padding: 6px 13px;
+        font-weight: 600;
+        flex-shrink: 0;
+    }
 
-        button {
-            flex-shrink: 0;
-            display: flex;
-            margin-left: auto;
-            margin-right: 9px;
-            cursor: pointer;
+    &__copy-button {
+        flex-shrink: 0;
+        display: flex;
+        margin-left: auto;
+        margin-right: 9px;
+        cursor: pointer;
+        align-items: center;
 
-            &:hover {
-                svg {
-                    transition-delay: $anti-flicker-delay;
-                    fill: $color-primary-link;
-                }
-            }
-
-            svg {
-                height: 18px;
-                width: 18px;
-                fill: $color-primary-link-disabled;
-                transition: fill $short-animation-duration $ease-out-quad;
-                flex-shrink: 0;
+        &:hover {
+            .flexi-code__copy-icon {
+                transition-delay: $anti-flicker-delay;
+                fill: $color-primary-link;
             }
         }
     }
 
-    pre {
-        font-size: $font-size-2;
-        background-color: $color-section-body-background;
-        flex-grow: 1;
+    &__copy-icon {
+        height: 18px;
+        width: 18px;
+        fill: $color-primary-link-disabled;
+        transition: fill $short-animation-duration $ease-out-quad;
+        flex-shrink: 0;
+    }
+
+    &__pre {
         overflow: auto; // If spans can no longer wrap, allow scrolling
-        code {
-            width: 100%; // We want each row to stretch so that highlighting is consistent
-            display: table;
-            // https://stackoverflow.com/questions/10054870/when-a-child-element-overflows-horizontally-why-is-the-right-padding-of-the-par
-            background-color: transparent;
-            border: 0;
-            padding: 20px 20px;
+        background-color: $color-section-body-background;
+        // Use display flex so the right padding of code displays even if code overflows pre.
+        // The flexbox spec (https://www.w3.org/TR/2016/CR-css-flexbox-1-20160301/#flex-common) states:
+        // "By default, flex items won’t shrink below their minimum content size", this means padding is preserved
+        // even when flex items overflow their containers.
+        display: flex;
+    }
 
-            .line {
-                display: table-row;
+    &__code {
+        flex-grow: 1; // So highlighted lines can stretch
+        padding: 20px 20px;
+        font-size: $font-size-2;
+    }
 
-                &.highlight {
-                    background-color: $color-primary-highlight;
-                }
+    &__line {
+        grid-column: 2;
 
-                .line-number, .line-text {
-                    display: table-cell;
-                }
+        &_highlighted {
+            background-color: $color-primary-highlight-1;
+            display: inline-block;
+            width: 100%;
+        }
 
-                .line-text {
-                    width: 100%; // We want line-text to stretch for consistent highlighting
-                    // If line-text isn't the first child, there is a line number column on its left
-                    &:not(:first-child) {
-                        padding-left: 14px;
-                    }
-
-                    &:empty:after{
-                        content: "\00a0";
-                    }
-                }
-
-                .line-number {
-                    text-align: right;
-                    padding-right: 14px;
-                    user-select: none;
-                    color: $color-code-line-numbers;
-                    border-right: 1px solid $color-code-divider-background;
-
-                    svg {
-                        margin-right: 3px;
-                        height: 10px;
-                        width: 2px;
-                        fill: $color-code-line-numbers;
-                    }
-                }
-            }
+        &_omitted-lines {
+            user-select: none;
+            opacity: 0.3;
+            align-self: center;
         }
     }
-}
 
-code {
-    font-size: $font-size-2;
-    padding: 3px 5px;
-    background-color: $color-primary-inline-code-background;
+    &__line-prefix {
+        border-right: 1px solid $color-code-divider-background;
+        grid-column: 1;
+        margin-right: 14px;
+        user-select: none;
+        padding-right: 14px;
+        color: $color-code-line-numbers;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &__omitted-lines-icon {
+        fill: $color-code-line-numbers;
+        height: 37px;
+        width: 24px;
+        margin-right: -8px;
+        // TODO jering.website specific styles for use with custom icon
+        /*height: 32px;
+        width: 3px;
+        margin-right: 2px;*/
+    }
+
+    &__highlighted-phrase {
+        background-color: $color-primary-highlight-2;
+    }
     /*
         TODO incomplete
         Styles for Prism.js
     */
-    &.language-csharp,
-    &.language-typescript {
+    &_language-csharp,
+    &_language-typescript {
         .builtin,
         .keyword {
             color: #00f;
         }
 
         .function {
-            color: black;
+            color: #74531f;
         }
 
         .string {
             color: #a31515;
         }
+
+        .comment {
+            color: #008000;
+        }
     }
 
-    &.language-html {
+    &_language-html {
         color: #000;
 
         .tag {
@@ -142,7 +155,7 @@ code {
         }
     }
 
-    &.language-css {
+    &_language-css {
         color: #00f;
 
         .comment {
@@ -170,7 +183,7 @@ code {
         }
     }
 
-    &.language-scss {
+    &_language-scss {
         color: #a31515;
 
         .punctuation {
@@ -190,7 +203,7 @@ code {
         }
     }
 
-    &.language-json {
+    &_language-json {
         color: #008000;
 
         .operator,
@@ -208,9 +221,9 @@ code {
         }
     }
     /*
-        Styles for Highlight.js
-        - Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name>
-    */
+    Styles for Highlight.js
+    - Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name>
+*/
     .hljs {
         background-color: transparent;
         color: black;
