@@ -42,7 +42,7 @@
         "md5": "^2.2.1",
         "mini-css-extract-plugin": "^0.4.3",
         "minimist": "^1.2.0",
-        "node-sass": "^4.9.3",
+        "node-sass": "^4.12.0",
         "postcss-loader": "^3.0.0",
         "reflect-metadata": "^0.1.12",
         "resize-observer-polyfill": "^1.5.0",
