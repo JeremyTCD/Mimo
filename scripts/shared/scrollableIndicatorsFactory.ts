@@ -4,7 +4,11 @@ import { ScrollableIndicatorsAxis } from "./scrollableIndicatorsAxis";
 
 @injectable()
 export default class ScrollableIndicatorsFactory {
-    public build(rootElement: HTMLElement, scrollableIndicatorsAxis: ScrollableIndicatorsAxis) : ScrollableIndicators {
+    public tryBuild(rootElement: HTMLElement, scrollableIndicatorsAxis: ScrollableIndicatorsAxis) : ScrollableIndicators {
+        if (!rootElement) {
+            return null;
+        }
+
         return new ScrollableIndicators(rootElement, scrollableIndicatorsAxis);
     }
 }

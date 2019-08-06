@@ -11,7 +11,7 @@ export default class OutlineFactory {
 
     public build(rootElement: HTMLUListElement, anchorOnClick: { (): void }): Outline {
         // Scrollable indicators
-        this._scrollableIndicatorsFactory.build(rootElement.querySelector('.scrollable-indicators'), ScrollableIndicatorsAxis.vertical);
+        this._scrollableIndicatorsFactory.tryBuild(rootElement.querySelector('.scrollable-indicators'), ScrollableIndicatorsAxis.vertical);
 
         return new Outline(this._articleGlobalService, anchorOnClick, rootElement);
     }

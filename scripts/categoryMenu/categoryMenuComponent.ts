@@ -65,7 +65,7 @@ export default class CategoryMenuComponent extends RootComponent {
 
         // Scrollable indicators
         let barSeparatedList = this._categoryMenuElement.querySelector('.scrollable-indicators') as HTMLElement;
-        this._scrollableIndicatorsFactory.build(barSeparatedList, ScrollableIndicatorsAxis.horizontal);
+        this._scrollableIndicatorsFactory.tryBuild(barSeparatedList, ScrollableIndicatorsAxis.horizontal);
     }
 
     public setupOnLoad(): void {

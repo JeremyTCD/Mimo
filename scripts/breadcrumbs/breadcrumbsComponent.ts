@@ -27,6 +27,6 @@ export default class BreadcrumbsComponent extends RootComponent {
     public setupOnLoad(): void {
         // Scrollable indicators
         let barSeparatedList = this._breadcrumbsElement.querySelector('.scrollable-indicators') as HTMLElement;
-        this._scrollableIndicatorsFactory.build(barSeparatedList, ScrollableIndicatorsAxis.horizontal);
+        this._scrollableIndicatorsFactory.tryBuild(barSeparatedList, ScrollableIndicatorsAxis.horizontal);
     }
 }

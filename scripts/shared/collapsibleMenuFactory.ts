@@ -15,7 +15,7 @@ export default class CollapsibleMenuFactory {
 
     public build(rootElement: HTMLElement): CollapsibleMenu {
         // Scrollable indicators
-        this._scrollableIndicatorsFactory.build(rootElement.querySelector('.scrollable-indicators'), ScrollableIndicatorsAxis.vertical);
+        this._scrollableIndicatorsFactory.tryBuild(rootElement.querySelector('.scrollable-indicators'), ScrollableIndicatorsAxis.vertical);
 
         return new CollapsibleMenu(rootElement, this._stringService, this._heightService);
     }
