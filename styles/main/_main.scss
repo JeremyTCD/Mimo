@@ -3,6 +3,11 @@
 @import 'comments';
 
 .main {
+    // The flexbox spec (https://www.w3.org/TR/2016/CR-css-flexbox-1-20160301/#flex-common) states "By default,
+    // flex items won’t shrink below their minimum content size". This behaviour occurs because elements with 
+    // display flex have min-width set to auto by default (a min-width value unique to flexbox).
+    // To get a flex item to shrink below its minimum content size, its min-width must be 0.
+    min-width: 0;
     grid-area: main;
     display: flex; // To center children
     flex-direction: column;

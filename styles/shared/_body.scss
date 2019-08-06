@@ -95,9 +95,6 @@ body, body * {
     // If left as default, some browsers, such as android chrome, attempt to enlarge certain portions of text that it deems important. Unfortunately, it does not seem to work consistently with documentation sites,
     // especially in tables - https://stackoverflow.com/questions/15977840/why-does-the-font-in-these-td-elements-render-at-different-sizes, https://developer.mozilla.org/en-US/docs/Web/CSS/text-size-adjust
     text-size-adjust: none;
-    // Elements with display flex have min-width set to auto by default (a min-width value unique to flexbox). This causes a host of problems with overflowing content-
-    // https://weblog.west-wind.com/posts/2016/Feb/15/Flexbox-Containers-PRE-tags-and-managing-Overflow.
-    min-width: 0;
     // Avoid text overflowing content boxes at all cost
     overflow-wrap: break-word;
 }
