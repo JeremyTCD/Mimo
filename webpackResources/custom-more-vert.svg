@@ -1,5 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg">
-    width="2px" height="10px" viewBox="0 0 2 10">
+<svg xmlns="http://www.w3.org/2000/svg" width="2px" height="10px" viewBox="0 0 2 10">
     <rect shape-rendering="crispEdges" width="2" height="2"/>
     <rect shape-rendering="crispEdges" y="4" width="2" height="2"/>
     <rect shape-rendering="crispEdges" y="8" width="2" height="2"/>
