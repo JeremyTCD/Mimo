@@ -2,7 +2,7 @@
  * This method will be called at the start of exports.transform in conceptual.html.primary.js
  */
 exports.preTransform = function (model) {
-    model.mimo_displaySocialMediaLinks = model.mimo_githubLink || model.mimo_twitterLink ||
+    model.mimo_displaySocialMediaLinks = model.mimo_githubInfo || model.mimo_twitterLink ||
         model.mimo_instagramLink || model.mimo_facebookLink || model.mimo_googleplusLink;
 
     model.mimo_shareArticleEnabled = model.mimo_shareOnFacebook || model.mimo_shareOnTwitter;
@@ -44,15 +44,15 @@ exports.preTransform = function (model) {
         model.mimo_shareOnTwitterText = encodeURIComponent(generatedText);
     }
 
-    // Both side menus are active
-    if (!model.mimo_disableArticleMenu && !model.mimo_disableCategoryMenu) {
-        model.mimo_innerCore = true;
-    } else if (!model.mimo_disableCategoryMenu || !model.mimo_disableArticleMenu) {
-        if (model.mimo_disableArticleMenu) {
-            model.mimo_menuBefore = true;
-        } else if (model.mimo_disableCategoryMenu) {
-            model.mimo_menuAfter = true;
-        }
+    // Side menu state
+    if (model.mimo_disableArticleMenu && model.mimo_disableCategoryMenu) {
+        model.mimo_menusClass = 'body--no-menus';
+    } else if (model.mimo_disableCategoryMenu) {
+        model.mimo_menusClass = 'body--article-menu-only';
+    } else if (model.mimo_disableArticleMenu) {
+        model.mimo_menusClass = 'body--category-menu-only';
+    } else {
+        model.mimo_menusClass = 'body--all-menus';
     }
 
     // Include website name in logo

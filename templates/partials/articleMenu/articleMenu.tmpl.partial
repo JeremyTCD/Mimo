@@ -1,30 +1,70 @@
 {{^mimo_disableArticleMenu}}
-<div id="article-menu">
-    <div id="article-menu-header">
-        <ul>
-            <li>
-                <span id="article-menu-header-text-1">Contents</span>
-            </li>
-            <li>
-                <span id="article-menu-header-text-2">
-                </span>
-            </li>
-        </ul>
-        <button id="article-menu-header-button">
-            <svg class="fill-change-background">
-                <use xlink:href="#material-design-arrow-drop-down" />
-            </svg>
-            <svg class="fill-change-foreground">
+<nav class="article-menu">
+    <header class="dropdown__header">
+        <div class="bar-separated-list bar-separated-list--updatable">
+            <div class="scrollable-indicators">
+                <ul class="scrollable-indicators__scrollable">
+                    <li>
+                        <span class="article-menu__header-text-1">Contents</span>
+                    </li>
+                    <li class="bar-separated-list__item--hidden">
+                        <span class="article-menu__header-text-2"></span>
+                    </li>
+                </ul>
+                <div class="scrollable-indicators__indicator scrollable-indicators__indicator--horizontal-start"></div>
+                <div class="scrollable-indicators__indicator scrollable-indicators__indicator--horizontal-end"></div>
+            </div>
+        </div>
+        <button title="Expand article menu" aria-label="Expand article menu" class="dropdown__button">
+            <svg>
                 <use xlink:href="#material-design-arrow-drop-down" />
             </svg>
         </button>
-    </div>
+    </header>
 
-    <div id="article-links-and-outline-outer-wrapper">
-        <div id="article-links-and-outline-inner-wrapper">
-            {{>partials/articleMenu/articleLinks}}
-            {{>partials/articleMenu/outline}}
+    <div class="article-menu__content-wrapper dropdown__body-wrapper">
+        <div class="article-menu__content dropdown__body">
+            {{^mimo_disableEditArticle}}
+            {{#docurl}}
+            <div class="article-menu__edit-link">
+                <svg>
+                    <use xlink:href="#material-design-edit" />
+                </svg>
+                <a href="{{docurl}}" title="Edit article on Github">Edit Article</a>
+            </div>
+            {{/docurl}}
+            {{/mimo_disableEditArticle}}
+
+            {{#sourceurl}}
+            <div class="article-menu__view-source-link">
+                <!-- TODO icon -->
+                <a href="{{sourceurl}}" id="view-source" title="View Source on Github">View Source</a>
+            </div>
+            {{/sourceurl}}
+
+            {{#mimo_shareArticleEnabled}}
+            <div class="article-menu__share-links">
+                <svg>
+                    <use xlink:href="#material-design-share" />
+                </svg>    
+                {{#mimo_shareOnFacebook}}
+                <a title="Share on Facebook" aria-label="Share on Facebook" href="https://www.facebook.com/sharer/sharer.php?u={{mimo_baseUrl}}/{{mimo_pageRelPath}}">
+                    <svg>
+                        <use xlink:href="#ion-icons-logo-facebook" />
+                    </svg>
+                </a>
+                {{/mimo_shareOnFacebook}}
+
+                {{#mimo_shareOnTwitterText}}
+                <a title="Share on Twitter" aria-label="Share on Twitter" href="https://twitter.com/intent/tweet?text={{mimo_shareOnTwitterText}}">
+                    <svg>
+                        <use xlink:href="#ion-icons-logo-twitter" />
+                    </svg>
+                </a>
+                {{/mimo_shareOnTwitterText}}
+            </div>
+            {{/mimo_shareArticleEnabled}}
         </div>
     </div>
-</div>
+</nav>
 {{/mimo_disableArticleMenu}}

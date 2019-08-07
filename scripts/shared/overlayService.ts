@@ -2,97 +2,162 @@ import { injectable } from 'inversify';
 
 @injectable()
 export default class OverlayService {
+    private static readonly OVERLAY_ACTIVE_CLASS = 'overlay--active';
+    private static readonly OVERLAY_DEACTIVATING_CLASS = 'overlay--deactivating';
+    private static readonly OVERLAY_ENABLE_ANIMATION_CLASS = 'overlay--enable-animation';
+
     private _overlayElement: HTMLElement;
-    private _currentFocusedElement: HTMLElement;
-    private _overlayActive: boolean;
+    private _overlayElementClassList: DOMTokenList;
+    private _onClickListeners: { (): void }[] = [];
+    private _numActivations: number = 0;
 
-    public activateOverlay(focusedElement: HTMLElement, disableBodyScroll: boolean = true, fadeIn: boolean = true) {
-        if (!this._overlayActive) {
-            if (!this._overlayElement) {
-                this._overlayElement = document.getElementById('overlay');
-            } else {
-                this._overlayElement.removeEventListener('transitionend', this.onFadedOutListener, true);
-            }
-
-            this._overlayActive = true;
-
-            // Update overlay element
-            this._overlayElement.style.visibility = 'visible';
-            this._overlayElement.style.opacity = '0.7';
-
-            if (!fadeIn) {
-                this._overlayElement.style.transition = 'initial';
-            } else {
-                this._overlayElement.style.transition = '';
-            } 
-
-            // Update focused element
-            this._currentFocusedElement = focusedElement;
-            this._currentFocusedElement.style.zIndex = '3';
-
-            // Update body
-            if (disableBodyScroll) {
-                document.body.style.overflow = 'hidden';
-            }
-
-        } else {
-            console.warn(`Overlay already active, unable to focus on ${focusedElement}.`);
-        }
+    public constructor() {
+        this._overlayElement = document.querySelector('.overlay');
+        this._overlayElementClassList = this._overlayElement.classList;
     }
 
-    public deactivateOverlay(fadeOut: boolean = true) {
+    public activateOverlay(onClick: { (): void }, animate: boolean = true, disableBodyScroll: boolean = true): number {
+        // If there are multiple requests to activate overlay, save each one's onClick listener
+        let activationID = this.addOnClickListener(onClick);
+        this._numActivations++;
 
-        if (this._overlayActive) {
+        if (this.isActive()) {
+            return activationID;
+        }
+
+        let scrollBarWidth: number;
+        if (disableBodyScroll) {
+            scrollBarWidth = window.innerWidth - document.documentElement.clientWidth; // Perform reads first
+        }
+
+        if (this.isDeactivating()) {
             this._overlayElement.removeEventListener('transitionend', this.onFadedOutListener, true);
-            this._overlayActive = false;
+            this._overlayElementClassList.remove(OverlayService.OVERLAY_DEACTIVATING_CLASS);
+        }
 
-            this._overlayElement.style.opacity = '0';
-
-            if (!fadeOut) {
-                this.resetElements();
-            } else {
-                this._overlayElement.addEventListener('transitionend', this.onFadedOutListener, true);
-            }
+        if (animate) {
+            this._overlayElementClassList.add(OverlayService.OVERLAY_ENABLE_ANIMATION_CLASS);
         } else {
-            console.warn(`Overlay inactive, nothing to deactivate.`);
-        }
-    }
-
-    public addClickListener(listener: (event: Event) => void) {
-        if (!this._overlayElement) {
-            this._overlayElement = document.getElementById('overlay');
+            this._overlayElementClassList.remove(OverlayService.OVERLAY_ENABLE_ANIMATION_CLASS);
         }
 
-        this._overlayElement.addEventListener('click', listener);
+        this._overlayElementClassList.add(OverlayService.OVERLAY_ACTIVE_CLASS);
+
+        if (disableBodyScroll) {
+            this.disableBodyScroll(scrollBarWidth);
+        }
+
+        this._overlayElement.addEventListener('click', this.overlayClickListener);
+
+        return activationID;
     }
 
-    public removeClickListener(listener: (event: Event) => void) {
-        if (!this._overlayElement) {
+    public deactivateOverlay(activationID: number, animate: boolean = true) {
+        if (!this.isActive()) {
             return;
         }
 
-        this._overlayElement.removeEventListener('click', listener);
+        this.removeOnClickListener(activationID);
+
+        if (--this._numActivations > 0) { // Other activations still require overlay
+            return;
+        }
+        else if (this._numActivations === -1) {
+            console.warn('OverlayService: Overlay active despite there being no activations.');
+            this._numActivations = 0; // Reset to 0 and proceed with deactivation
+        }
+
+        this._overlayElementClassList.remove(OverlayService.OVERLAY_ACTIVE_CLASS);
+        this._overlayElement.removeEventListener('click', this.overlayClickListener);
+
+        if (animate) {
+            this._overlayElementClassList.add(OverlayService.OVERLAY_ENABLE_ANIMATION_CLASS);
+            this._overlayElementClassList.add(OverlayService.OVERLAY_DEACTIVATING_CLASS);
+            this._overlayElement.addEventListener('transitionend', this.onFadedOutListener, true);
+        } else {
+            this._overlayElementClassList.remove(OverlayService.OVERLAY_ENABLE_ANIMATION_CLASS);
+            this.enableBodyScroll();
+        }
+    }
+
+    public reset() {
+        this._overlayElementClassList.remove(OverlayService.OVERLAY_ACTIVE_CLASS, OverlayService.OVERLAY_DEACTIVATING_CLASS, OverlayService.OVERLAY_ENABLE_ANIMATION_CLASS);
+        this._overlayElement.removeEventListener('click', this.overlayClickListener);
+        this._overlayElement.removeEventListener('transitionend', this.onFadedOutListener, true);
+        this._onClickListeners = [];
+        this._numActivations = 0;
+
+        this.enableBodyScroll();
+    }
+
+    private addOnClickListener(onClick: () => void): number {
+        if (onClick) {
+            let arrLength = this._onClickListeners.length;
+
+            for (let i = 0; i < arrLength; i++) {
+                if (!this._onClickListeners[i]) {
+                    this._onClickListeners[i] = onClick;
+                    return i;
+                }
+            }
+
+            this._onClickListeners.push(onClick);
+
+            return arrLength;
+        } else {
+            return -1;
+        }
+    }
+
+    private removeOnClickListener(activationID: number): void {
+        if (activationID > -1) {
+            this._onClickListeners[activationID] = null;
+        }
+    }
+
+    private overlayClickListener = (event: Event): void => {
+        if (!this.isActive()) {
+            return;
+        }
+
+        for (let i = 0; i < this._onClickListeners.length; i++) {
+            let onClickListener = this._onClickListeners[i];
+            if (onClickListener) {
+                onClickListener();
+                this._onClickListeners[i] = null;
+            }
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation(); // Avoid running smooth-scroll and tippy listeners
     }
 
     private onFadedOutListener = (event: Event): void => {
         if (event.target === event.currentTarget) {
-            event.target.removeEventListener('transitionend', this.onFadedOutListener, true);
-            this.resetElements();
+            this._overlayElement.removeEventListener('transitionend', this.onFadedOutListener, true);
+            this.enableBodyScroll(); // Wait until overlay has deactivated before allowing scrolling
+            this._overlayElementClassList.remove(OverlayService.OVERLAY_DEACTIVATING_CLASS);
+            event.stopPropagation();
         }
-        event.stopPropagation();
     }
 
-    private resetElements() {
-        // Update overlay element
-        this._overlayElement.style.visibility = '';
-        this._overlayElement.style.transition = '';
+    private isActive(): boolean {
+        return this._overlayElementClassList.contains(OverlayService.OVERLAY_ACTIVE_CLASS);
+    }
 
-        // Update focused element
-        this._currentFocusedElement.style.zIndex = '';
-        this._currentFocusedElement = null;
+    private isDeactivating(): boolean {
+        return this._overlayElementClassList.contains(OverlayService.OVERLAY_DEACTIVATING_CLASS);
+    }
 
-        // Update body
+    private enableBodyScroll() {
+        document.body.style.borderRight = '';
         document.body.style.overflow = '';
     }
 
+    private disableBodyScroll(scrollBarWidth: number) {
+        if (scrollBarWidth > 0) {
+            document.body.style.borderRight = `${scrollBarWidth}px solid black`;
+        }
+        document.body.style.overflow = 'hidden';
+    }
 }

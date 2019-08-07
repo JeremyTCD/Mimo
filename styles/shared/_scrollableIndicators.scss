@@ -1,0 +1,66 @@
+@import '../shared/constants';
+
+.scrollable-indicators {
+    display: flex;
+    // No need for indicators if scrollbar is visible.
+    // Note: can't just be "not (pointer: fine)" because of syntactic peculiarities: https://www.w3.org/TR/css3-mediaqueries/#syntax
+    @media not all and (pointer: fine) {
+        position: relative;
+        z-index: 1; // stacking root
+        &__indicator {
+            position: absolute;
+            z-index: 2;
+            opacity: 0;
+            transform: scaleY(0);
+            background-color: red;
+            pointer-events: none;
+            transition: opacity $long-animation-duration $ease-out-quad, transform $long-animation-duration $ease-out-quad;
+
+            &--vertical-start {
+                transform-origin: top;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: var(--indicator-size);
+                background: linear-gradient(to bottom, var(--indicator-color), var(--indicator-color-mid-stop), transparent);
+            }
+
+            &--vertical-end {
+                transform-origin: bottom;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: var(--indicator-size);
+                background: linear-gradient(to top, var(--indicator-color), var(--indicator-color-mid-stop), transparent);
+            }
+
+            &--horizontal-start {
+                transform-origin: left;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                width: var(--indicator-size);
+                background: linear-gradient(to right, var(--indicator-color), var(--indicator-color-mid-stop), transparent);
+            }
+
+            &--horizontal-end {
+                transform-origin: right;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                width: var(--indicator-size);
+                background: linear-gradient(to left, var(--indicator-color), var(--indicator-color-mid-stop), transparent);
+            }
+
+            &--active {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        &__scrollable {
+            position: relative;
+            z-index: 1;
+        }
+    }
+}

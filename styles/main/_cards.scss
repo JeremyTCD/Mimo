@@ -1,0 +1,122 @@
+﻿@import '../shared/constants';
+
+.card-set {
+    max-width: 1200px;
+
+    &--medium {
+        grid-template-columns: repeat(auto-fit, $card-medium-width);
+    }
+
+    &--small {
+        grid-template-columns: repeat(auto-fit, $card-small-width);
+    }
+
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    grid-column-gap: 59px;
+    grid-row-gap: 59px;
+
+    .card {
+        background-color: $color-secondary;
+        transition: transform $short-animation-duration $ease-out-quad;
+        position: relative;
+        z-index: 1;
+        will-change: transform;
+
+        &:hover {
+            transition-delay: $anti-flicker-delay;
+            transform: scale(1.2);
+            will-change: auto;
+        }
+
+        &--medium {
+            height: $card-medium-height;
+        }
+
+        &--small {
+            height: $card-small-height;
+        }
+
+        &__background {
+            position: absolute;
+            display: flex;
+            margin-top: 0;
+            top: 0;
+            bottom: 0;
+
+            svg {
+                width: 100%;
+                fill: $color-primary;
+                opacity: 0.07;
+            }
+        }
+
+        &__body {
+            @include disable-animated-underline;
+            position: relative;
+            z-index: 2;
+            margin-top: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: $color-secondary-text;
+        }
+
+        &__content {
+            margin: 20px $card-horizontal-edge;
+            flex-grow: 1;
+            overflow: hidden; // So it is obvious
+            // Special kind of card that displays a grid of icons
+            &--icon-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, $card-content-icon-grid-icon-size);
+                grid-column-gap: $card-content-icon-grid-gap-width;
+                grid-row-gap: $card-content-icon-grid-gap-width;
+                overflow: visible;
+
+                a {
+                    @include disable-animated-underline;
+                    height: $card-content-icon-grid-icon-size;
+                    display: flex;
+                    align-items: center;
+
+                    svg {
+                        height: $card-content-icon-grid-icon-size;
+                        width: $card-content-icon-grid-icon-size;
+                        fill: $color-secondary-text;
+                        transition: transform $short-animation-duration $ease-out-quad;
+                        will-change: transform;
+
+                        &:hover {
+                            will-change: auto;
+                            transition-delay: $anti-flicker-delay;
+                            transform: scale(1.3333);
+                        }
+                    }
+                }
+            }
+        }
+
+        &__header {
+            margin: $card-vertical-edge $card-horizontal-edge;
+            margin-bottom: 0;
+            line-height: 1.2;
+            flex-shrink: 0;
+
+            h2 {
+                font-size: $font-size-5;
+            }
+        }
+
+        &__footer {
+            margin: 0 $card-horizontal-edge;
+            margin-bottom: 40px;
+            flex-shrink: 0;
+            opacity: $opacity-4;
+            border-bottom: 2px solid;
+            padding-bottom: 9px;
+            font-size: $font-size-1;
+        }
+    }
+}

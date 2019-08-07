@@ -1,148 +1,101 @@
 ﻿@import '../shared/constants';
 
-#page-footer {
-    @include pure-flex;
+.page-footer {
+    grid-area: footer;
+    z-index: 3;
+    position: relative;
     @include horizontal-edge-padding;
     font-size: $font-size-2;
     background-color: $color-secondary;
-    justify-content: center;
-    align-items: center;
     color: $color-secondary-text;
-    flex-shrink: 0;
-    // When viewport vertical height is small, footer should be infront of side menus
-    position: relative;
-    z-index: 1;
-    will-change: transform; // TODO If this isn't specified, the element gets repainted everytime an element anywhere on the page transitions. Why?
+    display: flex;
+    align-items: center;
+
+    * {
+        flex-shrink: 0;
+    }
 
     a {
         color: inherit;
     }
 
-    #page-footer-information {
+    &__page-info {
+        display: flex;
         flex-direction: column;
+    }
 
-        .uninteractive {
-            white-space: pre;
-            opacity: $opacity-3;
-        }
+    &__uninteractive-text {
+        white-space: pre;
+        opacity: $opacity-4;
+    }
 
-        #page-footer-attribution {
-            margin-bottom: 22px;
-            margin-top: 26px;
-            flex-wrap: wrap;
-            font-size: $font-size-1;
+    &__attribution {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 26px 0 22px 0;
+        font-size: $font-size-1;
 
-            > span {
-                // Since spans and anchors are in different elements, wrapping will break up sentences
-                flex-wrap: nowrap;
-                align-items: center;
-
-                &:nth-last-child(n+2) {
-                    &::after {
-                        content: "";
-                        height: 11px;
-                        width: 2px;
-                        background-color: $color-primary;
-                        margin-right: 5px;
-                        margin-left: 5px;
-                        opacity: $opacity-1;
-                    }
-                }
-            }
-
-            a {
-                white-space: pre;
-                @include animated-underline($color-secondary-text, $animated-underline-11px-ypos, $background-color: $color-secondary);
-            }
-        }
-
-        #page-footer-legal {
-            flex-wrap: wrap;
-            margin-top: 23px;
-
-            span {
-                align-items: center;
-
-                &:nth-last-child(n+2) {
-                    &::after {
-                        content: "";
-                        height: 14px;
-                        width: 2px;
-                        background-color: $color-primary;
-                        margin-right: 8px;
-                        margin-left: 8px;
-                        margin-top: 1px;
-                        opacity: $opacity-1;
-                    }
-                }
-            }
-
-            a {
-                @include animated-underline($color-secondary-text, $animated-underline-13px-ypos, $background-color: $color-secondary);
-            }
-        }
-
-        #page-footer-copyright {
-            margin-top: 17px;
-            align-items: center;
-
-            svg {
-                height: 18px;
-                width: 18px;
-                fill: $color-secondary-text;
-                opacity: $opacity-2;
-                margin-right: 5px;
-            }
-        }
-
-        #page-footer-social-media {
-            margin-top: 28px;
-            flex-wrap: wrap;
-            // TODO every section in page-footer-information should have something similar for top margin so that if one is removed
-            // footer contents are still properly spaced out
-            & + #page-footer-legal {
-                margin-top: 18px;
-            }
-
-            a {
-                margin-right: 16px;
-                transition: transform $short-animation-duration $ease-out-quad;
-                will-change: transform;
-
-                &:last-child {
-                    margin-right: 0px;
-                }
-
-                &:hover {
-                    transition: transform $short-animation-duration $ease-out-back-delayed;
-                    transform: scale(1.3333);
-                }
-
-                svg {
-                    height: 24px;
-                    width: 24px;
-                    fill: $color-secondary-text;
-                }
-            }
+        a {
+            @include animated-underline($color-secondary-text, $animated-underline-11px-ypos, $background-color: $color-secondary);
         }
     }
 
-    #page-footer-button {
-        margin-left: auto;
-        padding-left: 20px;
-        opacity: 0;
-        transition: opacity $short-animation-duration $ease-out-quad;
+    &__legal-links {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 18px;
 
-        &.visible {
-            opacity: $opacity-6;
+        span {
+            display: flex;
+            align-items: center;
+
+            &:nth-last-child(n+2) {
+                &::after {
+                    content: "";
+                    height: 14px;
+                    width: 2px;
+                    background-color: $color-primary;
+                    margin: 1px 8px 0 8px;
+                    opacity: $opacity-1;
+                }
+            }
         }
 
         a {
+            @include animated-underline($color-secondary-text, $animated-underline-13px-ypos, $background-color: $color-secondary);
+        }
+    }
+
+    &__copyright-text {
+        display: flex;
+        align-items: center;
+        margin-top: 18px;
+
+        svg {
+            height: 18px;
+            width: 18px;
+            fill: $color-secondary-text;
+            opacity: $opacity-3;
+            margin-right: 5px;
+        }
+    }
+
+    &__social-media-links {
+        display: flex;
+        margin-top: 28px;
+        flex-wrap: wrap;
+
+        a {
+            display: flex;
+            margin-right: 16px;
             transition: transform $short-animation-duration $ease-out-quad;
-            will-change: transform;
+
+            &:last-child {
+                margin-right: 0px;
+            }
 
             &:hover {
-                transition: transform $short-animation-duration $ease-out-back-delayed;
+                transition-delay: $anti-flicker-delay;
                 transform: scale(1.3333);
             }
 
@@ -151,6 +104,32 @@
                 width: 24px;
                 fill: $color-secondary-text;
             }
+        }
+    }
+
+    &__back-to-top-button {
+        margin-left: auto;
+        padding-left: 20px;
+        opacity: 0;
+        transition: opacity $short-animation-duration $ease-out-quad;
+        pointer-events: none;
+
+        &--active {
+            opacity: $opacity-6;
+            pointer-events: all;
+        }
+
+        svg {
+            transition: transform $short-animation-duration $ease-out-quad;
+
+            &:hover {
+                transition-delay: $anti-flicker-delay;
+                transform: scale(1.3333);
+            }
+
+            height: 24px;
+            width: 24px;
+            fill: $color-secondary-text;
         }
     }
 }

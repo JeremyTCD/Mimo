@@ -10,7 +10,7 @@ lunrBuilder.field('text');
 // lunr.tokenizer.separator = /[\s\-\.]+/;
 
 let lunrIndex: lunr.Index;
-let searchData = {};
+let searchData = null;
 
 onmessage = function (event: MessageEvent) {
     switch (event.data.eventType) {
@@ -26,12 +26,16 @@ onmessage = function (event: MessageEvent) {
             }
         case 'query':
             {
+                if (!searchData) {
+                    return;
+                }
+
                 // Generate the index on demand
                 if (!lunrIndex) {
                     lunrIndex = lunrBuilder.build();
                 }
 
-                let queryString = event.data.payload;
+                let queryString = event.data.queryString;
                 // Multi-word, partial-word, fuzzy search
                 let hits = lunrIndex.query(q => {
                     lunr.tokenizer(queryString).forEach(function (token) {
@@ -55,7 +59,7 @@ onmessage = function (event: MessageEvent) {
                     let item = searchData[hit.ref];
                     results.push(item);
                 });
-                postMessage({ payload: results });
+                postMessage({ results: results });
             }
     }
 }

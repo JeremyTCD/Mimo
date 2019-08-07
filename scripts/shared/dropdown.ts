@@ -1,162 +1,159 @@
 ﻿import { injectable } from "inversify";
-//import EasingService from "./easingService";
+import OverlayService from "./overlayService";
 
 @injectable()
 export default class Dropdown {
-    private _contentOuterWrapperElement: HTMLElement;
-    private _contentInnerWrapperElement: HTMLElement;
-    private _toggleElement: HTMLElement;
-    private _headerAndContentWrapperElement: HTMLElement;
+    private static readonly HEADER_HEIGHT = 37;
+    private static readonly DROPDOWN_EXPANDED_CLASS = 'dropdown--expanded';
+    private static readonly DROPDOWN_ENABLE_ANIMATION_CLASS = 'dropdown--enable-animation';
+    private static readonly DROPDOWN_COLLAPSING_CLASS = 'dropdown--collapsing';
 
-    public constructor(
-        contentOuterWrapperElement: HTMLElement,
-        contentInnerWrapperElement: HTMLElement,
-        toggleElement: HTMLElement,
-        headerAndContentWrapperElement: HTMLElement) {
+    private _dropdownBodyElement: HTMLElement;
+    private _rootElementClassList: DOMTokenList;
+    private _overlayActivationID: number;
 
-        this._contentOuterWrapperElement = contentOuterWrapperElement;
-        this._contentInnerWrapperElement = contentInnerWrapperElement;
-        this._toggleElement = toggleElement;
-        this._headerAndContentWrapperElement = headerAndContentWrapperElement;
+    public constructor(private _rootElement: HTMLElement,
+        private _overlayService: OverlayService,
+        private _onExpand?: () => void,
+        private _onCollapse?: () => void,
+        private _onDropdownButtonClick?: () => void,
+        private _defaultTranslateToTop = true,
+        private _defaultAnimate = true,
+        private _defaultDisableBodyScroll = true,
+        private _defaultLimitDropdownBodyMaxHeight = true) {
+        this._dropdownBodyElement = _rootElement.querySelector('.dropdown__body');
+        _rootElement.querySelector('.dropdown__button').addEventListener('click', this.dropdownButtonClickListener, true);
+        this._rootElementClassList = _rootElement.classList;
     }
 
-    public toggleWithAnimation(translateToTop: boolean = true) {
-        if (this._toggleElement.classList.contains('expanded')) {
-            this.collapseWithAnimation();
+    public expand(translateToTop: boolean = true,
+        animate: boolean = true,
+        disableBodyScroll: boolean = true,
+        limitDropdownBodyMaxHeight: boolean = true) {
+        if (this.isExpanded()) {
+            return;
+        }
+
+        if (this._onExpand) {
+            this._onExpand();
+        }
+
+        let windowInnerHeight: number;
+        if (limitDropdownBodyMaxHeight) {
+            windowInnerHeight = window.innerHeight; // Read before any writes to avoid unecessary layout
+        }
+
+        let top: number;
+        if (translateToTop) {
+            top = this._rootElement.offsetTop - window.scrollY; // Read before any writes to avoid unecessary layout
+        }
+
+        this._overlayActivationID = this._overlayService.activateOverlay(this.overlayOnClick, animate, disableBodyScroll);
+
+        if (translateToTop) {
+            this._rootElement.style.transform = `translateY(${-top}px)`;
+        }
+
+        if (this.isCollapsing()) {
+            this._rootElementClassList.remove(Dropdown.DROPDOWN_COLLAPSING_CLASS);
+            this._dropdownBodyElement.removeEventListener('transitionend', this.onCollapsedListener, true);
+        }
+
+        if (animate) {
+            this._rootElementClassList.add(Dropdown.DROPDOWN_ENABLE_ANIMATION_CLASS);
         } else {
-            this.expandWithAnimation(translateToTop);
+            this._rootElementClassList.remove(Dropdown.DROPDOWN_ENABLE_ANIMATION_CLASS);
         }
+
+        if (limitDropdownBodyMaxHeight) {
+            this._dropdownBodyElement.style.maxHeight = `${windowInnerHeight - Dropdown.HEADER_HEIGHT}px`;
+            window.addEventListener('resize', this.setDropdownBodyMaxHeight);
+        }
+
+        this._rootElementClassList.add(Dropdown.DROPDOWN_EXPANDED_CLASS);
     }
 
-    public expandWithAnimation(translateToTop: boolean) {
-        if (translateToTop && this._headerAndContentWrapperElement) {
-            this._headerAndContentWrapperElement.style.transition = '';
-            let headerAndContentWrapperInitialTop = this._headerAndContentWrapperElement.getBoundingClientRect().top;
-            this._headerAndContentWrapperElement.style.transform = `translateY(${-headerAndContentWrapperInitialTop}px)`;
+    public collapse(animate: boolean = true) {
+        if (!this.isExpanded()) {
+            return;
         }
 
-        this._contentOuterWrapperElement.style.animationName = 'expandAnimation';
-        this._contentInnerWrapperElement.style.animationName = 'expandInverseAnimation';
+        if (this._onCollapse) {
+            this._onCollapse();
+        }
 
-        this._toggleElement.classList.add('expanded');
+        this._rootElementClassList.remove(Dropdown.DROPDOWN_EXPANDED_CLASS);
+        this._rootElement.style.transform = '';
+
+        if (animate) {
+            this._rootElementClassList.add(Dropdown.DROPDOWN_ENABLE_ANIMATION_CLASS, Dropdown.DROPDOWN_COLLAPSING_CLASS);
+            this._dropdownBodyElement.addEventListener('transitionend', this.onCollapsedListener, true);
+        }
+        else {
+            this._rootElementClassList.remove(Dropdown.DROPDOWN_ENABLE_ANIMATION_CLASS);
+        }
+
+        this._overlayService.deactivateOverlay(this._overlayActivationID, animate);
+
+        window.removeEventListener('resize', this.setDropdownBodyMaxHeight);
     }
 
-    public collapseWithAnimation() {
-        if (this._headerAndContentWrapperElement) {
-            this._headerAndContentWrapperElement.style.transition = '';
-            this._headerAndContentWrapperElement.style.transform = 'translateY(0)';
+    public reset(disableOverlay: boolean = true, deactivateOverlay: boolean = false) {
+        if (!this.isCollapsed()) {
+            if (disableOverlay) {
+                this._overlayService.reset();
+            } else if (deactivateOverlay) {
+                this._overlayService.deactivateOverlay(this._overlayActivationID);
+            }
         }
 
-        this._contentOuterWrapperElement.style.animationName = 'collapseAnimation';
-        this._contentInnerWrapperElement.style.animationName = 'collapseInverseAnimation';
-
-        this._toggleElement.classList.remove('expanded');
-    }
-
-    public toggleWithoutAnimation(translateToTop: boolean = true) {
-        if (this._toggleElement.classList.contains('expanded')) {
-            this.collapseWithoutAnimation();
-        } else {
-            this.expandWithoutAnimation(translateToTop);
-        }
-    }
-
-    public expandWithoutAnimation(translateToTop: boolean = true) {
-        if (translateToTop && this._headerAndContentWrapperElement) {
-            this._headerAndContentWrapperElement.style.transition = 'initial';
-            let headerAndContentWrapperInitialTop = this._headerAndContentWrapperElement.getBoundingClientRect().top;
-            this._headerAndContentWrapperElement.style.transform = `translateY(${-headerAndContentWrapperInitialTop}px)`;
-        }
-
-        this._contentOuterWrapperElement.style.animationName = '';
-        this._contentInnerWrapperElement.style.animationName = '';
-
-        this._contentOuterWrapperElement.style.transform = 'scaleY(1)';
-        this._contentInnerWrapperElement.style.transform = 'scaleY(1)';
-
-        this._toggleElement.classList.add('expanded');
-    }
-
-    public collapseWithoutAnimation() {
-        if (this._headerAndContentWrapperElement) {
-            this._headerAndContentWrapperElement.style.transition = 'initial';
-            this._headerAndContentWrapperElement.style.transform = 'translateY(0)';
-        }
-
-        this._contentOuterWrapperElement.style.animationName = '';
-        this._contentInnerWrapperElement.style.animationName = '';
-
-        this._toggleElement.classList.remove('expanded');
-    }
-
-    public reset() {
-        if (this._headerAndContentWrapperElement) {
-            this._headerAndContentWrapperElement.style.transition = '';
-            this._headerAndContentWrapperElement.style.transform = '';
-        }
-
-        this._contentOuterWrapperElement.style.transform = '';
-        this._contentInnerWrapperElement.style.transform = '';
-        this._contentOuterWrapperElement.style.animationName = '';
-        this._contentInnerWrapperElement.style.animationName = '';
-
-
-        this._toggleElement.classList.remove('expanded');
+        this._dropdownBodyElement.style.maxHeight = '';
+        this._dropdownBodyElement.removeEventListener('transitionend', this.onCollapsedListener, true);
+        this._rootElement.style.transform = '';
+        this._rootElementClassList.remove(Dropdown.DROPDOWN_EXPANDED_CLASS, Dropdown.DROPDOWN_ENABLE_ANIMATION_CLASS, Dropdown.DROPDOWN_COLLAPSING_CLASS);
     }
 
     public isExpanded() {
-        // Could have a private boolean for expanded/collapsed state, however, elements can be modified by other scripts, 
-        // this seems like the lesser evil.
-        return this._toggleElement.classList.contains('expanded');
+        return this._rootElementClassList.contains(Dropdown.DROPDOWN_EXPANDED_CLASS);
     }
 
-    // TODO ended up pre-creating animations for dropdowns (see _dropdown.scss), this logic may still be useful though, find somewhere to store it.
-    // https://developers.google.com/web/updates/2017/03/performant-expand-and-collapse#step_2_build_css_animations_on_the_fly
-    //private createScaleYKeyFrameAnimations(numSteps: number) {
-    //    let expandAnimation = '';
-    //    let expandInverseAnimation = '';
-    //    let collapseAnimation = '';
-    //    let collapseInverseAnimation = '';
+    public isCollapsing() {
+        return this._rootElementClassList.contains(Dropdown.DROPDOWN_COLLAPSING_CLASS);
+    }
 
-    //    for (let step = 0; step <= numSteps; step++) {
-    //        let percentage = step / numSteps * 100;
+    public isCollapsed() {
+        return !this.isExpanded() && !this.isCollapsing();
+    }
 
-    //        let expandEasingValue = this._easingService.getEaseOutQuadEasingValue(step / numSteps);
-    //        expandAnimation += `${percentage}% {
-    //          transform: scaleY(${expandEasingValue});
-    //        }`;
+    private dropdownButtonClickListener = (event: Event): void => {
+        if (this._onDropdownButtonClick) {
+            this._onDropdownButtonClick();
+        }
 
-    //        // Arbitrary small value to avoid divide by 0 (does not matter since in first frame, animation scale y is 0, so element is completely hidden)
-    //        let expandInvertedEasingValue = 1 / (expandEasingValue === 0 ? 0.01 : expandEasingValue);
-    //        expandInverseAnimation += `${percentage}% {
-    //          transform: scaleY(${expandInvertedEasingValue});
-    //        }`;
+        if (this.isExpanded()) {
+            this.collapse(this._defaultAnimate);
+        } else {
+            this.expand(this._defaultTranslateToTop, this._defaultAnimate, this._defaultDisableBodyScroll, this._defaultLimitDropdownBodyMaxHeight);
+        }
 
-    //        let collapseEasingVlaue = 1 - expandEasingValue;
-    //        collapseAnimation += `${percentage}% {
-    //          transform: scaleY(${collapseEasingVlaue});
-    //        }`;
+        event.preventDefault();
+        event.stopImmediatePropagation(); // Tippy and smooth-scroll register listeners for all click events, prevent them from firing unecessarily
+    }
 
-    //        let collapseInvertedEasingVlaue = 1 / (collapseEasingVlaue === 0 ? 0.01 : collapseEasingVlaue);
-    //        collapseInverseAnimation += `${percentage}% {
-    //          transform: scaleY(${collapseInvertedEasingVlaue});
-    //        }`;
-    //    }
+    private setDropdownBodyMaxHeight = (): void => {
+        // Set maxheight so body is scrollable
+        this._dropdownBodyElement.style.maxHeight = `${window.innerHeight - Dropdown.HEADER_HEIGHT}px`;
+    }
 
-    //    return `@keyframes expandAnimation {
-    //        ${expandAnimation}
-    //      }
+    private onCollapsedListener = (event: Event): void => {
+        if (event.target === event.currentTarget) {
+            this._dropdownBodyElement.removeEventListener('transitionend', this.onCollapsedListener, true);
+            this._rootElementClassList.remove(Dropdown.DROPDOWN_COLLAPSING_CLASS);
+            event.stopPropagation();
+        }
+    }
 
-    //      @keyframes expandInverseAnimation {
-    //        ${expandInverseAnimation}
-    //      }
-
-    //      @keyframes collapseAnimation {
-    //        ${collapseAnimation}
-    //      }
-
-    //      @keyframes collapseInverseAnimation {
-    //        ${collapseInverseAnimation}
-    //      }`;
-    //}
+    private overlayOnClick = (): void => {
+        this.collapse(this._defaultAnimate);
+    }
 }

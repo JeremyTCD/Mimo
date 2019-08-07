@@ -1,0 +1,106 @@
+﻿@import '../shared/constants';
+
+.banner {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 59px 0;
+    background-color: $color-brand;
+    @include horizontal-edge-padding;
+
+    &--small {
+        position: relative;
+    }
+
+    &__background {
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+
+        svg {
+            width: 140px;
+            fill: $color-primary;
+            opacity: 0.15;
+        }
+    }
+
+    &__image {
+        margin-top: 0;
+        max-width: initial;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+            box-sizing: content-box;
+            border-top: solid 40px $color-primary;
+            border-bottom: solid 40px $color-primary;
+            border-left: solid 29px $color-primary;
+            border-right: solid 29px $color-primary;
+            height: 249px;
+            width: 184px;
+            margin-top: 0;
+        }
+    }
+
+    &__title {
+        line-height: 1;
+        color: $color-secondary-text;
+        display: flex;
+        flex-direction: column;
+
+        &--medium {
+            font-size: $font-size-7;
+            margin-top: 23px;
+            font-weight: 700;
+        }
+
+        &--small {
+            position: relative;
+            z-index: 2;
+
+            span {
+                text-align: center;
+
+                &:last-child {
+                    margin-top: 14px;
+                    font-size: $font-size-5;
+                }
+            }
+        }
+    }
+
+    &__blurb {
+        color: $color-secondary-text;
+        text-align: center;
+        line-height: 1;
+
+        &--medium {
+            font-size: $font-size-5;
+            font-weight: 600;
+            margin-top: 23px;
+
+            a {
+                @include animated-underline($color-secondary-link, $animated-underline-15px-inline-ypos, $background-color: $color-brand);
+            }
+        }
+
+        &--small {
+            position: relative;
+            z-index: 2;
+            margin-top: 37px;
+            opacity: $opacity-6;
+
+            a {
+                color: $color-brand-link;
+                @include animated-underline($color-brand-link, $animated-underline-15px-inline-ypos, $background-color: transparent);
+            }
+        }
+    }
+}

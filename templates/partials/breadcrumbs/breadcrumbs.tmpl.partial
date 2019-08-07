@@ -1,0 +1,4 @@
+﻿{{^mimo_disableBreadcrumbs}}
+<nav class="breadcrumbs">
+</nav>
+{{/mimo_disableBreadcrumbs}}

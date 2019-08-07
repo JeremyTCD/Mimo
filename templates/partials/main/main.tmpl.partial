@@ -1,0 +1,9 @@
+<main class="main">
+    {{>partials/main/mainArticle}}
+    {{#mimo_enableSal}}
+    <div class="sorted-article-list">
+        {{>partials/shared/pagination}}
+    </div>
+    {{/mimo_enableSal}}
+    {{>partials/main/comments}}
+</main>

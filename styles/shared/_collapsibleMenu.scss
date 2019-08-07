@@ -1,0 +1,162 @@
+@import '../shared/constants';
+
+.collapsible-menu {
+    display: flex;
+    flex-direction: column;
+
+    .scrollable-indicators {
+        --indicator-color: #{$color-section-body-background};
+        --indicator-size: 37px;
+        --indicator-color-mid-stop: 65%;
+        flex-direction: column;
+
+        > ul {
+            overflow-y: auto;
+        }
+    }
+
+    &__inner-list {
+        height: 0;
+        overflow: hidden;
+        transition: height $medium-animation-duration $ease-out-quad;
+    }
+
+    &__node {
+        &--expanded {
+            > .collapsible-menu__hover-area {
+                svg {
+                    transform: rotate(90deg);
+                }
+            }
+
+            > .collapsible-menu__inner-list {
+                height: auto;
+            }
+        }
+
+        &--expandable {
+            > .collapsible-menu__hover-area {
+                a {
+                    grid-area: 1 / 2 / 2 / 3;
+                }
+            }
+        }
+
+        &:not(&--expandable) {
+            > .collapsible-menu__hover-area {
+                a {
+                    grid-area: 1 / 1 / 2 / 3;
+                    padding-left: calc(21px + 14px * (var(--level) - 1));
+                }
+            }
+        }
+
+        &--filter-hidden {
+            display: none;
+        }
+
+        &--filter-match {
+            display: list-item;
+        }
+    }
+
+    &__hover-area {
+        display: grid;
+        grid-template: minmax(37px, auto) / calc(21px + 14px * (var(--level) - 1)) 1fr;
+
+        &--contains-link {
+            position: relative;
+            overflow: hidden;
+
+            &:before {
+                grid-area: 1 / 1 / 2 / 3;
+                content: '';
+                position: relative; // For z-index to work on edge
+                z-index: 1;
+            }
+
+            &.collapsible-menu__hover-area--active {
+                &:before {
+                    background-color: $color-secondary;
+                }
+
+                a {
+                    color: $color-secondary-text;
+                }
+
+                svg {
+                    fill: $color-secondary-text;
+                }
+            }
+
+            &:not(.collapsible-menu__hover-area--active) {
+                &:before {
+                    background-color: $color-primary-link;
+                    transform: translateX(-100%); // TODO transition in isn't optimized on ff - https://bugzilla.mozilla.org/show_bug.cgi?id=1190721
+                    transition: transform $medium-animation-duration $ease-out-quad;
+                }
+
+                &:hover {
+                    &:before {
+                        transition-delay: $long-anti-flicker-delay;
+                        transform: translateX(0);
+                    }
+
+                    > a {
+                        color: $color-secondary-text;
+                        transition-delay: $long-anti-flicker-delay;
+                    }
+
+                    svg {
+                        fill: $color-secondary-text;
+                        transition: transform $medium-animation-duration $ease-out-quad, fill $medium-animation-duration $ease-out-quad $long-anti-flicker-delay;
+                    }
+                }
+            }
+
+            > .collapsible-menu__button {
+                grid-column: 1;
+            }
+        }
+    }
+
+    &__button {
+        grid-area: 1 / 1 / 2 / 3;
+        padding: 0 1px 0 calc(2px + 14px * (var(--level) - 1));
+        display: flex;
+        align-items: center;
+        position: relative; // For z-index to work on edge
+        z-index: 2;
+    }
+
+    svg {
+        height: 18px;
+        width: 18px;
+        transform: rotate(0deg);
+        fill: $color-primary-icon;
+        transition: transform $medium-animation-duration $ease-out-quad, fill $medium-animation-duration $ease-out-quad;
+    }
+
+    span, a {
+        padding: 8px 12px 8px 0;
+        min-height: 37px;
+        user-select: none;
+        align-self: center;
+        display: flex;
+        align-items: center;
+        position: relative; // For z-index to work on edge
+        z-index: 3;
+    }
+
+    span {
+        position: relative; // For z-index to work on edge
+        grid-area: 1 / 2 / 2 / 3;
+        color: $color-primary-text;
+        pointer-events: none;
+    }
+
+    a {
+        color: $color-primary-link;
+        transition: color $medium-animation-duration $ease-out-quad;
+    }
+}

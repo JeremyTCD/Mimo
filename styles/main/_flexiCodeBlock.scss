@@ -1,0 +1,330 @@
+﻿@import '../shared/constants';
+
+.flexi-code {
+    &_has-line-numbers {
+        .flexi-code__code {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            white-space: normal; // Edge renders extra empty lines if we don't do this
+        }
+
+        .flexi-code__line {
+            white-space: pre; // Edge renders extra empty lines if we don't do this
+        }
+    }
+
+    &__header {
+        min-height: 37px;
+        display: flex;
+        align-items: center;
+        background-color: $color-section-header-background;
+    }
+
+    &__title {
+        padding: 6px 13px;
+        font-weight: 600;
+        flex-shrink: 0;
+    }
+
+    &__copy-button {
+        flex-shrink: 0;
+        display: flex;
+        margin-left: auto;
+        margin-right: 9px;
+        cursor: pointer;
+        align-items: center;
+
+        &:hover {
+            .flexi-code__copy-icon {
+                transition-delay: $anti-flicker-delay;
+                fill: $color-primary-link;
+            }
+        }
+    }
+
+    &__copy-icon {
+        height: 18px;
+        width: 18px;
+        fill: $color-primary-link-disabled;
+        transition: fill $short-animation-duration $ease-out-quad;
+        flex-shrink: 0;
+    }
+
+    &__pre {
+        overflow: auto; // If spans can no longer wrap, allow scrolling
+        background-color: $color-section-body-background;
+        // Use display flex so the right padding of code displays even if code overflows pre.
+        // The flexbox spec (https://www.w3.org/TR/2016/CR-css-flexbox-1-20160301/#flex-common) states:
+        // "By default, flex items won’t shrink below their minimum content size", this means padding is preserved
+        // even when flex items overflow their containers.
+        display: flex;
+    }
+
+    &__code {
+        flex-grow: 1; // So highlighted lines can stretch
+        padding: 20px 20px;
+        font-size: $font-size-2;
+    }
+
+    &__line {
+        grid-column: 2;
+
+        &_highlighted {
+            background-color: $color-primary-highlight-1;
+            display: inline-block;
+            width: 100%;
+        }
+
+        &_omitted-lines {
+            user-select: none;
+            opacity: 0.3;
+            align-self: center;
+        }
+    }
+
+    &__line-prefix {
+        border-right: 1px solid $color-code-divider-background;
+        grid-column: 1;
+        margin-right: 14px;
+        user-select: none;
+        padding-right: 14px;
+        color: $color-code-line-numbers;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    &__omitted-lines-icon {
+        fill: $color-code-line-numbers;
+        height: 37px;
+        width: 24px;
+        margin-right: -8px;
+        // TODO jering.website specific styles for use with custom icon
+        /*height: 32px;
+        width: 3px;
+        margin-right: 2px;*/
+    }
+
+    &__highlighted-phrase {
+        background-color: $color-primary-highlight-2;
+    }
+    /*
+        TODO incomplete
+        Styles for Prism.js
+    */
+    &_language-csharp,
+    &_language-typescript {
+        .builtin,
+        .keyword {
+            color: #00f;
+        }
+
+        .function {
+            color: #74531f;
+        }
+
+        .string {
+            color: #a31515;
+        }
+
+        .comment {
+            color: #008000;
+        }
+    }
+
+    &_language-html {
+        color: #000;
+
+        .tag {
+            color: #a31515;
+        }
+
+        .punctuation {
+            color: #00f;
+        }
+
+        .attr-name {
+            color: #f00;
+        }
+
+        .attr-value {
+            color: #00f;
+        }
+
+        .comment {
+            color: #008000;
+        }
+    }
+
+    &_language-css {
+        color: #00f;
+
+        .comment {
+            color: #008000;
+        }
+
+        .punctuation {
+            color: black;
+        }
+
+        .class {
+            color: #a31515;
+        }
+
+        .rule {
+            color: #800080;
+        }
+
+        .selector {
+            color: #800000;
+        }
+
+        .property {
+            color: #f00;
+        }
+    }
+
+    &_language-scss {
+        color: #a31515;
+
+        .punctuation {
+            color: black;
+        }
+
+        .comment {
+            color: #008000;
+        }
+
+        .property {
+            color: #f00;
+        }
+
+        .number {
+            color: #00f;
+        }
+    }
+
+    &_language-json {
+        color: #008000;
+
+        .operator,
+        .punctuation {
+            color: black;
+        }
+
+        .property {
+            color: #2e75b6;
+        }
+
+        .number,
+        .string {
+            color: #a31515;
+        }
+    }
+    /*
+    Styles for Highlight.js
+    - Visual Studio-like style based on original C# coloring by Jason Diamond <jason@diamond.name>
+*/
+    .hljs {
+        background-color: transparent;
+        color: black;
+    }
+
+    .hljs-comment,
+    .hljs-quote,
+    .hljs-variable {
+        color: #008000;
+    }
+
+    .hljs-keyword,
+    .hljs-selector-tag,
+    .hljs-built_in,
+    .hljs-name,
+    .hljs-tag {
+        color: #00f;
+    }
+
+    .hljs-string {
+        color: #a31515;
+    }
+
+    .hljs-doctag,
+    .hljs-deletion,
+    .hljs-selector-attr,
+    .hljs-selector-pseudo,
+    .hljs-meta {
+        color: #808080;
+    }
+
+    .hljs-attr {
+        color: #f00;
+    }
+
+    .hljs-symbol,
+    .hljs-bullet,
+    .hljs-link {
+        color: #00b0e8;
+    }
+
+
+    .hljs-emphasis {
+        font-style: italic;
+    }
+
+    .hljs-strong {
+        font-weight: bold;
+    }
+
+    .language-html {
+        .hljs-string {
+            color: #00f;
+        }
+
+        .hljs-name {
+            color: #800000;
+        }
+    }
+
+    .language-scss {
+        .hljs-keyword,
+        .hljs-variable {
+            color: #800080;
+        }
+
+        .hljs-string {
+            color: #00f;
+        }
+
+        .hljs-selector-tag,
+        .hljs-name {
+            color: #800000;
+        }
+
+        .hljs-attribute {
+            color: #f00;
+        }
+    }
+
+    .language-css {
+        .hljs-built_in {
+            color: #000;
+        }
+
+        .hljs-keyword {
+            color: #800080;
+        }
+
+        .hljs-string {
+            color: #00f;
+        }
+
+        .hljs-selector-tag,
+        .hljs-selector-pseudo,
+        .hljs-name {
+            color: #800000;
+        }
+
+        .hljs-attribute {
+            color: #f00;
+        }
+    }
+}

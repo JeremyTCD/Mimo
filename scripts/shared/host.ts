@@ -22,38 +22,21 @@ export default class Host {
         this._rootComponents = this._container.getAll<components.RootComponent>('RootComponent');
 
         for (let i = 0; i < this._globalServices.length; i++) {
-            this._globalServices[i].setupImmediate();
-        }
-
-        for (let i = 0; i < this._rootComponents.length; i++) {
-            this._rootComponents[i].setupImmediate();
-        }
-
-        if (document.readyState === 'interactive' || document.readyState === 'complete') {
-            this.onDomContentLoaded();
-        } else {
-            document.addEventListener('DomContentLoaded', this.onDomContentLoaded);
-        }
-
-        if (document.readyState === 'complete') {
-            this.onLoad();
-        } else {
-            window.addEventListener('load', this.onLoad);
-        }
-    }
-
-    // Called when document has been parsed but resources may not have been loaded
-    private onDomContentLoaded = (): void => {
-        for (let i = 0; i < this._globalServices.length; i++) {
-            this._globalServices[i].setupOnDomContentLoaded();
+            this._globalServices[i].setupOnDomInteractive();
         }
 
         for (let i = 0; i < this._rootComponents.length; i++) {
             let rootComponent = this._rootComponents[i];
 
             if (rootComponent.enabled()) {
-                rootComponent.setupOnDomContentLoaded();
+                this._rootComponents[i].setupRootOnDomInteractive();
             }
+        }
+
+        if (document.readyState === 'complete') {
+            this.onLoad();
+        } else {
+            window.addEventListener('load', this.onLoad);
         }
     }
 
@@ -68,7 +51,7 @@ export default class Host {
             let rootComponent = this._rootComponents[i];
 
             if (rootComponent.enabled()) {
-                rootComponent.setupOnLoad();
+                rootComponent.setupRootOnLoad();
             }
         }
     }
@@ -77,47 +60,39 @@ export default class Host {
         // Page header
         container.bind<components.RootComponent>('RootComponent').to(components.PageHeaderComponent).inSingletonScope();
         container.bind<components.SearchComponent>(components.SearchComponent).toSelf().inSingletonScope();
-        container.bind<components.SearchResultsComponent>(components.SearchResultsComponent).toSelf().inSingletonScope();
 
         // Category menu
         container.bind<components.RootComponent>('RootComponent').to(components.CategoryMenuComponent).inSingletonScope();
-        container.bind<components.CategoryPagesComponent>(components.CategoryPagesComponent).toSelf().inSingletonScope();
-        container.bind<components.CategoryPagesFilterComponent>(components.CategoryPagesFilterComponent).toSelf().inSingletonScope();
 
-        // Article
-        container.bind<components.RootComponent>('RootComponent').to(components.ArticleComponent).inSingletonScope();
-
-        // Comments
-        container.bind<components.RootComponent>('RootComponent').to(components.CommentsComponent).inSingletonScope();
-
-        // Sorted article list
-        container.bind<components.RootComponent>('RootComponent').to(components.SortedArticleListComponent).inSingletonScope();
+        // Main
+        container.bind<components.RootComponent>('RootComponent').to(components.MainComponent).inSingletonScope();
+        container.bind<components.MainArticleComponent>(components.MainArticleComponent).toSelf().inSingletonScope();
+        container.bind<components.CommentsComponent>(components.CommentsComponent).toSelf().inSingletonScope();
 
         // Article menu
         container.bind<components.RootComponent>('RootComponent').to(components.ArticleMenuComponent).inSingletonScope();
-        container.bind<components.OutlineComponent>(components.OutlineComponent).toSelf().inSingletonScope();
-        container.bind<components.ArticleLinksComponent>(components.ArticleLinksComponent).toSelf().inSingletonScope();
-        container.bind<components.ArticleMenuHeaderComponent>(components.ArticleMenuHeaderComponent).toSelf().inSingletonScope();
 
         // Footer
         container.bind<components.RootComponent>('RootComponent').to(components.PageFooterComponent).inSingletonScope();
 
+        // Breadcrumbs
+        container.bind<components.RootComponent>('RootComponent').to(components.BreadcrumbsComponent).inSingletonScope();
+
         // Shared
         container.bind<services.GlobalService>('GlobalService').to(services.ArticleGlobalService).inSingletonScope().whenTargetNamed('ArticleGlobalService');
         container.bind<services.GlobalService>('GlobalService').to(services.MediaGlobalService).inSingletonScope().whenTargetNamed('MediaGlobalService');
-        container.bind<services.GlobalService>('GlobalService').to(services.FixesGlobalService).inSingletonScope().whenTargetNamed('FixesGlobalService');
         container.bind<services.CodeService>(services.CodeService).toSelf().inSingletonScope();
         container.bind<services.DebounceService>(services.DebounceService).toSelf().inSingletonScope();
-        container.bind<services.HtmlEncodeService>(services.HtmlEncodeService).toSelf().inSingletonScope();
+        container.bind<services.ThrottleService>(services.ThrottleService).toSelf().inSingletonScope();
         container.bind<services.OverlayService>(services.OverlayService).toSelf().inSingletonScope();
-        container.bind<services.PaginationService>(services.PaginationService).toSelf().inSingletonScope();
-        container.bind<services.SearchService>(services.SearchService).toSelf().inSingletonScope();
         container.bind<services.TooltipService>(services.TooltipService).toSelf().inSingletonScope();
         container.bind<services.HeightService>(services.HeightService).toSelf().inSingletonScope();
         container.bind<services.StringService>(services.StringService).toSelf().inSingletonScope();
-        container.bind<services.EasingService>(services.EasingService).toSelf().inSingletonScope();
         container.bind<factories.TextInputFactory>(factories.TextInputFactory).toSelf().inSingletonScope();
         container.bind<factories.CollapsibleMenuFactory>(factories.CollapsibleMenuFactory).toSelf().inSingletonScope();
         container.bind<factories.DropdownFactory>(factories.DropdownFactory).toSelf().inSingletonScope();
+        container.bind<factories.OutlineFactory>(factories.OutlineFactory).toSelf().inSingletonScope();
+        container.bind<factories.PaginationFactory>(factories.PaginationFactory).toSelf().inSingletonScope();
+        container.bind<factories.ScrollableIndicatorsFactory>(factories.ScrollableIndicatorsFactory).toSelf().inSingletonScope();
     }
-}
+} 

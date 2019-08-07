@@ -12,9 +12,9 @@ export default class MediaGlobalService implements GlobalService {
 
     private _onMediaWidthChangeListeners: ((init: boolean) => void)[][];
 
-    public setupImmediate(): void {
-        this._narrowMediaQueryList = window.matchMedia('(max-width: 855px)');
-        this._wideMediaQueryList = window.matchMedia('(min-width: 1184px)');
+    public setupOnDomInteractive(): void {
+        this._narrowMediaQueryList = window.matchMedia('(max-width: 1112px)');
+        this._wideMediaQueryList = window.matchMedia('(min-width: 1494px)');
 
         this.updateMediaWidth();
 

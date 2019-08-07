@@ -1,0 +1,43 @@
+<article class="main-article article">
+    {{^mimo_disableArticleTitle}}
+    {{#mimo_pageTitle}}
+    <header>
+        <h1 class="article__title">{{mimo_pageTitle}}</h1>
+    </header>
+    {{/mimo_pageTitle}}
+    {{/mimo_disableArticleTitle}}
+
+    {{^mimo_disableMetadata}}
+    <div class="article__metadata">
+        <ul>
+            {{#mimo_date}}
+            <li class="article__metadata-date">
+                <svg>
+                    <use xlink:href="#custom-date-range" />
+                </svg>
+                <span>{{mimo_date}}</span>
+            </li>
+            {{/mimo_date}}
+            {{#mimo_authors}}
+            <li class="article__metadata-authors">
+                <svg>
+                    <use xlink:href="#material-design-person" />
+                </svg>
+                {{#link}}
+                <a href="{{link}}" title="{{name}}">
+                    {{/link}}
+                    <span class="author-text">{{name}}</span>
+                    {{#imgSrc}}
+                    <img src="{{imgSrc}}" alt="{{name}}" />
+                    {{/imgSrc}}
+                    {{#link}}
+                </a>
+                {{/link}}
+            </li>
+            {{/mimo_authors}}
+        </ul>
+    </div>
+    {{/mimo_disableMetadata}}
+    
+    {{{conceptual}}}
+</article>

@@ -1,0 +1,15 @@
+﻿<div class="pagination">
+    <div class="pagination__items"> </div>
+    <nav class="pagination__buttons">
+        <button title="Previous page" aria-label="Previous page" class="pagination__previous-button">
+            <svg>
+                <use xlink:href="#material-design-navigate-before" />
+            </svg>
+        </button>
+        <button title="Next page" aria-label="Next page" class="pagination__next-button">
+            <svg>
+                <use xlink:href="#material-design-navigate-next" />
+            </svg>
+        </button>
+    </nav>
+</div>

@@ -1,0 +1,100 @@
+@import '../shared/constants';
+
+.outline {
+    display: flex;
+    flex-direction: column;
+
+    .scrollable-indicators {
+        --indicator-color: #{$color-section-body-background};
+        --indicator-size: 23px;
+        --indicator-color-mid-stop: 50%;
+        flex-direction: column;
+    }
+
+    @media #{$media-narrow} {
+        &__root-node {
+            padding: 14px;
+            background-color: $color-section-body-background;
+        }
+
+        &__scrollable {
+            > li:first-child {
+                > a {
+                    :before {
+                        transition: none;
+                    }
+                }
+            }
+        }
+    }
+
+    @media #{$media-medium}, #{$media-wide} {
+        &__scrollable {
+            > li:first-child {
+                > a {
+                    :before {
+                        transition: transform $short-animation-duration $ease-out-quad;
+                    }
+                }
+            }
+        }
+    }
+
+    ul, li {
+        display: flex;
+        flex-direction: column;
+    }
+
+    span {
+        @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
+    }
+
+    &__root-node {
+        > a {
+            flex-shrink: 0;
+            font-weight: 600;
+            margin-bottom: 13px;
+        }
+    }
+
+    &__scrollable {
+        $outline-track-width: 2px;
+        overflow-y: auto;
+
+        > li {
+            border-left: $outline-track-width solid $color-primary-icon;
+        }
+
+        > li:first-child {
+            > a {
+                margin-top: 0;
+                --scaleY: 1;
+                --translateY: 0;
+                position: relative;
+                // Use :after of first anchor so when page loads, bar
+                // is immediately in correct initial position
+                :before {
+                    content: '';
+                    position: absolute;
+                    left: -$outline-track-width;
+                    top: 0;
+                    bottom: 0;
+                    width: 4px;
+                    background-color: $color-secondary;
+                    transform: translateY(var(--translateY)) scaleY(var(--scaleY));
+                    z-index: 2;
+                }
+            }
+        }
+
+        a {
+            display: block;
+            margin: 13px 14px 0 0;
+            padding-left: calc((var(--level) - 1) * 14px);
+        }
+
+        ul, li, a {
+            flex-shrink: 0;
+        }
+    }
+}

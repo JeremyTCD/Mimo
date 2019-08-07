@@ -1,0 +1,99 @@
+﻿@import '../shared/constants';
+@import './flexiAlertBlock';
+@import './flexiCodeBlock';
+@import './flexiTableBlock';
+
+.article, .article section {
+    > *:not(:first-child) {
+        margin-top: 20px;
+    }
+}
+
+.article {
+    @import './metadata';
+    @import './header';
+    @import './cards';
+    @import './list';
+    @import './blockquote';
+    @import './banner';
+    @import './figure';
+    width: 100%;
+    max-width: 800px;
+
+    a {
+        @include animated-underline($color-primary-link, $animated-underline-15px-inline-ypos, $background-color: $color-primary);
+    }
+
+    hr {
+        width: 100%;
+        height: 1px;
+        border: 0;
+        background-color: $color-section-header-background;
+    }
+
+    em {
+        font-style: italic;
+        font-weight: inherit;
+    }
+
+    strong {
+        font-weight: 600;
+        font-style: inherit;
+    }
+
+    code:not(.flexi-code__code) {
+        font-size: $font-size-2;
+        padding: 3px 5px;
+        background-color: $color-primary-inline-code-background;
+    }
+
+    section {
+        .tabGroup {
+            display: flex;
+            flex-direction: column;
+
+            ul[role="tablist"] {
+                padding-left: 0;
+                display: flex;
+                flex-direction: row;
+
+                li {
+                    list-style: none;
+                    margin-top: 0;
+                }
+            }
+
+            > section {
+                border: 1px solid $color-section-header-background;
+                padding: 22px 29px;
+            }
+        }
+
+        .image-block {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            img {
+                display: block;
+                max-width: 100%;
+            }
+
+            footer {
+                margin-top: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .image-description {
+                    font-size: $font-size-2;
+                }
+
+                .image-credits {
+                    margin-top: 2px;
+                    font-size: $font-size-1;
+                }
+            }
+        }
+    }
+}

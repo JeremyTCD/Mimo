@@ -2,27 +2,21 @@
 
 import PageHeaderComponent from './pageHeader/pageHeaderComponent';
 import SearchComponent from './pageHeader/searchComponent';
-import SearchResultsComponent from './pageHeader/searchResultsComponent';
 
 import CategoryMenuComponent from './categoryMenu/categoryMenuComponent';
-import CategoryPagesFilterComponent from './categoryMenu/categoryPagesFilterComponent';
-import CategoryPagesComponent from './categoryMenu/categoryPagesComponent';
-
-import ArticleComponent from './article/articleComponent';
-
-import CommentsComponent from './comments/commentsComponent';
-
-import SortedArticleListComponent from './sortedArticleList/sortedArticleListComponent';
 
 import ArticleMenuComponent from './articleMenu/articleMenuComponent';
-import OutlineComponent from './articleMenu/outlineComponent';
-import ArticleLinksComponent from './articleMenu/articleLinksComponent';
-import ArticleMenuHeaderComponent from './articleMenu/articleMenuHeaderComponent';
 
 import PageFooterComponent from './pageFooter/pageFooterComponent';
 
+import MainComponent from './main/mainComponent';
+import MainArticleComponent from './main/mainArticleComponent';
+import CommentsComponent from './main/commentsComponent';
+
+import BreadcrumbsComponent from './breadcrumbs/breadcrumbsComponent';
+
 export {
-    RootComponent, PageHeaderComponent, SearchComponent, SearchResultsComponent, CategoryMenuComponent, CategoryPagesFilterComponent, 
-    CategoryPagesComponent, ArticleComponent, CommentsComponent, SortedArticleListComponent, ArticleMenuComponent, OutlineComponent, ArticleLinksComponent, 
-    ArticleMenuHeaderComponent, PageFooterComponent
+    RootComponent, PageHeaderComponent, SearchComponent, CategoryMenuComponent,
+    MainArticleComponent, CommentsComponent, ArticleMenuComponent,
+    PageFooterComponent, MainComponent, BreadcrumbsComponent
 }

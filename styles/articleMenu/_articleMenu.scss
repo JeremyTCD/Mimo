@@ -1,115 +1,142 @@
 ﻿@import '../shared/constants';
 @import '../shared/dropdown';
-@import 'articleLinks';
-@import 'articleMenuHeader';
-@import 'outline';
-
-@mixin article-menu-dropdown() {
-    @include top-fixable;
-    // max-height only works for flex children, pages uses max-height
-    display: flex;
-    flex-direction: column;
-    height: 37px;
-    // Chrome bug (fixed in chrome 65): If 0, after resizing from narrow to medium/large, scrollY is set to 0. Also, chrome seems to correct scrollY when a page is resized such that the same element is at the top of the page,
-    // if top is 0, this never works. With top set to 0.1px, it works at times, but not always - as long as an element has position fixed or sticky, scrollY handling is a mess.
-    top: 0px;
-    // Entire page is repainted on translate if z-index is 0 or undefined
-    z-index: 1;
-}
 
 @mixin article-menu-side-menu() {
-    width: $side-menu-width;
-    margin-left: 66px;
-    top: 23px;
-    // Necessary for position: sticky to work
-    align-self: flex-start;
-}
+    align-self: stretch;
+    background-color: $color-section-body-background;
 
-@mixin article-menu-side-menu-with-preceding-dropdown() {
-    margin-top: 57px;
-}
+    &__content-wrapper {
+        height: 100%; // links only remains sticky while its parent block provides enough vertical space for it
+    }
 
-@mixin article-menu-side-menu-no-preceding-dropdown() {
-    margin-top: 59px;
-}
+    &__content {
+        position: sticky;
+        top: 0;
+        padding: 56px 0px 23px 59px;
+    }
 
-@mixin article-links-and-outline-outer-wrapper-dropdown() {
-    @include dropdown-outer-wrapper;
-    position: absolute;
-    top: 37px;
-    left: 0;
-    right: 0;
-}
+    .dropdown__header {
+        display: none;
+    }
 
-@mixin article-links-and-outline-inner-wrapper-dropdown() {
-    @include dropdown-inner-wrapper;
-    @include horizontal-edge-padding;
-    padding: 16px 0;
-    background-color: $color-primary;
-    flex-direction: column-reverse;
-}
-
-@mixin article-links-and-outline-inner-wrapper-side-menu() {
-    flex-direction: column;
-}
-
-@mixin article-links-and-outline-outer-wrapper-side-menu() {
-    width: $side-menu-width;
-}
-
-#core-inner {
-    #article-menu {
-        @media #{$media-medium} {
-            @include article-menu-side-menu-with-preceding-dropdown;
+    &__edit-link, &__share-links {
+        // Whichever is before outline
+        &:nth-last-child(2) {
+            margin-bottom: 23px;
         }
     }
 }
 
-#core {
-    #article-menu {
-        @media #{$media-medium} {
-            @include article-menu-side-menu-no-preceding-dropdown;
-        }
-    }
-}
-
-#article-menu {
-    flex-shrink: 0;
-    font-size: $font-size-2;
+@mixin article-menu-dropdown() {
+    @include dropdown;
+    @include menu-dropdown;
     position: sticky;
+    top: 0;
 
+    .dropdown__header {
+        background-color: $color-article-menu-dropdown-header;
+        color: $color-primary-text;
+    }
+
+    .dropdown__button {
+        svg {
+            fill: $color-primary-link;
+        }
+    }
+
+    &__edit-link, &__share-links {
+        flex-shrink: 0;
+
+        &:first-child {
+            margin-top: 20px;
+        }
+
+        &:nth-last-child(2) {
+            margin-bottom: 0;
+        }
+    }
+
+    &__share-links {
+        order: 3;
+    }
+
+    &__edit-link {
+        order: 2;
+    }
+}
+
+.article-menu {
     @media #{$media-narrow} {
         @include article-menu-dropdown;
     }
 
-    @media #{$media-wide} {
-        @include article-menu-side-menu-no-preceding-dropdown;
-    }
-
-    @media #{$media-medium}, #{$media-wide} {
+    @media #{$media-medium} {
         @include article-menu-side-menu;
+        padding-right: $horizontal-edge-medium
     }
 
-    #article-links-and-outline-outer-wrapper {
-        @media #{$media-narrow} {
-            @include article-links-and-outline-outer-wrapper-dropdown;
+    @media #{$media-wide} {
+        @include article-menu-side-menu;
+        padding-right: $horizontal-edge-wide;
+    }
 
-            #article-links-and-outline-inner-wrapper {
-                @include article-links-and-outline-inner-wrapper-dropdown;
-            }
+    grid-area: article-menu;
+    font-size: $font-size-2;
+    z-index: 2;
+    position: relative; // Edge workaround: z-index doesn't work for grid area elements unless position is relative
+    &__edit-link, &__share-links {
+        display: flex;
+        align-items: center;
+        margin-bottom: 13px;
+
+        > svg {
+            flex-shrink: 0;
+            height: 18px;
+            width: 18px;
+            fill: $color-primary-icon;
+        }
+    }
+
+    &__edit-link {
+        a {
+            flex-shrink: 0;
+            @include animated-underline($color-primary-link, $animated-underline-13px-ypos, $background-color: $color-primary);
         }
 
-        @media #{$media-medium}, #{$media-wide} {
-            @include article-links-and-outline-outer-wrapper-side-menu;
+        svg {
+            margin-right: 6px;
+        }
+    }
 
-            #article-links-and-outline-inner-wrapper {
-                @include article-links-and-outline-inner-wrapper-side-menu;
-            }
+    &__share-links {
+        height: 20px;
+
+        > svg {
+            margin-right: 5px;
         }
 
-        #article-links-and-outline-inner-wrapper {
+        a {
             display: flex;
-            flex-shrink: 1;
+            align-items: center;
+            flex-shrink: 0;
+            transition: transform $short-animation-duration $ease-out-quad;
+            transform: scale(1);
+
+            &:nth-of-type(n+2) {
+                margin-left: 7px;
+            }
+
+            &:hover {
+                transition-delay: $anti-flicker-delay;
+                transform: scale(1.3333);
+            }
+
+            svg {
+                flex-shrink: 0;
+                fill: $color-primary-link;
+                height: 24px;
+                width: 24px;
+            }
         }
     }
 }

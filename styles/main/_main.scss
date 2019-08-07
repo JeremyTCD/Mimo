@@ -1,0 +1,95 @@
+﻿@import '../shared/constants';
+@import 'article';
+@import 'comments';
+
+.main {
+    // The flexbox spec (https://www.w3.org/TR/2016/CR-css-flexbox-1-20160301/#flex-common) states "By default,
+    // flex items won’t shrink below their minimum content size". This behaviour occurs because elements with 
+    // display flex have min-width set to auto by default (a min-width value unique to flexbox).
+    // To get a flex item to shrink below its minimum content size, its min-width must be 0.
+    min-width: 0;
+    grid-area: main;
+    display: flex; // To center children
+    flex-direction: column;
+    margin: 44px 0 55px 0;
+    align-items: center;
+
+    .sorted-article-list {
+        width: 100%;
+        max-width: 800px;
+        margin-top: 40px;
+        flex-grow: 1;
+        display: flex;
+    }
+
+    .main-article, .sorted-article-list, .comments {
+        flex-shrink: 0;
+    }
+}
+
+// Styles for article elements in display pages, like indexes and landing pages
+.body--is-display, .body--is-searchable-display {
+    .main {
+        margin: 0 0 59px 0;
+        padding: 0;
+
+        .main-article {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            max-width: none;
+
+            .content {
+                @include horizontal-edge-margin;
+                display: flex;
+                justify-content: center;
+                margin-top: 59px;
+            }
+        }
+    }
+}
+
+@media #{$media-narrow} {
+    main {
+        @include horizontal-edge-padding;
+    }
+}
+
+.body--article-menu-only {
+    @media #{$media-wide}, #{$media-medium} {
+        main {
+            @include horizontal-edge-padding('left');
+            padding-right: 59px;
+        }
+    }
+}
+
+.body--category-menu-only {
+    @media #{$media-wide}, #{$media-medium} {
+        main {
+            @include horizontal-edge-padding('right');
+            padding-left: 59px;
+        }
+    }
+}
+
+.body--no-menus {
+    main {
+        @include horizontal-edge-padding;
+    }
+}
+
+.body--all-menus {
+    @media #{$media-wide} {
+        main {
+            padding: 0 59px 0 59px;
+        }
+    }
+
+    @media #{$media-medium} {
+        main {
+            @include horizontal-edge-padding('left');
+            padding-right: 59px;
+        }
+    }
+}

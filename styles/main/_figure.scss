@@ -1,0 +1,104 @@
+﻿@import '../shared/constants';
+
+.figure-block {
+    display: flex;
+    align-items: flex-start;
+    margin: 37px 0;
+    // TODO is there some method we can use to limit the width of figcaption to the content above it?
+    // Currently, we're setting explicit max-widths for each figure block. Might have to read through the css grid
+    // and flex specs to figure this out.
+    figure {
+        margin-left: 0;
+        margin-right: 0;
+
+        > :first-child {
+            max-width: 100%;
+        }
+
+        figcaption {
+            margin-top: 5px;
+            font-size: $font-size-2;
+            display: flex;
+            align-items: center;
+
+            a {
+                @include animated-underline($color-primary-link, $animated-underline-13px-inline-ypos, $background-color: $color-primary);
+            }
+        }
+    }
+
+    &.video {
+        figure {
+            display: grid;
+            grid-template-columns: auto;
+            overflow: hidden;
+
+            video {
+                max-width: 100%;
+                grid-row: 1;
+                grid-column: 1;
+                cursor: pointer;
+                border: 1px solid $color-divider-background;
+            }
+
+            figcaption {
+                grid-row: 3;
+                grid-column: 1;
+            }
+
+            &.hover {
+                &:before {
+                    transform: translateX(0);
+                }
+
+                button {
+                    svg {
+                        fill: $color-secondary-link;
+                        transition-delay: $anti-flicker-delay;
+                    }
+                }
+            }
+
+            &:before,
+            button {
+                grid-row: 2;
+                grid-column: 1;
+                z-index: 0;
+            }
+
+            &:before {
+                content: "";
+                background-color: $color-primary-link;
+                transition: transform $medium-animation-duration $ease-out-quad;
+                transform: translateX(-100%);
+            }
+
+            button {
+                height: 37px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid $color-divider-background;
+                border-top: none;
+
+                &.enabled {
+                    z-index: 1;
+
+                    svg {
+                        opacity: 1;
+                        transform: scale(1);
+                    }
+                }
+
+                svg {
+                    height: 24px;
+                    width: 24px;
+                    fill: $color-primary-link;
+                    transform: scale(0);
+                    opacity: 0;
+                    transition: fill $medium-animation-duration $ease-out-quad, opacity $short-animation-duration $ease-out-quad, transform $short-animation-duration $ease-out-quad;
+                }
+            }
+        }
+    }
+}

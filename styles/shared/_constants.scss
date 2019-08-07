@@ -1,10 +1,10 @@
 ﻿$color-primary: #fff !default;
 $color-primary-text: #212121 !default;
-$color-primary-highlight: #ffff7f !default;
+$color-primary-highlight-1: #ffffc5 !default;
+$color-primary-highlight-2: #ffff20 !default;
 $color-primary-link: #1e88e5 !default;
 $color-primary-link-disabled: #bebebe !default;
-$color-primary-inline-code-background: #f4f4f4 !default;
-$color-primary-inline-code-dark-background: #ececec !default;
+$color-primary-inline-code-background: #f0f0f0 !default;
 $color-primary-icon: #646464 !default;
 
 $color-secondary: #1565c0 !default;
@@ -19,13 +19,23 @@ $color-alert-warning: #ffdb08 !default;
 $color-alert-warning-background: #fffdf0 !default;
 $color-alert-critical-warning: #ff2508 !default;
 $color-alert-critical-warning-background: #fff2f0 !default;
+$color-alert-inline-code-background: #e8e8e8 !default;
 
-$color-section-body-background: #f9f9f9 !default;
-$color-section-header-background: #f0f0f0 !default;
+$color-section-body-background: #f7f7f7 !default;
+$color-section-header-background: #eee !default;
+$color-section-header-dark-background: #ebebeb !default;
 $color-divider-background: #ddd !default;
+
+$color-scrollbar-track: #ddd !default;
+$color-scrollbar-thumb: #999 !default;
 
 $color-code-divider-background: #a5a5a5 !default;
 $color-code-line-numbers: #2b91af !default;
+
+$color-table-alternate-card: #f0f0f0 !default;
+$color-table-inline-code-background: #e1e1e1 !default;
+
+$color-article-menu-dropdown-header: #e7e7e7;
 
 $card-small-height: 249px !default;
 $card-small-width: 184px !default;
@@ -44,15 +54,13 @@ $opacity-4: 0.7 !default;
 $opacity-5: 0.80 !default;
 $opacity-6: 1.0 !default;
 
-$short-animation-duration: 0.2s !default;
-$medium-animation-duration: 0.3s !default;
-$long-animation-duration: 0.4s !default;
+$short-animation-duration: 0.15s !default;
+$medium-animation-duration: 0.2s !default;
+$long-animation-duration: 0.3s !default;
 $anti-flicker-delay: 0.06s !default;
 $long-anti-flicker-delay: 0.12s !default;
 $ease-out-quad: cubic-bezier(0.33, 0.67, 0.67, 1) !default;
-$ease-out-quad-delayed: $ease-out-quad $anti-flicker-delay !default;
 $ease-out-back: cubic-bezier(0.175, 0.885, 0.32, 1.275) !default;
-$ease-out-back-delayed: $ease-out-back $anti-flicker-delay !default;
 
 $font-size-1: 11px !default;
 $font-size-2: 13px !default;
@@ -62,11 +70,9 @@ $font-size-5: 20px !default;
 $font-size-6: 28px !default;
 $font-size-7: 42px !default;
 
-$side-menu-width: 248px !default;
-
-$media-narrow: '(max-width: 855px)' !default;
-$media-medium: '(min-width: 856px) and (max-width: 1183px)' !default;
-$media-wide: '(min-width: 1184px)' !default;
+$media-narrow: '(max-width: 1112px)' !default;
+$media-medium: '(min-width: 1113px) and (max-width: 1493px)' !default;
+$media-wide: '(min-width: 1494px)' !default;
 
 $animated-underline-11px-ypos: 14px !default;
 $animated-underline-13px-ypos: 17px !default;
@@ -78,6 +84,10 @@ $animated-underline-28px-ypos: 33px !default;
 $horizontal-edge-narrow: 14px !default;
 $horizontal-edge-medium: 23px !default;
 $horizontal-edge-wide: 30px !default;
+
+$side-menu-width: 248px !default;
+$side-menu-column-width-wide: $horizontal-edge-wide + $side-menu-width + 59px + 1px;
+$side-menu-column-width-medium: $horizontal-edge-medium + $side-menu-width + 59px + 1px;
 
 @mixin section-body-edges($y-correction: 0, $x-correction: 0, $use-margin: false) {
     $property: if($use-margin, margin, padding);
@@ -116,36 +126,6 @@ $horizontal-edge-wide: 30px !default;
 
     * {
         display: flex;
-    }
-}
-
-@mixin text-input-icons() {
-    svg {
-        flex-shrink: 0;
-        height: 18px;
-        width: 18px;
-        fill: $color-primary-icon;
-
-        &:first-child {
-            margin-right: 5px;
-        }
-
-        &:last-child {
-            transition: opacity $short-animation-duration $ease-out-quad, transform $short-animation-duration $ease-out-quad;
-            margin-left: 5px;
-            opacity: 0;
-            display: none;
-            cursor: pointer;
-
-            &.active {
-                opacity: $opacity-6;
-
-                &:hover {
-                    transition-delay: $anti-flicker-delay;
-                    transform: scale(1.3333);
-                }
-            }
-        }
     }
 }
 
@@ -189,7 +169,7 @@ $horizontal-edge-wide: 30px !default;
 
 
 @mixin animated-underline-core($color, $y-position, $underline-height) {
-    background-image: linear-gradient(to top, $color 0, $color $underline-height, transparent $underline-height);
+    background-image: linear-gradient(to top, $color 0, $color $underline-height);
     background-repeat: no-repeat;
     background-position: 0 $y-position;
     background-size: 0% $underline-height; // Note: Edge is unable to handle the background-size transition if width is specified as 0 instead of 0%
@@ -204,37 +184,67 @@ $horizontal-edge-wide: 30px !default;
     text-shadow: 1px 1px 0 $background-color, 1px -1px 0 $background-color, -1px 1px 0 $background-color, -1px -1px 0 $background-color;
 }
 
-@mixin horizontal-edge-padding {
+@mixin horizontal-edge-padding($side: 'both', $correction: 0) {
     @media #{$media-narrow} {
-        padding-left: $horizontal-edge-narrow;
-        padding-right: $horizontal-edge-narrow;
+        @if($side == 'both' or $side == 'left' ) {
+            padding-left: $horizontal-edge-narrow + $correction;
+        }
+
+        @if($side == 'both' or $side == 'right' ) {
+            padding-right: $horizontal-edge-narrow + $correction;
+        }
     }
 
     @media #{$media-medium} {
-        padding-left: $horizontal-edge-medium;
-        padding-right: $horizontal-edge-medium;
+        @if($side == 'both' or $side == 'left' ) {
+            padding-left: $horizontal-edge-medium + $correction;
+        }
+
+        @if($side == 'both' or $side == 'right' ) {
+            padding-right: $horizontal-edge-medium + $correction;
+        }
     }
 
     @media #{$media-wide} {
-        padding-left: $horizontal-edge-wide;
-        padding-right: $horizontal-edge-wide;
+        @if($side == 'both' or $side == 'left' ) {
+            padding-left: $horizontal-edge-wide + $correction;
+        }
+
+        @if($side == 'both' or $side == 'right' ) {
+            padding-right: $horizontal-edge-wide + $correction;
+        }
     }
 }
 
-@mixin horizontal-edge-margin {
+@mixin horizontal-edge-margin($side: 'both', $correction: 0) {
     @media #{$media-narrow} {
-        margin-left: $horizontal-edge-narrow;
-        margin-right: $horizontal-edge-narrow;
+        @if($side == 'both' or $side == 'left' ) {
+            margin-left: $horizontal-edge-narrow + $correction;
+        }
+
+        @if($side == 'both' or $side == 'right' ) {
+            margin-right: $horizontal-edge-narrow + $correction;
+        }
     }
 
     @media #{$media-medium} {
-        margin-left: $horizontal-edge-medium;
-        margin-right: $horizontal-edge-medium;
+        @if($side == 'both' or $side == 'left' ) {
+            margin-left: $horizontal-edge-medium + $correction;
+        }
+
+        @if($side == 'both' or $side == 'right' ) {
+            margin-right: $horizontal-edge-medium + $correction;
+        }
     }
 
     @media #{$media-wide} {
-        margin-left: $horizontal-edge-wide;
-        margin-right: $horizontal-edge-wide;
+        @if($side == 'both' or $side == 'left' ) {
+            margin-left: $horizontal-edge-wide + $correction;
+        }
+
+        @if($side == 'both' or $side == 'right' ) {
+            margin-right: $horizontal-edge-wide + $correction;
+        }
     }
 }
 
@@ -242,34 +252,4 @@ $horizontal-edge-wide: 30px !default;
     transform: translateY(0);
     transition: transform $medium-animation-duration $ease-out-quad;
     will-change: transform;
-}
-
-// Styles for article elements in display pages, like indexes and landing pages
-@mixin display-page {
-    #core {
-        border-top: none;
-        padding: 0;
-
-        main {
-            padding: 0;
-
-            article {
-                margin-top: 0;
-                display: flex;
-                flex-direction: column;
-                align-items: stretch;
-
-                > h1.title {
-                    display: none;
-                }
-
-                .content {
-                    @include horizontal-edge-margin;
-                    display: flex;
-                    justify-content: center;
-                    margin-top: 59px;
-                }
-            }
-        }
-    }
 }

@@ -1,0 +1,109 @@
+﻿@import '../shared/constants';
+
+.pagination {
+    display: flex;
+    flex-direction: column;
+
+    &__items {
+        flex-grow: 1;
+        flex-shrink: 0;
+
+        .article {
+            &:nth-child(n+2) {
+                margin-top: 40px;
+            }
+
+            &__metadata {
+                margin-bottom: 0;
+            }
+
+            p {
+                margin-top: 14px;
+            }
+
+            &__title {
+                font-size: $font-size-6;
+                  
+                a {
+                    @include animated-underline($color-primary-link, $animated-underline-28px-ypos, 3px, $background-color: $color-primary);
+                }
+            }
+        }
+    }
+
+    &__buttons {
+        flex-shrink: 0;
+        margin-top: 54px;
+        display: flex;
+        flex-direction: row;
+
+        button {
+            background-color: $color-section-header-background;
+            overflow: hidden;
+            position: relative;
+            z-index: 1; // Button must be the root of its own stacking context
+            font-size: $font-size-2;
+            display: flex;
+            height: 37px;
+            min-width: 37px;
+            align-items: center;
+            user-select: none;
+            justify-content: center;
+            flex-shrink: 0;
+            color: $color-primary-link;
+            transition: color $short-animation-duration $ease-out-quad;
+
+            svg {
+                height: 18px;
+                width: 18px;
+                fill: $color-primary-link;
+                transition: fill $short-animation-duration $ease-out-quad;
+            }
+
+            &.pagination__button--active {
+                background-color: $color-secondary;
+                color: $color-secondary-text;
+                pointer-events: none;
+            }
+
+            &.pagination__button--hidden {
+                display: none;
+            }
+
+            &.pagination__button--disabled {
+                opacity: $opacity-1;
+                pointer-events: none;
+            }
+
+            &:not(.pagination__button--disabled):not(.pagination__button--active) {
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    background-color: $color-primary-link;
+                    transform: translateX(-100%); // TODO transition in isn't optimized on ff - https://bugzilla.mozilla.org/show_bug.cgi?id=1190721
+                    transition: transform $short-animation-duration $ease-out-quad;
+                    z-index: -1;
+                }
+
+                &:hover {
+                    color: $color-secondary-text;
+                    transition-delay: $anti-flicker-delay;
+
+                    &:before {
+                        transition-delay: $anti-flicker-delay;
+                        transform: translateX(0);
+                    }
+
+                    svg {
+                        transition-delay: $anti-flicker-delay;
+                        fill: $color-secondary-text;
+                    }
+                }
+            }
+        }
+    }
+}
